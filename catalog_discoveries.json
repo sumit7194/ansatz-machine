@@ -18,5 +18,25 @@
       "c1"
     ],
     "provenance": "campaign rung F (2026-06-10)"
+  },
+  {
+    "name": "discovered: 6+1, \u039b=0, f = c1/r**4 + 1",
+    "n": 7,
+    "Lambda": "0",
+    "f": "c1/r**4 + 1",
+    "params": [
+      "c1"
+    ],
+    "provenance": "expedition Leg 1 \u2014 uncharted 6+1, \u039b=0"
+  },
+  {
+    "name": "discovered: 4+1, \u039b=3/4, f = c1/r**2 - r**2/8 + 1",
+    "n": 5,
+    "Lambda": "3/4",
+    "f": "c1/r**2 - r**2/8 + 1",
+    "params": [
+      "c1"
+    ],
+    "provenance": "expedition Leg 2 \u2014 uncharted 4+1, \u039b=3/4"
   }
 ]

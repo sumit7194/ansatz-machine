@@ -39,6 +39,7 @@ import sympy as sp
 
 from gr_engine import (Geometry, verify, VERIFIED, R_SYM,
                        build_ansatz_metric)
+from finisher import snap_constants, structure_sig
 
 # import the step-02 fingerprint module (filename starts with a digit)
 _here = os.path.dirname(os.path.abspath(__file__))
@@ -134,34 +135,46 @@ def crossover(rng, a, b):
 # ---------------------------------------------------------------------------
 
 def reduce_ansatz(n, Lambda):
-    """Run the symbolic ansatz through the engine once. Returns the
-    distinct nonzero residual components as fast numeric callables
-    res(r, f, f', f'')."""
+    """Run the symbolic ansatz through the engine once. Returns fast
+    numeric residual callables res(r, f, f', f''), the symbolic residuals
+    (in terms of F — the finisher needs them), and F itself."""
     F = sp.Function("F")(R_SYM)
     metric, coords, angles = build_ansatz_metric(n, F)
     geo = Geometry(metric, coords)
-    residual = geo.vacuum_residual(Lambda)
+    # MIXED residual R^a_b: for the diagonal ansatz g^φφ cancels every
+    # sin²θ factor, so the components are angle-free. (Bought by: with
+    # lower-index components + numeric angle-fixing, unsimplifiable trig
+    # CONSTANTS leaked into the finisher's equations and sp.solve could
+    # not prove the system consistent — Richardson inside the solver.)
+    residual = geo.ginv * geo.vacuum_residual(Lambda)
 
     s0, s1, s2 = sp.symbols("s0 s1 s2")
     rep = {sp.Derivative(F, (R_SYM, 2)): s2,
            sp.Derivative(F, R_SYM): s1, F: s0}
-    # fix the angles numerically; for this ansatz the physics is in r
-    ang_sub = {a: sp.Rational(11, 10) for a in angles}
+    ang_sub = {a: sp.Rational(11, 10) for a in angles}  # safety net only
 
-    seen, funcs = set(), []
+    seen, funcs, sym_res = set(), [], []
     for i in range(geo.n):
-        for j in range(i, geo.n):
+        for j in range(geo.n):
             expr = residual[i, j]
             if expr == 0:
                 continue
-            expr = sp.simplify(expr.subs(ang_sub)).xreplace(rep)
-            key = sp.srepr(expr)
+            # simplify SYMBOLICALLY FIRST: trig identities in θ fire and
+            # the angular components collapse to θ-free form. Numeric
+            # angle substitution before simplify leaves unsimplifiable
+            # trig constants that poison the finisher's equations.
+            simplified = sp.simplify(expr)
+            if any(simplified.has(a) for a in angles):
+                simplified = sp.simplify(simplified.subs(ang_sub))
+            key = sp.srepr(simplified.xreplace(rep))
             if key in seen:
                 continue
             seen.add(key)
-            funcs.append(sp.lambdify((R_SYM, s0, s1, s2), expr,
+            sym_res.append(simplified)
+            funcs.append(sp.lambdify((R_SYM, s0, s1, s2),
+                                     simplified.xreplace(rep),
                                      modules="math"))
-    return funcs
+    return funcs, sym_res, F
 
 
 # ---------------------------------------------------------------------------
@@ -170,6 +183,7 @@ def reduce_ansatz(n, Lambda):
 
 SAMPLE_R = [2.31, 3.77, 5.13, 7.91, 11.37, 17.03]
 PROMOTE_TOL = 1e-10
+SNAP_TOL = 1e-2  # near-miss band handed to the algebraic finisher (D14)
 PARSIMONY = 1e-3
 INF = float("inf")
 
@@ -249,17 +263,60 @@ def rediscover(label, n, Lambda, catalog, seed=0, pop_size=300,
     if reject_csi:
         f_vac = 1 - 2 * Lambda * R_SYM**2 / ((n - 1) * (n - 2))
         trivial_fvals = [float(f_vac.subs(R_SYM, rv)) for rv in SAMPLE_R]
-    res_funcs = make_fitness(reduce_ansatz(n, Lambda), trivial_fvals)
+    res_funcs, sym_res, F_obj = reduce_ansatz(n, Lambda)
+    fitness = make_fitness(res_funcs, trivial_fvals)
     if verbose:
         print(f"   REDUCE done ({time.time() - t0:.1f}s) — ansatz residuals "
               "compiled to fast numeric form")
 
+    def promote(e, gen, note=""):
+        """Symbolic proof + triviality gates + novelty check."""
+        try:
+            metric, coords, _ = build_ansatz_metric(n, e)
+            verdict, detail = verify(metric, coords, params=[],
+                                     Lambda=Lambda)
+        except Exception:
+            return None  # degenerate metric
+        if verdict != VERIFIED:
+            if verbose:
+                print(f"   ↩ symbolic promotion failed ({verdict}: "
+                      f"{detail}) — evolving on{note}")
+            return None
+        geo = Geometry(metric, coords)
+        if geo.kretschmann == 0:
+            if verbose:
+                print("   ↩ verified but FLAT (Kretschmann ≡ 0) — "
+                      "Minkowski in a costume; rejected as trivial")
+            return None
+        if reject_csi and not any(geo.kretschmann.has(x) for x in coords):
+            if verbose:
+                print("   ↩ verified but maximally symmetric "
+                      f"(K = {geo.kretschmann}, constant) — the vacuum "
+                      "ground state of this Λ; rejected as trivial")
+            return None
+        cls, cdetail = fp.classify(geo, catalog)
+        dt = time.time() - t0
+        if verbose:
+            print(f"   ✅ VERIFIED as exact solution ({detail}){note}")
+            print(f"   🔎 NOVELTY: {cls} — {cdetail}")
+            print(f"   total {dt:.1f}s, generation {gen}")
+        return {"label": label, "n": n, "Lambda": Lambda,
+                "f": e, "verdict": verdict, "class": cls,
+                "class_detail": cdetail, "gen": gen, "time": dt}
+
+    # dimension-aware enrichment for the finisher: the mass falloff in n
+    # spacetime dimensions is r^-(n-3) — exactly the term GP near-misses
+    # were missing (measured: expedition leg 2 stalled at 6e-3 circling
+    # the ground state without its -c/r² tail)
+    enrich = tuple(sorted({-(n - 3), -2, -1} - {0}))
+
     pop = [rand_tree(rng, 4) for _ in range(pop_size)]
     tried_promote = set()
+    snapped = set()
     stagnant_best, stagnant_count = float("inf"), 0
 
     for gen in range(max_gen):
-        scored = sorted(((res_funcs(ind), ind) for ind in pop),
+        scored = sorted(((fitness(ind), ind) for ind in pop),
                         key=lambda x: x[0][1])
         (best_raw, _), best = scored[0]
 
@@ -269,37 +326,24 @@ def rediscover(label, n, Lambda, catalog, seed=0, pop_size=300,
             if verbose:
                 print(f"   gen {gen:3d}: numeric hit  f(r) = {e}  "
                       f"(residual {best_raw:.1e}) — promoting...")
-            metric, coords, _ = build_ansatz_metric(n, e)
-            verdict, detail = verify(metric, coords, params=[],
-                                     Lambda=Lambda)
-            if verdict == VERIFIED:
-                geo = Geometry(metric, coords)
-                if geo.kretschmann == 0:
-                    if verbose:
-                        print("   ↩ verified but FLAT (Kretschmann ≡ 0) — "
-                              "Minkowski in a costume; rejected as "
-                              "trivial, evolving on")
-                    continue
-                if reject_csi and not any(
-                        geo.kretschmann.has(x) for x in coords):
-                    if verbose:
-                        print("   ↩ verified but maximally symmetric "
-                              f"(K = {geo.kretschmann}, constant) — the "
-                              "vacuum ground state of this Λ; rejected "
-                              "as trivial, evolving on")
-                    continue
-                cls, cdetail = fp.classify(geo, catalog)
-                dt = time.time() - t0
+            out = promote(e, gen)
+            if out:
+                return out
+
+        # the algebraic finisher (D14): near-miss -> exact constants
+        if PROMOTE_TOL <= best_raw < SNAP_TOL:
+            e_raw = to_sympy(best)
+            sig = structure_sig([e_raw])
+            if sig not in snapped:
+                snapped.add(sig)
                 if verbose:
-                    print(f"   ✅ VERIFIED as exact solution ({detail})")
-                    print(f"   🔎 NOVELTY: {cls} — {cdetail}")
-                    print(f"   total {dt:.1f}s, generation {gen}")
-                return {"label": label, "n": n, "Lambda": Lambda,
-                        "f": e, "verdict": verdict, "class": cls,
-                        "class_detail": cdetail, "gen": gen, "time": dt}
-            if verbose:
-                print(f"   ↩ symbolic promotion failed ({verdict}: "
-                      f"{detail}) — evolving on")
+                    print(f"   gen {gen:3d}: near-miss ({best_raw:.1e}) — "
+                          "snapping constants algebraically...")
+                for (fe,) in snap_constants([e_raw], sym_res, [F_obj],
+                                            enrich_powers=enrich):
+                    out = promote(sp.simplify(fe), gen, note=" [snapped]")
+                    if out:
+                        return out
 
         if verbose and gen % 10 == 0:
             print(f"   gen {gen:3d}: best raw residual {best_raw:.3e}  "

@@ -18,6 +18,12 @@ python3 -m venv .venv
 Requires Python ≥ 3.12 and exactly one dependency (SymPy). Everything runs on a
 laptop CPU in minutes; no GPU, no API, no LLM.
 
+**Docs:** [RESULTS.md](RESULTS.md) (lab notebook — measured results, failure→fix
+tables) · [docs/JOURNAL.md](docs/JOURNAL.md) (dated activity log) ·
+[docs/DECISIONS.md](docs/DECISIONS.md) (design rules and what bought them) ·
+[docs/GLOSSARY.md](docs/GLOSSARY.md) (the vocabulary, CS-framed) ·
+[docs/ROADMAP.md](docs/ROADMAP.md) (what's next, ranked).
+
 ---
 
 ## 1. The idea in one paragraph
@@ -305,26 +311,13 @@ Environment: `.venv` (Python ≥3.12, SymPy 1.14). Run everything: `./verify.sh`
 
 ---
 
-## Open threads
+## What's next
 
-- ~~The 2+1 oddity as a teaching rung~~ — **answered by the machine itself**: BTZ
-  fell out in generation 0–1, and the fingerprint's permanent BLIND_SPOT verdict
-  there *is* the "no local degrees of freedom in 3D" lesson, machine-discovered.
-- **Richer ansatz classes** are the real next rung: two metric functions
-  (−f(r)dt² + dr²/h(r) + …), off-diagonal/stationary forms in rational
-  coordinates (the Kerr lesson says rational coordinates are where symbolic proofs
-  live), multi-variable f(r, u). Each widens the search space past what the
-  catalog has strip-mined.
-- **Catalog growth loop:** every CANDIDATE_NEW that a human confirms should be
-  *generalized* (numeric constant → symbolic parameter) and added to the catalog,
-  so the machine never rediscovers it again. The catalog is the machine's memory.
-- **Fitness shaping:** "smallness of numeric residual" worked embarrassingly well
-  for these rungs (1–3 generations!), which means the rungs were easy, not that
-  fitness is solved. Harder ansatz families will need residual normalization and
-  diversity pressure (island models, à la FunSearch).
-- **A Python Cartan–Karlhede** doesn't exist. If the fingerprints ever hit a
-  genuine ambiguity, building CK would be a standalone contribution regardless of
-  whether the conjecture machine finds anything.
-- **Modified-gravity verifier:** extending REDUCE to f(R)/Gauss-Bonnet field
-  equations is mechanical but real work — the EdGB black hole (known only
-  numerically since 1996) is the marquee target, via genre (c) closed-form fits.
+Lives in [docs/ROADMAP.md](docs/ROADMAP.md), ranked. Headlines: the stationary
+hall (off-diagonal g_tφ in rational coordinates — rotating BTZ first, the
+Kerr-shaped mansion later), the modified-gravity REDUCE (the EdGB black hole,
+known only numerically since 1996, via the closed-form-fit genre), and the
+missing-from-the-world Python Cartan–Karlhede. Two early open threads were
+answered by the machine itself: the 2+1 rung's permanent blind spot IS the
+"no local degrees of freedom in 3D" lesson, and catalog growth went from
+open thread to shipped feature (05/07).

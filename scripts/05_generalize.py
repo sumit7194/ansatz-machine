@@ -51,42 +51,12 @@ CATALOG_PATH = os.path.join(_here, "..", "catalog_discoveries.json")
 
 
 # ---------------------------------------------------------------------------
-# Positional numeric-leaf surgery (sympy .subs is value-based and would
-# also hit exponents — replacing the 3 in r**3 is never what we want)
+# Positional numeric-leaf surgery lives in finisher.py (shared with the
+# snap machinery); re-exported here for callers using this module's API
 # ---------------------------------------------------------------------------
 
-def numeric_slots(expr):
-    """Paths to numeric leaves, excluding Pow exponents."""
-    slots = []
-
-    def walk(e, path):
-        if e.is_Number:
-            slots.append(path)
-            return
-        if e.is_Pow and e.exp.is_Number:
-            walk(e.base, path + (0,))
-            return
-        for i, a in enumerate(e.args):
-            walk(a, path + (i,))
-
-    walk(expr, ())
-    return slots
-
-
-def replace_slots(expr, paths, syms):
-    mapping = dict(zip(paths, syms))
-
-    def rebuild(e, path):
-        if path in mapping:
-            return mapping[path]
-        if not e.args:
-            return e
-        if e.is_Pow and e.exp.is_Number:
-            return e.func(rebuild(e.base, path + (0,)), e.exp)
-        return e.func(*[rebuild(a, path + (i,))
-                        for i, a in enumerate(e.args)])
-
-    return rebuild(expr, ())
+import finisher  # noqa: E402
+from finisher import numeric_slots, replace_slots  # noqa: E402
 
 
 # ---------------------------------------------------------------------------
@@ -95,33 +65,68 @@ def replace_slots(expr, paths, syms):
 
 def generalize(f_expr, n, Lambda, verbose=True):
     """Find which numeric constants of a verified f(r) are free
-    parameters. Returns (family_expr, param_symbols) or None."""
+    parameters. Returns (family_expr, param_symbols) or None.
+
+    Laurent-polynomial finds are generalized COEFFICIENT-wise, not tree-
+    leaf-wise (bought by: the find -r²/8 + 1 + r⁻² has an IMPLICIT
+    coefficient 1 on the mass term — no tree leaf exists for it, so
+    slot-based generalization never tested the one constant that was
+    actually free). Tree slots remain the fallback for pole structures."""
+    lc = finisher._laurent_coeffs(f_expr)
+
+    def test(cand, syms):
+        metric, coords, _ = build_ansatz_metric(n, cand)
+        verdict, _ = verify(metric, coords, params=syms, Lambda=Lambda)
+        return verdict == VERIFIED
+
+    if lc is not None:
+        powers = sorted(lc)
+        free = []
+        for p in powers:
+            sym = sp.Symbol("ctest", real=True)
+            cand = sum((sym if q == p else v) * R_SYM**q
+                       for q, v in lc.items())
+            ok = test(cand, [sym])
+            if verbose:
+                print(f"     coefficient of r^{p} ({lc[p]}): "
+                      f"{'FREE parameter' if ok else 'structural (fixed by field equations)'}")
+            if ok:
+                free.append(p)
+        if not free:
+            return None
+        syms = [sp.Symbol(f"c{i + 1}", real=True)
+                for i in range(len(free))]
+        sub = dict(zip(free, syms))
+        family = sum((sub.get(q, lc[q])) * R_SYM**q for q in powers)
+        if len(free) > 1 and not test(family, syms):
+            # independently free ≠ jointly free — keep the first only
+            family = sum((syms[0] if q == free[0] else lc[q]) * R_SYM**q
+                         for q in powers)
+            syms = syms[:1]
+        return family, syms
+
+    # fallback: tree-slot generalization for non-Laurent structures
     slots = numeric_slots(f_expr)
     free = []
     for i, p in enumerate(slots):
         sym = sp.Symbol(f"c{len(free) + 1}", real=True)
         cand = replace_slots(f_expr, [p], [sym])
-        metric, coords, _ = build_ansatz_metric(n, cand)
-        verdict, _ = verify(metric, coords, params=[sym], Lambda=Lambda)
+        ok = test(cand, [sym])
         if verbose:
             val = f_expr
             for j in p:
                 val = val.args[j] if val.args else val
             print(f"     constant {sp.sstr(val)}: "
-                  f"{'FREE parameter' if verdict == VERIFIED else 'structural (fixed by field equations)'}")
-        if verdict == VERIFIED:
+                  f"{'FREE parameter' if ok else 'structural (fixed by field equations)'}")
+        if ok:
             free.append(p)
     if not free:
         return None
     syms = [sp.Symbol(f"c{i + 1}", real=True) for i in range(len(free))]
     family = replace_slots(f_expr, free, syms)
-    if len(free) > 1:
-        # are they JOINTLY free? (independently free ≠ jointly free)
-        metric, coords, _ = build_ansatz_metric(n, family)
-        verdict, _ = verify(metric, coords, params=syms, Lambda=Lambda)
-        if verdict != VERIFIED:
-            family = replace_slots(f_expr, [free[0]], [syms[0]])
-            syms = syms[:1]
+    if len(free) > 1 and not test(family, syms):
+        family = replace_slots(f_expr, [free[0]], [syms[0]])
+        syms = syms[:1]
     return family, syms
 
 
