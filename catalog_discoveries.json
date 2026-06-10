@@ -1,0 +1,22 @@
+[
+  {
+    "name": "discovered: 5+1, \u039b=0, f = c1/r**3 + 1",
+    "n": 6,
+    "Lambda": "0",
+    "f": "c1/r**3 + 1",
+    "params": [
+      "c1"
+    ],
+    "provenance": "campaign rung E (2026-06-10)"
+  },
+  {
+    "name": "discovered: 4+1, \u039b=-1, f = c1/r**2 + r**2/6 + 1",
+    "n": 5,
+    "Lambda": "-1",
+    "f": "c1/r**2 + r**2/6 + 1",
+    "params": [
+      "c1"
+    ],
+    "provenance": "campaign rung F (2026-06-10)"
+  }
+]

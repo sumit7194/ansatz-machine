@@ -1,0 +1,28 @@
+#!/bin/bash
+# The local gate: every battery, both directions (knowns pass, sabotage
+# fails), one verdict. Run before any "done" claim.
+cd "$(dirname "$0")" || exit 1
+PY=.venv/bin/python
+
+declare -a NAMES CMDS
+NAMES+=("01 verifier (+Kerr)");   CMDS+=("scripts/01_verifier.py --kerr")
+NAMES+=("02 fingerprints");       CMDS+=("scripts/02_fingerprints.py")
+NAMES+=("03 rediscovery");        CMDS+=("scripts/03_rediscover.py")
+NAMES+=("04 campaign");           CMDS+=("scripts/04_campaign.py")
+[ -f scripts/05_generalize.py ] && { NAMES+=("05 catalog growth"); CMDS+=("scripts/05_generalize.py"); }
+[ -f scripts/06_two_function.py ] && { NAMES+=("06 two-function hall"); CMDS+=("scripts/06_two_function.py"); }
+
+fail=0
+for i in "${!NAMES[@]}"; do
+    start=$(date +%s)
+    if $PY ${CMDS[$i]} >/tmp/cm_verify_$i.log 2>&1; then
+        echo "  PASS  ${NAMES[$i]}  ($(( $(date +%s) - start ))s)"
+    else
+        echo "  FAIL  ${NAMES[$i]}  ($(( $(date +%s) - start ))s)  — tail of log:"
+        tail -5 /tmp/cm_verify_$i.log | sed 's/^/        /'
+        fail=1
+    fi
+done
+echo
+if [ $fail -eq 0 ]; then echo "VERIFY: ALL GREEN ✅"; else echo "VERIFY: FAILURES ❌"; fi
+exit $fail

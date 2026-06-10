@@ -1,0 +1,15 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "Ansatz Machine: a propose-verify-evolve loop for exact solutions of Einstein's field equations"
+type: software
+authors:
+  - family-names: "Sumit"
+    email: "sumit7194@gmail.com"
+repository-code: "https://github.com/sumit7194/ansatz-machine"
+license: MIT
+keywords:
+  - general relativity
+  - exact solutions
+  - symbolic computation
+  - genetic programming
+  - automated discovery
