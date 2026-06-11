@@ -6,6 +6,46 @@ built, what broke, what the machine taught us. Numbers live in
 
 ---
 
+## ☀️ 2026-06-12 — MORNING REPORT (the whole night, two minutes)
+
+**Territory:** the ladder sweep passed **all 17 static-vacuum rungs**
+(2+1→7+1, three Λ sectors). The catalog tripled to **12 machine-proved
+families** — every Tangherlini(-dS/-AdS) up to 8 dimensions, every
+Λ-coefficient machine-derived, every 2+1 rung correctly blind-spotted.
+The static vacuum room is now strip-mined by us too. (Committed
+sweep.log = the per-rung record.)
+
+**EdGB (v4) — the machine now does modified gravity:**
+- **E0 ✅** our own derivation of the EdGB field equations matches Kanti
+  et al. 1996 symbol-for-symbol (φ-equation ratio 1.000000).
+- **E1 ✅** our shooting code builds numerical EdGB black holes that
+  reproduce the published KKZ ε(p) to 1–4%; dilaton hair secondary.
+- **E2 ✅** fit verifier over the regular RZ parts, honesty-gated.
+- **Track B:** GP **rediscovered the continued-fraction RZ shape
+  unprompted**; best honest fit **0.2325% max deviation at p=0.3** —
+  KKZ's own accuracy class (their bar: "a few tenths of a percent") —
+  with 14 constants vs their ~10. T2 reached; T3 (beat them) open.
+- **Universal p-formula: honest ❌.** Trained S2 structure hits
+  0.44–0.59% at every training p, but constants-vs-p extrapolation to
+  the SEALED p=0.7 holdout failed (3.6% linear; quadratic exploded).
+  Measured bottlenecks, queued: the constant-fitter (hill-climb lands in
+  non-corresponding basins per p — needs a real local optimizer +
+  continuation), and 0.7 is true EXTRApolation beyond the 0.1–0.5
+  training span. The holdout stays sealed for the next attempt.
+
+**Lessons (now law):** D17 — never let NaN near max(); guard every
+component before any reduction (burned twice: "beat KKZ in 9s" with
+A=zoo, then an A-only fit with B≡nan). D18 — persist expensive immutable
+things (profile cache: build_catalog 1675 s → 2 s; gates back to ~20 min).
+D16 struck again in fit-land: rational-function constants have a scaling
+gauge; normalize before interpolating them.
+
+**Infra:** VM gate 8/8 green (py3.10/Linux, nice-19, trainer untouched);
+dashboards live on both hosts; firewall refreshed to the rotated IP.
+Everything pushed: b2de3bd (v4 main) + this morning's wrap commit.
+
+---
+
 ## 2026-06-11 (night shift, later) — EdGB pipeline green end to end; first T2 fit
 
 - **E1 ALL GREEN** (after the two-writer log corruption red herring): our
