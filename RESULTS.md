@@ -211,3 +211,22 @@ tails share their leading coefficient; possibly real structure.
 
 Repro: scripts/16_edgb_t3.py (truth tables in edgb_truth_dense.json,
 sealed holdout in edgb_truth_holdout.json).
+
+## Fork (b) addendum: c1 ≡ c3 is real — the 9-number formula
+
+Tying the tail coefficients (one shared c) gives a BETTER per-p fit
+(worst 0.4188% vs 0.4513%) and still passes the sealed holdout
+(0.7202% < 1%; the 4-param version scores 0.5316% there — both stand,
+trade simplicity vs holdout margin as you like):
+
+    A = 1 + c(p)(1−x)/(1 + a(p)x),   B = 1 + c(p)(1−x)²/(1 + b(p)x)
+    c(p) = −0.00190 − 0.23400p − 0.12798p²
+    a(p) = +0.91199 + 1.23709p + 0.84525p²
+    b(p) = +3.88985 + 3.86952p + 2.36694p²
+
+EXPLAINED (phenomenologically): the truth tables show A(0) ≈ B(0) at the
+horizon (0.916029 vs 0.917223 at p=0.3) — the two regular parts share
+their horizon limit, and both structures park that limit in their leading
+coefficient, so the fit forces c1=c3. I.e. the "mystery" encodes horizon
+regularity (the Kanti λ₁/γ₁ expansion relation), not a new law. Repro:
+scripts/17_edgb_tied.py.
