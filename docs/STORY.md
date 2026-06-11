@@ -100,9 +100,10 @@ data, 7× better).
 ## 3. What's new here and what isn't
 
 Not new to science: every exact solution the machine found is in the
-literature; the EdGB formula is *less accurate* than the published fit
-(though ~5× simpler — a different point on the simplicity-accuracy
-frontier). New, as far as we could verify (June 2026): no published work
+literature, and the EdGB comparison is against the published fit's STATED
+accuracy (a head-to-head reimplementation of their coefficients remains
+open). The final formula is pointwise finer than that stated accuracy with
+fewer constants, and within their class on sealed extrapolation. New, as far as we could verify (June 2026): no published work
 has an AI/GP loop finding exact metrics with symbolic proof as the
 verifier, and no symbolic-regression work on the EdGB metric. The
 machinery — three-valued verdicts, invariant fingerprints with declared
