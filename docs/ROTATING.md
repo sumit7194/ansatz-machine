@@ -55,3 +55,18 @@ structure; verified against literature by the research pass).
 - **The gap (confirmed)**: no KKZ-style closed-form fit and no
   AI/symbolic-regression work exists for rotating or slow-rotating
   EdGB. R2's prize is unclaimed territory.
+
+## R0 amendment (honest, 2026-06-12)
+
+Own-derivation of the O(ε²) action is PARKED: the ε-expansion of 4D
+off-diagonal curvature invariants exceeded laptop SymPy twice (full
+form: >2.2 GB and climbing at 18 CPU-min; series-truncated form: same
+trajectory). It remains a background-later item (VM, or a smarter
+perturbative engine). R0's validation role is replaced by TRIPLE-ANCHOR
+calibration of the PC-transcribed G₂/G₃ (arXiv:0902.1569 eqs. 31-32),
+with mapping-robust gates: (G1) exact GR limit; (G2) the SHAPE of the
+small-coupling frame-dragging correction must match Ayzenberg-Yunes
+eq. 15's bracket profile (amplitude-free comparison); (G3) the
+dimensionless MΩ_H/(J/M²) must run 0.25 (p→0) toward ~0.37 (near-max,
+Pani-Cardoso Fig. 5). The κ_c coupling-normalization factor ∈ {½,1,2}
+is selected by G2/G3 and documented.

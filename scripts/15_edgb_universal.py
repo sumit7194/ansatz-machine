@@ -65,7 +65,7 @@ def build_holdout():
         with open(HOLDOUT_PATH) as fh:
             return json.load(fh)
     print(f"   sealing holdout truth at p={P_HOLD}...")
-    f_g2, f_p2, f_y = m11.build_rhs(verbose=False)
+    f_g2, f_p2, f_y, *_ = m11.build_rhs(verbose=False)
     rec = []
     M, D, ok = m11.shoot(f_g2, f_p2, P_HOLD, record=rec)
     assert ok is True, f"holdout shoot failed: {ok}"

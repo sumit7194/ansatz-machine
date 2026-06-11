@@ -50,7 +50,7 @@ def build_truth(force=False):
         with open(TRUTH_PATH) as fh:
             return json.load(fh)
     print("   building numerical ground truth (one-time)...")
-    f_g2, f_p2, f_y = m11.build_rhs(verbose=False)
+    f_g2, f_p2, f_y, *_ = m11.build_rhs(verbose=False)
     truth = {}
     for p in P_SET:
         rec = []

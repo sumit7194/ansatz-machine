@@ -146,7 +146,16 @@ def build_rhs(verbose=True):
     f_g2 = sp.lambdify((r, p0, p1, g1), g2_expr, modules="math")
     f_p2 = sp.lambdify((r, p0, p1, g1), p2_expr, modules="math")
     f_y = sp.lambdify((r, p0, p1, g1), y_sol, modules="math")  # e^Λ
-    return f_g2, f_p2, f_y
+    # analytic Λ′ = d(ln y)/dr by chain rule (finite differences on the
+    # near-horizon grid integrate catastrophic-cancellation noise —
+    # measured: wrecked the slow-rotation quadrature's GR limit)
+    p2s, g2s = sp.symbols("p2s g2s", real=True)
+    l1_expr = (sp.diff(y_sol, r) + sp.diff(y_sol, p0) * p1
+               + sp.diff(y_sol, p1) * p2s
+               + sp.diff(y_sol, g1) * g2s) / y_sol
+    f_lp = sp.lambdify((r, p0, p1, g1, p2s, g2s), l1_expr,
+                       modules="math")
+    return f_g2, f_p2, f_y, f_lp
 
 
 def shoot(f_g2, f_p2, p_family, r_h=1.0, eps=1e-6, r_max=2000.0,
@@ -194,7 +203,7 @@ def shoot(f_g2, f_p2, p_family, r_h=1.0, eps=1e-6, r_max=2000.0,
         u += h
         if any(not math.isfinite(s) for s in state):
             return None, None, f"non-finite state at r−r_h={math.exp(u):.3g}"
-        if record is not None and i % 8 == 0:
+        if record is not None and i % 4 == 0:
             record.append((r_h + math.exp(u),) + tuple(state))
     rv = r_h + math.exp(u)
     M = rv**2 * state[2] / 2
@@ -207,7 +216,7 @@ def shoot(f_g2, f_p2, p_family, r_h=1.0, eps=1e-6, r_max=2000.0,
 def main():
     results = []
     print("Building EdGB RHS from the E0-validated equations...")
-    f_g2, f_p2, _ = build_rhs()
+    f_g2, f_p2, *_ = build_rhs()
     print("   RHS ready.\n")
 
     # E1a: Schwarzschild limit — via tiny p, NOT exactly 0: at p=0 the
