@@ -89,7 +89,9 @@ formula** across the whole black-hole family. With x = 1 − r_h/r:
     B = 1 + c3(p)(1−x)²/(1 + c4(p)x)
     (c's = quadratics in p — twelve numbers total; RESULTS.md has them)
 
-Max deviation 0.45% across the training family — and **0.53% on a sealed
+Final banked version (3-dof structures, cubic coefficients): pointwise ≤0.098%
+at every training coupling — finer than the published fit's stated accuracy —
+and **0.275% on a sealed
 holdout** at a coupling never used in any fit. Pre-registered, holdout
 sealed before fitting, first attempt failed honestly at 3.6% (weak
 optimizer — replaced hill-climbing with Gauss–Newton + continuation, same

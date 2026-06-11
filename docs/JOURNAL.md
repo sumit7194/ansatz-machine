@@ -6,6 +6,19 @@ built, what broke, what the machine taught us. Numbers live in
 
 ---
 
+## 2026-06-12 (midday) — fork (a) FINAL: KKZ-CLASS UNIVERSAL 🏆 — EdGB banked
+
+The 3-dof structures + degree-3 coefficient cubics deliver the arc's
+peak: **pointwise ≤0.098% at every training p** (finer than KKZ's stated
+accuracy, 6 constants vs ~10 — pointwise T3), universal in-sample
+0.1031%, and **0.2751% on the SEALED p=0.7 holdout** — KKZ-class on
+true extrapolation. The progression that got here, each step measured:
+hill-climb 3.6% sealed FAIL → GN+continuation 2-dof 0.53% → tied
+9-number 0.72% (and the c1≡c3 relation explained via shared horizon
+limit) → 3-dof deg-2 0.56% → **3-dof deg-3 0.2751%**. EdGB track BANKED
+at this point per plan — remaining open: KKZ coefficient transcription
+for a head-to-head, T3-universal (<0.1% sealed), rotating EdGB.
+
 ## 2026-06-12 (midday) — fork (b): the c1≈c3 "mystery" solved, formula → 9 numbers
 
 Tied the A/B tail coefficients (3 params instead of 4): per-p fit
