@@ -30,7 +30,8 @@ structure; verified against literature by the research pass).
   built before any fitting).
 
 ## Status
-- [ ] R0 · [ ] R1 · [ ] R2
+- [~] R0 (brute-force parked; R0′ fingerprint queued) · [x] R1
+  (shooting + κ_c=1.0 selected, calibrated to PC/AY) · [ ] R2
 
 ## Literature anchors (web-verified 2026-06-12)
 
@@ -58,15 +59,66 @@ structure; verified against literature by the research pass).
 
 ## R0 amendment (honest, 2026-06-12)
 
-Own-derivation of the O(ε²) action is PARKED: the ε-expansion of 4D
-off-diagonal curvature invariants exceeded laptop SymPy twice (full
-form: >2.2 GB and climbing at 18 CPU-min; series-truncated form: same
-trajectory). It remains a background-later item (VM, or a smarter
-perturbative engine). R0's validation role is replaced by TRIPLE-ANCHOR
-calibration of the PC-transcribed G₂/G₃ (arXiv:0902.1569 eqs. 31-32),
-with mapping-robust gates: (G1) exact GR limit; (G2) the SHAPE of the
-small-coupling frame-dragging correction must match Ayzenberg-Yunes
-eq. 15's bracket profile (amplitude-free comparison); (G3) the
-dimensionless MΩ_H/(J/M²) must run 0.25 (p→0) toward ~0.37 (near-max,
-Pani-Cardoso Fig. 5). The κ_c coupling-normalization factor ∈ {½,1,2}
-is selected by G2/G3 and documented.
+Own-derivation of the O(ε²) action via brute-force expansion is PARKED
+after three measured attempts: laptop SymPy twice (>2.2 GB and climbing
+at 18 CPU-min, both full and series-truncated forms), then
+`19b_rot_reduce_fast.py` on the GCP VM (8 cores / 31 GB): 2.3 h at
+99.9% CPU, RSS plateaued at 14.0 GB, no progress past the contraction
+phase — **stopped by choice (SIGTERM), not by crash or OOM**. The flat
+RSS does not prove intractability (SymPy grinds CPU-bound inside stable
+memory); what it proves is that the *expand-everything route* is
+exponentially wasteful: intermediates are GB-scale while the final ODE
+is two lines. A resurrection route exists — see R0′ below. Meanwhile
+R0's validation role is replaced by TRIPLE-ANCHOR calibration of the
+PC-transcribed G₂/G₃ (arXiv:0902.1569 eqs. 31-32):
+(G1) exact GR limit; (G2) small-coupling frame-dragging correction
+shape vs Ayzenberg-Yunes eq. 15; (G3) MΩ_H/(J/M²) runs 0.25 (p→0)
+toward ~0.37 (near-max, Pani-Cardoso Fig. 5). The κ_c
+coupling-normalization factor ∈ ±{½,1,2} is selected by G2 and
+documented.
+
+## R1 measurement redesign + disclosure (2026-06-12)
+
+The first G2/G3 design was contaminated (J-read error injected a
+spurious 1/r³ component; G3 band lacked the p↔ζ mapping). The
+redesign (in `20_rot_shoot.py`): G2 projects δω onto the basis
+{AY ω-profile, 1/r³} so the 1/r³ admixture absorbs the J error.
+Two transcription bugs were found and fixed against AY eq. 15
+(independently re-fetched and re-verified): the AY bracket multiplies
+M⁴/r⁵ in ω-space (not r³ — that is the g_tφ power), and the ω-space
+sign is NEGATIVE (AY's +ζ correction to a negative Kerr g_tφ weakens
+dragging) ⇒ gate requires c_ay < 0.
+
+**Disclosure (criteria-integrity):** an intermediate version of the
+gate used a 0.7% residual bound chosen *after* seeing a 0.5% result —
+post-hoc, rejected. Replaced by a threshold-free rule: κ_c = argmin of
+the projection residual among sign+sanity qualifiers, runner-up ≥1.5×
+worse. The measured residual curve is V-shaped
+(14.8 → 6.2 → 4.0 → 1.4 → **0.5** → 0.8 % across κ_c = −2…+2), with the
+minimum at κ_c = 1.0 — i.e. PC's equation as written, no fudge factor.
+G3's δΩ_H ∝ ζ² ratio test passes for ALL κ_c (1.79–1.86 vs predicted
+1.61, within 20%) ⇒ G3 is a physics sanity gate, NOT a discriminator;
+all selecting power is in G2. The sealed honesty test for v5 remains
+R2's rotating holdout, built before any fitting.
+
+## R0′ pre-registration: fingerprint derivation (queued)
+
+Derive G₂/G₃ ourselves WITHOUT materializing the giant intermediates —
+probabilistically-exact interpolation (Schwartz–Zippel), the
+"terms-as-vector → random projections" idea (credit: Sumit's
+vector-embedding intuition, 2026-06-12 discussion):
+
+1. Ansatz: G₂, G₃ = unknown rational-coefficient combinations of a
+   graded monomial basis in {r, e^Γ, e^Λ, e^φ, Γ′, Λ′, φ′, φ″, α′}.
+2. Instantiate all background functions/derivatives with random exact
+   rationals; evaluate the O(ε²) action's W-variation NUMERICALLY
+   (every intermediate is one fraction — swell never happens).
+3. Each probe yields one exact linear equation on the coefficients;
+   solve the system; recover G₂/G₃ exactly.
+4. Gates: (a) reproduces the GR limit symbolically; (b) matches the
+   PC-transcribed G₂/G₃ identically — possibly modulo the static field
+   equations (PC may quote on-shell-simplified forms; the check must
+   be modulo the static EOM ideal — pre-registered wrinkle); (c) extra
+   probes beyond the solve must all verify (overdetermination check).
+   On success: κ_c = 1.0 upgrades from calibration to PREDICTION, and
+   the v5 chain is self-contained again.

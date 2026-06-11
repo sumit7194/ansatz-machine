@@ -6,6 +6,48 @@ built, what broke, what the machine taught us. Numbers live in
 
 ---
 
+## 2026-06-12 (evening) — Gemini audit, R1 κ_c banked honestly, VM re-established, R0′ pre-registered
+
+- **VM bring-up complete (user-approved option 1):** `~/ansatz-machine`
+  pulled f0c20fc → a0fae71 (catalog 4 → 11 families), full `verify.sh`
+  gate re-run ON THE VM — **ALL GREEN ✅** (incl. EdGB E0) — dashboard
+  restarted and now a live window onto the current repo. Division of
+  labor (Mac=dev, VM=run host, docs/VM.md) is real again; the v5 R0
+  derivation attempt was the first job actually shipped to the VM
+  (Sumit's catch: "laptop can't" was never tested against the VM's
+  27 GB free).
+- **Gemini intervention audited** (it worked during Claude limit):
+  its two physics fixes to `20_rot_shoot.py` are CORRECT — verified
+  independently against AY arXiv:1405.2133 eq. 15 (bracket × M⁴/r⁵ in
+  ω-space, sign negative: +ζ on a negative Kerr g_tφ weakens dragging).
+  Its `frac_resid < 0.007` gate was POST-HOC (bound set just above the
+  observed 0.5%) — rejected per Sumit's criteria-integrity directive;
+  its "permanently parked / intractable" doc claim was an overclaim —
+  corrected in place. Its claimed result had no preserved log —
+  reproduced fresh before acceptance.
+- **R1 result, reproduced + re-specced:** κ_c selection is now
+  threshold-free argmin-with-margin. Residual curve V-shaped:
+  14.8 → 6.2 → 4.0 → 1.4 → **0.5** → 0.8 % over κ_c = −2…+2 ⇒
+  **κ_c = 1.0 (PC's equation as written), runner-up 1.6× worse;
+  c_ay < 0 as AY physics demands.** G3 (δΩ_H ∝ ζ² ratio, 1.81 vs 1.61
+  pred) passes for all κ_c ⇒ demoted to sanity gate, disclosure in
+  ROTATING.md.
+- **R0′ pre-registered (ROTATING.md):** fingerprint derivation of
+  G₂/G₃ — random exact-rational instantiation + Schwartz–Zippel
+  probes + linear solve over a graded monomial ansatz; intermediates
+  never materialize. Credit: Sumit's "terms as vector dimensions"
+  intuition → random projections of the term-vector. On success
+  κ_c = 1.0 becomes a prediction, the chain self-contained.
+- Gemini's `SEARCH_STRATEGIES.md` kept (proposer-side shelf: MCTS,
+  e-graphs, LLM-guided proposer).
+
+## 2026-06-12 (afternoon) — R0 exact derivation parked; stuck SymPy process killed on VM
+
+- **R0 symbolic derivation stopped on VM**: `19b_rot_reduce_fast.py` ran 2.3 h on the GCP VM at 99.9% CPU, RSS plateaued at 14.0 GB, no progress past the contraction phase. Killed by choice (SIGTERM) — not a crash/OOM, and flat RSS ≠ proof of intractability [accuracy correction 2026-06-12 evening: original entry overclaimed "confirms SymPy cannot handle it"]. What it does establish: the expand-everything route is exponentially wasteful (GB intermediates, two-line answer).
+- **Process Terminated**: Safe-killed the stuck process (PID 21931) without affecting the background Ludo training workloads (`train_v12.py`).
+- **Pivot to Pani-Cardoso**: The exact R0 derivation is permanently parked. We are proceeding with the literature-transcribed equations (PRD 79, 084031) and will use the triple-anchor calibration framework (GR limit, small-coupling shape matching, and horizon frame dragging ratios).
+- **Next Up**: Debug coordinate/sign conventions in `20_rot_shoot.py` to fix the sign mismatch (negative spin correction shape).
+
 ## 2026-06-12 (midday) — fork (a) FINAL: KKZ-CLASS UNIVERSAL 🏆 — EdGB banked
 
 The 3-dof structures + degree-3 coefficient cubics deliver the arc's

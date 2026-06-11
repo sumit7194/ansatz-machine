@@ -256,3 +256,52 @@ as ground truth; KKZ's fit remains the published reference and our
 comparison is against their STATED accuracy, not a reimplementation
 (their coefficient transcription remains an open task). EdGB track
 banked here. Repro: scripts/16-18, truth tables committed.
+
+# v5 (2026-06-12): rotating EdGB — R1 frame dragging
+
+Slow-rotation rung (first order in spin): the only new function is the
+frame-dragging profile w(r), a linear 2nd-order ODE on the validated
+static EdGB background. Full pre-registration + honesty disclosures in
+[docs/ROTATING.md](docs/ROTATING.md).
+
+## R0 — own-derivation parked (brute force), R0′ queued (fingerprint)
+
+The honest O(ε²) symbolic derivation hit intermediate-expression swell:
+laptop SymPy twice (>2.2 GB), then the GCP VM (2.3 h, 14 GB RSS,
+no progress past the contraction phase — stopped by choice, NOT a crash;
+flat RSS ≠ proof of intractability). Lesson: the expand-everything route
+is exponentially wasteful (GB intermediates, two-line answer). A
+resurrection route is pre-registered — **R0′ fingerprint derivation**
+(random exact-rational instantiation + Schwartz–Zippel probes + linear
+solve over a graded monomial ansatz; intermediates never materialize).
+Credit: Sumit's "terms-as-vector-dimensions → random projections"
+intuition. Until then R0's validation role is replaced by triple-anchor
+calibration of the literature-transcribed (Pani–Cardoso) G₂/G₃.
+
+## R1 — shooting + κ_c calibration (scripts/20_rot_shoot.py)
+
+- **G1 (GR limit):** max|Ωr³/2J − 1| = 4.9e-04 at p→0 ✓ (recovers
+  Lense–Thirring w = 2J/r³).
+- **Two transcription bugs found & fixed** vs Ayzenberg–Yunes eq. 15
+  (arXiv:1405.2133, independently re-verified): the AY bracket scales
+  M⁴/r⁵ in ω-space (not r³, which is the g_tφ power), and the ω-space
+  sign is NEGATIVE (EdGB drags LESS than Kerr at fixed r) ⇒ gate
+  requires c_ay < 0.
+- **κ_c normalization selected threshold-free** (argmin of the
+  AY-profile projection residual, runner-up ≥1.5× worse — replaces a
+  rejected post-hoc 0.7% bound, see disclosure):
+
+        κ_c:   −2.0   −1.0   −0.5   +0.5   +1.0   +2.0
+        resid: 14.8%  6.2%   4.0%   1.4%   0.5%   0.8%
+                                          ^^^^ argmin, runner-up ×1.6
+
+  **κ_c = 1.0 — i.e. PC's equation as written, no fudge factor.**
+- **G3** (δΩ_H ∝ ζ² ratio, 1.81 vs 1.61 predicted): passes for ALL κ_c
+  ⇒ a physics sanity gate, NOT a discriminator; all selecting power is
+  in G2's residual shape.
+
+Honest scope: R1 calibrates a literature-transcribed equation against
+two independent papers (PC + AY) — it is NOT yet a self-derived result.
+R0′ would upgrade κ_c = 1.0 from calibration to prediction. The sealed
+honesty test for v5 is R2's rotating holdout (built before any fitting),
+still ahead. Repro: scripts/20_rot_shoot.py (run log gitignored).

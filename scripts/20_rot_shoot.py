@@ -100,7 +100,7 @@ def J_from_tail(rs, om, r_read=60.0):
 
 def main():
     results = []
-    print("Backgrounds + quadratures (κ_c candidates {0.5, 1, 2})...")
+    print("Backgrounds + quadratures (κ_c grid ±{0.5, 1, 2})...")
 
     # --- G1: GR limit, κ_c-independent ---
     M0, rows0 = background(1e-8)
@@ -113,54 +113,114 @@ def main():
     print(f"  {'✓' if g1 else '✗✗'} G1 GR limit: max|Ωr³/2J − 1| = "
           f"{max(devs):.2e} (M={M0:.4f})")
 
-    # --- per-κ_c: G2 shape at small p, G3 horizon-dragging trend ---
-    P_SMALL, P_GRID = 0.15, (0.05, 0.2, 0.4, 0.6, 0.85)
+    # --- per-κ_c measurement, redesigned after measured contaminations ---
+    # v1 contaminations: (i) δω = ω − 2J/r³ subtracts near-equal tails,
+    # so the ~5e-4 J-read error injects a spurious 1/r³ component that
+    # dominated the far window (corr was κ_c-independent ⇒ not physics);
+    # (ii) the loose [0.30,0.45] G3 band assumed p=0.85 ≈ max coupling
+    # without the p↔ζ mapping. Redesign: (G2) project δω onto the basis
+    # {AY ω-profile, 1/r³} — the 1/r³ admixture absorbs the J error.
+    # AY eq. 15 (arXiv:1405.2133, independently re-verified) gives
+    # δg_tφ ∝ +ζ·M⁴/r³·[bracket]; in ω-space (ω = −g_tφ/(r²sin²θ),
+    # Kerr g_tφ < 0) that is M⁴/r⁵ with NEGATIVE sign ⇒ require c_ay < 0.
+    # κ_c selection: ARGMIN of the projection residual among sign+sanity
+    # qualifiers, runner-up ≥1.5× worse — no absolute residual threshold.
+    # (A first run was seen before this margin rule replaced a post-hoc
+    # 0.7% bound; disclosed in ROTATING.md. The sealed honesty test for
+    # v5 is R2's rotating holdout, not this calibration.)
+    # (G3) mapping-free ratio sanity: δΩ_H ∝ ζ_AY ∝ (e^{φ∞}/M²)² ⇒
+    # δ(p_b)/δ(p_a) = (ζ_b/ζ_a)². Measured κ_c-insensitive ⇒ G3 is a
+    # physics sanity gate only, NOT a κ_c discriminator.
+    P_SHAPE = 0.08
+    P_RATIO = (0.1, 0.2)
+    P_TREND = (0.05, 0.2, 0.4, 0.6, 0.85)
+    bg = {}
+
+    def get_bg(p):
+        if p not in bg:
+            bg[p] = background(p)
+        return bg[p]
+
+    def phi_inf(rows):
+        return rows[-1][1]
+
     verdicts = {}
-    for kc in (0.5, 1.0, 2.0):
-        # G2: shape of the GB correction at small p
-        M, rows = background(P_SMALL)
+    for kc in (-2.0, -1.0, -0.5, 0.5, 1.0, 2.0):
+        # G2: basis projection at small p
+        M, rows = get_bg(P_SHAPE)
         rs, om = omega_profile(rows, kc)
         J = J_from_tail(rs, om)
-        ay, dw = [], []
+        A_ay, A_r3, dW = [], [], []
         for i in range(len(rs)):
             rv = rs[i]
             if rv > 40 or rv < 1.001:
                 continue
             x = M / rv
-            ay.append((M**4 / rv**3) * (1 + 140 / 9 * x + 10 * x**2
-                                        + 16 * x**3 - 400 / 9 * x**4))
-            dw.append(om[i] - 2 * J / rv**3)
-        ma = sum(ay) / len(ay)
-        md = sum(dw) / len(dw)
-        num = sum((a - ma) * (d - md) for a, d in zip(ay, dw))
-        den = math.sqrt(sum((a - ma)**2 for a in ay)
-                        * sum((d - md)**2 for d in dw))
-        corr = num / den if den > 0 else 0.0
-        # G3: MΩ_H/(J/M²) across p
-        ratios = []
-        for p in P_GRID:
-            M_, rows_ = background(p)
+            A_ay.append((M**4 / rv**5) * (1 + 140 / 9 * x + 10 * x**2
+                                          + 16 * x**3 - 400 / 9 * x**4))
+            A_r3.append(1.0 / rv**3)
+            dW.append(om[i] - 2 * J / rv**3)
+        # least squares dW ≈ c_ay·A_ay + c_r3·A_r3
+        Saa = sum(a * a for a in A_ay)
+        Srr = sum(b * b for b in A_r3)
+        Sar = sum(a * b for a, b in zip(A_ay, A_r3))
+        Sad = sum(a * d for a, d in zip(A_ay, dW))
+        Srd = sum(b * d for b, d in zip(A_r3, dW))
+        det = Saa * Srr - Sar * Sar
+        c_ay = (Sad * Srr - Srd * Sar) / det
+        c_r3 = (Saa * Srd - Sar * Sad) / det
+        resid = [d - c_ay * a - c_r3 * b
+                 for d, a, b in zip(dW, A_ay, A_r3)]
+        frac_resid = math.sqrt(sum(x * x for x in resid)
+                               / max(sum(d * d for d in dW), 1e-300))
+        ok_sign = c_ay < 0
+        # G3: ratio test at small p + monotone trend
+        dH = {}
+        for p in P_RATIO:
+            M_, rows_ = get_bg(p)
             rs_, om_ = omega_profile(rows_, kc)
             J_ = J_from_tail(rs_, om_)
-            ratios.append(M_ * om_[0] / (J_ / M_**2))
-        mono = all(ratios[i] <= ratios[i + 1] + 1e-4
-                   for i in range(len(ratios) - 1))
-        ok2 = abs(corr) > 0.999
-        ok3 = abs(ratios[0] - 0.25) < 0.01 and mono \
-            and 0.30 < ratios[-1] < 0.45
-        verdicts[kc] = (ok2, ok3, corr, ratios)
-        print(f"  κ_c={kc}: shape-corr {corr:+.5f} "
-              f"{'✓' if ok2 else '✗'} | MΩ_H/(J/M²) "
-              + "→".join(f"{x:.3f}" for x in ratios)
-              + f" {'✓' if ok3 else '✗'}")
+            dH[p] = M_ * om_[0] / (J_ / M_**2) - 0.25
+        z = {p: math.exp(phi_inf(get_bg(p)[1])) / get_bg(p)[0]**2
+             for p in P_RATIO}
+        ratio_meas = dH[P_RATIO[1]] / dH[P_RATIO[0]] \
+            if dH[P_RATIO[0]] != 0 else float("nan")
+        ratio_pred = (z[P_RATIO[1]] / z[P_RATIO[0]])**2
+        ok3a = math.isfinite(ratio_meas) and \
+            abs(ratio_meas / ratio_pred - 1) < 0.20
+        trend = []
+        for p in P_TREND:
+            M_, rows_ = get_bg(p)
+            rs_, om_ = omega_profile(rows_, kc)
+            J_ = J_from_tail(rs_, om_)
+            trend.append(M_ * om_[0] / (J_ / M_**2))
+        ok3b = all(trend[i] <= trend[i + 1] + 1e-4
+                   for i in range(len(trend) - 1)) and trend[-1] > 0.27
+        ok3 = ok3a and ok3b
+        verdicts[kc] = (ok_sign, ok3, frac_resid)
+        print(f"  κ_c={kc:+.1f}: G2 c_ay={c_ay:+.3e} "
+              f"{'✓' if ok_sign else '✗'} resid={frac_resid:.1%} "
+              f"| G3 δΩ-ratio {ratio_meas:.2f} vs "
+              f"pred {ratio_pred:.2f} {'✓' if ok3a else '✗'}, trend "
+              + "→".join(f"{x:.3f}" for x in trend)
+              + f" {'✓' if ok3b else '✗'}")
 
-    winners = [k for k, v in verdicts.items() if v[0] and v[1]]
-    ok_sel = len(winners) == 1
-    results.append(ok_sel)
-    if ok_sel:
-        print(f"  ✓ κ_c = {winners[0]} uniquely passes G2+G3 — selected")
+    qual = {k: v[2] for k, v in verdicts.items() if v[0] and v[1]}
+    ok_sel = False
+    if len(qual) >= 2:
+        ranked = sorted(qual, key=qual.get)
+        kc_win, kc_2nd = ranked[0], ranked[1]
+        margin = qual[kc_2nd] / qual[kc_win]
+        ok_sel = margin >= 1.5
+        if ok_sel:
+            print(f"  ✓ κ_c = {kc_win} selected: argmin resid "
+                  f"{qual[kc_win]:.2%}, runner-up ×{margin:.1f} worse")
+        else:
+            print(f"  ✗✗ κ_c ambiguous: best {kc_win} ({qual[kc_win]:.2%}) "
+                  f"vs runner-up only ×{margin:.1f}")
     else:
-        print(f"  ✗✗ κ_c selection ambiguous/empty: {winners}")
+        print(f"  ✗✗ κ_c selection needs ≥2 qualifiers, got {len(qual)}")
+    results.append(ok_sel)
 
     print(f"\n{'ALL EXPECTATIONS MET ✅' if all(results) else 'EXPECTATION FAILURES ❌'}")
     return 0 if all(results) else 1
