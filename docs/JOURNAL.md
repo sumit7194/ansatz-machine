@@ -6,6 +6,19 @@ built, what broke, what the machine taught us. Numbers live in
 
 ---
 
+## 2026-06-12 (midday) — fork (b): the c1≈c3 "mystery" solved, formula → 9 numbers
+
+Tied the A/B tail coefficients (3 params instead of 4): per-p fit
+IMPROVED (0.4188% vs 0.4513% worst), sealed holdout passes (0.7202%).
+The explanation was sitting in the truth tables: **A(0) ≈ B(0) at the
+horizon** (0.9160 vs 0.9172 at p=0.3) — both regular parts share their
+horizon limit, both structures park that limit in the leading
+coefficient, so the equations force the tie. Horizon regularity in a
+coefficient costume, not a new law. Both formulas recorded in RESULTS.md
+(4-param: better holdout margin 0.53%; tied 9-number: simpler, better
+in-sample). Pushed. Next per scaling mandate: fork (a), the 3-dof
+structure for KKZ-class/T3.
+
 ## 2026-06-12 (morning, user aligned) — THE UNIVERSAL FORMULA STANDS ✅
 
 The T3 attempt's design call (real local optimizer over smarter GP
