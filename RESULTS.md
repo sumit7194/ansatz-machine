@@ -173,3 +173,41 @@ on its own.
 - The hall after this one: stationary rational forms (off-diagonal g_tφ, the
   Kerr lesson says rational coordinates keep proofs decidable) and the
   modified-gravity REDUCE (EdGB genre — the marquee target).
+
+---
+
+# v4 (2026-06-12): the EdGB track — and a universal closed-form fit
+
+Full arc in docs/JOURNAL.md (night of 06-11/12). Headlines: E0 (our reduced
+field equations ≡ Kanti et al. 1996, term-for-term), E1 (shooting code
+reproduces published KKZ ε(p) to 1–4%), E2 (honesty-gated fit verifier),
+Track B per-p best 0.2325% @ p=0.3 (KKZ accuracy class), and:
+
+## The universal formula (holdout-validated)
+
+With x ≡ 1 − r_h/r (so e^Γ = x·A, e^Λ = B²/(x·A)):
+
+    A(x, p) = 1 + c1(p)·(1−x) / (1 + c2(p)·x)
+    B(x, p) = 1 + c3(p)·(1−x)² / (1 + c4(p)·x)
+
+    c1(p) = −0.00185 − 0.23552·p − 0.12886·p²
+    c2(p) = +0.93119 + 1.31536·p + 0.82502·p²
+    c3(p) = −0.00196 − 0.23216·p − 0.12675·p²
+    c4(p) = +3.81638 + 3.56819·p + 2.44280·p²
+
+Accuracy: max relative deviation (regular parts, whole exterior to 50 r_h)
+0.08%→0.45% across the p ∈ [0.10, 0.60] training family, and **0.53% on the
+SEALED p=0.7 holdout** (built before any fitting, used in none — true
+extrapolation). Method: Levenberg-damped Gauss–Newton on residual vectors
+with continuation in p (stdlib only), after the hill-climb approach failed
+its holdout at 3.6% (recorded in 15_edgb_universal run).
+
+Honest comparison to KKZ (PRD 96, 064004): their per-p accuracy is finer
+(~0.1–0.3%) with ~10 coefficient functions and a 3rd-order continued
+fraction; ours trades ~2× their error for a far simpler object — two
+2-dof structures and 12 total numbers. A compact-alternative result, not a
+dethroning. Curiosity logged: c1(p) ≈ c3(p) to 3 digits — the A and B
+tails share their leading coefficient; possibly real structure.
+
+Repro: scripts/16_edgb_t3.py (truth tables in edgb_truth_dense.json,
+sealed holdout in edgb_truth_holdout.json).

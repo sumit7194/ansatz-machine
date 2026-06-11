@@ -6,6 +6,25 @@ built, what broke, what the machine taught us. Numbers live in
 
 ---
 
+## 2026-06-12 (morning, user aligned) — THE UNIVERSAL FORMULA STANDS ✅
+
+The T3 attempt's design call (real local optimizer over smarter GP
+pressure) paid off in one shot: **Levenberg-damped Gauss–Newton on the
+residual vectors + continuation in p** (11 training tables, p=0.10→0.60,
+warm starts). Constants drift silk-smooth and monotone; the degree-2
+polynomial assembly loses almost nothing (per-p worst 0.4513% →
+universal in-sample 0.4529%); and the **SEALED p=0.7 holdout scores
+0.5316%** — true extrapolation, formula stands (<1% bar). The explicit
+4-coefficient-function formula is in RESULTS.md v4. Honest framing: KKZ
+remain finer per-p (~0.1–0.3%, ~10 coefficient functions); ours is a
+compact alternative (12 numbers total) at ~2× their error — not a
+dethroning, a different point on the simplicity-accuracy frontier.
+Curiosity logged: c1(p) ≈ c3(p) to 3 digits — A and B tails share their
+leading coefficient; possibly real structure worth a symbolic look.
+Optimizer lesson confirmed: the 15-run's 3.6% holdout FAIL was entirely
+the hill-climb's fault — same structure, same data, proper optimizer,
+7× better.
+
 ## ☀️ 2026-06-12 — MORNING REPORT (the whole night, two minutes)
 
 **Territory:** the ladder sweep passed **all 17 static-vacuum rungs**
