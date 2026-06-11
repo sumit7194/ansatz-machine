@@ -7,7 +7,12 @@
     "params": [
       "c1"
     ],
-    "provenance": "campaign rung E (2026-06-10)"
+    "provenance": "campaign rung E (2026-06-10)",
+    "profile": {
+      "R": "Integer(0)",
+      "K": "Mul(Integer(240), Pow(Symbol('c1', real=True), Integer(2)), Pow(Symbol('r', positive=True), Integer(-10)))",
+      "G1": "Mul(Integer(5760000), Pow(Symbol('c1', real=True), Integer(4)), Pow(Symbol('r', positive=True), Integer(-25)), Add(Symbol('c1', real=True), Pow(Symbol('r', positive=True), Integer(3))))"
+    }
   },
   {
     "name": "discovered: 4+1, \u039b=-1, f = c1/r**2 + r**2/6 + 1",
@@ -17,7 +22,12 @@
     "params": [
       "c1"
     ],
-    "provenance": "campaign rung F (2026-06-10)"
+    "provenance": "campaign rung F (2026-06-10)",
+    "profile": {
+      "R": "Rational(-10, 3)",
+      "K": "Add(Mul(Integer(72), Pow(Symbol('c1', real=True), Integer(2)), Pow(Symbol('r', positive=True), Integer(-8))), Rational(10, 9))",
+      "G1": "Mul(Integer(55296), Pow(Symbol('c1', real=True), Integer(4)), Pow(Symbol('r', positive=True), Integer(-20)), Add(Mul(Integer(6), Symbol('c1', real=True)), Pow(Symbol('r', positive=True), Integer(4)), Mul(Integer(6), Pow(Symbol('r', positive=True), Integer(2)))))"
+    }
   },
   {
     "name": "discovered: 6+1, \u039b=0, f = c1/r**4 + 1",
@@ -27,7 +37,12 @@
     "params": [
       "c1"
     ],
-    "provenance": "expedition Leg 1 \u2014 uncharted 6+1, \u039b=0"
+    "provenance": "expedition Leg 1 \u2014 uncharted 6+1, \u039b=0",
+    "profile": {
+      "R": "Integer(0)",
+      "K": "Mul(Integer(600), Pow(Symbol('c1', real=True), Integer(2)), Pow(Symbol('r', positive=True), Integer(-12)))",
+      "G1": "Mul(Integer(51840000), Pow(Symbol('c1', real=True), Integer(4)), Pow(Symbol('r', positive=True), Integer(-30)), Add(Symbol('c1', real=True), Pow(Symbol('r', positive=True), Integer(4))))"
+    }
   },
   {
     "name": "discovered: 4+1, \u039b=3/4, f = c1/r**2 - r**2/8 + 1",
@@ -37,6 +52,116 @@
     "params": [
       "c1"
     ],
-    "provenance": "expedition Leg 2 \u2014 uncharted 4+1, \u039b=3/4"
+    "provenance": "expedition Leg 2 \u2014 uncharted 4+1, \u039b=3/4",
+    "profile": {
+      "R": "Rational(5, 2)",
+      "K": "Add(Mul(Integer(72), Pow(Symbol('c1', real=True), Integer(2)), Pow(Symbol('r', positive=True), Integer(-8))), Rational(5, 8))",
+      "G1": "Mul(Integer(41472), Pow(Symbol('c1', real=True), Integer(4)), Pow(Symbol('r', positive=True), Integer(-20)), Add(Mul(Integer(8), Symbol('c1', real=True)), Mul(Integer(-1), Pow(Symbol('r', positive=True), Integer(4))), Mul(Integer(8), Pow(Symbol('r', positive=True), Integer(2)))))"
+    }
+  },
+  {
+    "name": "discovered: 5+1, \u039b=-1, f = c1/r**3 + r**2/10 + 1",
+    "n": 6,
+    "Lambda": "-1",
+    "f": "c1/r**3 + r**2/10 + 1",
+    "params": [
+      "c1"
+    ],
+    "provenance": "ladder sweep 5+1, \u039b<0",
+    "profile": {
+      "R": "Integer(-3)",
+      "K": "Add(Mul(Integer(240), Pow(Symbol('c1', real=True), Integer(2)), Pow(Symbol('r', positive=True), Integer(-10))), Rational(3, 5))",
+      "G1": "Mul(Integer(576000), Pow(Symbol('c1', real=True), Integer(4)), Pow(Symbol('r', positive=True), Integer(-25)), Add(Mul(Integer(10), Symbol('c1', real=True)), Pow(Symbol('r', positive=True), Integer(5)), Mul(Integer(10), Pow(Symbol('r', positive=True), Integer(3)))))"
+    }
+  },
+  {
+    "name": "discovered: 5+1, \u039b=3/4, f = c1/r**3 - 3*r**2/40 + 1",
+    "n": 6,
+    "Lambda": "3/4",
+    "f": "c1/r**3 - 3*r**2/40 + 1",
+    "params": [
+      "c1"
+    ],
+    "provenance": "ladder sweep 5+1, \u039b>0",
+    "profile": {
+      "R": "Rational(9, 4)",
+      "K": "Add(Mul(Integer(240), Pow(Symbol('c1', real=True), Integer(2)), Pow(Symbol('r', positive=True), Integer(-10))), Rational(27, 80))",
+      "G1": "Mul(Pow(Symbol('c1', real=True), Integer(4)), Pow(Symbol('r', positive=True), Integer(-25)), Add(Mul(Integer(5760000), Symbol('c1', real=True)), Mul(Integer(-1), Integer(432000), Pow(Symbol('r', positive=True), Integer(5))), Mul(Integer(5760000), Pow(Symbol('r', positive=True), Integer(3)))))"
+    }
+  },
+  {
+    "name": "discovered: 6+1, \u039b=-1, f = c1/r**4 + r**2/15 + 1",
+    "n": 7,
+    "Lambda": "-1",
+    "f": "c1/r**4 + r**2/15 + 1",
+    "params": [
+      "c1"
+    ],
+    "provenance": "ladder sweep 6+1, \u039b<0",
+    "profile": {
+      "R": "Rational(-14, 5)",
+      "K": "Add(Mul(Integer(600), Pow(Symbol('c1', real=True), Integer(2)), Pow(Symbol('r', positive=True), Integer(-12))), Rational(28, 75))",
+      "G1": "Mul(Integer(3456000), Pow(Symbol('c1', real=True), Integer(4)), Pow(Symbol('r', positive=True), Integer(-30)), Add(Mul(Integer(15), Symbol('c1', real=True)), Pow(Symbol('r', positive=True), Integer(6)), Mul(Integer(15), Pow(Symbol('r', positive=True), Integer(4)))))"
+    }
+  },
+  {
+    "name": "discovered: 6+1, \u039b=3/4, f = c1/r**4 - r**2/20 + 1",
+    "n": 7,
+    "Lambda": "3/4",
+    "f": "c1/r**4 - r**2/20 + 1",
+    "params": [
+      "c1"
+    ],
+    "provenance": "ladder sweep 6+1, \u039b>0",
+    "profile": {
+      "R": "Rational(21, 10)",
+      "K": "Add(Mul(Integer(600), Pow(Symbol('c1', real=True), Integer(2)), Pow(Symbol('r', positive=True), Integer(-12))), Rational(21, 100))",
+      "G1": "Mul(Integer(2592000), Pow(Symbol('c1', real=True), Integer(4)), Pow(Symbol('r', positive=True), Integer(-30)), Add(Mul(Integer(20), Symbol('c1', real=True)), Mul(Integer(-1), Pow(Symbol('r', positive=True), Integer(6))), Mul(Integer(20), Pow(Symbol('r', positive=True), Integer(4)))))"
+    }
+  },
+  {
+    "name": "discovered: 7+1, \u039b=0, f = c1/r**5 + 1",
+    "n": 8,
+    "Lambda": "0",
+    "f": "c1/r**5 + 1",
+    "params": [
+      "c1"
+    ],
+    "provenance": "ladder sweep 7+1, \u039b=0",
+    "profile": {
+      "R": "Integer(0)",
+      "K": "Mul(Integer(1260), Pow(Symbol('c1', real=True), Integer(2)), Pow(Symbol('r', positive=True), Integer(-14)))",
+      "G1": "Mul(Integer(311169600), Pow(Symbol('c1', real=True), Integer(4)), Pow(Symbol('r', positive=True), Integer(-35)), Add(Symbol('c1', real=True), Pow(Symbol('r', positive=True), Integer(5))))"
+    }
+  },
+  {
+    "name": "discovered: 7+1, \u039b=-1, f = c1/r**5 + r**2/21 + 1",
+    "n": 8,
+    "Lambda": "-1",
+    "f": "c1/r**5 + r**2/21 + 1",
+    "params": [
+      "c1"
+    ],
+    "provenance": "ladder sweep 7+1, \u039b<0",
+    "profile": {
+      "R": "Rational(-8, 3)",
+      "K": "Add(Mul(Integer(1260), Pow(Symbol('c1', real=True), Integer(2)), Pow(Symbol('r', positive=True), Integer(-14))), Rational(16, 63))",
+      "G1": "Mul(Integer(14817600), Pow(Symbol('c1', real=True), Integer(4)), Pow(Symbol('r', positive=True), Integer(-35)), Add(Mul(Integer(21), Symbol('c1', real=True)), Pow(Symbol('r', positive=True), Integer(7)), Mul(Integer(21), Pow(Symbol('r', positive=True), Integer(5)))))"
+    }
+  },
+  {
+    "name": "discovered: 7+1, \u039b=3/4, f = c1/r**5 - r**2/28 + 1",
+    "n": 8,
+    "Lambda": "3/4",
+    "f": "c1/r**5 - r**2/28 + 1",
+    "params": [
+      "c1"
+    ],
+    "provenance": "ladder sweep 7+1, \u039b>0",
+    "profile": {
+      "R": "Integer(2)",
+      "K": "Add(Mul(Integer(1260), Pow(Symbol('c1', real=True), Integer(2)), Pow(Symbol('r', positive=True), Integer(-14))), Rational(1, 7))",
+      "G1": "Mul(Integer(11113200), Pow(Symbol('c1', real=True), Integer(4)), Pow(Symbol('r', positive=True), Integer(-35)), Add(Mul(Integer(28), Symbol('c1', real=True)), Mul(Integer(-1), Pow(Symbol('r', positive=True), Integer(7))), Mul(Integer(28), Pow(Symbol('r', positive=True), Integer(5)))))"
+    }
   }
 ]

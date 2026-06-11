@@ -107,6 +107,21 @@ constants that made sp.solve report consistent systems as inconsistent).
 Tree-slot symbolization survives only as the fallback for genuine pole
 structures.
 
+**D17 — Never let NaN near max(); guard every part before any reduction.**
+Bought twice in one night: Python's max() returns its FIRST argument when
+comparisons are False, and every NaN comparison is False — so (1) a
+NaN-everywhere candidate "scored" a perfect 0.0000% and `A(x)=zoo` "beat
+KKZ in 9 seconds"; (2) after the first guard, max(finite, nan) inside the
+two-part deviation still swallowed the nan and the hunt fitted A while B
+rode along as nan. Rule: compute each component, isfinite-check each,
+THEN reduce. Applies to every scorer/fitness in the repo.
+
+**D18 — Persist what is expensive and immutable.** build_catalog recomputed
+symbolic fingerprint profiles on every call: 1675 s at 12 families (n=8
+Kretschmann dominates). Profiles never change once a family is proved —
+they are now persisted (srepr) into catalog_discoveries.json at grow time,
+with a self-healing backfill path. Measured: 1675 s → 2 s.
+
 **D15 — Fitness must demand measurable physics, not just non-triviality.**
 Bought by: the gauge-evasion catalog from the stationary hall. The loop
 found, in order: (1) constant ω — pure frame gauge; (2) NEGLIGIBLE ω

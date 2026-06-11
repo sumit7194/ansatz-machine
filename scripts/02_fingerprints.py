@@ -74,14 +74,27 @@ class Profile:
                    else sp.S.Zero)
 
 
+class StoredProfile:
+    """Profile rebuilt from persisted expressions — skips the expensive
+    Geometry computation (measured: 29 min per build_catalog with 12
+    families up to n=8)."""
+
+    def __init__(self, n, R, K, G1):
+        self.n = n
+        self.R = R
+        self.K = K
+        self.K_coords = [R_SYM] if K.has(R_SYM) else []
+        self.G1 = G1
+
+
 class CatalogEntry:
     """A known solution family: symbolic profile with one free shape
     parameter (Λ-type parameters are fixed directly by R)."""
 
     def __init__(self, name, metric, coords, shape_param, Lambda_param=None,
-                 Lambda_from_R=None, sample_coord=None):
+                 Lambda_from_R=None, sample_coord=None, profile=None):
         self.name = name
-        self.profile = Profile(Geometry(metric, coords))
+        self.profile = profile or Profile(Geometry(metric, coords))
         self.coords = coords
         self.shape_param = shape_param        # e.g. M
         self.Lambda_param = Lambda_param      # e.g. Λ symbol in the profile
@@ -338,16 +351,37 @@ def build_catalog(include_discoveries=True):
 
     if include_discoveries and os.path.exists(DISCOVERIES_PATH):
         with open(DISCOVERIES_PATH) as fh:
-            for d in json.load(fh):
-                if len(d["params"]) != 1:
-                    continue  # curve matcher handles one shape param;
-                    # multi-param grown families need CK-grade tooling
-                psym = sp.Symbol(d["params"][0], real=True)
-                f = sp.sympify(d["f"], locals={"r": R_SYM,
-                                               d["params"][0]: psym})
-                metric, coords, _ = build_ansatz_metric(d["n"], f)
-                catalog.append(CatalogEntry(d["name"], metric, coords,
-                                            shape_param=psym))
+            data = json.load(fh)
+        changed = False
+        for d in data:
+            if len(d["params"]) != 1:
+                continue  # curve matcher handles one shape param;
+                # multi-param grown families need CK-grade tooling
+            psym = sp.Symbol(d["params"][0], real=True)
+            f = sp.sympify(d["f"], locals={"r": R_SYM,
+                                           d["params"][0]: psym})
+            metric, coords, _ = build_ansatz_metric(d["n"], f)
+            if "profile" in d:
+                # fast path: srepr round-trips symbols WITH assumptions
+                prof = StoredProfile(
+                    d["n"],
+                    sp.sympify(d["profile"]["R"]),
+                    sp.sympify(d["profile"]["K"]),
+                    sp.sympify(d["profile"]["G1"]))
+                entry = CatalogEntry(d["name"], metric, coords,
+                                     shape_param=psym, profile=prof)
+            else:
+                # self-healing cache: compute once, persist forever
+                entry = CatalogEntry(d["name"], metric, coords,
+                                     shape_param=psym)
+                d["profile"] = {"R": sp.srepr(entry.profile.R),
+                                "K": sp.srepr(entry.profile.K),
+                                "G1": sp.srepr(entry.profile.G1)}
+                changed = True
+            catalog.append(entry)
+        if changed:
+            with open(DISCOVERIES_PATH, "w") as fh:
+                json.dump(data, fh, indent=2)
     return catalog
 
 

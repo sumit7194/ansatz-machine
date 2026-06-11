@@ -1,0 +1,20 @@
+  ✅ 2+1, Λ<0: f(r) = r**2 + 3/40  → BLIND_SPOT  [CSI (correct: no local dof)] (gen 0, 1s)
+  ✅ 2+1, Λ>0: f(r) = -3*r**2/4  → BLIND_SPOT  [CSI (correct: no local dof)] (gen 15, 20s)
+  ✅ 3+1, Λ=0: f(r) = (r + 1)/r  → KNOWN_LIKELY  [invariant curve matches Schwarzschild (3+1) with M≈-0.5 (nec] (gen 1, 3s)
+  ✅ 3+1, Λ<0: f(r) = (r*(r**2 + 3) + 8)/(3*r)  → KNOWN_LIKELY  [invariant curve matches Schwarzschild-de Sitter (3+1) with M] (gen 11, 15s)
+  ✅ 3+1, Λ>0: f(r) = -r**2/4 + 1 + 1/r  → KNOWN_LIKELY  [invariant curve matches Schwarzschild-de Sitter (3+1) with M] (gen 10, 15s)
+  ✅ 4+1, Λ=0: f(r) = 1 + 7/(3*r**2)  → KNOWN_LIKELY  [invariant curve matches Schwarzschild-Tangherlini (4+1) with] (gen 0, 2s)
+  ✅ 4+1, Λ<0: f(r) = r**2/6 + 1 + r**(-2)  → KNOWN_LIKELY  [invariant curve matches discovered: 4+1, Λ=-1, f = c1/r**2 +] (gen 20, 31s)
+  ✅ 4+1, Λ>0: f(r) = -r**2/8 + 1 + r**(-2)  → KNOWN_LIKELY  [invariant curve matches discovered: 4+1, Λ=3/4, f = c1/r**2 ] (gen 17, 17s)
+  ✅ 5+1, Λ=0: f(r) = 1 + r**(-3)  → KNOWN_LIKELY  [invariant curve matches discovered: 5+1, Λ=0, f = c1/r**3 + ] (gen 3, 10s)
+  ✅ 5+1, Λ<0: f(r) = r**2/10 + 1 + r**(-3)  → KNOWN_LIKELY  [invariant curve matches discovered: 5+1, Λ=-1, f = c1/r**3 +] (gen 75, 130s)
+  ✅ 5+1, Λ>0: f(r) = -3*r**2/40 + 1 + r**(-3)  → KNOWN_LIKELY  [invariant curve matches discovered: 5+1, Λ=3/4, f = c1/r**3 ] (gen 71, 139s)
+  ✅ 6+1, Λ=0: f(r) = 1 + r**(-4)  → KNOWN_LIKELY  [invariant curve matches discovered: 6+1, Λ=0, f = c1/r**4 + ] (gen 2, 13s)
+  ✅ 6+1, Λ<0: f(r) = r**2/15 + 1 + r**(-4)  → KNOWN_LIKELY  [invariant curve matches discovered: 6+1, Λ=-1, f = c1/r**4 +] (gen 22, 56s)
+  ✅ 6+1, Λ>0: f(r) = -r**2/20 + 1 + r**(-4)  → KNOWN_LIKELY  [invariant curve matches discovered: 6+1, Λ=3/4, f = c1/r**4 ] (gen 39, 58s)
+  ✅ 7+1, Λ=0: f(r) = 1 + r**(-5)  → KNOWN_LIKELY  [invariant curve matches discovered: 7+1, Λ=0, f = c1/r**5 + ] (gen 4, 45s)
+  ✅ 7+1, Λ<0: f(r) = r**2/21 + 1 + r**(-5)  → CANDIDATE_NEW  [grew: discovered: 7+1, Λ=-1, f = c1/r**5 + r**2/21 + 1] (gen 30, 467s)
+  ✅ 7+1, Λ>0: f(r) = -r**2/28 + 1 + r**(-5)  → CANDIDATE_NEW  [grew: discovered: 7+1, Λ=3/4, f = c1/r**5 - r**2/28 + 1] (gen 46, 220s)
+
+ladder swept in 5036s — 2 new families grown, catalog now 14 entries
+LADDER SWEEP PASSED ✅

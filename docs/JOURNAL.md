@@ -6,6 +6,69 @@ built, what broke, what the machine taught us. Numbers live in
 
 ---
 
+## 2026-06-11 (night shift, later) — EdGB pipeline green end to end; first T2 fit
+
+- **E1 ALL GREEN** (after the two-writer log corruption red herring): our
+  shooting code integrates EdGB black holes from the E0-validated
+  equations, reproducing KKZ's ε(p) to 4.3% (p=0.2) and 1.0% (p=0.4),
+  Schwarzschild at tiny coupling to 0.05%, hair secondary & monotone.
+- **E2 ALL GREEN** after a score redesign bought by numbers: raw e^Γ
+  relative error blows up ~100× near the horizon (Schwarzschild
+  "deviated 9847%") — KKZ compare the REGULAR RZ parts, and now so do we
+  (A = e^Γ/(1−r_h/r), B = e^{(Γ+Λ)/2}; RZ-Schwarzschild now deviates a
+  sane 2.7–17.8%, monotone in p). Pre-registration amendment recorded:
+  KKZ-coefficient transcription deferred (structure verified, the full
+  rational coefficient functions weren't captured); E2 = transcription-
+  free checks.
+- **The NaN war (now D17):** max() with NaN burned us twice — first a
+  NaN-everywhere candidate "beat KKZ in 9 seconds" with A(x)=zoo, then a
+  post-max guard let the hunt fit A while B rode along as NaN ("T1
+  0.98%" was an A-only artifact — retracted). Rule: isfinite-check every
+  component BEFORE any max/reduction.
+- **First honest Track B result: 0.2325% max deviation (T2 band — KKZ's
+  own accuracy class) at p=0.3**, with the GP rediscovering the
+  continued-fraction-flavored RZ shape unprompted:
+  A = 1 − c(1−x)²/(linear in x), B = 1 − c(1−x)⁴/(linear in x).
+  Honest caveats: 14 constants vs KKZ's ~10; single p; float constants
+  (snapping/parsimony pressure = next iteration). Not victory; real
+  progress.
+- **Perf (now D18): build_catalog 1675 s → 2 s** by persisting fingerprint
+  profiles into the catalog at grow time (self-healing backfill).
+
+## 2026-06-11/12 (night shift) — vacuum territory CONQUERED; EdGB speaks
+
+**The ladder sweep (09) passed all 17 rungs** — every (dimension, Λ-sector)
+of the static one-function ansatz from 2+1 to 7+1. The catalog tripled
+tonight: **4 → 12 machine-discovered families**, closing with the 8D
+Tangherlini–AdS (`1 + r²/21 + c/r⁵`) and 8D Tangherlini–dS
+(`1 − r²/28 + c/r⁵`). Every 2+1 rung correctly blind-spotted; every costume
+unmasked (Schwarzschild-AdS arrived as `(r(r²+3)+8)/3r` and was still
+recognized); every Λ-coefficient (r²/10, 3r²/40, r²/15, r²/21…) machine-
+derived per dimension. **The static vacuum room is officially strip-mined
+by us too — which was the point.** (Decision: 09 stays OUT of verify.sh —
+90 min runtime is campaign-class, not gate-class; its committed log +
+catalog are the regression evidence. The new gate battery is 10/E0.)
+
+**VM run host proven:** full 8/8 gate green on Python 3.10/Linux at
+nice-19 (alphaludo-l4, trainer untouched). Dashboards live on both hosts.
+
+**v4 EdGB — the machine now speaks modified gravity:**
+- **E0 PASSED in one shot**: our SymPy derivation of the EdGB reduced
+  field equations (via the effective action, Kanti conventions) matches
+  [Kanti et al. 1996](https://arxiv.org/abs/hep-th/9511071) exactly —
+  Schwarzschild limit ≡ 0, the Λ-equation algebraic & quadratic in e^Λ
+  with root sum/product = Kanti's −β and γ, and our φ-equation literally
+  ∝ their eq. (33) (ratio 1.000000, spread 0).
+- **E1 (shooting) nearly green**: the headline — our numerically
+  integrated EdGB black holes reproduce the published KKZ ε(p) relation
+  to **4.3% at p=0.2 and 1.0% at p=0.4**, with the dilaton hair behaving
+  as secondary. Battle scars, all measured: sp.solve stalled on the big
+  expressions (→ Cramer), the Γ-equation's Λ″ needed function-level
+  elimination with verified φ‴/Γ‴ cancellation (the second-orderness of
+  EdGB, reproduced by our own algebra), log-r steps overshot the horizon
+  shell 2000× (→ integrate in ln(r−r_h)), and exactly-p=0 degenerates the
+  dilaton sector (→ tiny-p limit).
+
 ## 2026-06-11 — the finisher debugging saga + expedition PASSED + VM prep
 
 - **The expedition passed all three legs** (~1 min total): 7D Tangherlini
