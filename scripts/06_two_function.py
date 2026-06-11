@@ -297,7 +297,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--quick", action="store_true")
     args = ap.parse_args()
-    kw = dict(pop_size=150, max_gen=80) if args.quick else {}
+    kw = dict(pop_size=220, max_gen=100, seeds=(0, 1, 2)) if args.quick else {}
 
     catalog = fp.build_catalog()  # WITH the machine's own discoveries
     has_memory = any("discovered" in e.name for e in catalog)
@@ -312,6 +312,8 @@ def main():
         ("Flatland rung (2+1, Λ=-1, f≠h allowed)", 3, sp.Integer(-1),
          False, fp.BLIND_SPOT, "CSI"),
     ]
+    if args.quick:
+        rungs = [r for r in rungs if "Memory" not in r[0]]
     results = []
     for label, n, lam, rcsi, _, _ in rungs:
         results.append(hunt_with_restarts(label, n, lam, catalog,
