@@ -230,3 +230,29 @@ their horizon limit, and both structures park that limit in their leading
 coefficient, so the fit forces c1=c3. I.e. the "mystery" encodes horizon
 regularity (the Kanti λ₁/γ₁ expansion relation), not a new law. Repro:
 scripts/17_edgb_tied.py.
+
+## Fork (a) final: KKZ-class universal achieved (the banked endpoint)
+
+3-dof structures, Gauss-Newton + continuation, degree-3 coefficient
+polynomials:
+
+    A = 1 + [a1(p)(1−x) + a2(p)(1−x)²] / (1 + a3(p)x)
+    B = 1 + [b1(p)(1−x)² + b2(p)(1−x)³] / (1 + b3(p)x)
+    each coefficient a cubic in p — 24 numbers total
+    (full cubics printed by scripts/18_edgb_3dof.py; x = 1 − r_h/r)
+
+Scoreboard (max relative deviation, regular parts, exterior to 50 r_h):
+  - POINTWISE: ≤ 0.098% at every training p ∈ [0.10, 0.60] — finer than
+    KKZ's stated "few tenths of a percent", with 6 structural constants
+    vs their ~10 (pointwise T3).
+  - UNIVERSAL in-sample: 0.1031%.
+  - UNIVERSAL on the SEALED p=0.7 holdout: **0.2751%** — KKZ-class
+    accuracy on true extrapolation, from a formula never shown that
+    member. (Degree-2 coefficients gave 0.56%; the last bottleneck was
+    coefficient extrapolation, not structure.)
+
+Honest scope: same theory, same family, our own E0/E1-validated numerics
+as ground truth; KKZ's fit remains the published reference and our
+comparison is against their STATED accuracy, not a reimplementation
+(their coefficient transcription remains an open task). EdGB track
+banked here. Repro: scripts/16-18, truth tables committed.
