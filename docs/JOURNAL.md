@@ -9,7 +9,7 @@ built, what broke, what the machine taught us. Numbers live in
 ## ☀️ 2026-06-12 — MORNING REPORT (the whole night, two minutes)
 
 **Territory:** the ladder sweep passed **all 17 static-vacuum rungs**
-(2+1→7+1, three Λ sectors). The catalog tripled to **12 machine-proved
+(2+1→7+1, three Λ sectors). The catalog tripled to **11 machine-proved
 families** — every Tangherlini(-dS/-AdS) up to 8 dimensions, every
 Λ-coefficient machine-derived, every 2+1 rung correctly blind-spotted.
 The static vacuum room is now strip-mined by us too. (Committed
