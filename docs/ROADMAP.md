@@ -3,7 +3,31 @@
 *Ranked by expected value per hour. Open threads from RESULTS.md live here
 now; move items to JOURNAL.md entries as they complete.*
 
-## v5 (NEXT — rotating EdGB) — self-contained handoff
+## v5 — ✅ COMPLETE (2026-06-12)
+
+All three steps below landed: R0′ all-green (039a9f7; κ_c = 1.0 now a
+probe-level prediction — deviations from the registration disclosed in
+ROTATING.md), R2 banked with a repaired two-holdout protocol (4-number
+formula, fresh sealed p=0.75: 0.1730% — see RESULTS.md), and the
+expedition step turned out moot (no wide expedition was ever running —
+the launch had failed on the pkill self-match bug, see VM.md; a
+high-ladder hunt over 8+1..12+1 now runs on the VM instead, tmux
+`ladder`). The handoff text below is kept for the record.
+
+## v6 (NEXT — the fork, decide deliberately)
+
+- **(a) The write-up.** v1→v5 is a coherent story: verifier →
+  rediscovery → catalog growth → static EdGB universal (0.2751%
+  sealed) → rotating EdGB universal (0.1730% fresh-sealed, 4 numbers,
+  unclaimed territory). Genre precedent: KKZ, PRD 96, 064004.
+  Unclaimed territory rewards speed.
+- **(b) More physics.** Second order in spin / full 2D rotating EdGB
+  (the PDE wall), or a new theory through the same pipeline —
+  dynamical Chern–Simons is mostly a REDUCE swap. Harvest the VM
+  high-ladder finds either way (re-prove locally before committing
+  catalog growth).
+
+## v5 (historical) — self-contained handoff
 
 *Written 2026-06-12 so work continues without the originating chat.
 Assumes v5 R1 is banked (commit 4a99c54: κ_c = 1.0, frame-dragging

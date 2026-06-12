@@ -54,3 +54,20 @@ Never use `--source-ranges=0.0.0.0/0`.
 Mac = dev/edit host (push from here). VM = run host (pull + run + serve
 dashboard). The repo is the only transport: code, catalog memory, docs
 all travel through git.
+
+## The pkill self-match trap (measured 2026-06-12)
+
+Much of the "flaky ssh, exit 255" history was not the network: a
+`pkill -f <script>.py` inside a `gcloud compute ssh --command='...'`
+matches the remote wrapper shell's OWN command line (the pattern — or a
+relaunch line mentioning the same script — appears in it literally),
+kills it, and the connection drops with 255. This is what killed
+`auto_pipeline.sh`'s expedition launch.
+
+Rules:
+- Long jobs run in **named tmux sessions** (`tmux new-session -d -s NAME
+  '...'`) — they survive drops AND are killable by session name, no
+  pkill needed.
+- If pkill is unavoidable, put kill and launch in SEPARATE ssh calls and
+  assemble the pattern at runtime so it never appears literally:
+  `P="dash"; P="${P}board.py"; pkill -f "$P"`.

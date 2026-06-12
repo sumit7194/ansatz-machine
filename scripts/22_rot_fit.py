@@ -5,10 +5,25 @@ Systematic search over structures and p-dependent parameterizations:
   - Structures:
       R1: H(x) = 1 + (1-x)^2 * (a1 + a2*x) / (1 + a3*x)
       R3: H(x) = 1 + (1-x)^2 * a1 / (1 + a2*x)
-  - Parameterizations of a_i(p):
-      Deg 2: c1 * p^2
-      Deg 3: c1 * p^2 + c2 * p^3
-      Deg 4: c1 * p^2 + c2 * p^3 + c3 * p^4
+  - Parameterizations of a_i(p) (corrections vanish linearly in p):
+      1 coeff:  c1*p
+      2 coeffs: c1*p + c2*p^2
+      3 coeffs: c1*p + c2*p^2 + c3*p^3
+
+Protocol (repaired 2026-06-12 — criteria-integrity disclosure):
+  An earlier version selected the winning combination by HOLDOUT error
+  across the printed grid — model selection on the sealed holdout, the
+  post-hoc sin this project's rules forbid. The p=0.7 holdout is
+  therefore PARTIALLY CONSUMED (it also saw at least one structure
+  iteration, the p^1 scaling fix). Repair, pre-registered before any
+  re-run:
+    1. The winner is selected by TRAINING error only; per-combination
+       holdout numbers are never computed during selection.
+    2. The frozen winner is scored ONCE on the p=0.7 holdout
+       (disclosed as consumed) and ONCE on a FRESH sealed p=0.75
+       holdout built before any fitting and used in nothing else.
+    3. Gate: both holdout errors < 1%. Fallback only if the p=0.75
+       background shoot itself fails: p=0.65, disclosed.
 """
 
 import importlib.util
@@ -27,8 +42,10 @@ m20 = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(m20)
 
 HOLDOUT_PATH = os.path.join(_here, "..", "rot_truth_holdout.json")
+HOLDOUT2_PATH = os.path.join(_here, "..", "rot_truth_holdout2.json")
 P_TRAIN = (0.1, 0.2, 0.3, 0.4, 0.5, 0.6)
 P_HOLD = 0.7
+P_HOLD2 = 0.75
 R_FIT_MAX = 50.0
 
 
@@ -50,20 +67,20 @@ def generate_profile(p, subsample=True):
     return M, J, profile_data
 
 
-def build_and_seal_holdout(force=False):
-    if os.path.exists(HOLDOUT_PATH) and not force:
-        with open(HOLDOUT_PATH) as fh:
+def build_and_seal_holdout(path, p_hold, force=False):
+    if os.path.exists(path) and not force:
+        with open(path) as fh:
             return json.load(fh)
-    
-    print(f"Sealing holdout truth at p={P_HOLD}...")
-    M, J, profile = generate_profile(P_HOLD, subsample=False)
+
+    print(f"Sealing holdout truth at p={p_hold}...")
+    M, J, profile = generate_profile(p_hold, subsample=False)
     holdout = {
-        "p": P_HOLD,
+        "p": p_hold,
         "M": M,
         "J": J,
         "profile": profile
     }
-    with open(HOLDOUT_PATH, "w") as fh:
+    with open(path, "w") as fh:
         json.dump(holdout, fh)
     return holdout
 
@@ -255,9 +272,20 @@ def solve_least_squares(p_vals, y_vals, num_coeffs):
     return [float(val) for val in C]
 
 
+def score_holdout(holdout, uni_coeffs, is_r1):
+    try:
+        return max(abs(eval_universal(x, holdout["p"], uni_coeffs, is_r1) / y - 1.0)
+                   for x, y in holdout["profile"])
+    except Exception:
+        return float("inf")
+
+
 def main():
-    holdout = build_and_seal_holdout()
-    
+    # Seal BOTH holdouts before any fitting. Neither is consulted again
+    # until the winner is frozen.
+    holdout = build_and_seal_holdout(HOLDOUT_PATH, P_HOLD)
+    holdout2 = build_and_seal_holdout(HOLDOUT2_PATH, P_HOLD2)
+
     print("\nGenerating training data and fitting structures per p...")
     train_profiles = {}
     for p in P_TRAIN:
@@ -304,41 +332,38 @@ def main():
         best_c, global_score = fit_global(scorer_global, num_a * num_coeffs, flat_ls, seed=42)
         
         uni_coeffs = [best_c[i*num_coeffs : (i+1)*num_coeffs] for i in range(num_a)]
-        
-        # 3. Score holdout
-        holdout_profile = holdout["profile"]
-        try:
-            holdout_err = max(abs(eval_universal(x, P_HOLD, uni_coeffs, is_r1) / y - 1.0) for x, y in holdout_profile)
-        except Exception:
-            holdout_err = float("inf")
-            
+
+        # Holdouts are NOT scored here — selection sees training error only.
         print(f"  Training max error: {global_score:.4%}")
-        print(f"  Holdout max error:  {holdout_err:.4%}")
-        
+
         results.append({
             "name": name,
             "is_r1": is_r1,
             "num_coeffs": num_coeffs,
             "coeffs": uni_coeffs,
-            "train_err": global_score,
-            "holdout_err": holdout_err
+            "train_err": global_score
         })
-        
-    # Find overall best combination
-    results_valid = [r for r in results if math.isfinite(r["holdout_err"])]
-    best = min(results_valid, key=lambda x: x["holdout_err"])
-    
+
+    # Select the winner on TRAINING error alone (pre-registered repair).
+    results_valid = [r for r in results if math.isfinite(r["train_err"])]
+    best = min(results_valid, key=lambda x: x["train_err"])
+
     print("\n========================================================")
-    print("GRID SEARCH RESULTS SUMMARY")
+    print("GRID SEARCH RESULTS SUMMARY (training error only)")
     print("========================================================")
     for r in results:
-        print(f"  {r['name']} ({r['num_coeffs']} coeffs/a): train={r['train_err']:.4%}, holdout={r['holdout_err']:.4%}")
-        
+        print(f"  {r['name']} ({r['num_coeffs']} coeffs/a): train={r['train_err']:.4%}")
+
+    # Frozen winner: score each sealed holdout exactly once.
+    holdout_err = score_holdout(holdout, best["coeffs"], best["is_r1"])
+    holdout2_err = score_holdout(holdout2, best["coeffs"], best["is_r1"])
+
     print("\n========================================================")
-    print(f"WINNING COMBINATION: {best['name']} ({best['num_coeffs']} coeffs/a)")
+    print(f"WINNING COMBINATION (by training error): {best['name']} ({best['num_coeffs']} coeffs/a)")
     print("========================================================")
-    print(f"  Holdout maximum relative error: {best['holdout_err']:.4%}")
-    print(f"  Training maximum relative error: {best['train_err']:.4%}")
+    print(f"  Training maximum relative error:          {best['train_err']:.4%}")
+    print(f"  Holdout p={P_HOLD} (disclosed: consumed):    {holdout_err:.4%}")
+    print(f"  Holdout p={P_HOLD2} (fresh, sealed, scored once): {holdout2_err:.4%}")
     print(f"  Formula details:")
     
     win_coeffs = best["coeffs"]
@@ -353,9 +378,9 @@ def main():
             terms = [f"({win_coeffs[i][k]:+.6f})*p**{k+1}" for k in range(best["num_coeffs"])]
             print(f"      a{i+1}(p) = " + " + ".join(terms))
             
-    success = best["holdout_err"] < 0.01
-    print(f"\nVERDICT: {'ALL GREEN ✅ Universal fit generalizes below 1.0%!' if success else 'FAILURES ❌ Fit does not generalize below 1.0%'}")
-    
+    success = holdout_err < 0.01 and holdout2_err < 0.01
+    print(f"\nVERDICT: {'ALL GREEN ✅ Universal fit generalizes below 1.0% on both sealed holdouts!' if success else 'FAILURES ❌ Fit does not generalize below 1.0% on both holdouts'}")
+
     return 0 if success else 1
 
 

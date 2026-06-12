@@ -305,3 +305,47 @@ two independent papers (PC + AY) — it is NOT yet a self-derived result.
 R0′ would upgrade κ_c = 1.0 from calibration to prediction. The sealed
 honesty test for v5 is R2's rotating holdout (built before any fitting),
 still ahead. Repro: scripts/20_rot_shoot.py (run log gitignored).
+
+## R0′ — the ODE is self-derived at exact probes (κ_c = 1.0 confirmed)
+
+`21_rot_fingerprint.py` (in verify.sh, ~205 s): perturbed metric as
+Taylor jets around exact-rational probe points, static EdGB equations
+solved for the higher jet coefficients (probes are ON-SHELL — the
+"modulo static EOM" wrinkle discharges automatically), O(ε²) action via
+an ε-graded curvature engine (the intermediate-expression swell that
+killed brute-force R0 never materializes — every intermediate is
+probe-sized), Euler-Lagrange variation in w, G₂/G₃ read off exactly.
+Result: `G₂ᵈᵉʳ·G₃ˡⁱᵗ − G₃ᵈᵉʳ·G₂ˡⁱᵗ = 0` EXACTLY at 3 independent
+probes with nonzero coupling; GR limit recovered symbolically.
+**κ_c = 1.0 upgrades from calibration to probe-level prediction; the
+v5 chain is self-contained.** Honest deviations from the
+pre-registration (no overdetermined linear solve; e^Γ(r₀) gauge-fixed
+to 1; common factor identified empirically then verified exactly) are
+disclosed in docs/ROTATING.md.
+
+## R2 — THE UNIVERSAL ROTATING FORMULA (two sealed holdouts) 🏆
+
+With x ≡ 1 − r_h/r and H ≡ ω·r³/(2J):
+
+    H(x, p) = 1 + (1 − x)²·a₁(p) / (1 + a₂(p)·x)
+    a₁(p) = −0.119480·p − 0.006615·p²
+    a₂(p) = +8.296716·p − 5.306262·p²
+
+**Four numbers** for the whole slow-rotating EdGB frame-dragging family.
+Horizon-regular and → 2J/r³ (Lense–Thirring) as p→0, both by
+construction. Max relative deviation (exterior to 50 r_h): training
+p ∈ [0.1, 0.6]: **0.1321%**; p=0.7 holdout: 0.1551%; **fresh sealed
+p=0.75 holdout, scored once on the frozen winner: 0.1730%**. No
+closed-form slow-rotating EdGB profile existed in the literature — this
+gap is closed, with accuracy finer than the static result (0.2751%)
+at a sixth of the parameter count.
+
+**Disclosure (criteria-integrity):** the first committed version
+selected the winner BY holdout error across the printed grid (and the
+p=0.7 holdout saw one structure iteration) — caught in audit, repaired
+with a pre-registered protocol: selection by training error only, the
+consumed holdout reported-but-not-load-bearing, and the fresh p=0.75
+holdout sealed before any fitting as the binding test. The
+train-selected winner is the identical formula. Full account in
+docs/ROTATING.md. Repro: scripts/22_rot_fit.py (truth tables
+rot_truth_holdout.json, rot_truth_holdout2.json).

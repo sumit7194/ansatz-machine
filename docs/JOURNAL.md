@@ -6,6 +6,46 @@ built, what broke, what the machine taught us. Numbers live in
 
 ---
 
+## 2026-06-12 (night) — v5 COMPLETE: R0′ + R2 audited, R2 protocol repaired, VM hunting 8+1..12+1
+
+- **Context:** R0′ (`21_rot_fingerprint.py`, commit 039a9f7) and R2
+  (`22_rot_fit.py`, commit 736b5bb) were banked by another session with
+  code + gate but NO docs. This session audited both, re-ran the full
+  11-battery gate fresh (ALL GREEN, including 21 at 204 s and 22 at
+  560 s), and wrote the honest record.
+- **R0′ audit verdict: real, with disclosed deviations.** What shipped
+  is a derive-and-verify at 3 exact on-shell rational probes (jets
+  solved from the static EdGB equations — the pre-registered "modulo
+  static EOM" wrinkle discharges automatically), not the registered
+  overdetermined linear-solve. The cross-product identity holds
+  EXACTLY at all probes ⇒ **κ_c = 1.0 is now a probe-level prediction**
+  and the v5 chain is self-contained. Deviations (3 probes, e^Γ(r₀)
+  gauge-fixed, empirically-found common factor) disclosed in
+  ROTATING.md.
+- **R2 audit found a protocol violation, now repaired:** the committed
+  version selected the winning structure by HOLDOUT error across the
+  printed grid (selection on the sealed holdout), and the holdout had
+  seen one structure iteration (the p¹ fix). Repair, pre-registered
+  before re-running: selection by TRAINING error only; frozen winner
+  scored once on p=0.7 (disclosed as consumed) and once on a FRESH
+  sealed p=0.75 holdout. Same winner either way. **Final: 4-number
+  formula, train 0.1321%, p=0.7: 0.1551%, fresh p=0.75: 0.1730%.**
+  The R2 prize stands, now bulletproof.
+- **VM mystery solved — pkill self-match, not (only) flaky ssh:**
+  `pkill -f <script>` inside a `gcloud ssh --command` matches the
+  remote wrapper shell's own command line and kills it → exit 255,
+  indistinguishable from a network drop. This is what killed
+  auto_pipeline.sh's expedition launch. Rules now in VM.md (named tmux
+  sessions; kill and launch in separate ssh calls, pattern assembled
+  at runtime).
+- **VM back to work:** repo pulled to 736b5bb, dashboard relaunched
+  (tmux `dash`), and a **high-ladder hunt launched** (tmux `ladder`,
+  `~/run_ladder_high.py`, logs to `ladder_high.log`): the 09 sweep
+  machinery aimed at 8+1 → 12+1, three Λ sectors — 15 rungs the
+  catalog has never seen. Also noted: the old roadmap's "wide
+  expedition running on the VM" never existed — 07 is a fixed 3-rung
+  battery and the launch had failed (see pkill bug above).
+
 ## 2026-06-12 (evening) — Gemini audit, R1 κ_c banked honestly, VM re-established, R0′ pre-registered
 
 - **VM bring-up complete (user-approved option 1):** `~/ansatz-machine`

@@ -30,8 +30,10 @@ structure; verified against literature by the research pass).
   built before any fitting).
 
 ## Status
-- [~] R0 (brute-force parked; R0′ fingerprint queued) · [x] R1
-  (shooting + κ_c=1.0 selected, calibrated to PC/AY) · [ ] R2
+- [x] R0′ (derive-and-verify at exact probes — see result section; the
+  brute-force R0 stays parked) · [x] R1 (shooting + κ_c=1.0, now
+  CONFIRMED by R0′) · [x] R2 (universal fit, two sealed holdouts —
+  see result + disclosure)
 
 ## Literature anchors (web-verified 2026-06-12)
 
@@ -122,3 +124,61 @@ vector-embedding intuition, 2026-06-12 discussion):
    probes beyond the solve must all verify (overdetermination check).
    On success: κ_c = 1.0 upgrades from calibration to PREDICTION, and
    the v5 chain is self-contained again.
+
+## R0′ result (2026-06-12, `21_rot_fingerprint.py`) — ALL GREEN, with honest deviations
+
+What shipped is a **derive-and-verify at exact probes**, stronger in one
+way and weaker in another than the registration above. It does NOT posit
+a monomial basis and linear-solve; instead it derives the operator
+directly per probe: build the perturbed metric as Taylor jets around an
+exact-rational r₀, solve the STATIC EdGB field equations for the higher
+jet coefficients (so every probe background is on-shell — this is what
+discharges the "modulo static EOM" wrinkle automatically), compute the
+O(ε²) action with an ε-graded curvature engine (intermediates stay
+probe-sized — the swell never happens, as predicted), vary in w, and
+read off G₂, G₃ exactly.
+
+Gates passed: cross-product `G₂ᵈᵉʳ·G₃ˡⁱᵗ − G₃ᵈᵉʳ·G₂ˡⁱᵗ = 0` **exactly**
+at 3 independent rational probes with nonzero coupling; GR limit
+`G₂/G₃ = 4/r − (Γ′+Λ′)/2` symbolically; common factor matches
+`(2/3)r₀²y₀^{−3/2}` (an overall factor is gauge for the quadrature —
+the ratio is what the physics uses).
+
+Deviations from the registration, disclosed: (1) no overdetermined
+linear solve / held-out probes — the "G0" gate as implemented is 3
+exact probe identities, not the registered N−K verification; (2)
+e^Γ(r₀) is fixed to 1 in all probes (defensible as time-rescaling
+gauge, untested); (3) the expected common factor was identified
+empirically on the first probe, then verified exactly on all three.
+Net: the PC transcription is now SELF-DERIVED at exact on-shell probe
+points — κ_c = 1.0 stands as a probe-level prediction, not a mere
+calibration. A full symbolic-form recovery (the registered linear-solve
+version) remains available if ever needed.
+
+## R2 result (2026-06-12, `22_rot_fit.py`) — the universal rotating formula, two sealed holdouts
+
+**Disclosure first (criteria-integrity):** the first committed version
+selected the winning structure by HOLDOUT error across a printed
+6-combination grid — model selection on the sealed holdout, exactly the
+post-hoc sin these docs forbid; the p=0.7 holdout also saw at least one
+structure iteration (the p¹ scaling fix). Caught in audit, repaired
+with a pre-registered protocol: winner selected by TRAINING error only
+(holdouts never consulted during selection); frozen winner scored ONCE
+on p=0.7 (disclosed as consumed) and ONCE on a FRESH sealed p=0.75
+holdout built before any fitting. The train-selected winner is the
+identical formula — and the fresh holdout is the number that counts.
+
+With x ≡ 1 − r_h/r and H ≡ ω·r³/(2J):
+
+    H(x, p) = 1 + (1 − x)²·a₁(p) / (1 + a₂(p)·x)
+    a₁(p) = −0.119480·p − 0.006615·p²
+    a₂(p) = +8.296716·p − 5.306262·p²
+
+**Four numbers.** Horizon-regular by construction; → 2J/r³ as p→0 by
+construction (a_i ∝ p). Scoreboard (max relative deviation, exterior to
+50 r_h): training p ∈ [0.1, 0.6]: 0.1321%; p=0.7 holdout: 0.1551%
+(consumed — reported, not load-bearing); **p=0.75 fresh sealed holdout:
+0.1730%** — true extrapolation past both the training family and the
+original holdout. The gap stands closed: no closed-form slow-rotating
+EdGB frame-dragging profile existed in the literature. Truth tables:
+`rot_truth_holdout.json`, `rot_truth_holdout2.json`.
