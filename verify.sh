@@ -15,6 +15,7 @@ NAMES+=("04 campaign");           CMDS+=("scripts/04_campaign.py")
 [ -f scripts/08_stationary.py ] && { NAMES+=("08 stationary hall"); CMDS+=("scripts/08_stationary.py --quick"); }
 [ -f scripts/10_edgb_reduce.py ] && { NAMES+=("10 EdGB E0 (vs Kanti)"); CMDS+=("scripts/10_edgb_reduce.py"); }
 [ -f scripts/21_rot_fingerprint.py ] && { NAMES+=("21 rotating fingerprint"); CMDS+=("scripts/21_rot_fingerprint.py"); }
+[ -f scripts/22_rot_fit.py ] && { NAMES+=("22 rotating universal fit"); CMDS+=("scripts/22_rot_fit.py"); }
 
 fail=0
 for i in "${!NAMES[@]}"; do
