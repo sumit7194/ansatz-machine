@@ -132,3 +132,34 @@ MAGNITUDE of the physical effect (here: max|ω| ≥ 1e-2 at samples), and the
 finisher must be able to complete structures (D14). Expect every new hall
 to produce its own evasion catalog — optimization pressure finds gauge
 loopholes reliably; that is data, not annoyance.
+
+**D19 — Prove before you search (the oracle rule).** Bought by: the VM
+high-ladder hunt was spending ~12–17 min of genetic search per rung on
+8+1..12+1 static vacuum — rungs whose answer is predictable from one
+pattern (the Tangherlini family). The verifier can PROVE the predicted
+family for a rung in seconds-to-a-minute (scripts/23_ladder_oracle.py),
+and the proof is the identical theorem the hunt would have produced.
+Rule: when a hall's outcome is predictable, prove the prediction first;
+spend search compute only where predictions fail or don't exist. The
+search machinery's job shifts to blind CROSS-CHECKS of oracle claims
+(memoryless hunt, graded against the proved family — a mismatch would
+be the discovery).
+
+**D20 — Regression batteries verify the banked artifact; they never
+re-derive it.** Bought by: battery 22 re-ran the full R2 grid search
+(~9 min) on every gate run — slow, and a silent re-fit could drift from
+the published formula without anyone noticing. Now the winning
+coefficients are FROZEN in the script and the battery just re-scores
+them against the stored truth tables (0.3 s, deterministic, asserts the
+recorded numbers). Re-derivation lives behind --refit. Batteries that
+genuinely re-verify mathematics from scratch (01, 10, 21) are exempt —
+re-deriving IS their job.
+
+**D21 — Sealed-holdout access goes through the ledger.** Bought by: two
+criteria-integrity violations in two days (the Gemini post-hoc
+threshold; R2's selection-by-holdout), both caught only by human audit.
+scripts/sealed_holdout.py now enforces the protocol structurally: truth
+data is sealed once; the first candidate scored is locked in; scoring a
+different candidate raises unless an override REASON is recorded
+forever in the .ledger.json next to the truth file. Audits are the last
+line of defense, not the only one.

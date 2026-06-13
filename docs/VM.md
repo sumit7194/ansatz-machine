@@ -28,9 +28,15 @@ cores, run N hunts (`xargs -P`), still niced.
 
 ## Dashboard (the standing practice)
 
+The status server is `scripts/ansatz_status.py` — deliberately NOT named
+`dashboard.py`: other projects on a shared box run their own dashboard.py,
+and a cross-project `pkill -f dashboard.py` was killing ours. This name
+shares no substring with it, so a generic kill can't match. Launch in a
+named tmux session and stop it by session name, never by `pkill -f`:
+
 ```bash
-nice -n 19 setsid bash -c \
-  '.venv/bin/python scripts/dashboard.py >> dashboard.log 2>&1' & disown
+tmux new-session -d -s dash \
+  'cd ~/ansatz-machine && nice -n 19 .venv/bin/python scripts/ansatz_status.py >> status.log 2>&1'
 ```
 
 Serves `http://<VM_EXTERNAL_IP>:8080` — running hunts, log tails, the

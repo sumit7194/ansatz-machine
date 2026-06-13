@@ -24,6 +24,20 @@ Protocol (repaired 2026-06-12 — criteria-integrity disclosure):
        holdout built before any fitting and used in nothing else.
     3. Gate: both holdout errors < 1%. Fallback only if the p=0.75
        background shoot itself fails: p=0.65, disclosed.
+
+Modes (verify-don't-refit change, 2026-06-12):
+  default      VERIFY the banked formula: score the FROZEN winning
+               coefficients against the two sealed truth tables and
+               assert the recorded numbers. Seconds, deterministic —
+               a regression test should test the banked artifact, not
+               re-derive it (a silent re-fit could drift from what the
+               docs claim). Holdout access goes through the
+               sealed_holdout ledger.
+  --refit      Re-run the full grid search (training-error selection).
+               Final holdout scoring still goes through the ledger: an
+               identical re-derived winner re-scores fine; a DIFFERENT
+               winner is refused without fresh seals or a recorded
+               override — by design.
 """
 
 import importlib.util
@@ -31,15 +45,33 @@ import json
 import math
 import os
 import random
+import sys
 import sympy as sp
 
 _here = os.path.dirname(os.path.abspath(__file__))
 
-# Import slow-rotation shooting code
-_spec = importlib.util.spec_from_file_location(
-    "rot_shoot", os.path.join(_here, "20_rot_shoot.py"))
-m20 = importlib.util.module_from_spec(_spec)
-_spec.loader.exec_module(m20)
+
+def _load_module(name, fname):
+    spec = importlib.util.spec_from_file_location(
+        name, os.path.join(_here, fname))
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod
+
+
+sh = _load_module("sealed_holdout", "sealed_holdout.py")
+
+_m20 = None
+
+
+def m20_lazy():
+    """The shooting code is only needed to (re)build truth tables —
+    load it lazily so verify mode stays instant."""
+    global _m20
+    if _m20 is None:
+        _m20 = _load_module("rot_shoot", "20_rot_shoot.py")
+    return _m20
+
 
 HOLDOUT_PATH = os.path.join(_here, "..", "rot_truth_holdout.json")
 HOLDOUT2_PATH = os.path.join(_here, "..", "rot_truth_holdout2.json")
@@ -48,8 +80,20 @@ P_HOLD = 0.7
 P_HOLD2 = 0.75
 R_FIT_MAX = 50.0
 
+# --- THE BANKED FORMULA (frozen 2026-06-12, commit 8dbf03d) ---------------
+# H(x, p) = 1 + (1 - x)^2 * a1(p) / (1 + a2(p) * x),  x = 1 - r_h/r,
+# H = omega * r^3 / (2J).  Errors are max relative deviation vs truth.
+FROZEN_A1 = (-0.119480, -0.006615)   # a1(p) = c1*p + c2*p^2
+FROZEN_A2 = (+8.296716, -5.306262)   # a2(p) = c1*p + c2*p^2
+FROZEN_EXPECT = {                    # recorded when banked
+    HOLDOUT_PATH: 0.00155140,        # p=0.70: 0.1551%
+    HOLDOUT2_PATH: 0.00173039,       # p=0.75: 0.1730%
+}
+FROZEN_TOL = 1e-5                    # absolute tolerance on the error value
+
 
 def generate_profile(p, subsample=True):
+    m20 = m20_lazy()
     M, rows = m20.background(p)
     rs, om = m20.omega_profile(rows, kc=1.0)
     J = m20.J_from_tail(rs, om)
@@ -280,7 +324,38 @@ def score_holdout(holdout, uni_coeffs, is_r1):
         return float("inf")
 
 
-def main():
+def verify_main():
+    """Default mode: verify the BANKED formula against the sealed truth
+    tables. Fast, deterministic, ledger-guarded."""
+    frozen = [list(FROZEN_A1), list(FROZEN_A2)]
+    cand = sh.candidate_fingerprint(frozen)
+    print("Verifying the banked R2 formula (frozen coefficients, "
+          f"candidate {cand})...")
+    ok = True
+    for path in (HOLDOUT_PATH, HOLDOUT2_PATH):
+        if not os.path.exists(path):
+            print(f"  ❌ missing truth table {path} — run --refit machinery"
+                  " to rebuild")
+            ok = False
+            continue
+        err = sh.score_once(
+            path, cand,
+            lambda truth: score_holdout(truth, frozen, is_r1=False))
+        want = FROZEN_EXPECT[path]
+        good = abs(err - want) < FROZEN_TOL and err < 0.01
+        ok = ok and good
+        with open(path) as fh:
+            p_val = json.load(fh)["p"]
+        print(f"  {'✓' if good else '✗✗'} holdout p={p_val}: "
+              f"max err {err:.4%} (banked: {want:.4%})")
+    print("\nVERDICT: " + ("ALL GREEN ✅ banked formula reproduces its "
+                           "recorded holdout scores" if ok else
+                           "FAILURES ❌ banked formula does not reproduce "
+                           "its recorded scores"))
+    return 0 if ok else 1
+
+
+def refit_main():
     # Seal BOTH holdouts before any fitting. Neither is consulted again
     # until the winner is frozen.
     holdout = build_and_seal_holdout(HOLDOUT_PATH, P_HOLD)
@@ -354,9 +429,20 @@ def main():
     for r in results:
         print(f"  {r['name']} ({r['num_coeffs']} coeffs/a): train={r['train_err']:.4%}")
 
-    # Frozen winner: score each sealed holdout exactly once.
-    holdout_err = score_holdout(holdout, best["coeffs"], best["is_r1"])
-    holdout2_err = score_holdout(holdout2, best["coeffs"], best["is_r1"])
+    # Frozen winner: score each sealed holdout exactly once, through the
+    # ledger (an identical re-derived winner re-scores fine; a different
+    # one is refused without fresh seals or a recorded override). The
+    # banked artifact is the 6-decimal published formula, so round before
+    # fingerprinting/scoring — a deterministic refit then reproduces the
+    # frozen candidate exactly.
+    best["coeffs"] = [[round(c, 6) for c in row] for row in best["coeffs"]]
+    cand = sh.candidate_fingerprint(best["coeffs"])
+    holdout_err = sh.score_once(
+        HOLDOUT_PATH, cand,
+        lambda t: score_holdout(t, best["coeffs"], best["is_r1"]))
+    holdout2_err = sh.score_once(
+        HOLDOUT2_PATH, cand,
+        lambda t: score_holdout(t, best["coeffs"], best["is_r1"]))
 
     print("\n========================================================")
     print(f"WINNING COMBINATION (by training error): {best['name']} ({best['num_coeffs']} coeffs/a)")
@@ -385,4 +471,6 @@ def main():
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    if "--refit" in sys.argv:
+        raise SystemExit(refit_main())
+    raise SystemExit(verify_main())

@@ -389,11 +389,62 @@ def rediscover(label, n, Lambda, catalog, seed=0, pop_size=300,
     return None
 
 
-def run_with_restarts(label, n, Lambda, catalog, seeds=(0, 1, 2), **kw):
+def run_with_restarts(label, n, Lambda, catalog, seeds=(0, 1, 2),
+                      workers=None, **kw):
+    """Try seeds until one finds an exact hit.
+
+    Default: sequential (deterministic — same seed order every run; the
+    regression batteries rely on this). With workers=N > 1, seeds run as
+    N parallel forked processes and the FIRST success wins. Honest note:
+    which seed wins can vary run-to-run with completion order — fine for
+    hunts (any find is verifier-proved regardless of the seed that found
+    it), wrong for regression batteries, so parallel stays opt-in."""
+    if workers and workers > 1 and len(seeds) > 1:
+        return _run_seeds_parallel(label, n, Lambda, catalog, seeds,
+                                   workers, **kw)
     for s in seeds:
         out = rediscover(label, n, Lambda, catalog, seed=s, **kw)
         if out:
             return out
+    return None
+
+
+def _run_seeds_parallel(label, n, Lambda, catalog, seeds, workers, **kw):
+    import multiprocessing as mp
+    import queue as _queue
+    ctx = mp.get_context("fork")  # fork: children inherit loaded modules
+    q = ctx.Queue()
+
+    def _worker(s):
+        try:
+            q.put((s, rediscover(label, n, Lambda, catalog, seed=s, **kw)))
+        except Exception:
+            q.put((s, None))
+
+    pending = list(seeds)
+    running = {}
+    try:
+        while pending or running:
+            while pending and len(running) < workers:
+                s = pending.pop(0)
+                p = ctx.Process(target=_worker, args=(s,), daemon=True)
+                p.start()
+                running[s] = p
+            try:
+                s_done, out = q.get(timeout=15)
+            except _queue.Empty:
+                # reap workers that died without reporting (counts as a miss)
+                for s, p in list(running.items()):
+                    if not p.is_alive():
+                        running.pop(s).join()
+                continue
+            if s_done in running:
+                running.pop(s_done).join()
+            if out:
+                return out
+    finally:
+        for p in running.values():
+            p.terminate()
     return None
 
 

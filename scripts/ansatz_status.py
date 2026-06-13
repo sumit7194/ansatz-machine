@@ -1,16 +1,21 @@
 #!/usr/bin/env python3
-"""Read-only status dashboard for long unattended runs (VM practice).
+"""Read-only status panel for long unattended runs (the project dashboard).
+
+Named ansatz_status.py (not dashboard.py) on purpose: other projects on
+the same machine run their own dashboard.py, and a cross-project
+`pkill -f dashboard.py` was killing ours. The filename here contains no
+"dashboard" substring so a generic kill from another project can't match.
 
 Serves one auto-refreshing HTML page on PORT (default 8080): an overview
-band (machine state, catalog size, gate verdict, live hunts), the running
-hunts, the parsed gate batteries, the discovery catalog, recent log tails
-with freshness, and the latest journal entry.
+band (machine state, catalog size, gate verdict, live hunts), a plain-
+English "what's happening" card, the running hunts, the parsed gate
+batteries, the discovery catalog, recent log tails, latest journal entry.
 
 Security model: READ-ONLY (no exec endpoints, no query handling beyond
 GET /), meant to sit behind a GCP firewall rule scoped to one source IP
 (see docs/VM.md). Standard library only — no new dependencies.
 
-Run:  nohup .venv/bin/python scripts/dashboard.py >/dev/null 2>&1 &
+Run:  nohup .venv/bin/python scripts/ansatz_status.py >/dev/null 2>&1 &
 """
 
 import glob
@@ -24,13 +29,85 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PORT = int(os.environ.get("PORT", "8080"))
+HOST = os.environ.get("HOST", "0.0.0.0")
 TAIL_LINES = 22
 REFRESH = 30
 
 # --- data gathering -------------------------------------------------------
 
-_HUNT_RE = re.compile(r"scripts/\d+_")
+_HUNT_RE = re.compile(r"scripts/[A-Za-z0-9_]+\.py")
 _GATE_RE = re.compile(r"(PASS|FAIL)\s+(\d+\s+.+?)\s+\((\d+)s\)")
+_SECS_RE = re.compile(r"\((\d+(?:\.\d+)?)s\)")
+_FRAC_RE = re.compile(r"\[(\d+)/(\d+)\]")  # explicit "i of N" progress
+
+# Long-running jobs the dashboard can narrate in plain English:
+# script name -> friendly title, one-line description, log file in ROOT,
+# per-step "done" marker, expected total steps.
+JOBS = {
+    "23_ladder_oracle.py": {
+        "title": "Ladder oracle",
+        "plain": "proving the predicted formula on each rung directly — "
+                 "no searching, each ✅ is a finished theorem",
+        "log": "oracle.log",
+        "done_re": re.compile(r"^\s*(✅|✓|❌)"),
+        "total": 15,
+    },
+    "98_blind_crosscheck.py": {
+        "title": "Blind cross-check",
+        "plain": "hunting with catalog memory switched OFF, then grading "
+                 "each find against the proved families — a mismatch would "
+                 "be big news",
+        "log": "blind_crosscheck.log",
+        "done_re": re.compile(r"^\s*(MATCH|⚠ UNEXPECTED|NULL)"),
+        "total": 15,
+    },
+    "99_ladder_high.py": {
+        "title": "High-ladder hunt",
+        "plain": "genetic search across uncharted high-dimension rungs",
+        "log": "ladder_high.log",
+        "done_re": re.compile(r"^\s*(GREW|KNOWN|NULL|GROWTH FAILED)"),
+        "total": 15,
+    },
+    "cache_profiles.py": {
+        "title": "Caching fingerprints",
+        "plain": "computing each proved family's curvature fingerprint so "
+                 "recognition is instant later — the slow one-time step",
+        "log": "cache.log",
+        "done_re": re.compile(r"^\s*\[\d+/\d+\]"),
+        "total": 15,
+    },
+}
+
+
+def _job_progress(spec):
+    """(done, total, last_line, eta_s) parsed from the job's log.
+
+    Steps are counted as DISTINCT rung labels (the text between the
+    done-marker and the first ':'), so a log that accumulates output
+    from restarts — including 'skipping' lines — never double-counts."""
+    path = os.path.join(ROOT, spec["log"])
+    labels, last, secs = set(), "", []
+    frac = None  # explicit "i of N" if the log prints it
+    total = spec["total"]
+    for ln in _tail(path, 400):
+        m = spec["done_re"].match(ln)
+        if m:
+            labels.add(ln[m.end():].split(":", 1)[0].strip())
+            last = ln.strip()
+            t = _SECS_RE.search(ln)
+            if t:
+                secs.append(float(t.group(1)))
+            fm = _FRAC_RE.search(ln)
+            if fm:
+                frac, total = int(fm.group(1)), int(fm.group(2))
+    # prefer the explicit counter (robust when every step shares a label);
+    # else count distinct labels (robust to restarts re-logging old steps)
+    done = frac if frac is not None else len(labels)
+    eta = None
+    remaining = total - done
+    if secs and remaining > 0:
+        eta = int(sum(secs[-3:]) / len(secs[-3:]) * remaining)
+    return done, total, last, eta
 
 
 def _tail(path, n=TAIL_LINES):
@@ -45,6 +122,20 @@ def _tail(path, n=TAIL_LINES):
         return []
 
 
+def _repo_logs():
+    """(path, mtime) for readable *.log files in ROOT, newest first.
+    Skips dangling symlinks / vanished files — a log can disappear
+    between glob and stat (e.g. a /tmp target wiped by a reboot), and
+    one dead file must never crash the whole page."""
+    out = []
+    for p in glob.glob(os.path.join(ROOT, "*.log")):
+        try:
+            out.append((p, os.path.getmtime(p)))
+        except OSError:
+            continue
+    return sorted(out, key=lambda x: x[1], reverse=True)
+
+
 def _running_hunts():
     """Return [(pid, elapsed, cpu, script), ...] for numbered hunt scripts."""
     try:
@@ -57,16 +148,43 @@ def _running_hunts():
     for ln in out.splitlines():
         if not _HUNT_RE.search(ln) or "python" not in ln.lower():
             continue
-        if "dashboard" in ln:
+        if "ansatz_status" in ln:  # never list this status server itself
             continue
         parts = ln.split(None, 3)
         if len(parts) < 4:
             continue
         pid, etime, cpu, cmd = parts
-        m = re.search(r"scripts/(\d+_[a-zA-Z0-9_]+\.py)", cmd)
+        m = re.search(r"scripts/([A-Za-z0-9_]+\.py)", cmd)
         script = m.group(1) if m else cmd[:48]
+        # only THIS repo's scripts — other projects also keep numbered
+        # scripts in a scripts/ dir and would otherwise be miscounted
+        if m and not os.path.exists(os.path.join(ROOT, "scripts", script)):
+            continue
         hunts.append((pid, etime, cpu, script))
-    return hunts
+    return _collapse_workers(hunts)
+
+
+def _collapse_workers(hunts):
+    """One parallel job forks many same-script worker processes; show it
+    as a SINGLE hunt (summed CPU, longest elapsed, worker count) instead
+    of N identical rows that read as N separate jobs."""
+    groups = {}
+    for pid, etime, cpu, script in hunts:
+        g = groups.setdefault(script, {"pids": [], "etime": etime,
+                                       "cpu": 0.0})
+        g["pids"].append(pid)
+        try:
+            g["cpu"] += float(cpu)
+        except ValueError:
+            pass
+        if len(etime) > len(g["etime"]):  # longest elapsed wins
+            g["etime"] = etime
+    out = []
+    for script, g in groups.items():
+        n = len(g["pids"])
+        cpu = f"{g['cpu']:.0f}" + (f" ×{n}" if n > 1 else "")
+        out.append((g["pids"][0], g["etime"], cpu, script))
+    return out
 
 
 def _gate():
@@ -240,6 +358,19 @@ pre{font-family:var(--mono);font-size:12px;line-height:1.55;
 .logs summary::before{content:"▸";color:var(--tl);font-size:10px}
 .logs details[open] summary::before{content:"▾"}
 .logs summary .nm{font-weight:600}
+
+.now-item{margin-bottom:14px}
+.now-item:last-child{margin-bottom:0}
+.now-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.now-head b{font-size:14.5px}
+.now-meta{margin-left:auto;font-size:11.5px;color:var(--tl)}
+.now-plain{color:var(--tm);font-size:13px;margin:3px 0 8px}
+.now-last{font-size:11.5px;color:var(--tl);margin-top:7px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bar{height:8px;background:var(--s2);border:1px solid var(--bd);
+  border-radius:5px;overflow:hidden}
+.bar-fill{height:100%;background:linear-gradient(90deg,var(--accent),
+  var(--ok));border-radius:5px;transition:width .6s}
 """
 
 
@@ -276,6 +407,52 @@ def _hero(catalog, gate_batt, gate_verdict, hunts):
         f"<div class='{c}'><div class='k'>{k}</div>"
         f"<div class='v'>{v}</div></div>" for c, k, v in cards)
     return f"<div class='hero'>{inner}</div>"
+
+
+def _now_card(hunts):
+    """Plain-English 'what is happening right now', with progress bars
+    for jobs the dashboard knows how to narrate."""
+    items = []
+    narrated = set()
+    for pid, et, cpu, script in hunts:
+        spec = JOBS.get(script)
+        if not spec or script in narrated:
+            continue
+        narrated.add(script)
+        done, total, last, eta = _job_progress(spec)
+        pct = int(100 * done / total) if total else 0
+        eta_txt = ""
+        if eta:
+            eta_txt = (f" · roughly {eta // 3600}h {eta % 3600 // 60}m left"
+                       if eta >= 3600 else f" · roughly {eta // 60}m left")
+        last_html = (f"<div class='now-last mono'>latest: {_esc(last)}</div>"
+                     if last else "")
+        items.append(
+            f"<div class='now-item'>"
+            f"<div class='now-head'><b>{_esc(spec['title'])}</b>"
+            f"<span class='now-meta mono'>{done} of {total} done"
+            f"{eta_txt} · running {_esc(et)}</span></div>"
+            f"<div class='now-plain'>{_esc(spec['plain'])}</div>"
+            f"<div class='bar'><div class='bar-fill' style='width:{pct}%'>"
+            f"</div></div>{last_html}</div>")
+    for pid, et, cpu, script in hunts:
+        if script not in narrated and script not in JOBS:
+            items.append(
+                f"<div class='now-item'><div class='now-head'>"
+                f"<b>{_esc(script)}</b><span class='now-meta mono'>running "
+                f"{_esc(et)} · cpu {_esc(cpu)}%</span></div></div>")
+    if not items:
+        logs = _repo_logs()
+        if logs:
+            newest, mtime = logs[0]
+            _, txt = _freshness(int(time.time() - mtime))
+            items.append(f"<div class='now-plain'>Nothing running right "
+                         f"now. Last activity: {_esc(os.path.basename(newest))}"
+                         f", {txt}.</div>")
+        else:
+            items.append("<div class='now-plain'>Nothing running right now."
+                         "</div>")
+    return _card("what's happening", "".join(items))
 
 
 def _hunts_card(hunts):
@@ -331,13 +508,12 @@ def _catalog_card(catalog):
 
 
 def _logs_card():
-    logs = sorted(glob.glob(os.path.join(ROOT, "*.log")),
-                  key=os.path.getmtime, reverse=True)[:6]
+    logs = _repo_logs()[:6]
     if not logs:
         return _card("recent logs", _empty("no logs in repo root"))
     items = []
-    for i, lg in enumerate(logs):
-        age = int(time.time() - os.path.getmtime(lg))
+    for i, (lg, mtime) in enumerate(logs):
+        age = int(time.time() - mtime)
         cls, txt = _freshness(age)
         name = os.path.basename(lg)
         tail = "\n".join(_tail(lg))
@@ -377,6 +553,7 @@ def render():
         f"{time.strftime('%Y-%m-%d %H:%M:%S')} · refresh {REFRESH}s</div>"
         "</div>",
         _hero(catalog, batt, verdict, hunts),
+        _now_card(hunts),
         _hunts_card(hunts),
         _gate_card(batt, verdict, gate_age),
         _catalog_card(catalog),
@@ -401,5 +578,5 @@ class Handler(BaseHTTPRequestHandler):
 
 
 if __name__ == "__main__":
-    print(f"dashboard on 0.0.0.0:{PORT} (read-only)")
-    ThreadingHTTPServer(("0.0.0.0", PORT), Handler).serve_forever()
+    print(f"dashboard on {HOST}:{PORT} (read-only)")
+    ThreadingHTTPServer((HOST, PORT), Handler).serve_forever()
