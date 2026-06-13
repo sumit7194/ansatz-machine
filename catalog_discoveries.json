@@ -207,7 +207,12 @@
     "params": [
       "c1"
     ],
-    "provenance": "ladder oracle (predicted + proved, 2026-06-12)"
+    "provenance": "ladder oracle (predicted + proved, 2026-06-12)",
+    "profile": {
+      "R": "Integer(0)",
+      "K": "Mul(Integer(4032), Pow(Symbol('c1', real=True), Integer(2)), Pow(Symbol('r', positive=True), Integer(-18)))",
+      "G1": "Mul(Integer(5267275776), Pow(Symbol('c1', real=True), Integer(4)), Pow(Symbol('r', positive=True), Integer(-45)), Add(Symbol('c1', real=True), Pow(Symbol('r', positive=True), Integer(7))))"
+    }
   },
   {
     "name": "discovered: 9+1, \u039b=-1, f = c1/r**7 + r**2/36 + 1",
@@ -267,7 +272,12 @@
     "params": [
       "c1"
     ],
-    "provenance": "ladder oracle (predicted + proved, 2026-06-12)"
+    "provenance": "ladder oracle (predicted + proved, 2026-06-12)",
+    "profile": {
+      "R": "Integer(0)",
+      "K": "Mul(Integer(9900), Pow(Symbol('c1', real=True), Integer(2)), Pow(Symbol('r', positive=True), Integer(-22)))",
+      "G1": "Mul(Integer(47436840000), Pow(Symbol('c1', real=True), Integer(4)), Pow(Symbol('r', positive=True), Integer(-55)), Add(Symbol('c1', real=True), Pow(Symbol('r', positive=True), Integer(9))))"
+    }
   },
   {
     "name": "discovered: 11+1, \u039b=-1, f = c1/r**9 + r**2/55 + 1",
