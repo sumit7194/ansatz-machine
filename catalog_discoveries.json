@@ -163,5 +163,160 @@
       "K": "Add(Mul(Integer(1260), Pow(Symbol('c1', real=True), Integer(2)), Pow(Symbol('r', positive=True), Integer(-14))), Rational(1, 7))",
       "G1": "Mul(Integer(11113200), Pow(Symbol('c1', real=True), Integer(4)), Pow(Symbol('r', positive=True), Integer(-35)), Add(Mul(Integer(28), Symbol('c1', real=True)), Mul(Integer(-1), Pow(Symbol('r', positive=True), Integer(7))), Mul(Integer(28), Pow(Symbol('r', positive=True), Integer(5)))))"
     }
+  },
+  {
+    "name": "discovered: 8+1, \u039b=0, f = c1/r**6 + 1",
+    "n": 9,
+    "Lambda": "0",
+    "f": "c1/r**6 + 1",
+    "params": [
+      "c1"
+    ],
+    "provenance": "ladder oracle (predicted + proved, 2026-06-12)",
+    "profile": {
+      "R": "Integer(0)",
+      "K": "Mul(Integer(2352), Pow(Symbol('c1', real=True), Integer(2)), Pow(Symbol('r', positive=True), Integer(-16)))",
+      "G1": "Mul(Integer(1416167424), Pow(Symbol('c1', real=True), Integer(4)), Pow(Symbol('r', positive=True), Integer(-40)), Add(Symbol('c1', real=True), Pow(Symbol('r', positive=True), Integer(6))))"
+    }
+  },
+  {
+    "name": "discovered: 8+1, \u039b=-1, f = c1/r**6 + r**2/28 + 1",
+    "n": 9,
+    "Lambda": "-1",
+    "f": "c1/r**6 + r**2/28 + 1",
+    "params": [
+      "c1"
+    ],
+    "provenance": "ladder oracle (predicted + proved, 2026-06-12)"
+  },
+  {
+    "name": "discovered: 8+1, \u039b=3/4, f = c1/r**6 - 3*r**2/112 + 1",
+    "n": 9,
+    "Lambda": "3/4",
+    "f": "c1/r**6 - 3*r**2/112 + 1",
+    "params": [
+      "c1"
+    ],
+    "provenance": "ladder oracle (predicted + proved, 2026-06-12)"
+  },
+  {
+    "name": "discovered: 9+1, \u039b=0, f = c1/r**7 + 1",
+    "n": 10,
+    "Lambda": "0",
+    "f": "c1/r**7 + 1",
+    "params": [
+      "c1"
+    ],
+    "provenance": "ladder oracle (predicted + proved, 2026-06-12)"
+  },
+  {
+    "name": "discovered: 9+1, \u039b=-1, f = c1/r**7 + r**2/36 + 1",
+    "n": 10,
+    "Lambda": "-1",
+    "f": "c1/r**7 + r**2/36 + 1",
+    "params": [
+      "c1"
+    ],
+    "provenance": "ladder oracle (predicted + proved, 2026-06-12)"
+  },
+  {
+    "name": "discovered: 9+1, \u039b=3/4, f = c1/r**7 - r**2/48 + 1",
+    "n": 10,
+    "Lambda": "3/4",
+    "f": "c1/r**7 - r**2/48 + 1",
+    "params": [
+      "c1"
+    ],
+    "provenance": "ladder oracle (predicted + proved, 2026-06-12)"
+  },
+  {
+    "name": "discovered: 10+1, \u039b=0, f = c1/r**8 + 1",
+    "n": 11,
+    "Lambda": "0",
+    "f": "c1/r**8 + 1",
+    "params": [
+      "c1"
+    ],
+    "provenance": "ladder oracle (predicted + proved, 2026-06-12)"
+  },
+  {
+    "name": "discovered: 10+1, \u039b=-1, f = c1/r**8 + r**2/45 + 1",
+    "n": 11,
+    "Lambda": "-1",
+    "f": "c1/r**8 + r**2/45 + 1",
+    "params": [
+      "c1"
+    ],
+    "provenance": "ladder oracle (predicted + proved, 2026-06-12)"
+  },
+  {
+    "name": "discovered: 10+1, \u039b=3/4, f = c1/r**8 - r**2/60 + 1",
+    "n": 11,
+    "Lambda": "3/4",
+    "f": "c1/r**8 - r**2/60 + 1",
+    "params": [
+      "c1"
+    ],
+    "provenance": "ladder oracle (predicted + proved, 2026-06-12)"
+  },
+  {
+    "name": "discovered: 11+1, \u039b=0, f = c1/r**9 + 1",
+    "n": 12,
+    "Lambda": "0",
+    "f": "c1/r**9 + 1",
+    "params": [
+      "c1"
+    ],
+    "provenance": "ladder oracle (predicted + proved, 2026-06-12)"
+  },
+  {
+    "name": "discovered: 11+1, \u039b=-1, f = c1/r**9 + r**2/55 + 1",
+    "n": 12,
+    "Lambda": "-1",
+    "f": "c1/r**9 + r**2/55 + 1",
+    "params": [
+      "c1"
+    ],
+    "provenance": "ladder oracle (predicted + proved, 2026-06-12)"
+  },
+  {
+    "name": "discovered: 11+1, \u039b=3/4, f = c1/r**9 - 3*r**2/220 + 1",
+    "n": 12,
+    "Lambda": "3/4",
+    "f": "c1/r**9 - 3*r**2/220 + 1",
+    "params": [
+      "c1"
+    ],
+    "provenance": "ladder oracle (predicted + proved, 2026-06-12)"
+  },
+  {
+    "name": "discovered: 12+1, \u039b=0, f = c1/r**10 + 1",
+    "n": 13,
+    "Lambda": "0",
+    "f": "c1/r**10 + 1",
+    "params": [
+      "c1"
+    ],
+    "provenance": "ladder oracle (predicted + proved, 2026-06-12)"
+  },
+  {
+    "name": "discovered: 12+1, \u039b=-1, f = c1/r**10 + r**2/66 + 1",
+    "n": 13,
+    "Lambda": "-1",
+    "f": "c1/r**10 + r**2/66 + 1",
+    "params": [
+      "c1"
+    ],
+    "provenance": "ladder oracle (predicted + proved, 2026-06-12)"
+  },
+  {
+    "name": "discovered: 12+1, \u039b=3/4, f = c1/r**10 - r**2/88 + 1",
+    "n": 13,
+    "Lambda": "3/4",
+    "f": "c1/r**10 - r**2/88 + 1",
+    "params": [
+      "c1"
+    ],
+    "provenance": "ladder oracle (predicted + proved, 2026-06-12)"
   }
 ]
