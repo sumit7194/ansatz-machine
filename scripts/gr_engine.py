@@ -207,7 +207,13 @@ class Geometry:
                                   for p in range(n) for q in range(n)
                                   for r in range(n) for s in range(n))
                         K += Rdown[a][b][c][d] * Rup
-        return sp.cancel(sp.together(K))
+        # General (non-diagonal, e.g. Painlevé-Gullstrand, Kerr) path keeps
+        # full simplify: it must collapse coordinate-dependence that a bare
+        # cancel/together leaves behind (a θ-dependent K broke the P-G costume
+        # test), and these metrics are rare + small so simplify is affordable.
+        # The fast diagonal branch above is the only one that needed the
+        # cancel/together + angle-eval treatment.
+        return sp.simplify(K)
 
     def grad_invariant(self, scalar):
         """|∇S|² = g^{ab} ∂_a S ∂_b S — a differential invariant of any
