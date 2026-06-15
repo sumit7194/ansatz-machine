@@ -59,12 +59,9 @@ def _constraints(metric, coords, n, Lambda):
     return list(eqs)
 
 
-def count_free(f, n, consts, Lambda=sp.S.Zero, free_lambda=False):
-    """Return (num_free, {const: classification})."""
-    metric, coords, _ = build_ansatz_metric(n, f)
-    lam = sp.Symbol("Lambda", real=True) if free_lambda else Lambda
-    variables = list(consts) + ([lam] if free_lambda else [])
-    eqs = _constraints(metric, coords, n, lam)
+def count_free_metric(metric, coords, n, variables, Lambda):
+    """Core: count genuinely-free constants of an explicit metric."""
+    eqs = _constraints(metric, coords, n, Lambda)
     if not eqs:
         return len(variables), {v: "free (hair)" for v in variables}
     sol = sp.solve(eqs, variables, dict=True)
@@ -78,11 +75,31 @@ def count_free(f, n, consts, Lambda=sp.S.Zero, free_lambda=False):
             cls[v] = "free (hair)"
         else:
             val = sp.simplify(s[v])
-            if val.free_symbols & set(free):
-                cls[v] = f"secondary (= {val})"
-            else:
-                cls[v] = f"forced (= {val})"
+            cls[v] = (f"secondary (= {val})" if val.free_symbols & set(free)
+                      else f"forced (= {val})")
     return len(free), cls
+
+
+def count_free(f, n, consts, Lambda=sp.S.Zero, free_lambda=False):
+    """Count free constants of the static one-function ansatz f(r)."""
+    metric, coords, _ = build_ansatz_metric(n, f)
+    lam = sp.Symbol("Lambda", real=True) if free_lambda else Lambda
+    variables = list(consts) + ([lam] if free_lambda else [])
+    return count_free_metric(metric, coords, n, variables, lam)
+
+
+def rotating_btz(M, J):
+    """Rotating BTZ (ℓ=1, Λ=−1): a genuine 2-hair physical solution
+    (off-diagonal). g_tt = M − r² because the shift term r²(dφ+N^φdt)²
+    cancels the J²/(4r²) piece of −N²; g_tφ = −J/2."""
+    r = R_SYM
+    t, phi = sp.symbols("t phi", real=True)
+    g = sp.zeros(3, 3)
+    g[0, 0] = M - r**2
+    g[1, 1] = 1 / (-M + r**2 + J**2 / (4 * r**2))
+    g[2, 2] = r**2
+    g[0, 2] = g[2, 0] = -J / 2
+    return g, [t, r, phi]
 
 
 def main():
@@ -111,6 +128,18 @@ def main():
               f"{'✓' if ok else '✗'}")
         for v, c in cls.items():
             print(f"        {v}: {c}")
+
+    # multi-hair physical solution (off-diagonal, not the static ansatz):
+    Msym, Jsym = sp.symbols("M J", real=True)
+    g, coords = rotating_btz(Msym, Jsym)
+    nfree, cls = count_free_metric(g, coords, 3, [Msym, Jsym], sp.Integer(-1))
+    ok = (nfree == 2)
+    ok_all = ok_all and ok
+    print(f"  rotating BTZ 2+1  (off-diagonal, Λ=−1)  : free = {nfree}  "
+          f"(expected 2)  {'✓' if ok else '✗'}")
+    for v, c in cls.items():
+        print(f"        {v}: {c}")
+
     print(f"\nMETER VALIDATION: {'PASSED ✅' if ok_all else 'FAILED ❌'}")
     if ok_all:
         print("  → reads moduli/hair correctly: 0 (dS), 1 (Schwarzschild & SdS"

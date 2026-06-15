@@ -6,6 +6,32 @@ built, what broke, what the machine taught us. Numbers live in
 
 ---
 
+## 2026-06-14 — the irreducible-information meter (the abstractor, reframed + extended)
+
+- Built `26_information_meter.py`, the v6 reframe made concrete: point it at a
+  solution family and it reports how many constants are GENUINELY FREE (hair)
+  vs FORCED vs SECONDARY (determined by the free ones — the primary/secondary
+  distinction, e.g. EdGB's secondary dilaton charge). Glass-box: demand the
+  vacuum+Λ residual ≡ 0, reduce to equations on the constants, solve, count
+  survivors. No NN.
+- **Validated 0/1/2, including a real rotating black hole:** de Sitter → 0;
+  Schwarzschild (4D & 6D) → 1; Schwarzschild-dS → 1 with the r² coefficient
+  correctly tagged SECONDARY (= −Λ/3) — i.e. the meter rederived Birkhoff;
+  mass + floating Λ → 2; a fake 1/r² hair → rejected (forced to 0); and
+  **rotating BTZ (2+1, off-diagonal) → 2 (M, J)**. It even caught a
+  transcription bug in my first BTZ metric (forced J=0 on the wrong g_tt) —
+  it refuses a metric that isn't actually a solution. Added as verify.sh
+  battery.
+- **Honest dead-end found (where we chose to stop):** the instrument is solid,
+  but its NOVEL use — detecting a *surprising* secondary hair (a constant that
+  looks free but is forced, the genuinely-new thing) — needs CLOSED-FORM
+  modified-gravity solutions, and the marquee ones (EdGB, dCS) are
+  numerical-only, so the symbolic meter can't chew them. Crossing that needs
+  an engine extension to new sources/theories (e.g. Einstein-Maxwell →
+  charged 2-hair, or a closed-form modified theory) — a real next project, not
+  a one-night push. So tonight: instrument built + validated; next frontier
+  named.
+
 ## 2026-06-14 — relation hunt on the EdGB fit coefficients (honest null)
 
 - New `25_relation_hunt.py` (sibling of the abstractor, aimed at a family
