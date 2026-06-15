@@ -6,6 +6,25 @@ built, what broke, what the machine taught us. Numbers live in
 
 ---
 
+## 2026-06-16 (cont., autonomous) — the HAIR CRITERION: one principle unifies 28 and 32/33
+
+- Asked the obvious question after 32/33: scalars give NO hair, but Maxwell gives
+  the Q²/r² charge term (28) — WHY the difference? Found the single structural
+  reason and turned it into a predictor (`34_hair_criterion.py`).
+- The static lapse f(r) is pinned by ONE field-equation component, the angular
+  (θθ) Einstein equation `R_θθ − [2Λ/(n−2)]g_θθ = (source)_θθ`. Its left side is
+  the universal f-determining operator. So: **a static source adds hair ⇔ its
+  angular component (source)_θθ ≠ 0**, and the engine reads the extra term off
+  that one ODE.
+  - scalar φ(r): (source)_θθ = ∂_θφ = 0 → f forced to Tangherlini → NO HAIR;
+  - Maxwell A_t=Q/r: the engine computes T_θθ = Q²/(2r²) (f-INDEPENDENT, so the
+    angular eq is a clean ODE), and `dsolve` returns f = 1 − 2M/r + Q²/r² — **RN's
+    charge term DERIVED from the angular equation alone**, no GP needed.
+- So no-hair (32/33) and charge-hair (28) are the SAME mechanism read two ways.
+  The engine now doesn't just find/prove solutions — it reads off WHY one source
+  haired and another didn't. D26-compliant (a unifying principle, not a new source
+  rung). Battery 34 added.
+
 ## 2026-06-16 (cont., autonomous) — no-hair is STRUCTURAL: the proof generalizes across the ladder
 
 - Turned the abstractor lens (24) onto a THEOREM instead of a metric: ran the

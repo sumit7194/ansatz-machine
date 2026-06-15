@@ -441,6 +441,20 @@ for `φ'`. Dimension and Λ are spectators; the angular equation is the executio
 Same generalize-across-the-ladder move as 23/24 (D26-compliant — not a new source).
 Repro: `scripts/33_no_hair_ladder.py`.
 
+## 34 — the hair criterion (the engine reads off WHY)
+
+Why do scalars give no hair (32/33) while Maxwell gives the Q²/r² charge term
+(28)? `34_hair_criterion.py` extracts the single reason. The static lapse f(r) is
+pinned by one field-equation component — the angular (θθ) Einstein equation
+`R_θθ − [2Λ/(n−2)]g_θθ = (source)_θθ`, whose left side is the universal
+f-determining operator. Hence: **a static source adds hair ⇔ its angular component
+(source)_θθ ≠ 0**, and the engine reads the term off that ODE. For a static scalar
+`(source)_θθ = ∂_θφ = 0` → no hair; for Maxwell the engine computes
+`T_θθ = Q²/(2r²)` (f-independent), and `dsolve` returns `f = 1 − 2M/r + Q²/r²` —
+RN's charge term **derived from the angular equation alone**, no GP. No-hair and
+charge-hair are one mechanism read two ways; the engine now reads off not just the
+solution but the reason. Repro: `scripts/34_hair_criterion.py`.
+
 **Where the niche stands (own literature sweep, 2026-06-16).** Path 1 (automate
 the physical-vs-gauge / SPSM criterion) is closed: xCPS (arXiv:2606.05204, open
 source) already automates covariant phase space, Noether charges, and Wald

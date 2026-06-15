@@ -26,6 +26,7 @@ NAMES+=("04 campaign");           CMDS+=("scripts/04_campaign.py")
 [ -f scripts/31_matter_hunt.py ] && { NAMES+=("31 matter discovery (RN)"); CMDS+=("scripts/31_matter_hunt.py"); }
 [ -f scripts/32_no_hair.py ] && { NAMES+=("32 no-hair (proven + searched)"); CMDS+=("scripts/32_no_hair.py"); }
 [ -f scripts/33_no_hair_ladder.py ] && { NAMES+=("33 no-hair ladder (structural, any n,Λ)"); CMDS+=("scripts/33_no_hair_ladder.py"); }
+[ -f scripts/34_hair_criterion.py ] && { NAMES+=("34 hair criterion (no-hair⇔angular source)"); CMDS+=("scripts/34_hair_criterion.py"); }
 
 fail=0
 for i in "${!NAMES[@]}"; do
