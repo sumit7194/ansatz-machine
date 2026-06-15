@@ -77,3 +77,22 @@ Rules:
 - If pkill is unavoidable, put kill and launch in SEPARATE ssh calls and
   assemble the pattern at runtime so it never appears literally:
   `P="dash"; P="${P}board.py"; pkill -f "$P"`.
+
+## Probing a live long run without stopping it
+
+A single SymPy computation has no built-in progress meter, but you can peek at
+what a running worker is doing — read-only, pausing it only milliseconds — with
+`py-spy` (install user-level, NOT in the project venv: `python3 -m pip install
+--user py-spy`):
+
+```bash
+# what line + locals is PID stuck on right now (needs sudo for ptrace):
+sudo env "PATH=$PATH" ~/.local/bin/py-spy dump --pid <PID> --locals
+# is it actually progressing vs wedged? sample CPU ticks over a few seconds:
+awk '{print $14+$15}' /proc/<PID>/stat   # rising => burning CPU
+```
+
+This is how the 20-hour Kretschmann hang was diagnosed (stuck in `heugcd`
+inside `sp.simplify`) → the D22 fix. Persistence: keep run logs and ad-hoc
+scripts in the gitignored `runs/` dir (or repo root), never `/tmp` (wiped on
+reboot — it cost us a dashboard crash and confused several status checks).

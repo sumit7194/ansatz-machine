@@ -163,3 +163,40 @@ data is sealed once; the first candidate scored is locked in; scoring a
 different candidate raises unless an override REASON is recorded
 forever in the .ledger.json next to the truth file. Audits are the last
 line of defense, not the only one.
+
+**D22 — Diagonal metrics get a fast Kretschmann path; the general path keeps
+`simplify`.** Bought by: caching curvature fingerprints for the high-dimension
+catalog families stalled catastrophically — an n=9 AdS (Λ≠0) case ran >20
+CPU-hours unfinished, diagnosed live with `py-spy` as stuck in `heugcd` inside
+the final `sp.simplify(K)`. Three compounding costs, three fixes, all gated on
+`g.is_diagonal()` (every `build_ansatz_metric` metric is diagonal):
+(1) final reduction `simplify(K)` → `cancel(together(K))` — `simplify` drowns
+in multivariate-GCD blowup on Λ≠0 families; cancel/together gives the identical
+rational function in well under a second;
+(2) index contraction O(n⁸) → O(n⁴) — for a diagonal metric only the
+p=a,q=b,r=c,s=d term of the raise-all-indices sum survives;
+(3) angular swell — K is angle-independent (spherical symmetry), so evaluate
+the angles at a real regular point (`atan(3/4)`: all trig nonzero rational)
+before reducing, leaving K(r). Measured: n=9 AdS 19h-stuck → 2.4s; n=13 AdS
+~never → ~135s; exact match vs all previously-cached fingerprints. CRUCIAL
+SCOPE (regression caught by gate battery 02, then fixed): the general
+(non-diagonal) path — Painlevé-Gullstrand, Kerr — KEEPS full `simplify(K)`;
+cancel/together is too weak there (left a θ-dependent K, breaking the P-G
+costume test). Non-diagonal metrics are rare and small, so `simplify` is
+affordable; the fast path is diagonal-only. Lesson echoed: targeted reduction
+beats blanket simplify (D2/D4), but only where the structure (diagonality)
+guarantees it's sufficient.
+
+**D23 — Long compute lives on the always-on host; logs persist, never `/tmp`.**
+Bought by: repeated power losses on the Mac dev box wiped in-flight multi-hour
+runs, AND `/tmp` getting cleared on reboot left dangling log symlinks that
+crashed the dashboard. Consequences: (a) profile caching / long grinds default
+to the VM (cloud, no power loss) when they can't finish inside the Mac's
+uptime — though once the D22 fix made caching minutes-not-hours this mattered
+less; (b) run logs and ad-hoc scripts go in the gitignored `runs/` dir (or repo
+root), never `/tmp`; (c) the caching itself is resumable + atomic-write
+(temp-file + os.replace) so a power loss costs at most the one family in
+flight; (d) cross-machine results merge by strict union (`merge_catalogs.py`)
+so two machines can never erase each other's work. Live process state can be
+probed without stopping a run via `py-spy dump --pid <pid> --locals` (sampling;
+pauses only milliseconds).

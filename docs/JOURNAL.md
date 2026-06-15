@@ -6,6 +6,48 @@ built, what broke, what the machine taught us. Numbers live in
 
 ---
 
+## 2026-06-13/14 — high-D ladder proved + the Kretschmann speedup (hours/never → minutes)
+
+- **Process optimizations shipped** (commit ec07346): `sealed_holdout.py`
+  (structural guard — seal once, score one candidate, ledger every access;
+  D21); `22_rot_fit.py` defaults to VERIFYING the banked R2 formula vs the
+  sealed tables in 0.3 s instead of re-deriving it in ~9 min (D20);
+  `03_rediscover.py` optional parallel seeds; dashboard hardening; the
+  `ai-coding-standards` skill installed + adapted.
+- **Ladder oracle** (`23_ladder_oracle.py`, D19): instead of genetic-searching
+  the static-vacuum ladder, PREDICT the Tangherlini family per rung and PROVE
+  it directly — seconds-to-minutes vs ~15 min of GP. Proved all of 8+1..12+1 ×
+  {Λ=0,−1,+3/4}; catalog 11 → **26 machine-proved families** (committed
+  ca44082). Independently re-verified: every one is a real vacuum+Λ solution
+  via the verifier path (not the fingerprint), K angle-free, profile complete.
+- **The Kretschmann saga.** Caching the 26 families' curvature fingerprints
+  stalled catastrophically — a worker ran >20 CPU-hours on an n=9 *AdS* case
+  and never finished. Diagnosed LIVE with `py-spy dump --locals` (no stop):
+  stuck in `heugcd` inside the final `sp.simplify(K)`. Real cause was NOT
+  dimension but the cosmological-constant (Λ≠0) families. Three compounding
+  costs, three fixes, all gated on `g.is_diagonal()` (D22): simplify →
+  cancel(together); O(n⁸) → O(n⁴) index contraction collapse; and evaluate the
+  (angle-independent) K at a regular angle to kill trig swell. Measured: n=9
+  AdS 19h-stuck → 2.4 s; n=13 AdS ~never → ~135 s; **exact match vs all
+  previously-cached fingerprints** (commit d064640). All 11 remaining profiles
+  then cached in 94 min total — work projected at days/never (commit e93987f,
+  catalog now 26/26).
+- **Regression caught by the gate — then fixed** (commit 344d231): the speedup
+  commit had also changed the GENERAL (non-diagonal) path to cancel/together,
+  too weak there — it left a θ-dependent K and broke the Painlevé-Gullstrand
+  costume test (CANDIDATE_NEW instead of Schwarzschild). Reverted the general
+  path to `simplify`; the fast path is diagonal-only. **Gate ALL GREEN** (12
+  batteries). Honest note: two of my speedup attempts failed first (deferring
+  simplification made it WORSE — the documented expression-swell trap); the
+  win came from py-spy pinpointing the exact stuck line, then combining the
+  collapse + cancel/together + angle-eval, and validating before trusting.
+- **Infra learned the hard way** (D23): repeated Mac power losses + `/tmp`
+  wiped on reboot. Now: long compute prefers the always-on VM; logs/scratch
+  live in gitignored `runs/`, never `/tmp`; caching is resumable + atomic
+  (temp-file + os.replace), losing at most the one family in flight; cross-
+  machine results merge by strict union (`merge_catalogs.py`); live runs
+  probed with `py-spy` without stopping them.
+
 ## 2026-06-12 (night) — v5 COMPLETE: R0′ + R2 audited, R2 protocol repaired, VM hunting 8+1..12+1
 
 - **Context:** R0′ (`21_rot_fingerprint.py`, commit 039a9f7) and R2

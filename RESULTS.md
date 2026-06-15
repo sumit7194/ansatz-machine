@@ -349,3 +349,33 @@ holdout sealed before any fitting as the binding test. The
 train-selected winner is the identical formula. Full account in
 docs/ROTATING.md. Repro: scripts/22_rot_fit.py (truth tables
 rot_truth_holdout.json, rot_truth_holdout2.json).
+
+# v6 groundwork (2026-06-13/14): full static ladder proved + engine made fast
+
+## Catalog: 26 machine-proved families
+The static-vacuum ladder is fully banked. `23_ladder_oracle.py` (D19,
+prove-don't-search) proved the Tangherlini family on every rung 8+1..12+1 ×
+{Λ=0, −1, +3/4}, taking the catalog from 11 to **26 one-parameter families**,
+each re-verified as a genuine vacuum+Λ solution and each carrying a cached
+curvature fingerprint (R, K, |∇K|²). Gate ALL GREEN (12 batteries).
+
+## The Kretschmann engine fix — hours/never → minutes (D22)
+Caching the high-dimension fingerprints stalled catastrophically: an n=9 AdS
+(Λ≠0) case ran >20 CPU-hours unfinished. `py-spy` showed it stuck in `heugcd`
+inside the final `sp.simplify(K)`; the poison was Λ≠0, not dimension. Fix (for
+diagonal ansatz metrics only): `simplify`→`cancel(together)`, O(n⁸)→O(n⁴)
+contraction collapse, and angle-evaluation of the angle-independent K.
+
+| family | before | after |
+|---|---|---|
+| n=9 (8+1, AdS) | ~19 h, stuck | 2.4 s |
+| n=13 (12+1, AdS) | ~never | ~135 s |
+| all 11 remaining profiles | days / never | 94 min total |
+
+Exact match vs every previously-cached fingerprint. The general (non-diagonal:
+Kerr, Painlevé-Gullstrand) path deliberately KEEPS full `simplify` — a
+regression where cancel/together left a θ-dependent K (breaking the P-G costume
+test) was caught by gate battery 02 and fixed; the fast path is diagonal-only.
+Honest: two earlier speedup attempts failed (deferring simplification made it
+worse); py-spy's exact-line diagnosis is what cracked it. Repro: scripts/
+gr_engine.py (kretschmann), scripts/cache_profiles.py.
