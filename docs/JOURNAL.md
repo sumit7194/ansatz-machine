@@ -24,6 +24,14 @@ built, what broke, what the machine taught us. Numbers live in
   The engine now doesn't just find/prove solutions — it reads off WHY one source
   haired and another didn't. D26-compliant (a unifying principle, not a new source
   rung). Battery 34 added.
+- **And the criterion PREDICTS, not just explains.** Fed a magnetic charge (a field
+  config the engine had never solved): A_φ=−P cosθ. The engine computes T_θθ =
+  (Q²+P²)/(2r²) — f- and θ-independent, the sin²θ cancels — so the criterion
+  predicts magnetic charge hairs f exactly like electric (Q²→Q²+P²). `dsolve`
+  returns dyonic RN `f = 1−2M/r+(Q²+P²)/r²`, and that angular-derived f then passes
+  the FULL Einstein–Maxwell verifier (all components + ∇F). So: lapse fixed by ONE
+  equation, full system confirms it was sufficient. Magnetic≡electric in f is the
+  structural face of EM duality, and the engine derived it from the criterion.
 
 ## 2026-06-16 (cont., autonomous) — no-hair is STRUCTURAL: the proof generalizes across the ladder
 

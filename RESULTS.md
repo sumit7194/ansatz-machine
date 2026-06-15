@@ -453,7 +453,12 @@ f-determining operator. Hence: **a static source adds hair ⇔ its angular compo
 `T_θθ = Q²/(2r²)` (f-independent), and `dsolve` returns `f = 1 − 2M/r + Q²/r²` —
 RN's charge term **derived from the angular equation alone**, no GP. No-hair and
 charge-hair are one mechanism read two ways; the engine now reads off not just the
-solution but the reason. Repro: `scripts/34_hair_criterion.py`.
+solution but the reason. And the criterion **predicts** unseen cases: fed a magnetic
+charge (never solved by the engine), it computes `T_θθ = (Q²+P²)/(2r²)` and `dsolve`
+returns dyonic RN `f = 1 − 2M/r + (Q²+P²)/r²` — magnetic charge hairs f exactly like
+electric (the structural face of EM duality) — which then passes the FULL
+Einstein–Maxwell verifier, confirming the one-equation criterion is sound. Repro:
+`scripts/34_hair_criterion.py`.
 
 **Where the niche stands (own literature sweep, 2026-06-16).** Path 1 (automate
 the physical-vs-gauge / SPSM criterion) is closed: xCPS (arXiv:2606.05204, open

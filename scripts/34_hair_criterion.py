@@ -20,6 +20,13 @@ r²-ansatz, (n−3)(1−f) − r f' up to the Λ term). Therefore:
   • Maxwell A_t=Q/r:  T_θθ = Q²/(2r²) ≠ 0  (f-independent)  →  dsolve gives
                    f = 1 − 2M/r + Q²/r²  — RN, the charge term DERIVED.
 
+And it PREDICTS unseen cases: a magnetic charge (never solved by this engine)
+must hair the metric exactly like electric charge — T_θθ = (Q²+P²)/(2r²) → dsolve
+gives dyonic RN f = 1 − 2M/r + (Q²+P²)/r², which then passes the FULL
+Einstein–Maxwell verifier. (Magnetic ≡ electric in f is the structural face of
+EM duality.) The lapse is fixed by ONE equation, and the full-system check
+confirms that one equation was sufficient.
+
 So no-hair and charge-hair are the SAME mechanism read two ways. Not a new
 source rung (D26) — the unifying principle already latent in 28 and 32/33.
 
@@ -74,6 +81,28 @@ def maxwell_angular_source(Q, kappa=sp.Integer(2)):
     return kappa * Tang, (not Tang.has(f(r)))
 
 
+def dyonic_field(Q, P):
+    """Electric A_t=Q/r PLUS a magnetic monopole A_φ=−P cosθ (so F_θφ=P sinθ)."""
+    r = R_SYM
+    f = sp.Function("f")
+    metric, coords, _ = build_ansatz_metric(4, f(r))
+    th = coords[2]
+    return [Q / r, 0, 0, -P * sp.cos(th)], metric, coords
+
+
+def dyonic_angular_source(Q, P, kappa=sp.Integer(2)):
+    """κ T_θθ for the dyonic field, by the engine with f(r) symbolic. It comes
+    out κ(Q²+P²)/(2r²) — f- AND θ-independent — so magnetic charge enters the
+    angular ODE exactly like electric charge (the structural face of EM duality)."""
+    A, metric, coords = dyonic_field(Q, P)
+    geo = Geometry(metric, coords)
+    F = mx.faraday(A, coords)
+    Tang = sp.simplify(mx.em_stress(geo, F)[2, 2])
+    f = sp.Function("f")
+    clean = (not Tang.has(f(R_SYM))) and (not Tang.has(coords[2]))
+    return kappa * Tang, clean
+
+
 def main():
     r = R_SYM
     Q, M = sp.symbols("Q M", positive=True)
@@ -102,22 +131,31 @@ def main():
     print(f"     hair term beyond mass: {hair_term}   "
           f"→ {'CHARGE HAIR (RN), DERIVED ✅' if maxwell_hairy else 'unexpected ❌'}")
 
-    # 3) rigorous closing: the lapse was derived from ONE equation (angular) —
-    #    confirm it solves the FULL Einstein–Maxwell system (all components + ∇F).
-    f_rn = f_maxwell.subs(C1, -2 * M)         # name the integration constant the mass
-    metric, coords, _ = build_ansatz_metric(4, f_rn)
-    v, _d = mx.verify_em(metric, coords, [Q / r, 0, 0, 0], sp.Integer(2),
-                         params=(M, Q))
+    # 3) PREDICT an unseen case. The criterion says hair = whatever the angular
+    #    source injects — so a magnetic charge (never solved by our engine) should
+    #    hair the metric exactly like electric charge (Q²→Q²+P², dyonic RN). Derive
+    #    it from the angular eq, then confirm it solves the FULL system (the lapse
+    #    was fixed by ONE equation — this checks the one-equation criterion is sound).
+    P = sp.Symbol("P", positive=True)
+    d_src, d_clean = dyonic_angular_source(Q, P)
+    f_dyon = derive_lapse(d_src)
+    predicted = sp.simplify(f_dyon - (1 + C1 / r + (Q**2 + P**2) / r**2)) == 0
+    A_dyon, _, _ = dyonic_field(Q, P)
+    metric, coords, _ = build_ansatz_metric(4, f_dyon.subs(C1, -2 * M))
+    v, _d = mx.verify_em(metric, coords, A_dyon, sp.Integer(2), params=(M, Q, P))
     full_ok = (v == VERIFIED)
-    print(f"\n  closing check: the angular-derived f = 1−2M/r+Q²/r² solves the FULL")
-    print(f"  Einstein–Maxwell system (all components + ∇F): {v}  "
-          f"{'✅ angular eq was sufficient' if full_ok else '❌'}")
+    print(f"\n  PREDICT (magnetic charge — unseen by the engine): (source)_θθ = {d_src}")
+    print(f"     ⇒ angular eq forces f = {f_dyon}")
+    print(f"     criterion predicted Q²→Q²+P² (dyonic RN): {'✅' if predicted else '❌'}")
+    print(f"     and that angular-derived f solves the FULL Einstein–Maxwell system: "
+          f"{v}  {'✅ one-eq criterion sound' if full_ok else '❌'}")
 
     print("\n  criterion: a static source adds hair ⇔ its angular Einstein")
     print("  component (source)_θθ ≠ 0; the engine reads the extra term off that")
-    print("  one ODE. No-hair (32/33) and charge-hair (28) are one mechanism.")
+    print("  one ODE. No-hair (32/33) and charge-hair (28) are one mechanism, and")
+    print("  it PREDICTS new cases (magnetic charge → dyonic RN, verified).")
 
-    passed = scalar_hairless and maxwell_hairy and f_indep and full_ok
+    passed = scalar_hairless and maxwell_hairy and f_indep and d_clean and predicted and full_ok
     print(f"\nHAIR CRITERION: {'PASSED ✅' if passed else 'FAILED ❌'}")
     return 0 if passed else 1
 
