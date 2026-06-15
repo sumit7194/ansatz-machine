@@ -6,6 +6,25 @@ built, what broke, what the machine taught us. Numbers live in
 
 ---
 
+## 2026-06-14 — relation hunt on the EdGB fit coefficients (honest null)
+
+- New `25_relation_hunt.py` (sibling of the abstractor, aimed at a family
+  whose law is unknown): scans the EdGB universal-fit coefficient functions
+  for hidden exact relations — vanishing coefficients, equal/proportional
+  functions. Ran on both the clean 4-param static+rotating set and the
+  noisier 3-dof KKZ-class set.
+- **Result: clean NULL.** The only relations present are the two already
+  understood — (i) the GR limit (every correction coefficient → 0 as p→0,
+  confirmed for c1,c3,a1,a2 and the 3-dof numerators), and (ii) horizon
+  regularity (c1 ≈ 1.015·c3, 0.10% residual). No *new* algebraic relation
+  surfaced. So the empirical fit is "irreducible" at this level: its free
+  numbers are genuinely free, forced only by the physical limits we already
+  knew — there's no extra compressibility hiding there.
+- Value: validates the hunter (it re-finds the known structure precisely) and
+  closes the "hidden structure in the EdGB fit" thread honestly. The
+  orthogonal-lens search continues — this bounded probe came up empty, as most
+  do (the love-of-science 98%).
+
 ## 2026-06-14 — the abstractor: recover the meta-law across a family (new capability)
 
 - New step `24_abstractor.py`: reads a whole family of verified rungs and
