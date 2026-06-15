@@ -6,6 +6,25 @@ built, what broke, what the machine taught us. Numbers live in
 
 ---
 
+## 2026-06-15 (cont.) — Path 2: the discovery loop works in MATTER (rediscovers RN)
+
+- Turned the original propose→verify→evolve loop (GP over exact-rational f(r),
+  numeric residual fitness, symbolic proof) loose on a SOURCED theory for the
+  first time: Einstein–Maxwell with a unit-charge field A_t=Q/r, RN not supplied
+  (`31_matter_hunt.py`, reuses 03's GP + 28's EM machinery).
+- **Result:** in ~4 s the machine found f = 1 + 3/(4r) + 1/r², residual 1e-17,
+  and the exact verifier returned VERIFIED (R_ab=κT_ab and ∇F=0). The Q²/r²
+  charge term emerged unaided (coeff = Q² = 1); mass came out M=−3/8 (the
+  negative-mass branch the GP has always preferred). I.e. the loop AUTONOMOUSLY
+  DISCOVERED an exact Reissner–Nordström black hole in a matter theory.
+- **Honest scope:** RN is 1916–18 physics, so this is rediscovery (like the
+  vacuum campaign rediscovering Schwarzschild). What's new is the CAPABILITY —
+  the discovery loop now operates in sourced gravity, the genuinely-
+  unclaimed-by-machines thing (per the literature sweep, no competing
+  ML/symbolic exact-metric discovery exists). Battery 31 added.
+- Path 1 (automate the SPSM physical-vs-gauge criterion) is being scoped by the
+  external session in parallel; this is Path 2 (our hands).
+
 ## 2026-06-15 (cont.) — literature check: hair-lens is taken; discovery-engine still unclaimed
 
 - An external session ran a real literature sweep (so we stop redoing done work).

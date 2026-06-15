@@ -23,6 +23,7 @@ NAMES+=("04 campaign");           CMDS+=("scripts/04_campaign.py")
 [ -f scripts/28_maxwell.py ] && { NAMES+=("28 maxwell source (RN)"); CMDS+=("scripts/28_maxwell.py"); }
 [ -f scripts/29_matter_meter.py ] && { NAMES+=("29 matter meter (RN hair=2)"); CMDS+=("scripts/29_matter_meter.py"); }
 [ -f scripts/30_dilaton.py ] && { NAMES+=("30 dilaton (secondary hair)"); CMDS+=("scripts/30_dilaton.py"); }
+[ -f scripts/31_matter_hunt.py ] && { NAMES+=("31 matter discovery (RN)"); CMDS+=("scripts/31_matter_hunt.py"); }
 
 fail=0
 for i in "${!NAMES[@]}"; do
