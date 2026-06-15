@@ -215,3 +215,23 @@ UNKNOWN, while RN reads 2 and GHS reads 2-free-+-secondary. Same three-valued
 honesty the verifier (D3) and fingerprint already obey. NOTE: the meter counts
 free constants up to GAUGE — it does not yet mod out coordinate redundancy;
 treat a "free" count as an upper bound on physical hair until gauge-fixed.
+
+**D25 — The meter measures EOM-independence *modulo gauge*, NOT physical-vs-
+redundant; declare the blind spot.** Bought by an external literature review
+(2026-06-15): the hair/parameter-counting lens is a mature field, and the
+finer question — is a free constant a PHYSICAL charge, a GAUGE/moduli
+redundancy, or a residual-symmetry charge, and does it enter the first law —
+is formalized with an algorithm (Hajian–Sheikh-Jabbari, arXiv:1612.09279,
+"Redundant and Physical Black Hole Parameters"). Our meter answers only the
+COARSE question ("is X fixed by the field equations?"). It therefore (a)
+conflates gauge-redundant with EOM-secondary, and (b) is BLIND to
+symmetry-removable parameters that are not EOM-constrained — the canonical
+case being the asymptotic dilaton value φ₀, redundant by shift symmetry, which
+the meter would wrongly call free. Consequence: a meter "free" count is an
+UPPER BOUND on physical hair, declared as such; the physical-vs-gauge
+classification (the SPSM integrability/first-law criterion) is not implemented
+and is the only thing that would make the meter a genuine methods contribution
+rather than a coarse automation. Steer AWAY from hand-discovering new
+primary/secondary hair (the crowded 2024–25 Beyond-Horndeski / Proca-GB /
+Lovelock-Proca race). The exact-metric DISCOVERY loop (the original engine)
+remains the genuinely-unclaimed territory per all searches.

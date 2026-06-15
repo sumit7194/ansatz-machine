@@ -6,6 +6,33 @@ built, what broke, what the machine taught us. Numbers live in
 
 ---
 
+## 2026-06-15 (cont.) — literature check: hair-lens is taken; discovery-engine still unclaimed
+
+- An external session ran a real literature sweep (so we stop redoing done work).
+  Findings, banked honestly:
+  - The hair / parameter-counting / "complexity of a theory" lens is a MATURE,
+    ACTIVE field. Primary/secondary hair is standard vocabulary; 2024–25 has a
+    flood of primary-hair papers (Beyond-Horndeski, Proca-Gauss-Bonnet,
+    Lovelock-Proca). The free-parameter-count question is FORMALIZED WITH AN
+    ALGORITHM: Hajian–Sheikh-Jabbari, arXiv:1612.09279.
+  - Every case our plan would touch is published: the EMD a=0,1,√3 coupling map,
+    D=Q²/2M secondary, the light-ring topological-charge jump at a=√3, discrete
+    allowed dilaton couplings, the a↔SUSY (4,8,16) lineup. So "aimed-A" (the KK
+    map) is textbook — a nice internal bridge to the NN project, not new physics.
+  - Our meter is the COARSE version: it asks "is X EOM-fixed?", not the finer
+    "physical vs gauge-redundant vs residual-symmetry charge, and first-law
+    role." It conflates gauge-redundant with EOM-secondary and is BLIND to
+    symmetry-removable params (canonical case: asymptotic dilaton φ₀, redundant
+    by shift symmetry). Declared as the D25 blind spot.
+  - The exact-metric DISCOVERY loop (our original engine) is STILL genuinely
+    unclaimed (matches our README's June search; only adjacent ML work found).
+- Net: the hair-meter is not a new lens or a discovery tool — but a hardened,
+  honest, AUTOMATED classifier (the SPSM physical-vs-redundant criterion, with
+  worked examples as a test suite) could be a real *tooling* contribution.
+  Open scoping question: is SPSM already effectively automated on paper, or is
+  the glass-box automated version genuinely missing? Steer AWAY from
+  hand-discovering new hair (crowded race). (Credit: external review session.)
+
 ## 2026-06-15 (cont.) — meter hardened to three-valued honesty (external review)
 
 - An external Claude session reviewed the meter code and caught a real, serious

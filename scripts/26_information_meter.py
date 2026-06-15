@@ -174,6 +174,8 @@ def main():
     for v, c in cls.items():
         print(f"        {v}: {c}")
 
+    print("  blind spot (D25): counts EOM-independence modulo gauge; "
+          "physical-vs-redundant not decided.")
     print(f"\nMETER VALIDATION: {'PASSED ✅' if ok_all else 'FAILED ❌'}")
     if ok_all:
         print("  → reads moduli/hair correctly: 0 (dS), 1 (Schwarzschild & SdS"

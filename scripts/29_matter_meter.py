@@ -149,6 +149,8 @@ def main():
     ok_honest = (n_frac is UNKNOWN) and (n_log is UNKNOWN)
 
     passed = ok_rn and ok_honest
+    print("  blind spot (D25): 'free' = EOM-independent modulo gauge; "
+          "physical-vs-redundant (e.g. shift-symmetric φ₀) NOT decided.")
     print(f"\nMATTER METER: {'PASSED ✅ (reads clean cases AND refuses to guess when it chokes)' if passed else 'FAILED ❌'}")
     return 0 if passed else 1
 
