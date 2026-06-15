@@ -46,6 +46,12 @@ _spec.loader.exec_module(fp)
 PATH = fp.DISCOVERIES_PATH
 # leave headroom on the (shared, interactive) dev box; override with env
 WORKERS = int(os.environ.get("CACHE_WORKERS", "4"))
+# optional dimension window, for splitting work across machines:
+# CACHE_NMAX caps the largest n this run will attempt (e.g. keep the
+# power-risky multi-hour giants off a machine that loses power); CACHE_NMIN
+# floors it. 0 = unbounded.
+NMAX = int(os.environ.get("CACHE_NMAX", "0"))
+NMIN = int(os.environ.get("CACHE_NMIN", "0"))
 
 
 def _compute_profile(d):
@@ -71,7 +77,9 @@ def main():
 
     by_name = {d["name"]: d for d in data}
     todo = [d for d in data
-            if "profile" not in d and len(d.get("params", [])) == 1]
+            if "profile" not in d and len(d.get("params", [])) == 1
+            and (NMAX == 0 or d["n"] <= NMAX)
+            and (NMIN == 0 or d["n"] >= NMIN)]
     # smallest dimension first: the cheap families bank within minutes, so
     # a power loss costs only the in-flight giants — never the easy wins
     # already saved. (Measured: an n=12 family takes ~2.2h; n=13 far more.)

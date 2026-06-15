@@ -152,6 +152,45 @@ class Geometry:
         """K = R_{abcd} R^{abcd} — the coordinate-independent fingerprint."""
         n, g, ginv = self.n, self.g, self.ginv
         Riem = self.riemann
+        # Two measured bottlenecks, two fixes (see below). Final reduction in
+        # BOTH branches is cancel(together(K)) not simplify(K): blanket
+        # simplify() drowns in multivariate-GCD blowup on Λ≠0 families
+        # (measured: >20 CPU-hours unfinished on an n=9 AdS case), while
+        # cancel/together yields the identical rational function in under a
+        # second — same rule as zero_simplify and the D2/D4 design notes.
+        if g.is_diagonal():
+            # Diagonal metric ⇒ g and g^{-1} are diagonal, so
+            #   R_{abcd} = g_{aa} R^a_{bcd}   (no sum over e), and raising all
+            # four indices is multiplication by the diagonal inverse, giving
+            #   K = Σ_{abcd} g^{aa}g^{bb}g^{cc}g^{dd} (g_{aa} R^a_{bcd})².
+            # This is O(n⁴), not O(n⁸): the giant Σ_{pqrs} index contraction
+            # collapses to one surviving term. Every build_ansatz_metric
+            # metric is diagonal; the general branch below still serves Kerr.
+            gd = [g[i, i] for i in range(n)]
+            gi = [ginv[i, i] for i in range(n)]
+            K = sp.S.Zero
+            for a in range(n):
+                for b in range(n):
+                    for c in range(n):
+                        for d in range(n):
+                            Re = Riem[a][b][c][d]
+                            if Re == 0:
+                                continue
+                            K += gi[a] * gi[b] * gi[c] * gi[d] * (gd[a] * Re)**2
+            # K is independent of the angular coordinates (spherical symmetry
+            # of the ansatz). Reducing the raw K over r AND all those trig
+            # variables is what blew up at high n. Instead evaluate the angles
+            # at a real regular point where every trig value is a nonzero
+            # rational — atan(3/4): sin=3/5, cos=4/5, tan=3/4, sin2θ=24/25,
+            # cos2θ=7/25 — with expand_trig to resolve the multiple-angle
+            # terms the curvature produces. That leaves K(r), so the final
+            # reduction is over r alone and cancel/together is near-instant.
+            angles = [x for x in self.coords
+                      if g.has(sp.sin(x)) or g.has(sp.cos(x))]
+            if angles:
+                K = sp.expand_trig(
+                    K.subs({x: sp.atan(sp.Rational(3, 4)) for x in angles}))
+            return sp.cancel(sp.together(K))
         Rdown = [[[[sp.cancel(sp.together(sum(g[a, e] * Riem[e][b][c][d]
                                               for e in range(n))))
                     for d in range(n)] for c in range(n)]
@@ -168,7 +207,7 @@ class Geometry:
                                   for p in range(n) for q in range(n)
                                   for r in range(n) for s in range(n))
                         K += Rdown[a][b][c][d] * Rup
-        return sp.simplify(K)
+        return sp.cancel(sp.together(K))
 
     def grad_invariant(self, scalar):
         """|∇S|² = g^{ab} ∂_a S ∂_b S — a differential invariant of any
