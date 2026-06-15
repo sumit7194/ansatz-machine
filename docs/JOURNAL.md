@@ -6,7 +6,59 @@ built, what broke, what the machine taught us. Numbers live in
 
 ---
 
-## 2026-06-15 (cont.) — Path 2: the discovery loop works in MATTER (rediscovers RN)
+## 2026-06-16 (cont., autonomous) — no-hair is STRUCTURAL: the proof generalizes across the ladder
+
+- Turned the abstractor lens (24) onto a THEOREM instead of a metric: ran the
+  step-32 no-hair proof at every rung 4D..7D with an arbitrary symbolic Λ
+  (`33_no_hair_ladder.py`). The SAME mechanism fires at every rung:
+  - a static scalar puts zero source in the angular equation, so the angular
+    equation alone forces the unique Tangherlini–(A)dS lapse
+    `f = 1 + C/r^(n−3) − [2Λ/((n−1)(n−2))] r²` (engine derives it via `dsolve`,
+    matched against the closed form — exact at 4,5,6,7D);
+  - that f is radially Ricci-balanced, so the radial equation collapses to
+    `κφ'² = 0 ⇒ φ' = 0`.
+- **Meta-theorem the machine discovered:** within the static rational r²-ansatz,
+  a minimally-coupled scalar admits NO hair in ANY dimension n≥4 and for ANY Λ —
+  the angular equation is the executioner, n and Λ are spectators. The 4D no-hair
+  theorem (32) is just one rung. This is the same move as 23/24 (generalize a
+  result across the ladder), so it's D26-compliant — generalization, not a new
+  source rung. Battery 33 added; full battery 20/20 ALL GREEN.
+- Done autonomously overnight (user asleep) under the standing "keep going until
+  we can't think of anything" instruction. Work committed immediately (D23 habit,
+  power-loss insurance).
+
+## 2026-06-16 — Path 2 capstone: the engine PROVES the no-hair theorem (the dual of RN)
+
+- Built `32_no_hair.py`, the deliberate dual of the RN discovery (31/28). RN was
+  the engine GAINING a term (give it charge → it builds Q²/r²); no-hair is the
+  engine PROVING it can gain nothing — the matter span's other bookend.
+- **The proof leg (exact, no assumption on φ's form).** With f(r), φ(r) left as
+  symbolic Functions on the canonical static ansatz (angular part exactly r²):
+  - the angular Einstein equation has ZERO scalar source (φ=φ(r) ⇒ ∂_θφ=0), so
+    `R_θθ = 1 − f − r f' = 0`, and `dsolve` returns `f = 1 + C1/r` — Schwarzschild
+    is FORCED by the angular equation alone, before φ is even mentioned;
+  - on that f the radial Ricci `R_rr` is identically 0, so the radial equation
+    `R_rr = κφ'²` collapses to `κφ'² = 0`, and `solve` returns `φ' = 0` ⇒ φ=const.
+  A clean symbolic chain: the field equations themselves forbid scalar hair.
+- **The search leg (the loop's own verifier).** On the forced background a menu of
+  non-constant profiles — C/r, C·ln r, C·r, and the JNW/dilaton log C·ln(1−2M/r)
+  — is every one REJECTED (numeric residual catches them); only φ=const VERIFIES.
+  The loop hunts for hair and comes back empty, the empirical shadow of the proof.
+- **Honest footnote, banked in the script.** The one genuine scalar-haired
+  solution, JNW, escapes ONLY by deforming the angular part to (1−b/r)^(1−γ)·r²
+  — a fractional power, the exact branch-cut wall the D4 rational-coordinates rule
+  keeps out. So "no-hair" here is precisely "no hair without leaving the rational
+  r²-ansatz" — the theorem and the engine's scope coincide, which is the honest
+  thing to say. Battery 32 added (19 batteries, all green).
+- **Why this is the capstone, not just another demo.** The engine now spans the
+  field menu in BOTH directions: vacuum (Schwarzschild→Tangherlini→26-family
+  ladder), matter-discovery (RN, gains a term), secondary-hair reading (GHS
+  dilaton), AND theorem-rediscovery (no-hair, proves a term is forbidden). That
+  closes the build phase: the contribution is the glass-box discover-AND-prove
+  engine spanning vacuum→matter, differentiated from the numerical-ML cousin
+  (AInstein, arXiv:2502.13043) by being EXACT and PROVEN. Decision D26.
+
+
 
 - Turned the original propose→verify→evolve loop (GP over exact-rational f(r),
   numeric residual fitness, symbolic proof) loose on a SOURCED theory for the

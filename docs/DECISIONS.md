@@ -235,3 +235,24 @@ rather than a coarse automation. Steer AWAY from hand-discovering new
 primary/secondary hair (the crowded 2024–25 Beyond-Horndeski / Proca-GB /
 Lovelock-Proca race). The exact-metric DISCOVERY loop (the original engine)
 remains the genuinely-unclaimed territory per all searches.
+
+**D26 — The build phase is complete; the contribution is the glass-box
+discover-AND-prove engine spanning vacuum→matter. Stop adding source rungs.**
+Bought by: my own literature sweep (2026-06-16) confirming the external
+session's verdict twice over — (a) xCPS (arXiv:2606.05204, open source)
+automates covariant phase space / Noether charges / Wald entropy from a generic
+Lagrangian, so the SPSM physical-vs-gauge tooling (Path 1) is genuinely closed
+— do NOT build it; (b) the nearest neighbour to our loop is AInstein
+(arXiv:2502.13043, Oct 2025), which finds Einstein metrics via ML but
+NUMERICALLY (Euclidean, approximate) — so our differentiator is sharp and
+defensible: EXACT, symbolic, PROVEN metrics; proof is the moat. Consequence:
+the engine now demonstrably spans the field menu in both directions — vacuum
+rediscovery+generalization (Schwarzschild→Tangherlini→26-family meta-law),
+matter discovery (RN, `31`, GAINS a charge term), secondary-hair reading (GHS
+dilaton, `30`), and theorem-rediscovery (no-hair, `32`, PROVES a term is
+forbidden). That is a complete, honest, self-contained body of work. Further
+source rungs (Proca, Yang-Mills, higher-D charged) would only restate the same
+capability, so the build phase STOPS here; the next move is consolidation /
+write-up with the AInstein-differentiated framing, not more rungs. A
+genuinely-new exact metric remains the hard standing problem for everyone and
+is explicitly NOT claimed.

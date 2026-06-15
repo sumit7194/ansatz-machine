@@ -379,3 +379,74 @@ test) was caught by gate battery 02 and fixed; the fast path is diagonal-only.
 Honest: two earlier speedup attempts failed (deferring simplification made it
 worse); py-spy's exact-line diagnosis is what cracked it. Repro: scripts/
 gr_engine.py (kretschmann), scripts/cache_profiles.py.
+
+# v7 (2026-06-15/16): the engine leaves vacuum — discovery + proof in MATTER
+
+Until now everything lived in vacuum (+Λ). v7 extends the engine to SOURCED
+gravity — scalar, electromagnetic, dilaton — and shows the same propose→
+verify→evolve loop works there, in **both** directions: it can GAIN a term
+(discover a charged hole) and it can PROVE a term is forbidden (no-hair). The
+matter machinery is built on the trace-reversed (Ricci) form so the Einstein
+tensor is never assembled (same D2 trick), with field operators in Christoffel
+form (□φ, ∇·F) to stay rational and dodge the √|g| Abs artifact.
+
+## 27–30 — the field menu, validated
+
+| step | source | exact solution | what it shows |
+|---|---|---|---|
+| 27 scalar | massless φ, `R_ab=κ∂φ∂φ`, □φ=0 | sanity gate | const-φ leaves vacuum intact; bogus φ rejected |
+| 28 Maxwell | `R_ab=κT_ab`, ∇F=0 | Reissner–Nordström | engine RECOVERS the coupling κ=2; M,Q verified |
+| 29 matter meter | — | RN hair = 2 | three-valued hair counter for sourced solutions; refuses to guess (UNKNOWN) on transcendental/fractional residuals |
+| 30 dilaton (EMD/GHS) | `R_ab=2∂φ∂φ+2e^{−2φ}T`, □φ=−½e^{−2φ}F² | GHS black hole | meter reads M,Q PRIMARY and the dilaton charge **D=Q²/2M SECONDARY** — the project's first non-trivial hair reading |
+
+## 31 — the discovery loop GAINS a term (rediscovers RN)
+
+Turned the original GP (exact-rational `f(r)`, numeric-residual fitness, symbolic
+proof) loose on Einstein–Maxwell with a unit-charge field `A_t=Q/r`, RN **not**
+supplied. In ~4 s it found `f = 1 + 3/(4r) + 1/r²` (residual 1e-17, VERIFIED):
+the `Q²/r²` charge term emerged unaided (coeff = Q² = 1), mass `M=−3/8` (the
+negative-mass branch the GP has always preferred). The loop autonomously
+discovered an exact Reissner–Nordström hole in a matter theory. Rediscovery
+(RN is 1918), but the CAPABILITY — autonomous exact discovery in sourced gravity
+— is the genuinely-unclaimed-by-machines thing. Repro: `scripts/31_matter_hunt.py`.
+
+## 32 — the discovery loop PROVES a term is forbidden (no-hair)
+
+The deliberate dual of 31. On the canonical static ansatz (angular part exactly
+`r²`) with a massless scalar, the engine establishes the no-hair theorem two ways:
+
+- **Proof (exact, no assumption on φ's form).** With `f(r)`, `φ(r)` symbolic: the
+  angular equation has zero scalar source (φ=φ(r) ⇒ ∂_θφ=0), so `R_θθ = 1−f−rf' = 0`
+  ⇒ `dsolve` returns `f = 1+C/r` — Schwarzschild FORCED by the angular equation
+  alone. On that f, `R_rr ≡ 0`, so `R_rr = κφ'²` collapses to `φ' = 0` ⇒ φ=const.
+- **Search.** On that forced background the verifier REJECTS every non-constant
+  profile (C/r, C·ln r, C·r, and the JNW/dilaton log C·ln(1−2M/r)); only φ=const
+  VERIFIES. The loop hunts for hair and comes back empty — the shadow of the proof.
+- **Honest scope.** JNW (the real haired solution) escapes ONLY by bending the
+  angular part to `(1−b/r)^{1−γ} r²`, a fractional power — the exact branch-cut
+  wall the D4 rule excludes. "No-hair" here = "no hair without leaving the
+  rational `r²`-ansatz". Repro: `scripts/32_no_hair.py`.
+
+## 33 — no-hair is STRUCTURAL (the abstractor lens on a theorem)
+
+Step 32 proves no-hair once; `33_no_hair_ladder.py` shows it is not a 4D
+accident. Running the same symbolic proof at every rung 4D–7D with an arbitrary
+symbolic Λ, the engine derives — via `dsolve`, not assumption — the unique
+Tangherlini–(A)dS lapse `f = 1 + C/r^{n−3} − [2Λ/((n−1)(n−2))] r²` at each rung,
+and that f then forces `φ' = 0` every time. **Meta-theorem (machine-discovered):**
+within the static rational `r²`-ansatz a minimally-coupled scalar admits no hair
+in any dimension n≥4 and for any Λ — the angular equation, which the scalar
+cannot source, pins f to Tangherlini–(A)dS and leaves the radial equation no slack
+for `φ'`. Dimension and Λ are spectators; the angular equation is the executioner.
+Same generalize-across-the-ladder move as 23/24 (D26-compliant — not a new source).
+Repro: `scripts/33_no_hair_ladder.py`.
+
+**Where the niche stands (own literature sweep, 2026-06-16).** Path 1 (automate
+the physical-vs-gauge / SPSM criterion) is closed: xCPS (arXiv:2606.05204, open
+source) already automates covariant phase space, Noether charges, and Wald
+entropy from a generic Lagrangian — so don't build it. The nearest neighbour to
+this engine is AInstein (arXiv:2502.13043, Oct 2025), which finds Einstein
+metrics via ML but **numerically** (Euclidean, approximate). The differentiator
+is therefore sharp: this engine is **exact, symbolic, and proven** — and now
+spans vacuum→matter in both discovery and proof. A genuinely-new exact metric
+remains the hard standing problem for everyone and is explicitly not claimed (D26).
