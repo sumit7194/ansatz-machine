@@ -54,17 +54,36 @@ def count_free_matter(coords, residuals, consts):
     eqs = list(eqs)
     if not eqs:
         return len(consts), {c: "free (hair)" for c in consts}
-    sol = sp.solve(eqs, list(consts), dict=True)
-    if not sol:
-        return 0, {c: "no consistent solution" for c in consts}
-    s = sol[0]
-    free = [c for c in consts if c not in s]
+    # The solution set is generally a positive-dimensional variety (some
+    # constants free, some determined by them). Asking solve() for a single
+    # point fails; instead GREEDILY eliminate determined constants — solve for
+    # one in terms of the rest, substitute, drop satisfied equations, repeat.
+    # What can't be eliminated is genuinely free (the hair count).
+    free = list(consts)
+    determined = {}
+    work = list(eqs)
+    progress = True
+    while progress and work:
+        progress = False
+        for c in list(free):
+            try:
+                sols = sp.solve(work, c, dict=True)
+            except Exception:
+                sols = []
+            if sols and c in sols[0]:
+                val = sols[0][c]
+                determined[c] = val
+                free.remove(c)
+                work = [w for w in (sp.simplify(e.subs(c, val)) for e in work)
+                        if w != 0]
+                progress = True
+                break
     cls = {}
     for c in consts:
         if c in free:
             cls[c] = "free (hair)"
         else:
-            val = sp.simplify(s[c])
+            val = sp.simplify(determined[c])
             cls[c] = (f"secondary (= {val})" if val.free_symbols & set(free)
                       else f"forced (= {val})")
     return len(free), cls

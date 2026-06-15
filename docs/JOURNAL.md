@@ -6,6 +6,32 @@ built, what broke, what the machine taught us. Numbers live in
 
 ---
 
+## 2026-06-15 (cont.) — THE PRIZE: meter catches a SECONDARY hair (dilaton black hole)
+
+- Climbed the field menu past the JNW wall by going around it (rational metrics):
+  **Maxwell** (`28`, Reissner–Nordström, engine recovered κ=2 itself, R_ab=κT_ab
+  + ∇F=0 VERIFIED), then a **matter meter** (`29`, generalizes the vacuum
+  hair-counter to sourced solutions; RN → 2 primary hairs M,Q), then the
+  **dilaton** (`30`, Einstein–Maxwell–dilaton / GHS).
+- **The payoff.** Fed GHS with M, Q, D (dilaton charge) ALL symbolic. Numeric
+  gate confirmed the transcription (residual 8e-143 at D=Q²/2M). Then the matter
+  meter, told nothing, read:
+      M: free (hair) · Q: free (hair) · **D: SECONDARY (= Q²/(2M))**
+  — it caught that the dilaton charge only *looks* free but is forced by mass and
+  charge. That is the EdGB secondary-dilaton-charge phenomenon, demonstrated on
+  its closed-form cousin, **detected automatically by our instrument**. The
+  primary/secondary distinction the whole v6 reframe was about — now working on a
+  real solution.
+- Fix that unlocked it: the meter's solve() was asking for a single POINT in
+  (M,Q,D); the solution is a 2-D family, so it returned empty. Replaced with
+  greedy elimination (solve for one constant in terms of the rest, substitute,
+  repeat) → counts the variety's dimension correctly. RN regression intact (2).
+- **Honest scope:** GHS / secondary dilaton hair is known physics (1991) — so
+  this is *rediscovery with the instrument* (like the abstractor on Tangherlini,
+  the meter on Birkhoff), validating the tool on exactly the subtle case it was
+  built for. The genuinely-new use is next: point it where the hair count is
+  unknown or contested. New verify.sh batteries: 28, 29, 30.
+
 ## 2026-06-15 — field menu opened: scalar source works; JNW recovered, then a branch-cut wall
 
 - **Engine extended beyond vacuum** (`27_scalar.py`): a minimally-coupled massless
