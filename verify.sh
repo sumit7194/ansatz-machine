@@ -19,6 +19,7 @@ NAMES+=("04 campaign");           CMDS+=("scripts/04_campaign.py")
 [ -f scripts/sealed_holdout.py ] && { NAMES+=("SH sealed-holdout guard"); CMDS+=("scripts/sealed_holdout.py"); }
 [ -f scripts/24_abstractor.py ] && { NAMES+=("24 abstractor (recovers Tangherlini law)"); CMDS+=("scripts/24_abstractor.py"); }
 [ -f scripts/26_information_meter.py ] && { NAMES+=("26 information meter (hair counter)"); CMDS+=("scripts/26_information_meter.py"); }
+[ -f scripts/27_scalar.py ] && { NAMES+=("27 scalar source (sanity)"); CMDS+=("scripts/27_scalar.py"); }
 
 fail=0
 for i in "${!NAMES[@]}"; do
