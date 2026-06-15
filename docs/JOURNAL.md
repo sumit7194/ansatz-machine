@@ -6,6 +6,29 @@ built, what broke, what the machine taught us. Numbers live in
 
 ---
 
+## 2026-06-16 (cont., autonomous) — NEW LENS: black-hole thermodynamics, engine recovers S=A/4
+
+- User (still awake, heading to sleep) pushed for MORE attack angles before any
+  write-up. Opened a new lens orthogonal to "find a metric": take a solution and
+  have the engine AUTONOMOUSLY derive its thermodynamics and verify the laws
+  (`35_thermodynamics.py`).
+- Glass-box recipe, all exact: parametrize by the HORIZON RADIUS r_h (not mass) so
+  everything stays RATIONAL — M read off f(r_h)=0, dodging the √(M²−Q²) branch-cut
+  wall (the D4 lesson applied to thermodynamics). T = f'(r_h)/4π (surface gravity).
+  Entropy S = α·Area with α UNKNOWN; then DEMAND the first law dM = TdS + ΣΦ_i dq_i.
+- **What the engine recovers unaided:** (1) the Bekenstein–Hawking coefficient
+  **α = 1/4** (S = A/4) — and it's the SAME 1/4 in every dimension 4D–7D, a
+  structural fact echoing the no-hair ladder (33); (2) the charge potentials
+  Φ_Q = Q/r_h, Φ_P = P/r_h from ∂M/∂q; (3) the first law and the generalized Smarr
+  relation (n−3)M = (n−2)TS + ΣΦq, verified ≡0 symbolically for Schwarzschild, RN,
+  the dyonic hole, and Tangherlini 5D/6D.
+- **Unification (the real payoff):** the meter's hairs (29) ARE these thermodynamic
+  charges — M↔S, Q↔Φ_Q, P↔Φ_P — and the first law is the bookkeeping that links
+  them. The whole matter arc (discover → count hair → thermodynamics) now closes a
+  loop. Honest: rediscovery of 1916–1973 BH thermodynamics; new is the automated
+  exact-derivation CAPABILITY + the unification. Not a new source rung (D26).
+  Battery 35 added.
+
 ## 2026-06-16 (cont., autonomous) — the HAIR CRITERION: one principle unifies 28 and 32/33
 
 - Asked the obvious question after 32/33: scalars give NO hair, but Maxwell gives

@@ -460,6 +460,24 @@ electric (the structural face of EM duality) — which then passes the FULL
 Einstein–Maxwell verifier, confirming the one-equation criterion is sound. Repro:
 `scripts/34_hair_criterion.py`.
 
+## 35 — black-hole thermodynamics (a new lens; the engine recovers S=A/4)
+
+A direction orthogonal to "find a metric": take a solution and have the engine
+derive its thermodynamics and verify the laws, exactly. Parametrizing by the
+horizon radius `r_h` (not mass) keeps everything rational and dodges the
+`√(M²−Q²)` branch cut (D4 applied to thermodynamics): `M` is read off `f(r_h)=0`,
+`T = f'(r_h)/4π`, and entropy `S = α·Area` with `α` unknown. Demanding the first
+law `dM = T dS + Σ Φ_i dq_i` then makes the engine recover, unaided: the
+**Bekenstein–Hawking `α = 1/4`** (`S = A/4`) — the same `1/4` in every dimension
+4D–7D (structural, like the no-hair ladder); the charge potentials `Φ_Q = Q/r_h`,
+`Φ_P = P/r_h` from `∂M/∂q`; and the first law + generalized Smarr relation
+`(n−3)M = (n−2)TS + Σ Φ q`, all verified `≡ 0` for Schwarzschild, RN, the dyonic
+hole, and Tangherlini 5D/6D. **Unification:** the meter's hairs (29) ARE these
+thermodynamic charges (`M↔S, Q↔Φ_Q, P↔Φ_P`); the first law is the bookkeeping that
+links them, closing the discover→count→thermodynamics loop. Rediscovery of known
+BH thermodynamics; new is the automated exact-derivation capability + the
+unification. Repro: `scripts/35_thermodynamics.py`.
+
 **Where the niche stands (own literature sweep, 2026-06-16).** Path 1 (automate
 the physical-vs-gauge / SPSM criterion) is closed: xCPS (arXiv:2606.05204, open
 source) already automates covariant phase space, Noether charges, and Wald
