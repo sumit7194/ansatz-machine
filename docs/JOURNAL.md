@@ -6,6 +6,28 @@ built, what broke, what the machine taught us. Numbers live in
 
 ---
 
+## 2026-06-14 — the abstractor: recover the meta-law across a family (new capability)
+
+- New step `24_abstractor.py`: reads a whole family of verified rungs and
+  recovers the SINGLE law f(N, Λ) behind them — the dimension-dependence
+  included — by exact symbolic fitting (search the simplest functional form,
+  solve over the rationals; no numeric weights, no NN, glass-box). A level up
+  from 05_generalize (which frees one constant within one rung).
+- **Unit test PASSED on the static-vacuum catalog** (answer known, so a
+  capability demo not a discovery — by design): from the 26 rungs it recovered
+  `f = 1 + c1·r^(−(N−3)) − 2Λ/((N−1)(N−2))·r²` UNAIDED — the N−3 exponent and
+  the (N−1)(N−2) denominator (it even had to invert to find the latter).
+  Reproduced 26/26 exactly AND passed leave-one-dimension-out **prediction
+  9/9** (law from the other dimensions predicts the held-out one). Added to
+  verify.sh as a regression battery.
+- Why it matters: the abstractor is now trusted machinery. Next aim is a
+  family whose law is NOT known — the EdGB universal-fit coefficients
+  (c1(p)…c4(p), a1(p),a2(p)) — to hunt exact relations among them and try to
+  derive each from a physical constraint (horizon regularity, GR limit). That
+  turns an empirical fit into structure-plus-explanation. (Context: idea from
+  the v6 "orthogonal lens" discussion — build the abstractor, validate on the
+  known catalog, then point at the unknown.)
+
 ## 2026-06-13/14 — high-D ladder proved + the Kretschmann speedup (hours/never → minutes)
 
 - **Process optimizations shipped** (commit ec07346): `sealed_holdout.py`
