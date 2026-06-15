@@ -6,6 +6,33 @@ built, what broke, what the machine taught us. Numbers live in
 
 ---
 
+## 2026-06-15 — field menu opened: scalar source works; JNW recovered, then a branch-cut wall
+
+- **Engine extended beyond vacuum** (`27_scalar.py`): a minimally-coupled massless
+  scalar now sources gravity, trace-reversed form R_ab−[2Λ/(n−2)]g = κ∂φ∂φ plus
+  □φ=0, three-valued verdict on the coupled system. Sanity gate passes (const
+  scalar leaves Schwarzschild verified; bogus scalar rejected). First rung of the
+  v6 field menu (scalar → Maxwell → dilaton/EMD).
+- **WIN — the engine recovered a scalar solution's existence condition itself.**
+  Fed the JNW (Janis–Newman–Winicour) ansatz with parameters b, γ, C, κ ALL
+  symbolic, the source residual R_rr−κ(∂φ)² gave, cleanly:
+  **γ² + 2κC² = 1**  (equivalently κ = (1−γ²)/(2C²)) — the exact JNW relation,
+  derived, not supplied. (runs/jnw_test.py)
+- **DEAD-END (honest, instructive) — fractional powers stall the symbolic EOM.**
+  JNW's metric carries u^γ = (1−b/r)^γ. The scalar EOM □φ is **numerically zero**
+  (0j at a regular point; by hand √|g|gʳʳφ′ = C·b·sinθ is r-constant ⇒ □φ=0) but
+  the symbolic zero-test drowns in branch cuts (Abs/re/im/Piecewise) → UNPROVEN.
+  This is the **D4 lesson resurfacing for matter** (Kerr-in-trig was 500 s→
+  UNPROVEN until u=cosθ rationalized it): fractional-power solutions need a
+  rationalizing substitution before the symbolic EOM closes. Known-direction fix,
+  not done tonight.
+- **Also noted for the list:** the information meter (26) is vacuum-only; reading
+  a matter solution's hair (JNW has 2: mass + scalar charge) needs a "matter
+  meter" variant. Cheap once the scalar verifier is trusted.
+- Net: a real new capability (matter source) + a real recovered relation + a
+  cleanly-characterized limit with a known fix. Good night's dead-end. Next rungs
+  (Maxwell, then EMD for the *secondary*-hair surprise) are now concretely open.
+
 ## 2026-06-14 — the irreducible-information meter (the abstractor, reframed + extended)
 
 - Built `26_information_meter.py`, the v6 reframe made concrete: point it at a
