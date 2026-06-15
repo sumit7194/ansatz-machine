@@ -6,6 +6,24 @@ built, what broke, what the machine taught us. Numbers live in
 
 ---
 
+## 2026-06-16 (cont., autonomous) — ATTACK ANGLE #2: energy-condition classifier (is the matter physical?)
+
+- Second new lens of the night (`36_energy_conditions.py`). Motivation: the GP
+  returns "VERIFIED" for exotic branches too (its beloved negative-mass /
+  negative-charge solutions), but VERIFIED only means "solves the field
+  equations" — not "the matter is physically allowed". This adds that second gate.
+- For ANY static metric it reads the stress-energy off the Einstein tensor
+  (ρ=−G^t_t/8π, p_r=G^r_r/8π, p_t=G^θ_θ/8π in the orthonormal frame) and tests the
+  standard pointwise conditions NEC/WEC/DEC/SEC. Sign-checking is three-valued:
+  symbolic when SymPy decides, else over a sampled positive domain (a negative
+  sample = definitive violation), UNKNOWN if undecidable — same honesty as the meter.
+- **Validation reproduces the textbook verdicts AND discriminates regimes:**
+  Schwarzschild → vacuum (all saturated); RN → all four hold (physical EM field);
+  exotic f=1−2M/r−Q²/r² → ρ<0, WEC/NEC violated (flagged exotic); de Sitter → only
+  SEC violated (the dark-energy / acceleration signature). So the classifier tells
+  physical, exotic, and dark-energy-like apart. A judgment layer on the engine, not
+  a new source rung (D26). Battery 36 added.
+
 ## 2026-06-16 (cont., autonomous) — NEW LENS: black-hole thermodynamics, engine recovers S=A/4
 
 - User (still awake, heading to sleep) pushed for MORE attack angles before any

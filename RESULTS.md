@@ -478,6 +478,20 @@ links them, closing the discover→count→thermodynamics loop. Rediscovery of k
 BH thermodynamics; new is the automated exact-derivation capability + the
 unification. Repro: `scripts/35_thermodynamics.py`.
 
+## 36 — energy conditions (a physicality classifier)
+
+A second new lens: "VERIFIED" means *solves the field equations*, not *physically
+allowed* — and the GP happily returns exotic branches (its negative-mass /
+negative-charge favourites). `36_energy_conditions.py` adds the judgment. For any
+static metric it reads the stress-energy off the Einstein tensor
+(`ρ=−G^t_t/8π, p_r=G^r_r/8π, p_t=G^θ_θ/8π`) and tests NEC/WEC/DEC/SEC pointwise
+(signs decided symbolically when SymPy can, else over a sampled positive domain;
+a negative sample is a definitive violation; UNKNOWN otherwise). It reproduces the
+textbook verdicts and **discriminates regimes**: Schwarzschild → vacuum (saturated);
+RN → all four hold (physical); `f=1−2M/r−Q²/r²` → ρ<0, WEC/NEC violated (exotic);
+de Sitter → only SEC violated (the dark-energy/acceleration signature). A judgment
+layer on the engine, not a new source rung. Repro: `scripts/36_energy_conditions.py`.
+
 **Where the niche stands (own literature sweep, 2026-06-16).** Path 1 (automate
 the physical-vs-gauge / SPSM criterion) is closed: xCPS (arXiv:2606.05204, open
 source) already automates covariant phase space, Noether charges, and Wald
