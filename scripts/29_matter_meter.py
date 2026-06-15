@@ -31,9 +31,30 @@ _mx = importlib.util.spec_from_file_location("mx", os.path.join(_here, "28_maxwe
 maxwell = importlib.util.module_from_spec(_mx); _mx.loader.exec_module(maxwell)
 
 
+UNKNOWN = None  # three-valued: a hair count of None means "could not measure"
+
+
+def _clean_polynomial(num, consts):
+    """True iff `num` is a clean polynomial in r with coefficients only in
+    the candidate constants — i.e. we can honestly extract constraints from
+    it. Transcendental/branch residue (log, exp, Abs, re/im, Piecewise),
+    fractional powers of r, or stray symbols ⇒ NOT clean ⇒ the meter must
+    say UNKNOWN rather than silently over-count."""
+    bad = (sp.log, sp.exp, sp.Abs, sp.Piecewise, sp.re, sp.im)
+    if any(num.has(b) for b in bad):
+        return False
+    if not num.is_polynomial(R_SYM):
+        return False
+    if num.free_symbols - set(consts) - {R_SYM}:
+        return False
+    return True
+
+
 def count_free_matter(coords, residuals, consts):
-    """residuals: list of expressions that must ≡0. consts: candidate
-    constants. Returns (num_free, {const: classification})."""
+    """Three-valued hair count. Returns (n, cls) with n = number of genuinely
+    free constants, or n = UNKNOWN (None) if the meter cannot honestly decide
+    — extraction choked on a transcendental/fractional residual, or solve
+    failed. NEVER reports a count it isn't sure of (the over-count trap)."""
     angles = coords[2:]
     asub = {a: sp.atan(sp.Rational(3, 4)) for a in angles}
     eqs = set()
@@ -43,33 +64,31 @@ def count_free_matter(coords, residuals, consts):
             continue
         num, _ = sp.fraction(sp.together(comp))
         num = sp.expand(num)
-        try:
-            poly = sp.Poly(num, R_SYM)
-            for c in poly.all_coeffs():
-                if c != 0:
-                    eqs.add(sp.expand(c))
-        except sp.PolynomialError:
-            if num != 0:
-                eqs.add(num)
+        if not _clean_polynomial(num, consts):
+            return UNKNOWN, {c: "UNKNOWN — non-polynomial/transcendental "
+                             "residual (declared blind spot; rationalize first)"
+                             for c in consts}
+        for c in sp.Poly(num, R_SYM).all_coeffs():
+            if c != 0:
+                eqs.add(sp.expand(c))
     eqs = list(eqs)
-    if not eqs:
+    if not eqs:               # clean AND no constraints ⇒ genuinely all free
         return len(consts), {c: "free (hair)" for c in consts}
-    # The solution set is generally a positive-dimensional variety (some
-    # constants free, some determined by them). Asking solve() for a single
-    # point fails; instead GREEDILY eliminate determined constants — solve for
-    # one in terms of the rest, substitute, drop satisfied equations, repeat.
-    # What can't be eliminated is genuinely free (the hair count).
+    # Positive-dimensional variety: greedily eliminate determined constants.
+    # A solve that ERRORS (not merely "no solution") is a blind spot, not
+    # evidence of freedom — so it forces UNKNOWN rather than padding the count.
     free = list(consts)
     determined = {}
     work = list(eqs)
     progress = True
     while progress and work:
         progress = False
-        for c in list(free):
+        for c in reversed(free):   # eliminate caller's later (candidate-derived) consts first
             try:
                 sols = sp.solve(work, c, dict=True)
             except Exception:
-                sols = []
+                return UNKNOWN, {k: "UNKNOWN — solve failure (blind spot)"
+                                 for k in consts}
             if sols and c in sols[0]:
                 val = sols[0][c]
                 determined[c] = val
@@ -104,14 +123,33 @@ def rn_residuals(M, Q, kappa=sp.Integer(2)):
 
 def main():
     M, Q = sp.symbols("M Q", positive=True)
-    print("MATTER METER — validation on Reissner–Nordström\n")
+    r = R_SYM
+    print("MATTER METER — validation\n")
+
+    # (1) clean physical case: RN → 2 primary hairs
     coords, residuals = rn_residuals(M, Q)
     nfree, cls = count_free_matter(coords, residuals, [M, Q])
     print(f"  RN hair count = {nfree}  (expected 2: mass + charge)")
     for c, k in cls.items():
         print(f"    {c}: {k}")
-    passed = (nfree == 2)
-    print(f"\nMATTER METER: {'PASSED ✅' if passed else 'FAILED ❌'}")
+    ok_rn = (nfree == 2)
+
+    # (2) HONESTY gate — the meter must say UNKNOWN, never over-count, when it
+    # cannot honestly reduce the residual. Genuine choke cases:
+    g = sp.Symbol("g")
+    coords4 = [sp.Symbol("t", real=True), r, sp.Symbol("th", real=True), sp.Symbol("ch", real=True)]
+    frac = [M * r**g - Q]                 # fractional/symbolic power of r
+    logr = [M * sp.log(r) - Q]            # transcendental in r
+    n_frac, _ = count_free_matter(coords4, frac, [M, Q])
+    n_log, _ = count_free_matter(coords4, logr, [M, Q])
+    print(f"\n  honesty: fractional-power residual → {n_frac}  "
+          f"({'✅ UNKNOWN' if n_frac is UNKNOWN else '❌ over-counted'})")
+    print(f"  honesty: log(r) residual          → {n_log}  "
+          f"({'✅ UNKNOWN' if n_log is UNKNOWN else '❌ over-counted'})")
+    ok_honest = (n_frac is UNKNOWN) and (n_log is UNKNOWN)
+
+    passed = ok_rn and ok_honest
+    print(f"\nMATTER METER: {'PASSED ✅ (reads clean cases AND refuses to guess when it chokes)' if passed else 'FAILED ❌'}")
     return 0 if passed else 1
 
 

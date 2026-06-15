@@ -33,8 +33,26 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from gr_engine import Geometry, build_ansatz_metric, R_SYM
 
 
-def _constraints(metric, coords, n, Lambda):
-    """Equations the constants must satisfy for vacuum+Λ (residual ≡ 0)."""
+UNKNOWN = None  # three-valued: a hair count of None means "could not measure"
+
+
+def _clean_polynomial(num, variables):
+    """num must be a clean polynomial in r with coefficients only in the
+    candidate constants — else the meter can't honestly extract constraints
+    and must say UNKNOWN (never silently over-count)."""
+    if any(num.has(b) for b in (sp.log, sp.exp, sp.Abs, sp.Piecewise, sp.re, sp.im)):
+        return False
+    if not num.is_polynomial(R_SYM):
+        return False
+    if num.free_symbols - set(variables) - {R_SYM}:
+        return False
+    return True
+
+
+def _constraints(metric, coords, n, Lambda, variables):
+    """Equations the constants must satisfy for vacuum+Λ (residual ≡ 0), or
+    None if a residual component can't be reduced to a clean polynomial in r
+    (transcendental/fractional/stray-symbol blind spot)."""
     geo = Geometry(metric, coords)
     res = geo.vacuum_residual(Lambda)
     angles = coords[2:]
@@ -48,33 +66,49 @@ def _constraints(metric, coords, n, Lambda):
             comp = sp.expand_trig(comp.subs(asub)) if angles else comp
             num, _ = sp.fraction(sp.together(comp))
             num = sp.expand(num)
-            try:
-                poly = sp.Poly(num, R_SYM)
-            except sp.PolynomialError:
-                eqs.add(num)
-                continue
-            for c in poly.all_coeffs():
+            if not _clean_polynomial(num, variables):
+                return None
+            for c in sp.Poly(num, R_SYM).all_coeffs():
                 if c != 0:
                     eqs.add(sp.expand(c))
     return list(eqs)
 
 
 def count_free_metric(metric, coords, n, variables, Lambda):
-    """Core: count genuinely-free constants of an explicit metric."""
-    eqs = _constraints(metric, coords, n, Lambda)
+    """Three-valued: (count, cls), or (UNKNOWN, …) if extraction/solve can't
+    honestly decide — never an unsure count (the over-count trap)."""
+    eqs = _constraints(metric, coords, n, Lambda, variables)
+    if eqs is None:
+        return UNKNOWN, {v: "UNKNOWN — non-polynomial residual (blind spot)"
+                         for v in variables}
     if not eqs:
         return len(variables), {v: "free (hair)" for v in variables}
-    sol = sp.solve(eqs, variables, dict=True)
-    if not sol:
-        return 0, {v: "no consistent solution" for v in variables}
-    s = sol[0]
-    free = [v for v in variables if v not in s]
+    free = list(variables)
+    determined = {}
+    work = list(eqs)
+    progress = True
+    while progress and work:
+        progress = False
+        for v in reversed(free):
+            try:
+                sols = sp.solve(work, v, dict=True)
+            except Exception:
+                return UNKNOWN, {k: "UNKNOWN — solve failure (blind spot)"
+                                 for k in variables}
+            if sols and v in sols[0]:
+                val = sols[0][v]
+                determined[v] = val
+                free.remove(v)
+                work = [w for w in (sp.simplify(e.subs(v, val)) for e in work)
+                        if w != 0]
+                progress = True
+                break
     cls = {}
     for v in variables:
         if v in free:
             cls[v] = "free (hair)"
         else:
-            val = sp.simplify(s[v])
+            val = sp.simplify(determined[v])
             cls[v] = (f"secondary (= {val})" if val.free_symbols & set(free)
                       else f"forced (= {val})")
     return len(free), cls

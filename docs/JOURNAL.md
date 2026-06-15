@@ -6,6 +6,27 @@ built, what broke, what the machine taught us. Numbers live in
 
 ---
 
+## 2026-06-15 (cont.) — meter hardened to three-valued honesty (external review)
+
+- An external Claude session reviewed the meter code and caught a real, serious
+  flaw: it OVER-reported. Empty/un-extractable constraints → "all free"; a
+  swallowed solve() failure → constant counted as free; an unreduced
+  transcendental → silent max count. No UNKNOWN verdict anywhere — so a
+  counting instrument would return the MAXIMUM the moment it choked. And it was
+  load-bearing: the GHS "2+secondary" only worked because I hand-rationalized
+  the coupling first.
+- **Fixed (D24).** Both meters (26 vacuum, 29 matter) are now three-valued: a
+  residual that won't reduce to a clean polynomial in r → UNKNOWN (declared
+  blind spot); a solve() that errors → UNKNOWN. Certified adversarially:
+  fractional-power and log(r) residuals both read UNKNOWN, while RN reads 2 and
+  GHS reads 2-free + D secondary (=Q²/2M). Also fixed: a √|g| Abs artifact in
+  □φ and ∇·F (switched to rational Christoffel forms in 27/28) that had been
+  spuriously flagging clean GHS; and the secondary label now prefers the
+  caller's candidate-derived constant (D), via reversed elimination.
+- Lesson, in-character: the GHS catch was real but UNCALIBRATED — the meter
+  couldn't tell us when it was wrong, the one thing this project refuses to
+  tolerate. Now it can. (Credit: external review session, kept separate.)
+
 ## 2026-06-15 (cont.) — THE PRIZE: meter catches a SECONDARY hair (dilaton black hole)
 
 - Climbed the field menu past the JNW wall by going around it (rational metrics):

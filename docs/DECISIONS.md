@@ -200,3 +200,18 @@ flight; (d) cross-machine results merge by strict union (`merge_catalogs.py`)
 so two machines can never erase each other's work. Live process state can be
 probed without stopping a run via `py-spy dump --pid <pid> --locals` (sampling;
 pauses only milliseconds).
+
+**D24 — The information/hair meter is three-valued; it says UNKNOWN rather
+than over-count.** Bought by an external-session code review (2026-06-15): the
+meter's failure mode was to OVER-report — empty/un-extractable constraints →
+"all free", a swallowed solve() exception → constant lands in the free pile,
+an unreduced transcendental → Poly throws → silent max count. For a
+null-/count-measuring instrument that is the one fatal direction. Now (26, 29):
+a residual that won't reduce to a clean polynomial in r (log/exp/Abs/re/im/
+Piecewise, fractional power, or stray symbol) ⇒ return UNKNOWN with a declared
+blind spot; a solve() that ERRORS ⇒ UNKNOWN (not freedom). Certified
+adversarially: a fractional-power residual and a log(r) residual both read
+UNKNOWN, while RN reads 2 and GHS reads 2-free-+-secondary. Same three-valued
+honesty the verifier (D3) and fingerprint already obey. NOTE: the meter counts
+free constants up to GAUGE — it does not yet mod out coordinate redundancy;
+treat a "free" count as an upper bound on physical hair until gauge-fixed.

@@ -31,15 +31,23 @@ from gr_engine import (Geometry, build_ansatz_metric, R_SYM, zero_simplify,
 
 
 def box(geo, phi):
-    """Covariant d'Alembertian □φ = (1/√|g|) ∂_a(√|g| g^{ab} ∂_b φ)."""
-    n, g, ginv, x = geo.n, geo.g, geo.ginv, geo.coords
-    detg = sp.simplify(g.det())
-    sq = sp.sqrt(sp.Abs(detg))
+    """Covariant d'Alembertian □φ = g^{ab}(∂_a∂_b φ − Γ^c_{ab} ∂_c φ).
+
+    Christoffel form, NOT the (1/√|g|)∂(√|g|…) form: √|g| = √|det g| drags in
+    an Abs when a metric component's sign is unknown (e.g. GHS's r(r−2D)),
+    which is rational underneath but reads transcendental to the meter's
+    honesty check. The Christoffel form stays rational for rational metrics."""
+    n, ginv, x = geo.n, geo.ginv, geo.coords
+    Gam = geo.christoffel
     total = sp.S.Zero
     for a in range(n):
-        flux = sq * sum(ginv[a, b] * sp.diff(phi, x[b]) for b in range(n))
-        total += sp.diff(flux, x[a])
-    return sp.cancel(sp.together(total / sq))
+        for b in range(n):
+            if ginv[a, b] == 0:
+                continue
+            term = sp.diff(phi, x[a], x[b]) \
+                - sum(Gam[c][a][b] * sp.diff(phi, x[c]) for c in range(n))
+            total += ginv[a, b] * term
+    return sp.cancel(sp.together(total))
 
 
 def scalar_residual(geo, phi, kappa, Lambda):

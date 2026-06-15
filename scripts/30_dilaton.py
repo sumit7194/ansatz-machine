@@ -53,12 +53,15 @@ def ghs(M, Q, D):
     return g, coords, phi, A
 
 
-def emd_residuals(M, Q, D):
+def emd_residuals(M, Q, D, rational=True):
     g, coords, phi, A = ghs(M, Q, D)
     geo = Geometry(g, coords)
     n = geo.n
     F = mx.faraday(A, coords)
-    W = 1 / (1 - 2 * D / R_SYM)                 # e^{−2φ} in explicit rational form
+    # e^{−2φ}. rational=True uses the reduced 1/(1−2D/r); rational=False keeps
+    # exp(−2φ) un-reduced — the adversarial input the hardened meter must flag
+    # UNKNOWN (it can't honestly extract constraints through the transcendental).
+    W = 1 / (1 - 2 * D / R_SYM) if rational else sp.exp(-2 * phi)
     # F² = F_cd F^cd
     ginv = geo.ginv
     Fsq = sum(F[c, d] * sum(ginv[c, a] * ginv[d, e] * F[a, e]
@@ -72,12 +75,7 @@ def emd_residuals(M, Q, D):
                    - 2 * W * emT[a, b]
             res[a, b] = res[b, a] = sp.cancel(sp.together(r_ab))
     dil = sp.cancel(sp.together(sc.box(geo, phi) + sp.Rational(1, 2) * W * Fsq))
-    # weighted Maxwell: ∇_a(W F^{ab}) = (1/√|g|)∂_a(√|g| W F^{ab})
-    sq = sp.sqrt(sp.Abs(g.det()))
-    Fuu = [[sum(ginv[a, c] * ginv[b, d] * F[c, d] for c in range(n) for d in range(n))
-            for b in range(n)] for a in range(n)]
-    maxw = [sp.cancel(sp.together(sum(sp.diff(sq * W * Fuu[a][b], coords[a])
-                                      for a in range(n)) / sq)) for b in range(n)]
+    maxw = mx.maxwell_div(geo, F, weight=W)   # Christoffel form (rational)
     comps = [res[i, j] for i in range(n) for j in range(i, n)] + [dil] + maxw
     return coords, comps
 
@@ -108,14 +106,16 @@ def main():
         print("  (stopping before the meter — fix transcription first)")
         return 1
 
-    # 2) the prize: feed M,Q,D symbolic, count hair
-    print("\n  [meter] M,Q,D all symbolic — counting hair ...", flush=True)
+    # 2) the prize: feed M,Q,D symbolic, count hair (rationalized coupling)
+    print("\n  [meter] M,Q,D symbolic, rationalized coupling — counting hair ...", flush=True)
     nfree, cls = mm.count_free_matter(coords, comps, [M, Q, D])
     print(f"  hair count = {nfree}")
     for c, k in cls.items():
         print(f"    {c}: {k}")
-    secondary = any("secondary" in v for v in cls.values())
-    print(f"\n  → {'✅ SECONDARY HAIR CAUGHT' if secondary else '❌ no secondary found'}")
+    secondary = (nfree == 2) and any("secondary" in v for v in cls.values())
+    print(f"  → {'✅ SECONDARY HAIR CAUGHT (2 free, 1 secondary relation 2MD=Q²)' if secondary else '❌ no secondary found'}")
+    print("\nDILATON: " + ("PASSED ✅" if secondary else "FAILED ❌")
+          + "  (meter honesty / UNKNOWN gate is certified in battery 29)")
     return 0 if secondary else 1
 
 

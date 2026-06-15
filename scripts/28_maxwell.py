@@ -55,16 +55,21 @@ def em_stress(geo, F):
     return T
 
 
-def maxwell_div(geo, F):
-    """∇_a F^{ab} = (1/√|g|) ∂_a(√|g| F^{ab}); returns the b-vector."""
-    n, g, ginv, x = geo.n, geo.g, geo.ginv, geo.coords
-    sq = sp.sqrt(sp.Abs(g.det()))
+def maxwell_div(geo, F, weight=None):
+    """∇_a(W F^{ab}) via the Christoffel form (rational; avoids √|g| Abs):
+    for antisymmetric F, ∇_a(W F^{ab}) = ∂_a(W F^{ab}) + Γ^a_{ac}(W F^{cb})
+    (the Γ^b_{ac}F^{ac} term vanishes by antisymmetry). W defaults to 1."""
+    n, ginv, x = geo.n, geo.ginv, geo.coords
+    Gam = geo.christoffel
+    W = sp.Integer(1) if weight is None else weight
     Fuu = [[sum(ginv[a, c] * ginv[b, d] * F[c, d] for c in range(n) for d in range(n))
             for b in range(n)] for a in range(n)]
+    trace = [sum(Gam[a][a][c] for a in range(n)) for c in range(n)]  # Γ^a_{ac}
     out = []
     for b in range(n):
-        out.append(sp.cancel(sp.together(
-            sum(sp.diff(sq * Fuu[a][b], x[a]) for a in range(n)) / sq)))
+        div = sum(sp.diff(W * Fuu[a][b], x[a]) for a in range(n)) \
+            + sum(trace[c] * W * Fuu[c][b] for c in range(n))
+        out.append(sp.cancel(sp.together(div)))
     return out
 
 
