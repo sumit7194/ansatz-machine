@@ -6,6 +6,30 @@ built, what broke, what the machine taught us. Numbers live in
 
 ---
 
+## 2026-06-16 (cont.) — THE GENERAL TOOL: universal analyzer, core landed
+
+- User's steer crystallized: stop building bespoke domain scripts, build ONE general tool —
+  and build it SEPARATELY so the proven 01–38 base stays frozen. [[feedback-prefer-general-tools]]
+  Showed a mockup of the target (one `analyze()` → one report card for any spacetime), got the
+  go-ahead, built the core.
+- **`scripts/analyzer.py` (new module, reuses gr_engine, touches nothing else)** — `analyze(metric,
+  coords)` returns one report: (a) what it's **made of** — reads the stress-energy off the Einstein
+  tensor and classifies (vacuum / cosmological constant / perfect fluid w / traceless-EM-like /
+  anisotropic); (b) is it **physical** — the **key generalization**: energy conditions from the
+  FRAME-INDEPENDENT principal components (eigenvalues) of T^a_b, so the check is no longer welded to
+  the static-black-hole frame — works on diagonal metrics directly (any coords/dim) and attempts an
+  eigen-decomposition for off-diagonal, three-valued (UNKNOWN, never a guess); (c) does it **solve
+  the field equations** — vacuum / vacuum+Λ / sourced.
+- **`40_analyzer.py` battery — the proof it's sound.** One `analyze()` reproduces 27–38 across a zoo
+  of totally different metrics: Minkowski (vacuum), Schwarzschild (vacuum/Ricci-flat), RN (traceless
+  EM matter, physical), FLRW dust (perfect fluid w=0, physical), de Sitter (cosmological constant,
+  SEC violated = accelerating), Morris–Thorne wormhole (anisotropic, ρ<0, all conditions violated =
+  exotic). All correct. Full battery 27/27.
+- The 01–38 scripts are now ALSO the analyzer's regression suite — the general tool agrees with the
+  frozen base before we point it anywhere new. Next increments (banked in ATTACK_ANGLES.md #0):
+  singularity scan, Killing-vector symmetries, horizon+thermodynamics. From here, a new domain is a
+  one-line input, not a new script — the widening the user asked for.
+
 ## 2026-06-16 (cont.) — BREADTH PASS: the engine leaves black holes (cosmology + exotic spacetimes)
 
 - User's steer: widen the view, try several DIFFERENT things across cosmology (#1) and

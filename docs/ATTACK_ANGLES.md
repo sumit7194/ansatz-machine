@@ -27,7 +27,17 @@ below re-aims the SAME toolkit at a new domain or a new question.
   LATER, after the breadth experiments clarify the picture. [[feedback-prefer-general-tools]]
 - QUEUED: the rest.
 
-## 0. The universal analyzer — GENERALIZATION (queued; the big one)
+## 0. The universal analyzer — GENERALIZATION (CORE BUILT 2026-06-16; growing)
+**Status: core landed** as `scripts/analyzer.py` + battery `40_analyzer.py`. `analyze(metric, coords)`
+eats ANY metric and reports: what it's **made of** (vacuum / Λ / perfect fluid / traceless / anisotropic),
+whether it's **physical** (frame-independent energy conditions via the principal components of T^a_b —
+the key upgrade, three-valued), and whether it **solves the field equations** (vacuum / vacuum+Λ /
+sourced). Validated against the frozen zoo (Minkowski, Schwarzschild, RN, FLRW dust, de Sitter,
+Morris–Thorne) — one tool reproduces 27–38. Does NOT touch 01–38.
+**Next increments:** singularity scan (Kretschmann blow-ups), symmetries (Killing vectors),
+horizon + thermodynamics (fold in 35), then richer source ID. Original design notes below.
+
+
 Instead of a new script per domain, build ONE `analyze(metric, coords)` that eats ANY spacetime
 (black hole, FLRW universe, wormhole, warp bubble, rotating, any dimension) and returns one honest
 report: what matter sources it (read T_ab off the Einstein tensor + classify), is that matter

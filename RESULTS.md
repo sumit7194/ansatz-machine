@@ -518,6 +518,22 @@ computation that has repeatedly refuted "positive-energy warp" claims (e.g. Lent
 [docs/ATTACK_ANGLES.md](docs/ATTACK_ANGLES.md), including the queued generalization (one universal
 analyzer that eats any spacetime).
 
+## 40 — the general analyzer (the widening: one tool, any spacetime)
+
+The pivot from bespoke scripts to one general tool, built separately so the proven 01–38 base stays
+frozen. `scripts/analyzer.py` exposes `analyze(metric, coords)` — feed it ANY metric and it returns one
+report: **what it's made of** (vacuum / cosmological constant / perfect fluid `w` / traceless-EM-like /
+anisotropic, read off the Einstein tensor), **is it physical** (NEC/WEC/DEC/SEC from the
+frame-independent principal components of `T^a_b` — the key upgrade that frees the check from the
+static frame; three-valued), and **does it solve the field equations** (vacuum / vacuum+Λ / sourced).
+Battery `40_analyzer.py` validates it against the frozen zoo: one `analyze()` reproduces 27–38 across
+Minkowski, Schwarzschild, Reissner–Nordström (traceless EM, physical), an FLRW dust universe (perfect
+fluid `w=0`, physical), de Sitter (cosmological constant, SEC violated = accelerating), and a
+Morris–Thorne wormhole (anisotropic, `ρ<0`, all conditions violated = exotic). The 01–38 scripts thus
+become the analyzer's regression suite. Next increments (singularity scan, Killing-vector symmetries,
+horizon+thermodynamics) are banked in [docs/ATTACK_ANGLES.md](docs/ATTACK_ANGLES.md) §0. From here a new
+domain is a one-line input, not a new script. Repro: `scripts/40_analyzer.py`.
+
 **Where the niche stands (own literature sweep, 2026-06-16).** Path 1 (automate
 the physical-vs-gauge / SPSM criterion) is closed: xCPS (arXiv:2606.05204, open
 source) already automates covariant phase space, Noether charges, and Wald
