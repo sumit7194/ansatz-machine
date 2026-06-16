@@ -76,3 +76,9 @@ discovery fast. Battery 44 (--quick).
   is far heavier than Kerr's — it never finished building the symbolic residual (OOM/>180s even alone),
   vs Kerr's clean 7s. So the SYMBOLIC reduce-once is infeasible here; would need a NUMERIC-curvature
   evaluator (substitute numeric Δ_r,r,u before computing curvature) — a different tool, parked.
+  **UNBLOCKED (2026-06-17): built that numeric tool.** `numeric_curvature.py` computes the Ricci by
+  finite differences (pure Python, ms/point, no symbolic blow-up); battery `46_numeric_curvature.py`
+  validates it VERIFIES Kerr–de Sitter (vacuum+Λ, |R−Λg|≈2e-4) — the metric symbolic OOMs on — plus
+  Schwarzschild/Kerr (≈0) and a wrong-Δ_r control (large). The VM was never the answer; a numeric engine
+  was. Next: Kerr–dS DISCOVERY (search Δ_r with the numeric residual as fitness — Δ_r is a quartic, a
+  harder/slower GP than Kerr's quadratic).

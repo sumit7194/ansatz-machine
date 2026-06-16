@@ -37,6 +37,7 @@ NAMES+=("04 campaign");           CMDS+=("scripts/04_campaign.py")
 [ -f scripts/43_discover.py ] && { NAMES+=("43 discovery (invents Schwarzschild, survivable, de Sitter, exotic)"); CMDS+=("scripts/43_discover.py --quick"); }
 [ -f scripts/44_discover_rotating.py ] && { NAMES+=("44 rotating discovery (rediscovers Kerr + Kerr-Newman)"); CMDS+=("scripts/44_discover_rotating.py --quick"); }
 [ -f scripts/45_observables.py ] && { NAMES+=("45 observables (photon sphere + EHT shadow)"); CMDS+=("scripts/45_observables.py"); }
+[ -f scripts/46_numeric_curvature.py ] && { NAMES+=("46 numeric curvature (verifies Kerr-de Sitter)"); CMDS+=("scripts/46_numeric_curvature.py"); }
 
 fail=0
 GATE="$(dirname "$0")/gate.log"; : > "$GATE"   # also written here so the dashboard (reads ROOT/gate.log) stays current
