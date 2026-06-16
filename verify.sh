@@ -35,16 +35,20 @@ NAMES+=("04 campaign");           CMDS+=("scripts/04_campaign.py")
 [ -f scripts/41_atlas.py ] && { NAMES+=("41 atlas (10 spacetimes, uniform report)"); CMDS+=("scripts/41_atlas.py"); }
 
 fail=0
+GATE="$(dirname "$0")/gate.log"; : > "$GATE"   # also written here so the dashboard (reads ROOT/gate.log) stays current
 for i in "${!NAMES[@]}"; do
     start=$(date +%s)
     if $PY ${CMDS[$i]} >/tmp/cm_verify_$i.log 2>&1; then
-        echo "  PASS  ${NAMES[$i]}  ($(( $(date +%s) - start ))s)"
+        line="  PASS  ${NAMES[$i]}  ($(( $(date +%s) - start ))s)"
+        echo "$line"; echo "$line" >> "$GATE"
     else
-        echo "  FAIL  ${NAMES[$i]}  ($(( $(date +%s) - start ))s)  — tail of log:"
+        line="  FAIL  ${NAMES[$i]}  ($(( $(date +%s) - start ))s)"
+        echo "$line  — tail of log:"; echo "$line" >> "$GATE"
         tail -5 /tmp/cm_verify_$i.log | sed 's/^/        /'
         fail=1
     fi
 done
 echo
-if [ $fail -eq 0 ]; then echo "VERIFY: ALL GREEN ✅"; else echo "VERIFY: FAILURES ❌"; fi
+if [ $fail -eq 0 ]; then v="VERIFY: ALL GREEN ✅"; else v="VERIFY: FAILURES ❌"; fi
+echo "$v"; { echo; echo "$v"; echo "GATE_EXIT=$fail"; } >> "$GATE"
 exit $fail
