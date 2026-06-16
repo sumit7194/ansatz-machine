@@ -27,7 +27,20 @@ built, what broke, what the machine taught us. Numbers live in
 - **Debugging notes:** a stray `pkill -f` over-match killed an earlier verify mid-run (re-ran;
   lesson: kill by PID). Also fixed the dashboard staleness — verify.sh now writes ROOT/gate.log
   live (it had been reading a 3-day-old file), so the panel reflects the current 28→29 batteries.
-- **Still open in #1:** Alcubierre warp + Gödel, rotating-horizon T/S, ring singularity.
+- **#1 COMPLETED same session.** Added **Gödel** (rotating universe with closed timelike curves)
+  — analyzes in 0.1s: the analyzer reads its total effective stress-energy as a **stiff perfect fluid
+  p=ρ** (correct — the dust + negative-Λ combine to isotropic pressure), physical, 3 Killing vectors.
+  Works because Gödel is homogeneous (constant curvature). So both famous off-diagonal spacetimes —
+  Kerr and Gödel — now land; both added to the atlas (now 12 rows).
+- **The rest of #1 are GENUINE symbolic limits, handled honestly (not failures):** (a) Alcubierre
+  warp — full analyzer path intractable (√ branch cut + arbitrary shape fn), but already proven exotic
+  in battery 38; (b) rotating-horizon T,S — I derived a correct general surface-gravity formula
+  (κ²=¼g^{rr}(∂_rχ)²/χ, validated: Schwarzschild κ=1/4M, Kerr numerically exact 0.2320508…) but the
+  explicit horizon radical M+√(M²−a²) makes it symbolically irreducible (radsimp/simplify blow up) —
+  needs r_h-parametrization the analyzer can't auto-generate, so report location + UNKNOWN T,S;
+  (c) ring singularity — off-diagonal Kretschmann swamps. All three are honest three-valued UNKNOWNs
+  with documented reasons. **Lesson: off-diagonal is tractable when rational (Kerr via u=cosθ) or
+  homogeneous (Gödel); transcendental shape fns + branch cuts are the wall.** #1 done; ready for #2.
 
 ## 2026-06-16 (cont.) — THE ATLAS: the analyzer turned loose on a catalog (#3)
 

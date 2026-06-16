@@ -3,7 +3,20 @@
 Agreed ordered roadmap (2026-06-16). Work top to bottom; each builds on the last.
 Full menu of other directions lives in [ATTACK_ANGLES.md](ATTACK_ANGLES.md).
 
-## 1. Crack the off-diagonal frontier  ◀ KERR LANDED; warp/Gödel next
+## 1. Crack the off-diagonal frontier  ◀ DONE (Kerr + Gödel land; rest are honest limits)
+**Outcome:** the two famous off-diagonal spacetimes both analyze correctly — Kerr (rotating black
+hole, ~6s: vacuum, 2 Killing vectors, both horizons M±√(M²−a²)) and Gödel (rotating universe with
+CTCs, ~0.1s: stiff perfect fluid p=ρ, physical, 3 Killing vectors). The remaining off-diagonal items
+are GENUINE symbolic limits, handled honestly (three-valued UNKNOWN), not failures:
+- **Alcubierre warp**: full path intractable (√(x²+y²+z²) branch cut + arbitrary shape fn) — but it's
+  already proven exotic directly in battery 38, so its physics is covered.
+- **Rotating-horizon T,S**: numerically exact but symbolically irreducible (explicit horizon radical
+  won't collapse; needs r_h-parametrization the analyzer can't auto-generate). Report location, mark T,S UNKNOWN.
+- **Ring singularity**: off-diagonal Kretschmann swamps simplify (~500s) — UNKNOWN for now.
+**Lesson banked:** off-diagonal is tractable when the metric is rational (Kerr via u=cosθ — the D4
+rule extends) or homogeneous (Gödel); transcendental shape functions + branch cuts are the wall.
+
+### (superseded notes)
 Teach the analyzer to handle OFF-DIAGONAL metrics (Kerr, Alcubierre warp, Gödel)
 without hanging — the most famous spacetimes the tool couldn't touch.
 - **DONE (Kerr, ~6s in the atlas):** (a) `analyze()` decides the solution TYPE

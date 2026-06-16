@@ -62,6 +62,11 @@ def catalog():
     kerr[2, 2] = Sig / (1 - u**2)
     kerr[3, 3] = (r**2 + a**2 + 2 * M * r * a**2 * (1 - u**2) / Sig) * (1 - u**2)
     cases.append(("Kerr (rotating)", kerr, [t, r, u, ph]))
+    # Gödel (rotating universe with closed timelike curves) — off-diagonal, homogeneous,
+    # sourced. Total effective stress-energy is a stiff perfect fluid (p=ρ). ~0.1s.
+    ex = sp.exp(x)
+    godel = sp.Matrix([[-1, 0, 0, -ex], [0, 1, 0, 0], [0, 0, 1, 0], [-ex, 0, 0, -ex**2 / 2]])
+    cases.append(("Gödel (rotating universe)", godel, [t, x, y, z]))
     return cases
 
 
@@ -136,15 +141,18 @@ def main():
             checks.append(R["energy_conditions"]["SEC"] is False)
         if label == "Kerr (rotating)":
             checks.append("vacuum" in R["made_of"] and len(R["horizon"]) == 2)
+        if label == "Gödel (rotating universe)":
+            checks.append("perfect fluid" in R["made_of"] and R["physical"] is True)
     ok = ok and all(checks)
 
-    print("\n  off-diagonal: Kerr now lands (vacuum, 2 symmetries, both horizons at")
-    print("  M±√(M²−a²)) — the key was rational coordinates (u=cosθ); the trig form")
-    print("  swamps (D4 rule, now extended off-diagonal). Rotating-horizon T,S and the")
-    print("  ring singularity read '?' for now. Remaining frontier: warp/Gödel (their")
-    print("  own structure) and off-diagonal Kretschmann (ATTACK_ANGLES §2/§6).")
+    print("\n  off-diagonal: Kerr (vacuum, 2 horizons M±√(M²−a²)) and Gödel (stiff")
+    print("  perfect fluid p=ρ, physical) both land — the key was rational coordinates")
+    print("  (u=cosθ for Kerr) and homogeneity (Gödel). Documented limits: the warp")
+    print("  drive (√ + arbitrary shape fn — but it's proven exotic in battery 38),")
+    print("  rotating-horizon T,S (numerically exact, symbolically irreducible), and the")
+    print("  ring singularity (off-diagonal Kretschmann swamps). See ATTACK_ANGLES §2/§6.")
     print(f"\nATLAS: {'PASSED ✅' if ok else 'FAILED ❌'}  (one analyze() per row; "
-          "11 famous spacetimes incl. rotating Kerr, uniform report)")
+          "12 famous spacetimes incl. rotating Kerr & Gödel, uniform report)")
     return 0 if ok else 1
 
 

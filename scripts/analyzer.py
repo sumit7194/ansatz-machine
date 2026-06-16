@@ -265,7 +265,7 @@ def horizon_thermo(geo):
         # ergosphere). Report LOCATION only — rotating-horizon T,S is a later task.
         grr = sp.cancel(sp.together(geo.ginv[1, 1]))
         if not grr.has(rc):
-            return UNKNOWN
+            return []                          # no radial structure ⇒ no horizon (e.g. Gödel)
         fnum = sp.numer(grr)
         try:
             if sp.Poly(fnum, rc).degree() > 2:
