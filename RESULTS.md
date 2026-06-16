@@ -502,7 +502,10 @@ the **Friedmann equations** straight from the metric (`ρ=3H²/8π`); (b) recove
 meta-law** — for `a(t)=t^q` it derives `w=p/ρ` and inverts to **`q(w)=2/(3(1+w))`** (radiation→½,
 matter→⅔, stiff→⅓), the abstractor move in a new domain; (c) gets de Sitter → `w=−1`; (d) maps the
 equation of state to energy conditions — **cosmic acceleration is exactly an SEC violation** (`w<−1/3`),
-a phantom is an NEC violation (`w<−1`). All exact. Repro: `scripts/37_cosmology.py`.
+a phantom is an NEC violation (`w<−1`); (e) the **Big Bang singularity** via curvature — Kretschmann
+`K∝1/t⁴→∞` for radiation/matter, but constant for de Sitter (no singularity); (f) a **bounce**
+`a=cosh t` has `ρ+p<0` at the bounce, so avoiding the Big Bang needs exotic matter — tying cosmology
+directly to the wormhole/warp lens. All exact. Repro: `scripts/37_cosmology.py`.
 
 **38 — "impossible" spacetimes.** The engine proves they require exotic matter. (1) **Morris–Thorne
 wormhole:** reading the stress-energy off the Einstein tensor, at the throat `ρ+p_r=(b'(r₀)−1)/(8πr₀²)`,

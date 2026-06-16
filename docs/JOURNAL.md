@@ -20,7 +20,10 @@ built, what broke, what the machine taught us. Numbers live in
   (ρ=3H²/8π); (B) the EXPANSION-LAW META-LAW — for a=t^q it derives w=p/ρ and inverts to
   **q(w)=2/(3(1+w))** (radiation→½, matter→⅔, stiff→⅓), the abstractor move now in cosmology;
   (C) de Sitter → w=−1; (D) the energy-condition map: **acceleration is exactly an SEC violation**
-  (w<−1/3), phantom is NEC violation (w<−1). All exact. Battery 37.
+  (w<−1/3), phantom is NEC violation (w<−1); (E) the **Big Bang singularity** via a different lens —
+  Kretschmann K∝1/t⁴→∞ for radiation/matter but constant for de Sitter (no singularity); (F) a
+  **bounce** a=cosh(t) has ρ+p=−1/4π<0 at the bounce ⇒ avoiding the Big Bang needs EXOTIC matter,
+  which ties cosmology straight to the wormhole/warp lens. All exact. Battery 37.
 - **`38_exotic_spacetimes.py` — proves "impossible" spacetimes need exotic matter.** (1)
   Morris–Thorne wormhole: reads stress-energy off the Einstein tensor and PROVES the no-go —
   at the throat ρ+p_r=(b'(r₀)−1)/(8πr₀²)<0 because flaring-out needs b'<1, so NEC is necessarily

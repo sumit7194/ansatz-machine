@@ -48,6 +48,24 @@ def friedmann():
     return t, a, rho, p
 
 
+def _flrw_geo(a_expr, t):
+    x, y, z = sp.symbols("x y z", real=True)
+    return Geometry(sp.diag(-1, a_expr**2, a_expr**2, a_expr**2), [t, x, y, z])
+
+
+def kretschmann_of(a_expr, t):
+    """K(t) for the flat FLRW with scale factor a_expr — singularity probe."""
+    return sp.simplify(_flrw_geo(a_expr, t).kretschmann)
+
+
+def nec_of(a_expr, t):
+    """ρ+p (NEC combination) for the flat FLRW with scale factor a_expr."""
+    geo = _flrw_geo(a_expr, t)
+    G = geo.ricci - sp.Rational(1, 2) * geo.ricci_scalar * geo.g
+    Gmix = sp.simplify(geo.ginv * G)
+    return sp.simplify(-Gmix[0, 0] / (8 * sp.pi) + Gmix[1, 1] / (8 * sp.pi))
+
+
 def main():
     print("COSMOLOGY — the engine takes on the expanding universe\n")
     t, a, rho, p = friedmann()
@@ -94,9 +112,33 @@ def main():
     print(f"      → dark energy / acceleration is exactly an SEC violation   "
           f"{'✅' if okD else '❌'}")
 
-    passed = okA and okB and okB2 and okC and okD
+    # (E) the Big Bang singularity via CURVATURE (a different lens than energy)
+    tp = sp.Symbol("t", positive=True)
+    Hc2 = sp.Symbol("H", positive=True)
+    print("\n  (E) Big Bang singularity (Kretschmann curvature as t→0):")
+    sing = []
+    for label, a_expr in [("radiation t^½", tp**sp.Rational(1, 2)),
+                          ("matter t^⅔", tp**sp.Rational(2, 3)),
+                          ("de Sitter e^(Ht)", sp.exp(Hc2 * tp))]:
+        K = kretschmann_of(a_expr, tp)
+        lim0 = sp.limit(K, tp, 0, "+")
+        is_sing = lim0 in (sp.oo, -sp.oo)
+        sing.append(is_sing)
+        print(f"        {label:16s}: K={K}  → {'SINGULAR (Big Bang)' if is_sing else 'regular'}")
+    okE = (sing == [True, True, False])   # power-laws bang, de Sitter doesn't
+
+    # (F) a BOUNCE needs exotic matter — ties cosmology to the energy-condition lens
+    tr = sp.Symbol("t", real=True)
+    nec_b = nec_of(sp.cosh(tr), tr)
+    nec_b0 = sp.simplify(nec_b.subs(tr, 0))
+    okF = (nec_b0 < 0)
+    print(f"\n  (F) bounce a=cosh(t) (avoids the singularity): ρ+p at bounce = {nec_b0}")
+    print(f"      → NEC {'VIOLATED ⇒ a bounce needs EXOTIC matter' if okF else 'ok'}  "
+          "(cosmology meets the wormhole/warp lens)")
+
+    passed = okA and okB and okB2 and okC and okD and okE and okF
     print(f"\nCOSMOLOGY: {'PASSED ✅' if passed else 'FAILED ❌'}  "
-          "(Friedmann + expansion-law meta-law + de Sitter + EC map, all exact)")
+          "(Friedmann + expansion law + de Sitter + EC map + singularity + bounce, all exact)")
     return 0 if passed else 1
 
 
