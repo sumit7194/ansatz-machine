@@ -28,6 +28,11 @@ built, what broke, what the machine taught us. Numbers live in
   equator (u=0, Σ=0; ×244 from r=0.05→0.02) but stays BOUNDED off it (×2.6) — the famous ring structure
   the symbolic Kretschmann (and the analyzer) had to mark UNKNOWN. Off-diagonal singularities, closed.
   Battery 48.
+- **LIGHT BENDING (`49_light_bending.py`) — the 1919 Eddington test, closed.** Δφ=2∫dr/(r²√(1/b²−f/r²))−π
+  integrated numerically (mpmath handles the turning-point √). Validated: weak field → 4M/b (ratio 1.006
+  at r₀=500M — Einstein's value, twice Newton); strong field grows (3.09× at r₀=4M); near the photon
+  sphere (r₀=3.5M) Δφ=3.2 rad (light nearly wraps); charge reduces it. Completes the observables lens
+  (light ring, shadow, ISCO, deflection). Battery 49.
 
 ## 2026-06-17 (overnight, autonomous) — DISCOVERY RANGE: invents de Sitter + an exotic hole too
 

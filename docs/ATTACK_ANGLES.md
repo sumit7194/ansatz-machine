@@ -77,10 +77,12 @@ fluid source. Ideas:
 - recover/verify de Sitter, radiation (a∝t^½), matter (a∝t^⅔), ΛCDM.
 - rational-friendly for power-law `a(t)`.
 
-## 2. Observables — what a telescope actually sees  ◀ STARTED (45_observables.py)
-DONE: photon sphere (light ring, 2f=rf') + shadow (EHT silhouette, b_c=r_ph/√f(r_ph)) — Schwarzschild
-r_ph=3M, b_c=3√3 M exact; charge tightens both. STILL OPEN: ISCO (innermost stable circular orbit,
-r=6M Schwarzschild), light bending / perihelion precession (Mercury 43″/cy), full geodesic integration.
+## 2. Observables — what a telescope actually sees  ◀ MOSTLY DONE
+DONE: photon sphere + shadow + ISCO (`45_observables.py`, folded into the analyzer report card) —
+Schwarzschild 3M / 3√3 M / 6M exact, charge tightens all. LIGHT BENDING (`49_light_bending.py`): the
+1919 Eddington test — Δφ=2∫dr/(r²√(1/b²−f/r²))−π, numerically → 4M/b in the weak field, →∞ near the
+photon sphere, reduced by charge. STILL OPEN: perihelion precession (Mercury 43″/cy), gravitational
+redshift (trivial: z=1/√f−1), full geodesic integration.
 Geodesics *through* a metric (orthogonal to its structure): light bending,
 Mercury's perihelion precession (43″/century), the photon sphere, the
 **black-hole shadow** (EHT). Turns "here's a solution" into "here's what you'd
