@@ -39,6 +39,9 @@ NAMES+=("04 campaign");           CMDS+=("scripts/04_campaign.py")
 [ -f scripts/45_observables.py ] && { NAMES+=("45 observables (photon sphere + EHT shadow)"); CMDS+=("scripts/45_observables.py"); }
 [ -f scripts/46_numeric_curvature.py ] && { NAMES+=("46 numeric curvature (verifies Kerr-de Sitter)"); CMDS+=("scripts/46_numeric_curvature.py"); }
 [ -f scripts/47_kasner.py ] && { NAMES+=("47 Kasner (recovers Σp=1, Σp²=1 anisotropic-vacuum law)"); CMDS+=("scripts/47_kasner.py"); }
+[ -f scripts/48_ring_singularity.py ] && { NAMES+=("48 ring singularity (numeric Kretschmann, Kerr ring)"); CMDS+=("scripts/48_ring_singularity.py"); }
+[ -f scripts/49_light_bending.py ] && { NAMES+=("49 light bending (1919 Eddington test)"); CMDS+=("scripts/49_light_bending.py"); }
+[ -f scripts/50_precession.py ] && { NAMES+=("50 perihelion precession (Mercury test, diverges at ISCO)"); CMDS+=("scripts/50_precession.py"); }
 
 fail=0
 GATE="$(dirname "$0")/gate.log"; : > "$GATE"   # also written here so the dashboard (reads ROOT/gate.log) stays current
