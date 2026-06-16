@@ -6,6 +6,27 @@ built, what broke, what the machine taught us. Numbers live in
 
 ---
 
+## 2026-06-17 (cont.) — PLAN #3: the engine INVENTS to spec (and rediscovers the charge)
+
+- The culmination, and it closes the circle. `43_discover.py` reuses 03's genetic loop over rational
+  f(r), but the fitness is now "how well does the candidate's REPORT CARD match a TARGET spec" — the
+  analyzer becomes the judge. Fitness is LIGHT: ρ and p_t reduce to closed formulas in (f,f',f'')
+  (ρ=(1−f−rf')/r², p_r=−ρ, p_t=(rf''+2f')/2r in 8π=1 units), evaluated numerically per candidate
+  (ms); only the requested boxes are scored; the full report runs once on the winner. Runs locally in
+  minutes (no VM needed yet).
+- **Stage 1** {vacuum, horizon, asymptotic} → rediscovered **Schwarzschild** f = 1 − 1/(4r) (vacuum,
+  spacelike singularity, one horizon).
+- **Stage 2** {asymptotic, physical, horizon, TIMELIKE singularity} → the payoff: the engine invented
+  **f = 1 − 5/(6r) + 1/(6r²)** — Reissner–Nordström FORM. It **discovered the charge term +1/(6r²)** on
+  its own, and the analyzer independently classified the matter as traceless EM-like, physical, with
+  TWO horizons and a TIMELIKE (avoidable) singularity. From a physical WISH ("a black hole you can
+  survive falling into") the engine rediscovered that survivability requires electric charge. This
+  unites #1 (analyze) + #2 (causal structure) + #3 (discover) in one result.
+- Honest subtlety shown live: loose specs match many metrics → adding "asymptotically flat" steered
+  Stage 2 from a weird f=1/r−7/2 to the recognizable RN family. Also fixed signature_flip to scan the
+  radial coordinate densely (a narrow flip band between RN's two close horizons was missed by random
+  sampling). Battery 43 (--quick) added. ALL THREE PLAN ITEMS DONE.
+
 ## 2026-06-17 (cont.) — PLAN #2: the causal-structure lens (the charge flips the singularity)
 
 - Added `causal_structure` + `signature_flip` to the analyzer (the report card gained a `causal` row)

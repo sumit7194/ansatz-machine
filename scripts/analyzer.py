@@ -311,24 +311,32 @@ def horizon_thermo(geo):
 def signature_flip(geo):
     """Does the timelike Killing direction ∂_t go spacelike somewhere (g_tt
     changes sign)? That's the 'space and time swap roles' inside a horizon — the
-    timelike direction rotating ∂_t → ∂_r. Sampled over the domain."""
+    timelike direction rotating ∂_t → ∂_r. Scans the radial coordinate DENSELY
+    (random param samples × a fine radial grid) so a narrow flip band between two
+    close horizons isn't missed."""
     gtt = geo.g[0, 0]
-    fs = list(gtt.free_symbols)
+    fs = gtt.free_symbols
     if not fs:
         return False
+    rc = geo.coords[1]
+    params = [s for s in fs if s != rc]
+    rgrid = [0.05 * k for k in range(1, 400)]          # 0.05 .. ~20, fine
     rng = random.Random(0)
-    signs = set()
-    for _ in range(60):
-        sub = {s: sp.Rational(rng.randint(1, 40), rng.randint(1, 5)) for s in fs}
-        try:
-            v = float(gtt.subs(sub))
-        except (TypeError, ValueError):
-            continue
-        if v > 1e-9:
-            signs.add(1)
-        elif v < -1e-9:
-            signs.add(-1)
-    return (1 in signs) and (-1 in signs)
+    for _ in range(8):
+        psub = {s: sp.Rational(rng.randint(1, 12), rng.randint(1, 5)) for s in params}
+        gr = gtt.subs(psub) if params else gtt
+        signs = set()
+        for rv in rgrid:
+            try:
+                v = float(gr.subs(rc, rv)) if gr.has(rc) else float(gr)
+            except (TypeError, ValueError):
+                continue
+            signs.add(1 if v > 1e-9 else (-1 if v < -1e-9 else 0))
+        if 1 in signs and -1 in signs:
+            return True
+        if not params:
+            break
+    return False
 
 
 def causal_structure(geo, sings):

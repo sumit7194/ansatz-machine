@@ -44,8 +44,15 @@ Added to the analyzer (`causal_structure`, `signature_flip`) + battery `42_causa
   is the ground-truth oracle for the signature flip + charge-driven spacelike→timelike flip a net
   should reproduce.
 
-## 3. Make it discover
-Point the GP search engine at the analyzer's report as the fitness/filter — so the
-tool INVENTS spacetimes to spec ("find a physical metric with a horizon sourced by a
-perfect fluid") instead of only describing given ones. Closes the circle back to the
-project's original propose→verify→evolve loop, now in the general setting.
+## 3. Make it discover  ◀ DONE
+`43_discover.py` — reuses 03's genetic loop over rational f(r), with a LIGHT fitness that scores only
+the requested report-card boxes (ρ, p_t reduce to closed formulas in f,f',f''; evaluated numerically
+per candidate, milliseconds). The full report runs once, on the winner.
+- **Stage 1** {vacuum, horizon, asymptotic} → rediscovers **Schwarzschild** (f = 1 − 1/(4r)).
+- **Stage 2** {asymptotic, physical, horizon, timelike singularity} → invents a SURVIVABLE black hole:
+  the engine discovered **f = 1 − 5/(6r) + 1/(6r²)** — Reissner–Nordström form, it **invented the charge
+  term**! The analyzer independently confirms: traceless EM-like matter, physical, two horizons,
+  timelike (avoidable) singularity. From a physical WISH it rediscovered that survivability needs charge.
+- Ties all three plan items: discover (#3) → analyze (#1) → causal structure (#2). Battery 43 (--quick).
+- **Scope:** static spherical search space (fast). Rotating discovery = the later heavy VM run
+  (analyzing each rotating candidate is ~6s, so that loop wants hours on the VM alongside Ludo).
