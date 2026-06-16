@@ -49,6 +49,19 @@ def catalog():
     cases.append(("FLRW dust", sp.diag(-1, a23**2, a23**2, a23**2), [t, x, y, z]))
     cases.append(("Morris–Thorne wormhole",
                   sp.diag(-1, 1 / (1 - r0**2 / r**2), r**2, r**2 * sp.sin(th)**2), [t, r, th, ph]))
+    # Kerr (rotating) — the OFF-DIAGONAL milestone, in rational u=cosθ form so the
+    # analyzer (and the D4 rule) handle it; the trig form swamps. ~6s.
+    a = sp.Symbol("a", positive=True)
+    u = sp.Symbol("u", real=True)
+    Sig = r**2 + a**2 * u**2
+    Del = r**2 - 2 * M * r + a**2
+    kerr = sp.zeros(4, 4)
+    kerr[0, 0] = -(1 - 2 * M * r / Sig)
+    kerr[0, 3] = kerr[3, 0] = -2 * M * r * a * (1 - u**2) / Sig
+    kerr[1, 1] = Sig / Del
+    kerr[2, 2] = Sig / (1 - u**2)
+    kerr[3, 3] = (r**2 + a**2 + 2 * M * r * a**2 * (1 - u**2) / Sig) * (1 - u**2)
+    cases.append(("Kerr (rotating)", kerr, [t, r, u, ph]))
     return cases
 
 
@@ -121,14 +134,17 @@ def main():
             checks.append("perfect fluid" in R["made_of"] and R["physical"] is True)
         if label == "de Sitter (expanding)":
             checks.append(R["energy_conditions"]["SEC"] is False)
+        if label == "Kerr (rotating)":
+            checks.append("vacuum" in R["made_of"] and len(R["horizon"]) == 2)
     ok = ok and all(checks)
 
-    print("\n  frontier (current limit): OFF-DIAGONAL metrics (Kerr, Gödel, warp) — the")
-    print("  analyzer's blanket simplify chokes on their curvature, and horizons/")
-    print("  singularities there read '?'. Smarter off-diagonal handling is the next")
-    print("  depth pass (ATTACK_ANGLES §2/§6). Diagonal catalog above is exact & fast.")
+    print("\n  off-diagonal: Kerr now lands (vacuum, 2 symmetries, both horizons at")
+    print("  M±√(M²−a²)) — the key was rational coordinates (u=cosθ); the trig form")
+    print("  swamps (D4 rule, now extended off-diagonal). Rotating-horizon T,S and the")
+    print("  ring singularity read '?' for now. Remaining frontier: warp/Gödel (their")
+    print("  own structure) and off-diagonal Kretschmann (ATTACK_ANGLES §2/§6).")
     print(f"\nATLAS: {'PASSED ✅' if ok else 'FAILED ❌'}  (one analyze() per row; "
-          "10 famous spacetimes, uniform report)")
+          "11 famous spacetimes incl. rotating Kerr, uniform report)")
     return 0 if ok else 1
 
 

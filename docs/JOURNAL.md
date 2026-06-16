@@ -6,6 +6,29 @@ built, what broke, what the machine taught us. Numbers live in
 
 ---
 
+## 2026-06-17 — PLAN #1: cracked the off-diagonal frontier (Kerr lands in 6s)
+
+- Agreed ordered plan (docs/PLAN.md): #1 off-diagonal frontier → #2 causal-structure lens →
+  #3 make-it-discover. Working #1.
+- **Made the analyzer handle Kerr** (was hanging forever). Two parts:
+  - **Analyzer restructure:** `analyze()` now decides the solution TYPE first via a NUMERIC
+    pre-check on the Ricci — if Ricci samples to zero it's vacuum, confirmed symbolically WITHOUT
+    ever forming `ricci_scalar` (the heavy contraction) or `stress_energy` (which blanket-simplified
+    huge off-diagonal expressions). Those two were the hang. Also: `stress_energy` made lazy
+    (per-component cancel/together), and horizon detection generalized from `g_tt=0` to `g^{rr}=0`
+    so it catches Kerr's Δ=0 horizons at r=M±√(M²−a²). Off-diagonal singularities stay UNKNOWN
+    (Kretschmann too heavy).
+  - **The real unlock (D4 extended):** the analyzer fixes weren't enough alone — Kerr's TRIG form
+    swamps `simplify` (~500s, per battery 01's own note). Feeding Kerr in RATIONAL u=cosθ
+    coordinates makes it tractable. So the D4 rational-coordinates rule extends to off-diagonal.
+- **Result:** Kerr analyzes in **6.4s** → vacuum, ∂/∂t & ∂/∂φ (2 Killing vectors), both horizons
+  M±√(M²−a²), singularity UNKNOWN (honest). Added to the atlas as row 11; battery 41 checks it.
+  Diagonal zoo (battery 40) unregressed.
+- **Debugging notes:** a stray `pkill -f` over-match killed an earlier verify mid-run (re-ran;
+  lesson: kill by PID). Also fixed the dashboard staleness — verify.sh now writes ROOT/gate.log
+  live (it had been reading a 3-day-old file), so the panel reflects the current 28→29 batteries.
+- **Still open in #1:** Alcubierre warp + Gödel, rotating-horizon T/S, ring singularity.
+
 ## 2026-06-16 (cont.) — THE ATLAS: the analyzer turned loose on a catalog (#3)
 
 - User picked attack angle #3 (atlas) over deepening (#2), with #2 folded in as gaps surface.

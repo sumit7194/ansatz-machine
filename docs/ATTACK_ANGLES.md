@@ -42,9 +42,12 @@ report card from the mockup is now fully populated.
 (Minkowski → Schwarzschild → RN → SdS → AdS → de Sitter → Tangherlini-5D → FLRW rad/dust →
 Morris–Thorne) — uniform report card, all exact & fast. Surfaced + fixed three guards (generic-symbol
 singularity solve; quadratic-cap horizon roots; skip off-diagonal Kretschmann).
-**THE FRONTIER (next depth pass):** OFF-DIAGONAL metrics (Kerr, Gödel, warp) choke the blanket
-`simplify` — they need structured/lazy simplification before the analyzer handles them at speed. This
-is now the top #2 item.
+**OFF-DIAGONAL FRONTIER — Kerr DONE (2026-06-17, PLAN #1):** the analyzer now lands Kerr in ~6s
+(vacuum, 2 Killing vectors, both horizons M±√(M²−a²)) via: decide-type-first with a numeric Ricci
+pre-check (vacuum skips ricci_scalar + stress_energy), lazy stress_energy, and `g^{rr}=0` horizon
+detection — PLUS feeding rational u=cosθ coordinates (the trig form swamps; D4 extends off-diagonal).
+Remaining: Alcubierre warp + Gödel (own structure), rotating-horizon T/S, off-diagonal Kretschmann
+(ring singularity).
 **Still open:** off-diagonal handling (the frontier), a FULL Killing-vector solver (coordinate-mixing
 symmetries like the rotation group), the causal-structure lens (§6), richer source ID, and folding the
 GP discovery loop in so the analyzer can also DISCOVER, not just analyze. Original design notes below.

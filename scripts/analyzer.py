@@ -90,14 +90,37 @@ def _is_zero_matrix(M):
     return all(zero_simplify(M[i, j]) == 0 for i in range(M.rows) for j in range(M.cols))
 
 
+def _numeric_nonzero(M, coords, trials=4):
+    """Fast definitive 'sourced' detector: True if M is non-zero at a sampled
+    exact-rational point (so the metric is provably non-vacuum without symbolic
+    zero-testing). False means 'inconclusive → fall through to the symbolic
+    check'. Mirrors the engine's numeric_spot_check; the point is to AVOID the
+    expensive blanket simplify on heavy off-diagonal (Kerr) curvature."""
+    rng = random.Random(0)
+    for _ in range(trials):
+        sub = {s: sp.Rational(rng.randint(11, 99), rng.randint(7, 13)) for s in coords}
+        for i in range(M.rows):
+            for j in range(i, M.cols):
+                try:
+                    if abs(complex(M[i, j].subs(sub).evalf(20))) > 1e-6:
+                        return True
+                except (TypeError, ValueError):
+                    return False
+    return False
+
+
 # ---------------------------------------------------------------------------
 # the matter and its physicality
 # ---------------------------------------------------------------------------
 
 def stress_energy(geo):
-    """Mixed stress-energy T^a_b = G^a_b / 8π that sources the metric."""
+    """Mixed stress-energy T^a_b = G^a_b / 8π that sources the metric. Reduced
+    per-component with the cheap cancel(together) (NOT a blanket simplify — that
+    drowns on heavy off-diagonal curvature; same lesson as the engine's D2/D22)."""
     G = geo.ricci - sp.Rational(1, 2) * geo.ricci_scalar * geo.g
-    return sp.simplify(geo.ginv * G / (8 * sp.pi))
+    raw = geo.ginv * G / (8 * sp.pi)
+    n = geo.n
+    return sp.Matrix(n, n, lambda i, j: sp.cancel(sp.together(raw[i, j])))
 
 
 def principal_components(geo, Tmix):
@@ -168,20 +191,24 @@ def matter_type(geo, Tmix):
 
 
 def field_verdict(geo):
-    """vacuum (Ricci-flat) / vacuum + Λ / sourced — three-valued."""
-    Ric = geo.ricci
-    if _is_zero_matrix(Ric):
-        return "vacuum (Ricci-flat)"
+    """vacuum (Ricci-flat) / vacuum + Λ / sourced — three-valued. Uses the
+    traceless-Ricci residual with a NUMERIC pre-check so a sourced metric is
+    caught instantly (no symbolic zero-testing of heavy off-diagonal curvature),
+    and only a numerically-vacuum metric pays for the symbolic confirmation."""
     n = geo.n
-    Lam = sp.simplify(geo.ricci_scalar * (n - 2) / (2 * n))
-    if not Lam.free_symbols or Lam.is_number:
-        resid = Ric - (2 * Lam / (n - 2)) * geo.g
-        if _is_zero_matrix(resid):
-            return f"vacuum + cosmological constant (Λ = {Lam})"
-    # constant-but-symbolic Λ (e.g. a Λ symbol): test the residual directly
-    resid = Ric - (2 * Lam / (n - 2)) * geo.g
+    Ric = geo.ricci
+    # Ricci numerically zero ⇒ candidate PURE VACUUM — confirm symbolically WITHOUT
+    # ever forming ricci_scalar (the heavy contraction that hangs on Kerr).
+    if not _numeric_nonzero(Ric, geo.coords):
+        if _is_zero_matrix(Ric):
+            return "vacuum (Ricci-flat)"
+    # Ricci is (numerically) non-zero: Einstein space (vacuum+Λ) or genuinely sourced.
+    Lam = sp.cancel(sp.together(geo.ricci_scalar * (n - 2) / (2 * n)))
+    resid = Ric - (2 * Lam / (n - 2)) * geo.g          # traceless part of Ricci
+    if _numeric_nonzero(resid, geo.coords):
+        return "sourced (non-vacuum matter)"           # provably non-Einstein-space
     if _is_zero_matrix(resid):
-        return f"vacuum + cosmological constant (Λ = {Lam})"
+        return f"vacuum + cosmological constant (Λ = {sp.simplify(Lam)})"
     return "sourced (non-vacuum matter)"
 
 
@@ -231,9 +258,26 @@ def horizon_thermo(geo):
     temperature/entropy, for the standard form g_tt=−f, g_rr=1/f. Returns []
     (none), a list of (r_h, T, S), or UNKNOWN if the form/solve doesn't fit."""
     g, coords, n = geo.g, geo.coords, geo.n
+    rc = coords[1]
     if not g.is_diagonal():
-        return UNKNOWN
-    gtt, rc = g[0, 0], coords[1]
+        # stationary / off-diagonal (e.g. Kerr): the Killing horizon is the null
+        # hypersurface r=const where g^{rr}=0 (Δ=0), NOT g_tt=0 (that's the
+        # ergosphere). Report LOCATION only — rotating-horizon T,S is a later task.
+        grr = sp.cancel(sp.together(geo.ginv[1, 1]))
+        if not grr.has(rc):
+            return UNKNOWN
+        fnum = sp.numer(grr)
+        try:
+            if sp.Poly(fnum, rc).degree() > 2:
+                return UNKNOWN
+        except sp.PolynomialError:
+            return UNKNOWN
+        try:
+            roots = sp.solve(fnum, rc)
+        except Exception:
+            return UNKNOWN
+        return [(sp.simplify(rh), UNKNOWN, UNKNOWN) for rh in roots]
+    gtt = g[0, 0]
     if not gtt.has(rc):
         return []                              # ∂_t never null along r ⇒ no horizon here
     f = sp.simplify(-gtt)
@@ -269,21 +313,32 @@ def horizon_thermo(geo):
 # ---------------------------------------------------------------------------
 
 def analyze(metric, coords):
-    """Run the core analysis on any metric. Returns a report dict."""
+    """Run the core analysis on any metric. Returns a report dict. Decides the
+    solution TYPE first (cheap, numeric-prechecked) and only computes the full
+    stress-energy when the metric is genuinely sourced — so vacuum metrics
+    (e.g. Kerr) skip the expensive matter step that used to hang."""
     geo = Geometry(sp.Matrix(metric), list(coords))
-    Tmix = stress_energy(geo)
-    desc, rho, pressures = matter_type(geo, Tmix)
+    n = geo.n
+    verdict = field_verdict(geo)
+    if "Ricci-flat" in verdict:                       # pure vacuum — no matter
+        desc, rho, pressures = "vacuum (empty space)", UNKNOWN, UNKNOWN
+    elif "cosmological constant" in verdict:          # vacuum+Λ — matter is Λ
+        Lam = sp.simplify(geo.ricci_scalar * (n - 2) / (2 * n))
+        rho = sp.simplify(Lam / (8 * sp.pi))          # T^0_0 = −Λ/8π = −ρ ⇒ ρ = Λ/8π
+        pressures = [sp.simplify(-rho)] * (n - 1)     # p = −ρ (w = −1)
+        desc = "cosmological constant Λ (w = −1)"
+    else:                                             # genuinely sourced — worth the stress-energy
+        desc, rho, pressures = matter_type(geo, stress_energy(geo))
     ec = energy_conditions(rho, pressures)
     physical = _all(*[ec[k] for k in ("NEC", "WEC", "DEC", "SEC")])
     return {
-        "dim": geo.n,
-        "ricci_scalar": geo.ricci_scalar,
+        "dim": n,
         "made_of": desc,
         "rho": rho,
         "pressures": pressures,
         "energy_conditions": ec,
         "physical": physical,           # all four hold? True/False/UNKNOWN
-        "solves_einstein": field_verdict(geo),
+        "solves_einstein": verdict,
         "symmetries": symmetries(geo),
         "singularities": singularities(geo),
         "horizon": horizon_thermo(geo),
