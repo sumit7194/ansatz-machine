@@ -28,9 +28,12 @@ without hanging — the most famous spacetimes the tool couldn't touch.
   too heavy). **Key lesson: off-diagonal needs RATIONAL coordinates (u=cosθ) — the
   trig form swamps (500s); the D4 rule extends to off-diagonal.** Kerr added to the
   atlas (row 11).
-- **Still open in #1:** Alcubierre warp + Gödel (their own structure — warp's
-  Eulerian energy, Gödel's rotating dust+Λ via the eigenvalue path); rotating-horizon
-  T,S; the ring singularity (needs a cheaper off-diagonal invariant than Kretschmann).
+- **RING SINGULARITY CLOSED (2026-06-17, `48_ring_singularity.py`):** the numeric Kretschmann
+  (numeric_curvature.py) reveals Kerr's singularity is a RING — K diverges as r→0 ON the equator
+  (u=cosθ=0, Σ=0; ×244 from r=0.05→0.02) but stays bounded OFF it — the structure the symbolic
+  Kretschmann (and hence the analyzer) had to mark UNKNOWN. Validated vs exact Schwarzschild K=48M²/r⁶.
+- **Still open in #1:** rotating-horizon T,S (Kerr temperature/entropy — could now do numerically);
+  warp + Gödel are HANDLED for analysis (Gödel via the eigenvalue path; warp proven exotic in 38).
 
 ## 2. Causal-structure lens (§6)  ◀ DONE
 Added to the analyzer (`causal_structure`, `signature_flip`) + battery `42_causal_structure.py`.

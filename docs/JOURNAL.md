@@ -22,6 +22,12 @@ built, what broke, what the machine taught us. Numbers live in
   the engine factors the vacuum residual into the **Kasner conditions** Σpᵢ=1 AND Σpᵢ²=1 (R_tt·t²=Σp−Σp²;
   R_xx·t²∝p₁(Σp−1)), verified necessary + sufficient. The abstractor move (24) in a cosmological setting
   (the BKL building block). Closes ATTACK_ANGLES #4 (Kasner). Battery 47.
+- **KERR'S RING SINGULARITY (`48_ring_singularity.py`) — closed via the numeric engine.** Added
+  `kretschmann_numeric` to numeric_curvature.py (finite-difference K = R_abcd R^abcd). It validates vs
+  exact Schwarzschild K=48M²/r⁶ (rel err 1e-8), then reveals Kerr's RING: K diverges as r→0 ON the
+  equator (u=0, Σ=0; ×244 from r=0.05→0.02) but stays BOUNDED off it (×2.6) — the famous ring structure
+  the symbolic Kretschmann (and the analyzer) had to mark UNKNOWN. Off-diagonal singularities, closed.
+  Battery 48.
 
 ## 2026-06-17 (overnight, autonomous) — DISCOVERY RANGE: invents de Sitter + an exotic hole too
 
