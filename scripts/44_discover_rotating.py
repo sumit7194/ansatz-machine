@@ -78,6 +78,36 @@ def reduce_residual():
     return funcs
 
 
+def reduce_residual_charged(Q_val):
+    """Einstein–Maxwell residual for the Kerr-Δ ansatz + the Kerr–Newman EM field
+    (charge Q_val fixed), reduced to numeric res(r,u,Δ,Δ',Δ'',a) — the charged
+    analogue. Vanishes at Δ = r²−2Mr+a²+Q²."""
+    mx_s = importlib.util.spec_from_file_location("mx", os.path.join(_here, "28_maxwell.py"))
+    mx = importlib.util.module_from_spec(mx_s); mx_s.loader.exec_module(mx)
+    D = sp.Function("Delta")
+    g, coords, a = kerr_delta_metric(D(r))
+    geo = Geometry(g, coords)
+    u = coords[2]
+    s2 = 1 - u**2
+    Sig = r**2 + a**2 * u**2
+    Q = sp.Symbol("Q", positive=True)
+    A = [-Q * r / Sig, 0, 0, Q * r * a * s2 / Sig]        # Kerr–Newman potential
+    F = mx.faraday(A, coords)
+    res_mat = geo.ricci - 2 * mx.em_stress(geo, F)        # R_ab − κT_ab[F], κ=2
+    Dv, Dpv, Dppv, av = sp.symbols("Dv Dpv Dppv av")
+    sub = {sp.Derivative(D(r), (r, 2)): Dppv, sp.Derivative(D(r), r): Dpv,
+           D(r): Dv, a: av, Q: Q_val}
+    funcs = []
+    for i in range(4):
+        for j in range(i, 4):
+            comp = res_mat[i, j]
+            if comp == 0:
+                continue
+            expr = sp.cancel(sp.together(comp)).subs(sub)
+            funcs.append(sp.lambdify((r, u, Dv, Dpv, Dppv, av), expr, "math"))
+    return funcs
+
+
 def fitness(tree, res_funcs):
     D = gp.to_sympy(tree)
     try:
@@ -140,37 +170,58 @@ def evolve(res_funcs, seed=0, pop=260, gens=70, quick=False):
     return gp.to_sympy(best), bf, gen
 
 
+def _quadratic_const(D, const):
+    """True iff D(r) is a quadratic in r with constant term == const."""
+    if D.free_symbols - {r}:
+        return False
+    try:
+        return sp.degree(sp.Poly(D, r)) == 2 and sp.simplify(D.coeff(r, 0) - const) == 0
+    except Exception:
+        return False
+
+
+def _discover(label, res_funcs, t0, seed, quick):
+    D, bf, gen = evolve(res_funcs, seed=seed, quick=quick)
+    D = sp.nsimplify(sp.expand(sp.simplify(D)), rational=True)
+    print(f"  [{label}] discovered Δ(r) = {D}   (fit {bf:.2f}, gen {gen}, {time.time()-t0:.1f}s)")
+    return D
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--quick", action="store_true")
     args = ap.parse_args()
-    print("ROTATING DISCOVERY — invent a spinning black hole (rediscover Kerr)\n")
-
+    print("ROTATING DISCOVERY — invent spinning black holes from spec\n")
     t0 = time.time()
-    print("  reducing the Kerr-ansatz vacuum residual once ...", flush=True)
-    res_funcs = reduce_residual()
-    print(f"  reduced to {len(res_funcs)} cheap residual formulas ({time.time()-t0:.1f}s)\n", flush=True)
 
-    Dexpr, bf, gen = evolve(res_funcs, seed=3, quick=args.quick)
-    Dexpr = sp.nsimplify(sp.expand(sp.simplify(Dexpr)), rational=True)
-    print(f"  discovered Δ(r) = {Dexpr}   (fit {bf:.2f}, gen {gen}, {time.time()-t0:.1f}s)")
-    print(f"  Kerr target (a=1/2): Δ = r² − 2M r + 1/4  →  a quadratic r² + (free)·r + 1/4")
-
-    # verify: the discovered Δ in the full Kerr metric is genuinely vacuum + rotating
-    g, coords, a = kerr_delta_metric(Dexpr.subs(R_SYM, r))
+    # Stage 1: VACUUM → Kerr.  a=1/2 ⇒ const a² = 1/4
+    print("  reducing the vacuum residual once ...", flush=True)
+    res_v = reduce_residual()
+    print(f"  → {len(res_v)} cheap formulas ({time.time()-t0:.1f}s)", flush=True)
+    Dk = _discover("Kerr", res_v, t0, seed=3, quick=args.quick)
+    g, coords, a = kerr_delta_metric(Dk)
     rep = analyze(g.subs(a, sp.Rational(1, 2)), coords)
-    print("\n  full report card of the discovered spinning metric:")
-    print("\n".join("   " + ln for ln in format_report(rep).splitlines()))
+    nh = len(rep["horizon"]) if rep["horizon"] not in (None, []) else 0
+    print(f"     analyzer: {rep['made_of']} | {len(rep['symmetries'])} Killing vectors | {nh} horizons")
+    ok1 = ("vacuum" in rep["made_of"] and _quadratic_const(Dk, sp.Rational(1, 4))
+           and len(rep["symmetries"]) >= 2 and nh == 2)
 
-    is_quadratic = sp.degree(sp.Poly(Dexpr, r)) == 2 if Dexpr.free_symbols <= {r} else False
-    const_ok = sp.simplify(Dexpr.coeff(r, 0) - sp.Rational(1, 4)) == 0
-    vacuum = "vacuum" in rep["made_of"]
-    rotating = rep["horizon"] not in (None, []) and len(rep["symmetries"]) >= 2
-    ok = vacuum and rotating and is_quadratic and const_ok
-    print(f"\n  → quadratic Δ with a²=1/4 const: {is_quadratic and const_ok}; vacuum: {vacuum}; "
-          f"rotating w/ horizon: {rotating}")
-    print(f"\nROTATING DISCOVERY: {'PASSED ✅ (rediscovered Kerr from spec)' if ok else 'PARTIAL/❌'}")
-    return 0 if ok else 1
+    # Stage 2: CHARGED (Kerr–Newman EM field, Q=1/2) → Kerr–Newman.  const a²+Q² = 1/4+1/4 = 1/2
+    Qc = sp.Rational(1, 2)
+    print("\n  reducing the charged (Einstein–Maxwell) residual once ...", flush=True)
+    res_c = reduce_residual_charged(Qc)
+    print(f"  → {len(res_c)} cheap formulas ({time.time()-t0:.1f}s)", flush=True)
+    Dkn = _discover("Kerr–Newman", res_c, t0, seed=5, quick=args.quick)
+    const_kn = sp.Rational(1, 4) + Qc**2
+    got = Dkn.coeff(r, 0) if Dkn.free_symbols <= {r} else "?"
+    ok2 = _quadratic_const(Dkn, const_kn)
+    print(f"     target Δ = r²−2Mr+a²+Q² ⇒ const a²+Q² = {const_kn}; got {got}  "
+          f"→ {'✓ Kerr–Newman (charge adds Q² to Δ)' if ok2 else '✗'}")
+
+    passed = ok1 and ok2
+    print(f"\nROTATING DISCOVERY: "
+          f"{'PASSED ✅ (rediscovered Kerr AND Kerr–Newman from spec)' if passed else 'PARTIAL/❌'}")
+    return 0 if passed else 1
 
 
 if __name__ == "__main__":

@@ -64,5 +64,11 @@ function Δ(r) inside it; REDUCE the vacuum residual ONCE (7s) to cheap formulas
 score candidates numerically (ms). So it's a single-function search like the static loop —
 **rediscovered KERR Δ=r²−2Mr+a² in ~22s LOCALLY** (analyzer confirms: vacuum, 2 Killing vectors, both
 horizons M±√(M²−a²)). The "deep VM run" turned out unnecessary — the reduce-once trick made rotating
-discovery fast. Battery 44 (--quick). Next rotating extensions (if wanted): Kerr–Newman from "charged",
-Kerr–dS from "with Λ".
+discovery fast. Battery 44 (--quick).
+- **Kerr–Newman extension (charged rotating) DONE:** same Kerr-Δ ansatz + the Kerr–Newman EM field,
+  Einstein–Maxwell residual reduced once (verified ≡0 at Δ_KN); target "charged" (Q=1/2) → discovered
+  Δ = r²−2Mr+a²+Q² (const 1/2 = a²+Q²) — the engine added Q² to Δ's constant, the rotating analogue of
+  the static RN discovery (battery 31). GP note: pick Q so a²+Q² has a SMALL denominator (constant-
+  mutation explores small denominators — 5/16 was too hard, 1/2 is easy).
+- **Still open (a real build, not a quick swap):** Kerr–de Sitter needs a 2-function ansatz — Λ
+  modifies the angular Δ_θ and the Ξ factor too, not just the radial Δ(r).

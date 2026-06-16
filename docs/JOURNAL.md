@@ -20,7 +20,14 @@ built, what broke, what the machine taught us. Numbers live in
   horizons 1±√3/2 = M±√(M²−a²), Ricci-flat, signature flip True.
 - **The honest punchline: the deep VM run was unnecessary.** The reduce-once trick (same lesson as the
   static loop) made rotating discovery fast on the Mac — no VM, no waiting on the local training.
-  Battery 44 (--quick). Possible next: Kerr–Newman from "charged", Kerr–dS from "with Λ".
+  Battery 44 (--quick).
+- **Kerr–Newman extension added same session:** the Kerr-Δ ansatz + the Kerr–Newman EM field, the
+  Einstein–Maxwell residual reduced once (feasibility-verified ≡0 at Δ_KN=r²−2Mr+a²+Q²); target
+  "charged" (Q=1/2) → discovered Δ=r²−8r/3+1/2 (const 1/2 = a²+Q²). The engine added Q² to Δ's constant
+  — the rotating analogue of the static RN discovery. GP lesson surfaced live: the constant-mutation
+  explores SMALL denominators, so a²+Q²=5/16 (Q=1/4) wouldn't converge but 1/2 (Q=1/2) does — pick the
+  charge so the target constant is low-denominator. Kerr–de Sitter is a bigger build (2-function ansatz:
+  Λ modifies the angular Δ_θ + Ξ factor, not just radial Δ) — noted, not done.
 
 ## 2026-06-17 (cont.) — PLAN #3: the engine INVENTS to spec (and rediscovers the charge)
 
