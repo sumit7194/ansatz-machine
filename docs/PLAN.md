@@ -80,5 +80,11 @@ discovery fast. Battery 44 (--quick).
   finite differences (pure Python, ms/point, no symbolic blow-up); battery `46_numeric_curvature.py`
   validates it VERIFIES Kerr–de Sitter (vacuum+Λ, |R−Λg|≈2e-4) — the metric symbolic OOMs on — plus
   Schwarzschild/Kerr (≈0) and a wrong-Δ_r control (large). The VM was never the answer; a numeric engine
-  was. Next: Kerr–dS DISCOVERY (search Δ_r with the numeric residual as fitness — Δ_r is a quartic, a
-  harder/slower GP than Kerr's quadratic).
+  was. **Kerr–dS analysis is fully unblocked.** The from-scratch GP DISCOVERY of the Kerr–dS Δ_r was
+  then attempted (search Δ_r by the numeric residual) and is HARD — the target is a quartic
+  (−r⁴+¾r²−2Mr+¼) and the GP's primitives (r, c, ×, powi 2/3) can't easily evolve the r⁴ term, plus the
+  numeric fitness is slow; it stalled at the constant (fit ~0.03). NOT forced. The meaningful result is
+  already in battery 46: the numeric engine VERIFIES Kerr–dS, and its control shows Kerr's own Δ
+  (no Λ term) gives a LARGE residual in a Λ-universe — i.e. the engine confirms a rotating hole in a
+  Λ-universe REQUIRES the −Λr⁴/3 correction. Full quartic discovery would need r⁴ in the GP primitives
+  or a seeded search — a future tweak, not tonight.
