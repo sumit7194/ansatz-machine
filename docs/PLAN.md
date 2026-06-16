@@ -32,13 +32,17 @@ without hanging — the most famous spacetimes the tool couldn't touch.
   Eulerian energy, Gödel's rotating dust+Λ via the eigenvalue path); rotating-horizon
   T,S; the ring singularity (needs a cheaper off-diagonal invariant than Kretschmann).
 
-## 2. Causal-structure lens (§6)
-Classify a singularity as **spacelike** ("the end of time" — Schwarzschild r=0) vs
-**timelike** ("a place you can avoid" — Reissner–Nordström r=0), and detect the
-**signature flip** inside a horizon (timelike direction rotating ∂_t→∂_r). Calibrated
-by the Schwarzschild-vs-RN contrast (both in the zoo). Sister NN-project resonance
-(kept separate): our exact tool is the ground-truth oracle for what their net claims
-to have learned.
+## 2. Causal-structure lens (§6)  ◀ DONE
+Added to the analyzer (`causal_structure`, `signature_flip`) + battery `42_causal_structure.py`.
+- **Singularity character** from the sign of g^{kk} along the singular direction: g^{kk}<0 ⇒
+  spacelike ('a moment, the end of time'); g^{kk}>0 ⇒ timelike ('a place'). Schwarzschild r=0 →
+  spacelike; **adding CHARGE flips RN's r=0 → timelike** (the calibration); FLRW Big Bang (t=0) →
+  spacelike, all exact.
+- **Signature flip** (∂_t goes spacelike inside a horizon, t↔r swap): True for Schwarzschild/RN,
+  False for FLRW/wormhole/Minkowski.
+- The report card gained a `causal` row. Sister NN-project resonance (kept separate): our exact tool
+  is the ground-truth oracle for the signature flip + charge-driven spacelike→timelike flip a net
+  should reproduce.
 
 ## 3. Make it discover
 Point the GP search engine at the analyzer's report as the fitness/filter — so the

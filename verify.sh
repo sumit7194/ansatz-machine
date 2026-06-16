@@ -33,6 +33,7 @@ NAMES+=("04 campaign");           CMDS+=("scripts/04_campaign.py")
 [ -f scripts/38_exotic_spacetimes.py ] && { NAMES+=("38 exotic spacetimes (wormhole/warp need exotic matter)"); CMDS+=("scripts/38_exotic_spacetimes.py"); }
 [ -f scripts/40_analyzer.py ] && { NAMES+=("40 general analyzer (one tool, the whole zoo)"); CMDS+=("scripts/40_analyzer.py"); }
 [ -f scripts/41_atlas.py ] && { NAMES+=("41 atlas (12 spacetimes incl. Kerr & Gödel)"); CMDS+=("scripts/41_atlas.py"); }
+[ -f scripts/42_causal_structure.py ] && { NAMES+=("42 causal structure (spacelike vs timelike singularity)"); CMDS+=("scripts/42_causal_structure.py"); }
 
 fail=0
 GATE="$(dirname "$0")/gate.log"; : > "$GATE"   # also written here so the dashboard (reads ROOT/gate.log) stays current

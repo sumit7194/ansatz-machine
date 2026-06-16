@@ -6,6 +6,22 @@ built, what broke, what the machine taught us. Numbers live in
 
 ---
 
+## 2026-06-17 (cont.) — PLAN #2: the causal-structure lens (the charge flips the singularity)
+
+- Added `causal_structure` + `signature_flip` to the analyzer (the report card gained a `causal` row)
+  and battery `42_causal_structure.py`. The mind-bending black-hole-interior structure, made exact:
+  - **Singularity character** — spacelike ('a moment, the end of time', unavoidable) vs timelike
+    ('a place', avoidable), from the sign of g^{kk} along the singular direction (g^{kk}<0 ⇒ timelike
+    normal ⇒ spacelike surface). **Schwarzschild r=0 → spacelike; adding CHARGE flips RN's r=0 →
+    timelike** — the exact calibration the sister NN project's context described. FLRW Big Bang (t=0)
+    → spacelike. All exact, reusing the singularity scan.
+  - **Signature flip** — does ∂_t go spacelike inside a horizon (t↔r swap)? Detected by g_tt changing
+    sign over the domain. True for Schwarzschild/RN, False for FLRW/wormhole/Minkowski. (Bug found+fixed
+    in prototype: sampled only coords, leaving the parameter M symbolic → fixed to sample all free symbols.)
+- Battery 42 PASSES; battery 40 unregressed (the additions are robust/wrapped). Honest scope: this is
+  the EXACT ground-truth oracle for what the sister NN net claims to have learned (signature flip,
+  charge→timelike) — projects kept separate, link is hand-level only. #2 done; #3 (make-it-discover) next.
+
 ## 2026-06-17 — PLAN #1: cracked the off-diagonal frontier (Kerr lands in 6s)
 
 - Agreed ordered plan (docs/PLAN.md): #1 off-diagonal frontier → #2 causal-structure lens →

@@ -308,6 +308,53 @@ def horizon_thermo(geo):
     return out
 
 
+def signature_flip(geo):
+    """Does the timelike Killing direction ∂_t go spacelike somewhere (g_tt
+    changes sign)? That's the 'space and time swap roles' inside a horizon — the
+    timelike direction rotating ∂_t → ∂_r. Sampled over the domain."""
+    gtt = geo.g[0, 0]
+    fs = list(gtt.free_symbols)
+    if not fs:
+        return False
+    rng = random.Random(0)
+    signs = set()
+    for _ in range(60):
+        sub = {s: sp.Rational(rng.randint(1, 40), rng.randint(1, 5)) for s in fs}
+        try:
+            v = float(gtt.subs(sub))
+        except (TypeError, ValueError):
+            continue
+        if v > 1e-9:
+            signs.add(1)
+        elif v < -1e-9:
+            signs.add(-1)
+    return (1 in signs) and (-1 in signs)
+
+
+def causal_structure(geo, sings):
+    """The causal-structure lens (#2): the CHARACTER of each singularity —
+    spacelike ('a moment, the end of time' — unavoidable) vs timelike ('a place'
+    — avoidable), from the sign of g^{kk} along the singular direction — plus
+    whether the timelike direction flips inside a horizon (signature_flip)."""
+    out = {"singularity_character": [], "signature_flip": signature_flip(geo)}
+    if not sings or sings is UNKNOWN:
+        return out
+    for var, val in sings:
+        try:
+            k = geo.coords.index(var)
+            lim = sp.limit(geo.ginv[k, k], var, val)
+            if lim == sp.oo or lim.is_positive:
+                ch = "timelike (avoidable — 'a place')"
+            elif lim == -sp.oo or lim.is_negative:
+                ch = "spacelike (unavoidable — 'the end of time')"
+            else:
+                ch = "null / UNKNOWN"
+        except Exception:
+            ch = "UNKNOWN"
+        out["singularity_character"].append((var, val, ch))
+    return out
+
+
 # ---------------------------------------------------------------------------
 # the report
 # ---------------------------------------------------------------------------
@@ -331,6 +378,7 @@ def analyze(metric, coords):
         desc, rho, pressures = matter_type(geo, stress_energy(geo))
     ec = energy_conditions(rho, pressures)
     physical = _all(*[ec[k] for k in ("NEC", "WEC", "DEC", "SEC")])
+    sings = singularities(geo)
     return {
         "dim": n,
         "made_of": desc,
@@ -340,8 +388,9 @@ def analyze(metric, coords):
         "physical": physical,           # all four hold? True/False/UNKNOWN
         "solves_einstein": verdict,
         "symmetries": symmetries(geo),
-        "singularities": singularities(geo),
+        "singularities": sings,
         "horizon": horizon_thermo(geo),
+        "causal": causal_structure(geo, sings),
     }
 
 
@@ -367,6 +416,11 @@ def format_report(report):
         hz_str = "none"
     else:
         hz_str = " ; ".join(f"r_h={rh} · T={T} · S={S}" for rh, T, S in hz)
+    cz = report.get("causal", {})
+    sc = cz.get("singularity_character", [])
+    flip = cz.get("signature_flip", None)
+    cc = "; ".join(f"{v}={val} {ch.split(' (')[0]}" for v, val, ch in sc) if sc else "—"
+    causal_str = f"sing {cc} · signature flip {flip}"
     lines = [
         f"  made of      : {report['made_of']}",
         f"  density ρ    : {report['rho']}",
@@ -375,6 +429,7 @@ def format_report(report):
                                                    ('NEC', 'WEC', 'DEC', 'SEC')) + "]",
         f"  symmetries   : {sym_str}",
         f"  singularities: {sing_str}",
+        f"  causal       : {causal_str}",
         f"  horizon      : {hz_str}",
         f"  solves EFE   : {report['solves_einstein']}",
         f"  dimension    : {report['dim']}",
