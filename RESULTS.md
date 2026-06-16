@@ -556,8 +556,49 @@ diagonal catalog (all exact & fast):
 Stress-testing on inputs we didn't design surfaced (and we fixed) three depth gaps as guards in
 `analyzer.py`: the positive-`r` assumption hid the `r=0` singularity (solve over a generic symbol);
 cubic/quartic horizons hung the solver (cap clean roots at quadratics, report higher as `?`); and
-off-diagonal metrics (Kerr, warp, Gödel) choke the blanket `simplify` — left as the noted FRONTIER for
-the next depth pass. Repro: `scripts/41_atlas.py`.
+off-diagonal metrics first read as the FRONTIER. That frontier was then cracked (below); the atlas now
+spans 12 spacetimes including rotating **Kerr** and **Gödel**. Repro: `scripts/41_atlas.py`.
+
+# The 3-item plan (2026-06-17): off-diagonal, causal structure, discovery — all done
+
+A focused roadmap (`docs/PLAN.md`) that turned the analyzer from a static-only describer into a general
+discover→analyze→understand engine.
+
+## #1 — the off-diagonal frontier (Kerr + Gödel)
+Rotating/off-diagonal metrics used to hang the analyzer. Fixes: decide the solution TYPE first via a
+numeric Ricci pre-check (vacuum metrics skip the heavy `ricci_scalar`/stress-energy), lazy
+stress-energy, and a `g^{rr}=0` horizon finder. Plus the key lesson — feed **rational** coordinates
+(`u=cosθ`; the trig form swamps, the D4 rule extends off-diagonal). Result: **Kerr** analyzes in ~6s
+(vacuum, 2 Killing vectors, both horizons `M±√(M²−a²)`) and **Gödel** in ~0.1s (homogeneous → stiff
+perfect fluid `p=ρ`, physical). Honest documented limits (three-valued UNKNOWN): the Alcubierre warp
+(√ + arbitrary shape fn — but proven exotic in §38), rotating-horizon `T,S` (numerically exact,
+symbolically irreducible), and the ring singularity (off-diagonal Kretschmann swamps).
+
+## §42 — the causal-structure lens (the charge flips the singularity)
+The character of a singularity from the sign of `g^{kk}` along it: `<0` ⇒ spacelike ("a moment, the
+end of time", unavoidable), `>0` ⇒ timelike ("a place", avoidable). **Schwarzschild r=0 → spacelike;
+adding charge flips Reissner–Nordström's r=0 → timelike** (the calibration); the Big Bang (`t=0`) →
+spacelike. Plus the signature flip (∂_t goes spacelike inside a horizon). The exact ground-truth oracle
+for the sister NN project's learned causal structure (kept separate). Repro: `scripts/42_causal_structure.py`.
+
+## §43 — discovery: the engine invents to spec (and rediscovers the charge)
+The culmination, closing the circle to the original propose→verify→evolve loop. Reuses 03's GP over
+rational `f(r)`, but the fitness is now "how well the candidate's REPORT CARD matches a target spec"
+(light: `ρ, p_t` reduce to closed formulas in `f,f',f''`, scored numerically). Stage 1 {vacuum,
+horizon, asymptotic} → **rediscovers Schwarzschild** `f=1−1/(4r)`. Stage 2 {asymptotic, physical,
+horizon, **timelike** singularity} → **invents `f = 1 − 5/(6r) + 1/(6r²)` = Reissner–Nordström form —
+the engine discovered the charge term itself**; the analyzer confirms EM-like matter, physical, two
+horizons, timelike (survivable) singularity. From a physical *wish* it rediscovered that survivability
+needs charge. Repro: `scripts/43_discover.py`.
+
+## §44 — rotating discovery: rediscover Kerr from spec (locally, no VM)
+We feared rotating discovery would need a deep VM run (each rotating candidate ~6s to analyze). The
+smart design made it fast: fix the rational Kerr structure and search only the radial function `Δ(r)`;
+reduce the vacuum residual ONCE (7s) to cheap formulas in `(Δ,Δ',Δ'')`, then score candidates in
+milliseconds — a single-function search like the static loop. Target {vacuum, horizon} →
+**discovered `Δ = r² − 2r + 1/4` = Kerr** (`r²−2Mr+a²`, M=1, a=1/2) in ~22s on the Mac; the analyzer
+confirms a genuine spinning black hole (vacuum, 2 Killing vectors, both horizons). The "deep run" was a
+red herring — the reduce-once trick was the unlock. Repro: `scripts/44_discover_rotating.py`.
 
 **Where the niche stands (own literature sweep, 2026-06-16).** Path 1 (automate
 the physical-vs-gauge / SPSM criterion) is closed: xCPS (arXiv:2606.05204, open
