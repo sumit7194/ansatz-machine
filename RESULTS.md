@@ -589,16 +589,32 @@ horizon, asymptotic} → **rediscovers Schwarzschild** `f=1−1/(4r)`. Stage 2 {
 horizon, **timelike** singularity} → **invents `f = 1 − 5/(6r) + 1/(6r²)` = Reissner–Nordström form —
 the engine discovered the charge term itself**; the analyzer confirms EM-like matter, physical, two
 horizons, timelike (survivable) singularity. From a physical *wish* it rediscovered that survivability
-needs charge. Repro: `scripts/43_discover.py`.
+needs charge. Repro: `scripts/43_discover.py`. **Range (overnight extension):** two more fitness
+components — "cosmological constant" (reward p_t=−ρ, ρ const) and "exotic" (reward an energy condition
+violated) — let it invent, from one spec each, a **de Sitter-like Λ universe** (`f=1+11/6r−r²`,
+classified Λ) and an **exotic black hole** (`f=1−11/12r²`, ρ<0, physical=False). So the loop spans
+vacuum / charged / Λ / exotic — not a one-trick.
 
-## §44 — rotating discovery: rediscover Kerr from spec (locally, no VM)
+## §44 — rotating discovery: rediscover Kerr (and Kerr–Newman) from spec (locally, no VM)
 We feared rotating discovery would need a deep VM run (each rotating candidate ~6s to analyze). The
 smart design made it fast: fix the rational Kerr structure and search only the radial function `Δ(r)`;
 reduce the vacuum residual ONCE (7s) to cheap formulas in `(Δ,Δ',Δ'')`, then score candidates in
 milliseconds — a single-function search like the static loop. Target {vacuum, horizon} →
 **discovered `Δ = r² − 2r + 1/4` = Kerr** (`r²−2Mr+a²`, M=1, a=1/2) in ~22s on the Mac; the analyzer
 confirms a genuine spinning black hole (vacuum, 2 Killing vectors, both horizons). The "deep run" was a
-red herring — the reduce-once trick was the unlock. Repro: `scripts/44_discover_rotating.py`.
+red herring — the reduce-once trick was the unlock. **Kerr–Newman too:** same ansatz + the Kerr–Newman
+EM field, Einstein–Maxwell residual reduced once → target "charged" (Q=1/2) discovered
+`Δ = r²−2Mr+a²+Q²` (the engine added Q² to Δ's constant — the rotating analogue of the static RN
+discovery). Repro: `scripts/44_discover_rotating.py`. (Kerr–de Sitter attempted, parked — its Ricci is
+too heavy to reduce symbolically; needs a numeric-curvature evaluator.)
+
+## §45 — observables: what a telescope sees (photon sphere, shadow, ISCO)
+A lens orthogonal to a metric's structure: the light that grazes a black hole. For the static lapse f,
+the **photon sphere** (light ring) at `2f=rf'`, the **shadow** (the Event Horizon Telescope silhouette)
+at `b_c=r_ph/√f(r_ph)`, and the **ISCO** (accretion-disk inner edge) at `3ff'−2rf'²+rff''=0`.
+Schwarzschild gives the icons exactly — `r_ph=3M`, `b_c=3√3 M≈5.196M`, `r_ISCO=6M`; charge tightens all
+three (RN at Q=M/2: 2.823M, 4.968M, 5.607M). Now folded into the analyzer report card (every static
+black hole's report shows its light ring / shadow / ISCO inline). Repro: `scripts/45_observables.py`.
 
 **Where the niche stands (own literature sweep, 2026-06-16).** Path 1 (automate
 the physical-vs-gauge / SPSM criterion) is closed: xCPS (arXiv:2606.05204, open
