@@ -6,6 +6,23 @@ built, what broke, what the machine taught us. Numbers live in
 
 ---
 
+## 2026-06-17 (overnight, autonomous) — closing loose threads: Kerr-dS numeric unlock + KASNER
+
+- User to bed, full autonomy, "close the loose threads." Pushed authorization granted — committing AND
+  pushing now (synced to origin/main).
+- **Kerr–de Sitter, unblocked (`numeric_curvature.py` + battery 46).** The blocker was symbolic
+  blow-up (OOM), not RAM — so the VM was the wrong tool. Built a finite-difference numeric Ricci (pure
+  Python, ms/point): it VERIFIES Kerr–dS (vacuum+Λ, |R−Λg|≈2e-4) where symbolic OOMs, and its control
+  shows Kerr's own Δ (no Λ term) gives a huge residual in a Λ-universe — i.e. the engine confirms a
+  rotating hole in a Λ-universe REQUIRES the −Λr⁴/3 correction. The from-scratch GP discovery of the
+  quartic Δ_r is hard (GP can't evolve r⁴ + slow numeric fitness) — attempted, stalled, removed the
+  non-converging script, noted honestly (PLAN §4). The numeric engine is a general tool: unlocks ANY
+  off-diagonal metric symbolic can't handle.
+- **KASNER (`47_kasner.py`) — recovered the anisotropic-vacuum meta-law.** For ds²=−dt²+Σt^{2pᵢ}dxᵢ²,
+  the engine factors the vacuum residual into the **Kasner conditions** Σpᵢ=1 AND Σpᵢ²=1 (R_tt·t²=Σp−Σp²;
+  R_xx·t²∝p₁(Σp−1)), verified necessary + sufficient. The abstractor move (24) in a cosmological setting
+  (the BKL building block). Closes ATTACK_ANGLES #4 (Kasner). Battery 47.
+
 ## 2026-06-17 (overnight, autonomous) — DISCOVERY RANGE: invents de Sitter + an exotic hole too
 
 - Strengthened the headline ("invents to spec") by showing the discovery loop's RANGE — it's not a

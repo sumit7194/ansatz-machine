@@ -93,9 +93,10 @@ with time loops (Gödel). These metrics are *known* — the interesting question
 classifier (36) measures. Our last-night tool becomes the centerpiece.
 
 ## 4. Exact matter that isn't a black hole
-- perfect-fluid **stellar interiors** (TOV, Tolman IV/VII, Schwarzschild interior)
-- **anisotropic universes (Kasner)**: the conditions `p₁+p₂+p₃ = 1`,
-  `p₁²+p₂²+p₃² = 1` are a gorgeous **abstractor** target (hidden constraints).
+- **anisotropic universes (Kasner)** ◀ DONE (`47_kasner.py`): engine recovered the conditions
+  `p₁+p₂+p₃ = 1`, `p₁²+p₂²+p₃² = 1` from the vacuum residual (R_tt·t²=Σp−Σp²; R_xx·t²∝p₁(Σp−1)),
+  necessary + sufficient — the abstractor move (24) in a cosmological setting.
+- STILL OPEN: perfect-fluid **stellar interiors** (TOV, Tolman IV/VII, Schwarzschild interior).
 
 ## 6. Causal-structure lens (signature flip + singularity character)
 A natural analyzer extension: don't just LOCATE singularities — classify the spacetime's causal
