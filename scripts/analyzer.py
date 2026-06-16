@@ -363,6 +363,46 @@ def causal_structure(geo, sings):
     return out
 
 
+def observables(geo):
+    """What a telescope would SEE, for a static black hole (g_tt=−f, g_rr=1/f):
+    photon sphere (light ring, 2f=rf'), shadow (b_c=r_ph/√f(r_ph)), and ISCO
+    (3ff'−2rf'²+rff''=0). Returns {} if not the static form or not a black hole.
+    Degree-capped + wrapped so it can't slow the general report."""
+    g, coords, n = geo.g, geo.coords, geo.n
+    if n != 4 or not g.is_diagonal():
+        return {}
+    rc = coords[1]
+    f = sp.cancel(sp.together(-g[0, 0]))
+    if not f.has(rc) or sp.simplify(g[1, 1] * f - 1) != 0:
+        return {}
+
+    def _roots(expr):
+        num = sp.numer(sp.together(expr))
+        try:
+            if sp.Poly(num, rc).degree() > 4:
+                return None
+        except sp.PolynomialError:
+            return None
+        try:
+            return [sp.simplify(rt) for rt in sp.solve(num, rc)
+                    if rt.is_positive is not False and rt.is_real is not False]
+        except Exception:
+            return None
+
+    out = {}
+    ps = _roots(2 * f - rc * sp.diff(f, rc))
+    if ps:
+        out["photon_sphere"] = ps
+        rp = ps[0]
+        fp = sp.simplify(f.subs(rc, rp))
+        if fp != 0 and fp.is_positive is not False:
+            out["shadow"] = sp.simplify(rp / sp.sqrt(fp))
+    isc = _roots(3 * f * sp.diff(f, rc) - 2 * rc * sp.diff(f, rc)**2 + rc * f * sp.diff(f, rc, 2))
+    if isc:
+        out["isco"] = isc
+    return out
+
+
 # ---------------------------------------------------------------------------
 # the report
 # ---------------------------------------------------------------------------
@@ -399,6 +439,7 @@ def analyze(metric, coords):
         "singularities": sings,
         "horizon": horizon_thermo(geo),
         "causal": causal_structure(geo, sings),
+        "observables": observables(geo),
     }
 
 
@@ -429,6 +470,18 @@ def format_report(report):
     flip = cz.get("signature_flip", None)
     cc = "; ".join(f"{v}={val} {ch.split(' (')[0]}" for v, val, ch in sc) if sc else "—"
     causal_str = f"sing {cc} · signature flip {flip}"
+    obs = report.get("observables", {})
+    if obs:
+        bits = []
+        if obs.get("photon_sphere"):
+            bits.append(f"light ring r={obs['photon_sphere'][0]}")
+        if obs.get("shadow") is not None:
+            bits.append(f"shadow b={obs['shadow']}")
+        if obs.get("isco"):
+            bits.append(f"ISCO r={obs['isco'][0]}")
+        obs_str = " · ".join(bits)
+    else:
+        obs_str = "—"
     lines = [
         f"  made of      : {report['made_of']}",
         f"  density ρ    : {report['rho']}",
@@ -438,6 +491,7 @@ def format_report(report):
         f"  symmetries   : {sym_str}",
         f"  singularities: {sing_str}",
         f"  causal       : {causal_str}",
+        f"  observables  : {obs_str}",
         f"  horizon      : {hz_str}",
         f"  solves EFE   : {report['solves_einstein']}",
         f"  dimension    : {report['dim']}",
