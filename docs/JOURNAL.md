@@ -6,6 +6,31 @@ built, what broke, what the machine taught us. Numbers live in
 
 ---
 
+## 2026-06-16 (cont.) — BREADTH PASS: the engine leaves black holes (cosmology + exotic spacetimes)
+
+- User's steer: widen the view, try several DIFFERENT things across cosmology (#1) and
+  exotic/"impossible" spacetimes (#3) to build a holistic picture before deciding next; the
+  big generalization (one universal analyzer) is banked in docs/ATTACK_ANGLES.md for later.
+  [[feedback-prefer-general-tools]]. Did a quick lit-scout first (research-before-building):
+  ML-cosmology is data-driven (DESI/PySR fitting w(z)); warp/wormhole analysis has a NUMERICAL
+  incumbent (Warp Factory) and a track record of positive-energy claims refuted by exact
+  recomputation (Lentz). Our orthogonal lane is the usual one: exact + proven + structural.
+- **`37_cosmology.py` — the engine takes on the expanding universe.** Same engine, FLRW metric
+  instead of static vacuum. (A) recovers the Friedmann equations straight from the metric
+  (ρ=3H²/8π); (B) the EXPANSION-LAW META-LAW — for a=t^q it derives w=p/ρ and inverts to
+  **q(w)=2/(3(1+w))** (radiation→½, matter→⅔, stiff→⅓), the abstractor move now in cosmology;
+  (C) de Sitter → w=−1; (D) the energy-condition map: **acceleration is exactly an SEC violation**
+  (w<−1/3), phantom is NEC violation (w<−1). All exact. Battery 37.
+- **`38_exotic_spacetimes.py` — proves "impossible" spacetimes need exotic matter.** (1)
+  Morris–Thorne wormhole: reads stress-energy off the Einstein tensor and PROVES the no-go —
+  at the throat ρ+p_r=(b'(r₀)−1)/(8πr₀²)<0 because flaring-out needs b'<1, so NEC is necessarily
+  violated for ANY shape (exotic matter forced; our signature "prove an impossibility" move).
+  (2) Alcubierre warp drive: the Eulerian energy density comes out ρ=−v²(y²+z²)f'²/(32π r_s²)≤0,
+  manifestly negative — the exact computation that busts "positive-energy warp" claims. Battery 38.
+- Both are textbook results; the point is breadth + that the exact discover/prove/abstract engine
+  handles wholly new domains (time-dependent cosmology, off-diagonal warp metric) with no
+  black-hole machinery. Map-the-terrain pass, toward the general tool. Full battery 26/26.
+
 ## 2026-06-16 (cont., autonomous) — ATTACK ANGLE #2: energy-condition classifier (is the matter physical?)
 
 - Second new lens of the night (`36_energy_conditions.py`). Motivation: the GP

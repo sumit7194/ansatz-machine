@@ -29,6 +29,8 @@ NAMES+=("04 campaign");           CMDS+=("scripts/04_campaign.py")
 [ -f scripts/34_hair_criterion.py ] && { NAMES+=("34 hair criterion (no-hair⇔angular source)"); CMDS+=("scripts/34_hair_criterion.py"); }
 [ -f scripts/35_thermodynamics.py ] && { NAMES+=("35 thermodynamics (recovers S=A/4, first law)"); CMDS+=("scripts/35_thermodynamics.py"); }
 [ -f scripts/36_energy_conditions.py ] && { NAMES+=("36 energy conditions (physicality classifier)"); CMDS+=("scripts/36_energy_conditions.py"); }
+[ -f scripts/37_cosmology.py ] && { NAMES+=("37 cosmology (Friedmann + expansion law)"); CMDS+=("scripts/37_cosmology.py"); }
+[ -f scripts/38_exotic_spacetimes.py ] && { NAMES+=("38 exotic spacetimes (wormhole/warp need exotic matter)"); CMDS+=("scripts/38_exotic_spacetimes.py"); }
 
 fail=0
 for i in "${!NAMES[@]}"; do

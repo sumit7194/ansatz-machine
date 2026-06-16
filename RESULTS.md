@@ -492,6 +492,29 @@ RN → all four hold (physical); `f=1−2M/r−Q²/r²` → ρ<0, WEC/NEC violat
 de Sitter → only SEC violated (the dark-energy/acceleration signature). A judgment
 layer on the engine, not a new source rung. Repro: `scripts/36_energy_conditions.py`.
 
+## 37–38 — breadth pass: the engine leaves black holes (cosmology + exotic spacetimes)
+
+A deliberate widening — the same exact engine, pointed at wholly different domains, with no
+black-hole machinery.
+
+**37 — cosmology.** FLRW (expanding universe) instead of a static metric. The engine (a) recovers
+the **Friedmann equations** straight from the metric (`ρ=3H²/8π`); (b) recovers the **expansion-law
+meta-law** — for `a(t)=t^q` it derives `w=p/ρ` and inverts to **`q(w)=2/(3(1+w))`** (radiation→½,
+matter→⅔, stiff→⅓), the abstractor move in a new domain; (c) gets de Sitter → `w=−1`; (d) maps the
+equation of state to energy conditions — **cosmic acceleration is exactly an SEC violation** (`w<−1/3`),
+a phantom is an NEC violation (`w<−1`). All exact. Repro: `scripts/37_cosmology.py`.
+
+**38 — "impossible" spacetimes.** The engine proves they require exotic matter. (1) **Morris–Thorne
+wormhole:** reading the stress-energy off the Einstein tensor, at the throat `ρ+p_r=(b'(r₀)−1)/(8πr₀²)`,
+which is `<0` because flaring-out needs `b'(r₀)<1` — so the NEC is *necessarily* violated for **any**
+shape function. The engine derives the exotic-matter requirement symbolically (the signature "prove
+an impossibility" move, now for traversable wormholes). (2) **Alcubierre warp drive:** the Eulerian
+energy density comes out `ρ=−v²(y²+z²)f'(r_s)²/(32π r_s²) ≤ 0`, manifestly negative — the exact
+computation that has repeatedly refuted "positive-energy warp" claims (e.g. Lentz). Repro:
+`scripts/38_exotic_spacetimes.py`. The full menu of remaining angles is banked in
+[docs/ATTACK_ANGLES.md](docs/ATTACK_ANGLES.md), including the queued generalization (one universal
+analyzer that eats any spacetime).
+
 **Where the niche stands (own literature sweep, 2026-06-16).** Path 1 (automate
 the physical-vs-gauge / SPSM criterion) is closed: xCPS (arXiv:2606.05204, open
 source) already automates covariant phase space, Noether charges, and Wald
