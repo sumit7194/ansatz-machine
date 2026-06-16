@@ -34,7 +34,7 @@ NAMES+=("04 campaign");           CMDS+=("scripts/04_campaign.py")
 [ -f scripts/40_analyzer.py ] && { NAMES+=("40 general analyzer (one tool, the whole zoo)"); CMDS+=("scripts/40_analyzer.py"); }
 [ -f scripts/41_atlas.py ] && { NAMES+=("41 atlas (12 spacetimes incl. Kerr & Gödel)"); CMDS+=("scripts/41_atlas.py"); }
 [ -f scripts/42_causal_structure.py ] && { NAMES+=("42 causal structure (spacelike vs timelike singularity)"); CMDS+=("scripts/42_causal_structure.py"); }
-[ -f scripts/43_discover.py ] && { NAMES+=("43 discovery (invents to spec: Schwarzschild + survivable hole)"); CMDS+=("scripts/43_discover.py --quick"); }
+[ -f scripts/43_discover.py ] && { NAMES+=("43 discovery (invents Schwarzschild, survivable, de Sitter, exotic)"); CMDS+=("scripts/43_discover.py --quick"); }
 [ -f scripts/44_discover_rotating.py ] && { NAMES+=("44 rotating discovery (rediscovers Kerr + Kerr-Newman)"); CMDS+=("scripts/44_discover_rotating.py --quick"); }
 [ -f scripts/45_observables.py ] && { NAMES+=("45 observables (photon sphere + EHT shadow)"); CMDS+=("scripts/45_observables.py"); }
 

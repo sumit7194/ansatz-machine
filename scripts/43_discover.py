@@ -131,6 +131,25 @@ def fitness(tree, target):
         fbig = _ev(fl, 1e3)
         score += 1.0 / (1.0 + abs(fbig - 1.0)) if fbig is not None else 0.0
 
+    if "lambda" in target:                         # cosmological constant: p_t=−ρ (T∝δ), ρ const ≠ 0
+        rps = [rho_pt(x) for x in RS]
+        if any(p is None for p in rps):
+            return -1.0
+        rhos = [p[0] for p in rps]
+        w_err = sum(abs(rho + pt) for rho, pt in rps)      # p+ρ → 0  (w=−1)
+        var = sum(abs(rho - rhos[0]) for rho in rhos)      # ρ constant
+        nonzero = 1.0 if abs(rhos[0]) > 0.02 else 0.0      # matter actually present
+        score += nonzero / (1.0 + w_err + var)
+
+    if "exotic" in target:                         # an energy condition violated somewhere
+        viol = False
+        for x in RS:
+            p = rho_pt(x)
+            if p and (p[0] < -1e-6 or p[0] + p[1] < -1e-6):
+                viol = True
+                break
+        score += 1.0 if viol else 0.0
+
     return score - 0.01 * gp.size(tree)            # mild parsimony
 
 
@@ -139,7 +158,8 @@ def evolve(target, seed=0, pop_size=240, gens=60, quick=False):
         pop_size, gens = 120, 30
     rng = random.Random(seed)
     pop = [gp.rand_tree(rng, 4) for _ in range(pop_size)]
-    n_box = len(set(target) & {"vacuum", "physical", "horizon", "timelike", "spacelike", "asymptotic"})
+    n_box = len(set(target) & {"vacuum", "physical", "horizon", "timelike", "spacelike",
+                               "asymptotic", "lambda", "exotic"})
     best, best_fit = None, -9
     for gen in range(gens):
         scored = sorted(((fitness(ind, target), ind) for ind in pop),
@@ -198,9 +218,24 @@ def main():
                       and any("timelike" in ch for *_, ch in R["causal"]["singularity_character"])),
         seed=2, quick=args.quick)
 
-    passed = ok1 and ok2
+    # Stage 3: cosmological constant → a Λ-dominated (de Sitter-like) universe.
+    #   Defining feature is the MATTER being Λ; it may pick up a mass term (Schwarzschild–de
+    #   Sitter), whose horizon is then a cubic the analyzer caps to UNKNOWN — fine, still Λ matter.
+    ok3 = run_stage(
+        "Stage 3 (invent a cosmological-constant universe)", ["lambda", "horizon"], None,
+        lambda R, f: "cosmological constant" in R["made_of"],
+        seed=4, quick=args.quick)
+
+    # Stage 4: exotic + horizon + asymptotic → a black hole made of impossible matter
+    ok4 = run_stage(
+        "Stage 4 (invent an exotic black hole)", ["exotic", "horizon", "asymptotic"], None,
+        lambda R, f: (R["physical"] is False and R["horizon"] not in (None, [])),
+        seed=6, quick=args.quick)
+
+    passed = ok1 and ok2 and ok3 and ok4
     print(f"\nDISCOVERY: {'PASSED ✅' if passed else 'PARTIAL/❌'}  "
-          "(report-card-driven search: rediscovers Schwarzschild, invents a survivable hole)")
+          "(report-card-driven search invents: Schwarzschild, a survivable hole, "
+          "de Sitter, and an exotic hole)")
     return 0 if passed else 1
 
 

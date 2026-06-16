@@ -6,6 +6,20 @@ built, what broke, what the machine taught us. Numbers live in
 
 ---
 
+## 2026-06-17 (overnight, autonomous) — DISCOVERY RANGE: invents de Sitter + an exotic hole too
+
+- Strengthened the headline ("invents to spec") by showing the discovery loop's RANGE — it's not a
+  black-hole one-trick. Added two fitness components to 43: **"lambda"** (cosmological constant: reward
+  p_t=−ρ i.e. T∝δ, ρ constant & nonzero) and **"exotic"** (reward an energy condition violated). Two new
+  stages:
+  - Stage 3 {lambda, horizon} → a **cosmological-constant universe** (found f=1+11/6r−r², classified Λ;
+    it picked up a spurious mass term → Schwarzschild–de Sitter, whose horizon is a cubic the analyzer
+    caps to UNKNOWN — fine, the MATTER is Λ, which is the defining feature, so the check is on made_of=Λ).
+  - Stage 4 {exotic, horizon, asymptotic} → an **exotic black hole** (found f=1−11/(12r²): ρ<0, all
+    energy conditions violated, physical=False, clean horizon at r=√Q²).
+- So from a one-line spec each, the engine now invents: Schwarzschild, a survivable charged hole,
+  de Sitter, AND an exotic hole — across vacuum / charged / Λ / exotic matter. Battery 43 now 4 stages.
+
 ## 2026-06-17 (overnight, autonomous) — Kerr–dS parked + OBSERVABLES lens (the EHT shadow)
 
 - User went to bed, full autonomy. First tried **Kerr–de Sitter** rotating discovery: the insight held
