@@ -70,5 +70,9 @@ discovery fast. Battery 44 (--quick).
   Δ = r²−2Mr+a²+Q² (const 1/2 = a²+Q²) — the engine added Q² to Δ's constant, the rotating analogue of
   the static RN discovery (battery 31). GP note: pick Q so a²+Q² has a SMALL denominator (constant-
   mutation explores small denominators — 5/16 was too hard, 1/2 is easy).
-- **Still open (a real build, not a quick swap):** Kerr–de Sitter needs a 2-function ansatz — Λ
-  modifies the angular Δ_θ and the Ξ factor too, not just the radial Δ(r).
+- **Kerr–de Sitter ATTEMPTED (2026-06-17, overnight) — parked, computational limit.** Insight held:
+  with Δ_θ=1+Λa²u²/3 and Ξ=1+Λa²/3 FIXED by Λ, it IS a single-Δ_r search (built the Carter-form ansatz,
+  reduces to Kerr at Λ=0). BUT the reduce-once step is the blocker: the Kerr–dS Ricci (with Δ_r symbolic)
+  is far heavier than Kerr's — it never finished building the symbolic residual (OOM/>180s even alone),
+  vs Kerr's clean 7s. So the SYMBOLIC reduce-once is infeasible here; would need a NUMERIC-curvature
+  evaluator (substitute numeric Δ_r,r,u before computing curvature) — a different tool, parked.

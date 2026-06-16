@@ -6,6 +6,18 @@ built, what broke, what the machine taught us. Numbers live in
 
 ---
 
+## 2026-06-17 (overnight, autonomous) — Kerr–dS parked + OBSERVABLES lens (the EHT shadow)
+
+- User went to bed, full autonomy. First tried **Kerr–de Sitter** rotating discovery: the insight held
+  (with Δ_θ, Ξ fixed by Λ it's a single-Δ_r search; built the Carter-form ansatz, reduces to Kerr at
+  Λ=0), but the reduce-once Ricci is far too heavy (OOM/>180s even alone, vs Kerr's 7s) — symbolic
+  reduce-once infeasible; needs a numeric-curvature evaluator. PARKED honestly (docs/PLAN.md §4).
+- Pivoted to a fresh angle (ATTACK_ANGLES #2): **`45_observables.py` — what a telescope SEES.** From the
+  static lapse f: the PHOTON SPHERE (light ring) at 2f=rf', and the SHADOW (the Event Horizon Telescope
+  silhouette) at b_c=r_ph/√f(r_ph). Schwarzschild gives the textbook icons EXACTLY — r_ph=3M, shadow
+  b_c=3√3 M ≈ 5.196M; Reissner–Nordström: charge tightens both (r_ph=2.823M, shadow 4.968M at Q=M/2 < the
+  Schwarzschild values). Turns "here's a metric" into "here's what you'd measure". Battery 45 added.
+
 ## 2026-06-17 (cont.) — ROTATING DISCOVERY: rediscovers KERR from spec (and skips the VM)
 
 - User wanted rotating discovery as a deep VM run. I argued it could be FAST with the right design,
