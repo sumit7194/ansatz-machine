@@ -38,9 +38,16 @@ Morris–Thorne) — one tool reproduces 27–38. Does NOT touch 01–38.
 Big Bang t=0), manifest symmetries (cyclic-coordinate Killing vectors — a lower bound on the isometry
 group), and horizon + thermodynamics (Schwarzschild → r=2M, T=1/8πM, S=4πM²; RN → both horizons). The
 report card from the mockup is now fully populated.
-**Still open:** a FULL Killing-vector solver (not just manifest/cyclic — find coordinate-mixing
-symmetries like the rotation group), richer source identification, and folding the GP discovery loop
-in so the analyzer can also DISCOVER, not just analyze. Original design notes below.
+**Atlas run (41_atlas.py, 2026-06-16):** one `analyze()` per row across 10 famous spacetimes
+(Minkowski → Schwarzschild → RN → SdS → AdS → de Sitter → Tangherlini-5D → FLRW rad/dust →
+Morris–Thorne) — uniform report card, all exact & fast. Surfaced + fixed three guards (generic-symbol
+singularity solve; quadratic-cap horizon roots; skip off-diagonal Kretschmann).
+**THE FRONTIER (next depth pass):** OFF-DIAGONAL metrics (Kerr, Gödel, warp) choke the blanket
+`simplify` — they need structured/lazy simplification before the analyzer handles them at speed. This
+is now the top #2 item.
+**Still open:** off-diagonal handling (the frontier), a FULL Killing-vector solver (coordinate-mixing
+symmetries like the rotation group), the causal-structure lens (§6), richer source ID, and folding the
+GP discovery loop in so the analyzer can also DISCOVER, not just analyze. Original design notes below.
 
 
 Instead of a new script per domain, build ONE `analyze(metric, coords)` that eats ANY spacetime
@@ -83,6 +90,17 @@ classifier (36) measures. Our last-night tool becomes the centerpiece.
 - perfect-fluid **stellar interiors** (TOV, Tolman IV/VII, Schwarzschild interior)
 - **anisotropic universes (Kasner)**: the conditions `p₁+p₂+p₃ = 1`,
   `p₁²+p₂²+p₃² = 1` are a gorgeous **abstractor** target (hidden constraints).
+
+## 6. Causal-structure lens (signature flip + singularity character)
+A natural analyzer extension: don't just LOCATE singularities — classify the spacetime's causal
+structure. (a) Detect the **signature flip** inside a horizon (the timelike direction rotating from
+∂_t to ∂_r as g_tt changes sign across r=2M — the very thing the analyzer's ρ-anchoring already
+brushes against). (b) Classify a singularity as **spacelike** (Schwarzschild r=0 — "the end of time")
+vs **timelike** (Reissner–Nordström r=0 — avoidable, "a place"); adding charge flips it, a clean
+calibrated test since Schwarzschild & RN are both in the zoo. Idea seeded by a hand-shared note from
+the sister NN project (tabula-geometrica) — kept SEPARATE (no code crossover); the link is that our
+EXACT analyzer is the ground-truth oracle for what their net claims to have learned (signature flip,
+spacelike singularity, charge→timelike). [[project-state-v6]] keeps the separation rule.
 
 ## 5. The symmetry / structure lens
 Compute a spacetime's **Killing vectors** and conserved quantities directly;

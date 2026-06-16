@@ -534,6 +534,31 @@ become the analyzer's regression suite. Next increments (singularity scan, Killi
 horizon+thermodynamics) are banked in [docs/ATTACK_ANGLES.md](docs/ATTACK_ANGLES.md) §0. From here a new
 domain is a one-line input, not a new script. Repro: `scripts/40_analyzer.py`.
 
+## 41 — the atlas (one analyzer, a catalog of spacetimes)
+
+Attack angle #3: turn the general analyzer loose on a catalog of famous exact solutions and print one
+uniform comparison — a report card for every spacetime, each row a single `analyze()` call. The 10-row
+diagonal catalog (all exact & fast):
+
+| spacetime | made of | physical | sym | singular | horizon | solves |
+|---|---|---|---|---|---|---|
+| Minkowski | vacuum | — | 4 | none | none | vacuum |
+| Schwarzschild | vacuum | — | 2 | r=0 | 1× | vacuum |
+| Reissner–Nordström | EM / radiation | physical | 2 | r=0 | 2× | sourced |
+| Schwarzschild–de Sitter | Λ | exotic | 2 | r=0 | ?(cubic) | vacuum+Λ |
+| anti–de Sitter | Λ | exotic | 2 | none | none | vacuum+Λ |
+| de Sitter (expanding) | Λ | exotic (SEC) | 3 | none | none | vacuum+Λ |
+| Tangherlini 5D | vacuum | — | 2 | r=0 | 1× | vacuum |
+| FLRW radiation | perfect fluid w=1/3 | physical | 3 | t=0 | none | sourced |
+| FLRW dust | perfect fluid w=0 | physical | 3 | t=0 | none | sourced |
+| Morris–Thorne wormhole | anisotropic | exotic | 2 | r=0 | none | sourced |
+
+Stress-testing on inputs we didn't design surfaced (and we fixed) three depth gaps as guards in
+`analyzer.py`: the positive-`r` assumption hid the `r=0` singularity (solve over a generic symbol);
+cubic/quartic horizons hung the solver (cap clean roots at quadratics, report higher as `?`); and
+off-diagonal metrics (Kerr, warp, Gödel) choke the blanket `simplify` — left as the noted FRONTIER for
+the next depth pass. Repro: `scripts/41_atlas.py`.
+
 **Where the niche stands (own literature sweep, 2026-06-16).** Path 1 (automate
 the physical-vs-gauge / SPSM criterion) is closed: xCPS (arXiv:2606.05204, open
 source) already automates covariant phase space, Noether charges, and Wald

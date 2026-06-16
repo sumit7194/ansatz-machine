@@ -6,6 +6,26 @@ built, what broke, what the machine taught us. Numbers live in
 
 ---
 
+## 2026-06-16 (cont.) — THE ATLAS: the analyzer turned loose on a catalog (#3)
+
+- User picked attack angle #3 (atlas) over deepening (#2), with #2 folded in as gaps surface.
+  Built `41_atlas.py`: one `analyze()` per row, a uniform "report card for every famous spacetime".
+- **The catalog (10, all exact & fast):** Minkowski, Schwarzschild, Reissner–Nordström (EM/physical,
+  2 horizons), Schwarzschild–de Sitter, anti–de Sitter, de Sitter, Tangherlini 5D, FLRW radiation
+  (perfect fluid w=1/3), FLRW dust (w=0), Morris–Thorne wormhole (exotic). The table reads cleanly:
+  made-of / physical / #symmetries / singularity / horizon / solves, all from one tool.
+- **#2 depth gaps the atlas surfaced (and I fixed, as guards in analyzer.py):**
+  (a) `R_SYM` is positive, so the singularity solver hid r=0 → solve the Kretschmann denominator over
+  a generic real symbol; (b) cubic/quartic horizons (Schwarzschild–dS, RN–dS) hung the root-solver →
+  cap clean horizon roots at quadratics, report higher as "?(complex)"; (c) off-diagonal metrics
+  (Kerr, Gödel, warp) choke the blanket simplify → singularities skip non-diagonal (UNKNOWN), and Kerr
+  is left as a noted FRONTIER, not a battery row. All honest three-valued behavior.
+- **Frontier identified:** off-diagonal (rotating/warp) metrics need smarter, structured simplification
+  before the analyzer handles them at speed — the clear next depth pass (ATTACK_ANGLES §2). Also banked
+  §6 (causal-structure lens: signature flip + spacelike-vs-timelike singularity) from a hand-shared
+  idea with the sister NN project — kept separate, our exact tool as its ground-truth oracle.
+- Battery 41 added. Full battery 28/28.
+
 ## 2026-06-16 (cont.) — THE GENERAL TOOL: universal analyzer, core landed
 
 - User's steer crystallized: stop building bespoke domain scripts, build ONE general tool —

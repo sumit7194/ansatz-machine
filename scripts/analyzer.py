@@ -194,6 +194,8 @@ def singularities(geo):
     diverges. Returns [] (none — K finite), a list of (coord, value), or
     UNKNOWN if K can't be formed. (Raw blow-ups; not restricted to a metric's
     physical coordinate domain.)"""
+    if not geo.g.is_diagonal():
+        return UNKNOWN     # off-diagonal Kretschmann needs full simplify (expensive) — #2 TODO
     try:
         K = sp.simplify(geo.kretschmann)
     except Exception:
@@ -236,6 +238,12 @@ def horizon_thermo(geo):
         return []                              # ∂_t never null along r ⇒ no horizon here
     f = sp.simplify(-gtt)
     if sp.simplify(g[1, 1] * f - 1) != 0:      # need g_tt=−f and g_rr=1/f
+        return UNKNOWN
+    fnum = sp.numer(sp.together(f))            # clear 1/r etc. to a polynomial in r
+    try:
+        if sp.Poly(fnum, rc).degree() > 2:     # cubic+ horizon roots: present but not clean — #2 TODO
+            return UNKNOWN
+    except sp.PolynomialError:
         return UNKNOWN
     try:
         roots = sp.solve(f, rc)
