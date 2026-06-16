@@ -47,9 +47,23 @@ def photon_sphere_shadow(f):
     return out
 
 
+def isco(f):
+    """Innermost stable circular orbit of a massive particle (inner edge of the
+    accretion disk): the marginally-stable circular orbit satisfies
+        3 f f' − 2 r f'² + r f f'' = 0    (= 6M for Schwarzschild)."""
+    fp, fpp = sp.diff(f, r), sp.diff(f, r, 2)
+    cond = sp.numer(sp.together(sp.simplify(3 * f * fp - 2 * r * fp**2 + r * f * fpp)))
+    try:
+        roots = sp.solve(cond, r)
+    except Exception:
+        return []
+    return [sp.simplify(rt) for rt in roots
+            if rt.is_real is not False and rt.is_positive is not False]
+
+
 def main():
     M, Q = sp.symbols("M Q", positive=True)
-    print("OBSERVABLES — the light ring and the black-hole shadow\n")
+    print("OBSERVABLES — the light ring, the shadow, and the accretion-disk edge\n")
 
     # Schwarzschild: the textbook icons, exact
     sch = photon_sphere_shadow(1 - 2 * M / r)
@@ -76,9 +90,27 @@ def main():
     print(f"     shadow b_c = {b_num:.4f} M   (< 3√3 ≈ 5.196 — a smaller dark disk than Schwarzschild)")
     ok_shadow = b_num < float(3 * sp.sqrt(3))
 
-    passed = ok_sch and ok_rn and ok_shadow
-    print("\n  the engine now reports what an observer would SEE — the EHT light ring")
-    print("  and shadow — straight from the metric; charge makes both smaller.")
+    # ISCO — inner edge of the accretion disk
+    isco_s = isco(1 - 2 * M / r)
+    ok_isco = any(sp.simplify(rt - 6 * M) == 0 for rt in isco_s)
+    isco_rn = isco(1 - 2 * M / r + Q**2 / r**2)
+    rn_vals = []
+    for rt in isco_rn:
+        try:
+            v = complex(rt.subs({M: 1, Q: sp.Rational(1, 2)}).evalf(20))
+        except (TypeError, ValueError):
+            continue
+        if abs(v.imag) < 1e-9 and v.real > 2.8:
+            rn_vals.append(v.real)
+    rn_isco_num = min(rn_vals, default=None)
+    print("\n  ISCO (innermost stable circular orbit — inner edge of the accretion disk):")
+    print(f"     Schwarzschild r_ISCO = 6M   {'✅' if ok_isco else '❌'}")
+    if rn_isco_num:
+        print(f"     Reissner–Nordström at M=1,Q=1/2: r_ISCO ≈ {rn_isco_num:.3f} M  (< 6M — charge pulls it in)")
+
+    passed = ok_sch and ok_rn and ok_shadow and ok_isco
+    print("\n  the engine now reports what an observer would SEE — the EHT light ring,")
+    print("  the shadow, and the disk's inner edge — straight from the metric; charge shrinks all three.")
     print(f"\nOBSERVABLES: {'PASSED ✅' if passed else 'FAILED ❌'}")
     return 0 if passed else 1
 
