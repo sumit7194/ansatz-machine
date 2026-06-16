@@ -186,6 +186,77 @@ def field_verdict(geo):
 
 
 # ---------------------------------------------------------------------------
+# singularities, symmetries, horizons (the growth increments)
+# ---------------------------------------------------------------------------
+
+def singularities(geo):
+    """Curvature blow-ups: coordinate values where the Kretschmann scalar
+    diverges. Returns [] (none — K finite), a list of (coord, value), or
+    UNKNOWN if K can't be formed. (Raw blow-ups; not restricted to a metric's
+    physical coordinate domain.)"""
+    try:
+        K = sp.simplify(geo.kretschmann)
+    except Exception:
+        return UNKNOWN
+    if not any(K.has(c) for c in geo.coords):
+        return []                              # K constant in coords ⇒ no singularity
+    _num, den = sp.fraction(sp.together(K))
+    sings = []
+    for var in geo.coords:
+        if den.has(var):
+            d = sp.Dummy(real=True)            # generic symbol: don't let r>0 hide r=0
+            try:
+                roots = sp.solve(den.subs(var, d), d)
+            except Exception:
+                continue
+            for rt in roots:
+                if (var, rt) not in sings:
+                    sings.append((var, rt))
+    return sings
+
+
+def symmetries(geo):
+    """Manifest Killing vectors from cyclic coordinates — a coordinate the
+    metric doesn't depend on gives the Killing vector ∂/∂(that coord) and a
+    conserved quantity. A LOWER BOUND on the full isometry group (it doesn't
+    find symmetries that mix coordinates, e.g. the full rotation group)."""
+    return [x for x in geo.coords
+            if not any(geo.g[i, j].has(x) for i in range(geo.n) for j in range(geo.n))]
+
+
+def horizon_thermo(geo):
+    """Static Killing horizons (where ∂_t goes null, g_tt=0) and their
+    temperature/entropy, for the standard form g_tt=−f, g_rr=1/f. Returns []
+    (none), a list of (r_h, T, S), or UNKNOWN if the form/solve doesn't fit."""
+    g, coords, n = geo.g, geo.coords, geo.n
+    if not g.is_diagonal():
+        return UNKNOWN
+    gtt, rc = g[0, 0], coords[1]
+    if not gtt.has(rc):
+        return []                              # ∂_t never null along r ⇒ no horizon here
+    f = sp.simplify(-gtt)
+    if sp.simplify(g[1, 1] * f - 1) != 0:      # need g_tt=−f and g_rr=1/f
+        return UNKNOWN
+    try:
+        roots = sp.solve(f, rc)
+    except Exception:
+        return UNKNOWN
+    out = []
+    for rh in roots:
+        T = sp.simplify(sp.diff(f, rc).subs(rc, rh) / (4 * sp.pi))   # κ/2π, κ=f'(r_h)/2
+        A = sp.sqrt(sp.simplify(g[2:, 2:].subs(rc, rh).det()))       # horizon area element
+        ranges = [(coords[2], 0, sp.pi)] + [(coords[k], 0, 2 * sp.pi) for k in range(3, n)]
+        try:
+            for v, lo, hi in ranges:
+                A = sp.integrate(A, (v, lo, hi))
+            S = sp.simplify(A / 4)                                   # Bekenstein–Hawking A/4
+        except Exception:
+            S = UNKNOWN
+        out.append((sp.simplify(rh), T, S))
+    return out
+
+
+# ---------------------------------------------------------------------------
 # the report
 # ---------------------------------------------------------------------------
 
@@ -205,6 +276,9 @@ def analyze(metric, coords):
         "energy_conditions": ec,
         "physical": physical,           # all four hold? True/False/UNKNOWN
         "solves_einstein": field_verdict(geo),
+        "symmetries": symmetries(geo),
+        "singularities": singularities(geo),
+        "horizon": horizon_thermo(geo),
     }
 
 
@@ -217,13 +291,29 @@ def format_report(report):
     phys = ("physical (all conditions hold)" if report["physical"] is True else
             "EXOTIC (an energy condition is violated)" if report["physical"] is False
             else "UNKNOWN")
+    sym = report["symmetries"]
+    sym_str = (", ".join(f"∂/∂{s}" for s in sym) + f"  (≥{len(sym)} Killing vectors)"
+               if sym else "none manifest")
+    sings = report["singularities"]
+    sing_str = ("none" if sings == [] else "UNKNOWN" if sings is UNKNOWN else
+                ", ".join(f"{v} = {val}" for v, val in sings) + "  (curvature → ∞)")
+    hz = report["horizon"]
+    if hz is UNKNOWN:
+        hz_str = "UNKNOWN"
+    elif not hz:
+        hz_str = "none"
+    else:
+        hz_str = " ; ".join(f"r_h={rh} · T={T} · S={S}" for rh, T, S in hz)
     lines = [
-        f"  made of    : {report['made_of']}",
-        f"  density ρ  : {report['rho']}",
-        f"  pressures  : {report['pressures']}",
-        f"  physical?  : {phys}   [" + ", ".join(f"{k}:{_mark(ec[k])}" for k in
-                                                 ('NEC', 'WEC', 'DEC', 'SEC')) + "]",
-        f"  solves EFE : {report['solves_einstein']}",
-        f"  dimension  : {report['dim']}",
+        f"  made of      : {report['made_of']}",
+        f"  density ρ    : {report['rho']}",
+        f"  pressures    : {report['pressures']}",
+        f"  physical?    : {phys}   [" + ", ".join(f"{k}:{_mark(ec[k])}" for k in
+                                                   ('NEC', 'WEC', 'DEC', 'SEC')) + "]",
+        f"  symmetries   : {sym_str}",
+        f"  singularities: {sing_str}",
+        f"  horizon      : {hz_str}",
+        f"  solves EFE   : {report['solves_einstein']}",
+        f"  dimension    : {report['dim']}",
     ]
     return "\n".join(lines)

@@ -32,45 +32,58 @@ def zoo():
     M, Q, r0, H = sp.symbols("M Q r0 H", positive=True)
     cases = []
 
-    # flat space
+    def has_sing(R, var, val):
+        return R["singularities"] not in (None, []) and any(
+            v == var and sp.simplify(s - val) == 0 for v, s in R["singularities"])
+
+    # flat space — 4 translations, no singularity, no horizon
     cases.append(("Minkowski (flat)",
                   sp.diag(-1, 1, 1, 1), [t, x, y, z],
-                  lambda R: "vacuum" in R["made_of"] and "vacuum" in R["solves_einstein"]))
+                  lambda R: ("vacuum" in R["made_of"] and "vacuum" in R["solves_einstein"]
+                            and len(R["symmetries"]) == 4 and R["singularities"] == []
+                            and R["horizon"] == [])))
 
-    # Schwarzschild black hole — vacuum
+    # Schwarzschild — vacuum; t,φ symmetric; singular at r=0; horizon r=2M
     fS = 1 - 2 * M / r
     cases.append(("Schwarzschild black hole",
                   sp.diag(-fS, 1 / fS, r**2, r**2 * sp.sin(th)**2), [t, r, th, ph],
-                  lambda R: "vacuum" in R["made_of"] and "Ricci-flat" in R["solves_einstein"]))
+                  lambda R: ("vacuum" in R["made_of"] and "Ricci-flat" in R["solves_einstein"]
+                            and len(R["symmetries"]) == 2 and has_sing(R, r, 0)
+                            and R["horizon"] not in (None, [])
+                            and sp.simplify(R["horizon"][0][0] - 2 * M) == 0)))
 
-    # Reissner–Nordström — electromagnetic (traceless), physical
+    # Reissner–Nordström — EM (traceless), physical; singular at r=0; horizon exists
     fR = 1 - 2 * M / r + Q**2 / r**2
     cases.append(("Reissner–Nordström",
                   sp.diag(-fR, 1 / fR, r**2, r**2 * sp.sin(th)**2), [t, r, th, ph],
                   lambda R: (R["physical"] is True and "sourced" in R["solves_einstein"]
-                            and ("traceless" in R["made_of"] or "electromagnetic" in R["made_of"]))))
+                            and ("traceless" in R["made_of"] or "electromagnetic" in R["made_of"])
+                            and has_sing(R, r, 0) and R["horizon"] not in (None, []))))
 
-    # FLRW dust universe a=t^(2/3) — perfect fluid w=0, physical
+    # FLRW dust a=t^(2/3) — perfect fluid w=0, physical; Big Bang at t=0; no horizon
     a = t**sp.Rational(2, 3)
     cases.append(("FLRW dust universe",
                   sp.diag(-1, a**2, a**2, a**2), [t, x, y, z],
                   lambda R: ("perfect fluid" in R["made_of"] and "w = 0" in R["made_of"]
-                            and R["physical"] is True and "sourced" in R["solves_einstein"])))
+                            and R["physical"] is True and "sourced" in R["solves_einstein"]
+                            and len(R["symmetries"]) == 3 and has_sing(R, t, 0)
+                            and R["horizon"] == [])))
 
-    # de Sitter a=e^{Ht} — cosmological constant, SEC violated (accelerating)
+    # de Sitter a=e^{Ht} — Λ, SEC violated; no singularity; no static horizon here
     aD = sp.exp(H * t)
     cases.append(("de Sitter (Λ)",
                   sp.diag(-1, aD**2, aD**2, aD**2), [t, x, y, z],
                   lambda R: ("cosmological constant" in R["made_of"]
                             and R["energy_conditions"]["SEC"] is False
-                            and R["physical"] is False)))
+                            and R["physical"] is False and R["singularities"] == []
+                            and R["horizon"] == [])))
 
-    # Morris–Thorne wormhole b=r0²/r — exotic, NEC/WEC violated
+    # Morris–Thorne wormhole b=r0²/r — exotic; t,φ symmetric; no horizon
     b = r0**2 / r
     cases.append(("Morris–Thorne wormhole",
                   sp.diag(-1, 1 / (1 - b / r), r**2, r**2 * sp.sin(th)**2), [t, r, th, ph],
-                  lambda R: (R["physical"] is False
-                            and "sourced" in R["solves_einstein"])))
+                  lambda R: (R["physical"] is False and "sourced" in R["solves_einstein"]
+                            and len(R["symmetries"]) == 2 and R["horizon"] == [])))
     return cases
 
 

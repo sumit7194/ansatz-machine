@@ -26,9 +26,17 @@ built, what broke, what the machine taught us. Numbers live in
   SEC violated = accelerating), Morris–Thorne wormhole (anisotropic, ρ<0, all conditions violated =
   exotic). All correct. Full battery 27/27.
 - The 01–38 scripts are now ALSO the analyzer's regression suite — the general tool agrees with the
-  frozen base before we point it anywhere new. Next increments (banked in ATTACK_ANGLES.md #0):
-  singularity scan, Killing-vector symmetries, horizon+thermodynamics. From here, a new domain is a
-  one-line input, not a new script — the widening the user asked for.
+  frozen base before we point it anywhere new. From here, a new domain is a one-line input, not a new
+  script — the widening the user asked for.
+- **Increments landed same session (user: "keep continuing"):** the analyzer now also reports
+  (a) **singularities** — Kretschmann blow-ups (Schwarzschild/RN at r=0, Big Bang at t=0, none for
+  de Sitter); the r>0 assumption on R_SYM hid r=0, fixed by solving over a generic real symbol;
+  (b) **symmetries** — manifest (cyclic-coordinate) Killing vectors, a lower bound (Minkowski 4,
+  Schwarzschild/wormhole 2, FLRW/dS 3); (c) **horizon + thermodynamics** — for g_tt=−f, g_rr=1/f:
+  Schwarzschild → r=2M, T=1/8πM, S=4πM² (area by integrating the angular block); RN → both horizons.
+  The mockup's report card is now fully populated; battery 40 checks all of it. Full battery 27/27.
+  Still open: a full coordinate-mixing Killing solver, richer source ID, and folding the GP discovery
+  loop into the analyzer so it can DISCOVER, not just analyze.
 
 ## 2026-06-16 (cont.) — BREADTH PASS: the engine leaves black holes (cosmology + exotic spacetimes)
 

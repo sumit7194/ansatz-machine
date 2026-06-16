@@ -34,8 +34,13 @@ whether it's **physical** (frame-independent energy conditions via the principal
 the key upgrade, three-valued), and whether it **solves the field equations** (vacuum / vacuum+Λ /
 sourced). Validated against the frozen zoo (Minkowski, Schwarzschild, RN, FLRW dust, de Sitter,
 Morris–Thorne) — one tool reproduces 27–38. Does NOT touch 01–38.
-**Next increments:** singularity scan (Kretschmann blow-ups), symmetries (Killing vectors),
-horizon + thermodynamics (fold in 35), then richer source ID. Original design notes below.
+**Increments LANDED (2026-06-16):** singularity scan (Kretschmann blow-ups; e.g. Schwarzschild r=0,
+Big Bang t=0), manifest symmetries (cyclic-coordinate Killing vectors — a lower bound on the isometry
+group), and horizon + thermodynamics (Schwarzschild → r=2M, T=1/8πM, S=4πM²; RN → both horizons). The
+report card from the mockup is now fully populated.
+**Still open:** a FULL Killing-vector solver (not just manifest/cyclic — find coordinate-mixing
+symmetries like the rotation group), richer source identification, and folding the GP discovery loop
+in so the analyzer can also DISCOVER, not just analyze. Original design notes below.
 
 
 Instead of a new script per domain, build ONE `analyze(metric, coords)` that eats ANY spacetime
