@@ -6,6 +6,22 @@ built, what broke, what the machine taught us. Numbers live in
 
 ---
 
+## 2026-06-17 (cont.) — ROTATING DISCOVERY: rediscovers KERR from spec (and skips the VM)
+
+- User wanted rotating discovery as a deep VM run. I argued it could be FAST with the right design,
+  and it was. The naive approach (GP over arbitrary off-diagonal metrics, ~6s full-analyze each) would
+  crawl. The smart design: FIX the rational Kerr STRUCTURE (Σ=r²+a²u², the off-diagonal frame proven
+  tractable in #1) and search just the one radial function Δ(r); REDUCE the vacuum residual ONCE (7s,
+  feasibility-tested: real Kerr Δ=r²−2Mr+a² → Ricci≡0, residual depends only on Δ,Δ',Δ'') to cheap
+  numeric formulas, then score candidates in ms — a single-function search like the static loop.
+- **Result (`44_discover_rotating.py`): rediscovered KERR** — target {vacuum, horizon} →
+  Δ(r) = r²−2r+1/4 (= r²−2Mr+a², M=1, a=1/2), in ~22s LOCALLY (--quick). The analyzer confirms the
+  discovered metric is a genuine spinning black hole: vacuum, ∂/∂t & ∂/∂φ (2 Killing vectors), both
+  horizons 1±√3/2 = M±√(M²−a²), Ricci-flat, signature flip True.
+- **The honest punchline: the deep VM run was unnecessary.** The reduce-once trick (same lesson as the
+  static loop) made rotating discovery fast on the Mac — no VM, no waiting on the local training.
+  Battery 44 (--quick). Possible next: Kerr–Newman from "charged", Kerr–dS from "with Λ".
+
 ## 2026-06-17 (cont.) — PLAN #3: the engine INVENTS to spec (and rediscovers the charge)
 
 - The culmination, and it closes the circle. `43_discover.py` reuses 03's genetic loop over rational

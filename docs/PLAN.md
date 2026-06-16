@@ -54,5 +54,15 @@ per candidate, milliseconds). The full report runs once, on the winner.
   term**! The analyzer independently confirms: traceless EM-like matter, physical, two horizons,
   timelike (avoidable) singularity. From a physical WISH it rediscovered that survivability needs charge.
 - Ties all three plan items: discover (#3) → analyze (#1) → causal structure (#2). Battery 43 (--quick).
-- **Scope:** static spherical search space (fast). Rotating discovery = the later heavy VM run
-  (analyzing each rotating candidate is ~6s, so that loop wants hours on the VM alongside Ludo).
+- **Scope:** static spherical search space (fast).
+
+## 4. Rotating discovery  ◀ DONE (and it didn't need the VM)
+`44_discover_rotating.py` — invents a SPINNING black hole. The naive "search arbitrary rotating
+metrics + fully analyze each (~6s)" would crawl (the VM-run we'd feared). The smart design instead:
+FIX the rational Kerr structure (Σ=r²+a²u², off-diagonal frame) and search just the one radial
+function Δ(r) inside it; REDUCE the vacuum residual ONCE (7s) to cheap formulas in (Δ,Δ',Δ''), then
+score candidates numerically (ms). So it's a single-function search like the static loop —
+**rediscovered KERR Δ=r²−2Mr+a² in ~22s LOCALLY** (analyzer confirms: vacuum, 2 Killing vectors, both
+horizons M±√(M²−a²)). The "deep VM run" turned out unnecessary — the reduce-once trick made rotating
+discovery fast. Battery 44 (--quick). Next rotating extensions (if wanted): Kerr–Newman from "charged",
+Kerr–dS from "with Λ".
