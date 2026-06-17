@@ -682,12 +682,14 @@ stellar-specific code, it reads the **structure** correctly: *perfect fluid (iso
 constant, symmetries ∂/∂t & ∂/∂φ (static + axisymmetric), **no singularity** (regular), **signature flip
 False** (time stays timelike — a star, not a hole), sourced matter. The honest boundary, surfaced not hidden:
 **physical? = UNKNOWN**. The interior's √(1−2Mr²/R³) is real only for r≤R, so the analyzer's domain-blind
-sign sampler can't certify the energy conditions from the bare metric — *but the star is physical* (sampling
-inside r<R, NEC/WEC/DEC all hold). The gap is missing domain knowledge (r≤R), a clean future extension (an
-optional domain argument to `analyze()`), recorded as a three-valued UNKNOWN done right. Alongside this, a
-small robustness fix to the analyzer's `_sign`: an isolated non-real sample (a √ of a negative outside the
+sign sampler can't certify the energy conditions from the bare metric — a true three-valued UNKNOWN, not an
+unphysical verdict. **Resolved, not just noted:** `analyze()` now takes an optional `domain={r:(0,R)}`
+argument that bounds where each coordinate is sampled, and with it the SAME general tool certifies the
+interior **physical** (NEC/WEC/DEC/SEC all hold). The battery shows both the boundary and its resolution.
+Alongside, a small robustness fix to `_sign`: an isolated non-real sample (a √ of a negative outside the
 domain) is now skipped, not fatal — it no longer vetoes a verdict the in-domain samples agree on (with a
-quorum guard so we never over-claim). Repro: `scripts/55_analyzer_star.py`.
+quorum guard so we never over-claim; `domain=None` reproduces the original sampling byte-for-byte). Repro:
+`scripts/55_analyzer_star.py`.
 
 **Where the niche stands (own literature sweep, 2026-06-16).** Path 1 (automate
 the physical-vs-gauge / SPSM criterion) is closed: xCPS (arXiv:2606.05204, open

@@ -38,7 +38,7 @@ UNKNOWN = None  # three-valued, as everywhere in this project
 # sign / nonneg helpers (three-valued)
 # ---------------------------------------------------------------------------
 
-def _sign(expr):
+def _sign(expr, domain=None):
     """+1 / −1 / 0 / None — sign of expr over the physical domain (positive
     parameters & coordinates). Symbolic when SymPy can decide, else sampled;
     None (UNKNOWN) if the sign is mixed or too few samples are real-evaluable.
@@ -48,7 +48,12 @@ def _sign(expr):
     SKIPPED, not fatal: a single out-of-domain point shouldn't poison a verdict
     the in-domain points agree on (this is what let stellar interiors finally
     certify physical). We still demand a quorum of real samples that unanimously
-    agree before committing to a sign; otherwise UNKNOWN, as ever."""
+    agree before committing to a sign; otherwise UNKNOWN, as ever.
+
+    `domain` (optional): {symbol: (lo, hi)} restricting where a coordinate is
+    sampled — e.g. {r: (0, R)} for a stellar interior, real only inside the star.
+    Symbols absent from `domain` keep the default (1..25)/(1..6) rational draw, so
+    `domain=None` reproduces the original sampling sequence byte-for-byte."""
     e = sp.simplify(expr)
     if e == 0:
         return 0
@@ -61,7 +66,13 @@ def _sign(expr):
     seen = set()
     valid = 0
     for _ in range(60):
-        sub = {s: sp.Rational(rng.randint(1, 25), rng.randint(1, 6)) for s in free}
+        sub = {}
+        for s in free:                         # default draw first (preserves rng
+            d = sp.Rational(rng.randint(1, 25), rng.randint(1, 6))   # sequence)
+            if domain and s in domain:          # …then override bounded coordinates
+                lo, hi = (float(b) for b in domain[s])
+                d = sp.Float(lo + (hi - lo) * rng.random())
+            sub[s] = d
         try:
             v = float(e.subs(sub))
         except (TypeError, ValueError):
@@ -84,8 +95,8 @@ def _sign(expr):
     return None        # mixed sign over the domain ⇒ cannot give one verdict
 
 
-def _nonneg(expr):
-    s = _sign(expr)
+def _nonneg(expr, domain=None):
+    s = _sign(expr, domain)
     return None if s is None else (s >= 0)
 
 
@@ -169,15 +180,19 @@ def principal_components(geo, Tmix):
     return rho, pressures
 
 
-def energy_conditions(rho, pressures):
-    """NEC / WEC / DEC / SEC, three-valued, from (ρ, pressures)."""
+def energy_conditions(rho, pressures, domain=None):
+    """NEC / WEC / DEC / SEC, three-valued, from (ρ, pressures).
+
+    `domain` (optional) restricts where the coordinate-dependent ρ,p are sampled
+    for the sign tests — e.g. {r: (0, R)} to certify a stellar interior, which is
+    only real inside the star."""
     if rho is UNKNOWN:
         return {k: UNKNOWN for k in ("NEC", "WEC", "DEC", "SEC")}
-    nec = _all(*[_nonneg(rho + p) for p in pressures])
-    wec = _all(nec, _nonneg(rho))
-    dec = _all(_nonneg(rho), *[_nonneg(rho - p) for p in pressures],
-               *[_nonneg(rho + p) for p in pressures])
-    sec = _all(nec, _nonneg(rho + sum(pressures)))
+    nec = _all(*[_nonneg(rho + p, domain) for p in pressures])
+    wec = _all(nec, _nonneg(rho, domain))
+    dec = _all(_nonneg(rho, domain), *[_nonneg(rho - p, domain) for p in pressures],
+               *[_nonneg(rho + p, domain) for p in pressures])
+    sec = _all(nec, _nonneg(rho + sum(pressures), domain))
     return {"NEC": nec, "WEC": wec, "DEC": dec, "SEC": sec}
 
 
@@ -418,11 +433,17 @@ def observables(geo):
 # the report
 # ---------------------------------------------------------------------------
 
-def analyze(metric, coords):
+def analyze(metric, coords, domain=None):
     """Run the core analysis on any metric. Returns a report dict. Decides the
     solution TYPE first (cheap, numeric-prechecked) and only computes the full
     stress-energy when the metric is genuinely sourced — so vacuum metrics
-    (e.g. Kerr) skip the expensive matter step that used to hang."""
+    (e.g. Kerr) skip the expensive matter step that used to hang.
+
+    `domain` (optional): {coordinate: (lo, hi)} bounding where a coordinate
+    physically lives — e.g. {r: (0, R)} for a stellar interior (real only inside
+    the star). It steers the energy-condition sign tests so domain-restricted
+    solutions can be certified physical instead of returning UNKNOWN. Omit it and
+    the analysis is exactly as before."""
     geo = Geometry(sp.Matrix(metric), list(coords))
     n = geo.n
     verdict = field_verdict(geo)
@@ -435,7 +456,7 @@ def analyze(metric, coords):
         desc = "cosmological constant Λ (w = −1)"
     else:                                             # genuinely sourced — worth the stress-energy
         desc, rho, pressures = matter_type(geo, stress_energy(geo))
-    ec = energy_conditions(rho, pressures)
+    ec = energy_conditions(rho, pressures, domain)
     physical = _all(*[ec[k] for k in ("NEC", "WEC", "DEC", "SEC")])
     sings = singularities(geo)
     return {

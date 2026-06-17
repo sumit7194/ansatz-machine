@@ -14,12 +14,14 @@ STRUCTURE right:
   • singularities: none                          — a regular star, no curvature blow-up;
   • signature flip: False                        — time stays timelike: a STAR, not a hole.
 
-And an HONEST boundary, surfaced not hidden: the report's physical? verdict comes back
-UNKNOWN. The interior solution's √(1−2Mr²/R³) is real only for r ≤ R, so the analyzer's
-domain-blind sign sampler can't certify the energy conditions from the bare metric. It
-is NOT unphysical — sampling INSIDE the star (r < R) shows NEC/WEC/DEC all hold. The
-gap is missing domain knowledge (r ≤ R), a clean future extension (an optional domain/
-assumptions argument to analyze()), recorded here as a three-valued UNKNOWN done right.
+An HONEST boundary, surfaced AND then resolved: from the bare metric the report's
+physical? verdict is UNKNOWN — the interior's √(1−2Mr²/R³) is real only for r ≤ R, so the
+analyzer's domain-blind sign sampler can't certify the energy conditions. That's a true
+three-valued UNKNOWN, not a unphysical verdict. The fix is to give the tool the missing
+fact: `analyze(metric, coords, domain={r: (0, R)})` bounds where the radial coordinate is
+sampled, and the SAME general tool then certifies the interior PHYSICAL (NEC/WEC/DEC/SEC all
+hold). So this battery shows both the boundary and its resolution — the general analyzer
+made domain-aware enough to handle interior solutions, not just global ones.
 
 Run:  .venv/bin/python scripts/55_analyzer_star.py
 """
@@ -72,21 +74,23 @@ def main():
     print(f"\n  physical?     : {phys}   "
           f"{'✅ honestly UNKNOWN (domain-blind from a bare metric)' if okHonest else '❌'}")
 
-    # but WITH the domain bound r < R, the star IS physical — verify directly
-    rho = rep["rho"]
-    ps = rep["pressures"]
-    inside = [sp.Rational(k, 10) for k in (1, 3, 5, 7, 9)]       # r/R = 0.1 … 0.9
-    nec = all(float((rho + p).subs(r, rv)) >= -1e-9 for p in ps for rv in inside)
-    wec = nec and all(float(rho.subs(r, rv)) >= 0 for rv in inside)
-    dec = all(float((rho - p).subs(r, rv)) >= -1e-9 for p in ps for rv in inside)
-    okInside = nec and wec and dec
-    print(f"  …but inside r<R: NEC,WEC,DEC all hold   {'✅ the star IS physical' if okInside else '❌'}")
-    print("     ⇒ the UNKNOWN is missing domain knowledge (r≤R), not a real failure —")
-    print("       a clean future extension: an optional domain argument to analyze().")
+    # --- the RESOLUTION: tell analyze() the domain (r ≤ R) and it certifies ---
+    # The interior is real only inside the star; with that bound the same general
+    # tool certifies the energy conditions instead of returning UNKNOWN.
+    rep_d = analyze(g, coords, domain={r: (0, R)})
+    ec_d = rep_d["energy_conditions"]
+    okCertified = rep_d["physical"] is True
+    print(f"\n  …now WITH domain r∈(0,R):")
+    print(f"  physical?     : {rep_d['physical']}   "
+          f"[" + ", ".join(f"{k}:{ec_d[k]}" for k in ('NEC', 'WEC', 'DEC', 'SEC')) + "]   "
+          f"{'✅ certified PHYSICAL' if okCertified else '❌'}")
+    print("     ⇒ the UNKNOWN was missing domain knowledge (r≤R), not a real failure;")
+    print("       analyze(metric, coords, domain={r:(0,R)}) now certifies the interior.")
 
-    passed = all([okFluid, rho_const, okSym, okSing, okStar, okSourced, okHonest, okInside])
+    passed = all([okFluid, rho_const, okSym, okSing, okStar, okSourced, okHonest, okCertified])
     print(f"\nANALYZER-STAR: {'PASSED ✅' if passed else 'FAILED ❌'}  "
-          "(the one general tool reaches stars — structure read, boundary stated honestly)")
+          "(the one general tool reaches stars — structure read; boundary found AND resolved "
+          "via domain-aware analyze())")
     return 0 if passed else 1
 
 

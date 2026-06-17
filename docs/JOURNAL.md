@@ -21,8 +21,15 @@ built, what broke, what the machine taught us. Numbers live in
   (full gate green both before and after). It's a genuine robustness gain, but it does NOT by itself
   certify the star — that needs the domain bound r≤R, which a bare metric doesn't carry. So 55 also
   verifies directly (sampling r<R) that NEC/WEC/DEC DO hold — the star is physical; the UNKNOWN is missing
-  domain knowledge, a clean future extension (an optional domain/assumptions arg to analyze()). Three-valued
-  UNKNOWN done right. Gate: 42 green, pushed.
+  domain knowledge. Three-valued UNKNOWN done right.
+- **Then SHIPPED the fix (same night).** Rather than leave it as a future note, implemented the domain-aware
+  certification: `analyze(metric, coords, domain={r:(0,R)})` — an optional `domain` arg threaded through
+  energy_conditions → _nonneg → _sign, which bounds where each coordinate is sampled. With it, the SAME
+  general tool certifies the star PHYSICAL (NEC/WEC/DEC/SEC all True) instead of UNKNOWN. `domain=None`
+  reproduces the original sampling byte-for-byte (the default rational draw runs first, bounded coords
+  override after — so the rng sequence is untouched when no domain is given), and the full gate is green
+  before AND after. Battery 55 upgraded to show both the boundary and its resolution. The general tool now
+  handles interior solutions, not just global ones. Gate: 42 green, pushed.
 
 ## 2026-06-17 (overnight, autonomous) — MASS–RADIUS: the maximum neutron-star mass (capstone)
 
