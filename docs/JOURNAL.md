@@ -6,6 +6,19 @@ built, what broke, what the machine taught us. Numbers live in
 
 ---
 
+## 2026-06-17 (overnight, autonomous) — the BUCHDAHL bound: a star's maximum compactness
+
+- Grounded the abstract TOV (52) in a concrete exact star and recovered a famous theorem. Battery
+  `53_buchdahl.py`: the constant-density interior Schwarzschild sphere — ρ=3M/(4πR³), m(r)=Mr³/R³, with
+  the 1916 closed-form pressure p(r)=ρ[√(1−2Mr²/R³)−√(1−2M/R)]/[3√(1−2M/R)−√(1−2Mr²/R³)].
+  - **(A)** the engine confirms this exact p(r) SATISFIES its own recovered TOV ODE — numeric spot-check
+    at 5 radii (sympy won't prove the radical identity; same honest pattern as 50's precession check).
+  - **(B)** surface p(R)=0 (symbolic).
+  - **(C)** central pressure p_c=p(0) DIVERGES when 3√(1−2M/R)=1 → solved exactly → **M/R=4/9, the
+    Buchdahl bound.** Past it, even infinite central pressure can't resist gravity — the star must collapse.
+  - **(D)** numeric runaway: p_c/ρ = 0.17 → 1.62 → 16.7 → 166.7 as M/R climbs 0.2 → 0.4 → 0.44 → 0.444.
+  Gate: 40 batteries green, pushed. The stellar arc (TOV + a concrete star + the compactness limit) closed.
+
 ## 2026-06-17 (overnight, autonomous) — STELLAR STRUCTURE: the engine builds a star (TOV)
 
 - New domain, the cleanest remaining loose thread: the engine had only ever done black holes and

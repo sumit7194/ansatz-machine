@@ -104,8 +104,10 @@ classifier (36) measures. Our last-night tool becomes the centerpiece.
   Φ(r), m(r) free the engine recovers the mass function dm/dr=4πr²ρ, the potential eq, and (via Bianchi
   ∇G≡0 on an isotropic fluid) the **TOV equation** dp/dr=−(ρ+p)(m+4πr³p)/(r(r−2m)), with the Newtonian
   limit −ρm/r² derived by post-Newtonian ordering. The engine's first STAR (matter, not a hole).
-  STILL OPEN: specific exact interiors (Tolman IV/VII, the constant-density Schwarzschild sphere, Buchdahl
-  bound), and an equation-of-state → mass–radius relation sweep.
+  Also DONE: the constant-density interior Schwarzschild sphere + the **Buchdahl bound** M/R≤4/9
+  (`53_buchdahl.py`) — the exact star satisfies the engine's TOV, and its central pressure diverges at
+  compactness 4/9, the onset of collapse. STILL OPEN: other exact interiors (Tolman IV/VII), and an
+  equation-of-state → mass–radius relation sweep (numeric TOV integration → the neutron-star M–R curve).
 
 ## 6. Causal-structure lens (signature flip + singularity character)
 A natural analyzer extension: don't just LOCATE singularities — classify the spacetime's causal

@@ -654,6 +654,16 @@ to an isotropic perfect fluid — the **Tolman–Oppenheimer–Volkoff equation*
 m/r=O(v²), p/ρ=O(v⁴), read the leading coefficient): `dp/dr→−ρm/r²`, ordinary hydrostatic equilibrium.
 First time the engine describes a star, not a hole. Repro: `scripts/52_stellar_structure.py`.
 
+## §53 — the Buchdahl bound: how compact a star can be (M/R ≤ 4/9)
+Grounds §52's abstract TOV in a concrete exact star — the constant-density interior Schwarzschild sphere
+(1916) — and recovers a celebrated theorem. For uniform density ρ=3M/(4πR³), m(r)=Mr³/R³, TOV integrates
+to `p(r)=ρ[√(1−2Mr²/R³)−√(1−2M/R)]/[3√(1−2M/R)−√(1−2Mr²/R³)]`. The engine confirms this exact p(r)
+satisfies its own TOV ODE (numeric spot-check, 5 radii — sympy won't prove the radical identity, cf. §50),
+with surface condition p(R)=0. The central pressure `p_c=p(0)` **diverges when 3√(1−2M/R)=1, i.e. at
+M/R=4/9** — the **Buchdahl bound** (solved exactly from the denominator). Past 4/9, even infinite central
+pressure can't hold the star up: it must collapse. Numerically p_c/ρ runs away 0.17→1.62→16.7→166.7 as
+M/R climbs 0.2→0.4→0.44→0.444. Repro: `scripts/53_buchdahl.py`.
+
 **Where the niche stands (own literature sweep, 2026-06-16).** Path 1 (automate
 the physical-vs-gauge / SPSM criterion) is closed: xCPS (arXiv:2606.05204, open
 source) already automates covariant phase space, Noether charges, and Wald
