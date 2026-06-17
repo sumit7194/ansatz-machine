@@ -664,6 +664,17 @@ M/R=4/9** — the **Buchdahl bound** (solved exactly from the denominator). Past
 pressure can't hold the star up: it must collapse. Numerically p_c/ρ runs away 0.17→1.62→16.7→166.7 as
 M/R climbs 0.2→0.4→0.44→0.444. Repro: `scripts/53_buchdahl.py`.
 
+## §54 — mass–radius & the maximum neutron-star mass (Oppenheimer–Volkoff)
+The capstone of the stellar arc, and the bridge to why black holes form. Feed the engine's recovered TOV
+(§52) a polytropic equation of state (p=Kρ², K=100 geometric units) and integrate it numerically (pure-Python
+hand-rolled RK4, no numpy/scipy) outward from the centre until pressure hits zero — that radius is R, the
+enclosed mass is M. Scanning the central pressure traces the **mass–radius curve**, and it TURNS OVER:
+M climbs with central density, peaks, then falls. The peak is the **Oppenheimer–Volkoff maximum mass**
+(here M_max≈1.99 at R≈7.44, arbitrary geometric units; compactness 0.27, safely below Buchdahl 4/9). Past
+the peak, denser stars are *lighter* → unstable → they collapse to black holes. So the engine's own
+equations forbid arbitrarily heavy neutron stars — the end-to-end chain TOV → exact star → a maximum mass,
+the seed of stellar-mass black holes. Repro: `scripts/54_mass_radius.py`.
+
 **Where the niche stands (own literature sweep, 2026-06-16).** Path 1 (automate
 the physical-vs-gauge / SPSM criterion) is closed: xCPS (arXiv:2606.05204, open
 source) already automates covariant phase space, Noether charges, and Wald

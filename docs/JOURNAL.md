@@ -6,6 +6,19 @@ built, what broke, what the machine taught us. Numbers live in
 
 ---
 
+## 2026-06-17 (overnight, autonomous) — MASS–RADIUS: the maximum neutron-star mass (capstone)
+
+- Capstone of the stellar arc, and the bridge to why black holes form. Battery `54_mass_radius.py` feeds
+  the engine's recovered TOV (52) a polytropic EoS (p=Kρ², Γ=2, K=100 geometric units) and integrates it
+  numerically — pure-Python hand-rolled RK4, no numpy/scipy (consistent with numeric_curvature.py and the
+  project ethos) — outward from the centre until p→0 (the surface R, enclosed mass M). Scanning central
+  pressure traces the **mass–radius curve**, and it TURNS OVER:
+        pc=1.9e-4 M=1.62 → pc=1.9e-3 M=1.995 (peak) → pc=2.0 M=1.43.
+  The peak is the **Oppenheimer–Volkoff maximum mass** (M_max≈1.99 at R≈7.44; compactness 0.27 < Buchdahl
+  4/9, consistent with 53). Past the peak, denser stars are LIGHTER ⇒ unstable ⇒ collapse to a black hole.
+  So the engine's own TOV forbids arbitrarily heavy neutron stars — end-to-end: TOV → exact star → a maximum
+  mass, the seed of stellar-mass black holes. Gate: 41 batteries green, pushed. Stellar arc closed.
+
 ## 2026-06-17 (overnight, autonomous) — the BUCHDAHL bound: a star's maximum compactness
 
 - Grounded the abstract TOV (52) in a concrete exact star and recovered a famous theorem. Battery

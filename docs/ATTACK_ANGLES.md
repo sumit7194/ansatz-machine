@@ -107,7 +107,11 @@ classifier (36) measures. Our last-night tool becomes the centerpiece.
   Also DONE: the constant-density interior Schwarzschild sphere + the **Buchdahl bound** M/R≤4/9
   (`53_buchdahl.py`) — the exact star satisfies the engine's TOV, and its central pressure diverges at
   compactness 4/9, the onset of collapse. STILL OPEN: other exact interiors (Tolman IV/VII), and an
-  equation-of-state → mass–radius relation sweep (numeric TOV integration → the neutron-star M–R curve).
+  equation-of-state → mass–radius relation sweep. — NOW DONE (`54_mass_radius.py`): numeric RK4 TOV
+  integration with a Γ=2 polytrope traces the M–R curve and finds its turnover, the **Oppenheimer–Volkoff
+  maximum mass** (past which a neutron star collapses to a black hole). The stellar arc is closed end-to-end:
+  recover TOV (52) → exact star + Buchdahl (53) → predict a maximum mass (54). STILL OPEN here: other exact
+  interiors (Tolman IV/VII), realistic tabulated EoS, slow-rotation (Hartle) corrections.
 
 ## 6. Causal-structure lens (signature flip + singularity character)
 A natural analyzer extension: don't just LOCATE singularities — classify the spacetime's causal

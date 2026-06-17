@@ -45,6 +45,7 @@ NAMES+=("04 campaign");           CMDS+=("scripts/04_campaign.py")
 [ -f scripts/51_redshift.py ] && { NAMES+=("51 gravitational redshift (Pound-Rebka, third classic test)"); CMDS+=("scripts/51_redshift.py"); }
 [ -f scripts/52_stellar_structure.py ] && { NAMES+=("52 stellar structure (recovers TOV — the engine builds a star)"); CMDS+=("scripts/52_stellar_structure.py"); }
 [ -f scripts/53_buchdahl.py ] && { NAMES+=("53 Buchdahl bound (max star compactness M/R=4/9)"); CMDS+=("scripts/53_buchdahl.py"); }
+[ -f scripts/54_mass_radius.py ] && { NAMES+=("54 mass-radius (max neutron-star mass, Oppenheimer-Volkoff)"); CMDS+=("scripts/54_mass_radius.py"); }
 
 fail=0
 GATE="$(dirname "$0")/gate.log"; : > "$GATE"   # also written here so the dashboard (reads ROOT/gate.log) stays current
