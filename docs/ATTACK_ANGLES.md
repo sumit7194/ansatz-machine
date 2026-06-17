@@ -100,7 +100,12 @@ classifier (36) measures. Our last-night tool becomes the centerpiece.
 - **anisotropic universes (Kasner)** ◀ DONE (`47_kasner.py`): engine recovered the conditions
   `p₁+p₂+p₃ = 1`, `p₁²+p₂²+p₃² = 1` from the vacuum residual (R_tt·t²=Σp−Σp²; R_xx·t²∝p₁(Σp−1)),
   necessary + sufficient — the abstractor move (24) in a cosmological setting.
-- STILL OPEN: perfect-fluid **stellar interiors** (TOV, Tolman IV/VII, Schwarzschild interior).
+- DONE: perfect-fluid **stellar structure** (`52_stellar_structure.py`) — from the interior metric with
+  Φ(r), m(r) free the engine recovers the mass function dm/dr=4πr²ρ, the potential eq, and (via Bianchi
+  ∇G≡0 on an isotropic fluid) the **TOV equation** dp/dr=−(ρ+p)(m+4πr³p)/(r(r−2m)), with the Newtonian
+  limit −ρm/r² derived by post-Newtonian ordering. The engine's first STAR (matter, not a hole).
+  STILL OPEN: specific exact interiors (Tolman IV/VII, the constant-density Schwarzschild sphere, Buchdahl
+  bound), and an equation-of-state → mass–radius relation sweep.
 
 ## 6. Causal-structure lens (signature flip + singularity character)
 A natural analyzer extension: don't just LOCATE singularities — classify the spacetime's causal

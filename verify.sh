@@ -43,6 +43,7 @@ NAMES+=("04 campaign");           CMDS+=("scripts/04_campaign.py")
 [ -f scripts/49_light_bending.py ] && { NAMES+=("49 light bending (1919 Eddington test)"); CMDS+=("scripts/49_light_bending.py"); }
 [ -f scripts/50_precession.py ] && { NAMES+=("50 perihelion precession (Mercury test, diverges at ISCO)"); CMDS+=("scripts/50_precession.py"); }
 [ -f scripts/51_redshift.py ] && { NAMES+=("51 gravitational redshift (Pound-Rebka, third classic test)"); CMDS+=("scripts/51_redshift.py"); }
+[ -f scripts/52_stellar_structure.py ] && { NAMES+=("52 stellar structure (recovers TOV — the engine builds a star)"); CMDS+=("scripts/52_stellar_structure.py"); }
 
 fail=0
 GATE="$(dirname "$0")/gate.log"; : > "$GATE"   # also written here so the dashboard (reads ROOT/gate.log) stays current

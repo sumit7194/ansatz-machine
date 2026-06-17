@@ -6,6 +6,25 @@ built, what broke, what the machine taught us. Numbers live in
 
 ---
 
+## 2026-06-17 (overnight, autonomous) — STELLAR STRUCTURE: the engine builds a star (TOV)
+
+- New domain, the cleanest remaining loose thread: the engine had only ever done black holes and
+  cosmologies — never MATTER holding itself up. Battery `52_stellar_structure.py` takes the static
+  interior metric ds²=−e^{2Φ(r)}dt²+dr²/(1−2m(r)/r)+r²dΩ² with **Φ(r), m(r) free** and recovers the
+  equations of stellar structure (the abstractor move, cf. Friedmann 37 / Kasner 47):
+  - **(A) mass function** dm/dr=4πr²ρ — read off G^t_t (m(r)=mass inside r).
+  - **(B) potential eq** dΦ/dr=(m+4πr³p)/(r(r−2m)) — from G^r_r.
+  - **(C) TOV.** First a genuine engine SELF-TEST: the covariant divergence ∇_μG^μ_r computes to
+    identically 0 (the Bianchi identity — nice independent correctness check). The same divergence of an
+    isotropic perfect-fluid stress (p_r=p_t=p) is p'(r)+(ρ+p)Φ'(r); set it to zero and substitute (B) →
+    the **Tolman–Oppenheimer–Volkoff equation** dp/dr=−(ρ+p)(m+4πr³p)/(r(r−2m)). 1939, recovered.
+  - **(D) Newtonian limit, DERIVED honestly** — first draft was dishonest (I hand-wrote the answer and
+    "verified" it against itself; caught it, the honesty rules are load-bearing). Redid it as a real
+    post-Newtonian ordering: tag m→λm (compactness O(v²)), p→λ²p (pressure O(v⁴)), read the λ¹ coefficient
+    of the TOV RHS → −ρm/r² falls out, the three relativistic factors switching off. Ordinary hydrostatic
+    equilibrium. Gate: 39 batteries green, pushed.
+- Kept 8π explicit here (not the usual 8π=1) so the 4π/8π factors read as the textbook. Engine's first STAR.
+
 ## 2026-06-17 (overnight, autonomous) — the three classic tests, completed (precession + redshift)
 
 - Rounded out the observables lens into the **three classic tests of GR**, each computed straight from

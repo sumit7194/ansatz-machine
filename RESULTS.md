@@ -643,6 +643,17 @@ and the accretion-disk edge are one physics. **§51 gravitational redshift** (`5
 `z=1/√f−1` → `M/r` (Pound–Rebka) and `→∞` at the horizon; charge reduces it. With these the engine
 reproduces all three classic tests of general relativity from the metric alone.
 
+## §52 — stellar structure: the engine builds a STAR (recovers TOV)
+The engine had only ever handled black holes and cosmologies; here it takes on matter holding *itself*
+up against gravity — a static relativistic star. From the interior metric `ds²=−e^{2Φ}dt²+dr²/(1−2m/r)+r²dΩ²`
+with Φ(r), m(r) FREE, it recovers the equations of stellar structure (the abstractor move, cf. Friedmann
+§37 / Kasner §47): the **mass function** `dm/dr=4πr²ρ`; the **potential equation** `dΦ/dr=(m+4πr³p)/(r(r−2m))`;
+and — via the Bianchi identity `∇_μG^μ_r≡0` (which the engine verifies, a self-consistency check) applied
+to an isotropic perfect fluid — the **Tolman–Oppenheimer–Volkoff equation**
+`dp/dr=−(ρ+p)(m+4πr³p)/(r(r−2m))`. Its **Newtonian limit** is derived honestly (post-Newtonian ordering
+m/r=O(v²), p/ρ=O(v⁴), read the leading coefficient): `dp/dr→−ρm/r²`, ordinary hydrostatic equilibrium.
+First time the engine describes a star, not a hole. Repro: `scripts/52_stellar_structure.py`.
+
 **Where the niche stands (own literature sweep, 2026-06-16).** Path 1 (automate
 the physical-vs-gauge / SPSM criterion) is closed: xCPS (arXiv:2606.05204, open
 source) already automates covariant phase space, Noether charges, and Wald
