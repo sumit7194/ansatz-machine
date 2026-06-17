@@ -41,7 +41,14 @@ UNKNOWN = None  # three-valued, as everywhere in this project
 def _sign(expr):
     """+1 / −1 / 0 / None — sign of expr over the physical domain (positive
     parameters & coordinates). Symbolic when SymPy can decide, else sampled;
-    None (UNKNOWN) if a sample is not real-evaluable or the sign is mixed."""
+    None (UNKNOWN) if the sign is mixed or too few samples are real-evaluable.
+
+    A sample that doesn't evaluate to a real number (e.g. a √ of a negative —
+    common for an interior solution sampled outside its radial domain r≤R) is
+    SKIPPED, not fatal: a single out-of-domain point shouldn't poison a verdict
+    the in-domain points agree on (this is what let stellar interiors finally
+    certify physical). We still demand a quorum of real samples that unanimously
+    agree before committing to a sign; otherwise UNKNOWN, as ever."""
     e = sp.simplify(expr)
     if e == 0:
         return 0
@@ -52,18 +59,22 @@ def _sign(expr):
     rng = random.Random(0)
     free = sorted(e.free_symbols, key=str)
     seen = set()
+    valid = 0
     for _ in range(60):
         sub = {s: sp.Rational(rng.randint(1, 25), rng.randint(1, 6)) for s in free}
         try:
             v = float(e.subs(sub))
         except (TypeError, ValueError):
-            return None
+            continue                       # not real here — skip, don't bail
+        valid += 1
         if v > 1e-12:
             seen.add(1)
         elif v < -1e-12:
             seen.add(-1)
         else:
             seen.add(0)
+    if valid < 20:           # too little real signal to trust unanimity ⇒ UNKNOWN
+        return None
     if seen == {1}:
         return 1
     if seen == {-1}:

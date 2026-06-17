@@ -6,6 +6,24 @@ built, what broke, what the machine taught us. Numbers live in
 
 ---
 
+## 2026-06-17 (overnight, autonomous) — does the ONE general tool reach the star? (yes, with an honest edge)
+
+- The night's stellar work (52–54) was focused scripts; checked it against the project's north star (the
+  user's steer: ONE general analyzer, not a pile of narrow scripts). Pointed `analyze()` at a star (the
+  constant-density interior, perfect-fluid ball) — with no stellar-specific code it reads the STRUCTURE
+  right: perfect fluid (isotropic — it detects p_r=p_t), density ρ=3/(20π)=3M/4πR³ exactly, symmetries
+  ∂/∂t & ∂/∂φ, no singularity, signature flip False (a STAR not a hole), sourced matter. Battery `55`.
+- **Honest boundary, found + recorded (not hidden).** `physical?` came back UNKNOWN. Diagnosed precisely:
+  the analyzer's `_sign` sampler draws the radial coord out to r=25, but the interior's √(1−2Mr²/R³) is
+  real only for r≤R, so most samples are complex. The OLD `_sign` returned None the instant ANY sample
+  was non-real — one out-of-domain point vetoed everything. **Fix:** skip non-real samples (don't bail),
+  with a quorum guard (need ≥20 real samples to trust unanimity) so we never over-claim. Regression-free
+  (full gate green both before and after). It's a genuine robustness gain, but it does NOT by itself
+  certify the star — that needs the domain bound r≤R, which a bare metric doesn't carry. So 55 also
+  verifies directly (sampling r<R) that NEC/WEC/DEC DO hold — the star is physical; the UNKNOWN is missing
+  domain knowledge, a clean future extension (an optional domain/assumptions arg to analyze()). Three-valued
+  UNKNOWN done right. Gate: 42 green, pushed.
+
 ## 2026-06-17 (overnight, autonomous) — MASS–RADIUS: the maximum neutron-star mass (capstone)
 
 - Capstone of the stellar arc, and the bridge to why black holes form. Battery `54_mass_radius.py` feeds

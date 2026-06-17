@@ -675,6 +675,20 @@ the peak, denser stars are *lighter* → unstable → they collapse to black hol
 equations forbid arbitrarily heavy neutron stars — the end-to-end chain TOV → exact star → a maximum mass,
 the seed of stellar-mass black holes. Repro: `scripts/54_mass_radius.py`.
 
+## §55 — the general analyzer reaches a star (and an honest boundary)
+Tonight's stellar work used focused scripts; this ties it back to the north star — the ONE general tool.
+Point `analyze()` at a star (the constant-density interior, a perfect-fluid ball) and, with no
+stellar-specific code, it reads the **structure** correctly: *perfect fluid (isotropic)*, density ρ=3M/(4πR³)
+constant, symmetries ∂/∂t & ∂/∂φ (static + axisymmetric), **no singularity** (regular), **signature flip
+False** (time stays timelike — a star, not a hole), sourced matter. The honest boundary, surfaced not hidden:
+**physical? = UNKNOWN**. The interior's √(1−2Mr²/R³) is real only for r≤R, so the analyzer's domain-blind
+sign sampler can't certify the energy conditions from the bare metric — *but the star is physical* (sampling
+inside r<R, NEC/WEC/DEC all hold). The gap is missing domain knowledge (r≤R), a clean future extension (an
+optional domain argument to `analyze()`), recorded as a three-valued UNKNOWN done right. Alongside this, a
+small robustness fix to the analyzer's `_sign`: an isolated non-real sample (a √ of a negative outside the
+domain) is now skipped, not fatal — it no longer vetoes a verdict the in-domain samples agree on (with a
+quorum guard so we never over-claim). Repro: `scripts/55_analyzer_star.py`.
+
 **Where the niche stands (own literature sweep, 2026-06-16).** Path 1 (automate
 the physical-vs-gauge / SPSM criterion) is closed: xCPS (arXiv:2606.05204, open
 source) already automates covariant phase space, Noether charges, and Wald

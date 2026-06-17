@@ -48,8 +48,15 @@ pre-check (vacuum skips ricci_scalar + stress_energy), lazy stress_energy, and `
 detection — PLUS feeding rational u=cosθ coordinates (the trig form swamps; D4 extends off-diagonal).
 Remaining: Alcubierre warp + Gödel (own structure), rotating-horizon T/S, off-diagonal Kretschmann
 (ring singularity).
+**STAR REACHED (2026-06-17, `55_analyzer_star.py`):** the general tool reads a perfect-fluid stellar
+interior with no stellar-specific code — perfect fluid (isotropic), constant ρ=3M/4πR³, static+axisymmetric,
+regular (no singularity), signature-flip False (a star, not a hole). Honest edge found + recorded: `physical?`
+is UNKNOWN because the interior is real only for r≤R and the `_sign` sampler is domain-blind (fixed `_sign`
+to skip — not bail on — out-of-domain non-real samples, with a quorum guard; regression-free). The star IS
+physical (verified inside r<R). → **clean future extension: an optional `domain`/`assumptions` argument to
+`analyze()`** so it can certify domain-restricted (interior) solutions.
 **Still open:** off-diagonal handling (the frontier), a FULL Killing-vector solver (coordinate-mixing
-symmetries like the rotation group), the causal-structure lens (§6), richer source ID, and folding the
+symmetries like the rotation group), the domain-aware certification above, richer source ID, and folding the
 GP discovery loop in so the analyzer can also DISCOVER, not just analyze. Original design notes below.
 
 
