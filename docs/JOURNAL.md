@@ -6,6 +6,22 @@ built, what broke, what the machine taught us. Numbers live in
 
 ---
 
+## 2026-06-17 (overnight, autonomous) — the three classic tests, completed (precession + redshift)
+
+- Rounded out the observables lens into the **three classic tests of GR**, each computed straight from
+  the metric, joining light bending (49):
+- **PERIHELION PRECESSION (`50_precession.py`) — Mercury's test.** The periastron advance per circular
+  orbit, ALGEBRAIC via epicyclic frequencies (no integral): L²=f'r³/(2f−f'r), Δφ=2π(√(2L²/(r⁴V''))−1).
+  For Schwarzschild this is exactly 2π(1/√(1−6M/r)−1) — checked NUMERICALLY (sympy won't prove the
+  radical identity) at r=8,12,30. Verified: weak field → 6πM/r (Mercury's 43″/century), and it
+  **diverges at r=6M, the ISCO** — precession and the accretion-disk inner edge are the same physics.
+  Charge reduces it. Battery 50.
+- **GRAVITATIONAL REDSHIFT (`51_redshift.py`) — Pound–Rebka, the third classic test.** z(r)=1/√f−1:
+  weak field z≈M/r (the tower experiment, series-verified), z→∞ at the horizon (the surface fades to
+  black, limit-verified), charge reduces it (f larger at fixed r). Trivial physics but completes the
+  trilogy: the engine now reproduces light bending + perihelion precession + gravitational redshift,
+  all from the metric alone. Battery 51. Gate: 38 batteries green, pushed.
+
 ## 2026-06-17 (overnight, autonomous) — closing loose threads: Kerr-dS numeric unlock + KASNER
 
 - User to bed, full autonomy, "close the loose threads." Pushed authorization granted — committing AND

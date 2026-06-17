@@ -77,12 +77,14 @@ fluid source. Ideas:
 - recover/verify de Sitter, radiation (a∝t^½), matter (a∝t^⅔), ΛCDM.
 - rational-friendly for power-law `a(t)`.
 
-## 2. Observables — what a telescope actually sees  ◀ MOSTLY DONE
+## 2. Observables — what a telescope actually sees  ◀ DONE
 DONE: photon sphere + shadow + ISCO (`45_observables.py`, folded into the analyzer report card) —
-Schwarzschild 3M / 3√3 M / 6M exact, charge tightens all. LIGHT BENDING (`49_light_bending.py`): the
-1919 Eddington test — Δφ=2∫dr/(r²√(1/b²−f/r²))−π, numerically → 4M/b in the weak field, →∞ near the
-photon sphere, reduced by charge. STILL OPEN: perihelion precession (Mercury 43″/cy), gravitational
-redshift (trivial: z=1/√f−1), full geodesic integration.
+Schwarzschild 3M / 3√3 M / 6M exact, charge tightens all. And the THREE CLASSIC TESTS, each from the
+metric: LIGHT BENDING (`49_light_bending.py`, 1919 Eddington — Δφ=2∫dr/(r²√(1/b²−f/r²))−π → 4M/b weak
+field, →∞ near the photon sphere); PERIHELION PRECESSION (`50_precession.py`, Mercury 43″/cy —
+Δφ=2π(1/√(1−6M/r)−1) → 6πM/r, diverges at the ISCO r=6M); GRAVITATIONAL REDSHIFT (`51_redshift.py`,
+Pound–Rebka — z=1/√f−1 → M/r, →∞ at the horizon). Charge reduces all three. STILL OPEN: full geodesic
+integration / ray-tracing (the only remaining piece of this lens).
 Geodesics *through* a metric (orthogonal to its structure): light bending,
 Mercury's perihelion precession (43″/century), the photon sphere, the
 **black-hole shadow** (EHT). Turns "here's a solution" into "here's what you'd

@@ -616,6 +616,33 @@ Schwarzschild gives the icons exactly — `r_ph=3M`, `b_c=3√3 M≈5.196M`, `r_
 three (RN at Q=M/2: 2.823M, 4.968M, 5.607M). Now folded into the analyzer report card (every static
 black hole's report shows its light ring / shadow / ISCO inline). Repro: `scripts/45_observables.py`.
 
+## §46 — numeric curvature: the off-diagonal / OOM unlock (Kerr–de Sitter verified)
+A pure-Python finite-difference Ricci + Kretschmann engine (`scripts/numeric_curvature.py`) — no
+symbolic blow-up, ~ms per point. It cracks metrics the symbolic path can't: battery `46` VERIFIES
+**Kerr–de Sitter** as vacuum+Λ (the case that OOMed symbolically, >180s even alone), and a control
+shows Kerr's Δ genuinely needs the `−Λr⁴/3` correction. The feared "deep VM run" was never about RAM —
+it was symbolic-expression blow-up, and a numeric evaluator side-steps it entirely on the laptop.
+Repro: `scripts/46_numeric_curvature.py`.
+
+## §47 — Kasner: recovering an anisotropic-vacuum meta-law
+The abstractor move (cf. §24's Tangherlini law) in cosmology: from `ds²=−dt²+Σ t^{2pᵢ}dxᵢ²` the engine
+factors the vacuum residual into the **Kasner conditions** `Σpᵢ=1`, `Σpᵢ²=1` — the constraint defining
+every anisotropic vacuum (BKL) universe, recovered rather than assumed. Repro: `scripts/47_kasner.py`.
+
+## §48 — the ring singularity (numeric Kretschmann sees Kerr's true shape)
+Where the symbolic Kretschmann swamps off-diagonal, the numeric engine resolves it: Kerr's curvature
+invariant **diverges as r→0 only on the equator** (u=cosθ=0) and stays bounded off it — the textbook
+**ring** singularity, shown not assumed. Repro: `scripts/48_ring_singularity.py`.
+
+## §49–51 — the three classic tests of GR, each straight from the metric
+The geodesic lens, completed. **§49 light bending** (`49_light_bending.py`): `Δφ=2∫dr/(r²√(1/b²−f/r²))−π`
+→ `4M/b` in the weak field (the 1919 Eddington eclipse) and diverges near the photon sphere; charge
+reduces it. **§50 perihelion precession** (`50_precession.py`): the algebraic epicyclic advance
+`Δφ=2π(1/√(1−6M/r)−1)` → `6πM/r` (Mercury's 43″/century) and **diverging at the ISCO r=6M** — precession
+and the accretion-disk edge are one physics. **§51 gravitational redshift** (`51_redshift.py`):
+`z=1/√f−1` → `M/r` (Pound–Rebka) and `→∞` at the horizon; charge reduces it. With these the engine
+reproduces all three classic tests of general relativity from the metric alone.
+
 **Where the niche stands (own literature sweep, 2026-06-16).** Path 1 (automate
 the physical-vs-gauge / SPSM criterion) is closed: xCPS (arXiv:2606.05204, open
 source) already automates covariant phase space, Noether charges, and Wald
