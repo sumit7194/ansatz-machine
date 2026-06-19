@@ -1006,6 +1006,21 @@ Kinnersley tetrad: only Ψ2≠0 (others ~1e-10) ⇒ **type D**, off-diagonal. **
 `I³=27J²` holds (algebraically special, consistent with D). **(D)** so the Petrov lens (§57) now covers Kerr;
 kept a numeric companion (analyzer.petrov stays symbolic + perf-guarded; a fully-automatic principal-null-
 direction finder is the general extension). Repro: `scripts/80_petrov_kerr.py`.
+*Stress-tested (2026-06-20): `petrov_type_numeric` originally used a relative-only tolerance and misclassified
+de Sitter (Weyl=0) as type I and large-r Kerr as type II — fixed with an ABSOLUTE noise floor (~1e-7; FD
+noise ~1e-9). Battery now verifies Kerr→D at 15 points (r∈[3,30]) plus de Sitter→O and Schwarzschild→D
+cross-checks, so the classifier can't regress.*
+
+## §81 — analyzer robustness audit: the core verdicts pinned to ground truth
+*Robustness is the only objective — a green gate proves the batteries RUN, not that the verdicts are SOUND
+(the §80 stress test found a real bug).* This makes the adversarial check PERMANENT, pinning the analyzer's
+most-used verdicts to known ground truth so any regression turns the gate red. **(A)** `physical?` — no false
+positives: a Morris–Thorne wormhole is flagged NON-physical (NEC violated), RN and FLRW dust physical, de
+Sitter physical-but-SEC-violated (NEC/WEC/DEC hold, SEC fails — the dark-energy signature). **(B)** `made_of`
+— vacuum / traceless-EM / Λ / perfect-fluid all correct. **(C)** `singularities` — r=0 for Schwarzschild & RN,
+NONE for de Sitter & Minkowski (no hallucinated singularities). **(D)** `horizon` — RN's TWO horizons both
+report positive T,S (the §64 |f′| fix handles the inner/Cauchy horizon where f′<0), with the smaller horizon
+hotter. Repro: `scripts/81_analyzer_audit.py`.
 
 **Where the niche stands (own literature sweep, 2026-06-16).** Path 1 (automate
 the physical-vs-gauge / SPSM criterion) is closed: xCPS (arXiv:2606.05204, open

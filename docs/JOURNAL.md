@@ -45,6 +45,11 @@ built, what broke, what the machine taught us. Numbers live in
   de Sitter→O, Schwarzschild→D. Baked the cross-checks into battery 80 so it can't regress.
 - Outcome: §77/§78/§79 sound as claimed; §80 had a real classifier bug, now fixed + hardened. THIS is why
   we stress-test.
+- Then made the audit PERMANENT: battery `81_analyzer_audit.py` pins the analyzer's core verdicts to ground
+  truth — physical? (wormhole NON-physical/NEC, RN & dust physical, de Sitter SEC-only), made_of
+  (vacuum/EM/Λ/perfect-fluid), singularities (r=0 for BHs, NONE for de Sitter/Minkowski — no hallucination),
+  horizon (RN two horizons, both T,S>0, smaller hotter — the §64 |f′| fix). All ground-truth, all green. Any
+  future regression on these now turns the gate red. Stress-testing is the standing discipline now.
 
 ## 2026-06-20 — V8 minor: Petrov type of Kerr (§80, numeric) — the §57 UNKNOWN closed
 
