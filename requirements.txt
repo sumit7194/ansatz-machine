@@ -1,1 +1,7 @@
 sympy>=1.14
+
+# OPTIONAL — the precise-QNM track only (battery 77, scripts/qnm_precise.py).
+# A precise quasinormal mode is inherently numerical (Leaver's continued fraction
+# has no closed form), so this pulls numpy/scipy/numba. The 64-battery pure-SymPy
+# core never imports it; battery 77 fail-soft skips if it's absent. See DECISIONS.md D27.
+# qnm>=0.4
