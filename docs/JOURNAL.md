@@ -6,6 +6,22 @@ built, what broke, what the machine taught us. Numbers live in
 
 ---
 
+## 2026-06-19 — RAYCHAUDHURI & FOCUSING: why singularities are inevitable
+
+- The deepest "why" yet. A bundle of free-fallers has expansion θ obeying Raychaudhuri dθ/dτ=−θ²/3−σ²+ω²
+  −R_ab u^a u^b; non-rotating ⇒ everything but the last term ≤0, and Einstein makes it 4π(ρ+3p). SEC
+  (ρ+3p≥0) ⇒ forced convergence ⇒ caustics ⇒ Penrose–Hawking singularity theorems. Battery
+  `65_raychaudhuri.py` (standalone). Fixed a symbol-scoping bug in the first draft (walrus `t` vs the
+  helper's internal `t` — derivatives came out wrong); rewrote with one shared `T`.
+- (A) Raychaudhuri verified as an identity for the FLRW comoving bundle: θ=3H, R_ab u^a u^b=−3ä/a, residual 0.
+  (B) ordinary matter a∝t^{2/3} (SEC holds): R_ab u^a u^b=2/(3t²)>0 ⇒ θ→+∞ at t→0, Big Bang is a focusing
+  singularity (ties §36 SEC + §37 cosmology). (C) the escape: de Sitter a=e^{Ht} violates SEC
+  (R_ab u^a u^b=−3H²<0) ⇒ dθ/dτ=0, θ=3H const, no future singularity (dark energy / inflation beats the
+  theorems; needs exotic matter cf §38). (D) focusing ⟺ SEC, and it's the same singularity the analyzer
+  finds by curvature (§59/§42) — two views of one fact. Gate: 52 green.
+- (Recovered from the 3rd power loss of the session mid-gate; §64 was already safe at 8e01cf7. Dashboard
+  restarted again.)
+
 ## 2026-06-19 — THE COSMOLOGICAL HORIZON: the universe has a temperature (Gibbons–Hawking)
 
 - Change of scenery into cosmology. A horizon needn't be a black hole's: de Sitter (the t→∞ fate of ΛCDM,

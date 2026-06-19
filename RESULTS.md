@@ -823,6 +823,19 @@ temperature set by its expansion rate. **(C)** S=A/4=π/H². **(D)** tie to cosm
 Λ-dominated (Λ=3H²), so T=√(Λ/3)/2π and S=3π/Λ — the universe's temperature and entropy straight off the
 cosmological constant; larger Λ ⇒ smaller, hotter horizon, less entropy. Repro: `scripts/64_cosmological_horizon.py`.
 
+## §65 — Raychaudhuri & focusing: why singularities are inevitable
+The deepest "why" in the engine. A bundle of free-fallers has an expansion θ obeying the **Raychaudhuri
+equation** `dθ/dτ = −θ²/3 − σ² + ω² − R_ab u^a u^b`; for a non-rotating bundle every term but the last is
+≤0, and Einstein makes the last `= 4π(ρ+3p)`. So while the **Strong Energy Condition** holds (ρ+3p≥0), the
+bundle is forced to converge (θ→−∞ in finite time) → caustics → the Penrose–Hawking **singularity
+theorems**: with ordinary matter, singularities are generic, not artifacts of symmetry. The engine: **(A)**
+verifies Raychaudhuri as an identity for the FLRW comoving bundle (θ=3H, R_ab u^a u^b=−3ä/a, residual 0);
+**(B)** ordinary matter (a∝t^{2/3}, SEC holds) gives R_ab u^a u^b>0 ⇒ tracing back θ→+∞ at t→0, the Big Bang
+is a focusing singularity (ties §36 + §37); **(C)** the ESCAPE — de Sitter (dark energy) violates the SEC
+(R_ab u^a u^b=−3H²<0), so dθ/dτ=0, θ=3H constant, no future singularity (beating the theorems needs exotic
+matter, §38); **(D)** focusing ⟺ SEC, and the singularity it forces is the same one the analyzer finds by
+curvature (§59 tidal, §42 causal). Repro: `scripts/65_raychaudhuri.py`.
+
 **Where the niche stands (own literature sweep, 2026-06-16).** Path 1 (automate
 the physical-vs-gauge / SPSM criterion) is closed: xCPS (arXiv:2606.05204, open
 source) already automates covariant phase space, Noether charges, and Wald
