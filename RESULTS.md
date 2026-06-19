@@ -691,6 +691,26 @@ domain) is now skipped, not fatal — it no longer vetoes a verdict the in-domai
 quorum guard so we never over-claim; `domain=None` reproduces the original sampling byte-for-byte). Repro:
 `scripts/55_analyzer_star.py`.
 
+## §56 — ringdown: how a black hole rings, derived exactly from the metric
+A new exact lens beside the observables (§45 photon sphere/shadow/ISCO, §49–51 bending/precession/redshift):
+black-hole **perturbation theory**. Strike a black hole and it rings down at complex quasinormal frequencies
+(real = pitch, imaginary = damping) — what LIGO hears in a merger. What ansatz contributes *exactly* (its
+identity), and what it honestly cannot:
+- **(A) the exact wave potential.** A perturbation obeys `d²ψ/dr*² + (ω²−V)ψ = 0`; the engine DERIVES
+  `V(r) = f[ℓ(ℓ+1)/r² + f′/r]` (massless scalar) for ANY metric f — verified as a symbolic identity
+  (`r·E_R − master = 0`), not assumed. The spin-s family `V_s = f[ℓ(ℓ+1)/r² + (1−s²)f′/r]` recovers the
+  textbook Regge–Wheeler potentials for Schwarzschild (s=0 scalar, 1 EM, 2 gravitational).
+- **(B) the exact eikonal spectrum** from the photon sphere (Cardoso correspondence):
+  `ω = ℓΩ_c − i(n+½)λ`, `Ω_c=√f_c/r_c`, `λ=√(f_c(2f_c−r_c²f_c″)/(2r_c²))` — closed-form in the photon-sphere
+  data §45 already computes. Schwarzschild `Ω_c = λ = 1/(3√3 M)` exactly; the ℓ=2,n=0 eikonal `Mω≈0.385−0.096i`
+  already lands within a few % of the exact Leaver value `0.374−0.089i`, and tightens with ℓ.
+- **(C) the unification:** `Ω_c·b_c = 1`, so **`ω_R = ℓ/b_shadow`** — the LIGO ringdown pitch and the EHT
+  shadow are the *same* photon sphere. Charge (RN) tightens the orbit and raises the pitch. Now folded into
+  the analyzer report card (`ringdown_omega_c`, `ringdown_lyapunov` for any static black hole).
+- **(D) the honest boundary:** the full overtone spectrum (finite ℓ, n≥1) has NO closed form — it needs
+  Leaver's continued-fraction method (the maintained `qnm` package). ansatz gives the exact potential and the
+  exact eikonal limit; the precise overtones are numerical. Stated, not hidden. Repro: `scripts/56_ringdown.py`.
+
 **Where the niche stands (own literature sweep, 2026-06-16).** Path 1 (automate
 the physical-vs-gauge / SPSM criterion) is closed: xCPS (arXiv:2606.05204, open
 source) already automates covariant phase space, Noether charges, and Wald

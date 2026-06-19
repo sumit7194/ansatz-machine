@@ -423,6 +423,14 @@ def observables(geo):
         fp = sp.simplify(f.subs(rc, rp))
         if fp != 0 and fp.is_positive is not False:
             out["shadow"] = sp.simplify(rp / sp.sqrt(fp))
+            # eikonal ringdown (Cardoso correspondence): QNM ω = ℓ·Ω_c − i(n+½)λ,
+            # both closed-form from the photon sphere. ω_R = ℓ/shadow; λ is the
+            # orbit's instability rate. The exact overtone spectrum needs Leaver
+            # (numerical) — this is the exact eikonal limit. (battery 56)
+            out["ringdown_omega_c"] = sp.simplify(sp.sqrt(fp) / rp)
+            fpp = sp.simplify(f.diff(rc, 2).subs(rc, rp))
+            out["ringdown_lyapunov"] = sp.simplify(
+                sp.sqrt(fp * (2 * fp - rp**2 * fpp) / (2 * rp**2)))
     isc = _roots(3 * f * sp.diff(f, rc) - 2 * rc * sp.diff(f, rc)**2 + rc * f * sp.diff(f, rc, 2))
     if isc:
         out["isco"] = isc

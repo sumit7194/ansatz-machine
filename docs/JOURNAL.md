@@ -6,6 +6,30 @@ built, what broke, what the machine taught us. Numbers live in
 
 ---
 
+## 2026-06-19 — RINGDOWN: black-hole perturbation theory, the exact pieces (and an honest edge)
+
+- Back after a few days on the sister projects. User relayed a sharp critique of a floated "QNM module":
+  (1) there is NO exact/closed-form Kerr QNM — they come from Leaver's continued fraction (numerical), and
+  there's already a maintained `qnm` python package (Leo Stein, JOSS 2019) that does it; (2) the payoff
+  (compare computed vs measured overtone) is just black-hole spectroscopy, which the sister project already
+  runs. Both correct. Decision: DROP the bridge framing entirely, build only what improves OUR engine, and
+  build the EXACT pieces that fit ansatz's identity — not a numerical Leaver clone.
+- **Battery `56_ringdown.py` — the exact lens.** Web-checked the eikonal/photon-sphere correspondence
+  (Cardoso) and the `qnm` package before building (both confirmed). Then:
+  - **(A) exact wave potential, ANY metric.** Derived `V = f[ℓ(ℓ+1)/r² + f′/r]` from the separated scalar
+    wave equation and VERIFIED it as a symbolic identity (`r·E_R − master = 0`, f a free Function) — true for
+    every f, not just Schwarzschild. Spin-s family recovers the textbook Regge–Wheeler potentials.
+  - **(B) exact eikonal QNM** from the photon sphere: `ω = ℓΩ_c − i(n+½)λ`. Schwarzschild `Ω_c = λ = 1/(3√3 M)`
+    exactly; calibrated the ℓ=2,n=0 eikonal (0.385−0.096i) against the known Leaver value (0.374−0.089i) — a
+    few % off, honest about the high-ℓ limit.
+  - **(C) the unification** `ω_R = ℓ/b_shadow` (Ω_c·b_c=1): the LIGO ringdown and the EHT shadow are the same
+    photon sphere. Folded `ringdown_omega_c`/`ringdown_lyapunov` into the general analyzer's report card
+    (`observables()`), so every static black hole now reports its ringdown — regression-free (40/41/45 green).
+  - **(D) honest boundary, stated in the battery:** overtones (finite ℓ, n≥1) need Leaver/the `qnm` package;
+    ansatz gives the exact potential + eikonal limit, not the numerical spectrum. No diluted "exact" identity.
+  - Fix while building: symbolic RN photon-sphere root `[3M±√(9M²−8Q²)]/2` has undecidable `is_real`, so the
+    charge check evaluates numerically. Gate: 43 batteries green.
+
 ## 2026-06-17 (overnight, autonomous) — does the ONE general tool reach the star? (yes, with an honest edge)
 
 - The night's stellar work (52–54) was focused scripts; checked it against the project's north star (the

@@ -91,8 +91,13 @@ Schwarzschild 3M / 3√3 M / 6M exact, charge tightens all. And the THREE CLASSI
 metric: LIGHT BENDING (`49_light_bending.py`, 1919 Eddington — Δφ=2∫dr/(r²√(1/b²−f/r²))−π → 4M/b weak
 field, →∞ near the photon sphere); PERIHELION PRECESSION (`50_precession.py`, Mercury 43″/cy —
 Δφ=2π(1/√(1−6M/r)−1) → 6πM/r, diverges at the ISCO r=6M); GRAVITATIONAL REDSHIFT (`51_redshift.py`,
-Pound–Rebka — z=1/√f−1 → M/r, →∞ at the horizon). Charge reduces all three. STILL OPEN: full geodesic
-integration / ray-tracing (the only remaining piece of this lens).
+Pound–Rebka — z=1/√f−1 → M/r, →∞ at the horizon). Charge reduces all three.
+And RINGDOWN (`56_ringdown.py`, 2026-06-19): black-hole perturbation theory — the exact wave potential
+V=f[ℓ(ℓ+1)/r²+f′/r] DERIVED for any metric (verified as an identity), the exact eikonal QNM ω=ℓΩ_c−i(n+½)λ
+from the photon sphere (Schwarzschild Ω_c=λ=1/3√3M; ω_R=ℓ/b_shadow ties the LIGO ringdown to the EHT shadow),
+folded into the report card. Honest edge: overtones (finite ℓ, n≥1) need Leaver / the maintained `qnm`
+package — ansatz gives the exact potential + eikonal limit, not a numerical Leaver clone.
+STILL OPEN: full geodesic integration / ray-tracing; a WKB overtone estimate off the exact potential.
 Geodesics *through* a metric (orthogonal to its structure): light bending,
 Mercury's perihelion precession (43″/century), the photon sphere, the
 **black-hole shadow** (EHT). Turns "here's a solution" into "here's what you'd
