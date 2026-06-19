@@ -57,6 +57,7 @@ NAMES+=("04 campaign");           CMDS+=("scripts/04_campaign.py")
 [ -f scripts/63_embedding.py ] && { NAMES+=("63 embedding (Flamm paraboloid, proper distance, the throat)"); CMDS+=("scripts/63_embedding.py"); }
 [ -f scripts/64_cosmological_horizon.py ] && { NAMES+=("64 cosmological horizon (de Sitter Gibbons-Hawking T, S)"); CMDS+=("scripts/64_cosmological_horizon.py"); }
 [ -f scripts/65_raychaudhuri.py ] && { NAMES+=("65 Raychaudhuri focusing (SEC -> singularity, the dark-energy escape)"); CMDS+=("scripts/65_raychaudhuri.py"); }
+[ -f scripts/66_effective_potential.py ] && { NAMES+=("66 effective potential (ISCO/photon sphere as a well; the GR term)"); CMDS+=("scripts/66_effective_potential.py"); }
 
 fail=0
 GATE="$(dirname "$0")/gate.log"; : > "$GATE"   # also written here so the dashboard (reads ROOT/gate.log) stays current

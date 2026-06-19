@@ -6,6 +6,16 @@ built, what broke, what the machine taught us. Numbers live in
 
 ---
 
+## 2026-06-19 — THE EFFECTIVE POTENTIAL: orbits as a particle in a well (synthesis)
+
+- Synthesis lens unifying §45 (photon sphere/ISCO) + §50 (precession): radial geodesic motion is
+  (dr/dτ)²=E²−V_eff, a particle rolling in V_eff(r), read off the metric. Battery `66_effective_potential.py`
+  (standalone). (A) ISCO from V_eff′=V_eff″=0 ⇒ r=6M, L=2√3M (a stability statement: no stable orbit below
+  6M). (B) photon sphere = null V_eff MAXIMUM ⇒ r=3M, hence unstable. (C) the WHY: V_eff=1−2M/r+L²/r²−2ML²/r³;
+  the first three are Newton, the −2ML²/r³ is purely GR — drop it and there's NO ISCO solution (verified:
+  Newtonian V has no V′=V″=0 root). That term is exactly why close orbits go unstable. (D) capture: null
+  barrier peak V_max=4/9 (L=2√3M) sets the capture cross-section / shadow. Gate: 53 green.
+
 ## 2026-06-19 — RAYCHAUDHURI & FOCUSING: why singularities are inevitable
 
 - The deepest "why" yet. A bundle of free-fallers has expansion θ obeying Raychaudhuri dθ/dτ=−θ²/3−σ²+ω²

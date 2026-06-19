@@ -836,6 +836,18 @@ is a focusing singularity (ties §36 + §37); **(C)** the ESCAPE — de Sitter (
 matter, §38); **(D)** focusing ⟺ SEC, and the singularity it forces is the same one the analyzer finds by
 curvature (§59 tidal, §42 causal). Repro: `scripts/65_raychaudhuri.py`.
 
+## §66 — the effective potential: orbits as a particle rolling in a well
+A synthesis lens: the scattered orbit results (§45 photon sphere/ISCO, §50 precession) are one picture. A
+geodesic's radial motion is `(dr/dτ)² = E² − V_eff(r)` — a particle of energy E rolling in a potential, and
+the engine reads V_eff off the metric (timelike `V_eff=f(1+L²/r²)`, null `f L²/r²`). **(A)** circular orbits
+at V_eff′=0; the **ISCO** is where the well's min and max merge, V_eff′=V_eff″=0 ⇒ r=6M, L=2√3M — now a
+*stability* statement (below 6M no stable orbit). **(B)** the **photon sphere** is the null potential's
+MAXIMUM ⇒ r=3M, hence *unstable* (a knife-edge light ring). **(C)** the why: `V_eff = 1 − 2M/r + L²/r² −
+2ML²/r³` — the first three terms are Newton (rest energy − potential + centrifugal barrier), the last
+`−2ML²/r³` is purely GR; drop it and there's no ISCO solution. That term is exactly why you can't orbit
+close to a black hole. **(D)** capture: energy above the barrier peak (null V_max=4/9 at L=2√3M) ⇒ swallowed
+— the barrier sets the capture cross-section / shadow (§45). Repro: `scripts/66_effective_potential.py`.
+
 **Where the niche stands (own literature sweep, 2026-06-16).** Path 1 (automate
 the physical-vs-gauge / SPSM criterion) is closed: xCPS (arXiv:2606.05204, open
 source) already automates covariant phase space, Noether charges, and Wald
