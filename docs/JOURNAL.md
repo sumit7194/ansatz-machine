@@ -6,6 +6,22 @@ built, what broke, what the machine taught us. Numbers live in
 
 ---
 
+## 2026-06-20 — V8 ROADMAP BUILD: precise QNM oracle (§77) [item 1, highest leverage]
+
+- User: "work on these tonight, not for later" — building the bridge-driven v8 roadmap. Item 1 (highest
+  leverage): the precise QNM oracle beyond §56's eikonal.
+- First tried a pure 6th-order WKB (dependency-free, builds on §56's potential) — 2nd order was close
+  (Schwarzschild ℓ=2 real 0.399 vs 0.374) but the higher-order Iyer-Will/Konoplya coefficients are
+  error-prone from memory and my assembly was wrong (gave 0.20−0.18i). Rather than ship a subtly-wrong
+  oracle, switched to the exact tool the roadmap names first.
+- Installed `qnm` (Stein 2019, Leaver's continued fraction; pulls numpy/scipy/numba) — D27 records the
+  dependency decision: precise QNM is inherently numerical, so it's an OPTIONAL companion track isolated
+  from the pure-SymPy core (only `qnm_precise.py` + §77 import it; analyzer stays pure; §77 fail-soft skips
+  if absent). `scripts/qnm_precise.py`: `qnm_precise(M,a,ℓ,m,n)` + damping_time + quality_factor.
+- Battery §77: (A) Schwarzschild ℓ=2,n=0 = 0.37367−0.08896i EXACT (vs §56 eikonal 3% off); (B) the 221
+  overtone (a=0.7) = 0.52116−0.24424i (deepstrain's δ; eikonal can't give it); (C) spin blueshift + Q rise;
+  (D) no-hair now 0.1%-level (two modes overdetermine (M,a)). Turns Move B from few-% to a precision test.
+
 ## 2026-06-19 — INVARIANT FINGERPRINT (§76): coordinate-free oracle for learned geometry
 
 - Switched the bridge focus to the OTHER sister project (tabula-geometrica, learned geometry) — its oracle

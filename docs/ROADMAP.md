@@ -11,7 +11,12 @@ exactly where ansatz's current oracles are SOFT, and these four (+1 minor) are t
 upgrades that would harden them. **Captured here, not yet started** — pick up if/when
 the bridge needs them. Ranked by leverage.*
 
-### 1. A precise QNM oracle, beyond the eikonal  ◀ HIGHEST LEVERAGE
+### 1. A precise QNM oracle, beyond the eikonal  ◀ ✅ DONE (2026-06-20, §77)
+**Built:** `scripts/qnm_precise.py` — `qnm_precise(M,a,ℓ,m,n)` wraps Leaver (the `qnm`
+package, D27). Battery §77: exact Schwarzschild ℓ=2,n=0 = 0.37367−0.08896i (vs §56
+eikonal ~3% off), the 221 overtone (a=0.7) = 0.52116−0.24424i, the no-hair test now
+0.1%-level. Optional dep (numpy/scipy/numba), isolated from the pure-SymPy core;
+§77 fail-soft skips if absent.
 §56 gives the eikonal/light-ring QNM and explicitly defers the precise overtone
 spectrum to "Leaver / the `qnm` package." That cap is exactly what made the bridge's
 ringdown comparison (Move B) a few-to-15% test instead of a precision one. Wrap the

@@ -256,3 +256,19 @@ capability, so the build phase STOPS here; the next move is consolidation /
 write-up with the AInstein-differentiated framing, not more rungs. A
 genuinely-new exact metric remains the hard standing problem for everyone and
 is explicitly NOT claimed.
+
+**D27 — Add `qnm` (numpy/scipy/numba) as an OPTIONAL dependency for the
+precise-QNM track only; the pure-SymPy core stays one-dependency.** Bought by:
+the bridge review's highest-leverage item (ROADMAP §v8.1) — §56's QNM is exact
+but eikonal (few-to-15% on the ringdown), and a PRECISE QNM is inherently
+NUMERICAL (Leaver's continued fraction has no closed form), which is the actual
+quantity deepstrain's δ measures (incl. the 221 overtone). The standing
+constraint allows a new dependency if justified here first; this is that
+justification. Containment: only `scripts/qnm_precise.py` + battery `77` import
+`qnm`; nothing in the 76-battery pure-SymPy core touches it, the analyzer stays
+pure, and battery 77 fail-soft SKIPS (clearly, exit 0) when `qnm` is absent so a
+fresh checkout's gate is unaffected. So the "exact, symbolic, proven" identity
+is intact for the core; the precise QNM is an explicitly-numerical companion
+oracle (like the finite-difference `numeric_curvature.py`, but with the standard
+peer-reviewed tool rather than a hand roll). Validated: Schwarzschild ℓ=2,n=0 =
+0.37367−0.08896i (exact Leaver), the 221 overtone available — battery 77.

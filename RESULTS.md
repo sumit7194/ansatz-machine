@@ -959,6 +959,21 @@ validated against this invariant fingerprint (coordinate-proof). Honest: a finit
 fingerprint, not full Cartan–Karlhede); rare coincidences resolved by adding gradients (§02). Repro:
 `scripts/76_invariant_fingerprint.py`.
 
+## §77 — the precise QNM oracle (beyond the eikonal): 0.1%-level ringdown
+*ROADMAP §v8.1, the bridge's highest-leverage item.* §56 gave the EXACT but EIKONAL (light-ring) QNM and
+deferred the precise spectrum to Leaver; this is that precise oracle — `qnm_precise(M,a,ℓ,m,n)`
+(`scripts/qnm_precise.py`, wrapping Leaver's continued fraction via the `qnm` package). It turns the bridge's
+ringdown link from "consistent at the light-ring level" (few-to-15%) into a real **0.1%-level exact↔measured
+test**, and gives the **overtones** (the 221 = ℓ=m=2,n=1) deepstrain's δ measures, which the eikonal can't
+produce. **(A)** Schwarzschild ℓ=2,n=0: precise `Mω=0.37367−0.08896i` (exact Leaver) vs §56's eikonal
+`0.385−0.096i` (~3% on the real part) — now exact. **(B)** the 221 overtone (a=0.7): `Mω=0.52116−0.24424i`.
+**(C)** spin dependence: the 220 fundamental blueshifts (0.3737 at a=0 → 0.5326 at a=0.7) and Q rises
+(2.10→3.30). **(D)** no-hair sharpened: 220 and 221 are both f(M,a) to 0.1%, so two modes overdetermine (M,a)
+at precision (sharpens §72). **Dependency (D27):** a precise QNM is inherently numerical (Leaver has no closed
+form), so this track needs `qnm` (numpy/scipy/numba) — kept SEPARATE from the pure-SymPy core (only
+`qnm_precise.py` + §77 import it; the analyzer stays pure; §77 fail-soft SKIPS if `qnm` absent so a fresh
+checkout's gate is unaffected). Repro: `scripts/77_qnm_precise.py`.
+
 **Where the niche stands (own literature sweep, 2026-06-16).** Path 1 (automate
 the physical-vs-gauge / SPSM criterion) is closed: xCPS (arXiv:2606.05204, open
 source) already automates covariant phase space, Noether charges, and Wald
