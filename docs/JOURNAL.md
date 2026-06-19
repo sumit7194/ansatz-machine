@@ -6,6 +6,27 @@ built, what broke, what the machine taught us. Numbers live in
 
 ---
 
+## 2026-06-19 — KILLING SYMMETRIES: the manifest algebra + Kerr's HIDDEN Carter constant
+
+- The structure lens (#5) completed — the meatier of the three. Two layers: manifest Killing VECTORS and
+  the hidden Killing TENSOR.
+- Added `is_killing_vector` and `killing_vectors` to analyzer.py (reusable, symbolic). `killing_vectors` now
+  finds the manifest cyclic KVs PLUS the **coordinate-mixing SO(3)** rotation generators (R_x, R_y, which
+  mix θ,φ) when the metric is spherically symmetric — the gap `symmetries()` always flagged. Battery
+  `58_killing.py`: Schwarzschild full algebra ℝ_t×SO(3) dim 4 (cyclic detector finds only 2); the rotations
+  close [R_x,R_y]=−R_z (so(3), sign=orientation); a Minkowski Lorentz boost x∂_t+t∂_x verifies Killing too.
+- **Headline — Kerr's hidden symmetry (Carter constant).** Some spacetimes have a symmetry no Killing
+  VECTOR captures: a Killing TENSOR K_ab (∇_(aK_bc)=0), conserved quantity quadratic in momentum. Kerr's is
+  the Carter constant, the thing that makes a spinning hole's orbits integrable (else chaotic). Verified
+  NUMERICALLY (Kerr symbolic curvature swamps): built K=2Σl_(μn_ν)+r²g from the principal null directions
+  (checked l·l=n·n=0, l·n=−1 first), then ∇_(aK_bc)=0 to ~3e-8 at random points; irreducible (not ∝g, ratio
+  spread ~26). And the payoff: RK4-integrated an actual Kerr orbit and showed C=K_ab u^a u^b conserved to
+  ~1e-12 alongside E, L, μ² — 4 constants ⇒ integrable.
+- Debugging: first geodesic ICs plunged through the horizon (christoffel_numeric blows up as Δ→0) → all
+  constants drifted 100%. Fixed with a near-circular orbit at r=10 (Ω=1/(r^1.5+a)) + a small θ-tilt so C is
+  non-trivial; constants then flat to machine precision. so(3) bracket came out −R_z not +R_z — orientation
+  convention, not a bug. Gate: 45 batteries green.
+
 ## 2026-06-19 — PETROV CLASSIFICATION: the algebraic type of a spacetime (new report-card lens)
 
 - Second orthogonal lens (after ringdown), the one we'd flagged. The **Weyl tensor** (trace-free curvature,

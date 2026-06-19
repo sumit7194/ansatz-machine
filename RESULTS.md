@@ -725,6 +725,24 @@ Folded into `analyze()` cheaply — the heavy Weyl tensor is computed *only* for
 form (its canonical tetrad is known); off-diagonal/cosmological metrics return UNKNOWN instantly (Kerr's
 petrov early-returns in 0.000s, no atlas slowdown). Repro: `scripts/57_petrov.py`.
 
+## §58 — Killing symmetries: the manifest algebra and the hidden one
+The structure lens completed. A spacetime's symmetries are its Killing vectors ξ (`∇₍ₐξ_b₎=0`), each a
+conserved quantity. The analyzer's cyclic detector finds only the obvious ones (∂_t, ∂_φ); now
+`analyzer.killing_vectors` + `is_killing_vector` also find and verify the **coordinate-mixing** ones:
+- **(A)** Schwarzschild's full isometry algebra **ℝ_t × SO(3), dim 4** — the two rotation generators that
+  mix θ,φ (R_x, R_y), which the cyclic detector misses, now recovered and verified;
+- **(B)** they close into so(3): `[R_x,R_y] = −R_z` (sign is orientation convention);
+- **(C)** a Minkowski **Lorentz boost** `x∂_t+t∂_x` verifies Killing too (the verifier is general, not just
+  rotations);
+- **(D) the headline — Kerr's HIDDEN symmetry.** Some spacetimes have a symmetry no Killing *vector*
+  captures: a Killing **tensor** K_ab (`∇₍ₐK_bc₎=0`) giving a conserved quantity *quadratic* in momentum.
+  Kerr's is the **Carter constant** — the hidden symmetry that makes a spinning black hole's orbits
+  integrable (without it they'd be chaotic). The engine builds K from the principal null directions and
+  verifies `∇₍ₐK_bc₎=0` numerically (max ~3e-8; Kerr's symbolic curvature swamps), and that it is
+  IRREDUCIBLE (not ∝ g, component-ratio spread ~26);
+- **(E)** along an actual Kerr orbit (RK4), the Carter constant `C=K_ab u^a u^b` is **conserved to ~1e-12**
+  alongside E, L, μ² — four constants of motion ⇒ Kerr is integrable. Repro: `scripts/58_killing.py`.
+
 **Where the niche stands (own literature sweep, 2026-06-16).** Path 1 (automate
 the physical-vs-gauge / SPSM criterion) is closed: xCPS (arXiv:2606.05204, open
 source) already automates covariant phase space, Noether charges, and Wald

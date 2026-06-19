@@ -146,8 +146,14 @@ its Newman–Penrose scalars Ψ0…Ψ4, now in the analyzer report card (`analyz
 (Schwarzschild Ψ2=−M/r³, RN charge-corrected), conformally flat = O (de Sitter/Minkowski, Weyl≡0), a vacuum
 pp-wave = N (only Ψ4, a pure gravitational wave — ties to §56). Frame-independent speciality I³=27J² for
 D/O/N. Perf-guarded: Weyl computed only for the static spherical diagonal form; off-diagonal → instant
-UNKNOWN. STILL OPEN here: a FULL Killing-vector / Killing-tensor solver (coordinate-mixing symmetries, the
-Carter constant / hidden symmetries that make Kerr geodesics integrable) — the remaining structure lens.
+UNKNOWN.
+Also DONE — **Killing symmetries** (`58_killing.py`, 2026-06-19): `analyzer.is_killing_vector` /
+`killing_vectors` find & verify the **coordinate-mixing SO(3)** generators (R_x, R_y) the cyclic detector
+misses, so Schwarzschild's full algebra ℝ_t×SO(3) (dim 4) comes out; they close [R_x,R_y]=−R_z; a Minkowski
+Lorentz boost verifies too. Headline: **Kerr's hidden Killing TENSOR (Carter constant)** verified numerically
+(∇_(aK_bc)=0 ~3e-8, irreducible), and the Carter constant conserved to ~1e-12 along an actual Kerr orbit
+(E, L, μ², C → 4 constants ⇒ integrable). STILL OPEN: a fully general Killing solver for arbitrary metrics
+(solving the Killing PDEs from scratch, not verifying/structured ansätze), and the Killing–Yano root.
 
 ## Matter-arc leftovers (from the hair work)
 - **inverse design** — name a hair term you want → compute the required source's

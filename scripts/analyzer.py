@@ -279,6 +279,43 @@ def symmetries(geo):
             if not any(geo.g[i, j].has(x) for i in range(geo.n) for j in range(geo.n))]
 
 
+def is_killing_vector(geo, xi):
+    """Exact check of the Killing equation ∇_a ξ_b + ∇_b ξ_a = 0 for a
+    contravariant field ξ^a (a list of n components). True/False."""
+    g, X, n, G = geo.g, geo.coords, geo.n, geo.christoffel
+    xil = [sp.simplify(sum(g[b, c] * xi[c] for c in range(n))) for b in range(n)]
+    for a in range(n):
+        for b in range(a, n):
+            lhs = (sp.diff(xil[b], X[a]) + sp.diff(xil[a], X[b])
+                   - 2 * sum(G[c][a][b] * xil[c] for c in range(n)))
+            if sp.simplify(lhs) != 0:
+                return False
+    return True
+
+
+def killing_vectors(geo):
+    """The Killing vectors the engine can pin down: the manifest cyclic ones,
+    PLUS the coordinate-mixing rotation group SO(3) when the metric is spherically
+    symmetric (angular block r²dΩ²) — the symmetries `symmetries()` misses. Each is
+    verified against the Killing equation. Still a lower bound for maximally
+    symmetric spaces (de Sitter/Minkowski have the full 10). Returns [(label, ξ^a)]."""
+    g, X, n = geo.g, geo.coords, geo.n
+    found = []
+    for i, x in enumerate(X):                       # manifest cyclic KVs
+        if not any(g[a, b].has(x) for a in range(n) for b in range(n)):
+            found.append((f"∂/∂{x}", [sp.Integer(1) if k == i else sp.S.Zero
+                                      for k in range(n)]))
+    if n == 4:                                       # rotational SO(3) if spherical
+        r, th, ph = X[1], X[2], X[3]
+        if (sp.simplify(g[2, 2] - r**2) == 0
+                and sp.simplify(g[3, 3] - r**2 * sp.sin(th)**2) == 0):
+            for nm, v in (("R_x", [0, 0, -sp.sin(ph), -sp.cos(ph) / sp.tan(th)]),
+                          ("R_y", [0, 0, sp.cos(ph), -sp.sin(ph) / sp.tan(th)])):
+                if is_killing_vector(geo, v):
+                    found.append((nm, v))
+    return found
+
+
 def horizon_thermo(geo):
     """Static Killing horizons (where ∂_t goes null, g_tt=0) and their
     temperature/entropy, for the standard form g_tt=−f, g_rr=1/f. Returns []

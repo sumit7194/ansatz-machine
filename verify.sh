@@ -49,6 +49,7 @@ NAMES+=("04 campaign");           CMDS+=("scripts/04_campaign.py")
 [ -f scripts/55_analyzer_star.py ] && { NAMES+=("55 analyzer reaches a star (general tool, honest boundary)"); CMDS+=("scripts/55_analyzer_star.py"); }
 [ -f scripts/56_ringdown.py ] && { NAMES+=("56 ringdown (exact wave potential + eikonal QNM from the metric)"); CMDS+=("scripts/56_ringdown.py"); }
 [ -f scripts/57_petrov.py ] && { NAMES+=("57 Petrov type (Weyl algebra: black holes=D, waves=N, flat=O)"); CMDS+=("scripts/57_petrov.py"); }
+[ -f scripts/58_killing.py ] && { NAMES+=("58 Killing symmetries (SO(3) + Kerr's hidden Carter constant)"); CMDS+=("scripts/58_killing.py"); }
 
 fail=0
 GATE="$(dirname "$0")/gate.log"; : > "$GATE"   # also written here so the dashboard (reads ROOT/gate.log) stays current
