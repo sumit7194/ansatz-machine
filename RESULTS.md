@@ -921,6 +921,18 @@ diverges at merger (the −3/8 fixed by the 11/3 exponent). **(D)** M_c (inspira
 ⇒ the full template the engine supplies as ground truth for the bridge. Honest scope: leading
 quadrupole/Newtonian order (Peters–Mathews); real signals add PN corrections. Repro: `scripts/73_inspiral_chirp.py`.
 
+## §74 — GW polarizations & the modes-of-gravity test
+A passing wave is a time-varying tidal field (§59) that stretches a ring of test masses; its polarization
+content is a falsifiable test of GR, and the exact GR prediction is the null hypothesis a detector tests
+(deepstrain/LISA). In GR the strain is transverse–traceless `h=[[h₊,h×],[h×,−h₊]]` (2 dof), with ring
+response `δxⁱ=½hⁱⱼxʲ`. **(A)** the two patterns: h₊ stretches x/squeezes y (the "+"), h× along the 45°
+diagonals (the "×"); traceless ⇒ area-preserving. **(B)** SPIN-2: under a transverse rotation ψ,
+`(h₊+ih×)→e^{−2iψ}(h₊+ih×)` (verified residual 0) — helicity ±2, the graviton's spin; 45° swaps +↔×, only
+180° returns the pattern. **(C)** the test: GR has EXACTLY 2 (tensor) polarizations; a general metric theory
+allows up to **6** (2 tensor + 2 vector + 2 scalar, the Newman–Penrose E(2) classification) — a vector or
+scalar ("breathing") mode in data ⇒ not GR. **(D)** the polarization content is a clean GR-vs-modified-gravity
+discriminant; ansatz supplies the exact GR null hypothesis (2 modes, spin-2). Repro: `scripts/74_gw_polarizations.py`.
+
 **Where the niche stands (own literature sweep, 2026-06-16).** Path 1 (automate
 the physical-vs-gauge / SPSM criterion) is closed: xCPS (arXiv:2606.05204, open
 source) already automates covariant phase space, Noether charges, and Wald

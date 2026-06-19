@@ -6,6 +6,16 @@ built, what broke, what the machine taught us. Numbers live in
 
 ---
 
+## 2026-06-19 — GW POLARIZATIONS (§74): the modes-of-gravity test (GR null hypothesis)
+
+- Another bridge oracle: the polarization content of a GW is a falsifiable GR test, and ansatz supplies the
+  exact GR null hypothesis. Battery `74_gw_polarizations.py` (standalone). Ties §59 (a GW = time-varying
+  tidal field). (A) TT strain h=[[h₊,h×],[h×,−h₊]] (2 dof, traceless); ring response δxⁱ=½hⁱⱼxʲ → + pattern
+  (axes) and × pattern (45°). (B) SPIN-2 verified: under rotation ψ, (h₊+ih×)→e^{−2iψ}(h₊+ih×) (residual 0),
+  45° swaps +↔×. (C) the modes-of-gravity test: GR=2 (tensor) polarizations, general metric theory up to 6
+  (2 tensor + 2 vector + 2 scalar, Newman–Penrose E(2)); a vector/scalar mode in data ⇒ not GR. (D) clean
+  GR-vs-modified-gravity discriminant for detectors. Gate: 61 green.
+
 ## 2026-06-19 — RINGDOWN TEMPLATE (§72) + INSPIRAL CHIRP (§73): the bridge waveforms
 
 - User reframed: these lenses are TOOLS/ORACLES for the bridge + sister projects (deepstrain spectroscopy,
