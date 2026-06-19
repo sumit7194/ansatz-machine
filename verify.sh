@@ -66,6 +66,7 @@ NAMES+=("04 campaign");           CMDS+=("scripts/04_campaign.py")
 [ -f scripts/72_ringdown_template.py ] && { NAMES+=("72 ringdown template (no-hair spectroscopy, Q=l/(2n+1))"); CMDS+=("scripts/72_ringdown_template.py"); }
 [ -f scripts/73_inspiral_chirp.py ] && { NAMES+=("73 inspiral chirp (chirp mass, (t_c-t)^-3/8 sweep)"); CMDS+=("scripts/73_inspiral_chirp.py"); }
 [ -f scripts/74_gw_polarizations.py ] && { NAMES+=("74 GW polarizations (spin-2 +/x, the 2-vs-6 modes-of-gravity test)"); CMDS+=("scripts/74_gw_polarizations.py"); }
+[ -f scripts/75_area_theorem.py ] && { NAMES+=("75 area theorem (2nd law; merger energy budget, consistency oracle)"); CMDS+=("scripts/75_area_theorem.py"); }
 
 fail=0
 GATE="$(dirname "$0")/gate.log"; : > "$GATE"   # also written here so the dashboard (reads ROOT/gate.log) stays current

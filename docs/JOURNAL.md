@@ -6,6 +6,17 @@ built, what broke, what the machine taught us. Numbers live in
 
 ---
 
+## 2026-06-19 — AREA THEOREM (§75): a merger-inference consistency oracle
+
+- User steer: before building, think through FUTURE USE — don't build for the sake of it. So picked a hard
+  CONSISTENCY CONSTRAINT (can't be useless): Hawking's area theorem as a check on inferred merger params.
+  Battery `75_area_theorem.py` (standalone). Future use: deepstrain infers (m₁,m₂,M_f,a_f) from a waveform;
+  the 2nd law A_f≥A_1+A_2 is a hard GR validation those numbers must pass.
+- (A) Schwarzschild: A_f≥A_1+A_2 ⇒ M_final≥√(M₁²+M₂²). (B) radiated-energy bound ≤(M₁+M₂)−√(M₁²+M₂²); equal
+  mass ≤ 1−1/√2 ≈ 29.3% — the SAME bound as Penrose §60 (both irreducible-mass). (C) Kerr: A=16πM_irr²
+  (M_irr=√(Mr₊/2)), 2nd law M_irr,f²≥ΣM_irr². (D) real ~5% merger inside the 29.3% ceiling → consistent.
+  Ties §60+§61+§72/73. Gate: 62 green.
+
 ## 2026-06-19 — GW POLARIZATIONS (§74): the modes-of-gravity test (GR null hypothesis)
 
 - Another bridge oracle: the polarization content of a GW is a falsifiable GR test, and ansatz supplies the

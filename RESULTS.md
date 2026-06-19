@@ -933,6 +933,17 @@ allows up to **6** (2 tensor + 2 vector + 2 scalar, the Newman–Penrose E(2) cl
 scalar ("breathing") mode in data ⇒ not GR. **(D)** the polarization content is a clean GR-vs-modified-gravity
 discriminant; ansatz supplies the exact GR null hypothesis (2 modes, spin-2). Repro: `scripts/74_gw_polarizations.py`.
 
+## §75 — the area theorem & merger energy budget (a consistency oracle)
+*Future use:* when a GW analysis infers a merger's parameters (m₁, m₂, M_final, a_final), those must obey
+Hawking's **area theorem** — total horizon area never decreases — which caps the radiated energy. An exact
+consistency oracle: any inferred merger violating it is non-physical. Ties §60 (Penrose/irreducible mass) +
+§61 (area) + §72–73 (waveform). **(A)** A_f ≥ A_1+A_2 ⇒ for Schwarzschild M_final ≥ √(M₁²+M₂²) (the remnant
+can't be too light). **(B)** radiated-energy bound E_rad ≤ (M₁+M₂)−√(M₁²+M₂²); equal-mass ≤ **1−1/√2 ≈ 29.3%**
+— the *same* bound as the Penrose limit (§60), both irreducible-mass statements. **(C)** Kerr form: A=16πM_irr²
+(M_irr=√(Mr₊/2), §60), so the 2nd law is M_irr,f² ≥ M_irr,1²+M_irr,2². **(D)** in use: a real equal-mass
+merger radiates ~5% (NR), well inside the 29.3% ceiling — an inferred merger must clear this bar or it isn't
+GR. Repro: `scripts/75_area_theorem.py`.
+
 **Where the niche stands (own literature sweep, 2026-06-16).** Path 1 (automate
 the physical-vs-gauge / SPSM criterion) is closed: xCPS (arXiv:2606.05204, open
 source) already automates covariant phase space, Noether charges, and Wald
