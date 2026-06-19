@@ -848,6 +848,15 @@ MAXIMUM ⇒ r=3M, hence *unstable* (a knife-edge light ring). **(C)** the why: `
 close to a black hole. **(D)** capture: energy above the barrier peak (null V_max=4/9 at L=2√3M) ⇒ swallowed
 — the barrier sets the capture cross-section / shadow (§45). Repro: `scripts/66_effective_potential.py`.
 
+## §67 — gravitational lensing & Einstein rings: what bending makes you see
+§49 gave the bending angle; this is the observable it produces — the basis of dark-matter mapping and
+microlensing planet searches. With the weak-field deflection α=4M/b (§49) and the thin-lens geometry, the
+lens equation is `β = θ − θ_E²/θ` with the Einstein radius `θ_E² = 4M·D_LS/(D_L D_S)`. **(A)** perfect
+alignment (β=0) ⇒ a full **Einstein ring** at θ_E; **(B)** off-axis ⇒ **two images** θ_±=(β±√(β²+4θ_E²))/2,
+one each side; **(C)** total magnification `μ(u)=(u²+2)/(u√(u²+4))` (u=β/θ_E) — the microlensing light curve:
+μ→∞ at u→0 (caustic spike on alignment), μ→1 for u≫1 (numeric-checked; sympy won't crack √(u⁴+8u²+16)=u²+4,
+cf. §50); **(D)** θ_E ∝ √M — lensing weighs mass it cannot see. Repro: `scripts/67_lensing.py`.
+
 **Where the niche stands (own literature sweep, 2026-06-16).** Path 1 (automate
 the physical-vs-gauge / SPSM criterion) is closed: xCPS (arXiv:2606.05204, open
 source) already automates covariant phase space, Noether charges, and Wald

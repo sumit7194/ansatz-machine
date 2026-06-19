@@ -6,6 +6,16 @@ built, what broke, what the machine taught us. Numbers live in
 
 ---
 
+## 2026-06-19 — GRAVITATIONAL LENSING & EINSTEIN RINGS (user: "add a few more strong ones")
+
+- User asked for a few more strong lenses after the §56–66 milestone. First: lensing — the OBSERVABLE
+  consequence of bending (§49), what astronomers actually measure (dark-matter maps, microlensing).
+  Battery `67_lensing.py` (standalone; metric input is α=4M/b from §49, plus thin-lens geometry).
+- Lens eq β=θ−θ_E²/θ, θ_E²=4M D_LS/(D_L D_S). (A) β=0 ⇒ Einstein ring at θ_E; (B) off-axis ⇒ two images
+  θ_±=(β±√(β²+4θ_E²))/2; (C) total magnification μ(u)=(u²+2)/(u√(u²+4)) — the microlensing curve, μ→∞ at
+  u→0, μ→1 at u≫1 (checked numerically + limits; sympy won't reduce √(u⁴+8u²+16)=u²+4, same as §50); (D)
+  θ_E∝√M, lensing weighs unseen mass. Gate: 54 green.
+
 ## 2026-06-19 — THE EFFECTIVE POTENTIAL: orbits as a particle in a well (synthesis)
 
 - Synthesis lens unifying §45 (photon sphere/ISCO) + §50 (precession): radial geodesic motion is
