@@ -6,6 +6,20 @@ built, what broke, what the machine taught us. Numbers live in
 
 ---
 
+## 2026-06-19 — KERR THERMODYNAMICS: closing the rotating-horizon T/S thread (Smarr law)
+
+- Closed a thread open since the first Kerr work: the analyzer gave a rotating horizon's LOCATION but T/S
+  UNKNOWN (geometric surface gravity → nested radicals SymPy won't reduce). Key realization: don't compute
+  κ geometrically — read the clean pieces off the metric. Δ = g_θθ/g_rr (= r²−2Mr+a²), r₊ at Δ=0, area
+  A=∮√(g_θθg_φφ)|_{r₊}=8πMr₊, Ω_H=(−g_tφ/g_φφ)|_{r₊}, then T=κ/2π=Δ′(r₊)/A, S=A/4. Battery `61_kerr_thermo.py`.
+- Verified exactly: (A) χ=∂_t+Ω_H∂_φ null at r₊ (Killing horizon); (B) Smarr M=2TS+2Ω_H J=M; (C) first law
+  dM=TdS+Ω_H dJ (dM coeff 1, da coeff 0); (D) third law extremal a→M ⇒ T→0 but S→2πM² finite; (E) a→0
+  recovers Schwarzschild T=1/8πM, S=4πM² (grounds it against §35's metric-derived value).
+- HONESTY CALL: did NOT auto-fold T/S into the analyzer's general off-diagonal branch. T=Δ′/A relies on
+  Kerr's specific structure (κ=Δ′/(2(r₊²+a²)) + A=4π(r₊²+a²)); folding it generally would risk WRONG
+  temperatures for non-Kerr rotating metrics. So this is the Kerr-specific closure; analyzer's general
+  rotating T/S stays honestly UNKNOWN. Purely additive battery, no analyzer change. Gate: 48 green.
+
 ## 2026-06-19 — FRAME DRAGGING & THE ERGOSPHERE: a spinning hole drags space
 
 - Switched flavour from the curvature/symmetry cluster to Kerr's purely ROTATIONAL structure — exact,

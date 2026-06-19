@@ -46,13 +46,18 @@ singularity solve; quadratic-cap horizon roots; skip off-diagonal Kretschmann).
 (vacuum, 2 Killing vectors, both horizons M±√(M²−a²)) via: decide-type-first with a numeric Ricci
 pre-check (vacuum skips ricci_scalar + stress_energy), lazy stress_energy, and `g^{rr}=0` horizon
 detection — PLUS feeding rational u=cosθ coordinates (the trig form swamps; D4 extends off-diagonal).
-Remaining: Alcubierre warp + Gödel (own structure), rotating-horizon T/S, off-diagonal Kretschmann
-(ring singularity).
+Remaining: Alcubierre warp + Gödel (own structure), off-diagonal Kretschmann (ring singularity).
+rotating-horizon T/S — CLOSED for Kerr (`61_kerr_thermo.py`, see below).
 DONE — **frame dragging & ergosphere** (`60_frame_dragging.py`, 2026-06-19): Kerr's rotational structure in
 the report card (`analyzer.frame_dragging`) — ω=−g_tφ/g_φφ, ergosphere r=M+√(M²−a²cos²θ) (outside the
 horizon, g_tt>0 inside ⇒ no static observers), rigid horizon co-rotation ω(r₊)=Ω_H=a/(r₊²+a²), Lense–Thirring
-far field 2J/r³, Penrose process (M_irr=M/√2 extremal ⇒ 29% extractable). Ω_H is also the rotational piece
-the Smarr/first-law extension (rotating-horizon T/S) would need next.
+far field 2J/r³, Penrose process (M_irr=M/√2 extremal ⇒ 29% extractable).
+DONE — **Kerr thermodynamics** (`61_kerr_thermo.py`, 2026-06-19): the rotating-horizon T/S UNKNOWN, closed
+for Kerr. Read Δ=g_θθ/g_rr, r₊, A=8πMr₊, Ω_H off the metric → T=κ/2π=Δ′(r₊)/A, S=A/4; verified the Killing
+horizon (χ=∂_t+Ω_H∂_φ null), Smarr M=2TS+2Ω_H J, first law dM=TdS+Ω_H dJ, third law (a→M ⇒ T→0, S finite),
+and the a→0 Schwarzschild limit (§35). Kept honest: NOT auto-folded into the analyzer's general off-diagonal
+branch (T=Δ′/A relies on Kerr's structure; would risk wrong T for non-Kerr). STILL OPEN: the geometric
+surface gravity for arbitrary stationary horizons.
 **STAR REACHED (2026-06-17, `55_analyzer_star.py`):** the general tool reads a perfect-fluid stellar
 interior with no stellar-specific code — perfect fluid (isotropic), constant ρ=3M/4πR³, static+axisymmetric,
 regular (no singularity), signature-flip False (a star, not a hole). Honest edge found + recorded: `physical?`

@@ -776,6 +776,19 @@ strong no observer can stay still. The engine reads it straight off the metric:
 - **(E)** no spin (a→0): the ergosphere collapses onto the horizon and ω→0 — frame dragging is purely
   rotational. Repro: `scripts/60_frame_dragging.py`.
 
+## §61 — Kerr thermodynamics: the rotating horizon's T, S and the Smarr law
+Closes a thread open since the first Kerr work: the analyzer reports a rotating (off-diagonal) horizon's
+LOCATION but left its temperature/entropy UNKNOWN (the geometric surface gravity collapses to nested
+radicals SymPy won't reduce). Closed for Kerr by reading the clean pieces off the metric and assembling
+the thermodynamics: `Δ = g_θθ/g_rr` (= r²−2Mr+a², horizon r₊ at Δ=0), area `A = ∮√(g_θθ g_φφ)|_{r₊}` (=
+8πMr₊), `Ω_H = (−g_tφ/g_φφ)|_{r₊}` (= a/(r₊²+a²)), `T = κ/2π = Δ′(r₊)/A` (κ=√(M²−a²)/(2Mr₊)), `S = A/4`.
+Then the exact laws: **(A)** χ=∂_t+Ω_H∂_φ is null at r₊ (a Killing horizon); **(B) Smarr** `M = 2TS + 2Ω_H J`
+(J=Ma) — mass from horizon data; **(C) first law** `dM = T dS + Ω_H dJ` (differential identity in M, a);
+**(D) third law** extremal a→M ⇒ T→0 (unreachable) but S→2πM² finite; **(E)** the static limit a→0 recovers
+Schwarzschild T=1/8πM, S=4πM² (§35). The Kerr-specific closure — a general rotating-horizon T/S stays
+honestly UNKNOWN in the analyzer (T=Δ′/A relies on Kerr's structure; folding it generally could give wrong
+temperatures for non-Kerr rotating metrics). Repro: `scripts/61_kerr_thermo.py`.
+
 **Where the niche stands (own literature sweep, 2026-06-16).** Path 1 (automate
 the physical-vs-gauge / SPSM criterion) is closed: xCPS (arXiv:2606.05204, open
 source) already automates covariant phase space, Noether charges, and Wald
