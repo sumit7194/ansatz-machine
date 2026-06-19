@@ -229,6 +229,41 @@ class Geometry:
         Identically zero  <=>  G_ab + Λ g_ab = 0  (for n > 2)."""
         return self.ricci - (2 * Lambda / (self.n - 2)) * self.g
 
+    def killing_tensor_residual(self, K):
+        """The fully-symmetrized covariant derivative ∇_(a K_bc) of a symmetric
+        rank-2 tensor K (lower indices; n×n Matrix or nested list). It is the
+        residual of the Killing-tensor equation: K is a Killing tensor (a hidden
+        symmetry, a conserved quantity quadratic in momentum) iff this is
+        identically zero. Returns the first non-vanishing symmetrized component
+        (reduced by cancel/together then expand_trig+simplify), or 0 if all vanish.
+
+        Needs only the Christoffel symbols (first derivatives), NOT the Riemann
+        tensor — so it stays tractable in rational coordinates (u=cosθ) where the
+        full curvature swamps. This is what turns a Carter-constant CERTIFICATION
+        from a numeric residual (§58/§69) into a symbolic PROOF."""
+        n, X, G = self.n, self.coords, self.christoffel
+        Kd = sp.Matrix(K)
+
+        def nab(a, b, c):                      # ∇_a K_bc = ∂_a K_bc − Γ^d_ab K_dc − Γ^d_ac K_bd
+            return (sp.diff(Kd[b, c], X[a])
+                    - sum(G[d][a][b] * Kd[d, c] + G[d][a][c] * Kd[b, d] for d in range(n)))
+
+        for a in range(n):
+            for b in range(n):
+                for c in range(b, n):          # symmetric in (b,c); (a,b,c) fully symmetrized
+                    term = sp.cancel(sp.together(nab(a, b, c) + nab(b, c, a) + nab(c, a, b)))
+                    if term != 0:
+                        term = sp.simplify(sp.expand_trig(term))   # zero-test (cf. Kretschmann)
+                        if term != 0:
+                            return term
+        return sp.S.Zero
+
+    def is_killing_tensor(self, K):
+        """True iff K satisfies the Killing-tensor equation ∇_(a K_bc) = 0 identically
+        — a symbolic PROOF that K generates a conserved quantity (e.g. the Carter
+        constant). (Trivially true for K = the metric, since ∇g = 0.)"""
+        return self.killing_tensor_residual(K) == 0
+
 
 # ---------------------------------------------------------------------------
 # The two-stage verifier

@@ -22,6 +22,19 @@ built, what broke, what the machine taught us. Numbers live in
   overtone (a=0.7) = 0.52116−0.24424i (deepstrain's δ; eikonal can't give it); (C) spin blueshift + Q rise;
   (D) no-hair now 0.1%-level (two modes overdetermine (M,a)). Turns Move B from few-% to a precision test.
 
+## 2026-06-20 — V8 item 2: symbolic Killing-tensor verifier (§78) — the Carter constant PROVEN
+
+- Item 2: turn §58/§69's NUMERIC Carter-constant check into a symbolic PROOF. Key insight: the
+  Killing-tensor equation ∇_(aK_bc)=0 needs only CHRISTOFFELS (first derivatives), NOT Riemann — so it
+  stays tractable where the full curvature swamps. And in rational u=cosθ coords Kerr's metric is rational,
+  so the residual reduces by cancel/together with no trig blow-up. Prototype closed in ~1.6s (Christoffels
+  0.7s + check 0.9s).
+- Added `Geometry.is_killing_tensor` / `killing_tensor_residual` to gr_engine (zero-test: cancel→together
+  then expand_trig+simplify — the same trick the Kretschmann uses for trig). Battery `78`: (A) metric g
+  passes (∇g=0); (B) control fails (residual≠0); (C) Kerr Carter tensor Σ(lₐn_b+l_b nₐ)+r²g ⇒ ∇_(aK_bc)≡0
+  SYMBOLICALLY — the Carter constant, certified as a theorem; (D) discover→verify now ends in a proof.
+  Touched gr_engine ⇒ full gate is the regression check.
+
 ## 2026-06-19 — INVARIANT FINGERPRINT (§76): coordinate-free oracle for learned geometry
 
 - Switched the bridge focus to the OTHER sister project (tabula-geometrica, learned geometry) — its oracle

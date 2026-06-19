@@ -26,7 +26,15 @@ from "consistent at the light-ring level" into a real **0.1%-level exact↔measu
 test**, and giving the **221 overtone** ansatz currently can't (the actual quantity
 deepstrain's δ measures). [builds on §56 ringdown, §72 template]
 
-### 2. A symbolic Killing-tensor verifier
+### 2. A symbolic Killing-tensor verifier  ◀ ✅ DONE (2026-06-20, §78)
+**Built:** `gr_engine.Geometry.is_killing_tensor` / `killing_tensor_residual` — certifies
+`∇₍ₐK_bc₎ ≡ 0` SYMBOLICALLY (cancel→together→expand_trig+simplify; needs only
+Christoffels, not Riemann, so it stays tractable in rational u=cosθ coords — closes in
+~1s). Battery §78: the metric g passes (∇g=0), a control fails, and Kerr's Carter tensor
+`Σ(lₐn_b+l_b nₐ)+r²g` gives `∇₍ₐK_bc₎ ≡ 0` exactly — the Carter constant now a PROOF, not
+the numeric residual of §58/§69.
+
+*(original note:)*
 §58/§69 compute Kerr's Carter tensor and check `∇₍ₐK_bc₎=0` NUMERICALLY — so Move A's
 certification was a numeric residual, not a theorem. Extend **`gr_engine.verify`** to
 certify `∇₍ₐK_bc₎ ≡ 0` SYMBOLICALLY (the same cancel→factor→simplify cascade it already

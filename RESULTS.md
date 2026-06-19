@@ -974,6 +974,17 @@ form), so this track needs `qnm` (numpy/scipy/numba) — kept SEPARATE from the 
 `qnm_precise.py` + §77 import it; the analyzer stays pure; §77 fail-soft SKIPS if `qnm` absent so a fresh
 checkout's gate is unaffected). Repro: `scripts/77_qnm_precise.py`.
 
+## §78 — symbolic Killing-tensor verifier: the Carter constant, PROVEN
+*ROADMAP §v8.2.* §58/§69 found Kerr's Carter Killing tensor and checked `∇₍ₐK_bc₎=0` numerically (~1e-8) —
+honest, but a measurement. This makes it a PROOF: `gr_engine.Geometry.is_killing_tensor` /
+`killing_tensor_residual` certify the Killing-tensor equation SYMBOLICALLY. The trick (the full curvature
+swamps for Kerr): the equation needs only the CHRISTOFFELS, not Riemann, and in rational u=cosθ coordinates
+Kerr's metric is rational, so the residual reduces by cancel/together with no trig blow-up (~1s). **(A)** the
+metric g passes (∇g=0); **(B)** a non-Killing-tensor control fails (residual ≠ 0 — not vacuously true);
+**(C)** Kerr's Carter tensor `K = Σ(lₐn_b+l_b nₐ)+r²g` gives `∇₍ₐK_bc₎ ≡ 0` exactly — the Carter constant
+certified as a theorem (was the numeric residual of §58/§69); **(D)** so the discover→verify pipeline's
+certification of a hidden symmetry is now a proof, not a measurement. Repro: `scripts/78_killing_tensor_proof.py`.
+
 **Where the niche stands (own literature sweep, 2026-06-16).** Path 1 (automate
 the physical-vs-gauge / SPSM criterion) is closed: xCPS (arXiv:2606.05204, open
 source) already automates covariant phase space, Noether charges, and Wald
