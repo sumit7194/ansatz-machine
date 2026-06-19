@@ -141,6 +141,13 @@ spacelike singularity, charge→timelike). [[project-state-v6]] keeps the separa
 Compute a spacetime's **Killing vectors** and conserved quantities directly;
 classify metrics by their symmetry algebra rather than by parameters. A
 different axis on "what makes a spacetime special".
+DONE — **Petrov classification** (`57_petrov.py`, 2026-06-19): the algebraic type of the Weyl tensor from
+its Newman–Penrose scalars Ψ0…Ψ4, now in the analyzer report card (`analyzer.petrov`). Black holes = type D
+(Schwarzschild Ψ2=−M/r³, RN charge-corrected), conformally flat = O (de Sitter/Minkowski, Weyl≡0), a vacuum
+pp-wave = N (only Ψ4, a pure gravitational wave — ties to §56). Frame-independent speciality I³=27J² for
+D/O/N. Perf-guarded: Weyl computed only for the static spherical diagonal form; off-diagonal → instant
+UNKNOWN. STILL OPEN here: a FULL Killing-vector / Killing-tensor solver (coordinate-mixing symmetries, the
+Carter constant / hidden symmetries that make Kerr geodesics integrable) — the remaining structure lens.
 
 ## Matter-arc leftovers (from the hair work)
 - **inverse design** — name a hair term you want → compute the required source's

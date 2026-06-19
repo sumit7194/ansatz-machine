@@ -711,6 +711,20 @@ identity), and what it honestly cannot:
   Leaver's continued-fraction method (the maintained `qnm` package). ansatz gives the exact potential and the
   exact eikonal limit; the precise overtones are numerical. Stated, not hidden. Repro: `scripts/56_ringdown.py`.
 
+## §57 — Petrov classification: the algebraic type of a spacetime, exactly
+A coordinate-free lens, now in the analyzer report card (`analyzer.petrov`). The **Weyl tensor** (the
+trace-free, pure-gravity part of curvature) has an algebraic type read off from its Newman–Penrose scalars
+Ψ0…Ψ4: **O** (Weyl=0, conformally flat), **N** (only Ψ4, radiation), **III**, **D** (only Ψ2, the
+black-hole type), **II**, **I** (general). The engine computes the Weyl scalars from the metric and
+classifies: **Schwarzschild → only Ψ2 = −M/r³ → type D** (the canonical signature); **Reissner–Nordström →
+type D** (charge enters Ψ2 = −M/r³+Q²/r⁴); **de Sitter & Minkowski → Weyl≡0 → type O**; a **vacuum pp-wave →
+only Ψ4 → type N** — a pure gravitational wave, tying straight to §56 (ringdown radiation *is* type-N Weyl).
+The special-vs-general split is frame-independent via the two Weyl invariants `I = Ψ0Ψ4−4Ψ1Ψ3+3Ψ2²`,
+`J = det[[Ψ4,Ψ3,Ψ2],[Ψ3,Ψ2,Ψ1],[Ψ2,Ψ1,Ψ0]]`: algebraically special ⟺ `I³ = 27J²` (verified for D/O/N).
+Folded into `analyze()` cheaply — the heavy Weyl tensor is computed *only* for the static spherical diagonal
+form (its canonical tetrad is known); off-diagonal/cosmological metrics return UNKNOWN instantly (Kerr's
+petrov early-returns in 0.000s, no atlas slowdown). Repro: `scripts/57_petrov.py`.
+
 **Where the niche stands (own literature sweep, 2026-06-16).** Path 1 (automate
 the physical-vs-gauge / SPSM criterion) is closed: xCPS (arXiv:2606.05204, open
 source) already automates covariant phase space, Noether charges, and Wald

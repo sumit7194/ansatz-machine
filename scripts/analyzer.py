@@ -438,6 +438,103 @@ def observables(geo):
 
 
 # ---------------------------------------------------------------------------
+# Petrov classification — the algebraic type of the Weyl (pure-gravity) tensor
+# ---------------------------------------------------------------------------
+
+def weyl_tensor(geo):
+    """C_{abcd} (all indices down), 4D, from the metric's Riemann/Ricci."""
+    n, g, Ric, Rs, Rm = geo.n, geo.g, geo.ricci, geo.ricci_scalar, geo.riemann
+    Rl = [[[[sp.cancel(sp.together(sum(g[a, e] * Rm[e][b][c][d] for e in range(n))))
+             for d in range(n)] for c in range(n)] for b in range(n)] for a in range(n)]
+
+    def C(a, b, c, d):
+        t = (Rl[a][b][c][d]
+             - sp.Rational(1, 2) * (g[a, c] * Ric[b, d] - g[a, d] * Ric[b, c]
+                                    - g[b, c] * Ric[a, d] + g[b, d] * Ric[a, c])
+             + sp.Rational(1, 6) * Rs * (g[a, c] * g[b, d] - g[a, d] * g[b, c]))
+        return sp.simplify(t)
+
+    return [[[[C(a, b, c, d) for d in range(n)] for c in range(n)]
+             for b in range(n)] for a in range(n)]
+
+
+def weyl_scalars(C, tetrad):
+    """(Ψ0…Ψ4) from the Weyl tensor and a null tetrad (l, n, m, mbar)."""
+    l, nn, m, mb = tetrad
+
+    def k(v1, v2, v3, v4):
+        s = sp.S.Zero
+        for a in range(4):
+            if v1[a] == 0:
+                continue
+            for b in range(4):
+                if v2[b] == 0:
+                    continue
+                for c in range(4):
+                    if v3[c] == 0:
+                        continue
+                    for d in range(4):
+                        if v4[d] != 0:
+                            s += C[a][b][c][d] * v1[a] * v2[b] * v3[c] * v4[d]
+        return sp.simplify(s)
+
+    return (k(l, m, l, m), k(l, nn, l, m), k(l, m, mb, nn),
+            k(l, nn, mb, nn), k(nn, mb, nn, mb))
+
+
+def petrov_type(P):
+    """Petrov type from the Ψ-pattern in an adapted (canonical) tetrad."""
+    s = {k for k, p in enumerate(P) if sp.simplify(p) != 0}
+    if not s:
+        return "O"
+    if s == {2}:
+        return "D"
+    if s in ({0}, {4}):
+        return "N"
+    if s <= {0, 1} or s <= {3, 4}:
+        return "III"
+    if s <= {0, 1, 2} or s <= {2, 3, 4}:
+        return "II"
+    return "I"
+
+
+def weyl_invariants(P):
+    """The frame-independent Weyl invariants I, J (Lorentz scalars); the spacetime
+    is algebraically special ⟺ I³ = 27 J²."""
+    P0, P1, P2, P3, P4 = P
+    I = sp.simplify(P0 * P4 - 4 * P1 * P3 + 3 * P2**2)
+    J = sp.simplify(sp.Matrix([[P4, P3, P2], [P3, P2, P1], [P2, P1, P0]]).det())
+    return I, J
+
+
+def petrov(geo):
+    """Petrov type, three-valued. Computed for the static spherical diagonal form
+    −f dt²+dr²/f+r²dΩ² (its canonical tetrad is known) — covering Schwarzschild/RN/
+    de Sitter/Minkowski; UNKNOWN elsewhere (off-diagonal/cosmological get no auto
+    tetrad, and we never compute the heavy Weyl tensor for them)."""
+    n, g, x = geo.n, geo.g, geo.coords
+    if n != 4 or not g.is_diagonal():
+        return UNKNOWN
+    rc, th = x[1], x[2]
+    f = sp.cancel(sp.together(-g[0, 0]))
+    if (sp.simplify(g[1, 1] * f - 1) != 0 or sp.simplify(g[2, 2] - rc**2) != 0
+            or sp.simplify(g[3, 3] - rc**2 * sp.sin(th)**2) != 0):
+        return UNKNOWN
+    try:
+        C = weyl_tensor(geo)
+        if all(C[a][b][c][d] == 0 for a in range(4) for b in range(4)
+               for c in range(4) for d in range(4)):
+            return "O (conformally flat)"
+        s2 = sp.sqrt(2)
+        tet = ([1 / f, 1, 0, 0], [sp.Rational(1, 2), -f / 2, 0, 0],
+               [0, 0, 1 / (rc * s2), sp.I / (rc * s2 * sp.sin(th))],
+               [0, 0, 1 / (rc * s2), -sp.I / (rc * s2 * sp.sin(th))])
+        return petrov_type(weyl_scalars(C, tet))
+    except Exception:
+        return UNKNOWN
+
+
+# ---------------------------------------------------------------------------
 # the report
 # ---------------------------------------------------------------------------
 
@@ -480,6 +577,7 @@ def analyze(metric, coords, domain=None):
         "horizon": horizon_thermo(geo),
         "causal": causal_structure(geo, sings),
         "observables": observables(geo),
+        "petrov": petrov(geo),          # algebraic type of the Weyl tensor
     }
 
 

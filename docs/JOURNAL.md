@@ -6,6 +6,25 @@ built, what broke, what the machine taught us. Numbers live in
 
 ---
 
+## 2026-06-19 — PETROV CLASSIFICATION: the algebraic type of a spacetime (new report-card lens)
+
+- Second orthogonal lens (after ringdown), the one we'd flagged. The **Weyl tensor** (trace-free curvature,
+  the pure-gravity tidal field) has an algebraic type — Petrov type — read off from its Newman–Penrose
+  scalars Ψ0…Ψ4. Built it as a capability the GENERAL ANALYZER owns (`analyzer.weyl_tensor` / `weyl_scalars`
+  / `petrov_type` / `weyl_invariants` / `petrov`), validated by battery `57_petrov.py` (same structure as
+  observables↔§45). Prototyped the two anchors first: Schwarzschild Ψ2=−M/r³ (others 0) and a vacuum pp-wave
+  Ψ4≠0 (others 0) — both came out clean on the first try.
+- Results: **Schwarzschild → D** (Ψ2=−M/r³ exactly), **RN → D** (Ψ2=−M/r³+Q²/r⁴), **de Sitter & Minkowski →
+  O** (Weyl≡0), **vacuum pp-wave → N** (only Ψ4) — a pure gravitational wave, which ties to §56 (ringdown
+  radiation is type-N Weyl). Frame-independent speciality I³=27J² verified for D/O/N (I,J are Lorentz
+  invariants even though the Ψ's aren't).
+- Folded into the report card with a perf guard: `petrov(geo)` computes the heavy Weyl tensor ONLY for the
+  static spherical diagonal form (−f,1/f,r²,r²sin²θ — canonical tetrad known); anything off-diagonal or
+  cosmological early-returns UNKNOWN with NO Weyl computed. Measured: Kerr's petrov = None in 0.000s, atlas
+  (41) still 28s (no slowdown), 40/45 green. Honest three-valued: the pp-wave's own type N is found via the
+  exposed functions, but `analyzer.petrov(pp-wave)` returns UNKNOWN (off-diagonal ⇒ no auto tetrad) — stated,
+  not faked. Gate: 44 batteries green.
+
 ## 2026-06-19 — RINGDOWN: black-hole perturbation theory, the exact pieces (and an honest edge)
 
 - Back after a few days on the sister projects. User relayed a sharp critique of a floated "QNM module":
