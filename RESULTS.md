@@ -743,6 +743,23 @@ conserved quantity. The analyzer's cyclic detector finds only the obvious ones (
 - **(E)** along an actual Kerr orbit (RK4), the Carter constant `C=K_ab u^a u^b` is **conserved to ~1e-12**
   alongside E, L, μ² — four constants of motion ⇒ Kerr is integrable. Repro: `scripts/58_killing.py`.
 
+## §59 — tidal forces: what you'd feel falling into a black hole
+Curvature made physical, now in the report card (`analyzer.tidal`). Two nearby free-fallers drift by the
+geodesic-deviation equation, governed by the tidal tensor (the "electric" part of Riemann)
+`E_ij = R_{abcd} e_i^a u^b e_j^c u^d` in the faller's orthonormal frame; eigenvalues are tidal accelerations
+per unit separation (negative = stretch, positive = squeeze). For Schwarzschild the engine gets the textbook
+**spaghettification** exactly: `(−2M/r³, +M/r³, +M/r³)` — radial stretch, transverse squeeze, trace 0
+(vacuum). And the physics that follows:
+- **real vs coordinate singularity, by curvature:** tides DIVERGE as r→0 (physical singularity — torn
+  apart) but are FINITE at the horizon r=2M (`−1/(4M²)` — only a coordinate singularity, you sail through);
+  the curvature counterpart of the causal-structure lens (§42).
+- **survivability ∝ 1/M²:** horizon tide `1/(4M²)` ⇒ a 10⁹M⊙ hole is 10¹⁶× gentler at its horizon than a
+  10M⊙ one — cross a supermassive horizon intact; a stellar one shreds you first.
+- **the Petrov tie (§57):** radial eigenvalue is exactly `2·Ψ2` — the tidal "shape" *is* the type-D Weyl
+  structure.
+- **charge (RN):** radial tide `(−2Mr+3Q²)/r⁴`, non-zero trace `Q²/r⁴` (EM matter); the charge term softens
+  the stretch. Repro: `scripts/59_tidal.py`.
+
 **Where the niche stands (own literature sweep, 2026-06-16).** Path 1 (automate
 the physical-vs-gauge / SPSM criterion) is closed: xCPS (arXiv:2606.05204, open
 source) already automates covariant phase space, Noether charges, and Wald

@@ -544,6 +544,37 @@ def weyl_invariants(P):
     return I, J
 
 
+def tidal_tensor(geo):
+    """Tidal-tensor eigenvalues for a static observer — the geodesic-deviation
+    ('electric') part of Riemann, E_ij = R_{abcd} e_i^a u^b e_j^c u^d in an
+    orthonormal frame: the relative acceleration of nearby free-fallers. Negative =
+    STRETCH, positive = SQUEEZE. For the static spherical diagonal form; UNKNOWN
+    else. Returns [radial, transverse, transverse]."""
+    g, X, n = geo.g, geo.coords, geo.n
+    if n != 4 or not g.is_diagonal():
+        return UNKNOWN
+    r, th = X[1], X[2]
+    f = sp.cancel(sp.together(-g[0, 0]))
+    if (sp.simplify(g[1, 1] * f - 1) != 0 or sp.simplify(g[2, 2] - r**2) != 0
+            or sp.simplify(g[3, 3] - r**2 * sp.sin(th)**2) != 0):
+        return UNKNOWN
+    try:
+        Rm = geo.riemann
+        Rl = [[[[sp.cancel(sp.together(sum(g[a, e] * Rm[e][b][c][d] for e in range(n))))
+                 for d in range(n)] for c in range(n)] for b in range(n)] for a in range(n)]
+        u = [1 / sp.sqrt(f), 0, 0, 0]                       # static observer
+        spatial = [[0, sp.sqrt(f), 0, 0], [0, 0, 1 / r, 0],
+                   [0, 0, 0, 1 / (r * sp.sin(th))]]         # orthonormal radial, θ, φ
+
+        def E(ei, ej):
+            return sp.simplify(sum(Rl[a][b][c][d] * ei[a] * u[b] * ej[c] * u[d]
+                                   for a in range(n) for b in range(n)
+                                   for c in range(n) for d in range(n)))
+        return [E(e, e) for e in spatial]
+    except Exception:
+        return UNKNOWN
+
+
 def petrov(geo):
     """Petrov type, three-valued. Computed for the static spherical diagonal form
     −f dt²+dr²/f+r²dΩ² (its canonical tetrad is known) — covering Schwarzschild/RN/
@@ -615,6 +646,7 @@ def analyze(metric, coords, domain=None):
         "causal": causal_structure(geo, sings),
         "observables": observables(geo),
         "petrov": petrov(geo),          # algebraic type of the Weyl tensor
+        "tidal": tidal_tensor(geo),     # tidal eigenvalues (static observer)
     }
 
 

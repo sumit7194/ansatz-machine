@@ -6,6 +6,21 @@ built, what broke, what the machine taught us. Numbers live in
 
 ---
 
+## 2026-06-19 — TIDAL FORCES: what you'd feel falling in (curvature made physical)
+
+- Most physical/intuitive lens yet. The tidal tensor (geodesic deviation, the "electric" part of Riemann
+  E_ij=R_{abcd}e_i^a u^b e_j^c u^d in the faller's orthonormal frame) — its eigenvalues are the tidal
+  accelerations (negative=stretch, positive=squeeze). Added `tidal_tensor(geo)` to analyzer (static-observer
+  tidal eigenvalues for the static spherical diagonal form; UNKNOWN else — reuses geo.riemann, gated like
+  petrov so off-diagonal/cosmological cost nothing) and a `tidal` report-card field. Battery `59_tidal.py`.
+- Schwarzschild eigenvalues = (−2M/r³, +M/r³, +M/r³) exactly — radial STRETCH, transverse SQUEEZE, trace 0:
+  spaghettification, derived not asserted. Then the payoffs: (B) tides → ∞ at r→0 (REAL singularity) but
+  FINITE −1/(4M²) at the horizon r=2M (COORDINATE singularity) — curvature settles the §42 question of which
+  singularities are physical; (C) horizon tide ∝ 1/M² ⇒ 10⁹M⊙ hole 10¹⁶× gentler than 10M⊙ — supermassive
+  horizons are survivable, stellar ones lethal; (D) radial tide = 2·Ψ2 (the type-D Weyl scalar, §57) — the
+  tide IS the algebraic structure; (E) RN radial tide (−2Mr+3Q²)/r⁴, trace Q²/r⁴≠0 (EM matter). Fixed a
+  trivial format bug (sympy Integer vs %e). Gate: 46 batteries green.
+
 ## 2026-06-19 — KILLING SYMMETRIES: the manifest algebra + Kerr's HIDDEN Carter constant
 
 - The structure lens (#5) completed — the meatier of the three. Two layers: manifest Killing VECTORS and

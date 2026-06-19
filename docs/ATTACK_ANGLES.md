@@ -136,6 +136,11 @@ calibrated test since Schwarzschild & RN are both in the zoo. Idea seeded by a h
 the sister NN project (tabula-geometrica) — kept SEPARATE (no code crossover); the link is that our
 EXACT analyzer is the ground-truth oracle for what their net claims to have learned (signature flip,
 spacelike singularity, charge→timelike). [[project-state-v6]] keeps the separation rule.
+DONE — **tidal forces / geodesic deviation** (`59_tidal.py`, 2026-06-19): the curvature counterpart of this
+lens, in the report card (`analyzer.tidal`). Schwarzschild tidal eigenvalues (−2M/r³,+M/r³,+M/r³) =
+spaghettification; tides → ∞ at r=0 (REAL singularity) but FINITE at the horizon r=2M (COORDINATE
+singularity) — curvature settles which singularities are physical; horizon tide ∝ 1/M² (supermassive holes
+survivable at the horizon, stellar ones lethal); radial tide = 2·Ψ2 (the type-D Weyl scalar §57).
 
 ## 5. The symmetry / structure lens
 Compute a spacetime's **Killing vectors** and conserved quantities directly;
