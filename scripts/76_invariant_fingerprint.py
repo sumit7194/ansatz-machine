@@ -26,14 +26,14 @@ The signature splits into two complementary sectors (`analyzer.invariant_fingerp
 Honest scope: a finite invariant set (a practical fingerprint, not the full
 Cartan–Karlhede equivalence). It distinguishes inequivalent geometries here; in rare
 cases distinct geometries can share low-order invariants (then add gradients, §02).
-IMPLEMENTATION CAVEAT (stress-tested 2026-06-20): the invariants ARE coordinate-free
-scalars — verified, e.g. Schwarzschild's Kretschmann matches in standard vs isotropic
-coordinates at the mapped physical point to machine precision. BUT `invariant_fingerprint`
-currently computes the WEYL sector {I, J} (and Kretschmann) only for the canonical
-static-spherical form −f dt²+dr²/f+r²dΩ² (a performance choice — the Weyl tensor is heavy
-for general metrics); in other coordinate charts it returns the Ricci sector {R, R_abR^ab}
-only. So cross-chart comparison of the FULL fingerprint needs the canonical form for now;
-the robustness upgrade is tetrad-free Weyl-tensor contraction invariants (ROADMAP).
+Coordinate-freeness (stress-tested + hardened 2026-06-20): the Ricci sector {R, R_abR^ab}
+and the **tetrad-free Weyl-square** Weyl_sq = C_abcd C^abcd = K − 2R_abR^ab + R²/3 are
+genuine coordinate scalars, computed for ANY diagonal metric — so the fingerprint now
+agrees across charts (test D below: standard vs isotropic Schwarzschild match at the
+mapped point). The NP Weyl invariants {Weyl_I, Weyl_J} (which carry the algebraic TYPE)
+are still computed only in the canonical −f,1/f form (they need the adapted tetrad);
+off-diagonal metrics skip the Kretschmann-level work (heavy). So cross-chart comparison
+works via the Ricci sector + Weyl-square; type-level discrimination is canonical-form.
 
 Run:  .venv/bin/python scripts/76_invariant_fingerprint.py
 """
@@ -90,11 +90,29 @@ def main():
     print(f"\n  (C) sectors complementary: Schwarzschild Ricci=0 but Weyl≠0 (free gravity);")
     print(f"      de Sitter Weyl=0 but R≠0 (matter/Λ) — matter vs tidal field, cleanly split   {'✅' if okC else '❌'}")
 
-    # (D) the oracle role
-    okD = distinct and okB and okC
+    # (D) COORDINATE-INVARIANCE (the oracle's core promise): the same geometry in a
+    #     DIFFERENT chart gives the SAME invariant. Schwarzschild standard vs isotropic,
+    #     compared at the mapped physical point r = ρ(1+M/2ρ)², via the tetrad-free Weyl-square.
+    rho = sp.symbols("rho", positive=True)
+    A = (1 - M / (2 * rho)) / (1 + M / (2 * rho))
+    B = (1 + M / (2 * rho))**2
+    g_iso = sp.diag(-A**2, B**2, B**2 * rho**2, B**2 * rho**2 * sp.sin(th)**2)
+    fp_iso = invariant_fingerprint(Geometry(g_iso, [t, rho, th, ph]))
+    W_std = zoo["Schwarzschild"]["Weyl_sq"]                       # = 48M²/r⁶
+    rho0, Mv = sp.Integer(2), sp.Integer(1)
+    r_map = float((rho0 * (1 + Mv / (2 * rho0))**2))              # physical radius
+    okD = (abs(float(fp_iso["Weyl_sq"].subs({rho: rho0, M: Mv}))
+               - float(W_std.subs({r: r_map, M: Mv}))) < 1e-9)
     ok.append(okD)
-    print(f"\n  (D) USE: a learned-geometry model's output is validated against this invariant")
-    print(f"      fingerprint — coordinate-proof ground truth (the tabula-geometrica oracle)   {'✅' if okD else '❌'}")
+    print(f"\n  (D) coordinate-invariance: Schwarzschild Weyl-square (tetrad-free C²) in standard vs")
+    print(f"      ISOTROPIC coords agree at the mapped point ({float(fp_iso['Weyl_sq'].subs({rho:rho0,M:Mv})):.6f}) "
+          f"— a genuine coordinate-free scalar   {'✅' if okD else '❌'}")
+
+    # (E) the oracle role
+    okE = distinct and okB and okC and okD
+    ok.append(okE)
+    print(f"\n  (E) USE: a learned-geometry model's output is validated against this invariant")
+    print(f"      fingerprint — coordinate-proof ground truth (the tabula-geometrica oracle)   {'✅' if okE else '❌'}")
 
     passed = all(ok)
     print(f"\nINVARIANT FINGERPRINT: {'PASSED ✅' if passed else 'FAILED ❌'}  "

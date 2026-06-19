@@ -957,11 +957,11 @@ complementary: Schwarzschild is vacuum (Ricci=0) yet curved (Weyl≠0); de Sitte
 yet full of Λ (Ricci≠0) — matter vs tidal field cleanly split. **(D)** a learned-geometry model's output is
 validated against this invariant fingerprint (coordinate-proof). Honest: a finite set (a practical
 fingerprint, not full Cartan–Karlhede); rare coincidences resolved by adding gradients (§02). *Stress-tested
-(2026-06-20): the invariants are genuine coordinate scalars (Schwarzschild's Kretschmann matches in standard
-vs isotropic coords at the mapped point to machine precision), but `invariant_fingerprint` currently computes
-the Weyl sector {I,J} only for the canonical −f,1/f form (perf); other charts return the Ricci sector only —
-full cross-chart comparison needs the canonical form, or the tetrad-free-Weyl upgrade (ROADMAP §v8).* Repro:
-`scripts/76_invariant_fingerprint.py`.
++ HARDENED (2026-06-20): added the tetrad-free **Weyl-square** `C_abcd C^abcd = K − 2R_abR^ab + R²/3` to the
+fingerprint for any diagonal metric — a genuine coordinate scalar, so the fingerprint now agrees across charts
+(verified: standard vs isotropic Schwarzschild match at the mapped point, test §76(D)). The NP Weyl invariants
+{I,J} (algebraic TYPE) remain canonical-form-only (they need the adapted tetrad); cross-chart comparison works
+via the Ricci sector + Weyl-square.* Repro: `scripts/76_invariant_fingerprint.py`.
 
 ## §77 — the precise QNM oracle (beyond the eikonal): 0.1%-level ringdown
 *ROADMAP §v8.1, the bridge's highest-leverage item.* §56 gave the EXACT but EIKONAL (light-ring) QNM and

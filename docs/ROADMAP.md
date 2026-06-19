@@ -66,14 +66,14 @@ metrics**, a natural lens right beside the Killing tensors (§58/§69). Would ha
 Move D native instead of bridged. [reusable tool both sister projects can use as ground
 truth — the "option B" geodesic tool already flagged]
 
-### (new, from stress-testing 2026-06-20) tetrad-free Weyl invariants — full coordinate-freeness
-§76's `invariant_fingerprint` computes the Weyl sector {I, J} only for the canonical
-static-spherical −f,1/f form (a perf choice; the invariants ARE coordinate scalars, but
-the implementation is form-specific — stress test confirmed Kretschmann is chart-invariant
-at a mapped point, so this is scope not a bug). Upgrade: compute I, J as tetrad-free Weyl
-contractions (C_abcd C^abcd, the cubic, etc.) so the full fingerprint works in ANY
-coordinates — the genuinely coordinate-free oracle a learned-geometry net needs (it may
-present a metric in arbitrary coordinates).
+### (from stress-testing 2026-06-20) tetrad-free Weyl invariants  ◀ ✅ PARTLY DONE
+The tetrad-free Weyl-SQUARE `C_abcd C^abcd = K − 2R_abR^ab + R²/3` is now in
+`invariant_fingerprint` for any diagonal metric (§76(D): standard vs isotropic
+Schwarzschild agree at the mapped point — genuinely coordinate-free). REMAINING: the
+tetrad-free *cubic* Weyl invariant (the Chern–Pontryagin dual `C·*C` + the cubic J) so
+the full algebraic TYPE (not just magnitude) is chart-free too — the NP {I,J} are still
+canonical-form-only. And extend off-diagonal (Kretschmann swamps symbolically for Kerr →
+numeric, cf §80).
 
 ### (minor) petrov() auto-tetrad for off-diagonal/Kerr  ◀ ✅ DONE (2026-06-20, §80, numeric)
 `analyzer.petrov` returned UNKNOWN for Kerr — the symbolic Weyl tensor swamps (the

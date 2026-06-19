@@ -50,6 +50,14 @@ built, what broke, what the machine taught us. Numbers live in
   (vacuum/EM/Λ/perfect-fluid), singularities (r=0 for BHs, NONE for de Sitter/Minkowski — no hallucination),
   horizon (RN two horizons, both T,S>0, smaller hotter — the §64 |f′| fix). All ground-truth, all green. Any
   future regression on these now turns the gate red. Stress-testing is the standing discipline now.
+- Also stress-tested the EARLIER bridge oracles (§72–76, built pre-directive). §76 (invariant fingerprint):
+  found a real coordinate-freeness CAVEAT — the Weyl sector was computed only in the canonical −f,1/f form,
+  so the "coordinate-free oracle" dropped the Weyl part in other charts (isotropic Schwarzschild). Confirmed
+  the invariants ARE scalars (Kretschmann chart-invariant at a mapped point) → scope, not a correctness bug.
+  HARDENED: added the tetrad-free Weyl-SQUARE C_abcd C^abcd = K−2R_abR^ab+R²/3 (4D identity) to
+  invariant_fingerprint for any diagonal metric — genuinely coordinate-free (§76(D): standard vs isotropic
+  Schwarzschild agree at the mapped point). The NP {I,J} (algebraic type) stay canonical-form-only; the
+  tetrad-free cubic invariant is roadmapped. So: caveat found → invariants verified scalar → real fix shipped.
 
 ## 2026-06-20 — V8 minor: Petrov type of Kerr (§80, numeric) — the §57 UNKNOWN closed
 

@@ -551,19 +551,27 @@ def invariant_fingerprint(geo):
     """A coordinate-free curvature-invariant SIGNATURE of a spacetime — the ground
     truth a learned-geometry model is validated against (it can't depend on the net's
     coordinate choices). Two metrics with different fingerprints are genuinely
-    different geometries. Returns the RICCI sector {R, R_ab R^ab} (matter content) for
-    any metric, plus {K, Weyl I, J} (free gravity) for the static spherical diagonal
-    form where the canonical tetrad is known. (A callable oracle — not auto-run in
-    analyze(), since the invariants are heavy for off-diagonal metrics.)"""
+    different geometries. Returns the RICCI sector {R, R_ab R^ab} (matter content, any
+    metric); for a DIAGONAL metric also {Kretschmann, Weyl_sq} — the latter the
+    tetrad-free Weyl-square C_abcd C^abcd = K − 2 R_ab R^ab + R²/3 (a genuine
+    coordinate-free scalar, so it agrees across charts — e.g. standard vs isotropic
+    Schwarzschild — unlike the old form-specific tetrad version); and for the canonical
+    static-spherical form the NP Weyl invariants {Weyl_I, Weyl_J} (type info). (Callable
+    oracle, not auto-run in analyze() — Kretschmann is heavy for off-diagonal metrics.)"""
     fp = {"R": sp.simplify(geo.ricci_scalar), "Ricci_sq": sp.simplify(geo.ricci_squared)}
     g, X, n = geo.g, geo.coords, geo.n
     if n == 4 and g.is_diagonal():
-        r, th = X[1], X[2]
+        try:
+            fp["Kretschmann"] = sp.simplify(geo.kretschmann)
+            # tetrad-free Weyl-square (4D identity) — coordinate-free, ANY diagonal chart
+            fp["Weyl_sq"] = sp.simplify(fp["Kretschmann"] - 2 * fp["Ricci_sq"] + fp["R"]**2 / 3)
+        except Exception:
+            pass
+        r, th = X[1], X[2]                          # canonical form ⇒ also the NP I, J (type)
         f = sp.cancel(sp.together(-g[0, 0]))
         if (sp.simplify(g[1, 1] * f - 1) == 0 and sp.simplify(g[2, 2] - r**2) == 0
                 and sp.simplify(g[3, 3] - r**2 * sp.sin(th)**2) == 0):
             try:
-                fp["Kretschmann"] = sp.simplify(geo.kretschmann)
                 s2 = sp.sqrt(2)
                 tet = ([1 / f, 1, 0, 0], [sp.Rational(1, 2), -f / 2, 0, 0],
                        [0, 0, 1 / (r * s2), sp.I / (r * s2 * sp.sin(th))],
