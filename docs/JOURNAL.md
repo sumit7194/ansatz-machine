@@ -22,6 +22,18 @@ built, what broke, what the machine taught us. Numbers live in
   overtone (a=0.7) = 0.52116−0.24424i (deepstrain's δ; eikonal can't give it); (C) spin blueshift + Q rise;
   (D) no-hair now 0.1%-level (two modes overdetermine (M,a)). Turns Move B from few-% to a precision test.
 
+## 2026-06-20 — V8 minor: Petrov type of Kerr (§80, numeric) — the §57 UNKNOWN closed
+
+- Minor item: petrov() auto-tetrad for Kerr. Found the real blocker isn't the tetrad — it's Kerr's symbolic
+  WEYL tensor (swamps; the §48/§57 limit). The §78 Killing-tensor proof dodged this (Christoffels only), but
+  Petrov genuinely needs Weyl. Tried symbolic u-coords + Kinnersley tetrad — the √(1−u²)/complex contractions
+  swamped simplify (>2min, killed). Pivoted to NUMERIC (like §58/§69/§79 for Kerr).
+- Added to numeric_curvature.py (purely additive): `_riemann_lower_numeric`, `weyl_scalars_numeric` (Weyl =
+  Riemann − Ricci terms, finite-difference — trig doesn't faze it), `petrov_type_numeric` (|Ψ|-pattern with
+  tolerance). Battery `80`: Kerr → only Ψ2≠0 (others ~1e-10) → type D; Ψ2 = −0.007859−0.001294i matches the
+  exact −M/(r−ia cosθ)³; speciality I³−27J²≈1e-27. analyzer.petrov stays symbolic+perf-guarded; numeric
+  companion closes the §57 Kerr UNKNOWN. A general auto-PND finder is the extension.
+
 ## 2026-06-20 — V8 item 4: geodesic integrator + chaos lens (§79) — integrability, measured
 
 - Item 4: native `scripts/geodesic_chaos.py` — `trajectory(g,x0,u0)` (RK4) + `lyapunov(g,x0,u0)` (largest

@@ -97,3 +97,57 @@ def vacuum_lambda_residual(g_metric, x, Lam=0.0, h=1e-5):
     g = g_metric(x)
     R = ricci_numeric(g_metric, x, h)
     return max(abs(R[i][j] - Lam * g[i][j]) for i in range(N) for j in range(N))
+
+
+def _riemann_lower_numeric(g_metric, x, h=1e-4):
+    """R_{abcd} at x (all indices down), by finite differences."""
+    g = g_metric(x)
+    G = christoffel_numeric(g_metric, x, h)
+    dG = [[[[ (christoffel_numeric(g_metric, _shift(x, d, h), h)[a][b][c]
+              - christoffel_numeric(g_metric, _shift(x, d, -h), h)[a][b][c]) / (2 * h)
+              for c in range(N)] for b in range(N)] for a in range(N)] for d in range(N)]
+    Rup = [[[[ dG[c][a][d][b] - dG[d][a][c][b]
+              + sum(G[a][c][e] * G[e][d][b] - G[a][d][e] * G[e][c][b] for e in range(N))
+              for d in range(N)] for c in range(N)] for b in range(N)] for a in range(N)]
+    return [[[[ sum(g[a][e] * Rup[e][b][c][d] for e in range(N))
+               for d in range(N)] for c in range(N)] for b in range(N)] for a in range(N)]
+
+
+def weyl_scalars_numeric(g_metric, x, tetrad, h=1e-4):
+    """The five Newman–Penrose Weyl scalars (Ψ0…Ψ4) at x, given a null tetrad
+    (l, n, m, mbar) — numeric, so it handles metrics whose symbolic Weyl swamps
+    (Kerr). Weyl = Riemann − Ricci terms (in 4D). Tetrad entries may be complex."""
+    g = g_metric(x)
+    R = _riemann_lower_numeric(g_metric, x, h)
+    Ric = ricci_numeric(g_metric, x, h)
+    Rs = sum(inv4(g)[a][b] * Ric[a][b] for a in range(N) for b in range(N))
+
+    def C(a, b, c, d):
+        return (R[a][b][c][d]
+                - 0.5 * (g[a][c] * Ric[b][d] - g[a][d] * Ric[b][c]
+                         - g[b][c] * Ric[a][d] + g[b][d] * Ric[a][c])
+                + (Rs / 6.0) * (g[a][c] * g[b][d] - g[a][d] * g[b][c]))
+
+    def k(v1, v2, v3, v4):
+        return sum(C(a, b, c, d) * v1[a] * v2[b] * v3[c] * v4[d]
+                   for a in range(N) for b in range(N) for c in range(N) for d in range(N))
+
+    l, n, m, mb = tetrad
+    return (k(l, m, l, m), k(l, n, l, m), k(l, m, mb, n), k(l, n, mb, n), k(n, mb, n, mb))
+
+
+def petrov_type_numeric(Psi, tol=1e-6):
+    """Petrov type from the |Ψ|-pattern (numeric, with tolerance) in an adapted tetrad."""
+    big = max(abs(p) for p in Psi) or 1.0
+    s = {k for k, p in enumerate(Psi) if abs(p) / big > tol}
+    if not s:
+        return "O"
+    if s == {2}:
+        return "D"
+    if s in ({0}, {4}):
+        return "N"
+    if s <= {0, 1} or s <= {3, 4}:
+        return "III"
+    if s <= {0, 1, 2} or s <= {2, 3, 4}:
+        return "II"
+    return "I"

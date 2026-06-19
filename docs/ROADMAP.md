@@ -66,10 +66,14 @@ metrics**, a natural lens right beside the Killing tensors (§58/§69). Would ha
 Move D native instead of bridged. [reusable tool both sister projects can use as ground
 truth — the "option B" geodesic tool already flagged]
 
-### (minor) petrov() auto-tetrad for off-diagonal/Kerr
-`analyzer.petrov` returns UNKNOWN for off-diagonal metrics (Kerr) because no canonical
-tetrad is auto-built there (§57). An automatic tetrad for the off-diagonal case would
-complete that lens (Kerr → type D from the report card directly).
+### (minor) petrov() auto-tetrad for off-diagonal/Kerr  ◀ ✅ DONE (2026-06-20, §80, numeric)
+`analyzer.petrov` returned UNKNOWN for Kerr — the symbolic Weyl tensor swamps (the
+§48/§57 limit; the real blocker is Weyl itself, not just the tetrad). Closed via the
+NUMERIC companion (`numeric_curvature.weyl_scalars_numeric` + `petrov_type_numeric`):
+battery §80 gives Kerr → type D (only Ψ2≠0 in the Kinnersley tetrad), Ψ2 matches the
+exact −M/(r−ia cosθ)³, and the speciality I³=27J² holds. `analyzer.petrov` stays
+symbolic + perf-guarded; the fully-automatic principal-null-direction finder for
+arbitrary metrics is the general extension.
 
 ## v5 — ✅ COMPLETE (2026-06-12)
 

@@ -996,6 +996,17 @@ integrator is correct and Kerr is integrable. **(B)** λ(Kerr)≈0.009 ≈ 0 —
 the Killing-tensor proof *certifies*. Honest: largest-Lyapunov two-orbit estimate (not SALI); the di-hole
 orbit dips near a center so its λ is large but unambiguously >0. Repro: `scripts/79_geodesic_chaos.py`.
 
+## §80 — Petrov type of Kerr (numeric): completing the lens off-diagonal
+*ROADMAP §v8 (minor).* §57 returned UNKNOWN for Kerr — its symbolic Weyl tensor swamps (the §48/§57 limit;
+the real blocker is Weyl itself, which the §78 Killing-tensor proof dodged by needing only Christoffels).
+Closed the same way §58/§69/§79 handle Kerr — NUMERICALLY: `numeric_curvature.weyl_scalars_numeric` (finite-
+difference Weyl, which trig doesn't faze) + `petrov_type_numeric`. **(A)** Kerr's Weyl scalars in the
+Kinnersley tetrad: only Ψ2≠0 (others ~1e-10) ⇒ **type D**, off-diagonal. **(B)** Ψ2 matches the exact
+`−M/(r−ia cosθ)³` — a correctness check, not just a pattern. **(C)** the frame-independent speciality
+`I³=27J²` holds (algebraically special, consistent with D). **(D)** so the Petrov lens (§57) now covers Kerr;
+kept a numeric companion (analyzer.petrov stays symbolic + perf-guarded; a fully-automatic principal-null-
+direction finder is the general extension). Repro: `scripts/80_petrov_kerr.py`.
+
 **Where the niche stands (own literature sweep, 2026-06-16).** Path 1 (automate
 the physical-vs-gauge / SPSM criterion) is closed: xCPS (arXiv:2606.05204, open
 source) already automates covariant phase space, Noether charges, and Wald

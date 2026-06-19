@@ -71,6 +71,7 @@ NAMES+=("04 campaign");           CMDS+=("scripts/04_campaign.py")
 [ -f scripts/77_qnm_precise.py ] && { NAMES+=("77 precise QNM oracle (Leaver/qnm; 0.1% ringdown, the 221 overtone)"); CMDS+=("scripts/77_qnm_precise.py"); }
 [ -f scripts/78_killing_tensor_proof.py ] && { NAMES+=("78 symbolic Killing-tensor proof (Carter constant, exact)"); CMDS+=("scripts/78_killing_tensor_proof.py"); }
 [ -f scripts/79_geodesic_chaos.py ] && { NAMES+=("79 geodesic + chaos lens (Kerr regular vs di-hole chaotic)"); CMDS+=("scripts/79_geodesic_chaos.py"); }
+[ -f scripts/80_petrov_kerr.py ] && { NAMES+=("80 Petrov type of Kerr (numeric: type D, completes §57)"); CMDS+=("scripts/80_petrov_kerr.py"); }
 
 fail=0
 GATE="$(dirname "$0")/gate.log"; : > "$GATE"   # also written here so the dashboard (reads ROOT/gate.log) stays current
