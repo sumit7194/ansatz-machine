@@ -878,6 +878,28 @@ linear in p) → **Killing tensor K** (Carter → C, quadratic) → **Killing–
 root). Y is also why the Dirac/Maxwell/perturbation equations all separate in Kerr, not just geodesics.
 Repro: `scripts/69_killing_yano.py`.
 
+## §70 — Hawking radiation & greybody factors: the spectrum, and the death
+§35/§64 gave the temperature; this is what a black hole *radiates* and how it dies. Emission per mode is a
+thermal Planck spectrum at T, filtered by the same potential barrier that sets the ringdown (§56) — the
+greybody factor: `dN_ℓ/dω dt = Γ_ℓ(ω)/[2π(e^{ω/T}∓1)]`. **(A)** thermal-but-grey (Planck × barrier
+transmission). **(B)** greybody limits (exact ends; full Γ(ω) is numerical scattering, as QNMs were in §56):
+high-ω ⇒ Γ→1, capture cross-section → πb_c²=27πM² (the shadow §45/§68); low-ω s-wave ⇒ Γ→0, absorption →
+horizon area A_H=16πM² (the area theorem). **(C)** negative heat capacity `C=dM/dT=−1/(8πT²)<0` — a black
+hole gets *hotter* as it loses mass, so evaporation runs away. **(D)** the death: `L∝AT⁴∝1/M²` ⇒
+`dM/dt=−α/M²` ⇒ `M³=M₀³−3αt`, lifetime ∝ M³ — a stellar hole outlives the universe, a tiny primordial one
+ends now in a flash. Repro: `scripts/70_hawking_spectrum.py`.
+
+## §71 — ADM 3+1 & the initial-value constraints: GR as an evolution problem
+A different flavour: GR as *dynamics*. Slice spacetime into instants and Einstein's 10 equations split
+(ADM 1959) into 4 **constraints** (1 Hamiltonian + 3 momentum, restricting the data on each slice) + 6
+**evolution** equations (marching γ_ij and the extrinsic curvature K_ij) — the structure numerical relativity
+solves to make LIGO waveforms. The 4-metric → (lapse N, shift Nⁱ, spatial γ_ij). The engine: **(A)** the
+static split N=√f, Nⁱ=0, γ_ij; **(B)** the Hamiltonian constraint `³R+K²−K_ijK^ij=16πρ` on an FLRW slice
+(³R=6k/a², K=−3H, K_ijK^ij=3H²) **IS the Friedmann equation** `H²+k/a²=(8π/3)ρ` (§37 is literally the
+Hamiltonian constraint); **(C)** a time-symmetric vacuum slice (Schwarzschild t=const, K_ij=0) forces ³R=0 —
+and the curved Flamm slice (§63) is indeed scalar-flat; **(D)** 6 evolve + 4 constrain = 10 — spacetime is
+the time-history of a 3-geometry. Repro: `scripts/71_adm.py`.
+
 **Where the niche stands (own literature sweep, 2026-06-16).** Path 1 (automate
 the physical-vs-gauge / SPSM criterion) is closed: xCPS (arXiv:2606.05204, open
 source) already automates covariant phase space, Noether charges, and Wald

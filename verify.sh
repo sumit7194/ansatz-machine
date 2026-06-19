@@ -61,6 +61,8 @@ NAMES+=("04 campaign");           CMDS+=("scripts/04_campaign.py")
 [ -f scripts/67_lensing.py ] && { NAMES+=("67 gravitational lensing (Einstein ring, double images, microlensing)"); CMDS+=("scripts/67_lensing.py"); }
 [ -f scripts/68_kerr_shadow.py ] && { NAMES+=("68 Kerr shadow (split light ring, asymmetric D-shaped shadow)"); CMDS+=("scripts/68_kerr_shadow.py"); }
 [ -f scripts/69_killing_yano.py ] && { NAMES+=("69 Killing-Yano (root of the Carter constant: K=Y.Y)"); CMDS+=("scripts/69_killing_yano.py"); }
+[ -f scripts/70_hawking_spectrum.py ] && { NAMES+=("70 Hawking spectrum (greybody, negative heat capacity, M^3 lifetime)"); CMDS+=("scripts/70_hawking_spectrum.py"); }
+[ -f scripts/71_adm.py ] && { NAMES+=("71 ADM 3+1 (Friedmann = the Hamiltonian constraint)"); CMDS+=("scripts/71_adm.py"); }
 
 fail=0
 GATE="$(dirname "$0")/gate.log"; : > "$GATE"   # also written here so the dashboard (reads ROOT/gate.log) stays current

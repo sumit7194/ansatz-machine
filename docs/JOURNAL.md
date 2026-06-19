@@ -6,6 +6,20 @@ built, what broke, what the machine taught us. Numbers live in
 
 ---
 
+## 2026-06-19 — HAWKING SPECTRUM (§70) + ADM 3+1 (§71): two more (user: "lets continue with these")
+
+- §70 HAWKING RADIATION & GREYBODY (`70_hawking_spectrum.py`, standalone). Builds on §56 (potential) + §64
+  (T). Spectrum dN/dωdt = Γ_ℓ(ω)/[2π(e^{ω/T}∓1)] — thermal Planck × barrier transmission. Greybody limits
+  (exact ends, full Γ(ω) numerical like §56's QNMs): high-ω → 27πM² (shadow §45/§68), low-ω s-wave → A_H=16πM²
+  (area theorem). Negative heat capacity C=dM/dT=−1/(8πT²)<0 (heats as it shrinks). Death: L∝AT⁴∝1/M² ⇒
+  dM/dt=−α/M² ⇒ t_evap=M₀³/3α ∝ M³. All symbolic.
+- §71 ADM 3+1 & CONSTRAINTS (`71_adm.py`, standalone). GR as dynamics: 10 Einstein eqs = 4 constraints
+  (1 Hamiltonian + 3 momentum) + 6 evolution (γ_ij, K_ij). 4-metric → (lapse N=√f, shift Nⁱ, spatial γ).
+  HEADLINE: the Hamiltonian constraint ³R+K²−K_ijK^ij=16πρ on an FLRW slice (³R=6k/a² computed via Geometry
+  on the 3-metric; K=−3H, K_ijK^ij=3H²) IS the Friedmann equation H²+k/a²=(8π/3)ρ — §37 is literally the
+  Hamiltonian constraint. Also: Schwarzschild t=const vacuum slice (K=0) ⇒ ³R=0 (the curved Flamm slice §63
+  is scalar-flat). Gate: 58 green.
+
 ## 2026-06-19 — KILLING–YANO: the root of the Carter constant (symmetry tower complete)
 
 - Third of the "few more strong ones", and a satisfying capstone to the symmetry thread (§58). The Carter
