@@ -6,6 +6,17 @@ built, what broke, what the machine taught us. Numbers live in
 
 ---
 
+## 2026-06-19 — PROPER DISTANCE & EMBEDDING: the Flamm funnel (a visual lens)
+
+- A change of scenery from the curvature/symmetry/charge cluster: the geometric "how stretched is space"
+  lens. Battery `63_embedding.py` (standalone, no analyzer change — it's geometry/visualization, not a
+  report-card scalar). The coordinate r labels spheres by circumference 2πr, but proper distance ℓ=∫dr/√f
+  is larger near a hole. (A) verified the embedding equation (dz/dr)²+1=g_rr is solved by the Flamm
+  paraboloid z=√(8M(r−2M)) exactly (checked the residual =0, sidestepping sympy's r>2M branch issue by
+  verifying dz/dr rather than integrating). (B) throat at r=2M: z=0, dz/dr→∞ — the funnel neck, maximal
+  extension = Einstein–Rosen bridge (§38). (C) proper distance horizon→6M ≈7.19 vs coordinate 4 (stretched),
+  finite to the horizon (1/√f integrable) — via mpmath.quad. (D) dz/dr→0 far away (flattens). Gate: 50 green.
+
 ## 2026-06-19 — KOMAR CHARGES: what mass and spin ARE (the symmetry-arc capstone)
 
 - Conceptual capstone of §58 (Killing) → §61 (Smarr): mass and spin aren't inputs — they're the conserved

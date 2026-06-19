@@ -801,6 +801,17 @@ when fields carry energy. **(C)** the Smarr formula `M = 2TS + 2Ω_H J` (§61) i
 the mass at infinity equals the horizon Komar integral. So a black hole's M, J, Q are the Noether charges of
 time-translation, rotation, and gauge symmetry — geometry, not free inputs. Repro: `scripts/62_komar.py`.
 
+## §63 — proper distance & the embedding diagram: how stretched is space?
+A visual, geometric lens: the coordinate r is not distance — it labels spheres by circumference (2πr), but
+the proper (ruler) distance `ℓ(r)=∫dr/√f` is larger near a black hole; space is stretched. An equatorial
+slice embeds in flat 3D as a surface whose height z(r) is the **Flamm paraboloid**, the "funnel" of every
+black-hole illustration. The engine verifies: **(A)** the embedding equation `(dz/dr)²+1 = g_rr` is solved
+exactly by `z=√(8M(r−2M))` for Schwarzschild; **(B)** the THROAT — at r=2M, z=0 and dz/dr→∞ (a vertical
+funnel wall; the maximal extension joins a mirror sheet into the Einstein–Rosen bridge, §38); **(C)** the
+proper distance horizon→6M (M=1) is ≈7.19 vs the coordinate gap 4 — stretched — yet finite (the horizon is
+reachable; the 1/√f singularity is integrable); **(D)** far away dz/dr→0 (space flattens, asymptotically
+flat). Repro: `scripts/63_embedding.py`.
+
 **Where the niche stands (own literature sweep, 2026-06-16).** Path 1 (automate
 the physical-vs-gauge / SPSM criterion) is closed: xCPS (arXiv:2606.05204, open
 source) already automates covariant phase space, Noether charges, and Wald
