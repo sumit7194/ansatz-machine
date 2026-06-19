@@ -91,8 +91,24 @@ def main():
     print(f"      ⇒ ∇₍ₐK_bc₎ ≡ 0 SYMBOLICALLY — the Carter constant PROVEN (was numeric in §58/§69)   "
           f"{'✅' if okC else '❌'}")
 
+    # (C') SOUNDNESS: perturbing the real Carter tensor must be REJECTED — else the
+    #      symbolic zero-test is too lenient and the "proof" is worthless.
+    perts = [{(1, 1): sp.Rational(1, 10) * r**2}, {(0, 0): sp.Rational(1, 7)},
+             {(2, 2): geo.coords[2]**2}, {(0, 3): r, (3, 0): r}]
+    rejected = 0
+    for dK in perts:
+        Kp = sp.Matrix(K)
+        for (i, j), v in dK.items():
+            Kp[i, j] = Kp[i, j] + v
+        if not geo.is_killing_tensor(Kp):
+            rejected += 1
+    okCp = rejected == len(perts)
+    ok.append(okCp)
+    print(f"\n  (C') soundness: {rejected}/{len(perts)} perturbations of K correctly REJECTED "
+          f"(the zero-test isn't lenient)   {'✅' if okCp else '❌'}")
+
     # (D) the upgrade
-    okD = okA and okB and okC
+    okD = okA and okB and okC and okCp
     ok.append(okD)
     print(f"\n  (D) the discover→verify pipeline's certification of a hidden symmetry is now a")
     print(f"      PROOF, not a measurement (`gr_engine.Geometry.is_killing_tensor`)   {'✅' if okD else '❌'}")

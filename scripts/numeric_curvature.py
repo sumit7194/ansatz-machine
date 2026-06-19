@@ -136,10 +136,22 @@ def weyl_scalars_numeric(g_metric, x, tetrad, h=1e-4):
     return (k(l, m, l, m), k(l, n, l, m), k(l, m, mb, n), k(l, n, mb, n), k(n, mb, n, mb))
 
 
-def petrov_type_numeric(Psi, tol=1e-6):
-    """Petrov type from the |Ψ|-pattern (numeric, with tolerance) in an adapted tetrad."""
-    big = max(abs(p) for p in Psi) or 1.0
-    s = {k for k, p in enumerate(Psi) if abs(p) / big > tol}
+def petrov_type_numeric(Psi, floor=1e-7, rel=1e-5):
+    """Petrov type from the |Ψ|-pattern (numeric) in an adapted tetrad. A Weyl scalar
+    counts as NON-zero only if it clears BOTH an ABSOLUTE noise floor (finite-difference
+    Weyl noise is ~1e-9 in geometric units M~1) and a relative tolerance. If every |Ψ|
+    is below the floor the Weyl is numerically zero ⇒ type O (conformally flat).
+
+    The absolute floor is essential: a purely relative tolerance misclassifies type O
+    (all-noise) as type I, and a weak field (tiny Ψ2 at large r) as type II — both bugs
+    a stress test caught. Assumes geometric/order-1 units; for very weak fields raise
+    `floor` or the finite-difference precision."""
+    mags = [abs(p) for p in Psi]
+    big = max(mags)
+    if big < floor:                         # all Weyl scalars are noise ⇒ conformally flat
+        return "O"
+    thr = max(floor, rel * big)
+    s = {k for k, m in enumerate(mags) if m > thr}
     if not s:
         return "O"
     if s == {2}:

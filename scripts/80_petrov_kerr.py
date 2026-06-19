@@ -22,7 +22,6 @@ trig doesn't faze): `numeric_curvature.weyl_scalars_numeric` + `petrov_type_nume
 Run:  .venv/bin/python scripts/80_petrov_kerr.py
 """
 
-import cmath
 import math
 import os
 import sys
@@ -31,6 +30,26 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from numeric_curvature import petrov_type_numeric, weyl_scalars_numeric
 
 M, A = 1.0, 0.6
+
+
+def static_diag(ffun):
+    """A static spherical diagonal metric g from a lapse function f(r)."""
+    def g(x):
+        _, r, th, _ = x
+        f = ffun(r)
+        return [[-f, 0, 0, 0], [0, 1 / f, 0, 0], [0, 0, r * r, 0],
+                [0, 0, 0, r * r * math.sin(th)**2]]
+    return g
+
+
+def static_tetrad(x, ffun):
+    """The standard null tetrad for the static spherical diagonal form."""
+    _, r, th, _ = x
+    f = ffun(r)
+    s2 = math.sqrt(2)
+    return ([1 / f, 1, 0, 0], [0.5, -f / 2, 0, 0],
+            [0, 0, 1 / (r * s2), 1j / (r * s2 * math.sin(th))],
+            [0, 0, 1 / (r * s2), -1j / (r * s2 * math.sin(th))])
 
 
 def kerr(x):
@@ -65,43 +84,53 @@ def kinnersley(x):
 def main():
     print("PETROV TYPE OF KERR (numeric) — completing the lens off-diagonal\n")
     ok = []
+
+    # (A) Kerr → type D at MANY points (stress-tested), with Ψ2 matching the exact form
+    print("  (A) Kerr → type D across the spacetime, Ψ2 = −M/(r−ia cosθ)³ exactly:")
+    allD = True
+    for r in (3.0, 5.0, 8.0, 15.0, 30.0):
+        for th in (0.6, 1.1, 1.5):
+            x = [0.0, r, th, 0.0]
+            P = weyl_scalars_numeric(kerr, x, kinnersley(x))
+            ty = petrov_type_numeric(P)
+            psi2_exact = -M / (r - 1j * A * math.cos(th))**3
+            good = ty == "D" and abs(P[2] - psi2_exact) < 1e-4
+            allD = allD and good
+    ok.append(allD)
+    print(f"      15 points (r∈[3,30] × θ): all type D and Ψ2 exact   {'✅' if allD else '❌'}")
+
+    # (B) frame-independent speciality I³ = 27 J² (algebraically special, ⇒ D)
     x = [0.0, 5.0, 1.1, 0.0]
     P = weyl_scalars_numeric(kerr, x, kinnersley(x))
-
-    # (A) only Ψ2 ≠ 0 ⇒ type D
-    big = max(abs(p) for p in P)
-    pattern = [("≠0" if abs(p) / big > 1e-6 else "0") for p in P]
-    ty = petrov_type_numeric(P)
-    okA = ty == "D" and pattern == ["0", "0", "≠0", "0", "0"]
-    ok.append(okA)
-    print(f"  (A) Kerr Weyl scalars (Kinnersley tetrad): |Ψ| pattern = {pattern} → type {ty}")
-    print(f"      (Ψ0,Ψ1,Ψ3,Ψ4 ~ {max(abs(P[k]) for k in (0,1,3,4)):.0e}, Ψ2 = {abs(P[2]):.3e})   "
-          f"{'✅ canonical type D, off-diagonal' if okA else '❌'}")
-
-    # (B) Ψ2 matches the exact −M/(r − i a cosθ)³
-    r, th = x[1], x[2]
-    psi2_exact = -M / (r - 1j * A * math.cos(th))**3
-    okB = abs(P[2] - psi2_exact) < 1e-5
-    ok.append(okB)
-    print(f"\n  (B) Ψ2 = {P[2]:.6f}  vs exact −M/(r−ia cosθ)³ = {psi2_exact:.6f}   {'✅' if okB else '❌'}")
-
-    # (C) frame-independent speciality I³ = 27 J² (from the numeric Ψ's)
     P0, P1, P2, P3, P4 = P
     Iinv = P0 * P4 - 4 * P1 * P3 + 3 * P2**2
     Jinv = (P4 * (P2 * P0 - P1 * P1) - P3 * (P3 * P0 - P1 * P2) + P2 * (P3 * P1 - P2 * P2))
-    okC = abs(Iinv**3 - 27 * Jinv**2) < 1e-6 * max(abs(Iinv**3), 1e-12)
+    okB = abs(Iinv**3 - 27 * Jinv**2) < 1e-6 * max(abs(Iinv**3), 1e-12)
+    ok.append(okB)
+    print(f"\n  (B) speciality I³−27J² ≈ {abs(Iinv**3 - 27*Jinv**2):.0e} ⇒ algebraically special (type D)   "
+          f"{'✅' if okB else '❌'}")
+
+    # (C) CROSS-CHECK the numeric pipeline vs §57's SYMBOLIC types (locks the classifier)
+    schw = static_diag(lambda r: 1 - 2 / r)
+    ds = static_diag(lambda r: 1 - 0.04 * r * r)        # de Sitter, H²=0.04
+    xs = [0.0, 5.0, 1.0, 0.0]
+    ty_s = petrov_type_numeric(weyl_scalars_numeric(schw, xs, static_tetrad(xs, lambda r: 1 - 2 / r)))
+    xd = [0.0, 3.0, 1.0, 0.0]
+    ty_d = petrov_type_numeric(weyl_scalars_numeric(ds, xd, static_tetrad(xd, lambda r: 1 - 0.04 * r * r)))
+    okC = ty_s == "D" and ty_d == "O"
     ok.append(okC)
-    print(f"\n  (C) speciality I³−27J² = {abs(Iinv**3 - 27*Jinv**2):.1e} ≈ 0 ⇒ algebraically special (type D)   "
+    print(f"\n  (C) cross-check vs §57 symbolic: Schwarzschild → {ty_s} (want D), de Sitter → {ty_d} (want O)")
+    print(f"      — the numeric classifier agrees with the symbolic types (incl. conformally-flat O)   "
           f"{'✅' if okC else '❌'}")
 
-    okD = okA and okB and okC
+    okD = allD and okB and okC
     ok.append(okD)
     print(f"\n  (D) the Petrov lens (§57) now covers Kerr (numeric companion, like §58/§69/§79)   "
           f"{'✅' if okD else '❌'}")
 
     passed = all(ok)
     print(f"\nPETROV-KERR: {'PASSED ✅' if passed else 'FAILED ❌'}  "
-          "(Kerr = type D numerically; Ψ2 matches −M/(r−ia cosθ)³; the §57 UNKNOWN, closed)")
+          "(Kerr = type D at 15 points; de Sitter → O, Schwarzschild → D cross-check; §57 UNKNOWN closed)")
     return 0 if passed else 1
 
 

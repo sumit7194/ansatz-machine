@@ -22,6 +22,30 @@ built, what broke, what the machine taught us. Numbers live in
   overtone (a=0.7) = 0.52116−0.24424i (deepstrain's δ; eikonal can't give it); (C) spin blueshift + Q rise;
   (D) no-hair now 0.1%-level (two modes overdetermine (M,a)). Turns Move B from few-% to a precision test.
 
+## 2026-06-20 — STRESS-TESTING the v8 work (user: "robustness is the only north star")
+
+- User reaffirmed the operating principle: correctness is the ONLY objective (nothing on the line — not
+  publishing, not a career); stress-test every claim before it counts. A green gate proves the batteries
+  RUN, not that the claims are SOUND. Adversarially probed all four v8 items.
+- §78 (symbolic Killing-tensor PROOF) — highest risk (a lenient zero-test = false positive). SOUND: the real
+  Carter tensor passes; all 4 perturbations REJECTED; reducible Killing tensors (ξ_aξ_b, ξ_(aη_b) from the
+  KVs) accepted; K is genuinely irreducible (K_ii/g_ii ratios all differ, not ∝g). Baked the
+  perturbation-rejection check into battery 78 (C') so the verifier can't silently go lenient.
+- §79 (chaos lens) — CONVERGENCE test: Kerr & Schwarzschild λ HALVE as T doubles (λ~1/T→0, the regular
+  signature); di-hole λ=2.0907 PLATEAUS flat across 8× integration time (a genuine Lyapunov exponent). The
+  lens correctly distinguishes integrable from chaotic. SOLID.
+- §77 (precise QNM) — matched published Leaver/Berti values for a=0 (l=2 n=0,1; l=3 n=0) and a=0.9, exact
+  M-scaling (ω∝1/M), smooth a→0. One 3rd-digit discrepancy at a=0.5 traced to MY hand-typed reference being
+  wrong (the qnm package is peer-reviewed + validated against Berti's tables and matched everything I'm sure
+  of). Tool sound; my expected-value was the error — the test kept me honest.
+- §80 (numeric Petrov) — FOUND TWO REAL BUGS: `petrov_type_numeric` used a RELATIVE-only tolerance, so (1)
+  de Sitter (Weyl=0, type O) was misclassified as type I (pure noise looks like signal), and (2) large-r
+  Kerr (tiny Ψ2) as type II (FD noise overtook the relative tol). FIXED: added an ABSOLUTE noise floor (~1e-7;
+  measured FD noise ~1e-9) — all-below-floor ⇒ type O. Re-validated: Kerr type D at 15 points (r∈[3,30]),
+  de Sitter→O, Schwarzschild→D. Baked the cross-checks into battery 80 so it can't regress.
+- Outcome: §77/§78/§79 sound as claimed; §80 had a real classifier bug, now fixed + hardened. THIS is why
+  we stress-test.
+
 ## 2026-06-20 — V8 minor: Petrov type of Kerr (§80, numeric) — the §57 UNKNOWN closed
 
 - Minor item: petrov() auto-tetrad for Kerr. Found the real blocker isn't the tetrad — it's Kerr's symbolic
