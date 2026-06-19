@@ -868,6 +868,16 @@ the critical impact parameters b=L/E at those orbits: a=0 ⇒ symmetric ±3√3M
 extremal a→M: b_pro→2M, b_ret→−7M, strongly D-shaped. **(D)** §45's circle + §60's dragging ⇒ the EHT's
 asymmetric shadow — spin written in the shape (M87*, Sgr A*). Repro: `scripts/68_kerr_shadow.py`.
 
+## §69 — the Killing–Yano tensor: the root of the Carter constant
+§58 found Kerr's hidden symmetry as a Killing *tensor* K_ab (the Carter constant); but K is itself a square.
+There is a deeper, antisymmetric **Killing–Yano** 2-form Y_ab (Penrose–Floyd 1973) with `K_ab = Y_ac Y_b^c`
+and `∇₍ₐY_b₎c = 0`. The engine verifies numerically (Kerr symbolic curvature swamps, as in §58): **(A)** the
+KY equation `∇₍ₐY_b₎c=0` holds (residual ~1e-8); **(B)** `Y_ac Y_b^c` reproduces §58's Carter Killing tensor
+to ~1e-13 — Y is its root. So Kerr's full hidden-symmetry tower is **Killing vector ξ** (∂_t,∂_φ → E,L,
+linear in p) → **Killing tensor K** (Carter → C, quadratic) → **Killing–Yano Y** (K=Y·Y, the antisymmetric
+root). Y is also why the Dirac/Maxwell/perturbation equations all separate in Kerr, not just geodesics.
+Repro: `scripts/69_killing_yano.py`.
+
 **Where the niche stands (own literature sweep, 2026-06-16).** Path 1 (automate
 the physical-vs-gauge / SPSM criterion) is closed: xCPS (arXiv:2606.05204, open
 source) already automates covariant phase space, Noether charges, and Wald

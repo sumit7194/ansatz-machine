@@ -6,6 +6,17 @@ built, what broke, what the machine taught us. Numbers live in
 
 ---
 
+## 2026-06-19 — KILLING–YANO: the root of the Carter constant (symmetry tower complete)
+
+- Third of the "few more strong ones", and a satisfying capstone to the symmetry thread (§58). The Carter
+  Killing TENSOR K is itself a square: there's a deeper antisymmetric Killing–YANO 2-form Y with K=Y·Y and
+  ∇_(a Y_b)c=0. Battery `69_killing_yano.py` (numeric, like §58). Got the Kerr KY 2-form right first try
+  (Y_tr=−a cosθ, Y_tθ=a r sinθ, Y_rφ=−a²cosθsin²θ, Y_θφ=r(r²+a²)sinθ) — verified it numerically rather than
+  trust the convention: (A) KY equation residual ~1e-8; (B) Y_ac Y_b^c = §58 Carter K to ~1e-13.
+- The full hidden-symmetry tower of Kerr now: Killing VECTOR ξ (E,L; linear) → Killing TENSOR K (Carter C;
+  quadratic, §58) → Killing–YANO Y (K=Y·Y; the antisymmetric root). Y is also why Dirac/Maxwell/perturbation
+  equations separate in Kerr. Gate: 56 green.
+
 ## 2026-06-19 — KERR SHADOW: the split light ring & asymmetric (D-shaped) shadow
 
 - Second of the "few more strong ones". Spin breaks §45's circular shadow: frame dragging (§60) splits the
