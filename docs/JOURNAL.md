@@ -6,6 +6,16 @@ built, what broke, what the machine taught us. Numbers live in
 
 ---
 
+## 2026-06-19 — KERR SHADOW: the split light ring & asymmetric (D-shaped) shadow
+
+- Second of the "few more strong ones". Spin breaks §45's circular shadow: frame dragging (§60) splits the
+  equatorial light ring. Battery `68_kerr_shadow.py` (numeric, M=1; symbolic solve(R=R'=0) was too slow, so
+  closed-form radii + solve R=0 for b at those radii). (A) radii 2M{1+cos[⅔arccos(∓a/M)]}: a=0→3M both,
+  a>0→prograde<3M<retrograde, extremal→{M (horizon), 4M}. (B) shadow edges b=L/E: a=0 symmetric ±3√3M
+  (=§45), a>0 |b_pro|<3√3<|b_ret| (a=0.9: +2.84/−6.83). Root selection: prograde = smallest positive root,
+  retrograde = negative root (continuous with ±3√3 as a→0). (C) extremal a→M: b_pro→2M, b_ret→−7M (textbook,
+  matched). (D) §45+§60 ⇒ the EHT asymmetric shadow. Gate: 55 green.
+
 ## 2026-06-19 — GRAVITATIONAL LENSING & EINSTEIN RINGS (user: "add a few more strong ones")
 
 - User asked for a few more strong lenses after the §56–66 milestone. First: lensing — the OBSERVABLE
