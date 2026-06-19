@@ -6,6 +6,18 @@ built, what broke, what the machine taught us. Numbers live in
 
 ---
 
+## 2026-06-19 — FRAME DRAGGING & THE ERGOSPHERE: a spinning hole drags space
+
+- Switched flavour from the curvature/symmetry cluster to Kerr's purely ROTATIONAL structure — exact,
+  algebraic, no heavy curvature. Added `frame_dragging(geo)` to analyzer (ω=−g_tφ/g_φφ + ergosphere via
+  g_tt=0, for stationary axisymmetric g_tφ≠0; UNKNOWN else — cheap, gated; atlas unchanged at 29s) + a
+  `frame_dragging` report-card field. Battery `60_frame_dragging.py`.
+- (A) ergosphere r=M+√(M²−a²cos²θ) wraps OUTSIDE the horizon (=2M equator, =r₊ poles); g_tt>0 inside ⇒ no
+  static observers, must co-rotate. (B) ω rigid at horizon: ω(r₊)=Ω_H=a/(r₊²+a²) (the messy expression
+  simplified to it). (C) far field ω·r³→2Ma ⇒ Lense–Thirring 2J/r³ (Gravity Probe B). (D) Penrose process:
+  M_irr=√(A/16π)=√(Mr₊/2); extremal a=M ⇒ M_irr=M/√2 ⇒ 29.3% of mass extractable as spin energy. (E) a→0:
+  ergosphere→horizon, ω→0 (purely rotational). Gate: 47 batteries green.
+
 ## 2026-06-19 — TIDAL FORCES: what you'd feel falling in (curvature made physical)
 
 - Most physical/intuitive lens yet. The tidal tensor (geodesic deviation, the "electric" part of Riemann

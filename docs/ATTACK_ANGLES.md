@@ -48,6 +48,11 @@ pre-check (vacuum skips ricci_scalar + stress_energy), lazy stress_energy, and `
 detection — PLUS feeding rational u=cosθ coordinates (the trig form swamps; D4 extends off-diagonal).
 Remaining: Alcubierre warp + Gödel (own structure), rotating-horizon T/S, off-diagonal Kretschmann
 (ring singularity).
+DONE — **frame dragging & ergosphere** (`60_frame_dragging.py`, 2026-06-19): Kerr's rotational structure in
+the report card (`analyzer.frame_dragging`) — ω=−g_tφ/g_φφ, ergosphere r=M+√(M²−a²cos²θ) (outside the
+horizon, g_tt>0 inside ⇒ no static observers), rigid horizon co-rotation ω(r₊)=Ω_H=a/(r₊²+a²), Lense–Thirring
+far field 2J/r³, Penrose process (M_irr=M/√2 extremal ⇒ 29% extractable). Ω_H is also the rotational piece
+the Smarr/first-law extension (rotating-horizon T/S) would need next.
 **STAR REACHED (2026-06-17, `55_analyzer_star.py`):** the general tool reads a perfect-fluid stellar
 interior with no stellar-specific code — perfect fluid (isotropic), constant ρ=3M/4πR³, static+axisymmetric,
 regular (no singularity), signature-flip False (a star, not a hole). Honest edge found + recorded: `physical?`

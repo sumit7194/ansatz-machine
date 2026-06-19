@@ -544,6 +544,24 @@ def weyl_invariants(P):
     return I, J
 
 
+def frame_dragging(geo):
+    """For a stationary AXISYMMETRIC metric (g_tφ≠0, e.g. Kerr): the frame-dragging
+    angular velocity ω = −g_tφ/g_φφ (the rate a locally non-rotating observer is
+    dragged around) and the ergosphere — the outer surface g_tt=0 inside which no
+    observer can stay static. Returns {'omega', 'ergosphere'} or UNKNOWN."""
+    g, X, n = geo.g, geo.coords, geo.n
+    if n != 4 or g[0, 3] == 0:
+        return UNKNOWN
+    r = X[1]
+    try:
+        omega = sp.simplify(-g[0, 3] / g[3, 3])
+        roots = sp.solve(sp.numer(sp.together(g[0, 0])), r)   # g_tt = 0 (static limit)
+        ergo = [sp.simplify(s) for s in roots if s.is_real is not False]
+        return {"omega": omega, "ergosphere": ergo or UNKNOWN}
+    except Exception:
+        return UNKNOWN
+
+
 def tidal_tensor(geo):
     """Tidal-tensor eigenvalues for a static observer — the geodesic-deviation
     ('electric') part of Riemann, E_ij = R_{abcd} e_i^a u^b e_j^c u^d in an
@@ -647,6 +665,7 @@ def analyze(metric, coords, domain=None):
         "observables": observables(geo),
         "petrov": petrov(geo),          # algebraic type of the Weyl tensor
         "tidal": tidal_tensor(geo),     # tidal eigenvalues (static observer)
+        "frame_dragging": frame_dragging(geo),   # ω + ergosphere (rotating metrics)
     }
 
 

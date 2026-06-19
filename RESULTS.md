@@ -760,6 +760,22 @@ per unit separation (negative = stretch, positive = squeeze). For Schwarzschild 
 - **charge (RN):** radial tide `(−2Mr+3Q²)/r⁴`, non-zero trace `Q²/r⁴` (EM matter); the charge term softens
   the stretch. Repro: `scripts/59_tidal.py`.
 
+## §60 — frame dragging & the ergosphere: how a spinning black hole drags space
+The rotational structure of Kerr, exact and algebraic, now in the report card (`analyzer.frame_dragging`).
+A spinning mass drags spacetime around with it; close in lies the **ergosphere** where the dragging is so
+strong no observer can stay still. The engine reads it straight off the metric:
+- **(A) ergosphere** (static limit, g_tt=0): `r = M+√(M²−a²cos²θ)`, OUTSIDE the horizon r₊=M+√(M²−a²)
+  (they touch at the poles, reach 2M at the equator). Inside, g_tt>0 ⇒ ∂_t spacelike ⇒ no static observers
+  — you MUST co-rotate.
+- **(B) frame dragging** `ω=−g_tφ/g_φφ`, rigid at the horizon: `ω(r₊)=Ω_H=a/(r₊²+a²)` — everything
+  co-rotates with the hole there.
+- **(C) Lense–Thirring far field:** `ω·r³ → 2Ma` ⇒ `ω~2J/r³` (J=Ma) — the dragging Gravity Probe B / LARES
+  measured around the spinning Earth.
+- **(D) Penrose process:** irreducible mass `M_irr=√(A/16π)=√(Mr₊/2)`; extremal (a=M) gives `M_irr=M/√2`, so
+  up to `1−1/√2≈29%` of the mass is extractable spin energy.
+- **(E)** no spin (a→0): the ergosphere collapses onto the horizon and ω→0 — frame dragging is purely
+  rotational. Repro: `scripts/60_frame_dragging.py`.
+
 **Where the niche stands (own literature sweep, 2026-06-16).** Path 1 (automate
 the physical-vs-gauge / SPSM criterion) is closed: xCPS (arXiv:2606.05204, open
 source) already automates covariant phase space, Noether charges, and Wald
