@@ -3,6 +3,52 @@
 *Ranked by expected value per hour. Open threads from RESULTS.md live here
 now; move items to JOURNAL.md entries as they complete.*
 
+## v8 — Bridge-driven upgrades (2026-06-20, from the bridge project's review)
+
+*Context: after the §56–76 exact-oracle suite was built, the bridge project used
+these results to close its gaps (the "spine" — Moves A/B/D). That review surfaced
+exactly where ansatz's current oracles are SOFT, and these four (+1 minor) are the
+upgrades that would harden them. **Captured here, not yet started** — pick up if/when
+the bridge needs them. Ranked by leverage.*
+
+### 1. A precise QNM oracle, beyond the eikonal  ◀ HIGHEST LEVERAGE
+§56 gives the eikonal/light-ring QNM and explicitly defers the precise overtone
+spectrum to "Leaver / the `qnm` package." That cap is exactly what made the bridge's
+ringdown comparison (Move B) a few-to-15% test instead of a precision one. Wrap the
+precise solver (the `qnm` package §56 already cites, or a 6th-order WKB) into a
+first-class **`qnm_precise(M, a, ℓ, m, n)`** oracle — turning the spine's ringdown link
+from "consistent at the light-ring level" into a real **0.1%-level exact↔measured
+test**, and giving the **221 overtone** ansatz currently can't (the actual quantity
+deepstrain's δ measures). [builds on §56 ringdown, §72 template]
+
+### 2. A symbolic Killing-tensor verifier
+§58/§69 compute Kerr's Carter tensor and check `∇₍ₐK_bc₎=0` NUMERICALLY — so Move A's
+certification was a numeric residual, not a theorem. Extend **`gr_engine.verify`** to
+certify `∇₍ₐK_bc₎ ≡ 0` SYMBOLICALLY (the same cancel→factor→simplify cascade it already
+uses for the field equations). That makes the discover→verify pipeline's certification
+a **proof, not a measurement** — a real upgrade to the most novel capability. [§58
+Killing, §69 Killing–Yano; the numeric verification is honest but not a theorem]
+
+### 3. Full-spin (or O(a²)) rotating modified-gravity black holes
+The rotating-EdGB being O(a) slow-rotation is what blocked the genuine "discover an
+unknown invariant" frontier (Move D's pivot): at O(a) the Carter analog trivially
+survives. Pushing to **O(a²)** makes the integrability question non-trivial (oblateness
+enters); **full-spin** is the real prize but hard (the 2D PDE the EdGB doc flags). [see
+EDGB.md / ROTATING.md; ties the Killing-tensor frontier to modified gravity]
+
+### 4. A first-class geodesic integrator + a chaos lens (SALI/Lyapunov)
+The bridge built both as throwaway code (and ansatz built geodesic integrators inline in
+§54/§58). Make them **native** — `trajectory(metric, x₀, u₀)` + a SALI/Lyapunov chaos
+diagnostic — so ansatz can study the **integrability/chaos of its own discovered
+metrics**, a natural lens right beside the Killing tensors (§58/§69). Would have made
+Move D native instead of bridged. [reusable tool both sister projects can use as ground
+truth — the "option B" geodesic tool already flagged]
+
+### (minor) petrov() auto-tetrad for off-diagonal/Kerr
+`analyzer.petrov` returns UNKNOWN for off-diagonal metrics (Kerr) because no canonical
+tetrad is auto-built there (§57). An automatic tetrad for the off-diagonal case would
+complete that lens (Kerr → type D from the report card directly).
+
 ## v5 — ✅ COMPLETE (2026-06-12)
 
 All three steps below landed: R0′ all-green (039a9f7; κ_c = 1.0 now a
