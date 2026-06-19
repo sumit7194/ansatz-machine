@@ -6,6 +6,20 @@ built, what broke, what the machine taught us. Numbers live in
 
 ---
 
+## 2026-06-19 — THE COSMOLOGICAL HORIZON: the universe has a temperature (Gibbons–Hawking)
+
+- Change of scenery into cosmology. A horizon needn't be a black hole's: de Sitter (the t→∞ fate of ΛCDM,
+  §37) wraps every observer in a cosmological horizon at r_c=1/H that radiates (Gibbons–Hawking 1977).
+  Battery `64_cosmological_horizon.py`.
+- Found + fixed a genuine sign bug in the analyzer while doing it: `horizon_thermo` computed T=f′(r_h)/4π,
+  which is NEGATIVE for a cosmological horizon (f′<0 there, vs f′>0 for a black hole). Physical temperature
+  is |κ|/2π > 0. Changed to T=|f′|/4π — black holes unchanged (f′>0), de Sitter now correctly +H/2π.
+  Regression-checked: 35/40/41 green before committing.
+- Results: (A) analyzer reports r_c=1/H, T=H/2π, S=π/H² (validates the fix); (B) κ=H, T=H/2π Gibbons–Hawking;
+  (C) S=A/4=π/H²; (D) de Sitter Λ-dominated (Λ=3H²) ⇒ T=√(Λ/3)/2π, S=3π/Λ — temperature & entropy from Λ;
+  bigger Λ ⇒ smaller hotter horizon, less entropy. Core change (horizon_thermo) ⇒ full gate is the real
+  regression check. Gate: 51 green.
+
 ## 2026-06-19 — PROPER DISTANCE & EMBEDDING: the Flamm funnel (a visual lens)
 
 - A change of scenery from the curvature/symmetry/charge cluster: the geometric "how stretched is space"

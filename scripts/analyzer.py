@@ -358,7 +358,10 @@ def horizon_thermo(geo):
         return UNKNOWN
     out = []
     for rh in roots:
-        T = sp.simplify(sp.diff(f, rc).subs(rc, rh) / (4 * sp.pi))   # κ/2π, κ=f'(r_h)/2
+        # T = κ/2π = |f'(r_h)|/4π. The MAGNITUDE: a black-hole horizon has f'>0, but
+        # a COSMOLOGICAL horizon (de Sitter) has f'<0 — its Gibbons–Hawking temperature
+        # is still positive (T=H/2π), so use |f'| to get the physical temperature for both.
+        T = sp.simplify(sp.Abs(sp.diff(f, rc).subs(rc, rh)) / (4 * sp.pi))
         A = sp.sqrt(sp.simplify(g[2:, 2:].subs(rc, rh).det()))       # horizon area element
         ranges = [(coords[2], 0, sp.pi)] + [(coords[k], 0, 2 * sp.pi) for k in range(3, n)]
         try:

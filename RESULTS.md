@@ -812,6 +812,17 @@ proper distance horizon→6M (M=1) is ≈7.19 vs the coordinate gap 4 — stretc
 reachable; the 1/√f singularity is integrable); **(D)** far away dz/dr→0 (space flattens, asymptotically
 flat). Repro: `scripts/63_embedding.py`.
 
+## §64 — the cosmological horizon: the universe itself has a temperature
+A horizon needn't surround a black hole. In de Sitter space — the empty, exponentially expanding universe
+ΛCDM approaches as t→∞ (§37) — every observer is wrapped in a **cosmological horizon** at r_c=1/H, and
+(Gibbons–Hawking 1977) it radiates exactly like a black hole. The engine now reports it correctly: **(A)**
+`analyzer.horizon_thermo` finds r_c=1/H with **T=H/2π, S=π/H²** — after a sign fix: a cosmological horizon
+has f′<0, so the old `T=f′/4π` gave a *negative* temperature; changed to `T=|f′|/4π`, the physical positive
+temperature (black holes have f′>0, unchanged). **(B)** κ=H, Gibbons–Hawking T=H/2π — the universe has a
+temperature set by its expansion rate. **(C)** S=A/4=π/H². **(D)** tie to cosmology (§37): de Sitter is
+Λ-dominated (Λ=3H²), so T=√(Λ/3)/2π and S=3π/Λ — the universe's temperature and entropy straight off the
+cosmological constant; larger Λ ⇒ smaller, hotter horizon, less entropy. Repro: `scripts/64_cosmological_horizon.py`.
+
 **Where the niche stands (own literature sweep, 2026-06-16).** Path 1 (automate
 the physical-vs-gauge / SPSM criterion) is closed: xCPS (arXiv:2606.05204, open
 source) already automates covariant phase space, Noether charges, and Wald
