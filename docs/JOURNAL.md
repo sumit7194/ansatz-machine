@@ -6,6 +6,19 @@ built, what broke, what the machine taught us. Numbers live in
 
 ---
 
+## 2026-06-19 — KOMAR CHARGES: what mass and spin ARE (the symmetry-arc capstone)
+
+- Conceptual capstone of §58 (Killing) → §61 (Smarr): mass and spin aren't inputs — they're the conserved
+  CHARGES of the time-translation and rotation Killing symmetries. Added `komar_charges(geo)` to analyzer
+  (mass=lim r(1+g_tt)/2, J=lim −r g_tφ/(2sin²θ); cheap asymptotic limits, n=4) + `komar` report-card field.
+  Battery `62_komar.py`.
+- (A) reads M off Schwarzschild/RN/Kerr, J=Ma off Kerr — mass↔∂_t, spin↔∂_φ. (B) the Komar mass WITHIN r,
+  M(r)=½r²f′, exposes field energy: constant M for Schwarzschild (vacuum Gauss law) but M−Q²/r for RN (the EM
+  field outside r carries the missing energy), → M at ∞. Mass is r-dependent exactly when fields carry
+  energy. (C) the Smarr law M=2TS+2Ω_H J (§61) IS a Komar identity (mass at ∞ = horizon Komar integral).
+  (D) so M, J, Q are Noether charges of time/rotation/gauge symmetry — a hole's hair is geometry, not input.
+- Folded cheaply (asymptotic limits, no curvature); atlas unaffected. Gate: 49 green.
+
 ## 2026-06-19 — KERR THERMODYNAMICS: closing the rotating-horizon T/S thread (Smarr law)
 
 - Closed a thread open since the first Kerr work: the analyzer gave a rotating horizon's LOCATION but T/S

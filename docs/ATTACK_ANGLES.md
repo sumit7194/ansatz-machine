@@ -153,6 +153,10 @@ singularity) — curvature settles which singularities are physical; horizon tid
 survivable at the horizon, stellar ones lethal); radial tide = 2·Ψ2 (the type-D Weyl scalar §57).
 
 ## 5. The symmetry / structure lens
+DONE — **Komar charges** (`62_komar.py`, 2026-06-19): mass & angular momentum as the conserved charges of
+the time-translation/rotation Killing symmetries (`analyzer.komar`): M=lim r(1+g_tt)/2, J=lim −r g_tφ/(2sin²θ)
+→ Kerr M, J=Ma. Komar mass within r (½r²f′) exposes field energy (Schw constant; RN M−Q²/r); Smarr (§61) is
+a Komar identity. M,J,Q = Noether charges of spacetime symmetry, not free inputs.
 Compute a spacetime's **Killing vectors** and conserved quantities directly;
 classify metrics by their symmetry algebra rather than by parameters. A
 different axis on "what makes a spacetime special".

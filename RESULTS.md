@@ -789,6 +789,18 @@ Schwarzschild T=1/8πM, S=4πM² (§35). The Kerr-specific closure — a general
 honestly UNKNOWN in the analyzer (T=Δ′/A relies on Kerr's structure; folding it generally could give wrong
 temperatures for non-Kerr rotating metrics). Repro: `scripts/61_kerr_thermo.py`.
 
+## §62 — Komar charges: what mass and spin ARE, geometrically
+The conceptual capstone of the symmetry arc (§58 Killing → §61 Smarr): a spacetime's mass and angular
+momentum aren't put in by hand — they're the conserved CHARGES of its symmetries (Komar 1959), now in the
+report card (`analyzer.komar`): mass `M = lim r(1+g_tt)/2` (charge of the time-translation Killing vector ∂_t),
+spin `J = lim −r g_tφ/(2sin²θ)` (charge of the rotational Killing vector ∂_φ). The engine reads M off
+Schwarzschild/RN/Kerr and J=Ma off Kerr. Two further points: **(B)** the Komar mass *within* radius r,
+`M(r)=½r²f′`, exposes FIELD ENERGY — constant M in vacuum (Schwarzschild, a Gauss law) but `M−Q²/r` for RN,
+rising to M only at infinity (the EM field outside r carries the missing Q²/r); mass is r-dependent exactly
+when fields carry energy. **(C)** the Smarr formula `M = 2TS + 2Ω_H J` (§61) is itself a Komar identity —
+the mass at infinity equals the horizon Komar integral. So a black hole's M, J, Q are the Noether charges of
+time-translation, rotation, and gauge symmetry — geometry, not free inputs. Repro: `scripts/62_komar.py`.
+
 **Where the niche stands (own literature sweep, 2026-06-16).** Path 1 (automate
 the physical-vs-gauge / SPSM criterion) is closed: xCPS (arXiv:2606.05204, open
 source) already automates covariant phase space, Noether charges, and Wald

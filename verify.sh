@@ -53,6 +53,7 @@ NAMES+=("04 campaign");           CMDS+=("scripts/04_campaign.py")
 [ -f scripts/59_tidal.py ] && { NAMES+=("59 tidal forces (spaghettification, real-vs-coordinate singularity)"); CMDS+=("scripts/59_tidal.py"); }
 [ -f scripts/60_frame_dragging.py ] && { NAMES+=("60 frame dragging (ergosphere, Lense-Thirring, Penrose)"); CMDS+=("scripts/60_frame_dragging.py"); }
 [ -f scripts/61_kerr_thermo.py ] && { NAMES+=("61 Kerr thermodynamics (rotating-horizon T/S, Smarr, first law)"); CMDS+=("scripts/61_kerr_thermo.py"); }
+[ -f scripts/62_komar.py ] && { NAMES+=("62 Komar charges (mass & spin as symmetry charges)"); CMDS+=("scripts/62_komar.py"); }
 
 fail=0
 GATE="$(dirname "$0")/gate.log"; : > "$GATE"   # also written here so the dashboard (reads ROOT/gate.log) stays current

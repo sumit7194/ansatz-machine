@@ -544,6 +544,30 @@ def weyl_invariants(P):
     return I, J
 
 
+def komar_charges(geo):
+    """Komar/ADM charges — the conserved quantities of spacetime's symmetries:
+    mass (time-translation Killing vector) = lim_{r→∞} r(1+g_tt)/2, and angular
+    momentum (axial Killing vector) = lim_{r→∞} −r g_tφ/(2sin²θ). Three-valued."""
+    g, X, n = geo.g, geo.coords, geo.n
+    if n != 4:
+        return UNKNOWN
+    r, th = X[1], X[2]
+    out = {}
+    try:
+        m = sp.limit(r * (1 + g[0, 0]) / 2, r, sp.oo)
+        if m not in (sp.oo, -sp.oo, sp.zoo) and not m.has(r):
+            out["mass"] = sp.simplify(m)
+    except Exception:
+        pass
+    if g[0, 3] != 0:
+        try:
+            out["angular_momentum"] = sp.simplify(
+                sp.limit(-r * g[0, 3] / (2 * sp.sin(th)**2), r, sp.oo))
+        except Exception:
+            pass
+    return out or UNKNOWN
+
+
 def frame_dragging(geo):
     """For a stationary AXISYMMETRIC metric (g_tφ≠0, e.g. Kerr): the frame-dragging
     angular velocity ω = −g_tφ/g_φφ (the rate a locally non-rotating observer is
@@ -666,6 +690,7 @@ def analyze(metric, coords, domain=None):
         "petrov": petrov(geo),          # algebraic type of the Weyl tensor
         "tidal": tidal_tensor(geo),     # tidal eigenvalues (static observer)
         "frame_dragging": frame_dragging(geo),   # ω + ergosphere (rotating metrics)
+        "komar": komar_charges(geo),    # mass & spin as symmetry charges
     }
 
 
