@@ -985,6 +985,17 @@ metric g passes (∇g=0); **(B)** a non-Killing-tensor control fails (residual �
 certified as a theorem (was the numeric residual of §58/§69); **(D)** so the discover→verify pipeline's
 certification of a hidden symmetry is now a proof, not a measurement. Repro: `scripts/78_killing_tensor_proof.py`.
 
+## §79 — geodesic integrator & chaos lens: integrability you can measure
+*ROADMAP §v8.4.* A native, reusable tool (`scripts/geodesic_chaos.py`): `trajectory(g,x0,u0)` integrates a
+geodesic in ANY metric (RK4), and `lyapunov(g,x0,u0)` measures the largest Lyapunov exponent — so ansatz can
+study the integrability/chaos of its own discovered metrics, right beside the Killing tensors (§58/§69/§78).
+Pure Python (no numpy, stays in the core). **(A)** a Kerr orbit conserves (E,L,μ²,Carter C) to ~1e-11 — the
+integrator is correct and Kerr is integrable. **(B)** λ(Kerr)≈0.009 ≈ 0 — REGULAR: the Carter constant
+(proven §78) forbids chaos. **(C)** λ(Majumdar–Papapetrou di-hole — two holes, no Carter-like symmetry)≈2.09
+— CHAOTIC, ~222× Kerr. **(D)** integrability ⟺ a hidden symmetry (§78) ⟺ λ≈0: the chaos lens *measures* what
+the Killing-tensor proof *certifies*. Honest: largest-Lyapunov two-orbit estimate (not SALI); the di-hole
+orbit dips near a center so its λ is large but unambiguously >0. Repro: `scripts/79_geodesic_chaos.py`.
+
 **Where the niche stands (own literature sweep, 2026-06-16).** Path 1 (automate
 the physical-vs-gauge / SPSM criterion) is closed: xCPS (arXiv:2606.05204, open
 source) already automates covariant phase space, Noether charges, and Wald

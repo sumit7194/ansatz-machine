@@ -49,7 +49,16 @@ survives. Pushing to **O(a²)** makes the integrability question non-trivial (ob
 enters); **full-spin** is the real prize but hard (the 2D PDE the EdGB doc flags). [see
 EDGB.md / ROTATING.md; ties the Killing-tensor frontier to modified gravity]
 
-### 4. A first-class geodesic integrator + a chaos lens (SALI/Lyapunov)
+### 4. A first-class geodesic integrator + a chaos lens (SALI/Lyapunov)  ◀ ✅ DONE (2026-06-20, §79)
+**Built:** `scripts/geodesic_chaos.py` — `trajectory(g,x0,u0)` (RK4) + `lyapunov(g,x0,u0)`
+(largest exponent via renormalized nearby orbits), pure Python (no numpy, stays in the
+core). Battery §79: Kerr orbit conserves (E,L,μ²,C) to 1e-11 (integrator correct);
+λ(Kerr)≈0.009 (REGULAR — the Carter constant §78 forbids chaos); λ(Majumdar–Papapetrou
+di-hole)≈2.09 (CHAOTIC, ~222×). Integrability ⟺ a hidden symmetry (§78) ⟺ λ≈0 — the lens
+measures what the Killing-tensor proof certifies, on any metric. (Largest-Lyapunov, not
+SALI — a clean next refinement.)
+
+*(original note:)*
 The bridge built both as throwaway code (and ansatz built geodesic integrators inline in
 §54/§58). Make them **native** — `trajectory(metric, x₀, u₀)` + a SALI/Lyapunov chaos
 diagnostic — so ansatz can study the **integrability/chaos of its own discovered

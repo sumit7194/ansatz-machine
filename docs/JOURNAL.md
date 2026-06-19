@@ -22,6 +22,17 @@ built, what broke, what the machine taught us. Numbers live in
   overtone (a=0.7) = 0.52116−0.24424i (deepstrain's δ; eikonal can't give it); (C) spin blueshift + Q rise;
   (D) no-hair now 0.1%-level (two modes overdetermine (M,a)). Turns Move B from few-% to a precision test.
 
+## 2026-06-20 — V8 item 4: geodesic integrator + chaos lens (§79) — integrability, measured
+
+- Item 4: native `scripts/geodesic_chaos.py` — `trajectory(g,x0,u0)` (RK4) + `lyapunov(g,x0,u0)` (largest
+  exponent via renormalized nearby orbits). Pure Python (finite-diff Christoffels, no numpy — stays in core).
+  Battery `79`. The headline ties to §78: a hidden symmetry (Killing tensor) ⟺ integrable ⟺ λ≈0.
+- (A) Kerr orbit conserves (E,L,μ²,Carter) to 1e-11 (integrator correct, 4 constants). (B) λ(Kerr)=0.0094≈0
+  REGULAR. (C) λ(Majumdar–Papapetrou di-hole)=2.09 CHAOTIC (~222×). Debug: di-hole orbits plunged into a
+  center until I added angular momentum (v_y, axial L) — then bounded & chaotic. (D) integrability ⟺ hidden
+  symmetry (§78) ⟺ λ≈0 — the lens MEASURES what the proof CERTIFIES, on any metric.
+- Purely additive (no existing-file change). Gate green.
+
 ## 2026-06-20 — V8 item 2: symbolic Killing-tensor verifier (§78) — the Carter constant PROVEN
 
 - Item 2: turn §58/§69's NUMERIC Carter-constant check into a symbolic PROOF. Key insight: the
