@@ -956,7 +956,11 @@ and RN BOTH have R=0, but R_ab R^ab = 0 vs 4Q⁴/r⁸ — the charge shows up in
 complementary: Schwarzschild is vacuum (Ricci=0) yet curved (Weyl≠0); de Sitter is conformally flat (Weyl=0)
 yet full of Λ (Ricci≠0) — matter vs tidal field cleanly split. **(D)** a learned-geometry model's output is
 validated against this invariant fingerprint (coordinate-proof). Honest: a finite set (a practical
-fingerprint, not full Cartan–Karlhede); rare coincidences resolved by adding gradients (§02). Repro:
+fingerprint, not full Cartan–Karlhede); rare coincidences resolved by adding gradients (§02). *Stress-tested
+(2026-06-20): the invariants are genuine coordinate scalars (Schwarzschild's Kretschmann matches in standard
+vs isotropic coords at the mapped point to machine precision), but `invariant_fingerprint` currently computes
+the Weyl sector {I,J} only for the canonical −f,1/f form (perf); other charts return the Ricci sector only —
+full cross-chart comparison needs the canonical form, or the tetrad-free-Weyl upgrade (ROADMAP §v8).* Repro:
 `scripts/76_invariant_fingerprint.py`.
 
 ## §77 — the precise QNM oracle (beyond the eikonal): 0.1%-level ringdown

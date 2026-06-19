@@ -26,6 +26,14 @@ The signature splits into two complementary sectors (`analyzer.invariant_fingerp
 Honest scope: a finite invariant set (a practical fingerprint, not the full
 Cartan–Karlhede equivalence). It distinguishes inequivalent geometries here; in rare
 cases distinct geometries can share low-order invariants (then add gradients, §02).
+IMPLEMENTATION CAVEAT (stress-tested 2026-06-20): the invariants ARE coordinate-free
+scalars — verified, e.g. Schwarzschild's Kretschmann matches in standard vs isotropic
+coordinates at the mapped physical point to machine precision. BUT `invariant_fingerprint`
+currently computes the WEYL sector {I, J} (and Kretschmann) only for the canonical
+static-spherical form −f dt²+dr²/f+r²dΩ² (a performance choice — the Weyl tensor is heavy
+for general metrics); in other coordinate charts it returns the Ricci sector {R, R_abR^ab}
+only. So cross-chart comparison of the FULL fingerprint needs the canonical form for now;
+the robustness upgrade is tetrad-free Weyl-tensor contraction invariants (ROADMAP).
 
 Run:  .venv/bin/python scripts/76_invariant_fingerprint.py
 """
