@@ -900,6 +900,27 @@ Hamiltonian constraint); **(C)** a time-symmetric vacuum slice (Schwarzschild t=
 and the curved Flamm slice (§63) is indeed scalar-flat; **(D)** 6 evolve + 4 constrain = 10 — spacetime is
 the time-history of a 3-geometry. Repro: `scripts/71_adm.py`.
 
+## §72 — the ringdown waveform & black-hole spectroscopy (the no-hair test)
+The bridge artifact for deepstrain: §56's QNMs as the actual time-domain STRAIN a detector records, and the
+no-hair consistency test. After merger the remnant rings as a sum of damped sinusoids
+`h(t)=Σ A_n e^{−t/τ_n}cos(ω_n t+φ_n)`, `τ_n=1/|Im ω_n|`. **(A)** the template solves the damped-oscillator
+equation. **(B)** the damping IS the light-ring instability (§56/§66): `τ=1/[(n+½)λ]` (λ the Lyapunov
+exponent), `Q=ω_R τ/2=ℓ/(2n+1)` (eikonal); Schwarzschild ℓ=2,n=0 ⇒ Q=2, Mω_R=0.385 (Leaver 0.374, ~3%;
+precise values numerical, cf §56). **(C)** the **no-hair test**: every ω(ℓ,m,n)=f(M,a) only, so ≥2 modes
+overdetermine (M,a) — consistency ⇒ Kerr (no hair), inconsistency ⇒ new physics; a parameter-free eikonal
+signature is ω_R(ℓ=3)/ω_R(ℓ=2)=3/2. **(D)** ansatz supplies the exact ω(M,a) oracle a measured ringdown is
+fit against — the engine's side of the spectroscopy bridge. Repro: `scripts/72_ringdown_template.py`.
+
+## §73 — the inspiral chirp & chirp mass (the other half of a LIGO signal)
+The long rising tone before the ringdown — together the whole waveform (inspiral→merger→ringdown). A circular
+binary (G=c=1) radiates by the quadrupole formula `L=(32/5)μ²M³/r⁵`, so the orbit shrinks and Ω=√(M/r³)
+rises. **(A)** dE/dt=−L drives dr/dt<0 (inspiral). **(B)** THE CHIRP: `dΩ/dt=(96/5)M_c^{5/3}Ω^{11/3}` —
+depends on ONE combination, the **chirp mass** `M_c=(m₁m₂)^{3/5}/(m₁+m₂)^{1/5}` (=μ^{3/5}M^{2/5}), which is
+why M_c is what LIGO measures best from the inspiral. **(C)** integrating, `Ω∝(t_c−t)^{−3/8}` — frequency
+diverges at merger (the −3/8 fixed by the 11/3 exponent). **(D)** M_c (inspiral) + final (M,a) (ringdown §72)
+⇒ the full template the engine supplies as ground truth for the bridge. Honest scope: leading
+quadrupole/Newtonian order (Peters–Mathews); real signals add PN corrections. Repro: `scripts/73_inspiral_chirp.py`.
+
 **Where the niche stands (own literature sweep, 2026-06-16).** Path 1 (automate
 the physical-vs-gauge / SPSM criterion) is closed: xCPS (arXiv:2606.05204, open
 source) already automates covariant phase space, Noether charges, and Wald

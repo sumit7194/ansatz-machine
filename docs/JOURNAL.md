@@ -6,6 +6,21 @@ built, what broke, what the machine taught us. Numbers live in
 
 ---
 
+## 2026-06-19 — RINGDOWN TEMPLATE (§72) + INSPIRAL CHIRP (§73): the bridge waveforms
+
+- User reframed: these lenses are TOOLS/ORACLES for the bridge + sister projects (deepstrain spectroscopy,
+  tabula-geometrica geometry), not for a write-up. So picked the two most bridge-relevant: the full LIGO
+  waveform as exact ground truth.
+- §72 RINGDOWN TEMPLATE (`72_ringdown_template.py`, standalone). §56's QNMs → time-domain strain
+  h(t)=Σ A_n e^{−t/τ_n}cos(ω_n t+φ_n) (verified it solves the damped-oscillator ODE). Damping = light-ring
+  instability (τ=1/[(n+½)λ], §56/§66); Q=ℓ/(2n+1); ℓ=2,n=0 ⇒ Q=2, Mω_R=0.385 (Leaver 0.374). THE NO-HAIR
+  TEST (deepstrain's): ω(ℓ,m,n)=f(M,a) only ⇒ ≥2 modes overdetermine (M,a) ⇒ Kerr-consistency; parameter-free
+  ω_R(3)/ω_R(2)=3/2. ansatz = the exact ω(M,a) oracle a measured ringdown is fit against.
+- §73 INSPIRAL CHIRP (`73_inspiral_chirp.py`, standalone). Quadrupole L=(32/5)μ²M³/r⁵ → orbit decays;
+  dΩ/dt=(96/5)M_c^{5/3}Ω^{11/3} depends ONLY on the chirp mass M_c=(m₁m₂)^{3/5}/(m₁+m₂)^{1/5} (verified
+  M_c^{5/3}=μM^{2/3}); Ω∝(t_c−t)^{−3/8} (the −3/8 from the 11/3 exponent). M_c (inspiral) + (M,a) (ringdown
+  §72) = the full inspiral→merger→ringdown template, the engine's ground truth for the bridge. Gate: 60 green.
+
 ## 2026-06-19 — HAWKING SPECTRUM (§70) + ADM 3+1 (§71): two more (user: "lets continue with these")
 
 - §70 HAWKING RADIATION & GREYBODY (`70_hawking_spectrum.py`, standalone). Builds on §56 (potential) + §64
