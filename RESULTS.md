@@ -944,6 +944,21 @@ can't be too light). **(B)** radiated-energy bound E_rad ≤ (M₁+M₂)−√(M
 merger radiates ~5% (NR), well inside the 29.3% ceiling — an inferred merger must clear this bar or it isn't
 GR. Repro: `scripts/75_area_theorem.py`.
 
+## §76 — the curvature-invariant fingerprint (a coordinate-free signature)
+*Future use:* the learned-geometry sister project (tabula-geometrica) needs ground truth that doesn't depend
+on coordinates — to check a net learned the right geometry you compare coordinate-free scalar invariants
+(§42 was one such oracle; this is the curvature one). It also fills the no-Python-Cartan–Karlhede gap with a
+practical fingerprint. `analyzer.invariant_fingerprint` returns two complementary sectors: **Ricci**
+{R, R_ab R^ab} (matter, zero in vacuum) and **Weyl** {I, J} (free gravity, zero if conformally flat).
+**(A)** distinguishes the zoo coordinate-free: flat (all 0), Schwarzschild (Ricci 0, Weyl≠0), RN (Ricci≠0,
+Weyl≠0), de Sitter (Ricci≠0, Weyl 0). **(B)** resolves a degeneracy a single scalar misses: Schwarzschild
+and RN BOTH have R=0, but R_ab R^ab = 0 vs 4Q⁴/r⁸ — the charge shows up invariantly. **(C)** the sectors are
+complementary: Schwarzschild is vacuum (Ricci=0) yet curved (Weyl≠0); de Sitter is conformally flat (Weyl=0)
+yet full of Λ (Ricci≠0) — matter vs tidal field cleanly split. **(D)** a learned-geometry model's output is
+validated against this invariant fingerprint (coordinate-proof). Honest: a finite set (a practical
+fingerprint, not full Cartan–Karlhede); rare coincidences resolved by adding gradients (§02). Repro:
+`scripts/76_invariant_fingerprint.py`.
+
 **Where the niche stands (own literature sweep, 2026-06-16).** Path 1 (automate
 the physical-vs-gauge / SPSM criterion) is closed: xCPS (arXiv:2606.05204, open
 source) already automates covariant phase space, Noether charges, and Wald

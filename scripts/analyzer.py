@@ -547,6 +547,34 @@ def weyl_invariants(P):
     return I, J
 
 
+def invariant_fingerprint(geo):
+    """A coordinate-free curvature-invariant SIGNATURE of a spacetime — the ground
+    truth a learned-geometry model is validated against (it can't depend on the net's
+    coordinate choices). Two metrics with different fingerprints are genuinely
+    different geometries. Returns the RICCI sector {R, R_ab R^ab} (matter content) for
+    any metric, plus {K, Weyl I, J} (free gravity) for the static spherical diagonal
+    form where the canonical tetrad is known. (A callable oracle — not auto-run in
+    analyze(), since the invariants are heavy for off-diagonal metrics.)"""
+    fp = {"R": sp.simplify(geo.ricci_scalar), "Ricci_sq": sp.simplify(geo.ricci_squared)}
+    g, X, n = geo.g, geo.coords, geo.n
+    if n == 4 and g.is_diagonal():
+        r, th = X[1], X[2]
+        f = sp.cancel(sp.together(-g[0, 0]))
+        if (sp.simplify(g[1, 1] * f - 1) == 0 and sp.simplify(g[2, 2] - r**2) == 0
+                and sp.simplify(g[3, 3] - r**2 * sp.sin(th)**2) == 0):
+            try:
+                fp["Kretschmann"] = sp.simplify(geo.kretschmann)
+                s2 = sp.sqrt(2)
+                tet = ([1 / f, 1, 0, 0], [sp.Rational(1, 2), -f / 2, 0, 0],
+                       [0, 0, 1 / (r * s2), sp.I / (r * s2 * sp.sin(th))],
+                       [0, 0, 1 / (r * s2), -sp.I / (r * s2 * sp.sin(th))])
+                I, J = weyl_invariants(weyl_scalars(weyl_tensor(geo), tet))
+                fp["Weyl_I"], fp["Weyl_J"] = sp.simplify(I), sp.simplify(J)
+            except Exception:
+                pass
+    return fp
+
+
 def komar_charges(geo):
     """Komar/ADM charges — the conserved quantities of spacetime's symmetries:
     mass (time-translation Killing vector) = lim_{r→∞} r(1+g_tt)/2, and angular

@@ -6,6 +6,20 @@ built, what broke, what the machine taught us. Numbers live in
 
 ---
 
+## 2026-06-19 — INVARIANT FINGERPRINT (§76): coordinate-free oracle for learned geometry
+
+- Switched the bridge focus to the OTHER sister project (tabula-geometrica, learned geometry) — its oracle
+  need is coordinate-free ground truth (cf §42 causal structure). Added `invariant_fingerprint(geo)` to
+  analyzer (callable, NOT auto-run — invariants heavy for off-diagonal): Ricci sector {R, R_abR^ab} (matter,
+  any metric) + Weyl sector {I,J} (free gravity, static spherical diagonal via §57 tetrad). Battery
+  `76_invariant_fingerprint.py`. Future use: a learned-geometry net's output validated against the invariant
+  fingerprint (coordinate-proof); fills the no-Python-Cartan–Karlhede gap.
+- (A) distinguishes flat/Schwarzschild/RN/de Sitter coordinate-free. (B) resolves the R=0 degeneracy:
+  Schwarzschild & RN both R=0 but Ric²=0 vs 4Q⁴/r⁸ (charge invariant). (C) sectors complementary:
+  Schwarzschild vacuum (Ricci=0) but Weyl≠0; de Sitter conformally flat (Weyl=0) but R≠0 — matter vs tidal.
+  RN Weyl I=3(Mr−Q²)²/r⁸ (charge in gravity sector too). Honest: finite set, not full Cartan–Karlhede; rare
+  coincidences need gradients (§02). Gate: 63 green.
+
 ## 2026-06-19 — AREA THEOREM (§75): a merger-inference consistency oracle
 
 - User steer: before building, think through FUTURE USE — don't build for the sake of it. So picked a hard
