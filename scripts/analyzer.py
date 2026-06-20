@@ -547,6 +547,57 @@ def weyl_invariants(P):
     return I, J
 
 
+def weyl_invariants_tensor(geo, simplify=True):
+    """The complex Weyl invariants I, J computed TETRAD-FREE — as pure Weyl-tensor
+    contractions, so they are coordinate-free in IMPLEMENTATION (any chart), unlike
+    weyl_invariants() which needs the adapted canonical null tetrad. This is the §76
+    upgrade: the algebraic TYPE (I³=27J² ⟺ algebraically special), not just the
+    magnitude, becomes chart-independent.
+
+        I = (A − i B)/16,   J = (C₃ − i D₃)/96,
+        A  = C_abcd C^abcd                  (the "electric" Weyl square),
+        B  = C_abcd *C^abcd                 (the "magnetic"/Pontryagin part, ≠0 when rotating),
+        C₃ = C^ab_cd C^cd_ef C^ef_ab        (the cubic),
+        D₃ = C^ab_cd C^cd_ef *C^ef_ab       (the cubic's magnetic partner),
+
+    with *C_abcd = ½ η_ab^ef C_efcd the Weyl dual (η = √−g · Levi-Civita). The constants
+    1/16, 1/96 and the −i are CALIBRATED against the Newman–Penrose I,J on Schwarzschild
+    (real: I=3M²/r⁶, J=M³/r⁹) and Kerr (complex: I=3Ψ₂², J=−Ψ₂³ to ~7 digits, numeric).
+    Symbolic; heavy for off-diagonal metrics (Kerr swamps — use the numeric route there,
+    cf §80). For a static/diagonal (electric) metric B=D₃=0 and I,J are real."""
+    n, g = geo.n, geo.g
+    gi = g.inv()
+    C = weyl_tensor(geo)
+    red = (lambda e: sp.simplify(e)) if simplify else (lambda e: sp.cancel(sp.together(e)))
+
+    def mix(T):                                   # raise the first pair: T^{ab}_{cd}
+        return [[[[sp.cancel(sum(gi[a, p] * gi[b, q] * T[p][q][c][d]
+                                 for p in range(n) for q in range(n)))
+                   for d in range(n)] for c in range(n)] for b in range(n)] for a in range(n)]
+
+    Cm = mix(C)
+    Cuu = [[[[sp.cancel(sum(gi[c, u] * gi[d, v] * Cm[a][b][u][v]
+                            for u in range(n) for v in range(n)))
+              for d in range(n)] for c in range(n)] for b in range(n)] for a in range(n)]
+    rng = range(n)
+    A = red(sum(C[a][b][c][d] * Cuu[a][b][c][d] for a in rng for b in rng for c in rng for d in rng))
+    C3 = red(sum(Cm[a][b][c][d] * Cm[c][d][e][f] * Cm[e][f][a][b]
+                 for a in rng for b in rng for c in rng for d in rng for e in rng for f in rng))
+    # Weyl dual *C_abcd = ½ η_ab^{ef} C_efcd ; η_abef = √(−det g)·ε_abef (Levi-Civita)
+    sg = sp.sqrt(-g.det())
+    star = [[[[sp.cancel(sp.Rational(1, 2) * sum(
+        sg * sp.LeviCivita(a, b, rr, s) * gi[rr, e] * gi[s, ff] * C[e][ff][c][d]
+        for rr in rng for s in rng for e in rng for ff in rng))
+        for d in rng] for c in rng] for b in rng] for a in rng]
+    B = red(sum(Cuu[a][b][c][d] * star[a][b][c][d] for a in rng for b in rng for c in rng for d in rng))
+    starm = mix(star)
+    D3 = red(sum(Cm[a][b][c][d] * Cm[c][d][e][f] * starm[e][f][a][b]
+                 for a in rng for b in rng for c in rng for d in rng for e in rng for f in rng))
+    I = red((A - sp.I * B) / 16)
+    J = red((C3 - sp.I * D3) / 96)
+    return I, J
+
+
 def invariant_fingerprint(geo):
     """A coordinate-free curvature-invariant SIGNATURE of a spacetime — the ground
     truth a learned-geometry model is validated against (it can't depend on the net's
@@ -555,9 +606,13 @@ def invariant_fingerprint(geo):
     metric); for a DIAGONAL metric also {Kretschmann, Weyl_sq} — the latter the
     tetrad-free Weyl-square C_abcd C^abcd = K − 2 R_ab R^ab + R²/3 (a genuine
     coordinate-free scalar, so it agrees across charts — e.g. standard vs isotropic
-    Schwarzschild — unlike the old form-specific tetrad version); and for the canonical
-    static-spherical form the NP Weyl invariants {Weyl_I, Weyl_J} (type info). (Callable
-    oracle, not auto-run in analyze() — Kretschmann is heavy for off-diagonal metrics.)"""
+    Schwarzschild — unlike the old form-specific tetrad version); and the complex Weyl
+    invariants {Weyl_I, Weyl_J} via the TETRAD-FREE tensor route (§83), so the SPECIALITY
+    (I³=27J² ⟺ algebraically special) agrees across charts — standard vs isotropic
+    Schwarzschild give identical I,J at the mapped point, where the old canonical-tetrad
+    version only worked for the −f,1/f form. (I,J give speciality + magnitude, NOT the
+    full Petrov type: {II|D} and {III|N|O} need an adapted tetrad, cf §80/§83(E).)
+    (Callable oracle, not auto-run in analyze() — the Weyl work is heavy off-diagonal.)"""
     fp = {"R": sp.simplify(geo.ricci_scalar), "Ricci_sq": sp.simplify(geo.ricci_squared)}
     g, X, n = geo.g, geo.coords, geo.n
     if n == 4 and g.is_diagonal():
@@ -567,19 +622,10 @@ def invariant_fingerprint(geo):
             fp["Weyl_sq"] = sp.simplify(fp["Kretschmann"] - 2 * fp["Ricci_sq"] + fp["R"]**2 / 3)
         except Exception:
             pass
-        r, th = X[1], X[2]                          # canonical form ⇒ also the NP I, J (type)
-        f = sp.cancel(sp.together(-g[0, 0]))
-        if (sp.simplify(g[1, 1] * f - 1) == 0 and sp.simplify(g[2, 2] - r**2) == 0
-                and sp.simplify(g[3, 3] - r**2 * sp.sin(th)**2) == 0):
-            try:
-                s2 = sp.sqrt(2)
-                tet = ([1 / f, 1, 0, 0], [sp.Rational(1, 2), -f / 2, 0, 0],
-                       [0, 0, 1 / (r * s2), sp.I / (r * s2 * sp.sin(th))],
-                       [0, 0, 1 / (r * s2), -sp.I / (r * s2 * sp.sin(th))])
-                I, J = weyl_invariants(weyl_scalars(weyl_tensor(geo), tet))
-                fp["Weyl_I"], fp["Weyl_J"] = sp.simplify(I), sp.simplify(J)
-            except Exception:
-                pass
+        try:                                        # tetrad-FREE complex I, J ⇒ algebraic TYPE, ANY diagonal chart (§83)
+            fp["Weyl_I"], fp["Weyl_J"] = weyl_invariants_tensor(geo)
+        except Exception:
+            pass
     return fp
 
 

@@ -78,14 +78,21 @@ metrics**, a natural lens right beside the Killing tensors (§58/§69). Would ha
 Move D native instead of bridged. [reusable tool both sister projects can use as ground
 truth — the "option B" geodesic tool already flagged]
 
-### (from stress-testing 2026-06-20) tetrad-free Weyl invariants  ◀ ✅ PARTLY DONE
-The tetrad-free Weyl-SQUARE `C_abcd C^abcd = K − 2R_abR^ab + R²/3` is now in
-`invariant_fingerprint` for any diagonal metric (§76(D): standard vs isotropic
-Schwarzschild agree at the mapped point — genuinely coordinate-free). REMAINING: the
-tetrad-free *cubic* Weyl invariant (the Chern–Pontryagin dual `C·*C` + the cubic J) so
-the full algebraic TYPE (not just magnitude) is chart-free too — the NP {I,J} are still
-canonical-form-only. And extend off-diagonal (Kretschmann swamps symbolically for Kerr →
-numeric, cf §80).
+### (from stress-testing 2026-06-20) tetrad-free Weyl invariants  ◀ ✅ DONE (§83)
+The tetrad-free Weyl-SQUARE `C_abcd C^abcd = K − 2R_abR^ab + R²/3` (the magnitude) landed
+first (§76(D)). Now the **complex invariants I, J** are also tetrad-free (§83):
+`I=(A−iB)/16, J=(C₃−iD₃)/96` with A=C·C, B=C·*C (the Chern–Pontryagin/magnetic part),
+C₃ the cubic, D₃ its dual — constants calibrated against the NP I,J on Schwarzschild
+(real) and Kerr (complex). So the SPECIALITY (I³=27J² ⟺ algebraically special) is now
+chart-free: standard vs isotropic Schwarzschild give identical I,J at the mapped point
+(closes the §76 canonical-form caveat); and the off-diagonal case works via the NUMERIC
+route (`numeric_curvature.weyl_invariants_numeric`) — Kerr → type D with no tetrad.
+HONEST LIMIT (stress-test §83(E)): I,J give speciality + magnitude, NOT the full Petrov
+type — a type-N pp-wave has I=J=0 like type O; splitting {II|D} and {III|N|O} still needs
+the adapted tetrad (§80) or differential invariants. That's inherent to scalar invariants,
+not a coordinate issue. `invariant_fingerprint` now uses the tetrad-free I,J for any
+diagonal metric. REMAINING (smaller): differential/Cartan–Karlhede invariants for the
+full type chart-free — a bigger project, deferred.
 
 ### (minor) petrov() auto-tetrad for off-diagonal/Kerr  ◀ ✅ DONE (2026-06-20, §80, numeric)
 `analyzer.petrov` returned UNKNOWN for Kerr — the symbolic Weyl tensor swamps (the

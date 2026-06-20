@@ -74,6 +74,7 @@ NAMES+=("04 campaign");           CMDS+=("scripts/04_campaign.py")
 [ -f scripts/80_petrov_kerr.py ] && { NAMES+=("80 Petrov type of Kerr (numeric: type D, completes §57)"); CMDS+=("scripts/80_petrov_kerr.py"); }
 [ -f scripts/81_analyzer_audit.py ] && { NAMES+=("81 analyzer robustness audit (verdicts vs ground truth)"); CMDS+=("scripts/81_analyzer_audit.py"); }
 [ -f scripts/82_integrability_frontier.py ] && { NAMES+=("82 integrability frontier (deform Kerr: Carter tensor fails, no visible chaos, fate open)"); CMDS+=("scripts/82_integrability_frontier.py"); }
+[ -f scripts/83_tetradfree_type.py ] && { NAMES+=("83 tetrad-free Weyl invariants I,J (coordinate-free speciality; Kerr type D off-diagonal)"); CMDS+=("scripts/83_tetradfree_type.py"); }
 
 fail=0
 GATE="$(dirname "$0")/gate.log"; : > "$GATE"   # also written here so the dashboard (reads ROOT/gate.log) stays current

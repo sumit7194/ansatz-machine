@@ -6,6 +6,26 @@ built, what broke, what the machine taught us. Numbers live in
 
 ---
 
+## 2026-06-20 — ROADMAP #2 DONE: tetrad-free Weyl invariants — coordinate-free type (§83)
+- Closed the §76 caveat properly. §76's "coordinate-free oracle" computed the complex Weyl invariants I, J
+  only in the canonical −f,1/f tetrad, so it lost the TYPE sector in any other chart. Now I, J are pure
+  Weyl-tensor contractions (tetrad-free): I=(A−iB)/16, J=(C₃−iD₃)/96, with A=C·C, B=C·*C (the magnetic/
+  Chern–Pontryagin part), C₃ the cubic, D₃ its dual. The constants 1/16, 1/96, −i were CALIBRATED against the
+  known NP values — Schwarzschild (A=48M²/r⁶, C₃=96M³/r⁹ ⇒ I=3M²/r⁶, J=M³/r⁹) and Kerr numerically (I=3Ψ₂²,
+  J=−Ψ₂³ to ~7 digits, including the magnetic B,D₃ part where it's non-zero).
+- New: `analyzer.weyl_invariants_tensor(geo)` (symbolic, ~1-2s for diagonal) and
+  `numeric_curvature.weyl_invariants_numeric(g,x)` (off-diagonal, Kerr). `invariant_fingerprint` now uses the
+  tetrad-free I, J for any diagonal metric (so isotropic Schwarzschild gets them too — §76 still green, values
+  identical). §83 validates: (A) tetrad-free I,J == NP I,J on the zoo (independent cross-check); (B) TYPE
+  coordinate-invariant (standard vs isotropic Schwarzschild agree at the mapped point); (C) speciality I³−27J²
+  chart-free detector; (D) OFF-DIAGONAL Kerr numeric → type D, |I³−27J²|/|I³|≈4e-14, no tetrad.
+- Stress-test caught an overclaim before it shipped: I'd framed this as "the full Petrov TYPE, coordinate-free."
+  Checked a type-N vacuum pp-wave (H=x²−y²): I=J=0 (and Weyl-square 0) YET Weyl≠0 — indistinguishable from
+  type O by polynomial invariants. So I,J give SPECIALITY + magnitude, NOT the full type; {II|D} and {III|N|O}
+  still need the adapted tetrad (§80). Added that as §83(E), an explicit honest boundary, and softened the
+  invariant_fingerprint docstring + ROADMAP. The §76 CHART caveat is closed; the inherent incompleteness of
+  scalar invariants is stated, not hidden.
+
 ## 2026-06-20 — ITEM 3 PROBED HONESTLY: the integrability frontier (§82)
 - Took a real run at ROADMAP item 3 (rotating modified-gravity BHs). The full prize — solving a modified
   theory's O(a²) field equations — is a 2D PDE, genuinely research-scale; I did NOT fake it. Instead I

@@ -136,6 +136,75 @@ def weyl_scalars_numeric(g_metric, x, tetrad, h=1e-4):
     return (k(l, m, l, m), k(l, n, l, m), k(l, m, mb, n), k(l, n, mb, n), k(n, mb, n, mb))
 
 
+def _det4(g):
+    """Determinant of a 4x4 (Leibniz over the 24 permutations; pure Python)."""
+    import itertools
+    tot = 0.0
+    for perm in itertools.permutations(range(N)):
+        sgn = 1
+        for i in range(N):
+            for j in range(i + 1, N):
+                if perm[i] > perm[j]:
+                    sgn = -sgn
+        prod = 1.0
+        for i in range(N):
+            prod *= g[i][perm[i]]
+        tot += sgn * prod
+    return tot
+
+
+def _lc(a, b, c, d):
+    """Levi-Civita symbol ε_{abcd} (ε_{0123}=+1)."""
+    p = (a, b, c, d)
+    if len(set(p)) < N:
+        return 0
+    s = 1
+    for i in range(N):
+        for j in range(i + 1, N):
+            if p[i] > p[j]:
+                s = -s
+    return s
+
+
+def weyl_invariants_numeric(g_metric, x, h=1e-4):
+    """The complex Weyl invariants (I, J) at x computed TETRAD-FREE and NUMERICALLY —
+    the off-diagonal companion to analyzer.weyl_invariants_tensor (Kerr's symbolic Weyl
+    swamps; this stays finite-difference). Same calibration: I=(A−iB)/16, J=(C₃−iD₃)/96
+    with A=C·C, B=C·*C, C₃ the cubic, D₃ its dual partner, *C the Weyl dual. Returns
+    Python complex numbers; the algebraic TYPE is then chart-free (I³=27J² ⟺ special)."""
+    g = g_metric(x)
+    gi = inv4(g)
+    R = _riemann_lower_numeric(g_metric, x, h)
+    Ric = ricci_numeric(g_metric, x, h)
+    Rs = sum(gi[a][b] * Ric[a][b] for a in range(N) for b in range(N))
+    C = [[[[R[a][b][c][d]
+            - 0.5 * (g[a][c] * Ric[b][d] - g[a][d] * Ric[b][c]
+                     - g[b][c] * Ric[a][d] + g[b][d] * Ric[a][c])
+            + (Rs / 6.0) * (g[a][c] * g[b][d] - g[a][d] * g[b][c])
+            for d in range(N)] for c in range(N)] for b in range(N)] for a in range(N)]
+
+    def mix(T):                                  # raise the first pair: T^{ab}_{cd}
+        return [[[[sum(gi[a][p] * gi[b][q] * T[p][q][c][d] for p in range(N) for q in range(N))
+                   for d in range(N)] for c in range(N)] for b in range(N)] for a in range(N)]
+
+    Cm = mix(C)
+    Cuu = [[[[sum(gi[c][u] * gi[d][v] * Cm[a][b][u][v] for u in range(N) for v in range(N))
+              for d in range(N)] for c in range(N)] for b in range(N)] for a in range(N)]
+    rng = range(N)
+    A = sum(C[a][b][c][d] * Cuu[a][b][c][d] for a in rng for b in rng for c in rng for d in rng)
+    C3 = sum(Cm[a][b][c][d] * Cm[c][d][e][f] * Cm[e][f][a][b]
+             for a in rng for b in rng for c in rng for d in rng for e in rng for f in rng)
+    sg = (-_det4(g)) ** 0.5
+    star = [[[[0.5 * sum(sg * _lc(a, b, rr, s) * gi[rr][e] * gi[s][ff] * C[e][ff][c][d]
+                         for rr in rng for s in rng for e in rng for ff in rng)
+               for d in rng] for c in rng] for b in rng] for a in rng]
+    B = sum(Cuu[a][b][c][d] * star[a][b][c][d] for a in rng for b in rng for c in rng for d in rng)
+    starm = mix(star)
+    D3 = sum(Cm[a][b][c][d] * Cm[c][d][e][f] * starm[e][f][a][b]
+             for a in rng for b in rng for c in rng for d in rng for e in rng for f in rng)
+    return complex(A, -B) / 16.0, complex(C3, -D3) / 96.0
+
+
 def petrov_type_numeric(Psi, floor=1e-7, rel=1e-5):
     """Petrov type from the |Ψ|-pattern (numeric) in an adapted tetrad. A Weyl scalar
     counts as NON-zero only if it clears BOTH an ABSOLUTE noise floor (finite-difference

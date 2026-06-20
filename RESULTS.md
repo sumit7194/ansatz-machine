@@ -1041,6 +1041,21 @@ metric itself needs its field-equation solve (open).* This is the stress-test di
 open question rather than an overclaim — the first §82 draft asserted "deformation breaks integrability" and
 the chaos scan refuted it. Repro: `scripts/82_integrability_frontier.py`.
 
+## §83 — tetrad-free Weyl invariants I, J: the fingerprint's algebraic type, coordinate-free
+*Closes the §76 caveat (the complex Weyl invariants were computed only in the canonical −f,1/f tetrad, so the
+"coordinate-free oracle" lost its TYPE sector in any other chart).* Now I, J are pure Weyl-tensor contractions:
+`I=(A−iB)/16, J=(C₃−iD₃)/96` — A=C_abcd C^abcd, B=C_abcd *C^abcd (magnetic/Pontryagin), C₃ the cubic, D₃ its
+dual — the constants **calibrated** against the Newman–Penrose I,J on Schwarzschild (real) and Kerr (complex,
+to ~7 digits). **(A)** tetrad-free I,J reproduce the NP (tetrad) I,J on the zoo (Schwarzschild 3M²/r⁶ & M³/r⁹,
+RN, de Sitter 0) — two independent routes agree to the symbol. **(B)** TYPE is coordinate-invariant:
+Schwarzschild's I,J in standard vs ISOTROPIC coords agree at the mapped point. **(C)** the speciality I³−27J²=0
+is a chart-free detector (type-D vs type-O de Sitter). **(D)** OFF-DIAGONAL capstone: Kerr (Boyer–Lindquist)
+via the numeric tetrad-free route gives I=3Ψ₂², J=−Ψ₂³ and I³=27J² (type D) with NO tetrad — |I³−27J²|/|I³|≈4e-14.
+**(E) Honest limit (stress-test):** I,J give SPECIALITY + magnitude, not the full Petrov type — a type-N vacuum
+pp-wave has I=J=0 (and Weyl-square 0) yet Weyl≠0, indistinguishable from type O by polynomial invariants;
+{II|D} and {III|N|O} still need the adapted tetrad (§80). That incompleteness is inherent to scalar invariants,
+not a coordinate artifact. Repro: `scripts/83_tetradfree_type.py`.
+
 **Where the niche stands (own literature sweep, 2026-06-16).** Path 1 (automate
 the physical-vs-gauge / SPSM criterion) is closed: xCPS (arXiv:2606.05204, open
 source) already automates covariant phase space, Noether charges, and Wald
