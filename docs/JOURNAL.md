@@ -6,6 +6,26 @@ built, what broke, what the machine taught us. Numbers live in
 
 ---
 
+## 2026-06-20 — ITEM 3 PROBED HONESTLY: the integrability frontier (§82)
+- Took a real run at ROADMAP item 3 (rotating modified-gravity BHs). The full prize — solving a modified
+  theory's O(a²) field equations — is a 2D PDE, genuinely research-scale; I did NOT fake it. Instead I
+  attacked item 3's scientific CORE with tonight's verified tools (§78 Killing-tensor verifier + §79 chaos
+  lens): deform Kerr by an l=2 quadrupole bump ε(3cos²θ−1)/r³ on g_tt, ask if integrability survives.
+- This is a clean example of the stress-test discipline WORKING. First draft asserted a tidy headline:
+  "the quadrupole deformation breaks the Carter constant at O(a²ε)." TWO things were wrong, both caught:
+  (1) the "a²ε scaling" was me misreading the FIRST component the residual function returned — the numeric
+  check showed the static (a=0) case gives a large residual too, so the scaling claim was false;
+  (2) more importantly, the chaos scan REFUTED "deformation ⇒ chaos": across 32 deformed orbits (ε≤0.6,
+  r∈[4,8], inclinations 0.05–1.0) NOT ONE shows chaos — λ sits at the regular ~0.01 floor, same as Kerr.
+- The honest result (what §82 now asserts, all verified): (A) Kerr's Carter tensor is Killing (§78);
+  (B) the *literal* Kerr Carter tensor stops closing for the deformed metric (residual≠0, symbolic+numeric);
+  (C) YET no detectable chaos (the lens DOES see chaos when present — di-hole λ≈2.09 — so this is a real null);
+  (D) therefore integrability's fate is UNDETERMINED — a different Killing tensor may survive, or chaos hides
+  below detection. The naive "deform ⇒ chaos" guess FAILS. Deciding needs a Killing-tensor PDE search or
+  Poincaré sections; the modified-gravity metric itself needs its field-equation solve (still open).
+- Lesson reinforced: a green battery must assert only what's verified. The robust outcome of a hard frontier
+  can be an honest "undetermined + here's what it'd take," not a forced clean claim.
+
 ## 2026-06-20 — V8 ROADMAP BUILD: precise QNM oracle (§77) [item 1, highest leverage]
 
 - User: "work on these tonight, not for later" — building the bridge-driven v8 roadmap. Item 1 (highest

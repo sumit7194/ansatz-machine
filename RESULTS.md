@@ -1026,6 +1026,21 @@ NONE for de Sitter & Minkowski (no hallucinated singularities). **(D)** `horizon
 report positive T,S (the §64 |f′| fix handles the inner/Cauchy horizon where f′<0), with the smaller horizon
 hotter. Repro: `scripts/81_analyzer_audit.py`.
 
+## §82 — the integrability frontier: deform Kerr, does its integrability survive? (honest probe of ROADMAP item 3)
+*Item 3 (rotating modified-gravity BHs) is the genuine research frontier — solving a modified theory's O(a²)
+field equations is a 2D PDE, still open. This does NOT fake that solve; it attacks item 3's scientific CORE
+with the new tools (§78 Killing-tensor + §79 chaos lens): deform Kerr by an l=2 quadrupole bump and ask if
+integrability survives.* **(A)** Kerr (ε=0): the Carter tensor is Killing (∇₍ₐK_bc₎≡0, §78) — integrable.
+**(B)** deformed (ε≠0): the *literal* Kerr Carter tensor STOPS closing — residual ≠ 0 (symbolic + numeric).
+**(C)** YET no detectable chaos: across 32 deformed orbits (ε≤0.6, r∈[4,8], inclinations 0.05–1.0) every
+Lyapunov exponent sits at the regular ~0.01 floor — and the lens DOES see chaos when present (di-hole λ≈2.09,
+§79), so this is a real null, not insensitivity. **(D) Honest:** the naive "deform ⇒ chaos" guess FAILS; the
+deformed metric's integrability is UNDETERMINED — a *different* Killing tensor may survive, or chaos hides
+below detection. *Deciding it needs a Killing-tensor PDE search or Poincaré sections; the modified-gravity
+metric itself needs its field-equation solve (open).* This is the stress-test discipline producing an honest
+open question rather than an overclaim — the first §82 draft asserted "deformation breaks integrability" and
+the chaos scan refuted it. Repro: `scripts/82_integrability_frontier.py`.
+
 **Where the niche stands (own literature sweep, 2026-06-16).** Path 1 (automate
 the physical-vs-gauge / SPSM criterion) is closed: xCPS (arXiv:2606.05204, open
 source) already automates covariant phase space, Noether charges, and Wald

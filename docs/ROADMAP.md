@@ -42,12 +42,24 @@ uses for the field equations). That makes the discover→verify pipeline's certi
 a **proof, not a measurement** — a real upgrade to the most novel capability. [§58
 Killing, §69 Killing–Yano; the numeric verification is honest but not a theorem]
 
-### 3. Full-spin (or O(a²)) rotating modified-gravity black holes
+### 3. Full-spin (or O(a²)) rotating modified-gravity black holes  ◀ ⚠ PROBED, full PDE OPEN (2026-06-20, §82)
 The rotating-EdGB being O(a) slow-rotation is what blocked the genuine "discover an
 unknown invariant" frontier (Move D's pivot): at O(a) the Carter analog trivially
 survives. Pushing to **O(a²)** makes the integrability question non-trivial (oblateness
 enters); **full-spin** is the real prize but hard (the 2D PDE the EdGB doc flags). [see
 EDGB.md / ROTATING.md; ties the Killing-tensor frontier to modified gravity]
+
+**Honest probe (§82, NOT the full solve):** rather than solve a modified theory's O(a²)
+field equations (the genuine 2D PDE — still open), we attacked item 3's *scientific core*
+with the new tools: deform Kerr by an l=2 quadrupole bump and ask if integrability
+survives (§78 Killing-tensor + §79 chaos lens). Result — and the stress-test is what
+surfaced it: the *literal* Kerr Carter tensor stops closing (residual ≠ 0), YET geodesics
+show NO detectable chaos across a broad orbit scan (λ at the regular floor; the lens DOES
+see chaos when present, cf di-hole λ≈2.09). So the naive "deform ⇒ chaos" guess fails;
+the deformed metric's integrability is UNDETERMINED — a *different* Killing tensor may
+survive, or chaos hides below detection. **Still open:** (a) the actual modified-gravity
+O(a²) metric (the 2D-PDE solve); (b) a general Killing-tensor PDE search to decide
+integrability of the deformed metric; (c) orbit-resolved Poincaré sections for weak chaos.
 
 ### 4. A first-class geodesic integrator + a chaos lens (SALI/Lyapunov)  ◀ ✅ DONE (2026-06-20, §79)
 **Built:** `scripts/geodesic_chaos.py` — `trajectory(g,x0,u0)` (RK4) + `lyapunov(g,x0,u0)`
