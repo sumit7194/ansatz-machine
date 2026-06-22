@@ -233,8 +233,13 @@ classification (the SPSM integrability/first-law criterion) is not implemented
 and is the only thing that would make the meter a genuine methods contribution
 rather than a coarse automation. Steer AWAY from hand-discovering new
 primary/secondary hair (the crowded 2024–25 Beyond-Horndeski / Proca-GB /
-Lovelock-Proca race). The exact-metric DISCOVERY loop (the original engine)
-remains the genuinely-unclaimed territory per all searches.
+Lovelock-Proca race). The exact-metric DISCOVERY loop (the original engine) is plausibly
+unclaimed as a METHOD (GP/symbolic-regression aimed at the Einstein
+equations; genre precedent Oh et al. 2023, which recovered analytic ODE
+solutions) — but since our solutions are REDISCOVERIES, it is a capability
+demo, not a novelty pillar. (Caveat added 2026-06-23: "per all searches"
+proved over-confident — a proper search overturned the rotating-EdGB
+"unclaimed gap" claim; treat all such novelty claims as provisional.)
 
 **D26 — The build phase is complete; the contribution is the glass-box
 discover-AND-prove engine spanning vacuum→matter. Stop adding source rungs.**

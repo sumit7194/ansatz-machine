@@ -335,10 +335,15 @@ With x ≡ 1 − r_h/r and H ≡ ω·r³/(2J):
 Horizon-regular and → 2J/r³ (Lense–Thirring) as p→0, both by
 construction. Max relative deviation (exterior to 50 r_h): training
 p ∈ [0.1, 0.6]: **0.1321%**; p=0.7 holdout: 0.1551%; **fresh sealed
-p=0.75 holdout, scored once on the frozen winner: 0.1730%**. No
-closed-form slow-rotating EdGB profile existed in the literature — this
-gap is closed, with accuracy finer than the static result (0.2751%)
-at a sixth of the parameter count.
+p=0.75 holdout, scored once on the frozen winner: 0.1730%**. *Honest
+framing (prior-art CORRECTED 2026-06-23 — the earlier "no closed form
+existed / gap closed" wording was wrong):* closed-form rotating EdGB
+profiles DO exist — Ayzenberg–Yunes (arXiv:1405.2133, quadratic in spin),
+Maselli et al. (arXiv:1507.00680, 5th order spin), and a 2025 spectral
+analytic fit incl. scalar-Gauss-Bonnet (arXiv:2510.05208). The narrow
+contribution here is a COMPACT 4-number fit — accuracy finer than the
+static result (0.2751%) at a sixth of the parameter count — i.e.
+compactness/simplicity, NOT a filled gap.
 
 **Disclosure (criteria-integrity):** the first committed version
 selected the winner BY holdout error across the printed grid (and the

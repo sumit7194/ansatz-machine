@@ -55,9 +55,19 @@ structure; verified against literature by the research pass).
   Ω_H is an output, never a boundary condition; coupling normalization
   Kanti α′e^φ/8 vs PC/Maselli (α/4)e^φ — factor-of-2 risk, validate
   against the GR-limit structure first.
-- **The gap (confirmed)**: no KKZ-style closed-form fit and no
-  AI/symbolic-regression work exists for rotating or slow-rotating
-  EdGB. R2's prize is unclaimed territory.
+- **Prior art — CORRECTED 2026-06-23** (the earlier "unclaimed gap"
+  wording was WRONG; a proper search overturns it): closed-form
+  slow/high-order rotating EdGB profiles DO exist — Ayzenberg–Yunes
+  (arXiv:1405.2133, quadratic in spin, closed-form g_tφ), Maselli et al.
+  (arXiv:1507.00680, 5th order in spin / 7th in coupling), and a 2025
+  spectral analytic fit for rotating beyond-Einstein BHs incl.
+  scalar-Gauss-Bonnet (arXiv:2510.05208 — the KKZ-spirit move, valid to
+  arbitrary spin, errors <1e-8). So R2 is NOT a closed gap. The honest,
+  narrow contribution: a COMPACT 4-number universal fit to the
+  frame-dragging profile — sell ONLY compactness/simplicity, never
+  novelty of the closed form. AI/symbolic-regression applied to this
+  specific fit may still be unclaimed, but that's a method note, not a
+  physics gap.
 
 ## R0 amendment (honest, 2026-06-12)
 
@@ -179,6 +189,9 @@ construction (a_i ∝ p). Scoreboard (max relative deviation, exterior to
 50 r_h): training p ∈ [0.1, 0.6]: 0.1321%; p=0.7 holdout: 0.1551%
 (consumed — reported, not load-bearing); **p=0.75 fresh sealed holdout:
 0.1730%** — true extrapolation past both the training family and the
-original holdout. The gap stands closed: no closed-form slow-rotating
-EdGB frame-dragging profile existed in the literature. Truth tables:
+original holdout. **Honest framing (prior-art corrected 2026-06-23):**
+closed-form rotating EdGB profiles DO exist (Ayzenberg–Yunes
+quadratic-in-spin; Maselli 5th-order; arXiv:2510.05208 spectral fit incl.
+sGB) — this is NOT a filled gap. The narrow contribution is a COMPACT
+4-number fit (compactness/simplicity only). Truth tables:
 `rot_truth_holdout.json`, `rot_truth_holdout2.json`.

@@ -117,14 +117,20 @@ breadth, Pro for depth); PySR ([Cranmer](https://arxiv.org/abs/2305.01582))
 dispenses with language models entirely and still discovers equations. The real
 cost of this project is our time, not tokens.
 
-**Is this niche actually open?** Searched hard (June 2026): no published work has
-used an AI/GA/LLM loop to find a genuinely **new exact metric**. The closest
-precedent — and proof the genre works — is a March 2026 neuro-symbolic paper
-(Gemini Deep Think + tree search + numeric feedback) that found novel exact
-analytic solutions for cosmic-string gravitational radiation integrals
-([arXiv:2603.04735](https://arxiv.org/abs/2603.04735)). Exact GR-adjacent results
-from a propose-verify pipeline — but a radiation integral, not a metric. The
-metric-hunting version of this idea appears to be unclaimed territory.
+**Is this niche actually open?** Searched hard (June 2026; prior-art re-audited
+2026-06-23): no published work has used an AI/GA/LLM loop to find a genuinely
+**new exact metric**. The closest precedent — and proof the genre works — is a
+March 2026 neuro-symbolic paper (Gemini Deep Think + tree search + numeric
+feedback) that found novel exact analytic solutions for cosmic-string
+gravitational radiation integrals
+([arXiv:2603.04735](https://arxiv.org/abs/2603.04735)); the genre of GP recovering
+*analytic* (not just numeric) solutions to differential equations is also
+established (Oh et al. 2023). Exact GR-adjacent results from a propose-verify
+pipeline — but a radiation integral, not a metric. The metric-hunting *method*
+appears unclaimed — **but our actual solutions are rediscoveries, so this is a
+capability demo, not a novelty pillar.** (And a 2026-06-23 re-audit overturned our
+separate "rotating-EdGB gap" claim — closed-form rotating EdGB does exist; treat
+all novelty claims here as provisional until re-searched.)
 
 ---
 

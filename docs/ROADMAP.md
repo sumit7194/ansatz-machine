@@ -118,9 +118,10 @@ high-ladder hunt over 8+1..12+1 now runs on the VM instead, tmux
 
 - **(a) The write-up.** v1→v5 is a coherent story: verifier →
   rediscovery → catalog growth → static EdGB universal (0.2751%
-  sealed) → rotating EdGB universal (0.1730% fresh-sealed, 4 numbers,
-  unclaimed territory). Genre precedent: KKZ, PRD 96, 064004.
-  Unclaimed territory rewards speed.
+  sealed) → rotating EdGB universal (0.1730% fresh-sealed, 4 numbers —
+  a COMPACT fit, NOT an open gap: closed-form rotating EdGB exists
+  (Ayzenberg–Yunes, Maselli, arXiv:2510.05208); sell compactness only,
+  prior-art corrected 2026-06-23). Genre precedent: KKZ, PRD 96, 064004.
 - **(b) More physics.** Second order in spin / full 2D rotating EdGB
   (the PDE wall), or a new theory through the same pipeline —
   dynamical Chern–Simons is mostly a REDUCE swap. Harvest the VM
@@ -195,8 +196,11 @@ on backgrounds at training `p ∈ [0.1,0.6]`; build the **SEALED p=0.7
 holdout BEFORE any fitting** (v5's real honesty test — do not peek).
 Fit closed-form `w(r;p)` via GN + continuation (15–18 machinery); target
 a few tenths of a percent sealed; must be horizon-regular and → 2J/r³ as
-p→0. Gap confirmed: no KKZ-style closed form exists for slow-rotating
-EdGB — unclaimed territory.
+p→0. **Prior-art corrected (2026-06-23):** closed-form rotating EdGB DOES
+exist (Ayzenberg–Yunes quadratic-in-spin arXiv:1405.2133; Maselli
+5th-order arXiv:1507.00680; arXiv:2510.05208 spectral fit incl. sGB).
+Frame the target as a COMPACT 4-number fit (KKZ-spirit, compactness
+only) — NOT an open gap.
 
 ### Operational quick-reference
 
