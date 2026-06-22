@@ -6,6 +6,28 @@ built, what broke, what the machine taught us. Numbers live in
 
 ---
 
+## 2026-06-23 — POINCARÉ SECTIONS: sharper integrability lens (§84); + prior-art correction
+- Resumed item-3 (integrability frontier). Built `scripts/poincare.py` — a native Poincaré surface-of-section
+  tool via the Hamiltonian 2-DOF reduction (E, L conserved; analytic inverse metric, lambdified). The reduced
+  H is conserved to ~1e-14 — the integrator is essentially exact. This is the SHARPER companion to
+  `geodesic_chaos.lyapunov`: Lyapunov averages weak chaos away; a Poincaré section SEES it (torus = closed
+  curve, box-dim≈1; chaos = filled area, box-dim→2). Box-counting discriminator VALIDATED on Hénon–Heiles
+  (regular 0.95, chaotic 1.34).
+- Battery §84: (A) discriminator validated; (B) Kerr → clean torus (0.68), H-drift 8e-16 → integrable;
+  (C) the §82 quadrupole-deformed Kerr → REGULAR where bound orbits survive; where the deformation is strong
+  (eccentric orbit to pericenter ~3, 30–70% bump) the orbit is DESTROYED (unbound), NOT chaotic. Across every
+  orbit sampled: regular-or-destroyed, NO bounded chaotic sea found.
+- The numerical reality that shaped this: a 1/r³ quadrupole is negligible at far orbits (~0.03% at r~8 — so
+  "deformed Kerr regular there" is near-trivial) and DESTROYS bound orbits when cranked strong (no clean
+  bounded-chaotic regime exists for it). I caught the "negligible at the orbit" issue myself mid-run — the
+  honest correction. So §84 is a SHARPER null than §82 (Poincaré > Lyapunov), but still evidence, not proof.
+- The decisive step left on the proxy is the symbolic Killing-tensor SEARCH (does a DIFFERENT Carter-like
+  tensor close for the deformed metric?). The dynamical evidence now favors "integrability preserved."
+- Also (2026-06-23): a prior-art re-audit (another session) OVERTURNED our rotating-EdGB "no closed form /
+  unclaimed gap" claim — closed-form rotating EdGB exists (Ayzenberg–Yunes, Maselli, arXiv:2510.05208).
+  Corrected the wording across 5 docs to "compact 4-number fit, compactness only." Memory updated: search each
+  claim separately by exact wording; "unclaimed territory" in our docs is now provisional. See DECISIONS/README.
+
 ## 2026-06-20 — ROADMAP #2 DONE: tetrad-free Weyl invariants — coordinate-free type (§83)
 - Closed the §76 caveat properly. §76's "coordinate-free oracle" computed the complex Weyl invariants I, J
   only in the canonical −f,1/f tetrad, so it lost the TYPE sector in any other chart. Now I, J are pure

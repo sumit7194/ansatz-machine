@@ -59,7 +59,20 @@ see chaos when present, cf di-hole λ≈2.09). So the naive "deform ⇒ chaos" g
 the deformed metric's integrability is UNDETERMINED — a *different* Killing tensor may
 survive, or chaos hides below detection. **Still open:** (a) the actual modified-gravity
 O(a²) metric (the 2D-PDE solve); (b) a general Killing-tensor PDE search to decide
-integrability of the deformed metric; (c) orbit-resolved Poincaré sections for weak chaos.
+integrability of the deformed metric.
+
+**Poincaré follow-up (§84, 2026-06-23) — item (c) DONE, and it sharpens the verdict:**
+built `scripts/poincare.py` (Hamiltonian 2-DOF reduction, H conserved to ~1e-14) and the
+box-counting integrability diagnostic, VALIDATED on Hénon–Heiles (regular 0.95 vs chaotic
+1.34). Kerr → clean torus (0.68). The §82 deformed Kerr: REGULAR wherever bound orbits
+survive; where the deformation is strong (eccentric orbit to pericenter ~3, 30–70% bump)
+the orbit is DESTROYED (unbound), NOT chaotic. Across every orbit sampled: regular-or-
+destroyed, **no bounded chaotic sea found** — a sharper null than §82's Lyapunov (evidence,
+not proof). So the dynamical side now strongly favors "integrability preserved." **The one
+decisive step left on the proxy:** the symbolic Killing-tensor SEARCH (item b) — does a
+*different* (non-Kerr) Carter-like tensor close for the deformed metric? If yes → the
+deformation preserves integrability (a real result); if no → the regularity is weak-chaos
+/ KAM. Plus the real modified-gravity metric (item a, the 2D PDE) remains the frontier.
 
 ### 4. A first-class geodesic integrator + a chaos lens (SALI/Lyapunov)  ◀ ✅ DONE (2026-06-20, §79)
 **Built:** `scripts/geodesic_chaos.py` — `trajectory(g,x0,u0)` (RK4) + `lyapunov(g,x0,u0)`

@@ -1061,6 +1061,23 @@ pp-wave has I=J=0 (and Weyl-square 0) yet Weyl≠0, indistinguishable from type 
 {II|D} and {III|N|O} still need the adapted tetrad (§80). That incompleteness is inherent to scalar invariants,
 not a coordinate artifact. Repro: `scripts/83_tetradfree_type.py`.
 
+## §84 — Poincaré sections: a sharper integrability lens (sharpens the §82 puzzle)
+*§82 used the largest-Lyapunov exponent (which averages weak chaos away) and got "no chaos — undetermined."
+The Poincaré surface-of-section is sharper: an orbit on an invariant torus pierces the section in a closed
+1-D curve (box-counting dim ≈ 1 → REGULAR); a chaotic orbit fills a 2-D area (dim → 2).* New native tool
+`scripts/poincare.py` — analytic-inverse-metric Hamiltonian reduction (E, L conserved → 2-DOF), reduced H
+conserved to ~1e-14 (the integrator is essentially exact). **(A)** the box-dim discriminator is VALIDATED on
+Hénon–Heiles (textbook 2-DOF chaos): regular orbit (E=1/12) → 0.95, chaotic (E=1/6) → 1.34 — clean
+separation. **(B)** KERR is integrable: a bound geodesic lies on a clean torus (box-dim 0.68), H-drift 8e-16.
+**(C)** the §82 quadrupole-deformed Kerr: where bound orbits survive it stays REGULAR (clean torus); where the
+deformation is made strong (eccentric orbit diving to pericenter ~3, 30–70% bump) the orbit is DESTROYED
+(plunges/escapes), NOT turned chaotic. **(D) Honest finding:** across every orbit sampled the pattern is
+**regular-or-destroyed — no bounded chaotic sea found** (extensive sampling, not a universal proof). So the
+Poincaré lens sharpens §82's null on the DYNAMICAL side — no chaos in any sampled orbit — which Lyapunov could
+not resolve; *evidence, not proof of integrability.* WHY the deformation preserves regularity (a surviving
+hidden symmetry vs weak chaos) is the symbolic Killing-tensor question (§82 showed the literal Kerr Carter
+tensor fails — a DIFFERENT one may survive). Repro: `scripts/84_poincare_integrability.py`.
+
 **Where the niche stands (own literature sweep, 2026-06-16).** Path 1 (automate
 the physical-vs-gauge / SPSM criterion) is closed: xCPS (arXiv:2606.05204, open
 source) already automates covariant phase space, Noether charges, and Wald
