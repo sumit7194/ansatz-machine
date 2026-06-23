@@ -88,6 +88,22 @@ Carter; a quartic Killing tensor isn't excluded.* **Still the open frontier (ite
 actual modified-gravity O(a²) metric (the 2D-PDE solve) — that's the genuine research prize,
 untouched. The PROXY question ("does deforming Kerr break its hidden symmetry?") is answered: yes.
 
+**EYES-OPEN SWING at item (a), 2026-06-24 — confirmed the wall, did NOT break it.** Refined
+plan: build a CONSISTENT (vacuum-solution) quadrupole-deformed BH and integrability-test it
+with §85 (improving on §85's phenomenological bump). Tried to DERIVE the linearized static
+l=2 vacuum perturbation of Schwarzschild (the Zipoy–Voorhees / bumpy-BH class) — and it
+SWAMPED: the symbolic Ricci of the general (r,θ) ansatz took 2.5h and was still grinding at
+3h52m (`_quadrupole_deriv.py`, killed). So even the LINEARIZED STATIC case is symbolically
+intractable in this engine — item-3's wall is confirmed real and is the (r,θ)-metric SymPy
+blow-up. The tractable path is fully NUMERICAL (Weyl-formalism metric as g(x) floats +
+numeric vacuum check + §85's detector) — dedicated multi-session infrastructure, not a
+session win; OR reliable literature transcription (the ZV closed form failed my own γ=1
+sanity check, so it would be guessing — not done, per north-star). **Bottom line:** the
+SCIENCE of item-3's core is already answered at achievable rigor by §85 (quadrupole
+deviation ⇒ no Carter ⇒ modified-gravity rotating BHs generically non-integrable); the
+remaining gap is *constructing the exact metric*, which needs the numerical infrastructure
+build. Banked here honestly: we know the answer and we know exactly where the engine's wall is.
+
 ### 4. A first-class geodesic integrator + a chaos lens (SALI/Lyapunov)  ◀ ✅ DONE (2026-06-20, §79)
 **Built:** `scripts/geodesic_chaos.py` — `trajectory(g,x0,u0)` (RK4) + `lyapunov(g,x0,u0)`
 (largest exponent via renormalized nearby orbits), pure Python (no numpy, stays in the
