@@ -6,6 +6,21 @@ built, what broke, what the machine taught us. Numbers live in
 
 ---
 
+## 2026-06-24 — NEW CAMPAIGN: observational signatures ("what would we see?"); §86 rotating face
+- After banking item-3 (the eyes-open swing confirmed the symbolic wall — `_quadrupole_deriv.py` swamped, 2.5h
+  Ricci), stepped back and picked a new direction that LEANS INTO the engine's numerical strength and avoids
+  the (r,θ)-symbolic wall: the observational lens — given any black hole, what does a telescope measure?
+- Surveyed: the engine already has scattered observational pieces — §45/analyzer.observables (static photon
+  sphere, shadow, ISCO, eikonal QNM), §68 (Kerr shadow edges), §56/§77 (QNM), §49/§67 (lensing), §50/§51
+  (precession/redshift). The campaign's value is UNIFYING + filling gaps.
+- §86 fills the two real rotating gaps: (A) the Kerr ISCO (Bardeen–Press–Teukolsky) — a=0→6M, extremal→1M
+  prograde (horizon) / 9M retrograde, monotone; (B) the FULL shadow silhouette (α,β) — the actual EHT image
+  curve, not just §68's edges: a→0 circle (area exactly 27π), a>0 displaced/flattened D-shape (centroid 0→+1.12,
+  area shrinks). (C) spin is written in BOTH the ISCO (X-ray) and the shadow (EHT). Cross-validated: edges
+  (|2|,|7|)M match §68's independent computation; ISCO hits 6/1/9; circle area = 27π. All closed-form exact.
+- One tolerance fix caught: prograde ISCO → 1M only in the singular a→1 limit (1.016M at a=0.999999), not at
+  finite spin — loosened the check. Next: a unified observe()/atlas tying static + rotating across the zoo.
+
 ## 2026-06-23 — ITEM-3 PROXY RESOLVED: no Carter constant under deformation (§85)
 - Cracked the decisive symbolic step NUMERICALLY after the full-symbolic route swamped (7.5h at 98% CPU, no
   output — the classic SymPy blow-up; killed it, recorded the dead end in `_killing_search.py`). User caught

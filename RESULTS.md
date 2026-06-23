@@ -1099,6 +1099,18 @@ excluded, but no quadratic Carter exists.* Two false positives were caught getti
 and this basis identity) — the stress-test discipline earning its keep. Optional dep numpy (SVD; skips like
 §77's qnm). Repro: `scripts/85_no_carter_under_deformation.py`.
 
+## §86 — the spinning black hole's observational face: ISCO + the full EHT silhouette
+*First battery of the OBSERVATIONAL campaign ("what would a telescope actually see?"). §45/analyzer give the
+STATIC face (photon sphere, shadow, ISCO, eikonal QNM); §68 gives Kerr's shadow EDGES. This adds the two real
+gaps for a SPINNING hole.* **(A)** the **Kerr ISCO** (Bardeen–Press–Teukolsky) — the accretion-disk inner edge
+read from X-ray spectra: a=0 → 6M (both branches); extremal → 1M prograde (the horizon!) / 9M retrograde;
+prograde monotone-inward with spin (6M→1.18M). **(B)** the full **shadow silhouette** (α,β) — the actual EHT
+image curve, not just its edges: a→0 is a circle of radius 3√3M (area exactly 27π M² = 84.82), a>0 is
+DISPLACED and flattened on the prograde side (centroid α: 0→+1.12 at a=0.9; area shrinks to 79.6) — the D-shape
+the EHT resolves. **(C)** the discrimination: spin is written *twice over* — in the ISCO (X-ray) AND the shadow
+shape (EHT), two independent handles on the same a; the extremal shadow edges (|2|,|7|)M cross-check §68's
+independently-computed values. All closed-form, exact. Repro: `scripts/86_kerr_observables.py`.
+
 **Where the niche stands (own literature sweep, 2026-06-16).** Path 1 (automate
 the physical-vs-gauge / SPSM criterion) is closed: xCPS (arXiv:2606.05204, open
 source) already automates covariant phase space, Noether charges, and Wald
