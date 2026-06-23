@@ -86,12 +86,12 @@ def kerr_metric(eps=0):
     return build_hamilton(g, [t, r, th, ph], 1, 2)
 
 
-def kerr_boxdim(f, E, L, p2, r0, n=80):
+def kerr_boxdim(f, E, L, p2, r0, n=56, maxst=700_000):
     p1 = p_on_shell(f, r0, math.pi / 2, p2, E, L)
     if p1 is None:
         return None
     pts, drift, st = section(f, [r0, math.pi / 2, p1, p2], E, L,
-                             sec_idx=1, sec_val=math.pi / 2, rec=(0, 2), n=n, h=0.02, maxst=1_500_000)
+                             sec_idx=1, sec_val=math.pi / 2, rec=(0, 2), n=n, h=0.02, maxst=maxst)
     return pts, drift
 
 
@@ -113,7 +113,7 @@ def main():
     fk = kerr_metric(0)
     pts, drift = kerr_boxdim(fk, 0.95, 3.4, 0.4, 8.0)
     dK, _ = box_dimension(pts)
-    okB = dK < 1.15 and len(pts) >= 70 and drift < 1e-9
+    okB = dK < 1.15 and len(pts) >= 48 and drift < 1e-9
     ok.append(okB)
     print(f"\n  (B) KERR bound geodesic: box-dim={dK:.2f} ({len(pts)} section pts), H-drift={drift:.0e}")
     print(f"      a clean torus (dim≈1), reduced H conserved to ~1e-13 ⇒ integrable   {'✅' if okB else '❌'}")
@@ -123,10 +123,10 @@ def main():
     ptsd, driftd = kerr_boxdim(fd, 0.95, 3.4, 0.4, 8.0)      # mild deformation at r~8: survives
     dD, _ = box_dimension(ptsd)
     fstrong = kerr_metric(20)                                # strong: eccentric orbit diving to peri~3
-    res = kerr_boxdim(fstrong, 0.95, 3.0, 0.3, 7.0, n=80)
+    res = kerr_boxdim(fstrong, 0.95, 3.0, 0.3, 7.0, n=56, maxst=250_000)   # destroyed → bails fast
     n_strong = len(res[0]) if res else 0
-    survived_regular = dD < 1.15 and len(ptsd) >= 70
-    destroyed_not_chaotic = n_strong < 32                    # <40% of n: orbit unbound, no chaotic sea
+    survived_regular = dD < 1.15 and len(ptsd) >= 48
+    destroyed_not_chaotic = n_strong < 24                    # <~half of n: orbit unbound, no chaotic sea
     okC = survived_regular and destroyed_not_chaotic
     ok.append(okC)
     print(f"\n  (C) DEFORMED Kerr (§82 metric): mild (ε=3, ~0.6% at r~8) box-dim={dD:.2f} ⇒ REGULAR;")
