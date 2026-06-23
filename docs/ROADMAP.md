@@ -42,7 +42,7 @@ uses for the field equations). That makes the discover→verify pipeline's certi
 a **proof, not a measurement** — a real upgrade to the most novel capability. [§58
 Killing, §69 Killing–Yano; the numeric verification is honest but not a theorem]
 
-### 3. Full-spin (or O(a²)) rotating modified-gravity black holes  ◀ ⚠ PROBED, full PDE OPEN (2026-06-20, §82)
+### 3. Full-spin (or O(a²)) rotating modified-gravity black holes  ◀ ✅ PROXY RESOLVED (§85), full PDE still open
 The rotating-EdGB being O(a) slow-rotation is what blocked the genuine "discover an
 unknown invariant" frontier (Move D's pivot): at O(a) the Carter analog trivially
 survives. Pushing to **O(a²)** makes the integrability question non-trivial (oblateness
@@ -73,6 +73,20 @@ decisive step left on the proxy:** the symbolic Killing-tensor SEARCH (item b) �
 *different* (non-Kerr) Carter-like tensor close for the deformed metric? If yes → the
 deformation preserves integrability (a real result); if no → the regularity is weak-chaos
 / KAM. Plus the real modified-gravity metric (item a, the 2D PDE) remains the frontier.
+
+**RESOLUTION (§85, 2026-06-23) — item (b) DONE numerically, PROXY CLOSED.** The symbolic
+Killing-tensor search swamped (7.5h, no output — `_killing_search.py`), so it was done
+NUMERICALLY (`_qinvariant.py`): fit a conserved quadratic C=Σc_k φ_k by requiring it
+constant along many orbits, via SVD null space. VALIDATION: recovers Kerr's Carter
+constant cleanly (smallest SV 5.6e-14, matches p_θ²+L²cot²θ+a²(1−E²)cos²θ to the digit).
+RESULT: the deformed Kerr has **NO conserved quadratic** — smallest SV 3e-3→1.6e-2 GROWING
+with ε, no gap (11 orders above Kerr's). So the deformation **breaks integrability** (no
+Carter), and with §84 (regular tori) the picture is **near-integrable / KAM** — regular
+orbits, no hidden symmetry. Two false positives were caught en route (the §82 "a²ε
+scaling"; a u⁴/om basis identity) — stress-testing earned its keep. *Caveat: no quadratic
+Carter; a quartic Killing tensor isn't excluded.* **Still the open frontier (item a):** the
+actual modified-gravity O(a²) metric (the 2D-PDE solve) — that's the genuine research prize,
+untouched. The PROXY question ("does deforming Kerr break its hidden symmetry?") is answered: yes.
 
 ### 4. A first-class geodesic integrator + a chaos lens (SALI/Lyapunov)  ◀ ✅ DONE (2026-06-20, §79)
 **Built:** `scripts/geodesic_chaos.py` — `trajectory(g,x0,u0)` (RK4) + `lyapunov(g,x0,u0)`

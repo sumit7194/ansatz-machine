@@ -6,6 +6,27 @@ built, what broke, what the machine taught us. Numbers live in
 
 ---
 
+## 2026-06-23 — ITEM-3 PROXY RESOLVED: no Carter constant under deformation (§85)
+- Cracked the decisive symbolic step NUMERICALLY after the full-symbolic route swamped (7.5h at 98% CPU, no
+  output — the classic SymPy blow-up; killed it, recorded the dead end in `_killing_search.py`). User caught
+  the 7h run on the dashboard ("its running from 7 hours") — right call.
+- Method (`_qinvariant.py`): a conserved quadratic C=Σc_k φ_k(r,θ,p_r,p_θ) is constant along every geodesic;
+  sample many orbits at fixed E,L (varied inclination → varied Carter value), mean-subtract per orbit, SVD —
+  a genuine invariant is a right-singular vector with a machine-ZERO singular value, far below the rest.
+- TWO false positives caught by stress-testing (this is the whole point):
+  (1) with few orbits, near-zero SVs are DIMENSIONAL artifacts (5 orbits × 2-tori = 10 dims < 13 basis) — fixed
+      by flooding with orbits (2N >> basis);
+  (2) the extracted "invariant" was +1·u²/om −1·u⁴/om −1·u² which ≡ 0 since om=1−u² — a BASIS IDENTITY, a false
+      machine-zero SV. Fixed by removing u⁴/om + an explicit linear-independence check on random points.
+- RESULT (stress-tested, clean): VALIDATION — the fit recovers Kerr's Carter constant exactly (smallest SV
+  5.6e-14, gap 3.6e10, recovered C = p_θ²+11.56·cot²θ+0.035·cos²θ = Carter to the digit). DEFORMED Kerr — NO
+  machine-zero SV: smallest 3e-3 (ε=2) → 5.7e-3 (ε=5) → 1.6e-2 (ε=10), GROWING with ε, no gap, 11 orders above
+  Kerr's. So the deformed metric has no conserved quadratic ⇒ NON-integrable. With §84 (regular tori): the
+  deformation breaks integrability KAM-gently ⇒ near-integrable, no hidden symmetry. Resolves §82's
+  "undetermined"; refutes "a different Killing tensor survives." Caveat: no quadratic Carter; a quartic Killing
+  tensor isn't excluded. Battery §85 (numpy optional, skips like §77). The full modified-gravity 2D-PDE (the
+  real metric) remains the open frontier; the PROXY question is answered.
+
 ## 2026-06-23 — POINCARÉ SECTIONS: sharper integrability lens (§84); + prior-art correction
 - Resumed item-3 (integrability frontier). Built `scripts/poincare.py` — a native Poincaré surface-of-section
   tool via the Hamiltonian 2-DOF reduction (E, L conserved; analytic inverse metric, lambdified). The reduced

@@ -5,3 +5,9 @@ sympy>=1.14
 # has no closed form), so this pulls numpy/scipy/numba. The 64-battery pure-SymPy
 # core never imports it; battery 77 fail-soft skips if it's absent. See DECISIONS.md D27.
 # qnm>=0.4
+
+# OPTIONAL — the numerical conserved-quantity search only (battery 85, scripts/_qinvariant.py).
+# An SVD over many sampled orbits decides whether a Carter-like invariant exists; that
+# linear algebra wants numpy. The pure-SymPy core never imports it; battery 85 fail-soft
+# skips if it's absent (the symbolic route swamped — see _killing_search.py).
+# numpy>=1.24

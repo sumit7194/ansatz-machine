@@ -1078,6 +1078,27 @@ not resolve; *evidence, not proof of integrability.* WHY the deformation preserv
 hidden symmetry vs weak chaos) is the symbolic Killing-tensor question (§82 showed the literal Kerr Carter
 tensor fails — a DIFFERENT one may survive). Repro: `scripts/84_poincare_integrability.py`.
 
+## §85 — no Carter constant under deformation: the symbolic frontier, cracked numerically
+*The decisive RESOLUTION of item-3's proxy. §82 left "a DIFFERENT Killing tensor may survive" open; the
+symbolic Killing-tensor search to settle it SWAMPED (7.5h, no output — `_killing_search.py`). Cracked it
+numerically instead.* Method (`_qinvariant.py`): a conserved quantity quadratic in momenta C=Σc_k φ_k is
+constant along every geodesic; sample many orbits at fixed E,L (varied inclination → varied Carter value),
+mean-subtract per orbit, SVD — a genuine invariant is a right-singular vector with a machine-ZERO singular
+value, far below the rest. **(A)** the basis is checked linearly INDEPENDENT first (an earlier u⁴/om term hid
+the identity u²/om−u⁴/om−u²≡0, a FALSE machine-zero SV — the stress-test catch that motivated the whole
+battery). **(B) Validation — Kerr:** the fit recovers the Carter constant cleanly — smallest SV **5.6e-14**,
+gap 3.6e10, and the recovered vector = p_θ² + 11.56·cot²θ + 0.035·cos²θ matches Carter (L²=11.56,
+a²(1−E²)=0.035) to the digit. **(C) Deformed Kerr (§82 metric):** NO machine-zero SV — smallest sits at
+3.1e-3 (ε=2) → 5.7e-3 (ε=5) → 1.6e-2 (ε=10), GROWING with ε, no gap. *No Carter-like conserved quantity
+survives ⇒ the deformed metric is NON-integrable.* **(D) Synthesis:** the fit recovers Carter for Kerr (11
+orders below the deformed) and finds none for the deformed metric — genuine discrimination, not artifact. With
+§84 (regular Poincaré tori): **the deformation breaks integrability but KAM-gently — near-integrable, no hidden
+symmetry.** This resolves §82's "undetermined" and refutes "a different Killing tensor survives." *Honest
+caveat: "no conserved QUADRATIC in a Carter-rich basis" — a higher-order (quartic) Killing tensor isn't
+excluded, but no quadratic Carter exists.* Two false positives were caught getting here (the §82 "a²ε scaling"
+and this basis identity) — the stress-test discipline earning its keep. Optional dep numpy (SVD; skips like
+§77's qnm). Repro: `scripts/85_no_carter_under_deformation.py`.
+
 **Where the niche stands (own literature sweep, 2026-06-16).** Path 1 (automate
 the physical-vs-gauge / SPSM criterion) is closed: xCPS (arXiv:2606.05204, open
 source) already automates covariant phase space, Noether charges, and Wald
