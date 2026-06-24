@@ -64,6 +64,15 @@ built, what broke, what the machine taught us. Numbers live in
   T_peak ∝ r_ISCO^(−3/4): smaller ISCO (higher spin) ⇒ hotter ⇒ harder X-ray (1×→3.6×). (C) the chain spin→
   ISCO→{efficiency,temperature}→thermal continuum IS the continuum-fitting method (Cygnus X-1, GRS 1915).
   Campaign now §86–§92 (8 batteries). All textbook physics, computed from the metric.
+- §93 = WEIGHING THE SPIN THREE WAYS (campaign capstone, ties §86–§92): a null test of the Kerr hypothesis.
+  Assume Kerr, infer the spin from each of the shadow / ISCO / ringdown, check agreement. (A) true Kerr a=0.70
+  → all three give 0.700 (spread 2e-4, consistent). (B) the BLIND SPOT (honest): Kerr–Newman (a=0.6,Q=0.5) →
+  all infer a≈0.72 (charge mimics spin CONSISTENTLY) — the test doesn't flag it; passing ≠ proving Kerr.
+  (C) the SIGNAL: the §85 near-horizon bump shifts the ISCO more than the photon-ring observables (§88's
+  complementary sensitivity) → the three DISAGREE, spread grows with ε (0→0.034, ISCO disagrees most) ⇒ failing
+  proves non-Kerr. Stress-test caught: KN was supposed to be my "inconsistency" example but it's Kerr-DEGENERATE
+  (consistent) — turned that into the honest (B) blind-spot result, and used the near-horizon deformation as the
+  real (C) signal. Campaign now §86–§93 (9 batteries).
 
 ## 2026-06-23 — ITEM-3 PROXY RESOLVED: no Carter constant under deformation (§85)
 - Cracked the decisive symbolic step NUMERICALLY after the full-symbolic route swamped (7.5h at 98% CPU, no

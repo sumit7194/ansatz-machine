@@ -1185,6 +1185,19 @@ hotter, a=0→extremal). **(C)** the chain spin → ISCO → {efficiency, temper
 exactly the **continuum-fitting** method used to measure stellar-mass BH spins (Cygnus X-1, GRS 1915). The
 engine runs the whole chain from the metric. Repro: `scripts/92_accretion_engine.py`.
 
+## §93 — weighing the spin three ways: the consistency null-test of the Kerr hypothesis
+*The campaign's capstone (ties §86–§92).* A spin can be read three independent ways — the EHT shadow, the
+X-ray ISCO, the LIGO ringdown — and for a TRUE Kerr hole they must all agree. So: assume Kerr, infer the spin
+from each observable, check for agreement; disagreement is a model-independent signature of non-Kerr (a null
+test of no-hair). **(A) Consistency:** true Kerr a=0.70 → all three infer 0.700 (spread 0.0002) — passes, as it
+must. **(B) The blind spot (honest limit):** Kerr–Newman (a=0.6,Q=0.5) → all three infer a≈0.72 (spread 0.002):
+charge mimics spin *consistently*, so the test does NOT flag it — a charged hole is observationally degenerate
+with a slightly faster Kerr, and *passing the test does not prove Kerr*. **(C) The signal:** a near-horizon
+deformation (§85 bump) shifts the ISCO more than the photon-ring observables (shadow, ringdown) — §88's
+complementary sensitivity — so the three inferred spins *disagree*, and the spread GROWS with the deformation
+(0 → 0.034, ISCO disagreeing most). The inconsistency IS the detection: *failing the test proves non-Kerr.*
+Repro: `scripts/93_weigh_spin_three_ways.py`.
+
 **Where the niche stands (own literature sweep, 2026-06-16).** Path 1 (automate
 the physical-vs-gauge / SPSM criterion) is closed: xCPS (arXiv:2606.05204, open
 source) already automates covariant phase space, Noether charges, and Wald
