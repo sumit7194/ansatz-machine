@@ -1150,6 +1150,19 @@ read by two utterly different observations* (an image and a gravitational wave) 
 correspondence made concrete and cross-checked. *(Stress-test: the first (C) was the tautology γΩ_c/π≡ω_I/(n+½)
 — true by construction; replaced with the independent-Leaver cross-check.)* Repro: `scripts/89_photon_subrings.py`.
 
+## §90 — black hole or imposter? A shadow proves a photon sphere, not a horizon
+*The campaign's sharpest caution.* The EHT "saw a shadow," but a shadow is cast by a photon sphere, which does
+NOT require a horizon — so the image alone can't prove a black hole. **(A)** the **Ellis wormhole**
+ds²=−dt²+dr²+(r²+b₀²)dΩ² has a photon sphere at the throat (r=0) and a shadow of radius b₀ — no horizon, no
+singularity; tuned to b₀=3√3 M its shadow is **identical in size to Schwarzschild** (b_c=5.196), so the EHT
+couldn't tell them apart by shadow. **(B)** the **over-spinning Kerr** (a>M, naked singularity, no horizon):
+its prograde equatorial light ring genuinely **vanishes for a>1** (the closed form 2M{1+cos[⅔arccos(−a)]} is
+undefined; confirmed numerically with a wide search; at a=1 it sits marginally on the horizon) — a horizonless
+object need not even cast a normal shadow. **(C)** so what *proves* a black hole? Not the shadow — it takes the
+other messengers: the ISCO + disk (§86/§87), the ringdown AND the **absence of late-time echoes** a reflecting
+surface would make (§88/§89), the horizon's pure absorption. *The shadow is necessary, not sufficient — the
+multi-messenger program (§86–§90) is the real test.* Repro: `scripts/90_black_hole_or_imposter.py`.
+
 **Where the niche stands (own literature sweep, 2026-06-16).** Path 1 (automate
 the physical-vs-gauge / SPSM criterion) is closed: xCPS (arXiv:2606.05204, open
 source) already automates covariant phase space, Noether charges, and Wald

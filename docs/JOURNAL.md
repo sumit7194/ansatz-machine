@@ -44,6 +44,14 @@ built, what broke, what the machine taught us. Numbers live in
   (C) test (γΩ_c/π == ω_I/(n+½)) was a TAUTOLOGY (both built from the same λ → λ==λ); replaced with the
   INDEPENDENT cross-check (ω_I vs precise Leaver §77, ~5–8% eikonal; γ anchored at π) so the correspondence is
   genuinely demonstrated, not a code identity. Added subring_gamma/subring_demag to observe_rotating's ringdown.
+- §90 = BLACK HOLE OR IMPOSTER? — the campaign's sharpest caution: a shadow proves a PHOTON SPHERE, not a
+  HORIZON. (A) the Ellis wormhole (no horizon, no singularity) casts a shadow of radius b₀; tuned b₀=3√3 it's
+  IDENTICAL in size to Schwarzschild (5.196) — EHT can't tell them apart by shadow. (B) over-spinning Kerr
+  (a>1, naked singularity) has NO prograde light ring (closed form undefined for a>1, confirmed numerically) —
+  a horizonless object need not even cast a normal shadow. (C) so what proves a BH? Not the shadow — need the
+  ISCO/disk, the ringdown + ABSENCE of echoes a surface makes, the horizon's absorption: the multi-messenger
+  program is the real test. Stress-test caught: a=1.0's "no light ring" was a search-range artifact (the ring
+  is at r=1=horizon) — tightened the claim to the rigorous a>1 case. The observational campaign is now §86–§90.
 
 ## 2026-06-23 — ITEM-3 PROXY RESOLVED: no Carter constant under deformation (§85)
 - Cracked the decisive symbolic step NUMERICALLY after the full-symbolic route swamped (7.5h at 98% CPU, no
