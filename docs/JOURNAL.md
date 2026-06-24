@@ -58,6 +58,12 @@ built, what broke, what the machine taught us. Numbers live in
   quantitative: a=0.9 face-on (0.037) is MORE circular than a=0.3 edge-on (0.116) ⇒ a round shadow does NOT
   imply low spin; M87* (~17°, near face-on) → 0.121, consistent with its near-circular ring; the shape alone
   can't fix spin (need brightness asymmetry). Honest caveat made quantitative. Campaign now §86–§91 (7 batteries).
+- §92 = THE ACCRETION ENGINE (the X-ray messenger made concrete — how spin is actually measured):
+  (A) radiative efficiency η=1−E_ISCO: Schwarzschild 5.72% (=1−√(8/9)), rising to ~38% at a=0.9999 (→42.3%
+  extremal) — most efficient steady engine known (fusion 0.7%); computed from our ISCO + _energy. (B) disk
+  T_peak ∝ r_ISCO^(−3/4): smaller ISCO (higher spin) ⇒ hotter ⇒ harder X-ray (1×→3.6×). (C) the chain spin→
+  ISCO→{efficiency,temperature}→thermal continuum IS the continuum-fitting method (Cygnus X-1, GRS 1915).
+  Campaign now §86–§92 (8 batteries). All textbook physics, computed from the metric.
 
 ## 2026-06-23 — ITEM-3 PROXY RESOLVED: no Carter constant under deformation (§85)
 - Cracked the decisive symbolic step NUMERICALLY after the full-symbolic route swamped (7.5h at 98% CPU, no

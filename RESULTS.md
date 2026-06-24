@@ -1174,6 +1174,17 @@ spin**. M87* (~17°, near face-on) → asymmetry 0.121, consistent with its obse
 alone can't fix the spin (you need the brightness asymmetry / other messengers). An honest caveat the engine
 makes quantitative. Repro: `scripts/91_shadow_inclination.py`.
 
+## §92 — the accretion engine: radiative efficiency + disk heat → the X-ray spin scale
+*HOW spin is actually measured.* A thin disk radiates the binding energy released as matter spirals to the
+ISCO. **(A)** the **radiative efficiency** η = 1 − E_ISCO: Schwarzschild E_ISCO=√(8/9) ⇒ **η=5.72%**; prograde
+spin shrinks the ISCO and deepens the binding so η climbs to ~38% at a=0.9999 (→ 1−1/√3 = **42.3%** at
+extremal) — the most efficient steady engine known (nuclear fusion is 0.7%; accretion is 8–60× more, powering
+quasars/AGN). All from our ISCO + orbital-energy machinery. **(B)** the **disk temperature**: thin-disk scaling
+T_peak ∝ r_ISCO^(−3/4), so a smaller ISCO (higher spin) ⇒ hotter inner disk ⇒ **harder X-ray spectrum** (1×→3.6×
+hotter, a=0→extremal). **(C)** the chain spin → ISCO → {efficiency, temperature} → thermal X-ray continuum is
+exactly the **continuum-fitting** method used to measure stellar-mass BH spins (Cygnus X-1, GRS 1915). The
+engine runs the whole chain from the metric. Repro: `scripts/92_accretion_engine.py`.
+
 **Where the niche stands (own literature sweep, 2026-06-16).** Path 1 (automate
 the physical-vs-gauge / SPSM criterion) is closed: xCPS (arXiv:2606.05204, open
 source) already automates covariant phase space, Noether charges, and Wald
