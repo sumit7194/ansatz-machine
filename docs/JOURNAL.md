@@ -27,6 +27,16 @@ built, what broke, what the machine taught us. Numbers live in
   + ISCO (Δ≈0.55, charge tightens the light); §85's deformed Kerr shifts photon ring (Δ≈0.34) + ISCO (Δ≈1.3).
   ⇒ an EHT shadow + an X-ray ISCO would distinguish these from Kerr — the "is it exactly Kerr?" test, run by
   the engine. This is the observational lens working as a GENERAL tool (the standing "widen" steer).
+- §88 = the THREE MESSENGERS (campaign capstone): added the eikonal RINGDOWN to observe_rotating (LIGO's QNM
+  from the photon ring, ω=ℓΩ_c−i(n+½)|λ|, Cardoso correspondence) — validated vs precise Leaver (§77) to
+  eikonal accuracy (~1.5–5.5% on ω_R, correct spin trend). So from one metric: shadow (EHT) + ISCO (X-ray) +
+  ringdown (LIGO). DISCRIMINATION with COMPLEMENTARY sensitivity — and the stress-test made it honest:
+  (1) cranking the §85 bump to ε=5 gave a shadow-b shift of 68.768M — GARBAGE: the photon ring fell inside the
+  ergosphere (r<2) where b=L/E diverges. Guarded to a physical range + used ε=1. (2) At ε=1 the deformed
+  ringdown shifts only 0.009 (vs shadow 0.067, ISCO 0.242) — NOT a failure but PHYSICS: the 1/r³ bump is
+  near-horizon, so the disk-edge observables feel it but the photon-ring ringdown barely does. Reframed (C) to
+  that complementary-sensitivity finding (different messengers probe different radii) — a better, truer claim
+  than the original "all three move." Kerr–Newman (global) moves all three.
 
 ## 2026-06-23 — ITEM-3 PROXY RESOLVED: no Carter constant under deformation (§85)
 - Cracked the decisive symbolic step NUMERICALLY after the full-symbolic route swamped (7.5h at 98% CPU, no

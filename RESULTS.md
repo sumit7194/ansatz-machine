@@ -1122,6 +1122,21 @@ spin: Kerr–Newman (Q=0.5) shrinks the shadow (Δb≈0.35) and ISCO (Δ≈0.55)
 observables off Kerr. So **an EHT shadow + an X-ray ISCO would distinguish these from Kerr** — the
 observational "is the black hole exactly Kerr?" test, run by the engine. Repro: `scripts/87_observe_any_rotating.py`.
 
+## §88 — the three messengers: shadow (EHT) + ISCO (X-ray) + ringdown (LIGO) from one metric
+*The observational campaign's capstone.* From a single rotating metric the engine predicts what all three of
+today's black-hole telescopes measure: the EHT **shadow** (b), the X-ray **ISCO**, and the LIGO **ringdown** —
+the last NEW as a general tool (eikonal QNM from the photon ring, ω=ℓΩ_c−i(n+½)|λ|, Cardoso correspondence).
+**(A)** the eikonal ringdown validates against the precise Leaver spectrum (§77) to eikonal accuracy:
+ω_R within ~1.5–5.5% for ℓ=2 (Schwarzschild 0.385 vs 0.374; Kerr a=0.6 0.521 vs 0.494), with the correct spin
+trend (ω_R↑ with a). **(B)** all three read off one Kerr a=0.6 metric: b=3.84M, ISCO=3.83M, ω=0.521−0.091i.
+**(C)** multi-messenger discrimination with **complementary sensitivity**: Kerr–Newman (a global change) shifts
+all three (Δb,ΔISCO,Δω_R = 0.35,0.55,0.05); the §85 near-horizon bump (∝1/r³) shifts the disk-edge observables
+(shadow Δ0.067, ISCO Δ0.242) but barely the photon-ring ringdown (Δ0.009) — *because the three messengers
+probe different radii*. So a joint EHT+X-ray+LIGO measurement both sharpens the "is it Kerr?" test AND
+localizes where any deviation lives. *(Stress-test caught: cranking the bump to ε=5 pushes the photon ring
+inside the ergosphere where b=L/E diverges — guarded to a physical range; the honest ε=1 result is the
+complementary-sensitivity finding.)* Repro: `scripts/88_three_messengers.py`.
+
 **Where the niche stands (own literature sweep, 2026-06-16).** Path 1 (automate
 the physical-vs-gauge / SPSM criterion) is closed: xCPS (arXiv:2606.05204, open
 source) already automates covariant phase space, Noether charges, and Wald
