@@ -78,6 +78,7 @@ NAMES+=("04 campaign");           CMDS+=("scripts/04_campaign.py")
 [ -f scripts/84_poincare_integrability.py ] && { NAMES+=("84 Poincaré integrability lens (Kerr tori; deformation regular-or-destroyed, no bounded chaos)"); CMDS+=("scripts/84_poincare_integrability.py"); }
 [ -f scripts/85_no_carter_under_deformation.py ] && { NAMES+=("85 no Carter under deformation (numeric: recovers Kerr Carter, deformed has none -> non-integrable)"); CMDS+=("scripts/85_no_carter_under_deformation.py"); }
 [ -f scripts/86_kerr_observables.py ] && { NAMES+=("86 Kerr observables (ISCO 6M->M/9M; full EHT shadow silhouette circle->D-shape)"); CMDS+=("scripts/86_kerr_observables.py"); }
+[ -f scripts/87_observe_any_rotating.py ] && { NAMES+=("87 observe any rotating BH (numeric photon ring/shadow/ISCO; Kerr-Newman & deformed distinct)"); CMDS+=("scripts/87_observe_any_rotating.py"); }
 
 fail=0
 GATE="$(dirname "$0")/gate.log"; : > "$GATE"   # also written here so the dashboard (reads ROOT/gate.log) stays current

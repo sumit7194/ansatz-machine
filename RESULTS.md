@@ -1111,6 +1111,17 @@ the EHT resolves. **(C)** the discrimination: spin is written *twice over* — i
 shape (EHT), two independent handles on the same a; the extremal shadow edges (|2|,|7|)M cross-check §68's
 independently-computed values. All closed-form, exact. Repro: `scripts/86_kerr_observables.py`.
 
+## §87 — observe ANY rotating black hole: numerical observables + the "is it Kerr?" test
+*§86 was Kerr-specific closed forms; this makes it GENERAL.* Given only a rotating hole's equatorial metric
+functions g_tt, g_tφ, g_φφ, the engine (`observe_rotating.py`) finds the photon ring, shadow impact parameter
+b=L/E, and ISCO numerically (finite differences) — so it works for modified-gravity / DISCOVERED holes, not
+just Kerr. **(A) Validation:** on Kerr (a=0.6) the numeric photon ring / shadow edges / ISCO reproduce the
+closed forms (§68/§86, BPT) to **<1%** (photon ring 0.00%, ISCO 0.01–0.70%). **(B) Discrimination** at the same
+spin: Kerr–Newman (Q=0.5) shrinks the shadow (Δb≈0.35) and ISCO (Δ≈0.55) — charge tightens the light; the
+§82/§85 quadrupole-deformed Kerr shifts the photon ring (Δ≈0.34) and ISCO (Δ≈1.3) — the modification moves the
+observables off Kerr. So **an EHT shadow + an X-ray ISCO would distinguish these from Kerr** — the
+observational "is the black hole exactly Kerr?" test, run by the engine. Repro: `scripts/87_observe_any_rotating.py`.
+
 **Where the niche stands (own literature sweep, 2026-06-16).** Path 1 (automate
 the physical-vs-gauge / SPSM criterion) is closed: xCPS (arXiv:2606.05204, open
 source) already automates covariant phase space, Noether charges, and Wald

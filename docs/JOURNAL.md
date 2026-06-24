@@ -19,7 +19,14 @@ built, what broke, what the machine taught us. Numbers live in
   area shrinks). (C) spin is written in BOTH the ISCO (X-ray) and the shadow (EHT). Cross-validated: edges
   (|2|,|7|)M match §68's independent computation; ISCO hits 6/1/9; circle area = 27π. All closed-form exact.
 - One tolerance fix caught: prograde ISCO → 1M only in the singular a→1 limit (1.016M at a=0.999999), not at
-  finite spin — loosened the check. Next: a unified observe()/atlas tying static + rotating across the zoo.
+  finite spin — loosened the check.
+- §87 = the GENERAL version (the campaign's real power): `observe_rotating.py` computes the photon ring,
+  shadow b=L/E, and ISCO NUMERICALLY from any rotating hole's equatorial g_tt,g_tφ,g_φφ (+ finite-diff
+  derivatives) — so it works for modified/discovered holes, not just Kerr. Validated on Kerr to <1% (photon
+  ring 0.00%, ISCO 0.01–0.70% vs the closed forms). DISCRIMINATION: Kerr–Newman (Q=0.5) shrinks shadow (Δb≈0.35)
+  + ISCO (Δ≈0.55, charge tightens the light); §85's deformed Kerr shifts photon ring (Δ≈0.34) + ISCO (Δ≈1.3).
+  ⇒ an EHT shadow + an X-ray ISCO would distinguish these from Kerr — the "is it exactly Kerr?" test, run by
+  the engine. This is the observational lens working as a GENERAL tool (the standing "widen" steer).
 
 ## 2026-06-23 — ITEM-3 PROXY RESOLVED: no Carter constant under deformation (§85)
 - Cracked the decisive symbolic step NUMERICALLY after the full-symbolic route swamped (7.5h at 98% CPU, no
