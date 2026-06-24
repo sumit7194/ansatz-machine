@@ -37,6 +37,13 @@ built, what broke, what the machine taught us. Numbers live in
   near-horizon, so the disk-edge observables feel it but the photon-ring ringdown barely does. Reframed (C) to
   that complementary-sensitivity finding (different messengers probe different radii) — a better, truer claim
   than the original "all three move." Kerr–Newman (global) moves all three.
+- §89 = the PHOTON SUBRINGS (one instability, two telescopes): the n-th photon subring is demagnified by e^{−γ},
+  γ=π·λ/Ω_c. (A) Schwarzschild γ=π EXACTLY (demag ~23×). (B) γ falls with spin (23×→2× at a→0.99 — fast holes'
+  subrings are resolvable); Kerr–Newman shifts it. (C) THE DEEP LINK: the same photon-ring λ sets BOTH the EHT
+  subring γ AND the LIGO ringdown damping ω_I — one instability, two observations. Stress-test caught: my first
+  (C) test (γΩ_c/π == ω_I/(n+½)) was a TAUTOLOGY (both built from the same λ → λ==λ); replaced with the
+  INDEPENDENT cross-check (ω_I vs precise Leaver §77, ~5–8% eikonal; γ anchored at π) so the correspondence is
+  genuinely demonstrated, not a code identity. Added subring_gamma/subring_demag to observe_rotating's ringdown.
 
 ## 2026-06-23 — ITEM-3 PROXY RESOLVED: no Carter constant under deformation (§85)
 - Cracked the decisive symbolic step NUMERICALLY after the full-symbolic route swamped (7.5h at 98% CPU, no

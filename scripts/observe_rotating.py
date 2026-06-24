@@ -82,7 +82,9 @@ def _eikonal_ringdown(gtt, gtp, gpp, grr, rph, b, ell=2, n=0):
         return -(gpp(r) + 2 * gtp(r) * b + gtt(r) * b * b) / (grr(r) * Dlow(r))
     tdot = -(gpp(rph) + gtp(rph) * b) / Dlow(rph)
     lam = math.sqrt(abs(_d2(R, rph)) / (2 * tdot * tdot))
-    return {"omega_R": ell * om, "omega_I": (n + 0.5) * lam, "Omega_c": om, "lyapunov": lam}
+    gamma = math.pi * lam / om                      # photon-subring demag exponent (Schwarzschild: π)
+    return {"omega_R": ell * om, "omega_I": (n + 0.5) * lam, "Omega_c": om, "lyapunov": lam,
+            "subring_gamma": gamma, "subring_demag": math.exp(-gamma)}
 
 
 def equatorial_observables(gtt, gtp, gpp, grr=None, rmin=1.02, rmax=15.0):

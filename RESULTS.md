@@ -1137,6 +1137,19 @@ localizes where any deviation lives. *(Stress-test caught: cranking the bump to 
 inside the ergosphere where b=L/E diverges — guarded to a physical range; the honest ε=1 result is the
 complementary-sensitivity finding.)* Repro: `scripts/88_three_messengers.py`.
 
+## §89 — the photon subrings: one instability, two telescopes
+Light that loops the hole n times forms nested **photon subrings** converging on the shadow edge — the EHT /
+next-gen-BHEX interferometric signature. Each is demagnified by e^{−γ} with γ = π·λ/Ω_c the photon-ring
+instability exponent. **(A)** the universal anchor: **Schwarzschild γ = π exactly** — each subring e^{−π}≈0.043
+(~23×) fainter than the last. **(B)** spin dependence (corotating): γ **decreases** with spin (23×→2× demag at
+a→0.99) — a fast hole's subrings are nearly equally bright, far easier to resolve; Kerr–Newman shifts γ too
+(1.91 vs Kerr 2.19 at a=0.6). **(C) the deep link, made non-trivial:** the SAME photon-ring λ sets BOTH the EHT
+subring γ AND the LIGO ringdown damping ω_I — and ω_I independently matches the precise **Leaver** spectrum
+(§77) to ~5–8% (eikonal), while γ is independently anchored at π. So *one orbital instability of one light ring,
+read by two utterly different observations* (an image and a gravitational wave) — the Cardoso/Johnson
+correspondence made concrete and cross-checked. *(Stress-test: the first (C) was the tautology γΩ_c/π≡ω_I/(n+½)
+— true by construction; replaced with the independent-Leaver cross-check.)* Repro: `scripts/89_photon_subrings.py`.
+
 **Where the niche stands (own literature sweep, 2026-06-16).** Path 1 (automate
 the physical-vs-gauge / SPSM criterion) is closed: xCPS (arXiv:2606.05204, open
 source) already automates covariant phase space, Noether charges, and Wald
