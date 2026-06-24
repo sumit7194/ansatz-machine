@@ -1163,6 +1163,17 @@ other messengers: the ISCO + disk (§86/§87), the ringdown AND the **absence of
 surface would make (§88/§89), the horizon's pure absorption. *The shadow is necessary, not sufficient — the
 multi-messenger program (§86–§90) is the real test.* Repro: `scripts/90_black_hole_or_imposter.py`.
 
+## §91 — the EHT image's tilt: the shadow shape depends on how the hole faces us
+§86 drew the EDGE-ON shadow; the real silhouette depends on the observer inclination θ_obs (Bardeen:
+α=−ξ/sinθ_obs, β=±√(η+a²cos²θ_obs−ξ²cot²θ_obs)). **(A)** the shadow **asymmetry** (centroid displacement /
+radius) scales monotonically with tilt: Kerr a=0.9 goes 0.38 (edge-on, most D-shaped) → 0.04 (face-on,
+circular). **(B)** limits: edge-on reproduces §86's displaced silhouette; face-on (0.5°) → asymmetry 0.002
+(a circle). **(C)** the **spin–inclination degeneracy**, made quantitative: a=0.9 seen nearly face-on (5°,
+asymmetry 0.037) is *more circular* than a=0.3 edge-on (0.116) — so **a near-circular shadow does NOT imply low
+spin**. M87* (~17°, near face-on) → asymmetry 0.121, consistent with its observed near-circular ring; the shape
+alone can't fix the spin (you need the brightness asymmetry / other messengers). An honest caveat the engine
+makes quantitative. Repro: `scripts/91_shadow_inclination.py`.
+
 **Where the niche stands (own literature sweep, 2026-06-16).** Path 1 (automate
 the physical-vs-gauge / SPSM criterion) is closed: xCPS (arXiv:2606.05204, open
 source) already automates covariant phase space, Noether charges, and Wald

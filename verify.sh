@@ -82,6 +82,7 @@ NAMES+=("04 campaign");           CMDS+=("scripts/04_campaign.py")
 [ -f scripts/88_three_messengers.py ] && { NAMES+=("88 three messengers (shadow EHT + ISCO X-ray + ringdown LIGO; complementary discrimination)"); CMDS+=("scripts/88_three_messengers.py"); }
 [ -f scripts/89_photon_subrings.py ] && { NAMES+=("89 photon subrings (Schwarzschild gamma=pi; same lambda in EHT subrings & LIGO ringdown)"); CMDS+=("scripts/89_photon_subrings.py"); }
 [ -f scripts/90_black_hole_or_imposter.py ] && { NAMES+=("90 black hole or imposter (wormhole fakes shadow; naked singularity breaks it; shadow != horizon)"); CMDS+=("scripts/90_black_hole_or_imposter.py"); }
+[ -f scripts/91_shadow_inclination.py ] && { NAMES+=("91 shadow inclination (asymmetry scales with tilt; face-on->circular; spin-inclination degeneracy)"); CMDS+=("scripts/91_shadow_inclination.py"); }
 
 fail=0
 GATE="$(dirname "$0")/gate.log"; : > "$GATE"   # also written here so the dashboard (reads ROOT/gate.log) stays current

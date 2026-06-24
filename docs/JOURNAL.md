@@ -52,6 +52,12 @@ built, what broke, what the machine taught us. Numbers live in
   ISCO/disk, the ringdown + ABSENCE of echoes a surface makes, the horizon's absorption: the multi-messenger
   program is the real test. Stress-test caught: a=1.0's "no light ring" was a search-range artifact (the ring
   is at r=1=horizon) — tightened the claim to the rigorous a>1 case. The observational campaign is now §86–§90.
+- §91 = THE EHT IMAGE'S TILT: the shadow shape depends on observer inclination θ_obs (Bardeen formulas).
+  (A) the asymmetry (centroid displacement/radius) scales with tilt — Kerr a=0.9: 0.38 edge-on → 0.04 face-on,
+  monotone. (B) edge-on = §86's D-shape; face-on → circle. (C) the SPIN–INCLINATION DEGENERACY made
+  quantitative: a=0.9 face-on (0.037) is MORE circular than a=0.3 edge-on (0.116) ⇒ a round shadow does NOT
+  imply low spin; M87* (~17°, near face-on) → 0.121, consistent with its near-circular ring; the shape alone
+  can't fix spin (need brightness asymmetry). Honest caveat made quantitative. Campaign now §86–§91 (7 batteries).
 
 ## 2026-06-23 — ITEM-3 PROXY RESOLVED: no Carter constant under deformation (§85)
 - Cracked the decisive symbolic step NUMERICALLY after the full-symbolic route swamped (7.5h at 98% CPU, no
