@@ -92,6 +92,7 @@ NAMES+=("04 campaign");           CMDS+=("scripts/04_campaign.py")
 [ -f scripts/98_quartic_killing_tensor.py ] && { NAMES+=("98 no quartic Killing tensor either (delta=1 recovers K and K^2; delta!=1 has no rank-2 or rank-4 invariant; closes 97's caveat)"); CMDS+=("scripts/98_quartic_killing_tensor.py"); }
 [ -f scripts/99_manko_novikov_integrability.py ] && { NAMES+=("99 the rotating wall: Manko-Novikov (exact rotating vacuum bumpy-Kerr; recovers Carter at q=0, none for q!=0)"); CMDS+=("scripts/99_manko_novikov_integrability.py"); }
 [ -f scripts/100_emri_resonance.py ] && { NAMES+=("100 EMRI radiation reaction (GW flux validated vs Peters + frequency map; drives inspiral in Kerr & bumpy metric; bridge B1)"); CMDS+=("scripts/100_emri_resonance.py"); }
+[ -f scripts/101_emri_carter_and_chaos.py ] && { NAMES+=("101 EMRI Carter flux dQ/dtau + lyapunov FD-roundoff fix (box-dim is the robust chaos detector; bridge follow-ups A + heads-up)"); CMDS+=("scripts/101_emri_carter_and_chaos.py"); }
 
 fail=0
 GATE="$(dirname "$0")/gate.log"; : > "$GATE"   # also written here so the dashboard (reads ROOT/gate.log) stays current

@@ -1332,6 +1332,30 @@ wants, not a precision Teukolsky waveform; and the bumpy *resonant chaos* itself
 ZV). Per §99, the bumpy resonances are exactly where integrability fails — the physics behind B1's
 resonance-crossing signature. Repro: `scripts/100_emri_resonance.py` (toolkit `scripts/emri.py`).
 
+## §101 — EMRI Carter flux + a chaos-detector roundoff fix (the bridge's follow-ups)
+The bridge **closed B1** with §100's flux (a self-consistent quasi-circular MN inspiral whose orbital
+frequency drops −5%→−13% at each ω_r:ω_θ resonance crossing), then sent back two asks and a bug report.
+All banked here, stress-tested. **(A) Ask A — the Carter flux dQ/dτ.** §100 returned only dE/dτ, dL/dτ
+(so the bridge inspiral had to stay quasi-circular, Q=0); for eccentric+inclined orbits the generic
+resonances need the third integral's rate. `emri.quadrupole_flux(..., carter=True)` now also returns
+**dQ/dτ**, built from the *same* quadrupole — the full angular-momentum-flux vector dL_i plus the leading
+Carter relation Q=L²−L_z²=L_x²+L_y². Validated: **dQ/dτ=0 for an equatorial orbit** (Q=0, to 10⁻¹⁸) and
+**<0 for an inclined one** (radiation de-inclines it). Honest kludge — omits the relativistic
+a²(1−E²)cos² piece, and for the bumpy metric Q is only an approximate third integral (§99). **(B) The bug
+(a real one in our shipped code).** `geodesic_chaos.lyapunov` false-positived chaos on bumpy metrics. We
+**reproduced it exactly**: on an MN q=0.5 orbit that is *regular* (box-dim→1.12), the old settings
+(Christoffel step ch=1e-6, separation d0=1e-8) report **λ=0.32** — pure finite-difference roundoff (~ε/ch)
+swamping the d0 separation. It's a 2-D corner artifact (needs *both* small ch *and* small d0) that collapses
+to the floor when either is increased. **Fix:** de-noised defaults (ch=1e-4, d0=1e-6) → λ=0.001. **(C) The
+robust detector:** the box-counting dimension (`poincare.box_dimension`) is immune (geometric, not a
+divergence rate) — the verdict to trust; both detectors are validated on genuine chaos elsewhere (box-dim
+on Hénon–Heiles §84=1.34, λ on the di-hole §79=2.09). **Ask B (a bound MN orbit with box-dim→2)** was *not*
+found by systematic low-L scanning (max ~1.16–1.22, regular — and a borderline orbit gave a real-but-tiny
+λ=0.05 where box-dim converged regular, exactly the disagreement that makes box-dim the verdict); MN's
+documented chaos needs the literature's specific initial data (like §97's ZV). `emri.mn_bound_orbit` is the
+launcher delivered for it. Repro: `scripts/101_emri_carter_and_chaos.py` (toolkit `scripts/emri.py`,
+de-noised `scripts/geodesic_chaos.py`).
+
 **Where the niche stands (own literature sweep, 2026-06-16).** Path 1 (automate
 the physical-vs-gauge / SPSM criterion) is closed: xCPS (arXiv:2606.05204, open
 source) already automates covariant phase space, Noether charges, and Wald

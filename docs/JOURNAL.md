@@ -1623,3 +1623,22 @@ nice-19 (alphaludo-l4, trainer untouched). Dashboards live on both hosts.
   like §97 ZV -- Kerr & MN both box-dim~1 at coarse strong-field orbits). Per §99 the bumpy resonances ARE where
   integrability fails -> the resonance-crossing signature B1 wants. Deliverable for the bridge: emri.quadrupole_flux
   + fundamental_frequencies. Battery §100 green. New files: emri.py (toolkit), 100_emri_resonance.py (battery).
+- §101 = EMRI CARTER FLUX + CHAOS-DETECTOR FIX (the bridge CLOSED B1 with §100, sent back 2 asks + 1 bug report).
+  Bridge closed B1: self-consistent quasi-circular MN inspiral through the w_r:w_theta resonance sequence, bump
+  lowers orbital freq -5%->-13% per crossing. Follow-ups: ASK A (dQ/dtau Carter flux) -- extended
+  emri.quadrupole_flux(carter=True) to also return dQ/dtau, from the SAME quadrupole (full angular-momentum-flux
+  vector dL_i + leading Carter Q=L^2-L_z^2=L_x^2+L_y^2 -> dQ=2(Lx dLx+Ly dLy)). Validated: equatorial dQ~0 (Q=0,
+  to 1e-18, by construction Lx=Ly=0) + inclined dQ<0 (de-inclines). Honest kludge (omits a^2(1-E^2)cos^2; bumpy Q
+  approximate). §100 backwards-compat (carter=False default -> pair). HEADS-UP (a REAL bug in our shipped code):
+  geodesic_chaos.lyapunov false-positives chaos on bumpy metrics -- REPRODUCED EXACTLY: MN q=0.5 REGULAR orbit
+  (box-dim 1.12) gives lambda=0.321 at the bridge's settings (Christoffel ch=1e-6, d0=1e-8); it's a 2D corner
+  artifact (needs BOTH small ch AND small d0; collapses if either grows). FIX: de-noised geodesic_chaos defaults
+  ch=1e-4, d0=1e-6 (threaded ch through _rhs/_rk4/trajectory/lyapunov) -> lambda=0.001. Verified §79/§82/§89/§95
+  all still pass with the new defaults. THE ROBUST DETECTOR: box_dimension (geometric, roundoff-immune) is the
+  verdict to trust; both detectors validated on genuine chaos elsewhere (box-dim Henon-Heiles §84=1.34, lyapunov
+  di-hole §79=2.09). ASK B (bound MN orbit box-dim->2): NOT found by systematic low-L scanning (_mn_chaos_hunt3.py,
+  q up to 1.2, max box-dim 1.16-1.22 REGULAR -- box-dim DROPS with more crossings = under-resolution; a borderline
+  orbit gave real-but-tiny d0-independent lambda=0.05 where box-dim converged regular = the exact disagreement that
+  makes box-dim the verdict). MN clean chaos elusive like §97 ZV; needs literature initial data (Lukes-Gerakopoulos
+  2010). Delivered emri.mn_bound_orbit (the launcher). Battery §101 green. New: 101_emri_carter_and_chaos.py,
+  _mn_chaos_hunt3.py (exploratory); modified emri.py (carter + launcher), geodesic_chaos.py (de-noised).

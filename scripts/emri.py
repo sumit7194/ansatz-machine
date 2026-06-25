@@ -60,6 +60,26 @@ def fundamental_frequencies(f, E, L, x0, nlam=240000, h=0.02, bounds=(1.2, 200.0
     return nu_r, nu_th, nu_r / nu_th
 
 
+def mn_bound_orbit(M, a, q, E, L, x0, px=0.0):
+    """Full-geodesic initial data (position, 4-velocity) for a bound Manko-Novikov orbit launched
+    at the equatorial radial turning point x0 (the bridge's Ask B launcher) — ready for
+    geodesic_chaos.lyapunov / trajectory or a Poincare section. Returns ([t,x,y,phi],[ut,ux,uy,uphi])
+    or None if off-shell. (Use a de-noised lyapunov — ch>=1e-4, d0>=1e-6 — or box_dimension, which is
+    immune to the finite-difference roundoff; see §101.)"""
+    from manko_novikov import manko_novikov
+    gg = manko_novikov(M, a, q)([0.0, x0, 0.0, 0.0])
+    gtt, gtp, gpp = gg[0][0], gg[0][3], gg[3][3]
+    det = gtt * gpp - gtp * gtp
+    itt, itp, ipp = gpp / det, -gtp / det, gtt / det
+    gxx, gyy = 1.0 / gg[1][1], 1.0 / gg[2][2]
+    W = itt * E * E - 2 * itp * E * L + ipp * L * L
+    py2 = (-1 - W - gxx * px * px) / gyy
+    if py2 < 0:
+        return None
+    py = math.sqrt(py2)
+    return [0.0, x0, 0.0, 0.0], [-itt * E + itp * L, gxx * px, gyy * py, -itp * E + ipp * L]
+
+
 def _tphidot(g, x, y, E, L):
     """Coordinate-time and azimuthal rates u^t, u^phi from the (t,phi) inverse-metric block."""
     gg = g([0.0, x, y, 0.0])
@@ -69,10 +89,17 @@ def _tphidot(g, x, y, E, L):
     return -itt * E + itp * L, -itp * E + ipp * L          # u^t, u^phi  (p_t=-E, p_phi=L)
 
 
-def quadrupole_flux(M, a, q, E, L, x0, n_orb=8, h=0.02, mu=1.0):
+def quadrupole_flux(M, a, q, E, L, x0, n_orb=8, h=0.02, mu=1.0, carter=False):
     """Numerical-kludge GW flux (dE/dtau, dL/dtau, per the small mass mu) of the bound orbit with
     equatorial radial turning point x0, via the mass quadrupole evaluated on the geodesic and the
-    quadrupole formula in the frequency domain. Returns (dEdt, dLdt) or None. Needs numpy."""
+    quadrupole formula in the frequency domain. Returns (dEdt, dLdt) or None. Needs numpy.
+
+    carter=True also returns a Carter-flux dQ/dtau (-> (dEdt, dLdt, dQdt); the bridge's Ask A):
+    the FULL angular-momentum-flux vector dL_i is formed from the same quadrupole, and the
+    leading (Newtonian) Carter constant Q = L^2 - L_z^2 = L_x^2 + L_y^2 gives
+    dQ/dtau = 2(L_x dL_x/dtau + L_y dL_y/dtau). Consistent with dE,dL by construction; honest
+    kludge (it omits the relativistic a^2(1-E^2)cos^2 piece, and for the bumpy metric Q is only
+    an approximate third integral -- §99 -- so dQ is its radiation-reaction part)."""
     import numpy as np
     from manko_novikov import manko_novikov
     from _mn_invariant import build_hamilton_numeric
@@ -128,13 +155,21 @@ def quadrupole_flux(M, a, q, E, L, x0, n_orb=8, h=0.02, mu=1.0):
         wt = 2.0 if i != j else 1.0                          # off-diagonal pair counted twice
         dE += wt * inv * np.sum(wm**6 * np.abs(F)**2)        # <(d3 I_ij/dt3)^2> via Parseval
     dEdt = -(mu * mu / 5.0) * dE
-    # dL_z/dt = -(2/5) sum_c [ <d2 I_xc d3 I_yc> - <d2 I_yc d3 I_xc> ]; cross-spectrum gives w^5 Im[.]
-    Lz = 0.0
-    for c in (0, 1, 2):
-        Lz += inv * np.sum(wm**5 * np.imag(reduced(0, c) * np.conj(reduced(1, c))))
-        Lz -= inv * np.sum(wm**5 * np.imag(reduced(1, c) * np.conj(reduced(0, c))))
-    dLdt = -(2.0 * mu * mu / 5.0) * Lz
-    return dEdt, dLdt
+    # angular-momentum flux dL_i = -(2/5) eps_{ijk} sum_l <d2 I_jl d3 I_kl>; cross-spectrum -> w^5 Im[.]
+    def amf(j, k):
+        return sum(inv * np.sum(wm**5 * np.imag(reduced(j, c) * np.conj(reduced(k, c)))) for c in (0, 1, 2))
+    cc = 2.0 * mu * mu / 5.0
+    dLz = -cc * (amf(0, 1) - amf(1, 0))
+    if not carter:
+        return dEdt, dLz
+    dLx = -cc * (amf(1, 2) - amf(2, 1))
+    dLy = -cc * (amf(2, 0) - amf(0, 2))
+    # orbital angular momentum L = <X x V> (V from a finite-difference of the path)
+    Xc = [X, Y, Z]
+    V = [np.gradient(c, T / N) for c in Xc]
+    Lvec = [float(np.mean(Xc[(i + 1) % 3] * V[(i + 2) % 3] - Xc[(i + 2) % 3] * V[(i + 1) % 3])) for i in range(3)]
+    dQdt = 2.0 * (Lvec[0] * dLx + Lvec[1] * dLy)       # d(L_x^2+L_y^2)/dtau, the Newtonian Carter
+    return dEdt, dLz, dQdt
 
 
 if __name__ == "__main__":
