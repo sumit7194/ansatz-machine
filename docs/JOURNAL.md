@@ -1584,3 +1584,24 @@ nice-19 (alphaludo-l4, trainer untouched). Dashboards live on both hosts.
   is genuinely razor-thin (chaotic rho=7.518 vs regular 7.548, dr=0.03) and elusive to a 1D p_x=0 scan; killed it.
   The geometric chaos stays a cited-literature caveat; our sharp signal is the ALGEBRAIC absent-Killing-tensor
   (§97 quadratic + §98 quartic). Honest: we did not reproduce the thin chaos ourselves.
+- §99 = THE ROTATING WALL CROSSED: Manko-Novikov (user: "start the MN build now, we're just getting started").
+  The rotating analog of §97/§98, on an EXACT ROTATING vacuum solution -- crossing item-3's long-standing wall.
+  PATH (revised from EdGB, much cleaner): instead of transcribing modified-gravity O(a^2) field equations, used
+  the Manko-Novikov "bumpy Kerr" -- an EXACT stationary-axisymmetric VACUUM solution with a tunable quadrupole
+  anomaly q (q=0 = Kerr). Same ZV playbook (exact vacuum -> verify Ricci=0, no field equations). BUILD was
+  verification-driven: (1) built exact Kerr in prolate-spheroidal coords by transforming Boyer-Lindquist (reliable
+  ground truth); (2) the MN form at q=0 (a=-alpha, b=alpha) matched it to 1.2e-15 -> baseline anchored; (3) added
+  the q-deformation (a,b multipole-exponential factors + gamma' corrections, transcribed from Gair et al 2008 via
+  web -- I distrusted the fetched '-1/+1/-2' constants as garbling); (4) VINDICATED by the vacuum check: the
+  deformed FD-Ricci scales h^2 (1.7e-5->4.4e-6 as h 1e-3->5e-4, ratio 3.94), NOT a plateau -> exactly vacuum ->
+  transcription CORRECT. So the metric is a genuine exact rotating bumpy-Kerr. manko_novikov.py (metric, with the
+  Kerr ground-truth + vacuum check). INTEGRABILITY: built the reduced 2-DOF Hamiltonian NUMERICALLY (finite-diff,
+  _mn_invariant.py -- the metric's exp(Legendre) would swamp SymPy), exposing poincare.build_hamilton's dict
+  interface so §97's detector (_zv_invariant.fit/basis) runs unchanged. RESULT: q=0 recovers Kerr's Carter (SV
+  7.5e-11, gap 1.2e8 -- floor ~1e-10 not 1e-14 because the Hamiltonian is finite-differenced); q!=0 has NO
+  conserved quadratic (SV ~3e-2, 1e8x the floor, no gap). STRESS-TESTED: H conserved (q=0 4e-11, q=0.2 1e-4);
+  contrast robust across 3 (E,L) families; q=0 invariant holds OUT-OF-SAMPLE on a held-out orbit (3e-10) while
+  q!=0 has nothing. PRIOR ART cited not claimed: MN non-integrability known (Gair/Li/Mandel 2008 arXiv:0708.0628).
+  HONEST: rules out a QUADRATIC Carter (rank-2); numeric Hamiltonian noisier for deformed metric (H-drift 1e-4,
+  still 300x below the q!=0 signal). Battery §99 green, wired into verify.sh. New files: manko_novikov.py (metric),
+  _mn_invariant.py (numeric Hamiltonian + detector), _mn_chaos_hunt.py (exploratory chaos), 99_*.py (battery).

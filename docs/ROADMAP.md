@@ -42,7 +42,7 @@ uses for the field equations). That makes the discover→verify pipeline's certi
 a **proof, not a measurement** — a real upgrade to the most novel capability. [§58
 Killing, §69 Killing–Yano; the numeric verification is honest but not a theorem]
 
-### 3. Full-spin (or O(a²)) rotating modified-gravity black holes  ◀ ✅ PROXY RESOLVED (§85); WALL BROKEN for the exact static case (§97); full rotating PDE still open
+### 3. Full-spin (or O(a²)) rotating modified-gravity black holes  ◀ ✅ PROXY RESOLVED (§85); WALL CROSSED — static exact (§97/§98) AND rotating exact (§99, Manko-Novikov); only the specific modified-gravity EdGB O(a²) field-eq metric remains
 The rotating-EdGB being O(a) slow-rotation is what blocked the genuine "discover an
 unknown invariant" frontier (Move D's pivot): at O(a) the Carter analog trivially
 survives. Pushing to **O(a²)** makes the integrability question non-trivial (oblateness
@@ -126,6 +126,19 @@ invariants (K and K², proving the basis sees quartics), δ≠1 has zero. Two st
 22→76 (the §85 dimensional-null trap, caught and proven). So the deformed ZV hole has no rank-2 OR rank-4
 Killing tensor. Honest residual: rank≥6 not excluded; full non-integrability is the literature's
 all-orders proof. Detector `_zv_quartic.py`, battery §98.
+
+**§99 (2026-06-25) — THE ROTATING WALL CROSSED.** The rotating analog of §97, on an EXACT ROTATING
+vacuum solution. Instead of transcribing modified-gravity O(a²) field equations (the hard EdGB path),
+used the **Manko–Novikov** "bumpy Kerr" — an exact stationary-axisymmetric *vacuum* solution with a
+tunable quadrupole anomaly q (q=0=Kerr). Same ZV playbook: exact vacuum, verify Ricci=0 (no field
+equations). Built verification-driven (q=0 matched exact Boyer–Lindquist Kerr to 1.2e-15; the deformed
+metric's FD-Ricci scales h² ⇒ exactly vacuum ⇒ transcription correct). Integrability via a NUMERIC
+2-DOF Hamiltonian (the exp(Legendre) metric would swamp SymPy) feeding §97's detector: q=0 recovers
+Kerr's Carter (SV 7.5e-11, gap 1.2e8), q≠0 has none (SV ~3e-2). Stress-tested (robust across (E,L),
+holds out-of-sample). So a consistent rotating quadrupole-deformed black hole loses Carter — item-3's
+scientific core, now answered on an exact rotating solution. Remaining: the *specific* modified-gravity
+EdGB O(a²) metric (a different, more specialized object). Metric `manko_novikov.py`, Hamiltonian
+`_mn_invariant.py`, battery §99.
 
 ### 4. A first-class geodesic integrator + a chaos lens (SALI/Lyapunov)  ◀ ✅ DONE (2026-06-20, §79)
 **Built:** `scripts/geodesic_chaos.py` — `trajectory(g,x0,u0)` (RK4) + `lyapunov(g,x0,u0)`

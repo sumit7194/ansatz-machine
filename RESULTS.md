@@ -1288,6 +1288,29 @@ deformation. Honest scope: this closes the quadratic+quartic question; a rank≥
 non-integrability *to all orders* remains the literature's proof (Lukes-Gerakopoulos 2012, via Morales-Ramis).
 Repro: `scripts/98_quartic_killing_tensor.py` (detector `scripts/_zv_quartic.py`).
 
+## §99 — the rotating wall: Manko–Novikov, no Carter on an EXACT ROTATING vacuum
+§97/§98 settled the *static* deformed black hole. This crosses the long-standing **item-3 wall** — a *consistent,
+exact* **rotating** "bumpy Kerr". The **Manko–Novikov** metric is an exact stationary-axisymmetric *vacuum*
+solution with a tunable quadrupole anomaly q (q=0 is exactly Kerr). Its off-diagonal (x,y)-dependent curvature
+swamps SymPy (the wall), so the metric *and* the geodesic Hamiltonian are evaluated **numerically**, sidestepping
+the symbolic blow-up. **(A)** MN is *exact vacuum* for q≠0: the finite-difference Ricci **quarters as h halves**
+(1.7×10⁻⁵ → 4.4×10⁻⁶ at h=10⁻³→5×10⁻⁴, ratio 3.94) — pure h² truncation of a vacuum metric, not a plateau ⇒
+Ricci=0, a genuine rotating solution. **(B)** the q=0 limit reproduces **exact Kerr** (Boyer–Lindquist,
+transformed) to **1.2×10⁻¹⁵** — the anchor (and the guardrail that caught my ZV transcription slip; here the
+transcription was verified right). **(C) VALIDATION** — at q=0 the §97 detector recovers Kerr's Carter constant
+(smallest singular value **7.5×10⁻¹¹**, gap **1.2×10⁸**; the floor is ~10⁻¹⁰ not 10⁻¹⁴ because the reduced
+Hamiltonian is finite-differenced, not analytic). **(D)** for q≠0 there is **no** conserved quadratic — the
+smallest SV jumps to ~**3×10⁻²** (10⁸× the q=0 floor, no gap). The Carter constant does **not** survive the
+quadrupole anomaly. Stress-tested: robust across three (E,L) families, and the q=0 invariant holds **out-of-sample**
+on a held-out orbit (3×10⁻¹⁰) while q≠0 has nothing — so the contrast is physics, not overfitting. **(E)** an
+*exact rotating vacuum* black hole loses Carter under deformation — the rotating analog of §97, on a real solution,
+crossing item-3's wall numerically. Prior art cited not claimed: MN's geodesic non-integrability is established
+(Gair, Li & Mandel, *Phys. Rev. D* **77**, 024035 (2008), [arXiv:0708.0628](https://arxiv.org/abs/0708.0628);
+Lukes-Gerakopoulos et al.); the contribution is the validated numeric detector + the verified exact-rotating-vacuum
+testbed. Honest scope: rules out a conserved *quadratic* (Carter); the finite-difference Hamiltonian is noisier for
+the deformed metric (H-drift ~10⁻⁴, still 300× below the q≠0 signal). Repro:
+`scripts/99_manko_novikov_integrability.py` (metric `scripts/manko_novikov.py`, Hamiltonian `scripts/_mn_invariant.py`).
+
 **Where the niche stands (own literature sweep, 2026-06-16).** Path 1 (automate
 the physical-vs-gauge / SPSM criterion) is closed: xCPS (arXiv:2606.05204, open
 source) already automates covariant phase space, Noether charges, and Wald
