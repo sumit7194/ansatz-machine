@@ -64,16 +64,20 @@ def main():
     print("EMRI CARTER FLUX + CHAOS-DETECTOR ROUNDOFF FIX (bridge follow-ups)\n")
     ok = []
 
-    # (A) Carter flux dQ/dtau: ~0 equatorial (Q=0), <0 inclined (radiation reduces inclination)
+    # (A) Carter flux dQ/dtau: ~0 equatorial (Q=0), <0 inclined; reliable on the STRONG BUMP
+    # (a sister-project follow-up: the old kludge inflated dE 250x and flipped dQ>0 on MN q=0.2).
     r = 20.0; x0c = (r - M) / math.sqrt(M * M - A * A); E, L = kerr_circular(r)
     eq = quadrupole_flux(M, A, 0.0, E, L, x0c, n_orb=6, carter=True)
     inc = quadrupole_flux(M, A, 0.0, 0.95, 2.8, 9.0, n_orb=6, carter=True)
-    okA = eq is not None and inc is not None and abs(eq[2]) < 0.05 * abs(eq[1]) and inc[2] < 0
+    mn = quadrupole_flux(M, A, 0.2, 0.95, 2.6, 8.0, n_orb=8, carter=True)   # the bridge's failing case
+    okA = (eq and inc and mn and abs(eq[2]) < 0.05 * abs(eq[1]) and inc[2] < 0
+           and abs(mn[0]) < 5e-4 and mn[2] < 0)                              # dE physical (not inflated), dQ<0
     ok.append(okA)
-    print(f"  (A) Carter flux dQ/dtau (Ask A):")
-    print(f"        equatorial circular: (dE,dLz,dQ)=({eq[0]:.1e}, {eq[1]:.1e}, {eq[2]:.1e})  -> dQ~0 (Q=0)")
-    print(f"        inclined orbit     : (dE,dLz,dQ)=({inc[0]:.1e}, {inc[1]:.1e}, {inc[2]:.1e})  -> dQ<0 (de-inclines)")
-    print(f"      consistent with dE,dL; equatorial->0, inclined->negative   {'✅' if okA else '❌'}")
+    print(f"  (A) Carter flux dQ/dtau (Ask A) — convergence-cutoff dE + radiation-reaction dQ:")
+    print(f"        equatorial circular : (dE,dLz,dQ)=({eq[0]:.1e}, {eq[1]:.1e}, {eq[2]:.1e})  -> dQ~0 (Q=0)")
+    print(f"        inclined Kerr       : (dE,dLz,dQ)=({inc[0]:.1e}, {inc[1]:.1e}, {inc[2]:.1e})  -> dQ<0 (de-inclines)")
+    print(f"        MN q=0.2 strong bump: (dE,dLz,dQ)=({mn[0]:.1e}, {mn[1]:.1e}, {mn[2]:.1e})  -> dE physical, dQ<0")
+    print(f"      equatorial->0, inclined->negative, reliable on the bump (no 250x inflation)   {'✅' if okA else '❌'}")
 
     # (B) lyapunov FD-roundoff false-positive on a REGULAR MN orbit, and the de-noised fix
     q = 0.5; E2, L2, x02 = 0.95, 3.0, 8.0

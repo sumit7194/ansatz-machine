@@ -1642,3 +1642,19 @@ nice-19 (alphaludo-l4, trainer untouched). Dashboards live on both hosts.
   makes box-dim the verdict). MN clean chaos elusive like §97 ZV; needs literature initial data (Lukes-Gerakopoulos
   2010). Delivered emri.mn_bound_orbit (the launcher). Battery §101 green. New: 101_emri_carter_and_chaos.py,
   _mn_chaos_hunt3.py (exploratory); modified emri.py (carter + launcher), geodesic_chaos.py (de-noised).
+- §101 REFINED (bridge's 2nd round: §101 landed, B1 evolves (E,L,Q) on Kerr, but the dQ kludge degraded on the
+  strong bump). Concrete failing case (MN q=0.2, E=0.95, L=2.6, x0=8.0) had TWO bugs, both reproduced + fixed:
+  (i) dE INFLATED 250x (-1.6e-2 vs Kerr -6.7e-5). Diagnosed via the SPECTRUM: the orbit sits at nu_r:nu_theta~2:3
+  resonance; its GW power peaks at 6.6*Omega_phi (a high harmonic, 100x the fundamental) which the w^6 weighting
+  amplifies. Verified it's a non-convergent spurious tail (dE GROWS with the freq cutoff: -9e-5@3Om -> -1.6e-2@40Om,
+  while Kerr PLATEAUS). Not the integrator (h-independent, RK4-phase-independent) -- the near-resonant trajectory
+  itself. FIX: CONVERGENCE-PLATEAU cutoff (stop where cumulative dE plateaus, <8% growth) -> keeps real eccentric
+  harmonics, rejects the spurious tail. MN -> -9.0e-5 (physical, ~Kerr); Kerr unchanged; §100 Peters 0.81-0.95
+  preserved. (ii) dQ>0 UNPHYSICAL (de-inclining orbit must give dQ<0). Root cause: the Newtonian-Carter formula
+  2(Lx dLx+Ly dLy) with L=<XxV> -> the precessing orbital-plane averages Lx,Ly to ~0, so dQ->0 with a spurious
+  sign (the bridge's 'L-vector noise-prone' instinct, deeper). FIX: RADIATION-REACTION (Burke-Thorne) force
+  a^i=-(2/5)(d5 I_ij/dt5)X^j (5th deriv spectral, cut), Q=Lx^2+Ly^2, dQ=<2(Lx tau_x+Ly tau_y)>, tau=Xxa_RR --
+  captures the precession correlation. Now dQ=0 equatorial, <0 inclined, MONOTONE with inclination on Kerr AND bump
+  (Kerr L=3.4->2.6: dQ -2.4e-4->-3.45e-3; MN: -1.1e-3->-9.0e-3). §100/§101 still pass; §101(A) augmented with the
+  MN strong-bump case as a regression guard. KEY: the bridge gave a CONCRETE failing case -> reproduce + spectrum-
+  diagnose + fix both, exactly the two-way loop working. Honest: still a leading-multipole kludge (no a^2(1-E^2)cos^2).

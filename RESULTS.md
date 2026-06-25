@@ -1338,9 +1338,15 @@ frequency drops −5%→−13% at each ω_r:ω_θ resonance crossing), then sent
 All banked here, stress-tested. **(A) Ask A — the Carter flux dQ/dτ.** §100 returned only dE/dτ, dL/dτ
 (so the bridge inspiral had to stay quasi-circular, Q=0); for eccentric+inclined orbits the generic
 resonances need the third integral's rate. `emri.quadrupole_flux(..., carter=True)` now also returns
-**dQ/dτ**, built from the *same* quadrupole — the full angular-momentum-flux vector dL_i plus the leading
-Carter relation Q=L²−L_z²=L_x²+L_y². Validated: **dQ/dτ=0 for an equatorial orbit** (Q=0, to 10⁻¹⁸) and
-**<0 for an inclined one** (radiation de-inclines it). Honest kludge — omits the relativistic
+**dQ/dτ**. *(Refined after a second bridge round that found the first version degrading on the strong bump.)*
+**Two fixes, both reproduced from the bridge's concrete failing case** (MN q=0.2, E=0.95, L=2.6, x0=8.0):
+**(i) a 250× dE inflation** — traced to a spurious high-w spectral tail (the orbit sits at ν_r:ν_θ≈2:3, and
+the ω⁶ weighting amplifies its non-convergent tail); fixed with a **convergence-plateau cutoff** that stops at
+the physical plateau (Kerr unchanged; MN −1.6e-2 → −9.0e-5, right at Kerr's level). **(ii) dQ/dτ>0
+(unphysical)** — the old Newtonian-Carter form 2(L_x dL_x+L_y dL_y) averages the precessing ⟨X×V⟩ to (0,0,L_z),
+so dQ→0 with a spurious sign; replaced by the **radiation-reaction (Burke–Thorne) force** a^i=−(2/5)(d⁵I_ij/dt⁵)X^j
+with Q=L_x²+L_y², which captures the precession correlation. Now **dQ/dτ=0 equatorial** (to 10⁻¹⁸), **<0 inclined**,
+**monotone with inclination on Kerr *and* the bump**. Honest kludge — leading multipole, omits the relativistic
 a²(1−E²)cos² piece, and for the bumpy metric Q is only an approximate third integral (§99). **(B) The bug
 (a real one in our shipped code).** `geodesic_chaos.lyapunov` false-positived chaos on bumpy metrics. We
 **reproduced it exactly**: on an MN q=0.5 orbit that is *regular* (box-dim→1.12), the old settings

@@ -91,15 +91,21 @@ def _tphidot(g, x, y, E, L):
 
 def quadrupole_flux(M, a, q, E, L, x0, n_orb=8, h=0.02, mu=1.0, carter=False):
     """Numerical-kludge GW flux (dE/dtau, dL/dtau, per the small mass mu) of the bound orbit with
-    equatorial radial turning point x0, via the mass quadrupole evaluated on the geodesic and the
-    quadrupole formula in the frequency domain. Returns (dEdt, dLdt) or None. Needs numpy.
+    equatorial radial turning point x0, via the mass quadrupole on the geodesic and the quadrupole
+    formula in the frequency domain. Returns (dEdt, dLdt) or None. Needs numpy.
 
-    carter=True also returns a Carter-flux dQ/dtau (-> (dEdt, dLdt, dQdt); the bridge's Ask A):
-    the FULL angular-momentum-flux vector dL_i is formed from the same quadrupole, and the
-    leading (Newtonian) Carter constant Q = L^2 - L_z^2 = L_x^2 + L_y^2 gives
-    dQ/dtau = 2(L_x dL_x/dtau + L_y dL_y/dtau). Consistent with dE,dL by construction; honest
-    kludge (it omits the relativistic a^2(1-E^2)cos^2 piece, and for the bumpy metric Q is only
-    an approximate third integral -- §99 -- so dQ is its radiation-reaction part)."""
+    A CONVERGENCE-PLATEAU cutoff makes it reliable on strongly-perturbed (near-resonant) orbits: a
+    physical GW spectrum has decreasing harmonics so the cumulative flux plateaus; the cutoff stops
+    there, keeping real eccentric harmonics but rejecting the w^6-amplified spurious tail that a
+    near-resonant bumpy orbit grows (this fixed a sister-project report of a 250x dE inflation).
+
+    carter=True also returns the Carter-flux dQ/dtau (-> (dEdt, dLdt, dQdt); the bridge's Ask A),
+    from the radiation-reaction (Burke-Thorne) force a^i = -(2/5)(d^5 I_ij/dt^5) X^j and the leading
+    Carter Q = L_x^2 + L_y^2: dQ/dtau = <2(L_x tau_x + L_y tau_y)>, tau = X x a_RR. The RR-force form
+    captures the orbital-plane PRECESSION correlation that the naive <X x V> averages to zero -> the
+    earlier version gave dQ -> 0 (and a spurious sign). Now equatorial dQ=0, inclined dQ<0 (monotone
+    with inclination), on Kerr AND the bump. Honest kludge: leading multipole, omits the relativistic
+    a^2(1-E^2)cos^2 piece; for the bumpy metric Q is only an approximate third integral (§99)."""
     import numpy as np
     from manko_novikov import manko_novikov
     from _mn_invariant import build_hamilton_numeric
@@ -143,32 +149,59 @@ def quadrupole_flux(M, a, q, E, L, x0, n_orb=8, h=0.02, mu=1.0, carter=False):
     # noise that (i*w)^3 amplifies catastrophically -> cut there.
     win = np.hanning(N)
     wnorm = float(np.mean(win * win))          # window power, restores the correct normalization
-    wcut = 40.0 * (abs(Omega_phi) + 1e-9)
-    m = np.abs(w) < wcut
-    wm, inv = w[m], 1.0 / (N * N * wnorm)
-    Fc = {ij: np.fft.fft((I - I.mean()) * win)[m] for ij, I in comp.items()}
+    inv = 1.0 / (N * N * wnorm)
+    Om = abs(Omega_phi) + 1e-30
+    FFw = {ij: np.fft.fft((I - I.mean()) * win) for ij, I in comp.items()}   # windowed (energy flux)
+    aw = np.abs(w)
+    # CONVERGENCE-PLATEAU CUTOFF. A physical GW spectrum has DECREASING harmonics, so the cumulative
+    # flux plateaus; a near-resonant strong-bump orbit has a spurious high-w tail that the w^6 weight
+    # amplifies, so its cumulative flux keeps GROWING. Cut at the first plateau: keeps real (eccentric)
+    # harmonics, rejects the spurious tail (fixes a sister-project report of a 170x flux inflation).
+    eband = sum((2.0 if i != j else 1.0) * (w**6) * np.abs(F)**2 for (i, j), F in FFw.items())
+    order = np.argsort(aw)
+    cume = np.cumsum(eband[order])
+    awo = aw[order]
+    wcut, mult = 40.0 * Om, 2.0
+    while mult < 40.0:
+        flo = cume[max(np.searchsorted(awo, mult * Om) - 1, 0)]
+        fhi = cume[max(np.searchsorted(awo, (mult + 0.5) * Om) - 1, 0)]
+        if flo > 0 and (fhi - flo) / flo < 0.08:
+            wcut = mult * Om
+            break
+        mult += 0.5
+    m = aw < wcut
+    wm = w[m]
+    Fc = {ij: FFw[ij][m] for ij in FFw}
 
     def reduced(i, j):
         return Fc[(min(i, j), max(i, j))]
-    dE = 0.0
-    for (i, j), F in Fc.items():
-        wt = 2.0 if i != j else 1.0                          # off-diagonal pair counted twice
-        dE += wt * inv * np.sum(wm**6 * np.abs(F)**2)        # <(d3 I_ij/dt3)^2> via Parseval
+    dE = sum((2.0 if i != j else 1.0) * inv * np.sum(wm**6 * np.abs(F)**2) for (i, j), F in Fc.items())
     dEdt = -(mu * mu / 5.0) * dE
     # angular-momentum flux dL_i = -(2/5) eps_{ijk} sum_l <d2 I_jl d3 I_kl>; cross-spectrum -> w^5 Im[.]
     def amf(j, k):
         return sum(inv * np.sum(wm**5 * np.imag(reduced(j, c) * np.conj(reduced(k, c)))) for c in (0, 1, 2))
-    cc = 2.0 * mu * mu / 5.0
-    dLz = -cc * (amf(0, 1) - amf(1, 0))
+    dLz = -(2.0 * mu * mu / 5.0) * (amf(0, 1) - amf(1, 0))
     if not carter:
         return dEdt, dLz
-    dLx = -cc * (amf(1, 2) - amf(2, 1))
-    dLy = -cc * (amf(2, 0) - amf(0, 2))
-    # orbital angular momentum L = <X x V> (V from a finite-difference of the path)
+    # CARTER FLUX via the radiation-reaction (Burke-Thorne) force a^i = -(2/5)(d^5 I_ij/dt^5) X^j
+    # (cut to the same physical band, NO window so the time-domain average is unbiased). The leading
+    # Carter Q = L_x^2 + L_y^2, so dQ/dtau = <2(L_x tau_x + L_y tau_y)>, tau = X x a_RR the instantaneous
+    # RR torque. This captures the orbital-plane PRECESSION correlation the naive <X x V> averages away.
     Xc = [X, Y, Z]
+    FFr = {ij: np.fft.fft(I - I.mean()) for ij, I in comp.items()}           # raw (for the RR force)
+    iw5 = np.where(m, (1j * w)**5, 0.0)
+    d5 = {ij: np.fft.ifft(iw5 * FFr[ij]).real for ij in FFr}
+
+    def D5(i, j):
+        return d5[(min(i, j), max(i, j))]
+    aRR = [(-2.0 / 5.0) * sum(D5(i, j) * Xc[j] for j in range(3)) for i in range(3)]
     V = [np.gradient(c, T / N) for c in Xc]
-    Lvec = [float(np.mean(Xc[(i + 1) % 3] * V[(i + 2) % 3] - Xc[(i + 2) % 3] * V[(i + 1) % 3])) for i in range(3)]
-    dQdt = 2.0 * (Lvec[0] * dLx + Lvec[1] * dLy)       # d(L_x^2+L_y^2)/dtau, the Newtonian Carter
+
+    def cross(P, Q, i):
+        return P[(i + 1) % 3] * Q[(i + 2) % 3] - P[(i + 2) % 3] * Q[(i + 1) % 3]
+    Lx, Ly = cross(Xc, V, 0), cross(Xc, V, 1)               # instantaneous orbital ang.mom. (off-axis)
+    tx, ty = cross(Xc, aRR, 0), cross(Xc, aRR, 1)           # instantaneous RR torque (off-axis)
+    dQdt = mu * mu * 2.0 * float(np.mean(Lx * tx + Ly * ty))
     return dEdt, dLz, dQdt
 
 
