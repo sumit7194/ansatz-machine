@@ -1567,3 +1567,20 @@ nice-19 (alphaludo-l4, trainer untouched). Dashboards live on both hosts.
   — we went AROUND it (exact closed form + numeric curvature), and only for the STATIC case; the rotating O(a²)
   PDE is still open.
 - §97 battery green; wired into verify.sh. Tools kept general (a detector + an exact-solution testbed), not narrow.
+- §98 = NO QUARTIC KILLING TENSOR EITHER (closing §97's caveat; user picked this of the two "bigger prizes").
+  Pushed the conserved-quantity search from quadratic (rank-2) to QUARTIC (rank-4). _zv_quartic.py: 42-term basis
+  (momentum monomials deg<=4 x simple spatial coeffs), AUTO-PRUNED to independence (the first hand-built basis was
+  DEGENERATE — caught by the independence check: hidden identity 1/om^2 - y^2/om^2 - y^2/om = 1; auto-prune drops
+  the most-dependent column until full rank). Built to span K^2 (Schwarzschild Carter squared) so delta=1 must
+  show EXACTLY 2 float-floor nulls. RESULT: delta=1 -> 2 invariants (7.5e-15, 2.5e-14 = K and K^2, gap 4e4 to the
+  next); delta!=1 -> 0 (smallest ~1e-10..1e-9). THE RIGOR (two stress-tests on the way): (1) h-convergence — the
+  deformed near-null at 1e-12 did NOT track integration step (not integration error); (2) FLOOD test — it LIFTED
+  87x (1.1e-12 -> 1.0e-10) when orbits went 22 -> 76, proving it was the §85 DIMENSIONAL near-null (too few orbits
+  for a 42-term basis), NOT a real invariant; delta=1's two real invariants stayed pinned under both. So: deformed
+  ZV has no rank-2 (§97) AND no rank-4 (§98) Killing tensor; detector recovers BOTH Schwarzschild invariants as
+  control. HONEST scope: rank>=6 not excluded; ZV all-orders non-integrability is the literature's Morales-Ramis
+  proof. Battery §98 green, wired into verify.sh.
+- CHAOS hunt #2 (literature params E=0.95 Lz=3, fine scan) ran 36 min, found NOTHING elevated -> the delta=2 chaos
+  is genuinely razor-thin (chaotic rho=7.518 vs regular 7.548, dr=0.03) and elusive to a 1D p_x=0 scan; killed it.
+  The geometric chaos stays a cited-literature caveat; our sharp signal is the ALGEBRAIC absent-Killing-tensor
+  (§97 quadratic + §98 quartic). Honest: we did not reproduce the thin chaos ourselves.

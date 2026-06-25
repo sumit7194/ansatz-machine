@@ -1271,6 +1271,23 @@ and only for the **static** case. The rotating O(a²) modified-gravity metric (t
 open. Repro: `scripts/97_zipoy_voorhees_integrability.py` (metric `scripts/zipoy_voorhees.py`, detector
 `scripts/_zv_invariant.py`, stress-test `scripts/_zv_stresstest.py`).
 
+## §98 — no quartic Killing tensor either: closing §97's one caveat
+§97 left one honest gap: "no conserved *quadratic*" rules out a rank-2 Killing tensor, not a higher-order one.
+This pushes the same numerical search to **quartic** order (a rank-4 Killing tensor) and finds none either — so
+the deformed Zipoy-Voorhees hole has **no conserved quantity quadratic *or* quartic in the momenta**. The
+validation is sharper than §97's: the 42-term basis (auto-pruned to independence) is built to span **K²**, the
+square of Schwarzschild's Carter constant, so at δ=1 the conserved set is {K, K²} and the SVD must return
+**exactly two** float-precision singular values — **(B)** it does (7.5×10⁻¹⁵, 2.5×10⁻¹⁴, then a 4×10⁴ gap to
+9.9×10⁻¹⁰), proving the basis really sees quartic invariants. **(C)** for δ≠1 there are **zero** float-floor
+invariants (smallest SV ~10⁻¹⁰–10⁻⁹, four orders above the δ=1 floor). **(D) the rigor** — the §85
+dimensional-null trap, caught and *proven*: a 42-term basis under-sampled by few orbits leaves a near-null at
+~10⁻¹² that *mimics* an invariant; we show it **lifts 87× (1.1×10⁻¹²→1.0×10⁻¹⁰) when the orbit set is flooded
+22→76**, so it is a sampling artifact, not a conserved quartic — while δ=1's two real invariants don't budge.
+**(E)** the same detector recovers *both* of Schwarzschild's invariants (K and K²) and finds neither for any
+deformation. Honest scope: this closes the quadratic+quartic question; a rank≥6 tensor isn't excluded, and ZV's
+non-integrability *to all orders* remains the literature's proof (Lukes-Gerakopoulos 2012, via Morales-Ramis).
+Repro: `scripts/98_quartic_killing_tensor.py` (detector `scripts/_zv_quartic.py`).
+
 **Where the niche stands (own literature sweep, 2026-06-16).** Path 1 (automate
 the physical-vs-gauge / SPSM criterion) is closed: xCPS (arXiv:2606.05204, open
 source) already automates covariant phase space, Noether charges, and Wald

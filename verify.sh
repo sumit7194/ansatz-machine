@@ -89,6 +89,7 @@ NAMES+=("04 campaign");           CMDS+=("scripts/04_campaign.py")
 [ -f scripts/95_strong_lensing.py ] && { NAMES+=("95 strong lensing (weak->4M/b; strong log-divergence a=1; a=Omega_c/lambda, a*gamma=pi)"); CMDS+=("scripts/95_strong_lensing.py"); }
 [ -f scripts/96_tidal_forces.py ] && { NAMES+=("96 tidal forces (E_rr=-2M/r^3 spaghettification; horizon tidal ~1/M^2; Hills mass; BH Love number=0)"); CMDS+=("scripts/96_tidal_forces.py"); }
 [ -f scripts/97_zipoy_voorhees_integrability.py ] && { NAMES+=("97 Zipoy-Voorhees (exact vacuum quadrupole BH; recovers Carter at delta=1, no conserved quadratic for delta!=1; validates 85)"); CMDS+=("scripts/97_zipoy_voorhees_integrability.py"); }
+[ -f scripts/98_quartic_killing_tensor.py ] && { NAMES+=("98 no quartic Killing tensor either (delta=1 recovers K and K^2; delta!=1 has no rank-2 or rank-4 invariant; closes 97's caveat)"); CMDS+=("scripts/98_quartic_killing_tensor.py"); }
 
 fail=0
 GATE="$(dirname "$0")/gate.log"; : > "$GATE"   # also written here so the dashboard (reads ROOT/gate.log) stays current

@@ -119,6 +119,14 @@ claimed (ZV non-integrability is known: Lukes-Gerakopoulos 2012, arXiv:1206.0660
 genuinely open: the *rotating* (a≠0) modified-gravity O(a²) metric — the static exact case is now
 done; the rotating PDE solve is still the research prize. Battery §97; verify.sh wired.
 
+**§98 (2026-06-25) — caveat closed to QUARTIC order.** §97 ruled out a rank-2 (quadratic) Killing
+tensor; §98 pushes the same numerical search to rank-4 (quartic): δ=1 recovers exactly TWO float-floor
+invariants (K and K², proving the basis sees quartics), δ≠1 has zero. Two stress-tests made it rigorous
+— the deformed near-null is NOT integration error (h-convergence) and LIFTS 87× when orbits are flooded
+22→76 (the §85 dimensional-null trap, caught and proven). So the deformed ZV hole has no rank-2 OR rank-4
+Killing tensor. Honest residual: rank≥6 not excluded; full non-integrability is the literature's
+all-orders proof. Detector `_zv_quartic.py`, battery §98.
+
 ### 4. A first-class geodesic integrator + a chaos lens (SALI/Lyapunov)  ◀ ✅ DONE (2026-06-20, §79)
 **Built:** `scripts/geodesic_chaos.py` — `trajectory(g,x0,u0)` (RK4) + `lyapunov(g,x0,u0)`
 (largest exponent via renormalized nearby orbits), pure Python (no numpy, stays in the
