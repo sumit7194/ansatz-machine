@@ -1501,3 +1501,25 @@ nice-19 (alphaludo-l4, trainer untouched). Dashboards live on both hosts.
 - Machine-taught lessons: it found Minkowski first, then pure de Sitter (the
   triviality ladder was born); it prefers negative-mass branches on catalogued
   rungs; 2+1 is a permanent, *correct* blind spot.
+
+## 2026-06-24 (evening) — campaign extension: frame-dragging/QPOs, lensing, tidal (user-requested)
+- §94 = RELATIVISTIC PRECESSION & QPOs (frame-dragging you can time): a circular orbit has 3 frequencies
+  (orbital ν_φ, radial epicyclic ν_r, vertical ν_θ). (A) ν_r→0 at the ISCO — cross-checks the ISCO via an
+  independent frequency. (B) periastron precession ν_φ−ν_r nonzero even at a=0 (strong-field Mercury). (C) nodal
+  Lense–Thirring precession ν_φ−ν_θ EXACTLY 0 for Schwarzschild, ∝ spin (pure gravitomagnetism). (D) 10 M⊙ hole:
+  ISCO ≈221 Hz (kHz-QPO band), nodal ~Hz (low-freq QPO). Closed-form Kerr (Stella–Vietri), cross-checked vs our
+  numeric ISCO. The QPO relativistic-precession model, computed.
+- §95 = STRONG-FIELD LENSING (Eddington 1919 -> relativistic images): the deflection integral
+  α=2∫b dr/(r²√(1−b²f/r²))−π (turning point regularized by w=1−t²). (A) weak: α→4M/b (ratio→1 from above; a
+  numerical caveat at huge b — tiny difference of large numbers — so validated at moderate b). (B) strong:
+  α diverges as −ā ln(b/b_c−1), fitted ā=0.998 (Schwarzschild ā=1), photon loops >1 → relativistic images at
+  the shadow edge. (C) THE UNIFICATION: ā=Ω_c/λ (the photon-ring Lyapunov), and ā·γ=π — so lensing, the subrings
+  (§89), and the ringdown (§88) all encode ONE λ. ā(lensing)=0.998≈Ω_c/λ=1.000, ā·γ=3.135=π. Stress-test caught
+  the (A) large-b numerical artifact (b=1000 dipped 1.8% below 4M/b); fixed to moderate b + honest caveat.
+- §96 = TIDAL FORCES (the 3rd of the user's requests): tidal tensor E_ij=R_{0i0j} from the engine's curvature.
+  (A) Schwarzschild E_rr=−2M/r³ (radial stretch), E_θθ=+M/r³ (squeeze), traceless — spaghettification, exact.
+  (B) horizon tidal ∝1/M²: 10 M⊙ → ~10⁷ g (lethal), Sgr A* → ~10⁻⁴ g (gentle, you'd cross unharmed). (C) tidal
+  disruption vs horizon: a Sun shredded outside the horizon (visible TDE) only for M < Hills mass ≈1.1e8 M⊙ —
+  Sgr A* shreds, M87* swallows whole. (D) GW no-hair signature: BH tidal Love number k₂=0 (doesn't deform); NS
+  k₂≠0 (GW170817 distinguishes them). All three user-requested topics done: §94 frame-dragging/QPOs, §95
+  lensing, §96 tidal. Observational campaign now §86–§96 (11 batteries).

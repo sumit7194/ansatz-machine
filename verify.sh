@@ -85,6 +85,9 @@ NAMES+=("04 campaign");           CMDS+=("scripts/04_campaign.py")
 [ -f scripts/91_shadow_inclination.py ] && { NAMES+=("91 shadow inclination (asymmetry scales with tilt; face-on->circular; spin-inclination degeneracy)"); CMDS+=("scripts/91_shadow_inclination.py"); }
 [ -f scripts/92_accretion_engine.py ] && { NAMES+=("92 accretion engine (efficiency 5.7%->42%; smaller ISCO=hotter; spin->ISCO->X-ray continuum)"); CMDS+=("scripts/92_accretion_engine.py"); }
 [ -f scripts/93_weigh_spin_three_ways.py ] && { NAMES+=("93 weigh spin 3 ways (Kerr consistent; charge degenerate; near-horizon deformation caught -- null test of no-hair)"); CMDS+=("scripts/93_weigh_spin_three_ways.py"); }
+[ -f scripts/94_precession_qpos.py ] && { NAMES+=("94 precession & QPOs (nu_r=0 at ISCO; periastron+nodal Lense-Thirring; matches kHz-QPO band)"); CMDS+=("scripts/94_precession_qpos.py"); }
+[ -f scripts/95_strong_lensing.py ] && { NAMES+=("95 strong lensing (weak->4M/b; strong log-divergence a=1; a=Omega_c/lambda, a*gamma=pi)"); CMDS+=("scripts/95_strong_lensing.py"); }
+[ -f scripts/96_tidal_forces.py ] && { NAMES+=("96 tidal forces (E_rr=-2M/r^3 spaghettification; horizon tidal ~1/M^2; Hills mass; BH Love number=0)"); CMDS+=("scripts/96_tidal_forces.py"); }
 
 fail=0
 GATE="$(dirname "$0")/gate.log"; : > "$GATE"   # also written here so the dashboard (reads ROOT/gate.log) stays current

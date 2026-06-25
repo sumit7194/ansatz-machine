@@ -1198,6 +1198,41 @@ complementary sensitivity — so the three inferred spins *disagree*, and the sp
 (0 → 0.034, ISCO disagreeing most). The inconsistency IS the detection: *failing the test proves non-Kerr.*
 Repro: `scripts/93_weigh_spin_three_ways.py`.
 
+## §94 — relativistic precession & QPOs: frame-dragging you can time
+A circular orbit has THREE frequencies — orbital ν_φ, radial epicyclic ν_r, vertical epicyclic ν_θ — and their
+splittings are the quasi-periodic oscillations (QPOs) seen in accreting BH X-ray binaries (the
+relativistic-precession model). **(A)** ν_r → 0 at the ISCO (radial epicyclic vanishing = marginal stability) —
+an independent cross-check of the ISCO via a frequency. **(B)** **periastron precession** ν_φ−ν_r is nonzero
+even at a=0 (Mercury's anomaly, now strong-field). **(C)** **nodal Lense–Thirring precession** ν_φ−ν_θ is
+*exactly 0* for Schwarzschild and grows monotonically with spin (0→4.5e-4 at r=8M) — the orbit plane is dragged
+around, pure gravitomagnetism. **(D)** the scale: a 10 M⊙ hole has ISCO orbital frequency ≈221 Hz (the observed
+kHz-QPO band) and nodal precession ~Hz (the low-frequency QPO) — so timing QPOs measures the spin and tests GR
+in the strong field. Closed-form Kerr (Stella–Vietri), cross-checked against our independently-computed ISCO.
+Repro: `scripts/94_precession_qpos.py`.
+
+## §95 — strong-field lensing: from Eddington's 1919 test to the relativistic images
+Light bending — the oldest GR test. **(A)** the **weak** Eddington deflection α → 4M/b as b→∞ (validated: ratio
+1.030→1.013→1.003 from above, the 2nd-order term). **(B)** the **strong** deflection DIVERGES logarithmically as
+b→b_c (the photon sphere): α ≈ −ā·ln(b/b_c−1)+const, fitted **ā=0.998** (Schwarzschild ā=1); a photon makes >1
+full loop, producing the infinite sequence of relativistic images at the shadow edge. **(C)** the **unification**:
+the strong-deflection coefficient is **ā = Ω_c/λ** — the SAME photon-ring Lyapunov λ that sets the subring
+demagnification γ (§89) and the ringdown damping (§88). Verified: ā(lensing)=0.998 ≈ Ω_c/λ=1.000, and
+**ā·γ = 3.135 = π**. *Lensing, imaging, and the gravitational-wave ringdown all encode one number — the light
+ring's instability.* The deflection is the full integral α=2∫b dr/(r²√(1−b²f/r²))−π (turning point regularized
+by w=1−t²); a numerical caveat noted at huge b (tiny difference of large numbers). Repro: `scripts/95_strong_lensing.py`.
+
+## §96 — tidal forces: spaghettification, tidal disruption, and a survivable horizon
+The tidal field is the geodesic-deviation tensor E_ij=R_{0i0j}, read straight off the engine's curvature.
+**(A)** Schwarzschild (static orthonormal frame): radial **stretch E_rr=−2M/r³**, transverse **squeeze
+E_θθ=+M/r³**, traceless (vacuum) — spaghettification, exact from the engine. **(B)** the horizon tidal field
+**∝ 1/M²**: a 10 M⊙ hole gives ~10⁸ m/s² per metre (~10⁷ g, LETHAL), but Sgr A* (4×10⁶ M⊙) gives ~6×10⁻⁴ m/s²
+(~10⁻⁴ g — you'd cross its horizon unharmed). **(C)** tidal **disruption** vs the horizon: a Sun is shredded at
+r_t≈R★(M/M★)^⅓, which is *outside* the horizon (a visible TDE flare) only for M < the **Hills mass ≈1.1×10⁸
+M⊙** — Sgr A* shreds stars (visible flares), M87* (6.5×10⁹) swallows them whole. **(D)** the GW signature: a black
+hole's tidal **Love number k₂ = 0** (no-hair, it does not deform); a neutron star's k₂≠0, and that tidal
+deformability (GW170817) is how a gravitational-wave inspiral tells a black hole from a neutron star. Repro:
+`scripts/96_tidal_forces.py`.
+
 **Where the niche stands (own literature sweep, 2026-06-16).** Path 1 (automate
 the physical-vs-gauge / SPSM criterion) is closed: xCPS (arXiv:2606.05204, open
 source) already automates covariant phase space, Noether charges, and Wald
