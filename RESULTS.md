@@ -1233,6 +1233,44 @@ hole's tidal **Love number k₂ = 0** (no-hair, it does not deform); a neutron s
 deformability (GW170817) is how a gravitational-wave inspiral tells a black hole from a neutron star. Repro:
 `scripts/96_tidal_forces.py`.
 
+## §97 — Zipoy-Voorhees: the no-Carter result, now on an EXACT vacuum solution
+§85 showed a quadrupole-deformed Kerr loses its Carter constant, but that deformation was *phenomenological*
+(a non-vacuum bump). The honest objection — "is that a real spacetime?" — is answered here on a genuine one.
+The **Zipoy-Voorhees (γ-) metric** is an EXACT static vacuum solution: Schwarzschild carrying a tunable
+quadrupole δ, kept exactly Einstein-vacuum for *every* δ (δ=1 IS Schwarzschild). The symbolic curvature of
+this (x,y)-dependent metric swamps SymPy — **the recurring wall** — so we build it in closed form and read its
+curvature **numerically**: that is how the wall is broken. **(A)** ZV is exact-vacuum for every δ — max|R_ab|
+sits at the finite-difference floor (~10⁻⁶) and is **flat in δ** (non-perturbative, unlike an O(q) construction):
+a real solution, not an approximation. **(B)** the §85 basis is linearly independent (no hidden identity faking
+an invariant). **(C) VALIDATION** — at δ=1 the detector recovers the Carter constant: one machine-zero singular
+value (**5.8×10⁻¹⁵**, gap 5×10¹¹), and the recovered vector is **(1−y²)p_y² + 16.00·1/(1−y²)** vs the exact
+Carter **(1−y²)p_y² + L²·1/(1−y²)** with L²=16 — a match to <1%. **(D)** for δ≠1 there is **no** machine-zero
+singular value: the smallest jumps ~9 orders of magnitude (to ~10⁻⁶–10⁻⁵) and **grows monotonically with |δ−1|**
+(δ=0.8→5.7e-6, 1.2→1.6e-5, 1.4→4.1e-5) — **no conserved quadratic survives** (no Carter constant). This rules
+out a quadratic Carter, *not* every integral (a higher-order Killing tensor isn't excluded by this basis); ZV's
+full non-integrability is the literature's proof, which our result is *consistent with*, not a re-derivation of.
+**(E)** the *same*
+detector recovers Carter for Schwarzschild and finds none for any deformation, on an exact vacuum solution —
+**upgrading §85 off its phenomenological bump onto a genuine spacetime**. Prior art, cited not claimed:
+ZV's non-integrability and absent Carter constant are established (Lukes-Gerakopoulos, *Phys. Rev. D* **86**,
+044013 (2012), [arXiv:1206.0660](https://arxiv.org/abs/1206.0660); for δ=2 there are chaotic orbits). The
+contribution is the *validated general detector* — it needs no closed-form Killing tensor or separability, so it
+works where the symbolic route swamps. Honest caveat: our coarse bound-orbit scan saw only mild box-dim
+elevation (≈1.1 vs ≈0.9 at δ=1), not the strong δ=2 chaos the literature locates via resonant islands — the
+sharp signal here is the *algebraic* absence of the conserved quadratic, not the geometric chaos. **Adversarially
+stress-tested** (`scripts/_zv_stresstest.py`, 5 tests, all pass — "did we break the wall or see what we wanted?"):
+(1) the δ=1 control is genuinely Schwarzschild — the *textbook* Carter constant (not fitted) is conserved along
+its orbits to 6.6×10⁻¹⁶; (2) **the decisive one** — δ≠1's 10⁻⁵ is a *real* non-invariant: it stays pinned (even
+*rises*) as orbits go 16→24→32 and the integration step is halved, rather than collapsing toward the 10⁻¹⁵ floor
+(if an invariant secretly existed, more data would have found it); (3) enriching the basis with 5 higher-order
+terms neither destroys δ=1's Carter nor creates a spurious δ≠1 invariant; (4) the δ=1 invariant holds on a
+*held-out* orbit (2.9×10⁻¹⁴) while δ≠1's best-fit does not (1.4×10⁻⁴) — not overfitting; (5) robust across orbit
+families. The contrast is physics. **What "breaking the wall" means here, precisely:** we did *not* make SymPy's
+(r,θ) curvature tractable — we went *around* it (an exact closed-form metric + finite-difference curvature),
+and only for the **static** case. The rotating O(a²) modified-gravity metric (the genuine 2D-PDE prize) is still
+open. Repro: `scripts/97_zipoy_voorhees_integrability.py` (metric `scripts/zipoy_voorhees.py`, detector
+`scripts/_zv_invariant.py`, stress-test `scripts/_zv_stresstest.py`).
+
 **Where the niche stands (own literature sweep, 2026-06-16).** Path 1 (automate
 the physical-vs-gauge / SPSM criterion) is closed: xCPS (arXiv:2606.05204, open
 source) already automates covariant phase space, Noether charges, and Wald

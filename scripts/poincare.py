@@ -72,15 +72,29 @@ def p_on_shell(f, q1, q2, p2, E, L):
     return math.sqrt(val) if val > 0 else None
 
 
-def section(f, s0, E, L, sec_idx=1, sec_val=math.pi / 2, rec=(0, 2), n=160, h=0.02, maxst=1_800_000):
+def section(f, s0, E, L, sec_idx=1, sec_val=math.pi / 2, rec=(0, 2), n=160, h=0.02, maxst=1_800_000,
+            bounds=None):
     """Record (state[rec[0]], state[rec[1]]) each time state[sec_idx] up-crosses sec_val.
-    Returns (points, H_drift, steps). State is [q1, q2, p1, p2]."""
+    Returns (points, H_drift, steps). State is [q1, q2, p1, p2].
+
+    `bounds`, if given, is ((q1lo,q1hi),(q2lo,q2hi)): the orbit is stopped cleanly the moment
+    q1 or q2 leaves the box (a plunge into a singularity / an escape), returning what was
+    recorded so far. We also catch the OverflowError/ZeroDivisionError that a near-singularity
+    RHS evaluation can throw mid-step and treat it as a plunge — so a chaotic orbit that dives
+    toward the centre ends the integration instead of crashing it."""
     s = list(s0)
     pts, Hs = [], []
     prev = s[sec_idx] - sec_val
     st = 0
     while len(pts) < n and st < maxst:
-        sn = _rk4(f, s, h, E, L)
+        if bounds is not None:
+            (a1, b1), (a2, b2) = bounds
+            if not (a1 <= s[0] <= b1 and a2 <= s[1] <= b2):
+                break
+        try:
+            sn = _rk4(f, s, h, E, L)
+        except (OverflowError, ZeroDivisionError, ValueError):
+            break
         st += 1
         cur = sn[sec_idx] - sec_val
         if prev < 0 <= cur:

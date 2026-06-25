@@ -42,7 +42,7 @@ uses for the field equations). That makes the discover→verify pipeline's certi
 a **proof, not a measurement** — a real upgrade to the most novel capability. [§58
 Killing, §69 Killing–Yano; the numeric verification is honest but not a theorem]
 
-### 3. Full-spin (or O(a²)) rotating modified-gravity black holes  ◀ ✅ PROXY RESOLVED (§85), full PDE still open
+### 3. Full-spin (or O(a²)) rotating modified-gravity black holes  ◀ ✅ PROXY RESOLVED (§85); WALL BROKEN for the exact static case (§97); full rotating PDE still open
 The rotating-EdGB being O(a) slow-rotation is what blocked the genuine "discover an
 unknown invariant" frontier (Move D's pivot): at O(a) the Carter analog trivially
 survives. Pushing to **O(a²)** makes the integrability question non-trivial (oblateness
@@ -103,6 +103,21 @@ SCIENCE of item-3's core is already answered at achievable rigor by §85 (quadru
 deviation ⇒ no Carter ⇒ modified-gravity rotating BHs generically non-integrable); the
 remaining gap is *constructing the exact metric*, which needs the numerical infrastructure
 build. Banked here honestly: we know the answer and we know exactly where the engine's wall is.
+
+**WALL BROKEN (§97, 2026-06-25) — for the exact STATIC case.** Did the numerical build the
+"eyes-open swing" deemed multi-session, and it landed in one. Two moves: (1) `_weyl_quadrupole.py`
+— a quadrupole-deformed vacuum BH via the Weyl line integral (γ₁ precomputed on an (R,Θ) grid,
+0.6s); a stress-test caught its FD-Ricci residual scaling ∝q not q², traced to bilinear-interp
+C0 noise (NOT physics — the analytic vacuum conditions check clean), so the construction is sound
+but too rough for clean curvature. (2) PIVOT to the EXACT closed form — the **Zipoy–Voorhees
+(γ-) metric** (`zipoy_voorhees.py`), this time got RIGHT: it passes the δ=1 sanity check the
+earlier attempt failed, and is exact-vacuum (residual ~1e-6 FLAT in δ) for *all* δ. Fed to §85's
+detector (`_zv_invariant.py`): δ=1 recovers Carter EXACTLY (SV 5.8e-15, matches (1−y²)p_y²+L²/(1−y²)
+to <1%), δ≠1 has NO conserved quadratic (SV ~1e-5, growing with |δ−1|). **This upgrades §85 off
+its phenomenological non-vacuum bump onto a genuine EXACT vacuum solution.** Prior art cited not
+claimed (ZV non-integrability is known: Lukes-Gerakopoulos 2012, arXiv:1206.0660). What remains
+genuinely open: the *rotating* (a≠0) modified-gravity O(a²) metric — the static exact case is now
+done; the rotating PDE solve is still the research prize. Battery §97; verify.sh wired.
 
 ### 4. A first-class geodesic integrator + a chaos lens (SALI/Lyapunov)  ◀ ✅ DONE (2026-06-20, §79)
 **Built:** `scripts/geodesic_chaos.py` — `trajectory(g,x0,u0)` (RK4) + `lyapunov(g,x0,u0)`

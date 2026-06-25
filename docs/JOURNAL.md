@@ -1523,3 +1523,47 @@ nice-19 (alphaludo-l4, trainer untouched). Dashboards live on both hosts.
   Sgr A* shreds, M87* swallows whole. (D) GW no-hair signature: BH tidal Love number k₂=0 (doesn't deform); NS
   k₂≠0 (GW170817 distinguishes them). All three user-requested topics done: §94 frame-dragging/QPOs, §95
   lensing, §96 tidal. Observational campaign now §86–§96 (11 batteries).
+
+## 2026-06-25 — BREAKING THE WALL: Zipoy-Voorhees exact-vacuum integrability (§97)
+- THE WALL = SymPy curvature of (r,θ)/(x,y)-dependent metrics swamps (EdGB O(a) 2.3h; symbolic Killing search
+  7.5h; linearized quadrupole 2.5h). Broke it by going NUMERICAL — twice.
+- FIRST ATTEMPT (Weyl numerics, scripts/_weyl_quadrupole.py): a quadrupole-deformed vacuum BH via the Weyl line
+  integral — ψ=ψ_S+q·ψ_Q (decaying l=2 harmonic), γ₁ from the cross-term quadrature, precomputed on an (R,Θ)
+  grid by radial sweeps (0.6s vs 14 MIN for the raw per-point line integral). STRESS-TEST CAUGHT a subtlety: the
+  finite-difference Ricci residual scaled LINEARLY in q, not q². Resisted the easy "physics bug" read — checked
+  the ANALYTIC vacuum conditions directly: ψ_S,ψ_Q harmonic to 1e-10, and γ₁ integrability ∂_z g1r=∂_ρ g1z to
+  1e-7. Both clean ⇒ the metric IS vacuum-to-O(q) by construction; the linear residual is the bilinear-interp C0
+  noise in the 2nd derivatives, NOT physics. Construction sound, but interpolation too rough for clean curvature.
+- PIVOT to the EXACT closed form: the ZIPOY-VOORHEES (γ-) metric (scripts/zipoy_voorhees.py) — Schwarzschild with
+  a tunable quadrupole δ, EXACT vacuum for ALL δ (δ=1=Schwarzschild), no interpolation. Vacuum residual ~1e-6
+  FLAT in δ (non-perturbative), vs the Weyl metric's residual growing with q. The right object.
+- FED IT TO §85's DETECTOR (scripts/_zv_invariant.py; basis u→y, om→1−y², r→x; mass fixed M=1 via σ=1/δ):
+  (C) δ=1 recovers the Carter constant EXACTLY — SV 5.84e-15, gap 4.8e11, recovered C=(1−y²)p_y²+16.00/(1−y²)
+  vs Carter L²=16 (match <1%). (D) δ≠1 → smallest SV jumps to 1e-6..1e-5 and GROWS monotonically with |δ−1|
+  (sweep: 0.8→5.7e-6, 0.9→5.5e-6, 1.0→6e-15, 1.1→7.3e-6, 1.2→1.6e-5, 1.3→2.0e-5, 1.4→4.1e-5, 1.5→4.2e-4).
+  No conserved quadratic ⇒ non-integrable. This UPGRADES §85 off its phenomenological non-vacuum Kerr-bump onto
+  a GENUINE exact vacuum solution — answering "is that deformation a real spacetime?" with one that is.
+- PRIOR ART web-checked FIRST (the lesson, applied): ZV non-integrability + absent Carter constant are KNOWN
+  (Lukes-Gerakopoulos, PRD 86 044013 (2012), arXiv:1206.0660; δ=2 has chaotic orbits). Cited, NOT claimed — the
+  contribution is the VALIDATED general detector (no closed-form Killing tensor / separability needed; works
+  where the symbolic route swamps).
+- CHAOS hunt (scripts/_zv_chaos_hunt.py): δ=1 regular tori (box-dim ~0.9), δ=2 bound orbits only MILDLY elevated
+  (~1.1), 0 strongly-chaotic found — the strong δ=2 chaos the literature locates lives in strong-field resonant
+  islands our coarse p_x=0 turning-point scan didn't hit (those orbits plunge). Honest caveat in the battery: the
+  SHARP signal is the algebraic absent-conserved-quadratic, not the geometric chaos. Also hardened
+  poincare.section() with a bounds-box + overflow guard (backwards-compatible; §84 re-verified green).
+- ADVERSARIAL STRESS-TEST (user: "did we really break the wall, or just saw what we wanted?") —
+  scripts/_zv_stresstest.py, 5 tests, ALL PASS: (1) δ=1 control genuinely Schwarzschild — the TEXTBOOK Carter
+  (1−y²)p_y²+L²/(1−y²), NOT fitted, conserved along orbits to 6.6e-16; (2) THE DECISIVE ONE — δ≠1's 1e-5 is a
+  REAL non-invariant: stays pinned (even RISES: 16→1.95e-5, 24/32→9.5e-5) under more orbits AND a halved step
+  (h=0.01→1.95e-5), never collapsing toward the 1e-15 floor (if an invariant existed, more data would find it);
+  (3) basis not rigged — +5 higher-order terms keep δ=1's Carter (6e-15) and create no spurious δ≠1 invariant
+  (2.4e-5); (4) generalizes out-of-sample — δ=1 invariant holds on a HELD-OUT orbit (2.9e-14), δ≠1's best-fit
+  drifts (1.4e-4); (5) robust across (E,L,x0). So the no-Carter contrast is PHYSICS, not seeing-what-we-wanted.
+- TWO HONESTY FIXES the stress-test surfaced (applied to battery + RESULTS + verify.sh): (i) softened "no quadratic
+  ⇒ non-integrable" — the detector only rules out a QUADRATIC Carter in its basis; a higher-order Killing tensor
+  isn't excluded; ZV's full non-integrability is the LITERATURE's proof (Morales-Ramis), which our result is
+  consistent with, not a re-derivation of. (ii) made "breaking the wall" precise: we did NOT make SymPy tractable
+  — we went AROUND it (exact closed form + numeric curvature), and only for the STATIC case; the rotating O(a²)
+  PDE is still open.
+- §97 battery green; wired into verify.sh. Tools kept general (a detector + an exact-solution testbed), not narrow.
