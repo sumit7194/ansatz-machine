@@ -1605,3 +1605,21 @@ nice-19 (alphaludo-l4, trainer untouched). Dashboards live on both hosts.
   HONEST: rules out a QUADRATIC Carter (rank-2); numeric Hamiltonian noisier for deformed metric (H-drift 1e-4,
   still 300x below the q!=0 signal). Battery §99 green, wired into verify.sh. New files: manko_novikov.py (metric),
   _mn_invariant.py (numeric Hamiltonian + detector), _mn_chaos_hunt.py (exploratory chaos), 99_*.py (battery).
+- §100 = EMRI RADIATION REACTION (the bridge's request B1; user: "lets build it so the other session isn't blocked").
+  The bridge (sister project) needs a GW-flux/radiation-reaction model to inspiral orbits through resonances in
+  Kerr + the bumpy metric. Built emri.py (general over any metric via _mn_invariant.build_hamilton_numeric):
+  (1) fundamental_frequencies — radial nu_r, polar nu_theta by counting x/y oscillation periods (launch at the
+  radial turning point px=0, py on-shell); ratio sweeps 0.65->0.73 -> inspiral crosses resonances. (2)
+  quadrupole_flux — numerical-kludge mass-quadrupole GW flux dE/dtau,dL/dtau in the frequency domain. VALIDATED vs
+  Peters -(32/5)M^3/r^5 for a circular orbit (ratio 0.92@r=40 -> 0.97@r=70 -> 1 weak field; dL/dt=dE/dt/Omega_phi
+  to 1%). TWO REAL BUGS caught + fixed (the w^6 weighting is brutal): (i) interpolation noise amplified by (iw)^3
+  -> flux 1e16 too big -> fixed with a physical frequency cutoff; (ii) spectral LEAKAGE from non-integer periods
+  (the cutoff-edge leakage * w^6 dominated) -> flux 1e2 too big at large r -> fixed with a Hann window. The Peters
+  convergence is the proof. (3) works on the BUMPY metric (q!=0, both fluxes <0 -> inspiral). (4) drives a circular
+  inspiral: dr/dt<0, Omega_phi rises 0.024->0.053 (the relativistic chirp). VERIFICATION-DRIVEN throughout: the
+  earlier '90x too big' was traced to non-circular test orbits (Newtonian E,L != exact BPT circular); used exact
+  Kerr BPT E,L for the clean validation. HONEST: it's a KLUDGE (leading multipole, ~10-20% low strong-field); the
+  bumpy RESONANT CHAOS is cited (Gair/Li/Mandel 2008 arXiv:0708.0628) not reproduced (elusive to coarse probing,
+  like §97 ZV -- Kerr & MN both box-dim~1 at coarse strong-field orbits). Per §99 the bumpy resonances ARE where
+  integrability fails -> the resonance-crossing signature B1 wants. Deliverable for the bridge: emri.quadrupole_flux
+  + fundamental_frequencies. Battery §100 green. New files: emri.py (toolkit), 100_emri_resonance.py (battery).

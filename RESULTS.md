@@ -1311,6 +1311,27 @@ testbed. Honest scope: rules out a conserved *quadratic* (Carter); the finite-di
 the deformed metric (H-drift ~10⁻⁴, still 300× below the q≠0 signal). Repro:
 `scripts/99_manko_novikov_integrability.py` (metric `scripts/manko_novikov.py`, Hamiltonian `scripts/_mn_invariant.py`).
 
+## §100 — EMRI radiation reaction: the GW flux + frequency map (the bridge's request B1)
+Built to unblock a *sister project* (the bridge's B1 — full EMRI waveform), the way §77/§78 were produced for it.
+The bridge had the geodesic frequency map in the bumpy metric but needed the orbit to **inspiral** (radiation
+reaction). This delivers that, general over Kerr *and* the bumpy Manko–Novikov metric (§99) through one interface
+(`emri.py`). **(A)** the **frequency map** — radial ν_r and polar ν_θ of bound geodesics by period-counting; their
+ratio sweeps as the orbit shrinks (0.65→0.73 across sampled orbits), so an inspiral **crosses resonances**
+(ν_r:ν_θ a low-order rational). **(B)** the **GW flux** dE/dτ, dL/dτ — the numerical-kludge mass-quadrupole flux,
+**validated**: a circular orbit reproduces Peters' dE/dt=−(32/5)M³/r⁵ (ratio→1 in the weak field: 0.92 at r=40,
+0.97 at r=70), and dL/dt = dE/dt/Ω_φ to 1% (the exact circular relation). Two real bugs caught and fixed en route
+— the ω⁶ frequency weighting catastrophically amplified (i) interpolation noise (fixed with a physical
+frequency cutoff) and (ii) spectral leakage from non-integer periods (fixed with a Hann window) — without those,
+the flux was wrong by 10¹⁶ then 10²; the Peters convergence is the proof it's right now. **(C)** it works on the
+**bumpy** metric (q≠0): a genuine radiation-reaction driver, not Kerr-only. **(D)** the flux drives a circular
+orbit inward (dr/dt<0) and **chirps** it (Ω_φ rises 0.024→0.053 from r=12→7) — the relativistic chirp, the engine
+end-to-end from metric to waveform-frequency evolution. Honest scope: a **kludge** (leading multipole), ~10–20% low
+in the strong field (the known quadrupole-formula deficit) — enough for the qualitative resonance signature B1
+wants, not a precision Teukolsky waveform; and the bumpy *resonant chaos* itself is cited (Gair, Li & Mandel 2008,
+[arXiv:0708.0628](https://arxiv.org/abs/0708.0628)), not reproduced here (elusive to coarse probing, as for §97's
+ZV). Per §99, the bumpy resonances are exactly where integrability fails — the physics behind B1's
+resonance-crossing signature. Repro: `scripts/100_emri_resonance.py` (toolkit `scripts/emri.py`).
+
 **Where the niche stands (own literature sweep, 2026-06-16).** Path 1 (automate
 the physical-vs-gauge / SPSM criterion) is closed: xCPS (arXiv:2606.05204, open
 source) already automates covariant phase space, Noether charges, and Wald
