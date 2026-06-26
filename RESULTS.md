@@ -1406,6 +1406,40 @@ plus the q=0.95 enabler); the geometric positive-control stays an honest, well-c
 Repro: `scripts/manko_novikov.py` (gauge-fix); `scripts/_mn_pocket_scan.py`,
 `scripts/_mn_resonance_chaos.py` (exploratory region-map + rotation-number hunt).
 
+## §103 — the MN metric verified EXACT; §104 — the near-rod inner CZV cracked (bridge round 3)
+
+The bridge built a **Laskar frequency-drift** thin-layer chaos detector (constant section-frequency for
+any regular orbit including resonant islands, drifting only for chaos — validated with a ~100× margin on
+Hénon–Heiles and no false-positive on Kerr's resonant island) and asked for **one set of literature ICs**
+for a chaotic Manko–Novikov orbit to aim it at.
+
+**Convention + metric, settled.** Their quadrupole q ≡ −(M₂−M₂^Kerr)/M³ is *our* q (Gair–Li–Mandel 2008,
+[arXiv:0708.0628](https://arxiv.org/abs/0708.0628)); the documented chaos (Contopoulos–Lukes-Gerakopoulos–
+Apostolatos, [arXiv:1108.5057](https://arxiv.org/abs/1108.5057)) is at **χ=0.9, q=0.95, E=0.95, Lz=3**, in
+the **inner permissible region** (two CZV for large Lz; inner one mainly chaotic plus an island), near the
+**2/3 resonance**. We **verified our metric is the exact Manko–Novikov** — a, b, A, B, C, ψ all match the
+published forms line-by-line (the `−1/+1` constants in the a,b exponentials are *correct*: the `−1` cancels
+Sa's ℓ=0 limit (x−y)/R→1, so a→Kerr at infinity; the γ′ asymptotic constant is exactly what §102's
+normalization compensates). **So §99–§102 are on the correct spacetime** — a solid confirmation. (Chased a
+ghost first: removing those a,b constants fixes the A=0 surface at x≈3 but *breaks* asymptotic flatness by
+0.6% — the tell that it's wrong; that A=0 surface is a **real** MN feature at this extreme deformation.)
+
+**The clean target the bridge's blind sweep missed.** They swept Lz=**2.8**; the 2/3 resonance at moderate
+q sits at Lz=**3.0** — `a=0.9, q=0.6, E=0.95, Lz=3.0, x0≈7.7` (ν_r/ν_θ: 7.5→0.657, 8.0→0.677). Thin
+outer-region layer (our box-dim grazes 1.03, de-noised λ floored) — their detector's regime.
+
+**The inner CZV, cracked (§104).** §103 first called the near-rod inner region "needs Weyl coordinates" —
+premature. It's reachable in our prolate toolkit via two numerical moves: **(1)** an adaptive step-doubling
+integrator that **refines-on-exception** (halve the step and retry when a step flings the orbit into a bad
+region, rather than aborting), and **(2)** a launch that **partitions a small radial-energy fraction**
+(p_x≠0 — with p_x=0 the section degenerates to a cluster; too much p_x reaches the stiff deep-inner zone and
+the Hamiltonian drift blows up). The sweet spot (f_r ~ 0.1–0.25 at x0 ~ 1.56–1.60) gives **trustworthy**
+sections (H-drift 1e-4…1e-3) at the literature's *exact* params, with box-dim **1.20–1.22** — the borderline
+thin-chaos-vs-torus regime the bridge's detector is built to settle. Two ICs handed over (reduced state
+`[x,y,p_x,p_y]`): `[1.60, 0, −2.35e-4, 7.95e-4]` and `[1.56, 0, −3.5e-5, 7.3e-5]`. The **deep chaotic sea
+(x<1.5)** is still beyond trustworthy integration (the stiffness defeats it) — an open frontier needing
+higher precision. Repro: `scripts/_mn_adaptive_inner.py` (exploratory).
+
 **Where the niche stands (own literature sweep, 2026-06-16).** Path 1 (automate
 the physical-vs-gauge / SPSM criterion) is closed: xCPS (arXiv:2606.05204, open
 source) already automates covariant phase space, Noether charges, and Wald
