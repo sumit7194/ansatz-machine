@@ -1704,3 +1704,28 @@ nice-19 (alphaludo-l4, trainer untouched). Dashboards live on both hosts.
   flagged). HONEST OUTCOME: the corrected metric is the deliverable (a real correctness win + the q=0.95
   enabler); the geometric positive-control stays a well-characterized open item, exactly like ZV. New
   (exploratory): _mn_pocket_scan.py (region map + pocket launches), _mn_resonance_chaos.py (rotation-number hunt).
+
+## 2026-06-26 — §103 BRIDGE ROUND 3: MN metric verified EXACT; inner chaos is a coordinate-stiffness wall
+- The bridge built a thin-layer chaos detector (Laskar frequency-drift: section-frequency is constant for any
+  regular orbit incl. resonant islands, drifts only for chaos; area-blind, ~100x margin on Henon-Heiles, no
+  Kerr resonant-island false-positive). It asked for ONE set of literature ICs for a chaotic MN orbit to aim it.
+- CONVENTION CONFIRMED (Gair-Li-Mandel 2008, arXiv:0708.0628): the bridge's q == our q (q=-(M2-M2_Kerr)/M^3).
+  Literature chaos (Contopoulos/Lukes-Gerakopoulos/Apostolatos, arXiv:1108.5057): chi=0.9, q=0.95, E=0.95,
+  Lz=3, INNER permissible region (two CZV for large Lz; inner mainly chaotic), 2/3 resonance.
+- METRIC VERIFIED EXACT: fetched the explicit MN metric from Gair-Li-Mandel 2008 and checked a, b, A, B, C, psi
+  LINE-BY-LINE vs manko_novikov.py -- ALL MATCH, including the -1/+1 a,b constants I kept distrusting (the -1
+  cancels Sa's l=0 limit (x-y)/R->1, so a->Kerr at infinity). The gamma' asymptotic constant is exactly what
+  the §102 normalization compensates. So our MN IS the exact Manko-Novikov; §99-§102 are on the correct metric.
+  CHASED A GHOST first: tested 'remove the a,b constants' -- it fixes A(x=3)=0 but BREAKS asymptotic flatness
+  (0.6%, the tell it's wrong). The A=0 surface at x~3 is a REAL MN feature at this extreme deformation.
+- THE CLEAN TARGET (located the resonance a blind sweep misses): a=0.9, q=0.6, E=0.95, Lz=3.0 -- the bridge
+  swept Lz=2.8, one slice off. nu_r/nu_theta=2/3 at x0~7.7 (7.5->0.657, 8.0->0.677). Outer-region layer is thin
+  (box-dim grazes 1.03, de-noised lambda floored) -> the bridge's detector's job. Relayed.
+- THE ROBUST INNER ORBIT IS A NUMERICAL WALL, not a metric one: the literature's chaos lives between the rod
+  (x=1) and the A=0 surface (x~3), COORDINATE-STIFF in prolate spheroidal (g_xx,g_yy->0 => velocities
+  ~1/sqrt(g)->inf). Built an adaptive step-doubling integrator (_mn_adaptive_inner.py): deep inner (x<1.5) too
+  stiff (st=0 at the hmin floor); x~1.52 runs but H-drift=140 (garbage); x~1.60 conserves H but the y=0 section
+  is a degenerate cluster (x-range 0.002 -- fast y-oscillation swamps the slow radial motion). Inner-chaos
+  verdict INCONCLUSIVE in our toolkit -> needs Weyl (rho,z) coords + a different section surface (what the
+  literature uses). KEY BANKABLE RESULT: our MN metric is the exact Manko-Novikov (line-by-line verified).
+  New (exploratory): _mn_adaptive_inner.py.
