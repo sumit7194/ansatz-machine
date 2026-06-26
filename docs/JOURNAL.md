@@ -1729,3 +1729,22 @@ nice-19 (alphaludo-l4, trainer untouched). Dashboards live on both hosts.
   verdict INCONCLUSIVE in our toolkit -> needs Weyl (rho,z) coords + a different section surface (what the
   literature uses). KEY BANKABLE RESULT: our MN metric is the exact Manko-Novikov (line-by-line verified).
   New (exploratory): _mn_adaptive_inner.py.
+
+## 2026-06-26 — §104 INNER-CZV CRACKED: trustworthy near-rod MN orbits via partitioned launch + adaptive step
+- §103 called the inner region 'inconclusive, needs Weyl'. Kept pushing -- it's reachable WITHOUT Weyl. The
+  fix was two NUMERICAL moves, not coordinates: (1) adaptive step-doubling must REFINE-ON-EXCEPTION (a step
+  that flings the orbit into a bad region halves h and retries instead of breaking); (2) the LAUNCH must
+  partition a small fraction of the kinetic energy into RADIAL momentum (px != 0) -- with px=0 the section
+  degenerates to a cluster (no radial motion); too much px reaches the stiff deep-inner zone and H-drift blows
+  up. Sweet spot f_r ~ 0.1-0.25 at x0 ~ 1.56-1.60 keeps the orbit in the tractable outer part of the inner CZV.
+- RESULT: trustworthy (H-drift 1e-4..1e-3) Poincare sections at the LITERATURE's exact inner-region params
+  (chi=0.9, q=0.95, E=0.95, Lz=3). Box-dim 1.12-1.22 = the borderline regime (thin chaos vs under-resolved
+  torus, the §101 ambiguity) -- EXACTLY what the bridge's Laskar frequency-drift detector is built to settle.
+  Best targets (reduced state [x,y,px,py]): [1.60, 0, -2.35e-4, 7.95e-4] (box-dim 1.203, H-drift 3e-4, 500
+  crossings) and [1.56, 0, -3.5e-5, 7.3e-5] (box-dim 1.219, H-drift 6.8e-4). Relayed to the bridge -- their
+  detector settles chaos-vs-regular on the EXACT metric leg J studies.
+- So the inner-region orbit IS reachable in our prolate toolkit; §103's 'needs Weyl' was premature (Weyl is
+  only 0.585x less stiff -- not worth it; the partitioned launch is the real lever). The DEEP chaotic sea
+  (x<1.5) is still beyond trustworthy integration (H-drift blows up there) -- that part may genuinely need
+  higher precision / different coords -- but the inner-CZV edge (island + boundary layer) is now computable.
+  _mn_adaptive_inner.py updated (refine-on-exception).
