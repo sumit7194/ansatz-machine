@@ -1658,3 +1658,34 @@ nice-19 (alphaludo-l4, trainer untouched). Dashboards live on both hosts.
   (Kerr L=3.4->2.6: dQ -2.4e-4->-3.45e-3; MN: -1.1e-3->-9.0e-3). §100/§101 still pass; §101(A) augmented with the
   MN strong-bump case as a regression guard. KEY: the bridge gave a CONCRETE failing case -> reproduce + spectrum-
   diagnose + fix both, exactly the two-way loop working. Honest: still a leading-multipole kludge (no a^2(1-E^2)cos^2).
+
+## 2026-06-26 — §102 THE MANKO-NOVIKOV CHART BUG + FIX (asymptotic-flatness gauge-fix; bridge Ask 2 enabler)
+- Bridge GREEN-LIT the rod-stable MN reimplementation for the literature's chi=0.9, q=0.95 chaotic orbit, with one
+  firm constraint: keep the outer region numerically identical so existing results are untouched. Attempting it
+  REVEALED A REAL BUG instead: our shipped MN metric is NOT asymptotically flat for ANY q!=0 -- g_xx -> 0.085x the
+  Minkowski value at infinity (g_tt, g_tphi, g_phiphi all correctly ->1). Direct test: g_xx(q=0.2)/g_xx(q=0) at
+  large x = 0.0851, not 1.
+- WHY BOTH OUR CHECKS WERE BLIND: the vacuum residual is insensitive to a CONSTANT in gamma (Ricci=0 is preserved
+  under gamma->gamma+c, since gamma enters only via derivatives), and the q=0=Kerr anchor has beta=0 so the bad
+  constant vanishes there. So a wrong gamma'-constant passed vacuum AND passed q=0=Kerr -- the metric was vacuum
+  but on a non-standard chart. It is ALSO why it overflowed at high q: the spurious constant is ~ -6*beta, driving
+  e^{2 gamma} -> 0 (g_xx underflow) everywhere as beta grows -- NOT a near-rod-only problem (it failed even at x=2).
+- THE FIX (gauge normalization, in LOG space): subtract gamma's value at infinity so e^{2 gamma} -> 1 exactly.
+  loge2g_inf computed once at x=60; e2g = exp(2*gamma' + log(A/((x^2-1)*nrm)) - loge2g_inf). Doing it in log space
+  is what removes the underflow, so chi=0.9, q=0.95 becomes computable. q=0 (beta=0) is BYTE-IDENTICAL to exact
+  Kerr (rel ~1e-16, every component); vacuum preserved (Ricci h^2->0 for q=0.2 AND q=0.5); g_xx ratio q=0.2/q=0
+  now 1.0004 (asymptotically flat).
+- RE-VALIDATION (all green): §99 (no Carter for q!=0) UNCHANGED -- integrability is path-based hence
+  chart-independent; §100 (Peters, q=0 Kerr) unaffected; §101 GREEN, and the corrected chart makes MN q=0.2
+  dE/dtau = -6.7e-5, even CLOSER to Kerr's -6.7e-5 than the pre-fix -9e-5. WHY RESULTS SURVIVE: the fix is a
+  CONSTANT rescaling of g_xx,g_yy, so orbit PATHS (Poincare, box-dim, integrability) are preserved exactly; only
+  proper-time quantities (flux, frequencies) move, and they move toward correct.
+- BRIDGE IMPACT (relayed): B1's box-dims / positive-controls UNCHANGED; B1's flux & frequency VALUES shift (they
+  were on the non-flat chart) -> needs a re-run on the corrected metric.
+- SIDE FIX: the log-form correctly RAISES on MN's A<0 region (the known near-rod CTC / naked-singularity
+  pathology, where the OLD code silently produced g_xx<0). Made geodesic_chaos trajectory/lyapunov catch
+  (ValueError, OverflowError, ZeroDivisionError) and stop cleanly. §101(B) demo re-tuned: the FD-roundoff
+  false-positive now needs ch=1e-7 (was 1e-5) -- the gauge-fix improved conditioning -- but still reproduces
+  (lambda=0.83 noisy vs 0.02 de-noised, box-dim 1.06 regular). Modified: manko_novikov.py (gauge-fix),
+  geodesic_chaos.py (robust integrators), 101_emri_carter_and_chaos.py (re-tuned B). [Ask-2 second-region chaos
+  verdict + _mn_pocket_scan.py land in the next entry once the scan converges.]

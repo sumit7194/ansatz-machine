@@ -50,16 +50,15 @@ def manko_novikov(M, a, q, deform=True):
     alpha = (-1 + s) / chi
     k = M * (1 - alpha * alpha) / (1 + alpha * alpha)
     beta = q * M**3 / k**3
+    nrm = (1 - alpha * alpha)**2
 
-    def g(X):
-        _, x, y, _ = X
+    def _parts(x, y):
         R = math.sqrt(x * x + y * y - 1)
         u = x * y / R
         P2 = _legP(2, u)
         psi = beta * R**(-3) * P2                            # anomaly potential (alpha_2 = beta)
         if deform and beta != 0.0:
             # a,b acquire multipole-exponential factors; gamma' gets anomaly corrections.
-            # (best transcription of Gair et al 2008 eqs 3g-3j; Ricci=0 is the arbiter)
             Sa = sum((x - y) * _legP(l, u) / R**(l + 1) for l in range(3))
             Sb = sum((-1)**(3 - l) * (x + y) * _legP(l, u) / R**(l + 1) for l in range(3))
             aa = -alpha * math.exp(-2 * beta * (-1 + Sa))
@@ -77,7 +76,26 @@ def manko_novikov(M, a, q, deform=True):
         gp = 0.5 * math.log((x * x - 1) / (x * x - y * y)) + gp_corr   # gamma' (baseline + anomaly)
         f = math.exp(2 * psi) * A / B
         om = 2 * k * math.exp(-2 * psi) * C / A - 4 * k * alpha / (1 - alpha * alpha)
-        e2g = math.exp(2 * gp) * A / ((x * x - 1) * (1 - alpha * alpha)**2)
+        return f, om, A, gp
+
+    # ASYMPTOTIC-FLATNESS GAUGE FIX. Without it, e^{2 gamma} -> a constant != 1 for q!=0, so g_xx is
+    # not asymptotically Minkowski (a transcription error in the gamma' constant that the vacuum check,
+    # being insensitive to a gamma constant, could not catch). Subtract gamma's value at infinity in
+    # LOG space (so e^{2 gamma} -> 1) -- this both corrects the chart AND avoids the exp underflow that
+    # made high-quadrupole orbits incomputable. q=0 (beta=0) is byte-identical to before.
+    if deform and beta != 0.0:
+        _, _, A_inf, gp_inf = _parts(60.0, 1e-4)
+        loge2g_inf = 2 * gp_inf + math.log(A_inf / ((60.0**2 - 1) * nrm))
+    else:
+        loge2g_inf = 0.0
+
+    def g(X):
+        _, x, y, _ = X
+        f, om, A, gp = _parts(x, y)
+        if deform and beta != 0.0:
+            e2g = math.exp(2 * gp + math.log(A / ((x * x - 1) * nrm)) - loge2g_inf)   # normalized -> flat
+        else:
+            e2g = math.exp(2 * gp) * A / ((x * x - 1) * nrm)                          # q=0: exact as before
         gg = [[0.0] * 4 for _ in range(4)]
         # ds^2 = -f (dt - om dphi)^2 + k^2/f [ e2g (x^2-y^2)(dx^2/(x^2-1)+dy^2/(1-y^2)) + (x^2-1)(1-y^2) dphi^2 ]
         gg[0][0] = -f

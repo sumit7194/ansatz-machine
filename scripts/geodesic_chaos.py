@@ -39,7 +39,10 @@ def trajectory(g_func, x0, u0, dtau=0.1, steps=200, ch=1e-4):
     s = list(x0) + list(u0)
     out = [s[:]]
     for _ in range(steps):
-        s = _rk4(g_func, s, dtau, ch)
+        try:
+            s = _rk4(g_func, s, dtau, ch)
+        except (ValueError, OverflowError, ZeroDivisionError):
+            break  # geodesic reached a non-physical region (e.g. MN's A<0 / rod) — stop cleanly
         out.append(s[:])
     return out
 
@@ -61,13 +64,16 @@ def lyapunov(g_func, x0, u0, dtau=0.15, blocks=500, renorm_every=4, d0=1e-6, idx
     sp[idx] += d0
     acc, T = 0.0, 0.0
     for _ in range(blocks):
-        for _ in range(renorm_every):
-            s = _rk4(g_func, s, dtau, ch)
-            sp = _rk4(g_func, sp, dtau, ch)
+        try:
+            for _ in range(renorm_every):
+                s = _rk4(g_func, s, dtau, ch)
+                sp = _rk4(g_func, sp, dtau, ch)
+        except (ValueError, OverflowError, ZeroDivisionError):
+            break  # geodesic reached a non-physical region (e.g. MN's A<0 / rod) — stop cleanly
         T += renorm_every * dtau
         d = math.sqrt(sum((sp[i] - s[i])**2 for i in range(8)))
         if d <= 0:
             break
         acc += math.log(d / d0)
         sp = [s[i] + (d0 / d) * (sp[i] - s[i]) for i in range(8)]
-    return acc / T
+    return acc / T if T > 0 else 0.0
