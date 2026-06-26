@@ -1454,6 +1454,16 @@ closed it: §102 (asymptotic-flatness fix) → §103 (metric verified exact) →
 the stiff inner basin) → the bridge's detector settles the borderline. The deep chaotic sea (x<1.5) remains
 the one open frontier.
 
+**Made self-contained (gated).** Implemented the detector natively — `poincare.frequency_drift` (dominant
+frequency by windowed-FFT peak + parabolic refinement, |Δf|/f between the first and second half of the
+section sequence; area-blind, no FD-roundoff or resonant-island false positive) — and battery
+`105_chaos_frequency_drift.py`: **(A)** Hénon–Heiles regular 0.0000 vs chaotic 1.38 (separates order/chaos);
+**(B)** Kerr bound geodesic 0.0000, H-drift 2e-15 (no false positive on an integrable metric); **(C)** the
+exact-MN inner-CZV split — orbit_A 0.0000 (island) vs orbit_B 0.9798 (thin chaos), length-matched control
+airtight. The native detector reproduces the bridge's verdict to the digit. So the positive control is now a
+**permanent, self-contained green battery** — a third validated chaos lens beside box-dimension (§84) and
+the de-noised Lyapunov exponent (§79/§101), and the one that resolves exactly where they're ambiguous.
+
 **Where the niche stands (own literature sweep, 2026-06-16).** Path 1 (automate
 the physical-vs-gauge / SPSM criterion) is closed: xCPS (arXiv:2606.05204, open
 source) already automates covariant phase space, Noether charges, and Wald

@@ -1767,6 +1767,14 @@ nice-19 (alphaludo-l4, trainer untouched). Dashboards live on both hosts.
 - THE CHAIN that closed it: §102 (asymptotic-flatness fix) -> §103 (metric verified EXACT vs Gair-Li-Mandel
   2008) -> §104 (adaptive integrator + partitioned launch reach the stiff inner basin) -> bridge's
   frequency-drift detector settles the borderline. Cross-repo positive control CLOSED. Still open
-  (someday/higher-precision, not a request): the deep chaotic sea at x<1.5. OPTIONAL next on our side:
-  implement the Laskar frequency-drift detector natively + a gated battery, so this positive control is
-  self-contained (doesn't depend on the bridge's detector).
+  (someday/higher-precision, not a request): the deep chaotic sea at x<1.5.
+- §105 BATTERY (this session, made self-contained): implemented poincare.frequency_drift (dominant
+  frequency = windowed-FFT peak + parabolic sub-bin refinement, of first vs second half of the section
+  sequence; |df|/f; area-blind, no FD-roundoff/resonant-island false positive) + gated battery
+  105_chaos_frequency_drift.py: (A) Henon-Heiles regular(E=1/12)=0.0000 vs chaotic(E=1/6)=1.38 -> separates
+  order/chaos; (B) Kerr bound geodesic=0.0000 (H-drift 2e-15) -> no false positive on an integrable metric;
+  (C) EXACT MN inner-CZV: orbit_A 0.0000 (island) vs orbit_B 0.9798 (thin chaos), length-matched control
+  airtight. Native detector reproduces the bridge's verdict to the digit (orbit_B 0.980). The positive
+  control is now SELF-CONTAINED + GATED on our side -- a THIRD validated chaos lens beside box_dimension
+  (§84) and de-noised lyapunov (§79/§101), and the one that succeeds exactly where they're ambiguous (the
+  §101 box-dim~1.2 borderline). Battery count -> 89.
