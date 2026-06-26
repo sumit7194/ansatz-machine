@@ -1748,3 +1748,25 @@ nice-19 (alphaludo-l4, trainer untouched). Dashboards live on both hosts.
   (x<1.5) is still beyond trustworthy integration (H-drift blows up there) -- that part may genuinely need
   higher precision / different coords -- but the inner-CZV edge (island + boundary layer) is now computable.
   _mn_adaptive_inner.py updated (refine-on-exception).
+
+## 2026-06-26 — §105 POSITIVE CONTROL CLOSED: MN's own thin-layer chaos exhibited on the EXACT metric
+- The bridge ran its validated Laskar frequency-drift detector on the two §104 inner-CZV section series we
+  exported (chi=0.9, q=0.95, E=0.95, Lz=3) and SETTLED the borderline box-dim-1.2 ambiguity:
+  - orbit_A [1.60, 0, -2.35e-4, 7.95e-4], 800 crossings: drift 0.0000 -> REGULAR = inner ISLAND of stability.
+  - orbit_B [1.56, 0, -3.5e-5, 7.3e-5], 126 crossings: drift 0.980 -> THIN CHAOS = the boundary layer (above
+    Henon-Heiles' own 0.59 chaotic floor). Length-matched control airtight: orbit_A truncated to 126
+    crossings STILL reads 0.0000, so orbit_B's 0.98 is real, not a short-series artifact.
+- So our two box-dim-1.2 orbits split cleanly into ISLAND (A) and BOUNDARY LAYER (B). MN's OWN bound
+  thin-layer chaos is now EXHIBITED on the EXACT metric -- the positive control open since the first MN run
+  (§99). Box-dim could NOT call it (1.20 vs 1.22, the §101 ambiguity); the frequency-drift detector did
+  (0.0000 vs 0.980, a clean ~1000x split). The whole point of the borderline-sensitive tool, demonstrated.
+- Bridge's complementary outer sweep (their fixed-step handles the outer region fine): a=0.9, q=0.6, Lz=3.0,
+  x0 in [7.3,8.1] (the 2/3 resonance we located) -- all 17 orbits regular incl. the centre x0=7.70. So the
+  full CZV picture holds and is classified end-to-end by ONE validated detector: REGULAR outer region ·
+  inner ISLAND of stability · thin CHAOTIC boundary layer.
+- THE CHAIN that closed it: §102 (asymptotic-flatness fix) -> §103 (metric verified EXACT vs Gair-Li-Mandel
+  2008) -> §104 (adaptive integrator + partitioned launch reach the stiff inner basin) -> bridge's
+  frequency-drift detector settles the borderline. Cross-repo positive control CLOSED. Still open
+  (someday/higher-precision, not a request): the deep chaotic sea at x<1.5. OPTIONAL next on our side:
+  implement the Laskar frequency-drift detector natively + a gated battery, so this positive control is
+  self-contained (doesn't depend on the bridge's detector).

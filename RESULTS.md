@@ -1440,6 +1440,20 @@ thin-chaos-vs-torus regime the bridge's detector is built to settle. Two ICs han
 (x<1.5)** is still beyond trustworthy integration (the stiffness defeats it) — an open frontier needing
 higher precision. Repro: `scripts/_mn_adaptive_inner.py` (exploratory).
 
+**§105 — the positive control closed.** The bridge ran its validated Laskar frequency-drift detector on the
+two exported inner-CZV series and **settled the box-dim-1.2 ambiguity cleanly**: orbit_A (800 crossings)
+drift **0.0000 → regular, the inner island of stability**; orbit_B (126 crossings) drift **0.980 → thin
+chaos, the boundary layer** (above Hénon–Heiles' own 0.59 chaotic floor). The length-matched control is
+airtight — orbit_A truncated to 126 crossings still reads 0.0000, so orbit_B's 0.98 is real, not a
+short-series artifact. So **Manko–Novikov's own bound thin-layer chaos is now exhibited on the exact metric**
+— the positive control open since the first MN run (§99). Box-dim couldn't call 1.20 vs 1.22 (the §101
+ambiguity); the frequency-drift detector split it ~1000×. With the bridge's outer-region sweep (17 orbits at
+the 2/3 resonance we located, all regular), the **full CZV picture is classified end-to-end by one validated
+detector: regular outer region · inner island of stability · thin chaotic boundary layer.** The chain that
+closed it: §102 (asymptotic-flatness fix) → §103 (metric verified exact) → §104 (adaptive integrator reaches
+the stiff inner basin) → the bridge's detector settles the borderline. The deep chaotic sea (x<1.5) remains
+the one open frontier.
+
 **Where the niche stands (own literature sweep, 2026-06-16).** Path 1 (automate
 the physical-vs-gauge / SPSM criterion) is closed: xCPS (arXiv:2606.05204, open
 source) already automates covariant phase space, Noether charges, and Wald
