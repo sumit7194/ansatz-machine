@@ -1362,6 +1362,50 @@ documented chaos needs the literature's specific initial data (like §97's ZV). 
 launcher delivered for it. Repro: `scripts/101_emri_carter_and_chaos.py` (toolkit `scripts/emri.py`,
 de-noised `scripts/geodesic_chaos.py`).
 
+## §102 — the Manko–Novikov chart bug + asymptotic-flatness fix (found via the bridge's Ask 2)
+
+The bridge green-lit a **rod-stable** MN reimplementation for the literature's strong-bump chaotic
+orbit (χ=0.9, q=0.95), asking that the outer region stay numerically identical. Attempting it
+**uncovered a real bug instead**: our shipped MN metric is **not asymptotically flat for any q≠0** —
+`g_xx → 0.085×` the Minkowski value at infinity (g_tt, g_tφ, g_φφ all correctly → 1; direct test
+`g_xx(q=0.2)/g_xx(q=0) = 0.0851`, not 1). **Why both our checks missed it:** the vacuum residual is
+insensitive to a *constant* in γ (Ricci=0 is preserved under γ→γ+c, since γ enters only through
+derivatives), and the q=0=Kerr anchor has β=0, so a wrong γ′-constant passes *both*. It was also the
+high-q **overflow** cause — the spurious constant is ≈ −6β, driving e^{2γ}→0 (g_xx underflow)
+everywhere as β grows (it failed even at x=2, not only near the rod).
+
+**The fix (gauge normalization, in log space).** Subtract γ's value at infinity so e^{2γ}→1 exactly:
+`loge2g_inf` computed once at x=60, then `e2g = exp(2γ′ + log(A/((x²−1)·nrm)) − loge2g_inf)`. Working
+in log space is what removes the underflow, so **χ=0.9, q=0.95 becomes computable**. **q=0 (β=0) stays
+byte-identical to exact Kerr** (rel ~1e-16, every component); vacuum preserved (Ricci h²→0 for q=0.2
+*and* q=0.5); the g_xx ratio q=0.2/q=0 is now **1.0004**.
+
+**Re-validation (all green).** §99 (no Carter for q≠0) **unchanged** — integrability is path-based,
+hence chart-independent; §100 (Peters, q=0 Kerr) unaffected; §101 green, and the corrected chart makes
+the MN q=0.2 flux dE/dτ = −6.7e-5, *even closer* to Kerr's −6.7e-5 than the pre-fix −9e-5. The fix is a
+constant rescaling of g_xx, g_yy, so orbit **paths** (Poincaré sections, box-dim, integrability) are
+preserved exactly; only proper-time quantities (flux, frequencies) move, and they move toward correct.
+**Bridge impact (relayed):** B1's box-dims / positive-controls are unchanged; B1's flux & frequency
+*values* shift (they were on the non-flat chart) → re-run on the corrected metric.
+
+**Ask 2 — MN's own bound chaos (the intended positive control): characterized, not cleanly exhibited.**
+With the metric now computable at the literature params, the permissible region at (χ=0.9, q=0.95,
+E=0.95, Lz=3) splits into **three** disconnected wells (Kerr has one): an **inner** [1.24, 1.64] that
+is *metric-degenerate* (g_tt, g_xx, g_yy → 0, with a signature flip to closed timelike curves by x≈1.7
+— the known MN near-rod naked-singularity pathology); a **second** lens [3.04, 4.96] (bound in y by the
+W=−1 wall, but its inner edge **abuts the degenerate zone** — orbits launched there drift inward to
+x≈2.98 and hit the pathology); and an **outer** [5.58, 31] (clean — orbits read **regular**, box-dim
+0.97–1.03). So at this *extreme* quadrupole the candidate chaotic basin is **pathology-bound**, not a
+clean chaotic sea. This matches §97/§98 (Zipoy–Voorhees) and §100/§101: MN's documented chaos is
+**thin-layer near resonances** (the literature detects it via the rotation number, not gross
+area-filling), and §99 already supplies the rigorous statement (no quadratic Carter for q≠0). A clean
+box-dim→2 orbit was **not** exhibited — the thin layers need either the exact literature initial data at
+moderate q or a rotation-number sweep, and the finite-differenced Hamiltonian makes a high-resolution
+section compute-prohibitive here. The **deliverable is the corrected metric** (a real correctness win
+plus the q=0.95 enabler); the geometric positive-control stays an honest, well-characterized open item.
+Repro: `scripts/manko_novikov.py` (gauge-fix); `scripts/_mn_pocket_scan.py`,
+`scripts/_mn_resonance_chaos.py` (exploratory region-map + rotation-number hunt).
+
 **Where the niche stands (own literature sweep, 2026-06-16).** Path 1 (automate
 the physical-vs-gauge / SPSM criterion) is closed: xCPS (arXiv:2606.05204, open
 source) already automates covariant phase space, Noether charges, and Wald

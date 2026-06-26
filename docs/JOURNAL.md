@@ -1687,5 +1687,20 @@ nice-19 (alphaludo-l4, trainer untouched). Dashboards live on both hosts.
   (ValueError, OverflowError, ZeroDivisionError) and stop cleanly. §101(B) demo re-tuned: the FD-roundoff
   false-positive now needs ch=1e-7 (was 1e-5) -- the gauge-fix improved conditioning -- but still reproduces
   (lambda=0.83 noisy vs 0.02 de-noised, box-dim 1.06 regular). Modified: manko_novikov.py (gauge-fix),
-  geodesic_chaos.py (robust integrators), 101_emri_carter_and_chaos.py (re-tuned B). [Ask-2 second-region chaos
-  verdict + _mn_pocket_scan.py land in the next entry once the scan converges.]
+  geodesic_chaos.py (robust integrators), 101_emri_carter_and_chaos.py (re-tuned B).
+- §102 ASK 2 (MN's own bound chaos, the intended positive control): CHARACTERIZED, not cleanly exhibited.
+  With the metric now computable at chi=0.9, q=0.95, mapped the permissible region at E=0.95, Lz=3: it splits
+  into THREE disconnected wells (Kerr has one) -- INNER [1.24,1.64] metric-DEGENERATE (g_tt,g_xx,g_yy->0,
+  signature flip to CTCs by x~1.7 = MN's known near-rod naked-singularity pathology); SECOND lens [3.04,4.96]
+  (bound in y by the W=-1 wall, but its inner edge ABUTS the degenerate zone -- traced an orbit launched at
+  (4.0,0): it drifts inward to x~2.98 and hits the pathology); OUTER [5.58,31] clean (orbits REGULAR, box-dim
+  0.97-1.03). So at this EXTREME quadrupole the candidate chaotic basin is PATHOLOGY-BOUND, not a clean sea --
+  consistent with §97/§98 (ZV chaos elusive) and §100/§101. MN's documented chaos is thin-layer near resonances
+  (the literature uses the rotation number, not gross area-filling); §99 already gives the rigorous statement
+  (no quadratic Carter for q!=0). A clean box-dim->2 orbit was NOT exhibited: the thin layers need the exact
+  literature ICs at moderate q or a rotation-number sweep, and the finite-differenced Hamiltonian makes a
+  high-resolution section compute-prohibitive (orbits here have a ~300-proper-time latitudinal period -> ~20
+  crossings in 150k steps, and sparse sections give artificially-high box-dim = the under-resolution trap §101
+  flagged). HONEST OUTCOME: the corrected metric is the deliverable (a real correctness win + the q=0.95
+  enabler); the geometric positive-control stays a well-characterized open item, exactly like ZV. New
+  (exploratory): _mn_pocket_scan.py (region map + pocket launches), _mn_resonance_chaos.py (rotation-number hunt).
