@@ -1600,6 +1600,28 @@ scope: proven over two independent functional families, not arbitrary 4D depende
 (r,θ)-wall); the trap is exact. Repro: `scripts/111_kaluza_klein.py` (machine-derivation prototypes
 `scripts/_kk_reduce.py`, `_kk_reduce2.py`).
 
+## §112 — 6D KK on T²: the cross-coupled dictionary and the twist-sourcing obstruction (the rung up)
+
+The 5D story's "one rung up": two circles, two gauge fields, two moduli. For the diagonal-fibre ansatz
+ds²₆ = g⁴ + Φ₁²(dw₁+A¹)² + Φ₂²(dw₂+A²)², the machine-derived dictionary (all identities leftover zero)
+shows the fibres **cross-couple**: each Maxwell density carries the *other* fibre's volume —
+R⁶(ê,∂_a) = −(1/2Φ_aΦ_b)·D^ν(Φ_a³**Φ_b**F^a) — and each modulus's wave operator sees the other's
+gradient — R⁶(∂_a,∂_a) = −Φ_a□Φ_a + ¼Φ_a⁴F_a² − Φ_a(∂Φ_a·∂Φ_b)/Φ_b. **The new-at-6D result** (predicted
+from the ansatz's structure, then machine-confirmed exactly): the off-diagonal fibre equation
+**R⁶(w₁,w₂) = ¼Φ₁²Φ₂²·F¹·F²** has no field to absorb it in the diagonal ansatz, so 6D vacuum **forces
+F¹·F² = 0 — two non-orthogonal gauge fields demand a dynamical twist**. No 5D analogue exists (one field
+has no cross-invariant). **The obstruction map** (every price tag extracted by the machine): freeze one
+radius → that field's F²=0 (own field only — the cross term dies with its gradient); freeze the *shape*
+Φ₁/Φ₂ → **F₁²=F₂²**; keep the fibre diagonal → **F¹·F²=0**. Together: *no truncation with two active
+fields survives the diagonal slice* — the consistent islands re-embed §111's 5D EMD (one field + its own
+modulus). The Stage-C consistency landscape (scan over a₂=c·a₁, shape frozen) has **no zeros anywhere**:
+c=±1 passes equal-invariants but fails F¹·F²=0, c=0 then fails F₁²=0 — the shape modulus cannot be frozen
+with any active field. (My first assertion expected a c=0 zero — wrong expectation, right landscape; the
+§110 lesson repeated.) Honest scope: diagonal fibre, parallel-electric family (the structure that exposes
+the twist constraint); the twisted fibre χ≠0 — where the F¹·F² source gets absorbed and the REJECTED
+stackings should turn VERIFIED — is the natural next rung. Repro: `scripts/112_kk6_two_fields.py`
+(prototypes `scripts/_kk6_reduce.py`, `_kk6_reduce2.py`).
+
 **Where the niche stands (own literature sweep, 2026-06-16).** Path 1 (automate
 the physical-vs-gauge / SPSM criterion) is closed: xCPS (arXiv:2606.05204, open
 source) already automates covariant phase space, Noether charges, and Wald

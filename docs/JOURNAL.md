@@ -1972,3 +1972,34 @@ nice-19 (alphaludo-l4, trainer untouched). Dashboards live on both hosts.
   functional families (electric free-function + magnetic monopole), not arbitrary 4D dependence (the
   known SymPy (r,theta)-wall); the identities' structure is family-blind, and the trap is exact.
   New: 111_kaluza_klein.py (battery), _kk_reduce.py + _kk_reduce2.py (machine-derivation prototypes).
+
+## 2026-07-03 — §112 6D KK ON T^2: cross-coupled dictionary + THE TWIST-SOURCING OBSTRUCTION (the rung up)
+- The §111 reply offered the quantum project 'one rung up: 6D / two gauge fields / twisted fibres'; user
+  said go. Ansatz: g4 + Phi1^2(dw1+A^1)^2 + Phi2^2(dw2+A^2)^2 (DIAGONAL fibre, cylinder condition both
+  circles), free-function family {f,h,a1,a2,Phi1,Phi2}(r), both A^a electric (deliberately PARALLEL --
+  the structure that exposes the new constraint). Machine-derived dictionary (all leftover ZERO):
+    (I)     R6(e,e)   = R4 - 1/2 P1^2 F1.F1 - 1/2 P2^2 F2.F2 - Hess(P1)/P1 - Hess(P2)/P2   [cX=0!]
+    (II)_a  R6(e,w_a) = -(1/(2 P_a P_b)) D(P_a^3 P_b F^a)     <- the OTHER fibre's volume in the density
+    (III)_a R6(w_a,w_a) = -P_a box(P_a) + 1/4 P_a^4 F_a^2 - P_a (dP_a.dP_b)/P_b   <- moduli gradients mix
+    (T)     R6(w1,w2) = 1/4 P1^2 P2^2 F1.F2                   <- THE TWIST-SOURCING CONSTRAINT
+- THE NEW-AT-6D RESULT (predicted before computing, then machine-confirmed): with a diagonal fibre the
+  off-diagonal fibre equation (T) has NO field to absorb it, so 6D vacuum FORCES F1.F2 = 0 -- two
+  non-orthogonal gauge fields DEMAND a dynamical twist. Absent at 5D (one field has no cross-invariant).
+- OBSTRUCTION MAP (each price tag extracted, not asserted): freeze one radius -> that field's F^2=0 (OWN
+  field only -- the cross-gradient term dies with dPhi); freeze the SHAPE Phi1/Phi2 -> F1^2 = F2^2;
+  diagonal fibre -> F1.F2 = 0. Together: NO two-active-field truncation survives the diagonal slice; the
+  consistent islands re-embed §111's 5D EMD (one field + its own modulus).
+- STAGE-C LANDSCAPE (numeric scan over the identification a2 = c*a1, shape-frozen): obstruction zeros =
+  NONE anywhere in c -- the shape-frozen two-field slice is ENTIRELY obstructed (c=+-1 passes F1^2=F2^2
+  but fails F1.F2=0; c=0 passes F1.F2=0 but then F1^2=F2^2 forces F1^2=0). My first (D) assertion
+  expected a c=0 zero -- WRONG expectation, right landscape: the one-field island lives at UNFROZEN
+  shape; corrected the assert to zeros==NONE (the §110 lesson again: code right, expectation wrong).
+- HONEST SCOPE: diagonal fibre + parallel-electric family (the structure that exposes (T)); the twisted
+  fibre (chi != 0, where the F1.F2 source gets ABSORBED into the twist's own equation) is the natural
+  next rung, expected to turn the (T)-REJECTED stackings into a VERIFIED twisted reduction -- offered to
+  the quantum project. GP proper deferred honestly: at <=2 identification parameters a grid beats GP;
+  GP earns its keep when the ansatz space grows structural choices (which fields live on which cycles,
+  warp factors, Scherk-Schwarz twists).
+- BATTERY 112: (A) dictionary 4 identities leftover zero; (B) twist-sourcing REJECTED with F1.F2
+  extracted; (C) obstruction map (own-field radius tag + equal-invariants shape tag); (D) landscape
+  all-obstructed. PASSES. Battery count -> 96. New: 112_kk6_two_fields.py, _kk6_reduce.py, _kk6_reduce2.py.

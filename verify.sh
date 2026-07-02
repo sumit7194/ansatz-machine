@@ -100,6 +100,7 @@ NAMES+=("04 campaign");           CMDS+=("scripts/04_campaign.py")
 [ -f scripts/109_integrability_lens.py ] && { NAMES+=("109 integrability/chaos as an analyzer lens (Kerr integrable · ZV delta=2 non-integrable thin-layer · specific — the toolchain, one verdict on the general tool)"); CMDS+=("scripts/109_integrability_lens.py"); }
 [ -f scripts/110_two_light_rings.py ] && { NAMES+=("110 two-light-ring test (horizonless UCO has an inner STABLE ring a black hole lacks — a horizon-independent mimicker discriminator; §90 extended)"); CMDS+=("scripts/110_two_light_rings.py"); }
 [ -f scripts/111_kaluza_klein.py ] && { NAMES+=("111 Kaluza-Klein reduction PROVEN (5D vacuum <=> 4D Einstein-Maxwell-dilaton, machine-derived dictionary; frozen-dilaton trap REJECTED with obstruction F^2 extracted; stacking lattice)"); CMDS+=("scripts/111_kaluza_klein.py"); }
+[ -f scripts/112_kk6_two_fields.py ] && { NAMES+=("112 6D KK on T^2 (cross-coupled two-field dictionary; twist-sourcing obstruction F1.F2=0 forced by the diagonal fibre; obstruction map + consistency landscape)"); CMDS+=("scripts/112_kk6_two_fields.py"); }
 
 fail=0
 GATE="$(dirname "$0")/gate.log"; : > "$GATE"   # also written here so the dashboard (reads ROOT/gate.log) stays current
