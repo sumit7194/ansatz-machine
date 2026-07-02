@@ -629,6 +629,60 @@ def invariant_fingerprint(geo):
     return fp
 
 
+def integrability_signature(geo, E=0.95, L=3.0, q2_eq=0.0, x0s=None,
+                            bounds=((1.2, 200.0), (-0.999, 0.999)), n=200, h=0.02, maxst=2_000_000):
+    """The DYNAMICAL integrability/chaos verdict for a stationary-axisymmetric metric — the report-card
+    companion to the algebraic Killing-tensor route (§78/§85/§97/§99). Reduces to the conserved-(E,L)
+    2-DOF Hamiltonian (poincare) and samples bound orbits (launched at the radial turning point in the
+    q2=q2_eq plane), classifying each from the two validated surface-of-section diagnostics:
+    box_dimension (geometric, §84) and frequency_drift (area-blind, resolves thin layers, §105-107).
+    Returns per-orbit (x0, box_dim, freq_drift, n, verdict) plus one HONEST three-valued overall verdict:
+      NON-INTEGRABLE (chaos / thin-layer chaos detected)  — a positive detection on any sampled orbit;
+      no chaos detected ... (consistent with integrable)  — evidence toward integrability, NOT a proof;
+      UNKNOWN                                              — not stationary-axisymmetric, or no bound orbits.
+    Validated (§109): Kerr -> consistent-with-integrable; Zipoy-Voorhees delta=2 -> non-integrable
+    thin-layer, reproducing §106's island-chain anatomy automatically. Callable oracle, NOT auto-run in
+    analyze() (orbit integration is heavy — same design as invariant_fingerprint). Needs numpy (the FFT)."""
+    import math
+
+    from poincare import box_dimension, build_hamilton, frequency_drift, section
+
+    g, X, ncoord = geo.g, geo.coords, geo.n
+    if ncoord != 4 or g.has(X[0]) or g.has(X[3]):     # need stationary (no t) + axisymmetric (no phi)
+        return UNKNOWN
+    DRIFT_THR, BOX_CHAOS = 0.0115, 1.35
+    f = build_hamilton(sp.Matrix(g), list(X), 1, 2, 0, 3)
+    if x0s is None:
+        x0s = [6.0 + 0.5 * i for i in range(9)]
+    orbits = []
+    for x0 in x0s:
+        try:
+            val = (-1 - f["W"](x0, q2_eq, E, L)) / f["g22"](x0, q2_eq, E, L)
+        except Exception:
+            continue
+        if val <= 0:
+            continue
+        pts, drift, st = section(f, [x0, q2_eq, 0.0, math.sqrt(val)], E, L, sec_idx=1, sec_val=q2_eq,
+                                 rec=(0, 2), n=n, h=h, maxst=maxst, bounds=bounds)
+        if len(pts) < 60:
+            orbits.append((x0, None, None, len(pts), "insufficient/plunge"))
+            continue
+        bd = box_dimension(pts)[0]
+        fd = frequency_drift([p[0] for p in pts])
+        orbits.append((x0, bd, fd, len(pts), "CHAOTIC" if (fd > DRIFT_THR or bd > BOX_CHAOS) else "regular"))
+    good = [o for o in orbits if o[1] is not None]
+    chaos = [o for o in good if o[4] == "CHAOTIC"]
+    if not good:
+        verdict = "UNKNOWN (no bound orbits sampled)"
+    elif chaos and all(o[1] <= BOX_CHAOS for o in chaos):
+        verdict = "NON-INTEGRABLE (thin-layer chaos detected)"
+    elif chaos:
+        verdict = "NON-INTEGRABLE (chaos detected)"
+    else:
+        verdict = f"no chaos detected in {len(good)} sampled orbits (consistent with integrable)"
+    return {"orbits": orbits, "verdict": verdict, "n_sampled": len(good), "n_chaotic": len(chaos)}
+
+
 def komar_charges(geo):
     """Komar/ADM charges — the conserved quantities of spacetime's symmetries:
     mass (time-translation Killing vector) = lim_{r→∞} r(1+g_tt)/2, and angular

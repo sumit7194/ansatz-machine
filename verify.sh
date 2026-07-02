@@ -97,6 +97,7 @@ NAMES+=("04 campaign");           CMDS+=("scripts/04_campaign.py")
 [ -f scripts/106_zv_thin_layer_chaos.py ] && { NAMES+=("106 ZV delta=2 thin-layer chaos exhibited (layer fires + escapes, island/torus quiet — §97/§98's geometric caveat closed)"); CMDS+=("scripts/106_zv_thin_layer_chaos.py"); }
 [ -f scripts/107_resonance_locking.py ] && { NAMES+=("107 resonance frequency-locking: the devil's staircase (1/5 and 1/4 plateaus in bumpy ZV; Kerr control no-lock — the quasi-static LISA signature)"); CMDS+=("scripts/107_resonance_locking.py"); }
 [ -f scripts/108_dynamic_plateau.py ] && { NAMES+=("108 dynamic plateau: sustained resonance locking under drift (trapped orbit holds 1/4 while Lz sweeps; transit control sweeps past — the time-domain LISA signature)"); CMDS+=("scripts/108_dynamic_plateau.py"); }
+[ -f scripts/109_integrability_lens.py ] && { NAMES+=("109 integrability/chaos as an analyzer lens (Kerr integrable · ZV delta=2 non-integrable thin-layer · specific — the toolchain, one verdict on the general tool)"); CMDS+=("scripts/109_integrability_lens.py"); }
 
 fail=0
 GATE="$(dirname "$0")/gate.log"; : > "$GATE"   # also written here so the dashboard (reads ROOT/gate.log) stays current

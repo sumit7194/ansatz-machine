@@ -1536,6 +1536,28 @@ the synthesis of the whole §97–§106 chain into a falsifiable observable. Ful
 `data/plateau_dyn_*.txt`. Repro: `scripts/108_dynamic_plateau.py` (exploratory
 `scripts/_plateau_dynamic.py`).
 
+## §109 — integrability/chaos as a single analyzer verdict (plan item 2: the toolchain, one lens)
+
+The chaos toolchain (§84 Poincaré/box-dim, §105 frequency-drift, §106/§107 thin-layer + staircase) lived
+in per-metric scripts; this folds it into the **general analyzer** as a callable oracle,
+`analyzer.integrability_signature(geo)` — beside `petrov` / `tidal` / `komar` / `invariant_fingerprint`.
+It reduces a stationary-axisymmetric metric to its conserved-(E,L) 2-DOF Hamiltonian, samples bound
+orbits (radial-turning-point launch), and classifies each from the two validated section diagnostics,
+returning **one honest three-valued verdict**: *NON-INTEGRABLE (chaos / thin-layer)* · *no chaos detected
+(consistent with integrable)* · *UNKNOWN*. Callable, **not** auto-run in `analyze()` (orbit integration
+is heavy — same design as `invariant_fingerprint`), and guarded to stationary-axisymmetric (UNKNOWN if
+the metric depends on t or φ). Battery `109`: **(A) Kerr** (a=0.6) → "no chaos detected (consistent with
+integrable)", every orbit drift ~1e-7; **(B) Zipoy–Voorhees δ=2** → "NON-INTEGRABLE (thin-layer chaos
+detected)" — the lens **fires automatically on the §106 island-chain edges** (x0≈7.545/7.565, drift
+0.014–0.019), reproducing §106's hand-found anatomy on the general tool; **(C) specificity** — the island
+centre (x0=7.560) reads *regular* (drift ~1e-7), so it isn't blanket-flagging. It **rules in** chaos (a
+positive detection) or reports "no chaos detected" (evidence toward integrability, not a proof — the
+algebraic Killing-tensor route §78/§85/§97/§99 is the proof side); it is the **dynamical companion** to
+that route. A real index bug was caught building it (section indices address the reduced state
+`[q1,q2,p1,p2]`, not coordinate indices). Repro: `scripts/109_integrability_lens.py` (prototype
+`scripts/_integrability_lens.py`). **Plan items 1 + 2 complete.** (Also this session: `_ckpt.py` —
+resumable sweeps flushed per point to a durable file, so a power loss costs at most one point.)
+
 **Where the niche stands (own literature sweep, 2026-06-16).** Path 1 (automate
 the physical-vs-gauge / SPSM criterion) is closed: xCPS (arXiv:2606.05204, open
 source) already automates covariant phase space, Noether charges, and Wald

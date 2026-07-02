@@ -1877,3 +1877,36 @@ nice-19 (alphaludo-l4, trainer untouched). Dashboards live on both hosts.
   §108 (time-domain sustained lock) = the LISA resonance signature, both halves, as gated reproducible
   results synthesizing §97-§106. Next: plan item 2 (analyzer chaos lens), then 3 (mimickers).
   New: 108_dynamic_plateau.py (battery), _plateau_dynamic.py (exploratory), data/plateau_dyn_*.
+
+## 2026-07-03 — §109 INTEGRABILITY/CHAOS AS AN ANALYZER LENS (plan item 2) + 92-GREEN GATE (shared machine)
+- The full 92-battery gate ran GREEN uninterrupted while SHARING the Mac with another project's 6-shard
+  training (BlackHole/primordial_blackhole_search bank_dense.py -- left untouched); ~3x slower under the
+  CPU contention but VERIFY: ALL GREEN. Ran on a durable log (data/gate92.log) via nohup so a power loss
+  couldn't kill the confirmation.
+- Item 2 of the follow-up plan: the chaos toolchain (§84 Poincare/box-dim, §105 frequency-drift, §106/§107
+  thin-layer + staircase) lived in per-metric scripts; folded it into the general analyzer as a CALLABLE
+  lens analyzer.integrability_signature(geo). It reduces to the conserved-(E,L) 2-DOF Hamiltonian
+  (poincare), samples bound orbits (radial-turning-point launch in the q2=q2_eq plane), classifies each
+  from box_dimension + frequency_drift, and returns ONE honest three-valued verdict {NON-INTEGRABLE
+  (chaos / thin-layer) | no chaos detected (consistent with integrable) | UNKNOWN}. Callable oracle, NOT
+  auto-run in analyze() -- orbit integration is heavy (same design as invariant_fingerprint §76), guarded
+  to stationary-axisymmetric (returns UNKNOWN if the metric depends on t or phi).
+- A REAL BUG caught + fixed in the prototype (§105-discipline): the section's sec_idx/rec index the
+  REDUCED STATE [q1,q2,p1,p2] (positions 0,1,2,3), NOT the coordinate indices (I'd passed q2i=2), so every
+  Kerr orbit recorded 0 crossings. Fixed to sec_idx=1, rec=(0,2); Kerr then sections cleanly and reads
+  regular.
+- BATTERY 109: (A) Kerr a=0.6 -> 'no chaos detected (consistent with integrable)' (orbits drift ~1e-7);
+  (B) ZV delta=2 -> 'NON-INTEGRABLE (thin-layer chaos detected)' -- the lens FIRES on the §106
+  island-chain-edge orbits (x0=7.545/7.565, drift 0.014-0.019) automatically, reproducing §106's
+  hand-found anatomy on the GENERAL tool; (C) SPECIFICITY -- the island centre x0=7.560 reads regular
+  (drift ~1e-7), so it is not blanket-flagging. PASSES. The lens is the DYNAMICAL companion to the
+  algebraic Killing-tensor route (§78/§85/§97/§99), now on the analyzer beside petrov/tidal/komar/fingerprint.
+- HONEST scope (in the docstring + battery): it RULES IN chaos (a positive detection on any sampled orbit)
+  or reports 'no chaos detected' (evidence toward integrability, NOT a proof). The ZV firing is
+  transient/sticky (§106 shadowing sensitivity), so WHICH island-edge orbit trips varies with the step --
+  the battery asserts >=1 fires (robust) rather than a fixed x0. POWER-LOSS ROBUSTNESS added this session:
+  _ckpt.py (resumable sweeps: one flushed+fsynced line per point to a durable repo file, restart skips
+  done keys -> a crash costs at most one point) + corrected _kerr_control_v3.py (each r0 a distinct torus
+  via p_r=0 launch, not the same torus at fixed E,L,p_theta). Plan items 1 + 2 DONE; next item 3 (mimickers).
+  New: analyzer.integrability_signature, 109_integrability_lens.py (battery), _integrability_lens.py
+  (prototype), _ckpt.py. Battery count -> 93.
