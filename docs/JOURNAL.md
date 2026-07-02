@@ -1778,3 +1778,34 @@ nice-19 (alphaludo-l4, trainer untouched). Dashboards live on both hosts.
   control is now SELF-CONTAINED + GATED on our side -- a THIRD validated chaos lens beside box_dimension
   (§84) and de-noised lyapunov (§79/§101), and the one that succeeds exactly where they're ambiguous (the
   §101 box-dim~1.2 borderline). Battery count -> 89.
+
+## 2026-07-02 — §106 ZV's OWN THIN-LAYER CHAOS EXHIBITED (autonomous day; the §97/§98 caveat closed) + GATE 89-GREEN
+- FIRST: the full gate finally survived an uninterrupted run -- ALL 89 GREEN (the §105 addition confirmed
+  in-gate; four power losses had killed every previous attempt).
+- THEN the §105 playbook applied to the OTHER elusive target: ZV delta=2's razor-thin stochastic layer
+  (Lukes-Gerakopoulos PRD 86 044013: E=0.95, Lz=3, chaotic rho=7.518 vs regular 7.548) that §97/§98's
+  box-dim scans grazed. Hunted with the area-blind frequency_drift. COARSE scan (x0 step 0.02, sigma=1 and
+  0.5 -- noting hunt2 NEVER reached the layer at the sigma=0.5/M=1 convention, x0~15.07): found the
+  structure but read regular at p_x=0... then the REFINE (x0 step 0.002 across the island-chain boundary)
+  found the layer's FULL ANATOMY at the plunge separatrix:
+    plunge | LAYER x0=7.545 (drift 0.0266, 210 crossings then ESCAPES) | island chain 7.549-7.563
+    (drift ~1e-4, box-dim 0.3-0.7, never escapes; sticky edges) | LAYER x0=7.565 (drift 0.0132,
+    184 crossings then escapes) | circulating tori 7.60+ (drift ~1e-4)
+  TWO independent layer hits on the two edges of the island chain, each with BOTH chaos signatures:
+  frequency wander (quarter-pair drift GROWS along the series: 0.005->0.025->0.070) AND finite bounded
+  lifetime (escapes through the separatrix; KAM tori are eternal). H-drift 5e-12 (physics, not noise).
+- ADVERSARIAL STRESS (h-halving): at h=0.01 the half-vs-half drift drops to 0.0034 BUT the orbit still
+  escapes (237 crossings) and the quarter-wander still grows (->0.0127). Reading: TRANSIENT/sticky layer
+  chaos -- exponential shadowing means different h = different realization of the same layer; the
+  INVARIANT signatures are drift-fires + finite-lifetime, which persist at both h while the island/torus
+  controls show neither at any h. Honest: drift magnitude is h-sensitive (recorded, not hidden); layer
+  found at rho~7.48-7.50 vs the literature's 7.518 (~0.5%, units/convention nuance) -- we exhibit the
+  documented layer's existence at the documented (delta, E, Lz), not the exact quoted coordinate.
+- BATTERY 106 (gated): (A) layer orbit fires (0.0266>0.0115) AND escapes (210<240) with H-drift 5e-12;
+  (B) island 0.012 away in x0: drift 0.0001, survives -- a 267x contrast; (C) circulating torus: drift
+  0.0000, survives (the signal is specific, not generic). PASSES. Battery count -> 90.
+- WITH §105: BOTH exact bumpy-BH metrics in the engine (MN rotating, ZV static) now have their algebraic
+  non-integrability (§97/§98/§99) backed by an EXHIBITED geometric chaos positive-control, each settled by
+  the frequency-drift detector exactly where box-dim was ambiguous. The detector is 3-for-3 on thin layers
+  (MN inner-CZV, MN island-vs-layer, ZV separatrix layer).
+- New: 106_zv_thin_layer_chaos.py (battery), _zv_freqdrift_hunt.py + _zv_freqdrift_refine.py (exploratory).

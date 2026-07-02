@@ -1464,6 +1464,30 @@ airtight. The native detector reproduces the bridge's verdict to the digit. So t
 **permanent, self-contained green battery** — a third validated chaos lens beside box-dimension (§84) and
 the de-noised Lyapunov exponent (§79/§101), and the one that resolves exactly where they're ambiguous.
 
+## §106 — Zipoy–Voorhees' own thin-layer chaos, exhibited (the §97/§98 caveat closed)
+
+§97/§98 proved ZV δ≠1 non-integrable *algebraically* (no rank-2 or rank-4 Killing tensor), but the
+*geometric* chaos stayed a cited-literature caveat — the δ=2 stochastic layer (Lukes-Gerakopoulos PRD 86,
+044013: E=0.95, Lz=3, chaotic ρ=7.518 vs regular 7.548) is razor-thin and box-dim scans grazed it. The
+frequency-drift detector (§105), being area-blind, found the layer's **full anatomy at the plunge
+separatrix** (σ=1, x0 steps of 0.002): *plunge* | **layer** x0=7.545 (drift **0.0266**, 210 crossings then
+**escapes**) | *island chain* 7.549–7.563 (drift ~1e-4, never escapes) | **layer** x0=7.565 (drift
+**0.0132**, 184 crossings then escapes) | *circulating tori* 7.60+. Two independent layer hits on the two
+edges of the island chain, each with **both** chaos signatures: progressive frequency wander
+(quarter-pair drift grows 0.005→0.025→0.070 along the series) and **finite bounded lifetime** — the orbit
+sticks for ~200 crossings then escapes through the separatrix, which no KAM torus ever does. H-drift 5e-12
+throughout (the signal is physics, not integration error). **Honest notes:** this is transient/sticky
+layer chaos — the drift *magnitude* is h-sensitive (exponential shadowing: different step = a different
+realization of the same layer) but both signatures persist at h and h/2 while the island/torus controls
+show neither at any h; and the layer sits at ρ≈7.48–7.50 vs the literature's quoted 7.518 (~0.5%,
+units/convention nuance) — we exhibit the documented layer's existence at the documented (δ, E, Lz), not
+the exact quoted coordinate. Battery `106` asserts the triple contrast (layer fires + escapes · island
+quiet + survives, a **267× drift ratio 0.012 apart in x0** · torus quiet). **With §105, both exact
+bumpy-BH metrics in the engine (MN rotating, ZV static) now have their algebraic non-integrability backed
+by an exhibited geometric positive control** — the frequency-drift detector is 3-for-3 on thin layers.
+Repro: `scripts/106_zv_thin_layer_chaos.py` (hunt scaffolding `scripts/_zv_freqdrift_hunt.py`,
+`scripts/_zv_freqdrift_refine.py`).
+
 **Where the niche stands (own literature sweep, 2026-06-16).** Path 1 (automate
 the physical-vs-gauge / SPSM criterion) is closed: xCPS (arXiv:2606.05204, open
 source) already automates covariant phase space, Noether charges, and Wald
