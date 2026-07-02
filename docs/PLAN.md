@@ -91,3 +91,31 @@ discovery fast. Battery 44 (--quick).
   (no Λ term) gives a LARGE residual in a Λ-universe — i.e. the engine confirms a rotating hole in a
   Λ-universe REQUIRES the −Λr⁴/3 correction. Full quartic discovery would need r⁴ in the GP primitives
   or a seeded search — a future tweak, not tonight.
+
+---
+
+## Follow-up plan (2026-07-02, evening discussion) — the pre-weekend push
+
+The §99→§106 chain (exact bumpy metrics → proven non-integrability → exhibited chaos → 3 validated
+detectors) is complete. Four follow-ups, to be tackled one by one; the write-up is the weekend move.
+
+1. **The LISA observable — resonance-crossing frequency plateau (IN PROGRESS).** Drive an
+   inspiral/sweep through the 2/3 resonance of a bumpy metric and exhibit the frequency-LOCKING
+   plateau (Lukes-Gerakopoulos/Apostolatos/Contopoulos PRD 81 124005: inside a resonance island the
+   rotation number locks to the rational; a Kerr inspiral shows no such plateau — the smoking-gun
+   non-Kerr signature). Step 1 (quasi-static): rotation-number staircase vs launch radius across
+   §106's ZV island (locked at 2/3 over the island's width) with a Kerr control (smooth, no plateau).
+   Step 2 (dynamic): flux-driven (§100/§101) drift across the island → the plateau in TIME = what
+   LISA would see. Synthesizes §97-§106 into a falsifiable observable; hands the bridge B1's endgame.
+
+2. **Consolidate: chaos/integrability as ONE analyzer lens.** Fold the toolchain (Killing-tensor
+   search + Poincaré + box-dim + de-noised Lyapunov + frequency-drift) into the general analyzer:
+   any stationary-axisymmetric metric → verdict {integrable | non-integrable, thin-layer | chaotic}.
+   The standing "widen the ONE tool" steer.
+
+3. **Black-hole mimickers under the full engine.** Boson star / gravastar exteriors through the
+   whole report card + observables + integrability: "how would you tell it's not a black hole,
+   quantitatively, with every lens at once?" Extends §90 (imposters) beyond the shadow.
+
+4. **(Parked) rotating EdGB O(a²) 2D-PDE.** The last item-3 wall. Prior art exists (closed-form
+   rotating EdGB in the literature), so this is engine-capability, not new science. Only if 1-3 land.
