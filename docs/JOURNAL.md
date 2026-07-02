@@ -1852,3 +1852,28 @@ nice-19 (alphaludo-l4, trainer untouched). Dashboards live on both hosts.
   -> 91. Item 1b next: drive (E,Lz) with the §100/§101 fluxes so the orbit drifts THROUGH the 1/4 island
   -> the plateau in TIME. New: 107_resonance_locking.py (battery), _kerr_control_v3.py + _ckpt.py;
   data/kerr_control_v3.txt (durable control data).
+
+## 2026-07-03 — §108 THE DYNAMIC PLATEAU: sustained resonance locking under drift (item 1b CLOSED — option 1 COMPLETE)
+- Item 1b: make §107's locking OBSERVABLE — a slow radiation-reaction-scale drift of Lz (prescribed
+  dLz/dtau ~ 1e-8..5e-9, magnitude anchored to the §100/§101 quadrupole-flux scale; the locking physics
+  needs adiabatic slowness, not self-consistent flux updating) while measuring the rotation number in
+  sliding 60-crossing windows (§105 estimator), checkpointed durably per window (_ckpt).
+- THREE physics lessons the calibration taught (each a wrong-first-try caught honestly):
+  (1) drifting Lz DOWN from inside the island hits the plunge separatrix within DL~5e-4 (the island
+  lives at the plunge edge; lock->plunge too fast to measure); (2) approaching from the circulating side,
+  ALL THREE phase-varied probes TRANSITED the resonance without capture (nu stepped 0.2487->0.2532 across
+  the rational without pausing) — resonance capture under drift is PROBABILISTIC, exactly as
+  resonance-crossing theory says; (3) the clean demonstration is SUSTAINED RESONANCE: a trajectory
+  ALREADY TRAPPED stays locked under adiabatic drift (the libration adiabatic invariant holds it).
+- THE RESULT: under the IDENTICAL drift law (+5e-9), the trapped orbit (x0=7.655, inside the 1/4 island)
+  held nu = 0.25000 +- 8e-5 across ALL 43 windows (900 crossings, tau 0->139,689, Lz sweeping the whole
+  run) while the transit controls climbed 0.246 -> 0.272. A trapped bumpy-metric orbit BROADCASTS A
+  CONSTANT FREQUENCY RATIO while its parameters evolve; Kerr has no islands to trap in (§107 D) — the
+  time-domain non-Kerr smoking gun a LISA data stream would carry.
+- BATTERY 108 (gated, PASSES; 2x faster drift + 4x shorter to fit the gate): (A) trapped: 10 windows,
+  max|nu-1/4|=1.6e-4, locked throughout; (B) transit control: same drift, nu 0.24997 -> 0.26342, sweeps
+  past and keeps moving. Battery count -> 92. Full-length runs banked in data/plateau_dyn_*.txt +
+  capture_*.log (durable). OPTION 1 OF THE FOLLOW-UP PLAN COMPLETE: §107 (quasi-static staircase) +
+  §108 (time-domain sustained lock) = the LISA resonance signature, both halves, as gated reproducible
+  results synthesizing §97-§106. Next: plan item 2 (analyzer chaos lens), then 3 (mimickers).
+  New: 108_dynamic_plateau.py (battery), _plateau_dynamic.py (exploratory), data/plateau_dyn_*.

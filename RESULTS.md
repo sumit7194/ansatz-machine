@@ -1515,6 +1515,27 @@ Repro: `scripts/107_resonance_locking.py` (sweep scaffolding `scripts/_plateau_q
 `scripts/_plateau_v3_section.py`, `scripts/_kerr_control_v3.py`; control data
 `data/kerr_control_v3.txt`).
 
+## §108 — the dynamic plateau: sustained resonance locking under drift (the time-domain LISA signature)
+
+§107's locking, made *observable*: drift Lz slowly (prescribed dLz/dτ at the §100/§101 radiation-
+reaction flux scale — the physics needs adiabatic slowness, not self-consistent flux updating) and watch
+the windowed rotation number in time. **Calibration taught three lessons, each a wrong-first-try caught:**
+drifting *down* from the island hits the plunge separatrix within ΔL~5e-4 (the island lives at the plunge
+edge); approaching from the circulating side, all three phase-varied probes **transited without capture**
+(ν stepped across the rational without pausing — resonance capture under drift is *probabilistic*, as
+resonance-crossing theory says); the clean demonstration is **sustained resonance** — an already-trapped
+trajectory stays locked under adiabatic drift (the libration adiabatic invariant holds it). **The result:**
+under the identical drift law, the trapped orbit held **ν = 0.25000 ± 8e-5 across all 43 windows** (900
+crossings, τ 0→139,689, Lz sweeping throughout) while transit controls climbed 0.246→0.272. A trapped
+bumpy-metric orbit **broadcasts a constant frequency ratio while its parameters evolve**; Kerr has no
+islands to trap in (§107 D) — the time-domain non-Kerr smoking gun a LISA data stream would carry.
+Battery `108` (shortened to fit the gate) asserts the trapped lock (max |ν−1/4| = 1.6e-4 over 10 windows)
+against the transiting control (0.24997→0.26342, same drift). **Option 1 of the follow-up plan is
+complete:** §107 + §108 = both halves of the LISA resonance signature as gated, reproducible results —
+the synthesis of the whole §97–§106 chain into a falsifiable observable. Full-length runs banked in
+`data/plateau_dyn_*.txt`. Repro: `scripts/108_dynamic_plateau.py` (exploratory
+`scripts/_plateau_dynamic.py`).
+
 **Where the niche stands (own literature sweep, 2026-06-16).** Path 1 (automate
 the physical-vs-gauge / SPSM criterion) is closed: xCPS (arXiv:2606.05204, open
 source) already automates covariant phase space, Noether charges, and Wald
