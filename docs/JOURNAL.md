@@ -1910,3 +1910,29 @@ nice-19 (alphaludo-l4, trainer untouched). Dashboards live on both hosts.
   via p_r=0 launch, not the same torus at fixed E,L,p_theta). Plan items 1 + 2 DONE; next item 3 (mimickers).
   New: analyzer.integrability_signature, 109_integrability_lens.py (battery), _integrability_lens.py
   (prototype), _ckpt.py. Battery count -> 93.
+
+## 2026-07-03 — §110 THE TWO-LIGHT-RING TEST: a horizon-independent BH-vs-mimicker discriminator (plan item 3)
+- Plan item 3 (mimickers), done LOW-CPU (courtesy to the co-running BlackHole training -- photon-sphere
+  finding is algebraic, no orbit integration). Research (arXiv 2411.12358 + 2025 EPJC horizonless-UCO
+  papers): a horizonless ULTRACOMPACT object has TWO light rings -- the usual outer UNSTABLE photon sphere
+  PLUS an inner STABLE 'anti-photon sphere' -- where a black hole has ONE. The inner stable ring is the
+  horizon-INDEPENDENT 'not a black hole' signature (seat of the nonlinear light-ring instability / GW
+  echoes, Cardoso-Pani-Cardoso).
+- Engine-native, NO new metric: reused §53's EXACT constant-density (Schwarzschild-interior) star, made
+  ultracompact (M=1, R=2.3 -> M/R=0.435, i.e. 1/3 < C < 4/9: horizonless since R>2M, singularity-free
+  since it's a star, Buchdahl-allowed since C<4/9). Counted + classified the extrema of the photon
+  potential V=f/r^2 (MAX=unstable ring, MIN=stable ring).
+- BATTERY 110: (A) UCO M/R=0.435 -> TWO rings: inner STABLE at r=0.949 (interior) + outer unstable at
+  r=3.000 (exterior); (B) Schwarzschild BH -> ONE unstable ring at 3M (scan only r>2M -- no static photon
+  orbit inside a horizon); (C) THRESHOLD -- the inner stable ring exists ONLY above ultracompactness
+  M/R=1/3 (R=3.5 -> 0 stable, R=2.6 -> 1 stable): a normal star has NO light ring at all (the would-be 3M
+  ring is buried in matter), the pair appears TOGETHER as the surface crosses r=3M; (D) the config is
+  physical + horizonless + ultracompact. PASSES.
+- Two bugs caught building it (stress-test discipline): (i) the BH f had a discontinuity at r=2M (I set
+  f=1 inside) -> a spurious extremum; fixed by scanning only the exterior. (ii) my threshold assertion
+  assumed 1->2 rings, but the physics is 0->2 (a sub-ultracompact star has NONE) -- the code was right, my
+  expectation wrong; corrected the assert to the inner-stable-ring count (0 below, 1 above). Extends §90
+  (a shadow proves a photon sphere, not a horizon) into a computable YES/NO discriminator. Report-card +
+  integrability on the star are complementary and already covered (§55 the star report card; spherical
+  symmetry => trivially integrable). New: 110_two_light_rings.py. Battery count -> 94. Follow-up plan
+  items 1+2+3 DONE; item 4 (rotating EdGB 2D-PDE) parked; write-up = weekend.

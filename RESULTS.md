@@ -1558,6 +1558,24 @@ that route. A real index bug was caught building it (section indices address the
 `scripts/_integrability_lens.py`). **Plan items 1 + 2 complete.** (Also this session: `_ckpt.py` —
 resumable sweeps flushed per point to a durable file, so a power loss costs at most one point.)
 
+## §110 — the two-light-ring test: a horizon-independent BH-vs-mimicker discriminator (plan item 3)
+
+§90 showed a shadow proves a photon sphere, not a horizon; §110 turns "how would you tell it's not a
+black hole?" into a metric-computable count that needs *neither* the horizon nor the singularity. A black
+hole has exactly **one** circular photon orbit (unstable, r=3M). A horizonless **ultracompact** object
+(surface between the light-ring radius 3M and the Buchdahl bound 9M/4, i.e. 1/3 < M/R < 4/9) has **two**:
+the outer unstable ring *plus* an inner **stable** "anti-photon sphere" — the horizon-independent
+signature, and the seat of the nonlinear light-ring instability / GW-echo phenomenology. Reusing the
+engine's exact constant-density star (§53) made ultracompact — **no new metric** — battery `110` counts
+and classifies the extrema of the photon potential V=f/r²: **(A)** UCO (M/R=0.435) → two rings, inner
+*stable* at r=0.95 (interior) + outer unstable at r=3M (exterior); **(B)** Schwarzschild → one (unstable,
+r=3M); **(C)** the inner stable ring exists *only* above ultracompactness M/R=1/3 — below it a star has
+*no* light ring at all (the would-be 3M ring is buried in matter), and the pair appears together as the
+surface crosses r=3M; **(D)** the configuration is physical, horizonless, and ultracompact. All algebraic
+(no orbit integration). Two bugs were caught building it (a discontinuity in the BH potential at the
+horizon; a wrong 1→2 threshold expectation where the physics is 0→2). **Follow-up plan items 1 + 2 + 3
+complete** (item 4, the rotating-EdGB 2D-PDE, stays parked). Repro: `scripts/110_two_light_rings.py`.
+
 **Where the niche stands (own literature sweep, 2026-06-16).** Path 1 (automate
 the physical-vs-gauge / SPSM criterion) is closed: xCPS (arXiv:2606.05204, open
 source) already automates covariant phase space, Noether charges, and Wald
