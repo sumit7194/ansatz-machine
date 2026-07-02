@@ -1936,3 +1936,39 @@ nice-19 (alphaludo-l4, trainer untouched). Dashboards live on both hosts.
   integrability on the star are complementary and already covered (§55 the star report card; spherical
   symmetry => trivially integrable). New: 110_two_light_rings.py. Battery count -> 94. Follow-up plan
   items 1+2+3 DONE; item 4 (rotating EdGB 2D-PDE) parked; write-up = weekend.
+
+## 2026-07-03 — §111 KALUZA-KLEIN REDUCTION PROVEN + the planted trap CAUGHT (quantum-project ask)
+- The quantum project asked: add KK reduction to the catalog as a proven theorem (Stage 1), then map
+  which 5D 'field stackings' project to which 3+1 matter (Stage 2) -- WITH a deliberately planted honesty
+  trap: the naive claim '5D vacuum = 4D gravity + EM with the scalar frozen' must come out REJECTED (the
+  machine must catch that freezing the dilaton forces F^2=0), the full dilaton version VERIFIED.
+- METHOD (machine-derived, not transcribed -- the §102 MN lesson): 5D Kaluza ansatz ds^2_5 = g4 +
+  Phi^2(dw + A)^2, cylinder condition structural. The 5D Ricci projects in the HORIZONTAL-LIFT frame
+  e_mu = d_mu - A_mu d_w. The dictionary was DERIVED by symbolic matching over a FREE-FUNCTION family
+  (f,h,a,Phi all free functions of r -- the §52-TOV move, so it's a theorem over the family):
+    (I)   R5(e_mu,e_nu) = R4_munu - (1/2)Phi^2 F_mulam F_nu^lam - (1/Phi) grad_mu grad_nu Phi
+    (II)  R5(e_mu,d_w)  = -(1/2Phi) D^nu(Phi^3 F_numu)
+    (III) R5(d_w,d_w)   = -Phi box(Phi) + (1/4) Phi^4 F^2
+  The machine found the constants (-1/2, -1, -1/(2Phi), 1/4) itself; each identity closes to LEFTOVER
+  ZERO. So 5D VACUUM <=> 4D Einstein(EM+dilaton) + Maxwell + dilaton EOM. EM = geometry of the 5th dim.
+- THE TRAP CAUGHT: Phi=const collapses (III) to R5_ww = (1/4)F^2 -- the machine EXTRACTS the obstruction
+  (F^2 = -2a'^2/(fh) must vanish) rather than being told it. Naive EM-only claim REJECTED; the (A=0,
+  Phi=1) black-string truncation VERIFIED (the boundary case that makes the trap sharp).
+- TWO BUGS CAUGHT BUILDING IT (both by the machinery, not luck): (i) my first Maxwell-divergence check
+  used the (1/sqrtg)d(sqrtg .) identity with a LOWER free index (only valid upper-antisymmetric) ->
+  prototype ratio mismatch in the f' term; fixed via upper-index divergence + metric lowering.
+  (ii) the MAGNETIC cross-check family (A = q cos(th) dphi, the monopole) initially failed (II) -- the
+  diagnostic showed BOTH sides are actually ZERO (the monopole satisfies Maxwell exactly) and the
+  'failure' was a SymPy |sin(th)| Piecewise artifact from differentiating sqrt(-det) on the coordinate
+  axis; fixed by taking the 0<th<pi branch. The magnetic family matters: for electric F alone,
+  D(Phi^3 F) vs Phi^3 DF + 3Phi^2 dPhi.F are DEGENERATE (same radial structure) -- the monopole separates
+  the packagings and confirms Phi^3-inside is the true dictionary.
+- STAGE 2 (stackings; enumeration over the ansatz lattice -- complete, which beats GP sampling at this
+  size): {A on, Phi on} -> Einstein-Maxwell-DILATON VERIFIED; {A on, Phi=1} -> REJECTED (obstruction
+  (1/4)F^2); {A=0, Phi on} -> Einstein + massless scalar VERIFIED (R4 = Hess/Phi, box Phi = 0);
+  {A=0, Phi=1} -> 4D vacuum / black string VERIFIED. One dictionary closes the whole lattice.
+- BATTERY 111 (pure SymPy, no numpy): all four legs green. Battery count -> 95. Deliverable note for the
+  quantum project drafted from (D) + the dictionary. Honest scope: theorem proven over TWO independent
+  functional families (electric free-function + magnetic monopole), not arbitrary 4D dependence (the
+  known SymPy (r,theta)-wall); the identities' structure is family-blind, and the trap is exact.
+  New: 111_kaluza_klein.py (battery), _kk_reduce.py + _kk_reduce2.py (machine-derivation prototypes).

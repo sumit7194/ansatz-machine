@@ -1576,6 +1576,30 @@ surface crosses r=3M; **(D)** the configuration is physical, horizonless, and ul
 horizon; a wrong 1→2 threshold expectation where the physics is 0→2). **Follow-up plan items 1 + 2 + 3
 complete** (item 4, the rotating-EdGB 2D-PDE, stays parked). Repro: `scripts/110_two_light_rings.py`.
 
+## §111 — Kaluza–Klein reduction, proven — and the planted honesty trap, caught (quantum-project ask)
+
+For the 5D Kaluza ansatz ds²₅ = g⁴_{μν}dx^μdx^ν + Φ²(dw + A_μdx^μ)² with the cylinder condition, the 5D
+Ricci decomposes in the horizontal-lift frame ê_μ = ∂_μ − A_μ∂_w as
+
+> **(I)** R⁵(ê_μ,ê_ν) = R⁴_{μν} − ½Φ²F_{μλ}F_ν{}^λ − (1/Φ)∇_μ∇_νΦ · **(II)** R⁵(ê_μ,∂_w) = −(1/2Φ)D^ν(Φ³F_{νμ}) · **(III)** R⁵(∂_w,∂_w) = −Φ□Φ + ¼Φ⁴F²
+
+so **5D vacuum ⇔ 4D Einstein–Maxwell–dilaton** — electromagnetism as the geometry of the 5th dimension.
+Every dictionary coefficient was **derived by the machine** (symbolic matching over a free-function
+family {f,h,a,Φ}(r), the §52-TOV move — no textbook constants trusted), each identity closing to
+**leftover zero**, and the same constants independently close a second (magnetic monopole) family.
+**The trap, caught:** the quantum project deliberately planted the naive claim "5D vacuum = 4D gravity +
+EM with the scalar frozen." Freezing Φ collapses (III) to R⁵_ww = ¼F², and the machine **extracts the
+obstruction** (F² = −2a′²/(fh) must vanish) rather than being told it → **REJECTED**; the full dilaton
+version **VERIFIED**; the consistent truncations (A=0: Einstein+massless scalar; A=0,Φ=1: black string)
+**VERIFIED**. **Stage 2 — the field-stacking catalog** (complete enumeration over the ansatz lattice):
+{A,Φ} → EMD ✓ · {A, Φ frozen} → **rejected** (obstruction ¼F²) · {Φ only} → gravity + massless scalar ✓ ·
+{neither} → 4D vacuum ✓ — one dictionary closes the whole lattice. Two bugs caught building it (a
+lower-index divergence identity misuse; a |sinθ| Piecewise chart artifact on the monopole family that
+initially masked (II) — both sides are actually zero, the monopole satisfies Maxwell exactly). Honest
+scope: proven over two independent functional families, not arbitrary 4D dependence (the SymPy
+(r,θ)-wall); the trap is exact. Repro: `scripts/111_kaluza_klein.py` (machine-derivation prototypes
+`scripts/_kk_reduce.py`, `_kk_reduce2.py`).
+
 **Where the niche stands (own literature sweep, 2026-06-16).** Path 1 (automate
 the physical-vs-gauge / SPSM criterion) is closed: xCPS (arXiv:2606.05204, open
 source) already automates covariant phase space, Noether charges, and Wald
