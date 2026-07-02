@@ -95,6 +95,7 @@ NAMES+=("04 campaign");           CMDS+=("scripts/04_campaign.py")
 [ -f scripts/101_emri_carter_and_chaos.py ] && { NAMES+=("101 EMRI Carter flux dQ/dtau + lyapunov FD-roundoff fix (box-dim is the robust chaos detector; bridge follow-ups A + heads-up)"); CMDS+=("scripts/101_emri_carter_and_chaos.py"); }
 [ -f scripts/105_chaos_frequency_drift.py ] && { NAMES+=("105 Laskar frequency-drift chaos detector (Hénon-Heiles + Kerr validated; MN thin-layer chaos exhibited on the EXACT metric — positive control closed)"); CMDS+=("scripts/105_chaos_frequency_drift.py"); }
 [ -f scripts/106_zv_thin_layer_chaos.py ] && { NAMES+=("106 ZV delta=2 thin-layer chaos exhibited (layer fires + escapes, island/torus quiet — §97/§98's geometric caveat closed)"); CMDS+=("scripts/106_zv_thin_layer_chaos.py"); }
+[ -f scripts/107_resonance_locking.py ] && { NAMES+=("107 resonance frequency-locking: the devil's staircase (1/5 and 1/4 plateaus in bumpy ZV; Kerr control no-lock — the quasi-static LISA signature)"); CMDS+=("scripts/107_resonance_locking.py"); }
 
 fail=0
 GATE="$(dirname "$0")/gate.log"; : > "$GATE"   # also written here so the dashboard (reads ROOT/gate.log) stays current

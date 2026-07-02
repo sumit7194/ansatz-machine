@@ -1834,7 +1834,21 @@ nice-19 (alphaludo-l4, trainer untouched). Dashboards live on both hosts.
   than the 1/5 (3 steps) = the KAM ordering. The v2 trajectory-spectra INDEPENDENTLY confirm the locks
   (exact commensurability at 7.555/7.560 with nu_x/nu_y=3/5 <-> section 1/5; the 7.645-7.665 zone
   commensurate with nu_x:nu_y=1:2 <-> section 1/4).
-- Kerr control (integrable; same estimator): rotation number must vary smoothly with NO multi-step lock.
-  [numbers landing as this is written; battery §107 asserts lock+contrast+control]. This is the
-  quasi-static half of the LISA signature; item 1b (flux-driven drift through the island -> the plateau in
-  TIME) is next. New: _plateau_quasistatic.py (v1/v2 + spectra diagnostic), _plateau_v3_section.py (v3).
+- Kerr control (integrable; same estimator): FIRST version was subtly WRONG -- varying r0 at fixed
+  (E,L,p_theta) pins the Carter constant, so every r0 lands on the SAME invariant torus (all points read
+  an identical rotation number: correct physics, useless control; caught because 4 points agreed to 5
+  digits). CORRECTED to p_r=0 turning-point launches (each r0 = a distinct torus, the ZV convention):
+  nu falls SMOOTHLY 0.26598 -> 0.26361 across r0 in [7.90, 8.18] (monotone, ~1.6e-4/step, never within
+  0.013 of any low-order rational) -- the anti-staircase, exactly as integrability demands.
+- ALSO (power-loss robustness, after ANOTHER outage killed the first control run): scripts/_ckpt.py --
+  long sweeps now write one flushed+fsynced line per computed point to a DURABLE repo-local file (never
+  /tmp, which macOS clears on reboot) and skip already-done keys on restart, so an outage costs at most
+  one point. The staircase itself survived (banked at c78b2eb before the cut); only the control re-ran.
+- BATTERY §107 (gated, PASSES): (A) 1/5 island x0=7.555/7.560 -> nu=0.20000 both, LOCKED; (B) risers
+  7.585/7.605 -> 0.21595/0.23063, off-lock AND moving (d=0.0147); (C) 1/4 island 7.650/7.660 ->
+  0.25000 both, LOCKED; (D) Kerr r0=7.90/8.05/8.20 -> 0.26562/0.26476/0.26395, no rational lock, smooth
+  (spread 1.7e-3). Item 1a of the follow-up plan CLOSED: the quasi-static LISA signature (a bumpy metric
+  LOCKS crossing orbits to rational plateaus; Kerr cannot) is a reproducible gated result. Battery count
+  -> 91. Item 1b next: drive (E,Lz) with the §100/§101 fluxes so the orbit drifts THROUGH the 1/4 island
+  -> the plateau in TIME. New: 107_resonance_locking.py (battery), _kerr_control_v3.py + _ckpt.py;
+  data/kerr_control_v3.txt (durable control data).

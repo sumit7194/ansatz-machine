@@ -1488,6 +1488,33 @@ by an exhibited geometric positive control** — the frequency-drift detector is
 Repro: `scripts/106_zv_thin_layer_chaos.py` (hunt scaffolding `scripts/_zv_freqdrift_hunt.py`,
 `scripts/_zv_freqdrift_refine.py`).
 
+## §107 — the devil's staircase: resonance frequency-locking (the quasi-static LISA signature)
+
+The reason a bumpy-metric EMRI is observationally distinguishable (Lukes-Gerakopoulos/Apostolatos/
+Contopoulos PRD 81, 124005): inside a resonance island the orbit's rotation number is **locked to the
+rational** across the island's finite width, while integrable Kerr has no islands — resonant tori are
+measure-zero, so nothing locks. Swept the section rotation number across §106's ZV δ=2 zone (E=0.95,
+Lz=3, x0∈[7.50, 7.71], 0.005 steps) with the §105-validated section-sequence estimator, and the full
+staircase appeared: *plunge* | *chaotic layer* (off-rational, escaping) | **1/5 lock** (x0 7.555–7.565:
+ν = 0.20000, 0.20000 exact, 0.19982) | *layer* | **smooth riser** (0.2141→0.2458 over 13 monotone steps,
+~0.002/step) | **1/4 lock** (x0 7.645–7.665: **five consecutive points at 0.25000** — the approach snaps
+from 0.2458 onto the rational and holds) | *release* (0.2539→0.2648). The 1/4 island is fatter than the
+1/5 (KAM ordering). **Instrument honesty:** two trajectory-FFT estimators were tried first and *fooled*
+— by libration peaks, then by the fully commensurate spectra near locks (at a locked orbit every
+spectral peak is an integer multiple of the closure frequency — itself independent confirmation of the
+lock); the section-sequence frequency is the unambiguous instrument. **Kerr control (corrected):** the
+first control varied r0 at fixed (E, L, p_θ), which pins the Carter constant — every point the *same*
+torus (identical ν to 5 digits; a correct-but-useless control, caught and redesigned). With
+turning-point launches (distinct tori): ν falls smoothly 0.26598→0.26361, monotone, never within 0.013
+of a rational — the anti-staircase. Battery `107` asserts the two locks, the moving risers, and the
+no-lock Kerr control. **This closes item 1a of the follow-up plan:** a bumpy spacetime *locks* crossing
+orbits to rational frequency plateaus; Kerr cannot — the quasi-static half of the LISA resonance
+signature, as a gated reproducible result. (Also: `scripts/_ckpt.py` — sweeps now checkpoint per-point
+to durable repo-local files after another power loss; the staircase itself was already banked.)
+Repro: `scripts/107_resonance_locking.py` (sweep scaffolding `scripts/_plateau_quasistatic.py`,
+`scripts/_plateau_v3_section.py`, `scripts/_kerr_control_v3.py`; control data
+`data/kerr_control_v3.txt`).
+
 **Where the niche stands (own literature sweep, 2026-06-16).** Path 1 (automate
 the physical-vs-gauge / SPSM criterion) is closed: xCPS (arXiv:2606.05204, open
 source) already automates covariant phase space, Noether charges, and Wald
