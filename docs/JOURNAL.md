@@ -1809,3 +1809,32 @@ nice-19 (alphaludo-l4, trainer untouched). Dashboards live on both hosts.
   the frequency-drift detector exactly where box-dim was ambiguous. The detector is 3-for-3 on thin layers
   (MN inner-CZV, MN island-vs-layer, ZV separatrix layer).
 - New: 106_zv_thin_layer_chaos.py (battery), _zv_freqdrift_hunt.py + _zv_freqdrift_refine.py (exploratory).
+
+## 2026-07-02/03 (evening->night) — §107 THE DEVIL'S STAIRCASE: resonance frequency-LOCKING exhibited (follow-up plan item 1a)
+- Evening discussion set the pre-weekend follow-up plan (docs/PLAN.md): (1) the LISA resonance-plateau
+  observable, (2) analyzer chaos lens, (3) BH mimickers, (4-parked) EdGB. Started item 1a: the
+  QUASI-STATIC plateau -- inside a resonance island the frequency ratio is LOCKED to the rational across
+  the island's finite width (Lukes-Gerakopoulos/Apostolatos/Contopoulos PRD 81 124005); integrable Kerr
+  has no locking width. Swept x0 across §106's ZV delta=2 island zone (E=0.95, Lz=3, x0 in [7.50,7.71],
+  step 0.005, 240 section crossings/orbit).
+- TWO ESTIMATOR FALSE-STARTS, both caught + diagnosed (north-star discipline): (v1) naive dominant-FFT-peak
+  of the trajectory is fooled by libration peaks off island-centre; (v2) turning-point-anchored FFT is
+  fooled near strong resonances where the spectrum is FULLY COMMENSURATE with dominant subharmonics
+  (pericenter alternation -- diagnosed by dumping top-5 peaks: at the locked zone EVERY peak is an integer
+  multiple of the closure frequency 0.001612; on a circulating torus the y-peaks sit at (n+1/3)x = 
+  incommensurate). The unambiguous instrument is the SECTION-sequence frequency (the §105/§106-validated
+  estimator): a locked orbit's section sequence is q-periodic => frequency EXACTLY p/q; a torus varies
+  smoothly. v3 = the definitive staircase.
+- THE STAIRCASE (v3, ZV delta=2, E=0.95, Lz=3): plunge (<=7.540) | chaotic layer (7.545-7.550: nu=0.2035,
+  0.1990 -- off-rational, escaping) | **1/5 LOCK 7.555-7.565** (0.20000, 0.20000 EXACT + 0.19982) | layer
+  (7.570 off, 7.575 plunge) | SMOOTH CLIMB 7.580->7.640 (0.2141->0.2458, 13 points, monotone ~0.002/step,
+  CONTINUOUS through the zone where v2's estimator had fake jumps) | **1/4 LOCK 7.645-7.665** (0.25001,
+  0.25000 x4 -- FIVE consecutive points; the approach SNAPS from 0.2458 onto the rational and HOLDS) |
+  release 7.670+ (0.2539->0.2648 smooth climb). Two rational plateaus; the 1/4 island (5 steps wide) fatter
+  than the 1/5 (3 steps) = the KAM ordering. The v2 trajectory-spectra INDEPENDENTLY confirm the locks
+  (exact commensurability at 7.555/7.560 with nu_x/nu_y=3/5 <-> section 1/5; the 7.645-7.665 zone
+  commensurate with nu_x:nu_y=1:2 <-> section 1/4).
+- Kerr control (integrable; same estimator): rotation number must vary smoothly with NO multi-step lock.
+  [numbers landing as this is written; battery §107 asserts lock+contrast+control]. This is the
+  quasi-static half of the LISA signature; item 1b (flux-driven drift through the island -> the plateau in
+  TIME) is next. New: _plateau_quasistatic.py (v1/v2 + spectra diagnostic), _plateau_v3_section.py (v3).
