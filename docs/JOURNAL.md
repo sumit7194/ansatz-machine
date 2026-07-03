@@ -2003,3 +2003,41 @@ nice-19 (alphaludo-l4, trainer untouched). Dashboards live on both hosts.
 - BATTERY 112: (A) dictionary 4 identities leftover zero; (B) twist-sourcing REJECTED with F1.F2
   extracted; (C) obstruction map (own-field radius tag + equal-invariants shape tag); (D) landscape
   all-obstructed. PASSES. Battery count -> 96. New: 112_kk6_two_fields.py, _kk6_reduce.py, _kk6_reduce2.py.
+
+## 2026-07-03 — §113 6D KK TWISTED FIBRE: the F1.F2 obstruction ABSORBED; the twist IS the axion
+- The quantum project greenlit the §112 offer: turn on the off-diagonal internal-metric modulus chi(r)
+  (the TWIST between the two hidden circles) as a dynamical field, and confirm the §112 prediction --
+  that the (T) = 1/4 Phi1^2 Phi2^2 F1.F2 source with nothing to absorb it in the diagonal ansatz should
+  now flow into the twist's OWN equation of motion, turning the (T)-REJECTED two-field stacking VERIFIED.
+- ANSATZ: M = [[Phi1^2, chi],[chi, Phi2^2]] (det M = Phi1^2 Phi2^2 - chi^2), ds^2_6 = g4 + M_ab (dw^a +
+  A^a)(dw^b + A^b), both A^a = a_a(r) dt PARALLEL ELECTRIC -> F1.F2 != 0 (the exact §112-rejected config).
+  Free-function family {f,h,a1,a2,Phi1,Phi2,chi}(r). chi=0 recovers §112 exactly (regression anchor).
+- THE ABSORPTION (predicted, then machine-confirmed to leftover zero):
+    (A1) R6(w1,w2) now CONTAINS chi'' -- it is a 2nd-ORDER EOM for the twist, sourced by F1.F2
+         (the a1'a2' term survives). A propagating equation, no longer a bare algebraic constraint.
+    (A2) freeze the twist (chi -> const, incl. 0): R6(w1,w2) -> -Phi1^2 Phi2^2 a1'a2'/(2fh)
+         = 1/4 Phi1^2 Phi2^2 F1.F2 EXACTLY -- §112's (T) constraint. The frozen-twist limit IS the
+         rejected case; dynamical chi converts constraint (0th order, over-determining) into EOM (2nd
+         order, solvable). => the §112-REJECTED stacking is VERIFIED as a genuine twisted reduction.
+- WHAT chi BECOMES IN 4D (the deliverable -- machine-extracted, not asserted):
+    (B1) chi has a genuine kinetic term chi'^2 in R6(w_a,w_a) -> a PROPAGATING 4D scalar.
+    (B2) its kinetic coefficient = Phi1^2 / (2 h det M); coeff * det M = Phi1^2/(2h) is chi-FREE, so ALL
+         chi-dependence is a single 1/det M = 1/(Phi1^2 Phi2^2 - chi^2) pole -- the SL(2,R)/SO(2)
+         hyperbolic coset metric (the T^2 complex-structure moduli space).
+    (B3) chi's EOM source is F1.F2 = F^1_{mu nu} F^{2 mu nu} -- the OFF-DIAGONAL gauge-kinetic coupling.
+    => chi is the AXION (real part of the T^2 complex structure tau): the field that couples the two
+       gauge fields through the off-diagonal entry of the gauge-kinetic matrix. (Phi1,Phi2,chi) are the
+       volume + complex-structure moduli; the 4D theory is Einstein-Maxwell(x2)-dilaton + AXION on
+       SL(2,R)/SO(2). The 'even' coupling F1.F2 (not the theta-term F1 wedge F2) -- the metric axion.
+- BUG-OF-EXPECTATION caught AGAIN (the §110/§112 lesson, 3rd time): v1's (B2) check did the algebra wrong
+  (computed a quantity == 1 and tested == 0) and flagged FAIL though the printed coefficient manifestly
+  carried 1/det M. Fixed to the clean invariant test (kin_coeff * det M is chi-free). Physics was right
+  the whole time; the CHECK was wrong. Discipline holds: read what the machine actually printed.
+- HONEST SCOPE / SymPy wall: the fibre sector (w1,w2),(w_a,w_a) carries the entire twist story and is
+  proven over the free-function-of-r family; the arbitrary 2D (r,theta) dependence remains the wall (we
+  prove over the family, not for a general 2-argument metric). Next rung if wanted: the theta-odd
+  (Scherk-Schwarz / monodromy) twist that would produce the topological F1 wedge F2 theta-term rather
+  than the metric F1.F2 coupling -- a genuinely different axion.
+- BATTERY 113: (A1) EOM+source, (A2) frozen->§112 constraint (rejected->verified), (B1) propagating,
+  (B2) 1/det M coset, (B3) F1.F2 axion coupling -- all green. PASSES. Battery count -> 97.
+  New: 113_kk6_twisted.py, _kk6_twist.py (prototype).

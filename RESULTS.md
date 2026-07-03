@@ -1622,6 +1622,29 @@ the twist constraint); the twisted fibre χ≠0 — where the F¹·F² source ge
 stackings should turn VERIFIED — is the natural next rung. Repro: `scripts/112_kk6_two_fields.py`
 (prototypes `scripts/_kk6_reduce.py`, `_kk6_reduce2.py`).
 
+## §113 — 6D KK twisted fibre: the F¹·F² obstruction absorbed; the twist is the axion (rung climbed)
+
+The quantum project greenlit §112's offer, and the prediction held exactly. Turn on the off-diagonal
+internal-metric modulus **χ(r)** — the twist between the two hidden circles — as a dynamical field:
+M = [[Φ₁², χ],[χ, Φ₂²]], det M = Φ₁²Φ₂²−χ², with both gauge fields parallel electric (F¹·F²≠0, the exact
+config §112 **rejected**). The result: §112's bare constraint **R⁶(w₁,w₂) = ¼Φ₁²Φ₂²F¹·F²** becomes a
+genuine **second-order equation of motion for χ** (it now carries χ″) sourced by F¹·F² — *the source flows
+into the twist's own equation*. Freezing the twist (χ→const) collapses that EOM back to **exactly**
+¼Φ₁²Φ₂²F¹·F², so the frozen-twist limit **is** the rejected diagonal case: dynamical χ converts an
+over-determining 0th-order constraint into a solvable 2nd-order EOM. **The §112-REJECTED two-non-orthogonal-
+field stacking is therefore VERIFIED as a genuine twisted reduction.** What χ becomes in 4D, machine-
+extracted: it is a **propagating scalar** (kinetic term χ′² in R⁶(w_a,w_a)) whose kinetic coefficient
+carries a single **1/det M = 1/(Φ₁²Φ₂²−χ²)** pole — the **SL(2,ℝ)/SO(2)** hyperbolic coset metric — and
+whose EOM source is **F¹·F²** (the off-diagonal gauge-kinetic coupling). So **χ is the axion**: the real
+part of the T² complex-structure modulus τ, coupling the two gauge fields through the off-diagonal entry of
+the gauge-kinetic matrix. The 4D theory is Einstein–Maxwell(×2)–dilaton **+ axion on SL(2,ℝ)/SO(2)**; the
+coupling is the *metric* (parity-even) F¹·F², not the topological θ-term F¹∧F². (A v1 check flagged the
+coset leg FAIL on an arithmetic slip while the printed coefficient manifestly showed 1/det M — code right,
+check wrong, the §110/§112 lesson a third time; fixed to the invariant test that χ·det M is χ-free.) Honest
+scope: the fibre sector carries the whole twist story and is proven over the free-function-of-r family; the
+θ-odd (Scherk–Schwarz/monodromy) twist that would source the topological F¹∧F² θ-term instead is a distinct
+next rung. Repro: `scripts/113_kk6_twisted.py` (prototype `scripts/_kk6_twist.py`).
+
 **Where the niche stands (own literature sweep, 2026-06-16).** Path 1 (automate
 the physical-vs-gauge / SPSM criterion) is closed: xCPS (arXiv:2606.05204, open
 source) already automates covariant phase space, Noether charges, and Wald
