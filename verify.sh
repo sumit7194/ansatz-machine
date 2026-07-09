@@ -102,6 +102,8 @@ NAMES+=("04 campaign");           CMDS+=("scripts/04_campaign.py")
 [ -f scripts/111_kaluza_klein.py ] && { NAMES+=("111 Kaluza-Klein reduction PROVEN (5D vacuum <=> 4D Einstein-Maxwell-dilaton, machine-derived dictionary; frozen-dilaton trap REJECTED with obstruction F^2 extracted; stacking lattice)"); CMDS+=("scripts/111_kaluza_klein.py"); }
 [ -f scripts/112_kk6_two_fields.py ] && { NAMES+=("112 6D KK on T^2 (cross-coupled two-field dictionary; twist-sourcing obstruction F1.F2=0 forced by the diagonal fibre; obstruction map + consistency landscape)"); CMDS+=("scripts/112_kk6_two_fields.py"); }
 [ -f scripts/113_kk6_twisted.py ] && { NAMES+=("113 6D KK TWISTED fibre (chi!=0 absorbs the F1.F2 source into its own 2nd-order EOM; §112-REJECTED two-field stacking now VERIFIED; chi = axion on SL(2,R)/SO(2), coupling F1.F2)"); CMDS+=("scripts/113_kk6_twisted.py"); }
+[ -f scripts/114_flux_atlas.py ] && { NAMES+=("114 THE FLUX ATLAS (6D EM+Lambda6 on T^2: flux stabilizes VOLUME only, coset exactly flat; monodromy absorbed; geometric flux partial + compactness caveat; obstructions extracted; data/flux_atlas.json)"); CMDS+=("scripts/114_flux_atlas.py"); }
+[ -f scripts/115_jacobson.py ] && { NAMES+=("115 Jacobson 1995 machine-verified (Raychaudhuri exact w/+w/o shear; area bookkeeping; Clausius constants w/ localization POSTULATE logged; lemma S(k,k)=0 => S=phi g; Bianchi => Einstein + Lambda, c=8piG)"); CMDS+=("scripts/115_jacobson.py"); }
 
 fail=0
 GATE="$(dirname "$0")/gate.log"; : > "$GATE"   # also written here so the dashboard (reads ROOT/gate.log) stays current

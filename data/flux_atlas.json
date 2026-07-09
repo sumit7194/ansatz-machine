@@ -1,0 +1,124 @@
+{
+  "step": 114,
+  "setup": "6D Einstein-Maxwell + Lambda6 on T^2 fibre over the static free family; three-valued verdicts, obstructions machine-extracted",
+  "prior_art": "Andriot et al. JHEP 12(2022)026 (type II sugra, group manifolds)",
+  "next_leg": "Einstein-frame potential + moduli masses (bridge verifies numerically)",
+  "entries": [
+    {
+      "config": {
+        "twist": "none",
+        "fluxes": {},
+        "Lambda6": 0
+      },
+      "verdict": "consistent",
+      "obstruction": null,
+      "stabilized_moduli": [],
+      "potential": "V = 0",
+      "note": "all moduli flat; the \u00a7112 baseline"
+    },
+    {
+      "config": {
+        "twist": "none",
+        "fluxes": {
+          "G_w1w2": "n"
+        },
+        "Lambda6": 0
+      },
+      "verdict": "obstructed",
+      "obstruction": "n^2 = 0 forced (no constant-moduli vacuum; volume runaway)",
+      "stabilized_moduli": [],
+      "potential": "V ~ n\u00b2/detM (Jordan source), no critical point",
+      "note": ""
+    },
+    {
+      "config": {
+        "twist": "none (chi dynamical allowed)",
+        "fluxes": {
+          "G_w1w2": "n"
+        },
+        "Lambda6": "free"
+      },
+      "verdict": "consistent (volume stabilized)",
+      "obstruction": null,
+      "stabilized_moduli": [
+        "detM (volume)"
+      ],
+      "potential": "vacuum: detM = -3n\u00b2/(2\u039b6), \u03bb = 2\u039b6/9 (AdS4, \u039b6<0)",
+      "note": "shape+axion SL(2,R)/SO(2) coset exactly flat: the vacuum manifold IS the coset"
+    },
+    {
+      "config": {
+        "twist": "monodromy m (dw2 + m w1 dw1)",
+        "fluxes": {
+          "G_w1w2": "n"
+        },
+        "Lambda6": "free"
+      },
+      "verdict": "consistent (twist absorbed -- pure gauge)",
+      "obstruction": "monodromy = axion shift (large diffeomorphism): potential is m-independent; SS twist on metric-only T\u00b2 stabilizes NOTHING",
+      "stabilized_moduli": [
+        "detM (volume, from flux+\u039b6 only)"
+      ],
+      "potential": "same as untwisted flux+\u039b6 entry",
+      "note": ""
+    },
+    {
+      "config": {
+        "twist": "geometric flux m (frame e^{m w1} dw2)",
+        "fluxes": {
+          "G_w1w2": "n (coordinate form)"
+        },
+        "Lambda6": "free"
+      },
+      "verdict": "rejected",
+      "obstruction": "Maxwell violated: nabla_M G^{M w2} = -mn e^{-2mw1}/(\u03a61\u00b2\u03a62\u00b2) != 0; the flux quantum must wrap the internal volume form n e^{m w1} dw1^dw2",
+      "stabilized_moduli": [],
+      "potential": null,
+      "note": ""
+    },
+    {
+      "config": {
+        "twist": "geometric flux m",
+        "fluxes": {},
+        "Lambda6": 0
+      },
+      "verdict": "obstructed",
+      "obstruction": "m^2 = 0 forced (internal curvature alone: runaway)",
+      "stabilized_moduli": [],
+      "potential": "V ~ m\u00b2-curvature (Jordan)",
+      "note": ""
+    },
+    {
+      "config": {
+        "twist": "geometric flux m",
+        "fluxes": {
+          "G": "n e^{m w1} dw1^dw2 (volume form)"
+        },
+        "Lambda6": "free (<0)"
+      },
+      "verdict": "partially consistent (branch)",
+      "obstruction": "one flat direction SURVIVES (\u03a62 branch); global compactness of the 2D affine group UNPROVEN (classic geometric-flux obstruction on T\u00b2)",
+      "stabilized_moduli": [
+        "\u03a61 (pinned to branch)",
+        "\u03bb (fixed)"
+      ],
+      "potential": "\u03a61\u00b2 = (4\u03a62\u00b2m\u00b2+3n\u00b2)/(-2\u039b6\u03a62\u00b2); local reduction proven, compactification unproven",
+      "note": ""
+    },
+    {
+      "config": {
+        "twist": "any",
+        "fluxes": {
+          "G_w1w2": "n"
+        },
+        "Lambda6": "free",
+        "truncation": "volume frozen by hand"
+      },
+      "verdict": "obstructed unless fine-tuned",
+      "obstruction": "(2\u039b6\u00b7detM + 3n\u00b2) = 0 is forced: freezing the volume anywhere else is inconsistent (\u00a7111-trap analogue)",
+      "stabilized_moduli": [],
+      "potential": null,
+      "note": ""
+    }
+  ]
+}

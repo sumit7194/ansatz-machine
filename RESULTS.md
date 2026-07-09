@@ -1645,6 +1645,48 @@ scope: the fibre sector carries the whole twist story and is proven over the fre
 θ-odd (Scherk–Schwarz/monodromy) twist that would source the topological F¹∧F² θ-term instead is a distinct
 next rung. Repro: `scripts/113_kk6_twisted.py` (prototype `scripts/_kk6_twist.py`).
 
+## §114 — the flux atlas: which twists/fluxes stabilize which moduli (bridge round 6, ask 1)
+
+6D Einstein–Maxwell + Λ₆ on the (twisted) T² fibre, flux wrapped on the hidden torus, machine-mapped
+config-by-config with obstructions extracted as theorems and emitted machine-readably
+(`data/flux_atlas.json`, 8 entries). **The dictionary** (leftover zero over the free family):
+**G² = 2n²/detM** — the flux couples to the moduli *only through the volume+axion combination detM*,
+never the shape; every fibre source carries the single bracket (2Λ₆·detM + 3n²). **The vacuum atlas**
+(exact algebra): flux alone is **obstructed** (eliminating λ forces 3n²=0 — pure runaway); flux+Λ₆
+stabilizes **the volume only** — detM = −3n²/(2Λ₆) (needs Λ₆<0), AdS₄ with λ=2Λ₆/9 — and the equations
+are *coset-invariant*: the shape+axion **SL(2,ℝ)/SO(2) stays exactly flat — the vacuum manifold IS the
+coset** (my guess that flux would pin χ=0 was wrong; the machine corrected it). **The twist axis**: the
+metric monodromy (dw₂+m·w₁dw₁) is **absorbed** — bracket set identical to untwisted (axion shift =
+large diffeomorphism; the folklore "SS twists generate potentials" is *proven false* on metric-only
+T²). The geometric-flux frame twist (e^{mw₁}dw₂) with a *constant* flux ansatz is **rejected** — the
+machine caught Maxwell violated, residual −mn·e^{−2mw₁}/(Φ₁²Φ₂²) extracted: the flux must wrap the
+internal *volume form*. With the corrected flux: geometric flux alone **obstructed** (m²=0 forced);
+geometric flux + flux + Λ₆ gives a **partial branch** — Φ₁² = (4Φ₂²m²+3n²)/(−2Λ₆Φ₂²) pinned, λ fixed,
+*one flat direction survives*, with the classic compactness caveat (2D affine group non-compact)
+logged as UNPROVEN-compactifiable. **The trap**: freezing the volume by hand is consistent only at
+detM = −3n²/(2Λ₆) — price tag (2Λ₆·detM+3n²)=0 extracted. Prior art cited plainly: Andriot et al.
+JHEP 12(2022)026 automated type II truncations on group manifolds; ours is the minimal-6D per-config
+obstruction instrument. Next leg (offered): Einstein-frame potential + moduli masses for the bridge's
+numerical verification. Repro: `scripts/114_flux_atlas.py`.
+
+## §115 — Jacobson 1995 machine-verified: Clausius δQ = TδS ⟹ Einstein equations (bridge ask 2)
+
+Newly load-bearing via Dorau & Much, PRL 136, 091602 (2026) (the QFT upgrade); the classical core now
+on the family's proven ledger, three-valued throughout. **(J1) Raychaudhuri exact**: on the free static
+family (radial null congruence, machine-affinized, θ=2/(r√(fh)), σ²=0 exhibited) *and* on symbolic
+Kasner with p₁,p₂,p₃ completely free — no field equations, σ² = t^{−2p₁−2}(p₂−p₃)²/2 ≠ 0 — both
+leftover zero. **(J1c) area bookkeeping**: θ = d(ln A)/dλ exactly; at a bifurcation point θ(λ) =
+−λR_kk + O(λ²), giving the δA integral of the paper. **(J2) the Clausius chain**: κ cancels between δQ
+and TδS (Unruh T=κ/2π, S=ηA); the localization step (integral equality for *all* local Rindler
+horizons ⟹ integrand equality) is **Jacobson's physical postulate — logged as ASSUMED, not proven**;
+given it, R_kk = (2π/η)T_kk with η=1/4G ⟹ **c = 8πG**. **(J3) the certifiable core, proven**: (a) the
+lemma — a symmetric S_ab with S(k,k)=0 for *all* null k must be φ·g (null-cone linear system: solution
+space exactly the 1-parameter family); (b) the Bianchi step — R_ab = cT_ab + φg_ab with ∇T=0 forces
+d/dr(φ−R/2)=0, i.e. φ = R/2+Λ, and substituting gives **R_ab − ½Rg_ab − Λg_ab = cT_ab leftover zero:
+the Einstein equations with an undetermined cosmological constant** — the hinge of both the 1995 and
+2026 papers. SymPy wall named: proven over the free-function families (static spherical + Kasner), not
+arbitrary 2-argument metrics. Repro: `scripts/115_jacobson.py` (prototype `scripts/_jacobson_proto.py`).
+
 **Where the niche stands (own literature sweep, 2026-06-16).** Path 1 (automate
 the physical-vs-gauge / SPSM criterion) is closed: xCPS (arXiv:2606.05204, open
 source) already automates covariant phase space, Noether charges, and Wald

@@ -2041,3 +2041,73 @@ nice-19 (alphaludo-l4, trainer untouched). Dashboards live on both hosts.
 - BATTERY 113: (A1) EOM+source, (A2) frozen->§112 constraint (rejected->verified), (B1) propagating,
   (B2) 1/det M coset, (B3) F1.F2 axion coupling -- all green. PASSES. Battery count -> 97.
   New: 113_kk6_twisted.py, _kk6_twist.py (prototype).
+
+## 2026-07-10 — §114 THE FLUX ATLAS: which twists/fluxes stabilize which moduli (bridge round 6, ask 1)
+- The bridge (round 6) seconded the quantum project's top research direction: extend §111-§113 with
+  FLUXES wrapped on the hidden T² + the twist axis, and machine-map each config {twist, fluxes} to a
+  three-valued verdict with the obstruction EXTRACTED as a theorem. Deliverable includes a NEW format
+  for the family: machine-readable atlas entries (data/flux_atlas.json).
+- LIT-CHECK FIRST (research-before-building): Andriot-Marconnet-Rajaguru-Wrase JHEP 12(2022)026
+  (arXiv:2209.08015) automated consistent truncations for TYPE II sugra on 6D group manifolds with
+  Op/Dp sources. Our niche stated honestly: minimal 6D Einstein-Maxwell (the family's actual setup),
+  per-config obstruction extraction, three-valued verdicts -- an instrument, not a literature first.
+- SETUP: 6D Einstein-Maxwell + Λ6, fibre M = [[Φ1²,χ],[χ,Φ2²]], flux G_{w1w2} = n; free family
+  {f,h,Φ1,Φ2,χ}(r); vacuum scans on the 4D max-symmetric base (exact algebra, sp.solve).
+- (A) FLUX DICTIONARY (leftover zero): G² = 2n²/detM -- the flux sees the moduli ONLY through detM
+  (volume+axion), NEVER the shape. Maxwell holds identically; the A^a=0 truncation is consistent
+  (mixed equations vanish); every fibre source carries the single bracket (2Λ6·detM + 3n²).
+- (B) VACUUM ATLAS (exact): C0 nothing: λ=0, all moduli flat. C1 flux alone: OBSTRUCTED -- eliminating
+  λ forces 3n² = 0 (no constant-moduli vacuum: runaway). C2/C3 flux+Λ6: detM = -3n²/(2Λ6) STABILIZED
+  (needs Λ6<0), λ = 2Λ6/9 (AdS4); the equations are COSET-INVARIANT -> shape+axion SL(2,R)/SO(2)
+  stays EXACTLY FLAT. My guess that flux would pin χ=0 was WRONG -- the machine showed only detM is
+  fixed: THE VACUUM MANIFOLD IS THE COSET. (Flux stabilizes volume. Period.)
+- (C) TWIST AXIS: M1 monodromy (dw2 + m·w1·dw1): ABSORBED -- the equation-bracket set is IDENTICAL to
+  the untwisted system (axion shift = large diffeo; the folklore trap 'SS twists generate potentials'
+  is PROVEN FALSE on metric-only T²). G0: constant-flux ansatz on the geometrically-fluxed space
+  REJECTED -- machine caught Maxwell VIOLATED, residual -mn·e^{-2mw1}/(Φ1²Φ2²) extracted; the flux
+  must wrap the internal VOLUME form (n·e^{mw1}dw1^dw2). G1 geometric flux alone: OBSTRUCTED (m²=0
+  forced). G2 geometric flux + volume-form flux + Λ6: PARTIAL -- Φ1² = (4Φ2²m²+3n²)/(-2Λ6Φ2²) pinned
+  + λ fixed, but ONE FLAT DIRECTION SURVIVES (the Φ2 branch, extracted exactly); global caveat logged
+  honestly: the 2D affine group is non-compact (the classic compactness obstruction of geometric flux
+  on T²) -- local reduction proven, compactification UNPROVEN.
+- (D) TRUNCATION TRAP (§111-style): freezing the volume by hand is consistent ONLY at
+  detM = -3n²/(2Λ6) -- the price tag (2Λ6·detM + 3n²) = 0 extracted.
+- HONEST SCOPE: Einstein-frame potential + moduli MASSES = the offered next leg (the bridge said
+  they verify masses numerically 'in future legs'; the atlas ships the exact vacuum relations,
+  obstruction theorems, and Jordan-frame source functions now). Sign-canonicalization
+  bug-of-my-check caught (bracket sets equal up to overall sign -> could_extract_minus_sign fix).
+- BATTERY 114 PASSES (v3). data/flux_atlas.json: 8 entries {config, verdict, obstruction,
+  stabilized_moduli, potential}. Battery count -> 99 (with §115).
+  New: 114_flux_atlas.py, _flux_dict_proto.py, _flux_vac_proto.py, _ss_twist_proto.py, _m1_debug.py.
+
+## 2026-07-10 — §115 JACOBSON 1995 MACHINE-VERIFIED: Clausius dQ = T dS => Einstein equations (ask 2)
+- Bridge round 6 ask 2, newly load-bearing: Dorau & Much, PRL 136, 091602 (2026) (arXiv:2510.24491)
+  built the QFT upgrade (quantum relative Araki-Uhlmann entropy -> semiclassical EFE). Nobody in the
+  family had the classical core on the proven ledger. Machine decomposition, three-valued:
+- (J1a) RAYCHAUDHURI on the free static family: radial null congruence k_a = du (u = t - r*),
+  machine-checked affine-geodesic (came out κ=0 automatically -- gradient of null function), θ =
+  2/(r√(fh)), σ² = 0 exhibited (spherical cross-sections shear-free), identity leftover ZERO.
+- (J1b) RAYCHAUDHURI WITH SHEAR: symbolic Kasner with p1,p2,p3 COMPLETELY FREE (no Kasner conditions,
+  no field equations -- it is an identity of geometry): θ = t^{-p1-1}(p2+p3), σ² =
+  t^{-2p1-2}(p2-p3)²/2 ≠ 0, identity leftover ZERO. (First attempt had k_t = -t^{+p1} -- not null;
+  machine caught non-geodesic; fixed to -t^{-p1}.)
+- (J1c) AREA BOOKKEEPING: θ = d(ln A)/dλ exactly (A ∝ r² cross-sections); bifurcation-point Taylor
+  θ(λ) = -λ·R_kk + O(λ²) when θ(0)=σ(0)=0 -> δA = -∫λ R_kk dλdA (the paper's O(λ) area variation).
+- (J2) THE CLAUSIUS CHAIN: δQ = ∫λ T_kk with Unruh T = κ/2π and S = ηA; κ cancels between δQ and TδS.
+  The LOCALIZATION (integral equality for ALL local Rindler horizons => integrand equality) is
+  JACOBSON'S PHYSICAL POSTULATE -- logged as ASSUMED, not proven (honesty discipline). Given it:
+  R_kk = (2π/η) T_kk for all null k; η = 1/4G => c = 8πG (constants machine-checked).
+- (J3a) THE LEMMA (certifiable core 1): symmetric S_ab with S(k,k)=0 for ALL null k => S = φ·g.
+  PROVEN by solving the null-cone linear system on the family (parametrize the cone, both sheets via
+  ε=±1, expand in the spatial direction, solve the 10-unknown linear system): the solution space is
+  EXACTLY the 1-parameter family φ·g.
+- (J3b) THE BIANCHI STEP (certifiable core 2): R_ab = c·T_ab + φ·g_ab with ∇T = 0. Machine: ∇^aT_ab
+  has exactly one nontrivial component (r); c·∇^aT_ar = d/dr(φ + cT/2) IDENTICALLY; so ∇T=0 forces
+  d/dr(φ - R/2) = 0, i.e. φ = R/2 + Λ (Λ const). Substituting: R_ab - R/2 g_ab - Λ g_ab = c·T_ab
+  leftover ZERO -- THE EINSTEIN EQUATIONS WITH AN UNDETERMINED COSMOLOGICAL CONSTANT, the hinge of
+  both the 1995 and 2026 papers.
+- SymPy wall, named: J1/J3 proven over the free-function families (static spherical + Kasner), not
+  arbitrary 2-argument metrics; J2's localization is physics input, not theorem -- we say so.
+- BATTERY 115 PASSES (first full run, all six legs). New: 115_jacobson.py, _jacobson_proto.py.
+- ASK 3 (Pinčák 7D Einstein-Cartan torsion) PARKED per the bridge's instruction -- waiting for their
+  leg-W audit verdict before touching it.
