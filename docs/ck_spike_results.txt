@@ -1,0 +1,84 @@
+==============================================================================
+T1 -- PND canonicalization path (deliberately de-canonicalized frame)
+==============================================================================
+[    1.1s] canonical frame Psi (baseline) = [0, 0, -M/r**3, 0, 0]
+[    1.5s] after null rotation a=1/2  Psi = [-3*M/(2*r**3), -3*M/(2*r**3), -M/r**3, 0, 0]
+    de-canonicalized? 2 of Psi0,Psi1,Psi3,Psi4 are now nonzero ✅
+      null rotation about n, a = -1/2 -> Psi = [0, 0, -M/r**3, 0, 0]
+[    4.7s] recovered Psi = [0, 0, -M/r**3, 0, 0]   type D
+    PND path recovers the canonical frame: ✅
+
+==============================================================================
+T2-T5 -- CK signatures and pairwise verdicts
+==============================================================================
+[    4.7s] computing signature: Schwarzschild (Schwarzschild chart)...
+[    6.2s]   petrov=D iso=2 t0=1 t1=1
+     order0 = [-M/r**3]
+     order1 components (covariant) = ['D_l_Psi2', 'D_n_Psi2']
+     order1 INVARIANTS = {'(D_l_Psi2)(D_n_Psi2)': 9*M**2*(2*M - r)/(2*r**9)}
+     certificate = {'(D_l_Psi2)(D_n_Psi2)': 729*w**9 + 243*w**6*z + 27*w**3*z**2 + z**3 + 729*w**8/(8*M**2)}
+     failures = []
+[    6.2s] computing signature: Schwarzschild (ISOTROPIC chart)...
+[   10.6s]   petrov=D iso=2 t0=1 t1=1
+     order0 = [-64*M*rho**3/(M**6 + 12*M**5*rho + 60*M**4*rho**2 + 160*M**3*rho**3 + 240*M**2*rho**4 + 192*M*rho**5 + 64*rho**6)]
+     certificate = {'(D_l_Psi2)(D_n_Psi2)': 729*w**9 + 243*w**6*z + 27*w**3*z**2 + z**3 + 729*w**8/(8*M**2)}
+     failures = []
+[   10.6s] computing signature: Schwarzschild (PAINLEVE-GULLSTRAND chart)...
+[   13.7s]   petrov=D iso=2 t0=1 t1=1
+     certificate = {'(D_l_Psi2)(D_n_Psi2)': 729*w**9 + 243*w**6*z + 27*w**3*z**2 + z**3 + 729*w**8/(8*M**2)}
+     failures = []
+[   13.7s] computing signatures: Schwarzschild M=1 and M=2...
+     M=1 certificate = {'(D_l_Psi2)(D_n_Psi2)': 729*w**9 + 729*w**8/8 + 243*w**6*z + 27*w**3*z**2 + z**3}
+     M=2 certificate = {'(D_l_Psi2)(D_n_Psi2)': 729*w**9 + 729*w**8/32 + 243*w**6*z + 27*w**3*z**2 + z**3}
+[   16.0s] computing signature: Schwarzschild-de Sitter...
+[   18.9s]   ricci scalar = 4*Lambda (Schwarzschild: 0)
+
+--- VERDICTS ---
+  T2 Schw[Schw chart] vs Schw[isotropic]     -> EQUIVALENT     (want EQUIVALENT  ) ✅
+       · (D_l_Psi2)(D_n_Psi2) matches: 729*w**9 + 243*w**6*z + 27*w**3*z**2 + z**3 + 729*w**8/(8*M**2)
+  T3 Schw[Schw chart] vs Schw[PG]            -> EQUIVALENT     (want EQUIVALENT  ) ✅
+       · (D_l_Psi2)(D_n_Psi2) matches: 729*w**9 + 243*w**6*z + 27*w**3*z**2 + z**3 + 729*w**8/(8*M**2)
+  T4 Schw M=1 vs Schw M=2                    -> INEQUIVALENT   (want INEQUIVALENT) ✅
+       · certificate mismatch on (D_l_Psi2)(D_n_Psi2): 729*w**9 + 729*w**8/8 + 243*w**6*z + 27*w**3*z**2 + z**3 vs 729*w**9 + 729*w**8/32 + 243*w**6*z + 27*w**3*z**2 + z**3
+  T5 Schw vs Schw-de Sitter                  -> INEQUIVALENT   (want INEQUIVALENT) ✅
+       · Ricci scalar 0 vs 4*Lambda
+
+==============================================================================
+T6 -- THE KILLER DEMO: VSI pp-waves (fingerprint filter is BLIND here)
+==============================================================================
+  pp-wave  H = x^2 - y^2                               vacuum=True  Kretschmann=0  R=0
+  pp-wave  H = 2xy  (a 45-degree rotation of the first) vacuum=True  Kretschmann=0  R=0
+  pp-wave  H = (x^2-y^2)/u^2  (u-dependent amplitude)  vacuum=True  Kretschmann=0  R=0
+  => every polynomial curvature invariant VANISHES for all three: the §02 fingerprint
+     filter reports BLIND_SPOT and cannot separate them. Now CK:
+
+[   18.9s] CK signature: pp-wave  H = x^2 - y^2
+     petrov=N iso=2 t0=0 t1=0
+     Psi = [0, 0, 0, 0, 1]
+     order1 components = []   nabla_C_zero = True
+     order1 INVARIANTS = {}
+     certificate = {'I0_constant': 1}  failures=[]
+[   19.0s] CK signature: pp-wave  H = 2xy  (a 45-degree rotation of the first)
+     petrov=N iso=2 t0=0 t1=0
+     Psi = [0, 0, 0, 0, 1]
+     order1 components = []   nabla_C_zero = True
+     order1 INVARIANTS = {}
+     certificate = {'I0_constant': 1}  failures=[]
+[   19.1s] CK signature: pp-wave  H = (x^2-y^2)/u^2  (u-dependent amplitude)
+     petrov=N iso=2 t0=0 t1=0
+     Psi = [0, 0, 0, 0, 1]
+     order1 components = ['D_n_Psi4']   nabla_C_zero = False
+     order1 INVARIANTS = {}
+     certificate = {'I0_constant': 1}  failures=[]
+
+--- VSI VERDICTS ---
+  pp-wave  H = x^2 - y^2
+     vs pp-wave  H = 2xy  (a 45-degree rotation of the first)
+     -> EQUIVALENT   (ground truth: EQUIVALENT -- a 45-degree rotation)
+        · nabla C = 0 for both: the CK recursion terminates at order 1, and the order-0 data agree (type N, Psi4 normalized to 1, t0 = t1 = 0, isotropy 2).
+        · This is the covariantly-constant-curvature (symmetric plane-wave) case.
+  pp-wave  H = x^2 - y^2
+     vs pp-wave  H = (x^2-y^2)/u^2  (u-dependent amplitude)
+     -> INEQUIVALENT   (ground truth: INEQUIVALENT -- u-dependent amplitude)
+        · nabla C vanishes identically for one and not the other (pp-wave  H = x^2 - y^2: True, pp-wave  H = (x^2-y^2)/u^2  (u-dependent amplitude): False). This is a TENSORIAL statement -- true in every frame -- so it decides the pair rigorously even though every polynomial invariant vanishes for both.
+[   19.2s] SPIKE COMPLETE
