@@ -31,7 +31,8 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 import sympy as sp
 
-from analyzer import UNKNOWN, petrov_type, weyl_scalars, weyl_tensor
+from analyzer import (UNKNOWN, petrov_type, weyl_invariants, weyl_scalars,
+                      weyl_tensor)
 
 EQUIVALENT = "EQUIVALENT"
 INEQUIVALENT = "INEQUIVALENT"
@@ -59,29 +60,74 @@ def refine(e):
     return sp.refine(e, d) if d is not None else e
 
 
-def domain_samples(free, tries=40):
-    """Numeric points satisfying the declared domain -- used only to DECIDE A BRANCH,
-    never to prove anything: every branch choice is verified downstream (check_tetrad)."""
-    import itertools
-    import random
-    d = domain()
-    grid = [sp.Rational(1, 2), 1, 2, 3, 5, 7, sp.Rational(3, 2), 11]
-    free = list(free)
+def _predicate_to_relational(p):
+    """Q.positive(e) -> e > 0 etc., so a domain condition can actually be TESTED at a point.
+    SymPy assumption predicates do NOT evaluate under .subs -- Q.positive(1-y**2).subs(y,3)
+    stays symbolic rather than becoming false -- so sampling against them naively accepts
+    out-of-domain points and can return a confidently WRONG sign."""
     out = []
-    rnd = random.Random(20260721)
+    for q in (p.args if isinstance(p, sp.And) else [p]):
+        if isinstance(q, sp.core.relational.Relational):
+            out.append(q)
+            continue
+        fn = getattr(q, "function", None)
+        args = getattr(q, "arguments", None) or getattr(q, "args", None)
+        if fn is None or not args:
+            continue
+        arg = args[0]
+        name = str(fn).lower()
+        rel = None
+        if "positive" in name:
+            rel = arg > 0
+        elif "negative" in name:
+            rel = arg < 0
+        elif "nonzero" in name:
+            rel = sp.Ne(arg, 0)
+        # a condition on an already-declared symbol (Q.positive(r) with r positive) collapses
+        # to BooleanTrue, which carries no rel_op -- keep only genuine relations.
+        if isinstance(rel, sp.core.relational.Relational):
+            out.append(rel)
+    return out
+
+
+def domain_free_symbols():
+    d = domain()
+    return set().union(*[c.free_symbols for c in _predicate_to_relational(d)]) if d is not None else set()
+
+
+def domain_samples(free, tries=400):
+    """Numeric points that GENUINELY satisfy the declared domain -- used only to DECIDE A
+    BRANCH, never to prove anything: every branch choice is verified downstream by
+    check_tetrad. Each condition is converted to a relational and evaluated numerically."""
+    import random
+    conds = _predicate_to_relational(domain()) if domain() is not None else []
+    grid = [sp.Rational(1, 5), sp.Rational(1, 2), sp.Rational(3, 4), sp.Rational(6, 5),
+            sp.Rational(3, 2), 2, 3, 5, 7, 11]
+    free = sorted(free, key=str)
+    out, rnd = [], random.Random(20260721)
     for _ in range(tries):
         sub = {s: rnd.choice(grid) for s in free}
-        if d is not None:
+        good = True
+        for c in conds:
             try:
-                if d.subs(sub) is sp.false:
+                gap = (c.lhs - c.rhs).subs(sub)
+                if gap.free_symbols:            # mentions symbols we are not probing: skip
                     continue
-                val = sp.simplify(d.subs(sub))
-                if val is sp.false or val == False:            # noqa: E712
-                    continue
+                gap = sp.N(gap)                 # numeric: compare directly, never via bool(Boolean)
+                if c.rel_op in (">", ">=") and not gap > 0:
+                    good = False
+                elif c.rel_op in ("<", "<=") and not gap < 0:
+                    good = False
+                elif c.rel_op in ("!=", "ne") and gap == 0:
+                    good = False
             except Exception:
-                continue
+                good = False
+            if not good:
+                break
+        if not good:
+            continue
         out.append(sub)
-        if len(out) >= 6:
+        if len(out) >= 8:
             break
     return out
 
@@ -104,6 +150,27 @@ def sign_of(e):
         return 1
     if d is None and e.is_negative:
         return -1
+    # (1b) DIRECT MATCH against a declared condition. SymPy's assumption engine will not
+    # connect "Lambda*r**2/3 + 2*M/r - 1" to a declared positive "1 - 2*M/r - Lambda*r**2/3",
+    # though they are exact negatives -- so check for that explicitly. This is what lets a
+    # two-horizon spacetime (Schwarzschild-de Sitter) be handled by naming its static region.
+    if d is not None:
+        for c in _predicate_to_relational(d):
+            if c.rel_op not in (">", ">="):
+                continue
+            q = sp.simplify(c.lhs - c.rhs)          # q > 0 was declared
+            if q == 0:
+                continue
+            if zsimp(e - q) == 0:
+                return 1
+            if zsimp(e + q) == 0:
+                return -1
+            ratio = sp.simplify(sp.cancel(e / q))   # e = (positive const) * q  =>  same sign
+            if ratio.is_number:
+                if ratio.is_positive:
+                    return 1
+                if ratio.is_negative:
+                    return -1
     s = sp.simplify(sp.sign(refine(e)))
     if s == 1:
         return 1
@@ -131,8 +198,11 @@ def sign_of(e):
     sn, sd = _even_power_sign(num), _even_power_sign(den)
     if sn is not None and sd is not None:
         return sn * sd
-    # (3) numeric probe inside the domain (branch selection only; verified downstream)
-    samples = domain_samples(e.free_symbols)
+    # (3) numeric probe inside the domain (branch selection only; verified downstream).
+    # Probe the domain's symbols too, or its conditions cannot be tested at the sample point.
+    samples = domain_samples(e.free_symbols | domain_free_symbols())
+    if not samples:
+        return None
     signs = set()
     for sub in samples:
         try:
@@ -324,9 +394,37 @@ def canonical_frame(geo, C=None, tet=None, verbose=False):
         iso = 2
         note = ("type N: Psi4 normalized to 1; residual isotropy = null rotations about l "
                 "(dim 2). No order-0 invariants survive -- all information is at order >= 1.")
+    elif ty == "I":
+        # THE GENERIC CASE. Four distinct PNDs; l and n are already aligned with two of them
+        # above, so Psi0 = Psi4 = 0. (Psi0 survives the second rotation: a null rotation about
+        # l sends m -> m + b l, and Psi0 = C(l,m,l,m) picks up only terms with C(l,l,...) = 0.)
+        # The residual boost+spin is fixed by demanding Psi1 = Psi3: under (A, theta),
+        # Psi1 -> A e^{i th} Psi1 (weight +1,+1) and Psi3 -> A^-1 e^{-i th} Psi3 (weight -1,-1),
+        # so A^2 e^{2 i th} = Psi3/Psi1 does it. Isotropy is then DISCRETE (dim 0), which is what
+        # makes type I the easy case for comparison: every canonical component is an invariant.
+        if P[1] != 0 and P[3] != 0:
+            ratio = zsimp(P[3] / P[1])
+            A = sp.sqrt(sp.Abs(ratio))
+            theta = sp.arg(ratio) / 2
+            cand = boost_spin(tet, A=A, theta=theta)
+            Pc = psis(C, cand)
+            if zsimp(Pc[1] - Pc[3]) == 0:
+                tet, P = cand, Pc
+                if verbose:
+                    print(f"      type-I normalization: boost A={A}, spin={theta} -> Psi1 = Psi3")
+            else:
+                return tet, P, "I", UNKNOWN, (
+                    "type I: Psi1 = Psi3 normalization did not close -- UNDECIDED")
+        elif P[1] == 0 and P[3] == 0:
+            note = ("type I with Psi1 = Psi3 = 0 already (an extra reflection symmetry); "
+                    "boost+spin still free up to the Psi2 phase")
+            return tet, P, "I", 0, note
+        iso = 0
+        note = ("type I: Psi0 = Psi4 = 0, Psi1 = Psi3; isotropy is discrete (dim 0), so every "
+                "canonical frame component is itself a Cartan invariant")
     else:
         iso = UNKNOWN
-        note = f"type {ty}: canonicalization beyond D/N not implemented in v0"
+        note = f"type {ty}: canonicalization for types II/III not implemented in v0"
     return tet, P, ty, iso, note
 
 
@@ -400,6 +498,9 @@ def isotropy_invariants(comp, ty):
         # squared magnitudes are also neutral (|D_m Psi2|^2 etc.) when m-derivatives exist
         if "D_m_Psi2" in comp and "D_mb_Psi2" not in comp:
             inv["|D_m_Psi2|^2"] = zsimp(comp["D_m_Psi2"] * sp.conjugate(comp["D_m_Psi2"]))
+    elif ty == "I":
+        # Isotropy is discrete: every canonical component is already an invariant.
+        inv = dict(comp)
     elif ty == "N":
         # Psi4 is boost-covariant (weight -2) and normalized to 1 by the boost; the residual
         # isotropy is the 2-parameter null-rotation group about l. Ratios of like-weight
@@ -456,7 +557,32 @@ def functional_rank(exprs, coords):
         return UNDECIDED, True
 
 
-def relation_certificate_resultant(inv0, inv1, coords):
+def invariant_ratios(invs, tag="I", max_items=4):
+    """Dimensionless RATIOS of a set of Cartan invariants -- pure numbers, hence chart-free.
+
+    When a set of invariants all scale the same way with the coordinate (Kasner: every canonical
+    Psi goes like T^-14, every order-1 component like T^-15) their mutual ratios are pure NUMBERS
+    -- genuine chart-free labels. Cheap and rigorous, and it is what makes type I tractable:
+    with isotropy dim 0 every order-1 component is an invariant, and eliminating the coordinate
+    from those by resultant (T^24 powers, nested radicals like sqrt(4 sqrt(5)+9)) does not
+    finish, while the ratios drop out in milliseconds."""
+    # Cap the number of invariants compared: each ratio costs a simplify/radsimp over
+    # radical-laden expressions, and the cheapest few already label the geometry.
+    base = sorted([e for e in invs if e != 0], key=sp.count_ops)[:max_items]
+    out = {}
+    for i in range(len(base)):
+        for j in range(i + 1, len(base)):
+            rat = sp.radsimp(sp.simplify(sp.cancel(base[j] / base[i])))
+            if not rat.free_symbols:                    # a pure number: a chart-free label
+                out[f"{tag}{j}/{tag}{i}"] = sp.nsimplify(rat)
+    return out
+
+
+def order0_ratios(inv0):
+    return invariant_ratios(inv0, "I")
+
+
+def relation_certificate_resultant(inv0, inv1, coords, max_terms=3):
     """The coordinate-free certificate WITHOUT inverting anything.
 
     For each order-1 invariant z = I1(x) and the order-0 invariant w = I0(x), eliminate the
@@ -474,7 +600,14 @@ def relation_certificate_resultant(inv0, inv1, coords):
         return {"I0_constant": sp.simplify(I0)}, []
     p1 = sp.numer(sp.together(w - I0))
     cert, fails = {}, []
-    for lab in sorted(inv1):
+    # Resultants over messy invariants are the expensive step; take the simplest few and SAY SO
+    # (a silent cap would read as "we covered everything" when we did not).
+    ranked = sorted(inv1, key=lambda k: sp.count_ops(inv1[k]))
+    chosen, dropped = ranked[:max_terms], ranked[max_terms:]
+    if dropped:
+        fails.append(f"certificate limited to the {max_terms} simplest order-1 invariants; "
+                     f"not eliminated: {dropped}")
+    for lab in chosen:
         e = inv1[lab]
         try:
             if e == 0:
@@ -602,9 +735,37 @@ def ck_signature(geo, label="", verbose=False, tet=None):
     comp1 = cartan_order1(geo, tet, C, DC)                # boost/spin COVARIANT components
     inv1 = isotropy_invariants(comp1, ty)                 # -> genuine isotropy invariants
     t1, und1 = functional_rank(inv0 + [v for v in inv1.values() if v != 0], geo.coords)
-    cert, fails = relation_certificate_resultant(inv0, inv1, geo.coords)
+    ratios = order0_ratios(inv0)
+    ratios1 = invariant_ratios([v for v in inv1.values() if v != 0], "J")
+    # THE DISCRETE PND FREEDOM. Type I has four distinct principal null directions and the
+    # quartic solver returns them in an arbitrary order, so "align l with roots[0]" is a
+    # CHOICE: relabelling the axes of a Kasner permutes the PNDs and lands on a different --
+    # equally valid -- canonical frame, with different frame components. The frame-independent
+    # Weyl invariants I and J are symmetric under that relabelling by construction, so the
+    # dimensionless I^3/J^2 is a label immune to it (and I^3 = 27 J^2 is exactly the
+    # algebraically-special condition, so it also encodes the type).
+    Ivl, Jvl = weyl_invariants(P)
+    speciality = UNDECIDED
+    try:
+        if zsimp(Jvl) != 0:
+            cand = sp.radsimp(sp.simplify(sp.cancel(Ivl**3 / Jvl**2)))
+            speciality = sp.nsimplify(cand) if not cand.free_symbols else sp.simplify(cand)
+    except Exception:
+        speciality = UNDECIDED
+    # Type I: isotropy dim 0 makes every order-1 component an invariant, and eliminating the
+    # coordinate from those by resultant does not terminate in practice. The dimensionless
+    # ratios above are chart-free and decide such pairs, so we skip the elimination there and
+    # SAY we skipped it rather than reporting a silently partial certificate.
+    if ty == "I":
+        cert, fails = {}, ["order-1 coordinate elimination skipped for type I (resultants over "
+                           "radical-laden components do not terminate); decided on the "
+                           "dimensionless order-0/order-1 invariant ratios instead"]
+    else:
+        cert, fails = relation_certificate_resultant(inv0, inv1, geo.coords, max_terms=3)
     return {"label": label, "petrov": ty, "isotropy_dim": iso, "note": note,
-            "psi": P, "ricci_scalar": Rs, "order0": inv0, "t0": t0,
+            "psi": P, "ricci_scalar": Rs, "order0": inv0, "t0": t0, "order0_ratios": ratios,
+            "order1_ratios": ratios1, "weyl_I": Ivl, "weyl_J": Jvl,
+            "speciality_I3_over_J2": speciality,
             "order1_components": sorted(comp1), "order1_invariants": inv1,
             "order1_labels": sorted(inv1), "t1": t1, "nabla_C_zero": dc_zero,
             "certificate": cert, "cert_failures": fails, "undecided": und0 or und1}
@@ -627,6 +788,40 @@ def equivalent(sig1, sig2):
     if sig1["t0"] != sig2["t0"] or sig1["t1"] != sig2["t1"]:
         return INEQUIVALENT, [f"invariant counts (t0,t1) "
                               f"({sig1['t0']},{sig1['t1']}) vs ({sig2['t0']},{sig2['t1']})"]
+    # Dimensionless ratios of the invariants: pure numbers, hence chart-free labels. Differing
+    # ratios are a rigorous INEQUIVALENT (invariants disagree); matching ones are necessary.
+    matched_ratios = []
+    # For type I the frame-component ratios depend on WHICH of the four PNDs was aligned first,
+    # so they are not comparable across presentations; use the relabelling-immune I^3/J^2.
+    ratio_keys = () if sig1["petrov"] == "I" else ("order0_ratios", "order1_ratios")
+    if sig1["petrov"] == "I":
+        a, b = sig1.get("speciality_I3_over_J2"), sig2.get("speciality_I3_over_J2")
+        if a is UNDECIDED or b is UNDECIDED or a is None or b is None:
+            return UNDECIDED, ["type I: could not form the relabelling-immune invariant I^3/J^2"]
+        if sp.simplify(sp.radsimp(a - b)) != 0:
+            return INEQUIVALENT, [f"Weyl speciality invariant I^3/J^2 differs: {a} vs {b}"]
+        matched_ratios.append(f"I^3/J^2 = {a} (immune to PND relabelling)")
+    for key in ratio_keys:
+        r1, r2 = sig1.get(key, {}), sig2.get(key, {})
+        if set(r1) != set(r2):
+            return INEQUIVALENT, [f"{key}: different sets of dimensionless invariants "
+                                  f"{sorted(set(r1) ^ set(r2))}"]
+        bad = [k for k in r1 if sp.simplify(sp.radsimp(r1[k] - r2[k])) != 0]
+        if bad:
+            return INEQUIVALENT, [f"{key} {k} differs: {r1[k]} vs {r2[k]}" for k in bad]
+        matched_ratios.extend(f"{key}:{k}={r1[k]}" for k in sorted(r1))
+
+    if sig1["petrov"] == "I":
+        # Isotropy is already trivial (dim 0) at order 0, and t1 == t0 (checked above) means
+        # order 1 produced no new functional dependence -- so the CK recursion TERMINATES at
+        # order 1. With the type, the isotropy dimension, the invariant counts and all
+        # dimensionless invariant ratios agreeing at the terminating order, the Cartan data match.
+        if sig1["t0"] == sig1["t1"] and matched_ratios:
+            return EQUIVALENT, ["type I: isotropy already discrete and t1 = t0, so CK terminates "
+                                "at order 1; all dimensionless invariant ratios agree.",
+                                *matched_ratios[:4]]
+        return UNDECIDED, ["type I: the recursion has not demonstrably terminated (t1 != t0) and "
+                           "the order-1 elimination was skipped -- needs order 2."]
     # Type N: after Psi4 -> 1 there are no order-0 invariants, and the residual isotropy is the
     # 2-parameter null-rotation group about l. Differing (t0,t1) counts are still a RIGOROUS
     # discriminator (the counts are invariants) and were already checked above. Beyond that,
