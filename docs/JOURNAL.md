@@ -2111,3 +2111,58 @@ nice-19 (alphaludo-l4, trainer untouched). Dashboards live on both hosts.
 - BATTERY 115 PASSES (first full run, all six legs). New: 115_jacobson.py, _jacobson_proto.py.
 - ASK 3 (Pinčák 7D Einstein-Cartan torsion) PARKED per the bridge's instruction -- waiting for their
   leg-W audit verdict before touching it.
+
+## 2026-07-21 — THE CK SPIKE: Cartan-Karlhede as a decision procedure (v0; type D done, VSI closed)
+- User pitched a standalone Cartan-Karlhede tool: the DECISION procedure for "are these two metrics
+  the same spacetime in different coordinates", which our §02 fingerprint filter only approximates
+  (invariants are necessary-not-sufficient, and on VSI/Kundt spacetimes every polynomial invariant
+  vanishes so the filter is blind by construction -- README already declares this).
+- LIT SWEEP (their caveat asked for it; 4 searches): claim HOLDS. No Python/SymPy implementation.
+  EinsteinPy has the Weyl tensor but NO null tetrads, NO NP scalars, NO Petrov classification;
+  RicciPy development halted; the procedure lives only in CLASSI (SHEEP, Lisp-era) and Maple
+  (Pollney/GRTensorII; Anderson-Torre SPACETIMEGROUPS). Spec + test suite available:
+  Mergulhao-Batista arXiv:2007.04123 (didactic, worked examples), MacCallum (2020) errata.
+- WE WERE FURTHER ALONG THAN THE PITCH ASSUMED: §57 already computes NP scalars Psi0..Psi4 and the
+  Petrov type (analyzer.petrov), gated and green -- "module 1" existed. Built ON it, not beside it.
+- DECISION: spike first (1 session), not weeks. Two risk questions, both now ANSWERED:
+    RISK A (can we canonically fix the frame from an arbitrary chart?)  -> YES.
+    RISK B (does the comparison layer drown in UNDECIDED?)              -> NO, with the right design.
+- scripts/ck.py: domain-aware Gram-Schmidt null tetrad -> PND canonicalization -> isotropy-invariant
+  order-1 Cartan invariants -> resultant elimination -> three-valued comparison.
+- ALL SIX TESTS PASS (docs/ck_spike_results.txt): T1 PND recovery from a deliberately
+  de-canonicalized frame (rotation a=1/2 undone, solver finds a=-1/2); T2 Schwarzschild vs ISOTROPIC
+  chart EQUIVALENT; T3 vs PAINLEVE-GULLSTRAND (off-diagonal) EQUIVALENT; T4 M=1 vs M=2 INEQUIVALENT;
+  T5 vs Schwarzschild-de Sitter INEQUIVALENT; T6 the KILLER DEMO on VSI pp-waves (Kretschmann=0, all
+  polynomial invariants zero, fingerprint filter BLIND): H=x^2-y^2 vs H=2xy (a rotation) EQUIVALENT,
+  and H=x^2-y^2 vs H=(x^2-y^2)/u^2 INEQUIVALENT. THE BLIND SPOT IS CLOSEABLE, not just shrinkable.
+- THE CERTIFICATE IS REAL: Schwarzschild's order-1 relation is
+      z^3 + 27 w^3 z^2 + 243 w^6 z + 729 w^9 + 729 w^8/(8M^2) = 0
+  identical in the Schwarzschild and PG charts, and differing between M=1 and M=2 in EXACTLY ONE
+  coefficient (729/8 vs 729/32) -- the mass sits in a single place in a chart-free object.
+- THREE FINDINGS THE SPIKE EXISTED TO PRODUCE (each a bug or design fix I would not have predicted):
+   1. A single frame component of nabla C is NOT a Cartan invariant: D_l Psi2 has boost weight +1
+      (boost-COVARIANT). Only weight-cancelling products -- (D_l Psi2)(D_n Psi2) -- are invariant.
+      My first version compared covariant components and "passed" only because both sides used the
+      same frame convention. This is the "remaining isotropy freedom at each order" hard part, found
+      empirically. Bonus: the products are rational where the components carry sqrt(f).
+   2. Elimination must use RESULTANTS, not solve(). The isotropic chart's order-0 invariant is a
+      degree-6 rational in rho; solve() gives up (T2 was UNDECIDED), the resultant does not. AND the
+      certificate must be reduced to its SQUAREFREE part: a chart covering the geometry k-to-1
+      (isotropic coordinates double-cover via rho <-> M^2/4rho) returns the relation to the k-th
+      POWER. The isotropic certificate came out as exactly the SQUARE of the Schwarzschild one --
+      the multiplicity was real geometry, not an error.
+   3. A CK tool MUST let the caller declare the DOMAIN. Frame-normalization signs (and the Petrov
+      type itself) change across a horizon; without a declared region SymPy carries |2M-r| branch
+      artifacts forever (the §111 |sin theta| lesson, third appearance). ck.set_domain() + a
+      three-route sign oracle (assumptions -> structural even-power factoring -> numeric probing,
+      with every branch choice VERIFIED downstream by check_tetrad).
+- ALSO FOUND: type N normalizes Psi4 -> 1 (boost weight -2, spin weight -2), and the correct
+  consequence is that type N has NO order-0 Cartan invariants at all -- everything lives at order
+  >= 1. Before implementing this the machine wrongly called two rotation-related pp-waves
+  INEQUIVALENT (Psi4 = -1 vs +i are the SAME geometry in frames differing by a spin).
+- HONEST v0 BOUNDARY, logged not hidden: type D complete. Type N canonicalizes correctly and is
+  decided here only via the TENSORIAL test "does nabla C vanish" (frame-independent, hence rigorous
+  even when all polynomial invariants vanish). Reducing order-1 components modulo the residual null
+  rotations about l -- the case whose isotropy tables carried errata to MacCallum (2020) -- is NOT
+  implemented and returns UNDECIDED rather than guessing. Types I/II/III untouched. Not gated yet:
+  this is a spike, not a battery (battery + JOSS packaging only if we continue).
