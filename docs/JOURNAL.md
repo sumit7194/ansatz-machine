@@ -2208,3 +2208,42 @@ nice-19 (alphaludo-l4, trainer untouched). Dashboards live on both hosts.
   null-rotation isotropy reduction are NOT implemented and return UNDECIDED. Next natural steps: a
   Ricci/Segre layer for matter spacetimes, types II/III, then wiring CK into the NOVELTY stage so
   CANDIDATE_NEW becomes proof-backed rather than heuristic.
+
+## 2026-07-22 — §117 CK MATTER SECTOR: Ricci invariants + the Segre type (the hole §116 left)
+- Next step after §116. Found and MEASURED a completeness hole before fixing it: ck.py compared
+  matter using only the Ricci SCALAR, which is blind to traceless matter (Reissner-Nordstrom has
+  R = 0, and so does a radiation universe). The demonstration:
+      Minkowski      : Petrov O, t0 = t1 = 0, order0 = [], R = 0
+      radiation FRW  : Petrov O, t0 = t1 = 0, order0 = [], R = 0   <- IDENTICAL signature
+      verdict        : UNDECIDED
+  Flat spacetime was indistinguishable from a radiation cosmology. Not a WRONG answer (the
+  discipline held -- it said UNDECIDED, not EQUIVALENT), but the entire matter sector was
+  invisible, and matter is most of the catalog (§27-38, RN, TOV stars, cosmology).
+- ADDED: (a) ricci_invariants() -- the traces tr((R^a_b)^k), k=1..4, which fix the characteristic
+  polynomial of the mixed Ricci tensor and hence its eigenvalue structure. These are
+  frame-INDEPENDENT, so they are order-0 Cartan invariants requiring no frame fixing whatsoever --
+  the cheapest possible extension. Appended AFTER the Weyl invariants so the certificate keeps its
+  old parametrization (§116 re-run: still 9/9, no regression). (b) segre_type() -- matter classified
+  by the EIGENVALUE STRUCTURE of R^a_b. (c) the Ricci sector is compared BEFORE the Weyl
+  certificate, being frame-free and cheap.
+- BUG OF MY OWN MAKING, caught by the zoo: v1 classified on TRACELESSNESS first, which labelled the
+  radiation FRW fluid (p = rho/3, traceless!) as an 'electrovac candidate'. Eigenvalue structure
+  must come first, tracelessness second. Fixed; the classifier then reproduces the textbook Segre
+  types unaided: vacuum for Minkowski/Schwarzschild; Segre [1,(111)] perfect fluid for the FRW
+  dust and radiation cases (correctly flagging p = rho/3 for the traceless one); Einstein space for
+  de Sitter; and Segre [(11)(1,1)] NON-NULL ELECTROMAGNETIC for Reissner-Nordstrom -- derived from
+  the eigenvalues of R^a_b, not transcribed. Also: null radiation is detected as R^a_b NILPOTENT
+  (all eigenvalues zero yet R_ab != 0), the clean invariant statement of Segre [(11,2)].
+- BATTERY 117, 12/12: the Segre table (6 spacetimes); Minkowski vs radiation FRW INEQUIVALENT (hole
+  CLOSED); radiation vs dust FRW INEQUIVALENT (same Segre class, different equation of state);
+  RN vs Schwarzschild INEQUIVALENT by MATTER TYPE (not merely by Weyl); RN(Q=1) vs RN(Q=2)
+  INEQUIVALENT; de Sitter vs Minkowski INEQUIVALENT (both Petrov O -- the Weyl sector is empty, so
+  matter alone decides); and THE MATTER COSTUME TEST: RN in the Schwarzschild chart vs RN in
+  INGOING EDDINGTON-FINKELSTEIN (off-diagonal and horizon-penetrating) -> EQUIVALENT.
+- HONEST SCOPE: frame-free Ricci invariants + Segre type. DIFFERING invariants are a rigorous
+  INEQUIVALENT; MATCHING ones are necessary but not sufficient, so full matter rigour still wants
+  the Segre-canonical frame alignment (NP Phi_ab in a Ricci-adapted tetrad) -- NOT implemented.
+  Types II/III and the type-N null-rotation isotropy remain open from §116. Battery count -> 101.
+- NEXT: wire CK into the NOVELTY stage so CANDIDATE_NEW becomes proof-backed rather than heuristic
+  (the payoff the whole CK arc was for) -- now unblocked, since the discovery engine emits matter
+  solutions (RN, de Sitter) that §116 alone could not have judged.
