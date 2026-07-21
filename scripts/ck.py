@@ -428,6 +428,67 @@ def canonical_frame(geo, C=None, tet=None, verbose=False):
     return tet, P, ty, iso, note
 
 
+# --------------------------------------------------------------------------- Ricci / Segre
+def ricci_invariants(geo):
+    """Frame-INDEPENDENT invariants of the mixed Ricci tensor R^a_b: the traces of its powers.
+
+    The Ricci SCALAR alone is blind to traceless matter -- Reissner-Nordstrom has R = 0, and so
+    does a radiation-filled universe, so a Weyl-plus-R comparison cannot tell flat spacetime from
+    a radiation cosmology (their CK signatures come out identical). tr(R^k) for k = 1..4 fixes the
+    characteristic polynomial of R^a_b, hence its eigenvalue structure, and every one of them is a
+    genuine order-0 Cartan invariant needing no frame fixing at all."""
+    n, g = geo.n, geo.g
+    Rm = sp.simplify(g.inv() * geo.ricci)              # R^a_b (mixed)
+    out, P = [], sp.eye(n)
+    for _k in range(1, 5):
+        P = sp.simplify(P * Rm)
+        out.append(zsimp(P.trace()))
+    return out, Rm
+
+
+def segre_type(geo, Rm=None):
+    """Matter classification from the EIGENVALUE STRUCTURE of R^a_b (the Segre type).
+
+    Eigenvalue structure first, tracelessness second -- getting that order wrong mislabels a
+    radiation fluid (p = rho/3, which is traceless) as an electrovac. Three-valued: UNKNOWN when
+    the eigenvalues cannot be decided symbolically.
+
+        R_ab = 0                          vacuum
+        R_ab = Lambda g_ab                Einstein space
+        all eigenvalues 0 but R_ab != 0   null radiation: R^a_b is NILPOTENT (Segre [(11,2)])
+        multiplicities [3,1]              perfect fluid, Segre [1,(111)] (rho, p, p, p)
+        multiplicities [2,2]              non-null electromagnetic, Segre [(11)(1,1)]
+    """
+    n = geo.n
+    Rm = sp.simplify(geo.g.inv() * geo.ricci) if Rm is None else Rm
+    if all(zsimp(Rm[i, j]) == 0 for i in range(n) for j in range(n)):
+        return "vacuum (R_ab = 0)"
+    Rs = zsimp(geo.ricci_scalar)
+    lam = sp.Rational(1, 4) * Rs
+    if all(zsimp(Rm[i, j] - (lam if i == j else 0)) == 0 for i in range(n) for j in range(n)):
+        return "Einstein space (R_ab = Lambda g_ab)"
+    traceless = (Rs == 0)
+    try:
+        ev = Rm.eigenvals()
+        ev = {zsimp(k): v for k, v in ev.items()}
+        mult = sorted(ev.values(), reverse=True)
+        if set(ev) == {sp.S.Zero}:
+            # every eigenvalue zero yet R_ab != 0: nilpotent => aligned null vector
+            return "null radiation / pure radiation (R^a_b nilpotent, Segre [(11,2)])"
+        if mult == [3, 1]:
+            return ("perfect fluid, radiation (Segre [1,(111)], traceless: p = rho/3)"
+                    if traceless else "perfect fluid (Segre [1,(111)]: rho, p, p, p)")
+        if mult == [2, 2]:
+            return ("non-null electromagnetic (Segre [(11)(1,1)], traceless)" if traceless
+                    else "two double eigenvalues (Segre [(11)(1,1)], not traceless)")
+        if mult == [4]:
+            return "Einstein space (degenerate)"
+        return (f"anisotropic matter (eigenvalue multiplicities {mult}"
+                + (", traceless)" if traceless else ")"))
+    except Exception:
+        return UNKNOWN
+
+
 # --------------------------------------------------------------------------- curvature derivatives
 def covariant_derivative_weyl(geo, C=None):
     """nabla_e C_{abcd}, all indices down (index order: [e][a][b][c][d])."""
@@ -722,7 +783,12 @@ def ck_signature(geo, label="", verbose=False, tet=None):
         return {"label": label, "error": f"tetrad normalization failed: {bad}"}
     tet, P, ty, iso, note = canonical_frame(geo, C, tet, verbose=verbose)
     Rs = zsimp(geo.ricci_scalar)
-    inv0 = [p for p in P if p != 0] + ([Rs] if Rs != 0 else [])
+    # The Ricci sector: frame-independent trace invariants + the Segre/matter type. Appended
+    # AFTER the Weyl invariants so the certificate keeps parametrizing by Psi where it did before.
+    ric_tr, Rmix = ricci_invariants(geo)
+    segre = segre_type(geo, Rmix)
+    inv0 = ([p for p in P if p != 0] + ([Rs] if Rs != 0 else [])
+            + [e for e in ric_tr[1:] if e != 0])
     t0, und0 = functional_rank(inv0, geo.coords)
     # Whether nabla C vanishes identically is a TENSORIAL (frame-independent) fact, so it is a
     # rigorous discriminator even for type N, where we cannot yet reduce individual order-1
@@ -764,6 +830,7 @@ def ck_signature(geo, label="", verbose=False, tet=None):
         cert, fails = relation_certificate_resultant(inv0, inv1, geo.coords, max_terms=3)
     return {"label": label, "petrov": ty, "isotropy_dim": iso, "note": note,
             "psi": P, "ricci_scalar": Rs, "order0": inv0, "t0": t0, "order0_ratios": ratios,
+            "ricci_traces": ric_tr, "segre": segre,
             "order1_ratios": ratios1, "weyl_I": Ivl, "weyl_J": Jvl,
             "speciality_I3_over_J2": speciality,
             "order1_components": sorted(comp1), "order1_invariants": inv1,
@@ -780,6 +847,15 @@ def equivalent(sig1, sig2):
         return INEQUIVALENT, [f"Petrov type {sig1['petrov']} vs {sig2['petrov']}"]
     if sig1["isotropy_dim"] != sig2["isotropy_dim"]:
         return INEQUIVALENT, [f"isotropy dim {sig1['isotropy_dim']} vs {sig2['isotropy_dim']}"]
+    # --- the Ricci sector (frame-free, so it decides without any frame fixing at all)
+    if sig1.get("segre") != sig2.get("segre"):
+        return INEQUIVALENT, [f"matter type differs: {sig1.get('segre')} vs {sig2.get('segre')}"]
+    tr1, tr2 = sig1.get("ricci_traces") or [], sig2.get("ricci_traces") or []
+    if len(tr1) == len(tr2):
+        for k, (a, b) in enumerate(zip(tr1, tr2), start=1):
+            if (a == 0) != (b == 0):
+                return INEQUIVALENT, [f"Ricci invariant tr(R^{k}) vanishes for one and not the "
+                                      f"other: {a} vs {b}"]
     z1, z2 = sig1["ricci_scalar"] == 0, sig2["ricci_scalar"] == 0
     if z1 != z2:
         return INEQUIVALENT, [f"Ricci scalar {sig1['ricci_scalar']} vs {sig2['ricci_scalar']}"]

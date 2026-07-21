@@ -105,6 +105,7 @@ NAMES+=("04 campaign");           CMDS+=("scripts/04_campaign.py")
 [ -f scripts/114_flux_atlas.py ] && { NAMES+=("114 THE FLUX ATLAS (6D EM+Lambda6 on T^2: flux stabilizes VOLUME only, coset exactly flat; monodromy absorbed; geometric flux partial + compactness caveat; obstructions extracted; data/flux_atlas.json)"); CMDS+=("scripts/114_flux_atlas.py"); }
 [ -f scripts/115_jacobson.py ] && { NAMES+=("115 Jacobson 1995 machine-verified (Raychaudhuri exact w/+w/o shear; area bookkeeping; Clausius constants w/ localization POSTULATE logged; lemma S(k,k)=0 => S=phi g; Bianchi => Einstein + Lambda, c=8piG)"); CMDS+=("scripts/115_jacobson.py"); }
 [ -f scripts/116_cartan_karlhede.py ] && { NAMES+=("116 CARTAN-KARLHEDE decision procedure (Schwarzschild recognized across 4 charts incl. ZV delta=1 in prolate spheroidal; M=1 vs M=2 separated; type-I Kasner; VSI pp-waves DECIDED where every polynomial invariant vanishes -- the §02 blind spot closed)"); CMDS+=("scripts/116_cartan_karlhede.py"); }
+[ -f scripts/117_ck_matter.py ] && { NAMES+=("117 CK matter sector (Ricci trace invariants + SEGRE type: RN derived as Segre [(11)(1,1)] electrovac, FRW fluids as [1,(111)]; flat vs radiation-universe hole CLOSED; RN recognized across Schwarzschild and Eddington-Finkelstein charts)"); CMDS+=("scripts/117_ck_matter.py"); }
 
 fail=0
 GATE="$(dirname "$0")/gate.log"; : > "$GATE"   # also written here so the dashboard (reads ROOT/gate.log) stays current
