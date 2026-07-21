@@ -1757,3 +1757,27 @@ machine could not prove flat space is flat space. Fixed with the rigorous base c
 Minkowski, which is locally unique). **What PROVEN_NEW does not mean**, stated inside the battery: it is
 inequivalence to every entry in *our catalog*, not a literature-novelty claim — that would require the catalog
 to be the literature. Repro: `scripts/118_novelty_proven.py`.
+
+
+## §119 — bridge round 7: bumpy ε=0.35 vs Manko-Novikov q=0.5, decided at order 0
+
+The bridge asked us to decide (or prove undecidable) whether two rotating quadrupole deformations of
+Kerr are the same spacetime — the pair that blocked its leg-Q audit, both two-variable, both in the
+regime that walls our CK. Three tiers were pre-registered (T1 Petrov type, T2 the I–J relation,
+T3 full CK) with UNDECIDED explicitly acceptable. **It was decided below all three.** Their bumpy
+metric multiplies Kerr's g_tt by (1 + ε·6u²/r) and leaves the rest of Kerr alone; ad-hoc
+deformations of a vacuum solution are essentially never Ricci-flat. So **Manko-Novikov q=0.5 is an
+exact vacuum and bumpy ε=0.35 is not** — a different Segre/matter type, which §117 makes a rigorous
+INEQUIVALENT at **order 0**: no canonical frame, no PND quartic, no gradient of Weyl. The regime
+that walls CK never had to be entered. Evidence: a numeric screen whose own ε=0 control (exactly
+Kerr) sits at the finite-difference floor 5.5e-06 while ε=0.35 gives 4.2e-01; MN's residual *grows*
+as h shrinks (roundoff, not signal) and matches its q=0 case which is exactly Kerr; and the proof —
+bumpy's Ricci **scalar**, computed exactly, is not identically zero, R(r=4,u=0.3) = −0.0408. Scope
+stated to them: this settles equivalence but does **not** collapse leg Q's "three classes" to two —
+the entries are genuinely different spacetimes; it does mean one of those classes is not a vacuum
+spacetime. Their timing report also paid for itself: the CK wall is largely **our simplifier**, not
+the chart — the seven tetrad-normalisation dot products for a Kinnersley tetrad on Kerr did not
+finish in 8.5 minutes under `zsimp`'s full `sp.simplify` chain and finished in **0.3 seconds** under
+`cancel(together(expand(·)))`; `zsimp` now escalates. Full Kerr CK remains out of reach (a second
+hot spot past the tetrad stage), logged as the instrument's reach. Repro:
+`scripts/119_bridge_bumpy_mn.py`.
