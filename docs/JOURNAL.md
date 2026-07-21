@@ -2276,3 +2276,41 @@ nice-19 (alphaludo-l4, trainer untouched). Dashboards live on both hosts.
 - THE ARC, in one line: §02 (2025) shipped a heuristic filter that declared its own blind spot;
   §116-§118 (2026) built the decision procedure that closes it, and wired it back into the stage
   that needed it. The README's honest limitation is now a solved problem with a gated proof.
+
+## 2026-07-22 — §119 BRIDGE ROUND 7: bumpy vs Manko-Novikov, decided below their cheapest tier
+- The bridge used our §116-§118 CK to audit its own strongest result (leg Q: "legible <=> KY-integrable,
+  8/8"). Two independent confirmations arrived first, worth recording: their OWN zv_geometry(1)
+  construction in prolate spheroidal coords vs standard-chart Schwarzschild came out EQUIVALENT with
+  the certificate z^3+27w^3z^2+243w^6z+729w^9+729w^8/8 -- BYTE-IDENTICAL to our §116 -- so the
+  instrument reproduces from an independent construction; and 7/10 of their integrable pairs are now
+  rigorously distinct via §117's order-0 Ricci/Segre.
+- THE BLOCKED PAIR: bumpy eps=0.35 vs MN q=0.5, both rotating quadrupole deformations of Kerr, both
+  two-variable -- our known wall. They pre-registered three tiers (T1 Petrov, T2 the I-J relation,
+  T3 full CK) and explicitly accepted UNDECIDED.
+- DECIDED BELOW ALL THREE TIERS. Their bumpy metric multiplies Kerr's g_tt by (1 + eps*6u^2/r) and
+  leaves the rest of Kerr alone -- an ad-hoc deformation, and ad-hoc deformations of a vacuum
+  solution are essentially never Ricci-flat. So: MN q=0.5 is an exact vacuum; bumpy eps=0.35 is not.
+  Different Segre/matter type is a rigorous INEQUIVALENT at ORDER 0 -- no canonical frame, no PND
+  quartic, no gradient of Weyl. The regime that walls CK never had to be entered.
+    numeric screen : bumpy eps=0 (exactly Kerr) max|R_ab| = 5.5e-06 = FD floor; eps=0.35 -> 4.2e-01,
+                     76043x the floor, with the eps=0 control proving it is not a harness artefact
+    MN is vacuum   : residual GROWS as h shrinks (roundoff, not signal) and matches q=0 (exactly Kerr)
+    THE PROOF      : bumpy's Ricci SCALAR computed exactly (107s) is NOT identically zero;
+                     R(r=4,u=0.3) = -0.0408. Not Ricci-flat, not even scalar-flat.
+- HONEST SCOPE, stated to them: this settles the EQUIVALENCE question, but does NOT by itself
+  collapse leg Q's "three classes" to two -- the two entries are genuinely different spacetimes. If
+  anything it cuts the other way: one of the three classes is not a vacuum spacetime, which they may
+  want to say when describing it.
+- THEIR FEEDBACK PAID FOR ITSELF -- the wall is largely OUR SIMPLIFIER, not the chart and not the
+  algorithm. Measured: with a Kinnersley tetrad on Kerr in their u=cos(theta) chart, the seven
+  tetrad-normalisation dot products did NOT finish in 8.5 MINUTES of CPU under zsimp's full
+  sp.simplify chain, and finished in 0.3 SECONDS under cancel(together(expand(.))). zsimp is now
+  ESCALATING (cheap rational normal form first, expensive chain only on the nonzero path) with an
+  opt-in cheap-only mode; §116 (9/9), §117 (12/12), §118 (6/6) all re-verified unchanged. Full Kerr
+  CK is still out of reach -- a second hot spot remains past the tetrad stage -- and that is logged
+  as the instrument's reach rather than papered over.
+- THEIR KdS ValueError IS A REAL EDGE CASE and mostly not a bug: for a ROTATING metric d_t is
+  timelike outside the ergosurface and SPACELIKE inside it, so the frame norm genuinely changes sign
+  and no single answer is correct. The refusal now prints the offending expression, the seed index,
+  the declared domain, and the SAMPLED SIGNS, so the caller can see whether they are straddling an
+  ergosurface (restrict the region) or merely hit an oracle limit (declare it, or pass tet=).

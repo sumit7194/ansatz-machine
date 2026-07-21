@@ -218,13 +218,44 @@ def sign_of(e):
 
 # --------------------------------------------------------------------------- basics
 def zsimp(e):
-    """Aggressive-but-safe zero test / simplifier for frame components, domain-aware."""
-    e = refine(sp.simplify(sp.expand(sp.together(e))))
+    """Zero test / normal form for frame components, domain-aware and ESCALATING.
+
+    PERFORMANCE, measured: the previous version ran a full sp.simplify chain on every
+    component. On a rotating two-variable metric in the u = cos(theta) chart with a Kinnersley
+    tetrad, the seven tetrad-normalisation dot products did not finish in 8.5 MINUTES of CPU
+    under that chain, and finish in 0.3 SECONDS under cancel(together(expand(.))). The wall
+    reported by users on Kerr-form metrics is largely THIS FUNCTION, not the algorithm and not
+    the chart. So: try the cheap normal form first and return as soon as it settles the zero
+    question; escalate to the expensive chain only when the cheap form is nonzero AND the caller
+    needs certainty (a nonzero answer is where a false 'nonzero' would actually cost us).
+    """
     if e == 0:
         return sp.S.Zero
-    r = refine(sp.radsimp(e))
-    r = sp.simplify(sp.expand(sp.powdenest(r, force=True)))
-    return sp.S.Zero if sp.simplify(r) == 0 else r
+    # (1) cheap: rational normal form, no sp.simplify anywhere
+    c = sp.cancel(sp.together(sp.expand(e)))
+    if c == 0:
+        return sp.S.Zero
+    if _CHEAP_ONLY:
+        return refine(c)
+    # (2) escalate only for the nonzero-looking case
+    c = refine(c)
+    if c == 0:
+        return sp.S.Zero
+    rr = refine(sp.radsimp(c))
+    rr = sp.simplify(sp.expand(sp.powdenest(rr, force=True)))
+    return sp.S.Zero if sp.simplify(rr) == 0 else rr
+
+
+# Set True to keep zsimp on the cheap path only -- much faster on heavy rotating metrics, at
+# the cost of possibly reporting a nonzero normal form for something that is really zero (which
+# is why it is opt-in and reported in the signature).
+_CHEAP_ONLY = False
+
+
+def set_cheap_simplify(flag=True):
+    """Opt into the cheap-only normal form (see _CHEAP_ONLY)."""
+    global _CHEAP_ONLY
+    _CHEAP_ONLY = bool(flag)
 
 
 def dot(g, u, v):
@@ -235,7 +266,7 @@ def dot(g, u, v):
 def orthonormal_frame(geo, seeds=None):
     """Gram-Schmidt an orthonormal frame (e0 timelike, e1..e3 spacelike) out of the
     coordinate basis. Chart-agnostic: works for off-diagonal metrics (PG, Kerr-like)."""
-    g, n = geo.g, geo.n
+    g, n, x = geo.g, geo.n, geo.coords
     seeds = list(range(n)) if seeds is None else list(seeds)
     built = []
     for i in seeds:
@@ -251,10 +282,29 @@ def orthonormal_frame(geo, seeds=None):
     for v, nv in built:
         sg = sign_of(nv)
         if sg is None:
+            # Actionable diagnostics rather than a bare refusal. For a ROTATING metric this is
+            # usually not a bug: d_t is timelike outside the ergosurface and SPACELIKE inside it,
+            # so the norm genuinely changes sign and no single answer is correct. Report the
+            # sampled signs so the caller can see which region they are straddling.
+            probes = []
+            for sub in domain_samples(nv.free_symbols | domain_free_symbols())[:4]:
+                try:
+                    val = sp.N(nv.subs(sub))
+                    probes.append(f"{ {str(k): str(v) for k, v in sub.items()} } -> {val:.4g}")
+                except Exception:
+                    continue
             raise ValueError(
-                f"cannot determine the sign of a frame norm in the declared domain: {nv}. "
-                "Declare the region with ck.set_domain(...) -- signs (and the Petrov type) "
-                "genuinely differ across horizons.")
+                f"cannot determine the sign of a frame norm in the declared domain.\n"
+                f"  expression : {nv}\n"
+                f"  seed index : {i} (coordinate {x[i] if i < len(x) else '?'})\n"
+                f"  domain     : {domain()}\n"
+                f"  probes     : {probes or 'no in-domain sample found'}\n"
+                "  If the probes disagree in sign you are straddling a horizon or ERGOSURFACE "
+                "(d_t is spacelike inside the ergoregion of a rotating metric), and no single "
+                "sign is correct -- restrict the region with ck.set_domain(...). If they agree, "
+                "the sign oracle simply could not prove it: declare it directly, e.g. "
+                "ck.set_domain(sp.Q.positive(<that expression>)), or pass an explicit starting "
+                "frame via the tet= argument to skip Gram-Schmidt entirely.")
         s = sp.sqrt(refine(sp.simplify(sg * nv)))       # positive argument: no Abs branch
         frame.append([zsimp(x / s) for x in v])
         sigs.append(sg)

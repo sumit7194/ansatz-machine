@@ -107,6 +107,7 @@ NAMES+=("04 campaign");           CMDS+=("scripts/04_campaign.py")
 [ -f scripts/116_cartan_karlhede.py ] && { NAMES+=("116 CARTAN-KARLHEDE decision procedure (Schwarzschild recognized across 4 charts incl. ZV delta=1 in prolate spheroidal; M=1 vs M=2 separated; type-I Kasner; VSI pp-waves DECIDED where every polynomial invariant vanishes -- the §02 blind spot closed)"); CMDS+=("scripts/116_cartan_karlhede.py"); }
 [ -f scripts/117_ck_matter.py ] && { NAMES+=("117 CK matter sector (Ricci trace invariants + SEGRE type: RN derived as Segre [(11)(1,1)] electrovac, FRW fluids as [1,(111)]; flat vs radiation-universe hole CLOSED; RN recognized across Schwarzschild and Eddington-Finkelstein charts)"); CMDS+=("scripts/117_ck_matter.py"); }
 [ -f scripts/118_novelty_proven.py ] && { NAMES+=("118 NOVELTY proof-backed (§02 KNOWN_LIKELY upgraded to a CK proof; FLAT_OR_VSI and BLIND_SPOT adjudicated where invariants are blind; CANDIDATE_NEW backed by a decision against every catalog entry)"); CMDS+=("scripts/118_novelty_proven.py"); }
+[ -f scripts/119_bridge_bumpy_mn.py ] && { NAMES+=("119 bridge round 7: bumpy eps=0.35 vs Manko-Novikov q=0.5 -> INEQUIVALENT at ORDER 0 (bumpy is not Ricci-flat, proven symbolically; MN is exact vacuum) -- decided below tier T1, no canonical frame needed"); CMDS+=("scripts/119_bridge_bumpy_mn.py"); }
 
 fail=0
 GATE="$(dirname "$0")/gate.log"; : > "$GATE"   # also written here so the dashboard (reads ROOT/gate.log) stays current
