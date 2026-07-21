@@ -1696,3 +1696,64 @@ metrics via ML but **numerically** (Euclidean, approximate). The differentiator
 is therefore sharp: this engine is **exact, symbolic, and proven** — and now
 spans vacuum→matter in both discovery and proof. A genuinely-new exact metric
 remains the hard standing problem for everyone and is explicitly not claimed (D26).
+
+## §116 — Cartan–Karlhede: the costume problem solved as a decision procedure
+
+Our §02 fingerprint filter compares curvature invariants — necessary but **not sufficient**, and on
+VSI/Kundt spacetimes every polynomial invariant vanishes so it is blind by construction. Cartan–Karlhede
+is the actual decision procedure, and `scripts/ck.py` now implements it: domain-aware Gram–Schmidt null
+tetrad (any chart) → PND canonicalization → isotropy-invariant Cartan invariants → resultant elimination →
+three-valued verdict. **9/9 gated verdicts** against known ground truth. Prior art, swept 2026-07-21: no
+Python/SymPy implementation exists (EinsteinPy has the Weyl tensor but no tetrads/NP scalars/Petrov;
+RicciPy halted; the procedure lives in CLASSI (SHEEP, Lisp-era) and Maple). **The headline:**
+Zipoy–Voorhees at δ=1 in *prolate spheroidal* coordinates gives Ψ₂ = −1/(x³+3x²+3x+1), sharing no visible
+form with Schwarzschild's −M/r³, yet its certificate is **byte-identical** to Schwarzschild M=1:
+`z³ + 27w³z² + 243w⁶z + 729w⁹ + 729w⁸/8 = 0` — and M=1 vs M=2 differ in exactly one coefficient
+(729/8 vs 729/32), so the mass sits in a single place in a chart-free object. **The blind spot is closed:**
+three VSI pp-waves with Kretschmann = 0 are decided — the rotation-related pair EQUIVALENT (∇C = 0 for both,
+so the recursion terminates at order 1), the u-dependent pair INEQUIVALENT (∇C = 0 vs ≠ 0, a tensorial fact).
+Five bugs were caught by failing tests, each a confidently-wrong answer waiting to ship: a single frame
+component of ∇C is *not* an invariant (boost weight +1 — only weight-cancelling products are); elimination
+needs resultants and the **squarefree** part (isotropic coordinates double-cover, so the certificate came out
+as the literal square); the **discrete PND freedom** (four PNDs in arbitrary solver order made axis-relabelled
+Kasner read INEQUIVALENT to itself — fixed with the relabelling-immune I³/J²); domain sampling accepted
+out-of-domain points (SymPy predicates don't evaluate under `.subs`) giving a wrong frame sign; and type N
+needs Ψ₄→1 normalization. Cost limit recorded: type-I exponents must be rationalized (t = T^N took Kasner
+u=2 from >10 min to 2.4 s) *and* N must stay small (u=3 needs T²⁴ and the Weyl tensor alone doesn't finish in
+25 min). Honest scope: types D and I decided; N only via the tensorial ∇C test; types II/III and the order-1
+null-rotation isotropy return UNDECIDED. Repro: `scripts/116_cartan_karlhede.py`.
+
+## §117 — the matter sector: Ricci invariants and the Segre type
+
+§116 compared matter using only the Ricci **scalar**, which is blind to traceless matter. The hole, measured
+before fixing: Minkowski and a radiation FRW universe produced **identical signatures** (Petrov O, t₀=t₁=0,
+order0 = [], R = 0) → UNDECIDED. Flat spacetime was indistinguishable from a radiation cosmology. Added:
+the traces **tr((R^a_b)^k)**, k=1..4, which fix the characteristic polynomial of the mixed Ricci tensor and
+are *frame-independent* — order-0 Cartan invariants needing no frame fixing at all — plus a Segre classifier
+keyed on **eigenvalue structure first, tracelessness second** (getting that order wrong mislabels a radiation
+fluid, which is traceless, as an electrovac; my first version did exactly that). The machine then derives the
+textbook classification unaided: vacuum (Minkowski, Schwarzschild); Segre **[1,(111)]** perfect fluid for the
+FRW dust and radiation cases, correctly flagging p = ρ/3 for the traceless one; Einstein space (de Sitter);
+and Segre **[(11)(1,1)] non-null electromagnetic** for Reissner–Nordström. Null radiation is detected as
+R^a_b **nilpotent** — the clean invariant statement of Segre [(11,2)]. **12/12**, including the matter costume
+test: RN in the Schwarzschild chart vs in ingoing Eddington–Finkelstein (off-diagonal, horizon-penetrating) →
+EQUIVALENT. Honest scope: differing invariants are a rigorous INEQUIVALENT; matching ones are necessary but
+not sufficient, so full matter rigour still wants Segre-canonical frame alignment (NP Φ_ab), not implemented.
+Repro: `scripts/117_ck_matter.py`.
+
+## §118 — novelty, proof-backed: the fingerprint's verdicts adjudicated
+
+This closes the loop the whole CK arc was for. §02 has carried three deferrals since 2025, each pointing at a
+tool that did not exist — *"matching curves do NOT prove equivalence (Cartan–Karlhede would; no Python
+implementation exists)"*, and both blind-spot verdicts saying *"CK needed."* All three are now honoured:
+KNOWN_LIKELY → **PROVEN_KNOWN**, FLAT_OR_VSI / BLIND_SPOT → **adjudicated**, CANDIDATE_NEW →
+**PROVEN_NEW_vs_CATALOG**. Six for six against a five-entry catalog: Schwarzschild in isotropic coordinates
+→ PROVEN_KNOWN Schwarzschild (the heuristic becomes a proof); Minkowski → PROVEN_KNOWN (§02 declines
+FLAT_OR_VSI); pp-wave H=2xy → PROVEN_KNOWN pp-wave H=x²−y² (§02 *totally* blind — every polynomial invariant
+vanishes); de Sitter → PROVEN_KNOWN (§02 declines BLIND_SPOT); RN in Eddington–Finkelstein → PROVEN_KNOWN RN;
+Schwarzschild M=5 → PROVEN_NEW_vs_CATALOG. A pleasingly humbling bug surfaced: **Minkowski vs Minkowski came
+out UNDECIDED** — with no nonzero invariant anywhere there is nothing to parametrize a certificate by, so the
+machine could not prove flat space is flat space. Fixed with the rigorous base case (Riemann ≡ 0 ⟹ locally
+Minkowski, which is locally unique). **What PROVEN_NEW does not mean**, stated inside the battery: it is
+inequivalence to every entry in *our catalog*, not a literature-novelty claim — that would require the catalog
+to be the literature. Repro: `scripts/118_novelty_proven.py`.

@@ -212,9 +212,13 @@ fingerprint — hash functions that coordinate changes can't touch.
 - **The real equivalence test** is the **Cartan–Karlhede algorithm** (compare
   Riemann + covariant derivatives in canonically-fixed frames; decidable in ≤7
   derivative orders, usually ≤3) ([review](https://arxiv.org/abs/2007.04123)).
-  Notable gap: it exists only in legacy SHEEP/CLASSI and Maple — **no Python
-  implementation exists** as of mid-2026. If this project ever needs CK, building
-  it would itself be a useful contribution.
+  It existed only in legacy SHEEP/CLASSI and Maple — **so we built it**:
+  `scripts/ck.py` (§116–§118), 4D types D/I/N with the Ricci–Segre matter sector,
+  three-valued verdicts. It recognizes Schwarzschild across four charts (including
+  Zipoy–Voorhees δ=1 in prolate spheroidal coordinates), separates M=1 from M=2, and
+  **decides VSI pp-waves where every polynomial invariant vanishes** — closing the
+  fingerprint's declared blind spot. Types II/III and the order-1 null-rotation
+  isotropy remain UNDECIDED, honestly.
 - **Pipeline:** invariant fingerprint as the cheap filter → escalate fingerprint
   matches to human/CK scrutiny → fingerprint *mismatches with a verified zero
   Einstein tensor* are the treasure.
@@ -323,7 +327,8 @@ Lives in [docs/ROADMAP.md](docs/ROADMAP.md), ranked. Headlines: the stationary
 hall (off-diagonal g_tφ in rational coordinates — rotating BTZ first, the
 Kerr-shaped mansion later), the modified-gravity REDUCE (the EdGB black hole,
 known only numerically since 1996, via the closed-form-fit genre), and the
-missing-from-the-world Python Cartan–Karlhede. Two early open threads were
+missing-from-the-world Python Cartan–Karlhede (SHIPPED, §116–§118: types D/I/N +
+Segre matter sector, the §02 blind spot closed). Two early open threads were
 answered by the machine itself: the 2+1 rung's permanent blind spot IS the
 "no local degrees of freedom in 3D" lesson, and catalog growth went from
 open thread to shipped feature (05/07).

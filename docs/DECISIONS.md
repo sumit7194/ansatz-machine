@@ -45,8 +45,10 @@ hits. Exception: 2+1, where CSI is all that locally exists — there the
 declared blind spot IS the result.
 
 **D8 — Fingerprint = invariant curves (K, |∇K|²); blind spots are DECLARED.**
-Invariants are necessary, never sufficient (Cartan–Karlhede would be, but no
-Python implementation exists). Matches report KNOWN_LIKELY, never "same".
+Invariants are necessary, never sufficient (Cartan–Karlhede is). Matches report
+KNOWN_LIKELY, never "same". SUPERSEDED IN PART (2026-07-22): CK is now implemented
+(scripts/ck.py, §116–§118) and §118 escalates these verdicts to PROVEN_KNOWN /
+PROVEN_NEW_vs_CATALOG; the fingerprint remains the cheap first-pass filter.
 Constant invariants → BLIND_SPOT; all-zero → FLAT_OR_VSI. Sample the curve
 where it varies (bought by: SdS's mass term is a 1e-5 ripple on the Λ floor
 at large r — random radii were hopelessly ill-conditioned).

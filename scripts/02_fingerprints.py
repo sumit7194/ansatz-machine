@@ -20,8 +20,10 @@ sufficient condition for inequivalence).
 
 HONEST LIMITS (encoded, not hidden):
  - Invariants are necessary, not sufficient: matching curves do NOT
-   prove equivalence (Cartan–Karlhede would; no Python implementation
-   exists). A match is reported as KNOWN_LIKELY, not "same".
+   prove equivalence. A match is reported as KNOWN_LIKELY, not "same" —
+   but it is no longer the last word: Cartan–Karlhede IS implemented now
+   (scripts/ck.py, §116–§118), and §118 upgrades these verdicts to
+   PROVEN_KNOWN / PROVEN_NEW_vs_CATALOG by decision procedure.
  - Blind spot: metrics whose invariants are all CONSTANT (de Sitter,
    BTZ — anything locally homogeneous / CSI) or all ZERO (flat space,
    pp-waves / VSI) cannot be fingerprinted this way. The filter says
@@ -231,7 +233,8 @@ def classify(geo: Geometry, catalog, n_samples=4, seed=0):
     if prof.K == 0 and prof.R == 0:
         return FLAT_OR_VSI, ("all polynomial invariants vanish — flat "
                              "space or a VSI metric (pp-wave); invariants "
-                             "are blind here, Cartan–Karlhede needed")
+                             "are blind here — escalate to Cartan–Karlhede "
+                             "(scripts/ck.py; §118 adjudicates this case)")
     if not prof.K_coords:
         return BLIND_SPOT, (f"invariants constant (K={prof.K}, R={prof.R}) "
                             "— CSI class (de Sitter / BTZ / homogeneous); "
