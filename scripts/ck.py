@@ -787,6 +787,14 @@ def ck_signature(geo, label="", verbose=False, tet=None):
     # AFTER the Weyl invariants so the certificate keeps parametrizing by Psi where it did before.
     ric_tr, Rmix = ricci_invariants(geo)
     segre = segre_type(geo, Rmix)
+    # THE FLAT BASE CASE. A metric whose full Riemann tensor vanishes identically is locally
+    # isometric to Minkowski (standard theorem), so two such are EQUIVALENT -- but there is not a
+    # single nonzero invariant to build a certificate from, and without this the machine cannot
+    # prove that flat space is flat space (it returned UNDECIDED for Minkowski vs Minkowski).
+    Rm4 = geo.riemann
+    riem_zero = all(zsimp(Rm4[a][b][c][d]) == 0
+                    for a in range(geo.n) for b in range(geo.n)
+                    for c in range(geo.n) for d in range(geo.n))
     inv0 = ([p for p in P if p != 0] + ([Rs] if Rs != 0 else [])
             + [e for e in ric_tr[1:] if e != 0])
     t0, und0 = functional_rank(inv0, geo.coords)
@@ -830,7 +838,7 @@ def ck_signature(geo, label="", verbose=False, tet=None):
         cert, fails = relation_certificate_resultant(inv0, inv1, geo.coords, max_terms=3)
     return {"label": label, "petrov": ty, "isotropy_dim": iso, "note": note,
             "psi": P, "ricci_scalar": Rs, "order0": inv0, "t0": t0, "order0_ratios": ratios,
-            "ricci_traces": ric_tr, "segre": segre,
+            "ricci_traces": ric_tr, "segre": segre, "riemann_zero": riem_zero,
             "order1_ratios": ratios1, "weyl_I": Ivl, "weyl_J": Jvl,
             "speciality_I3_over_J2": speciality,
             "order1_components": sorted(comp1), "order1_invariants": inv1,
@@ -847,6 +855,15 @@ def equivalent(sig1, sig2):
         return INEQUIVALENT, [f"Petrov type {sig1['petrov']} vs {sig2['petrov']}"]
     if sig1["isotropy_dim"] != sig2["isotropy_dim"]:
         return INEQUIVALENT, [f"isotropy dim {sig1['isotropy_dim']} vs {sig2['isotropy_dim']}"]
+    # --- flat base case: Riemann = 0 => locally Minkowski, and flat space is locally unique
+    f1, f2 = sig1.get("riemann_zero"), sig2.get("riemann_zero")
+    if f1 and f2:
+        return EQUIVALENT, ["Riemann tensor vanishes identically for both: each is locally "
+                            "isometric to Minkowski, and flat spacetime is locally unique."]
+    if f1 != f2 and f1 is not None and f2 is not None:
+        return INEQUIVALENT, [f"one is flat (Riemann = 0) and the other is not "
+                              f"({sig1['label']}: {f1}, {sig2['label']}: {f2})"]
+
     # --- the Ricci sector (frame-free, so it decides without any frame fixing at all)
     if sig1.get("segre") != sig2.get("segre"):
         return INEQUIVALENT, [f"matter type differs: {sig1.get('segre')} vs {sig2.get('segre')}"]
