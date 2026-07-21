@@ -2247,3 +2247,32 @@ nice-19 (alphaludo-l4, trainer untouched). Dashboards live on both hosts.
 - NEXT: wire CK into the NOVELTY stage so CANDIDATE_NEW becomes proof-backed rather than heuristic
   (the payoff the whole CK arc was for) -- now unblocked, since the discovery engine emits matter
   solutions (RN, de Sitter) that §116 alone could not have judged.
+
+## 2026-07-22 — §118 NOVELTY, PROOF-BACKED: the loop the whole CK arc was for, closed
+- §02's docstring has carried three deferrals since the beginning, each pointing at a tool that did
+  not exist: "matching curves do NOT prove equivalence (Cartan-Karlhede would; no Python
+  implementation exists)", and FLAT_OR_VSI / BLIND_SPOT both saying "invariants are blind here, CK
+  needed". §116/§117 built the tool, so §118 honours all three:
+      KNOWN_LIKELY(name)        -> PROVEN_KNOWN(name)          heuristic match becomes a proof
+      FLAT_OR_VSI / BLIND_SPOT  -> a real verdict              decided exactly where invariants fail
+      CANDIDATE_NEW             -> PROVEN_NEW_vs_CATALOG       backed by a decision, not a miss
+- 6/6 against a 5-entry catalog: Schwarzschild in ISOTROPIC coords -> PROVEN_KNOWN Schwarzschild
+  (the upgrade); Minkowski -> PROVEN_KNOWN Minkowski (§02 declines FLAT_OR_VSI); pp-wave H=2xy ->
+  PROVEN_KNOWN pp-wave H=x^2-y^2 (§02 TOTALLY blind -- every polynomial invariant vanishes); de
+  Sitter -> PROVEN_KNOWN de Sitter (§02 declines BLIND_SPOT, CSI class); RN in ingoing
+  Eddington-Finkelstein -> PROVEN_KNOWN Reissner-Nordstrom; Schwarzschild M=5 (uncatalogued) ->
+  PROVEN_NEW_vs_CATALOG.
+- BUG FOUND BY THE BATTERY, and a pleasingly humbling one: MINKOWSKI vs MINKOWSKI came out
+  UNDECIDED. With no nonzero invariant anywhere there is nothing to parametrize a certificate by,
+  so the machine could not prove that flat space is flat space. Fixed with the rigorous base case:
+  a metric whose Riemann tensor vanishes identically is locally isometric to Minkowski, and flat
+  spacetime is locally unique -- so Riemann=0 on both sides is EQUIVALENT, and flat-vs-curved is
+  INEQUIVALENT. (The trivial cases are exactly the ones a general procedure forgets.)
+- HONESTY, stated inside the battery itself: PROVEN_NEW means CK proved the geometry inequivalent to
+  every entry in OUR CATALOG. It is NOT a literature-novelty claim -- that would require the catalog
+  to be the literature. What it buys is real all the same: "no curve matched" (which could be a
+  fingerprint miss) becomes "no catalog entry IS this spacetime" (a decision).
+- §116 (9/9) and §117 (12/12) re-run: no regression from the flat-base-case change. Battery -> 102.
+- THE ARC, in one line: §02 (2025) shipped a heuristic filter that declared its own blind spot;
+  §116-§118 (2026) built the decision procedure that closes it, and wired it back into the stage
+  that needed it. The README's honest limitation is now a solved problem with a gated proof.
