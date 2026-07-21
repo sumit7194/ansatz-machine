@@ -2166,3 +2166,45 @@ nice-19 (alphaludo-l4, trainer untouched). Dashboards live on both hosts.
   rotations about l -- the case whose isotropy tables carried errata to MacCallum (2020) -- is NOT
   implemented and returns UNDECIDED rather than guessing. Types I/II/III untouched. Not gated yet:
   this is a spike, not a battery (battery + JOSS packaging only if we continue).
+
+## 2026-07-21 — §116 CARTAN-KARLHEDE PROMOTED TO A GATED BATTERY (types D + I + N; blind spot closed)
+- The spike answered both risk questions, so we continued in-session: extended ck.py from type D to
+  the GENERIC type I, and promoted the whole thing to gated battery §116. 9/9 verdicts correct.
+  Battery count -> 100.
+- THE HEADLINE (the costume problem at full strength): Zipoy-Voorhees at delta=1, written in PROLATE
+  SPHEROIDAL coordinates with F=((x-1)/(x+1))^delta and H=((x^2-1)/(x^2-y^2))^(delta^2), gives
+  Psi2 = -1/(x^3+3x^2+3x+1) -- no visible resemblance to Schwarzschild's -M/r^3 -- and CK returns a
+  certificate BYTE-IDENTICAL to Schwarzschild M=1:  z^3 + 27w^3z^2 + 243w^6z + 729w^9 + 729w^8/8 = 0.
+  Recognized as the same spacetime. And M=1 vs M=2 differ in exactly ONE coefficient (729/8 vs 729/32):
+  the mass sits in a single place in a chart-free object.
+- TYPE I implemented: PND alignment (Psi0=Psi4=0) then boost+spin to Psi1=Psi3; isotropy dim 0.
+- THREE MORE BUGS, each caught by a failing test (the pattern of this whole project):
+   1. THE DISCRETE PND FREEDOM. Type I has four distinct PNDs; the quartic solver returns them in an
+      arbitrary order, so "align l with roots[0]" is a CHOICE. Relabelling a Kasner's axes permutes
+      the PNDs and lands on a different-but-equally-valid canonical frame -- so the frame-component
+      ratios DISAGREED for the SAME spacetime and v1 reported a confident INEQUIVALENT. Fixed by
+      comparing the relabelling-immune Weyl invariant I^3/J^2 for type I. This is precisely the
+      "discrete isotropy" subtlety the literature warns about, met head-on.
+   2. DOMAIN SAMPLING WAS ACCEPTING OUT-OF-DOMAIN POINTS: SymPy predicates do not evaluate under
+      subs (Q.positive(1-y^2).subs(y,3) stays symbolic, never becomes false), so the numeric sign
+      probe sampled |y|>1 and returned a CONFIDENTLY WRONG frame sign on the ZV metric. Caught
+      downstream by check_tetrad (m.m=1, m.mbar=0 -> a spacelike leg had gone imaginary). Predicates
+      are now converted to relationals and evaluated numerically. The safety net earned its keep.
+   3. Two-horizon spacetimes: "r > 2M" does not fix the lapse sign for Schwarzschild-de Sitter, and
+      the tool correctly REFUSED rather than guessing. Added a direct match of the queried expression
+      against the declared conditions (SymPy will not connect Lambda*r^2/3+2M/r-1 to a declared
+      positive 1-2M/r-Lambda*r^2/3 though they are exact negatives), so naming the static region works.
+- COST / EXPRESSION SWELL, recorded not hidden: type-I exponents must be RATIONALIZED (t = T^N) or
+  the PND quartic never finishes -- Kasner(u=2) went from >10 minutes to 2.4 seconds. But N must also
+  stay SMALL: u=3 needs N=13 (T^24) and the Weyl tensor alone does not complete in 25 minutes. So the
+  inequivalent type-I pair is Kasner(u=2) [type I] vs Kasner(u=1) LRS [type D], decided instantly on
+  Petrov type (itself an order-0 CK invariant). Also capped the invariant-ratio and resultant work
+  and LOGGED the caps rather than silently truncating.
+- THE BLIND SPOT IS CLOSED, gated: three VSI pp-waves with Kretschmann = 0 and every polynomial
+  invariant vanishing (where §02 must report BLIND_SPOT) are DECIDED -- the rotation pair EQUIVALENT
+  (nabla C = 0 for both, so CK terminates at order 1), the u-dependent pair INEQUIVALENT (nabla C = 0
+  vs != 0, a tensorial statement true in every frame).
+- HONEST SCOPE: type N decided only via the tensorial nabla-C test; types II/III and the order-1
+  null-rotation isotropy reduction are NOT implemented and return UNDECIDED. Next natural steps: a
+  Ricci/Segre layer for matter spacetimes, types II/III, then wiring CK into the NOVELTY stage so
+  CANDIDATE_NEW becomes proof-backed rather than heuristic.
