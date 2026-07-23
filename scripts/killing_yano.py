@@ -53,6 +53,115 @@ import sympy as sp
 from gr_engine import zero_simplify
 
 
+# --------------------------------------------------------------------------- jet plumbing
+def _truncate(expr, d, order):
+    """Multivariate Taylor polynomial of a RATIONAL expression in the shift variables `d`,
+    to total degree `order`, computed by polynomial arithmetic rather than differentiation.
+
+    Why this exists: substituting a shifted point into a Christoffel symbol leaves a rational
+    function whose numerator, once expanded, is enormous -- and every term of degree > order is
+    dead weight, because the jet unknowns have non-negative degree so a high-degree Christoffel
+    term can only feed Taylor coefficients we are about to discard. Truncating here turned the
+    Killing-tensor counts from minutes-per-call into seconds-per-call."""
+    num, den = sp.fraction(sp.cancel(sp.together(expr)))
+    at0 = {di: 0 for di in d}
+    c = den.subs(at0)
+    if c == 0:
+        raise ValueError("denominator vanishes at the base point")
+    if den == c:
+        return sp.Poly(sp.expand(num / c), *d).as_expr()
+    # 1/den = (1/c) * sum_k E^k  with E = 1 - den/c  (no constant term)
+    E = sp.Poly(sp.expand(1 - den / c), *d)
+    acc, term = sp.Poly(1, *d), sp.Poly(1, *d)
+    for _ in range(order):
+        term = _trunc_poly(term * E, order)
+        if term.is_zero:
+            break
+        acc = acc + term
+    out = _trunc_poly(sp.Poly(sp.expand(num), *d) * acc, order)
+    return (out.as_expr() / c)
+
+
+def _trunc_poly(p, order):
+    return sp.Poly({m: c for m, c in p.terms() if sum(m) <= order}, *p.gens) \
+        if p.terms() else p
+
+
+def _tr(e, d, order):
+    """Truncate an already-polynomial expression in `d` to total degree `order`."""
+    p = sp.Poly(sp.expand(e), *d)
+    return _trunc_poly(p, order).as_expr() if p.terms() else sp.S.Zero
+
+
+def christoffel_jet(g, coords, base, d, order):
+    """Taylor polynomials of Gamma^f_ab about `base`, to total degree `order`, built by
+    TRUNCATED POLYNOMIAL ARITHMETIC off the metric -- never touching the full symbolic
+    Christoffel symbols.
+
+    This is the difference between a usable tool and an unusable one: gr_engine's Christoffels
+    for a two-variable metric are large rational functions, and merely substituting a shifted
+    point and calling cancel() on them dominated everything downstream (tens of seconds per
+    call, worse at higher order). Here the metric -- which is simple -- is expanded once, the
+    inverse is obtained from a Neumann series, and every product is truncated immediately, so
+    the cost depends on the jet order rather than on how ugly the Christoffels happen to be."""
+    n = len(coords)
+    shift = {coords[i]: base[i] + d[i] for i in range(n)}
+    G = sp.Matrix(n, n, lambda a, b: _truncate(g[a, b].subs(shift), d, order + 1))
+    G0 = G.subs({di: 0 for di in d})
+    if G0.det() == 0:
+        raise ValueError(f"metric is degenerate at the base point {base}")
+    G0i = G0.inv()
+    Delta = G - G0
+    # (G0 + Delta)^{-1} = sum_k (-G0^{-1} Delta)^k G0^{-1}, truncated at `order`
+    Gi, term = sp.Matrix(G0i), sp.eye(n)
+    for _ in range(order):
+        term = sp.Matrix(n, n, lambda a, b: _tr((-term * G0i * Delta)[a, b], d, order))
+        if term.is_zero_matrix:
+            break
+        Gi = Gi + term * G0i
+    Gi = sp.Matrix(n, n, lambda a, b: _tr(Gi[a, b], d, order))
+    dG = [sp.Matrix(n, n, lambda a, b: sp.diff(G[a, b], d[e])) for e in range(n)]
+    out = [[[sp.S.Zero] * n for _ in range(n)] for _ in range(n)]
+    for f in range(n):
+        for a in range(n):
+            for b in range(a, n):
+                s = sp.S.Zero
+                for e in range(n):
+                    s += Gi[f, e] * (dG[a][e, b] + dG[b][e, a] - dG[e][a, b])
+                out[f][a][b] = out[f][b][a] = _tr(s / 2, d, order)
+    return out
+
+
+def _nullity(rows, unk, prime=2147483647):
+    """dim of the solution space of the linear system `rows` = 0 in the unknowns `unk`.
+
+    The rank is taken over GF(p) for a large prime. rank_GF(p) <= rank_Q always, so the
+    returned nullity is >= the true nullity: the ONE-SIDED (upper-bound) character of the jet
+    argument survives the shortcut, which is the only property the certificate relies on."""
+    if not rows:
+        return len(unk)
+    M, _ = sp.linear_eq_to_matrix(rows, unk)
+    # Clear denominators row by row, then reduce mod p. Without this the exact-rational
+    # row reduction spends all its time in gcd on the huge fractions the Neumann series
+    # produces -- it was 41 of the 42 seconds of a call that is otherwise instant.
+    try:
+        from sympy.polys.domains import GF
+        from sympy.polys.matrices import DomainMatrix
+        K = GF(prime)
+        rowsp = []
+        for i in range(M.rows):
+            row = []
+            for j in range(M.cols):
+                v = M[i, j]
+                if not v.is_Rational:
+                    raise TypeError(f"non-rational matrix entry {v}")
+                row.append(K(int(v.p) * pow(int(v.q), -1, prime)))
+            rowsp.append(row)
+        return len(unk) - DomainMatrix(rowsp, (M.rows, M.cols), K).rank()
+    except Exception:
+        return len(unk) - M.rank()
+
+
 # --------------------------------------------------------------------------- Killing tensors
 def is_killing_tensor(geo, Kdn, simp=zero_simplify):
     """Residuals of nabla_(a K_bc) = 0 for a symmetric COVARIANT K_ab. Returns the list of
@@ -197,10 +306,8 @@ def killing_yano_jet_bound(geo, base, order):
     Killing-Yano tensor. The equations are cleared of denominators before the Taylor
     coefficients are read off, which is legitimate exactly because the denominators are checked
     to be nonzero at `base`."""
-    n, coords, Gam = geo.n, geo.coords, geo.christoffel
+    n, coords = geo.n, geo.coords
     d = sp.symbols(f"jd0:{n}", real=True)
-    at0 = {di: 0 for di in d}
-    shift = {coords[i]: base[i] + d[i] for i in range(n)}
     mons = [m for k in range(order + 1)
             for m in itertools.combinations_with_replacement(range(n), k)]
 
@@ -220,11 +327,7 @@ def killing_yano_jet_bound(geo, base, order):
                 expr += c * mono(m)
             Y[a][b], Y[b][a] = expr, -expr
 
-    Gl = [[[sp.S.Zero] * n for _ in range(n)] for _ in range(n)]
-    for f in range(n):
-        for a in range(n):
-            for b in range(a, n):
-                Gl[f][a][b] = Gl[f][b][a] = sp.cancel(sp.together(Gam[f][a][b])).subs(shift)
+    Gl = christoffel_jet(geo.g, coords, base, d, order)
 
     def nab(a, b, c):
         e = sp.diff(Y[b][c], d[a])
@@ -232,25 +335,63 @@ def killing_yano_jet_bound(geo, base, order):
             e -= Gl[f][a][b] * Y[f][c] + Gl[f][a][c] * Y[b][f]
         return e
 
-    tmons = [m for k in range(order)
-             for m in itertools.combinations_with_replacement(range(n), k)]
     rows = []
     for a in range(n):
         for b in range(a, n):
             for c in range(n):
-                e = sp.cancel(sp.together(nab(a, b, c) + nab(b, a, c)))
-                num, den = sp.fraction(e)
-                if den.subs(at0) == 0:
-                    raise ValueError(f"denominator vanishes at the base point {base}")
-                poly = sp.Poly(sp.expand(num), *d)
-                for m in tmons:
-                    deg = [0] * n
-                    for i in m:
-                        deg[i] += 1
-                    co = poly.coeff_monomial(sp.prod([d[i]**deg[i] for i in range(n)]))
-                    if co != 0:
-                        rows.append(co)
-    if not rows:
-        return len(unk)
-    M, _ = sp.linear_eq_to_matrix(rows, unk)
-    return len(unk) - M.rank()
+                poly = sp.Poly(sp.expand(nab(a, b, c) + nab(b, a, c)), *d)
+                rows.extend(co for m, co in poly.terms() if sum(m) < order and co != 0)
+    return _nullity(rows, unk)
+
+
+def killing_tensor_jet_bound(geo, base, rank, order):
+    """UPPER bound on dim{rank-`rank` Killing tensors}, by the same one-sided jet argument as
+    killing_yano_jet_bound: the Taylor coefficients of nabla_(a0 K_a1...an) = 0 at `base`.
+
+    A rank-n Killing tensor is exactly a degree-n homogeneous polynomial first integral of the
+    geodesic flow, so this counts the polynomial invariants of that degree. The count INCLUDES
+    the trivial ones (symmetrised products of the metric and of lower-rank Killing tensors) --
+    e.g. flat 2D returns 3, 6, 10, 15 for ranks 1..4 -- so "no hidden invariant" means the
+    bound equals the trivial count, not zero."""
+    n, coords = geo.n, geo.coords
+    d = sp.symbols(f"ktd0:{n}", real=True)
+    jets = [m for k in range(order + 1)
+            for m in itertools.combinations_with_replacement(range(n), k)]
+    comps = list(itertools.combinations_with_replacement(range(n), rank))
+
+    def mono(m):
+        e = sp.Integer(1)
+        for i in m:
+            e *= d[i]
+        return e
+
+    unk, K = [], {}
+    for ci, comp in enumerate(comps):
+        expr = sp.S.Zero
+        for k, m in enumerate(jets):
+            c = sp.Symbol(f"ktc_{ci}_{k}")
+            unk.append(c)
+            expr += c * mono(m)
+        K[comp] = expr
+
+    def Kof(idx):
+        return K[tuple(sorted(idx))]
+
+    Gl = christoffel_jet(geo.g, coords, base, d, order)
+
+    def nab(b, idx):
+        e = sp.diff(Kof(idx), d[b])
+        for j in range(rank):
+            for f in range(n):
+                e -= Gl[f][b][idx[j]] * Kof(idx[:j] + (f,) + idx[j + 1:])
+        return e
+
+    rows = []
+    for M in itertools.combinations_with_replacement(range(n), rank + 1):
+        # symmetrisation over which slot carries the derivative (K is already symmetric)
+        e = sp.S.Zero
+        for i in range(rank + 1):
+            e += nab(M[i], M[:i] + M[i + 1:])
+        poly = sp.Poly(sp.expand(e), *d)
+        rows.extend(co for m, co in poly.terms() if sum(m) < order and co != 0)
+    return _nullity(rows, unk)

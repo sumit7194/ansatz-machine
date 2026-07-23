@@ -1,0 +1,60 @@
+{
+  "id": "G2_candidate_B",
+  "round": 8,
+  "coords": [
+    "t",
+    "v",
+    "x",
+    "y"
+  ],
+  "signature": "(-,+,+,+)",
+  "metric_matrix": [
+    [
+      "0",
+      "-1",
+      "0",
+      "0"
+    ],
+    [
+      "-1",
+      "0",
+      "0",
+      "0"
+    ],
+    [
+      "0",
+      "0",
+      "(y**2 + 1)/(x**2 + y**2 + 1)",
+      "(-x*y - y**2 - 1)/(x**2 + y**2 + 1)"
+    ],
+    [
+      "0",
+      "0",
+      "(-x*y - y**2 - 1)/(x**2 + y**2 + 1)",
+      "(x**2 + 2*x*y + y**2 + 2)/(x**2 + y**2 + 1)"
+    ]
+  ],
+  "metric_note": "ds^2 = ds^2_2(x,y) - 2 dt dv, with ds^2_2 the 2D block below",
+  "metric_2d_inverse": [
+    [
+      "(x + y)**2 + 2",
+      "y*(x + y) + 1"
+    ],
+    [
+      "y*(x + y) + 1",
+      "y**2 + 1"
+    ]
+  ],
+  "hamiltonian": "H_4 = -p_t p_v + ( (2+(x+y)^2) p_x^2 + 2(1+y(x+y)) p_x p_y + (1+y^2) p_y^2 ) / 2",
+  "kappa": 1,
+  "domain": "all x, y (det g^ij = x^2 + 1 + y^2 > 0); probe with p_x > 0",
+  "manifest_killing_vectors": [
+    "d/dt",
+    "d/dv"
+  ],
+  "suggested_orbit_data": {
+    "mass_shell": "2H_4 = -1 (or 0 for null)",
+    "note": "the 2D (x,y) block decouples; sample p_x > 0. p_t, p_v are free constants."
+  },
+  "WITHHELD": "integrability status, invariant, Killing-tensor and Killing-Yano verdicts are sealed with the bridge (PREREGISTRATION.md blind protocol)"
+}

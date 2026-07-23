@@ -1,0 +1,21 @@
+{
+  "id": "G2_candidate_B",
+  "for": "bridge only -- do not forward to tabula",
+  "source": "A. Galajinsky, Phys. Lett. B 820 (2021) 136483, arXiv:2106.09335, Bianchi type-IV example, eqs. (11)-(13) and (62). IDENTIFIED from the literature, not invented here.",
+  "integrable": true,
+  "liouville_constants": [
+    "H_4",
+    "p_t",
+    "p_v",
+    "I"
+  ],
+  "invariant": "I = p_y/p_x - ln(p_x)",
+  "invariant_polynomial_in_momenta": false,
+  "invariant_analytic_in_momenta": false,
+  "poisson_bracket_with_H_verified_symbolically": true,
+  "polynomial_invariants_degree_le_4": "NONE beyond H and H^2",
+  "killing_tensor_jet_dims_rank_1_to_4": "{0, 1, 0, 1} (i.e. nothing, g, nothing, g*g)",
+  "killing_yano_space_dimension": 2,
+  "killing_yano_detail": "EXACTLY 2, both COVARIANTLY CONSTANT: dt^dv and the area form of the (x,y) block. Their squares are the reducible Killing tensors g_4 - g_2 and g_2, so neither gives a hidden constant. They are forced by the product structure -- every metric (2D Riemannian) - 2dtdv has them, integrable or not. The HIDDEN symmetry of Candidate B is neither polynomial nor Killing-Yano.",
+  "why_transcendental_is_forced": "grading theorem: an integral analytic in p splits into polynomial Killing-tensor integrals, so a transcendental one must be non-analytic in p -- here via ln p_x."
+}
