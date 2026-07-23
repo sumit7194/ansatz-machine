@@ -1,0 +1,33 @@
+{
+  "id": "G2_candidate_A",
+  "for": "bridge only -- do not forward to tabula",
+  "integrable": true,
+  "liouville_constants": [
+    "H",
+    "p_t",
+    "p_phi",
+    "Q"
+  ],
+  "killing_tensor_rank": 2,
+  "killing_tensor_irreducible": true,
+  "killing_tensor_contravariant_diagonal": [
+    "y**2*(x**2 - 1)/(x**2 + y**2)",
+    "y**2/(x**2 + y**2)",
+    "-x**2/(x**2 + y**2)",
+    "(-x**4 + y**2)/(x**2*(x**2 + y**2))"
+  ],
+  "conserved_quantity_on_shell": "Q = p_x^2 - E^2 + x^2 L^2 + x^2 = -(p_y^2 + y^2(1-E^2) + L^2)",
+  "mixed_eigenvalues": [
+    "y**2",
+    "-x**2",
+    "(-x**4 + y**2)/(x**2 + 1)",
+    "y**2*(1 - x**2)/(y**2 + 1)"
+  ],
+  "killing_yano_root_exists": false,
+  "ky_root_certificate": "four distinct mixed eigenvalues; (Y.Y)^a_b always has even-multiplicity spectrum (machine-proved perfect square)",
+  "killing_yano_tensor_exists": false,
+  "ky_absence_certificate": "order-3 Taylor-jet bound = 0 at sampled points; controls Minkowski=10, Schwarzschild=1",
+  "vacuum": false,
+  "ricci_scalar": "-2*(2*x**6*y**2 - x**6 + 2*x**4*y**4 + 6*x**4*y**2 + x**4 + 4*x**2*y**4 + 6*x**2*y**2 + 5*x**2 - 3*y**6 - y**4 + 5*y**2 + 6)/((x**2 + 1)**2*(x**2 + y**2)**2*(y**2 + 1)**2)",
+  "why_not_vacuum": "Collinson 1976 / Dietz-Ruediger 1981: type-D vacuum + Killing tensor => Killing-Yano tensor"
+}
