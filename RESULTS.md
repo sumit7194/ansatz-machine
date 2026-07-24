@@ -1759,6 +1759,72 @@ inequivalence to every entry in *our catalog*, not a literature-novelty claim �
 to be the literature. Repro: `scripts/118_novelty_proven.py`.
 
 
+## §120 — bridge round 8 / G2 candidate A: integrable, but with NO Killing–Yano root
+
+The bridge's Falsification Ledger item G2 attacks leg Q's *"legible ⟺ KY-integrable"* (8/8, φ=1.0)
+by asking us to **design** — not find — a metric that separates what legibility could be tracking:
+Killing–Yano structure specifically (H_KY), integrability in general (H_INT), or the mere existence
+of a *polynomial* invariant (H_POLY). Candidate A separates H_KY: it is integrable, polynomial-
+invariant, and KY-free. The metric (built here, Stäckel-separable):
+`ds² = −(x²+y²)/(1+y²)dt² + (x²+y²)(dx²+dy²) + x²(x²+y²)/(1+x²)dφ²`, on x>0. It carries an
+**irreducible** rank-2 Killing tensor (`Q = p_x² − E² + L²/x² + x²` on the mass shell; verified a
+Killing tensor symbolically on all 20 components, and shown not reducible to `c₀g + Σc_IJ ξ_Iξ_J`).
+**The KY-absence certificate, machine-proved not quoted:** for *any* 2-form Y, `K^a_b = −(g⁻¹Y)²`,
+and g⁻¹Y is g-antisymmetric, so the characteristic polynomial of any `(Y·Y)^a_b` is an exact perfect
+square ⇒ every eigenvalue has **even multiplicity**. Candidate A's four mixed eigenvalues are
+distinct at a witness point ⇒ K ≠ Y·Y for any antisymmetric Y, anywhere — a *pointwise* obstruction,
+stronger than "the KY PDE has no solution". Stronger still: the metric admits **no KY tensor at
+all** (order-3 Taylor-jet bound = 0 at sampled points; the bound is one-sided, so 0 is a proof, and
+it is validated in the other direction — Minkowski returns 10, the maximal 4D KY space, Schwarzschild
+returns 1). **Why it had to be non-vacuum** (R≠0, computed): Collinson 1976 / Dietz–Rüdiger 1981 prove
+type-D vacuum + Killing tensor ⇒ Killing–Yano, which is exactly *why* leg Q's all-vacuum 8/8 catalog
+could never separate H_KY from H_INT. Blind protocol respected (metric-only + sealed-verdict files in
+`data/bridge_round8/`). Repro: `scripts/120_candidate_A_no_ky.py`.
+
+## §121 — bridge round 8 / G2 candidate B: integrable, but with a TRANSCENDENTAL invariant
+
+G2's second adversarial metric, separating H_POLY: integrable but with a conserved quantity that is
+**not polynomial** in the momenta. **The obstruction dictates the answer.** The momentum grading
+(machine-checked for a general 2D metric): for a geodesic H, `{H, F_k}` is homogeneous of degree
+k+1, so degrees decouple and any first integral *analytic* in p splits into polynomial Killing-tensor
+integrals — a transcendental geodesic invariant *must* be non-analytic in p. So this is identified
+from the literature rather than invented: Galajinsky, Phys. Lett. B 820 (2021) 136483
+([arXiv:2106.09335](https://arxiv.org/abs/2106.09335)), Bianchi type-IV example, with the 4D
+Lorentzian lift `ds² − 2dt dv` from the paper's eq. (62). Invariant `I = p_y/p_x − ln p_x`, with
+`{I, H₄}=0` verified **symbolically** (exactly zero); ln p_x is precisely the predicted non-analyticity
+(a branch point at p_x=0). Liouville integrable with H₄, p_t, p_v, I. **Polynomial invariants of
+degree ≤ 4 excluded** by a rigorous one-sided jet count (`killing_tensor_jet_bound`; flat-2D control
+returns the exact known 3, 6, 10, 15): ranks 1–4 give **{0, 1, 0, 1}** — only g and g⊙g, i.e. H and
+H². One honest caveat flagged for the bridge (not resolved — the gate is theirs): unlike A, the 4D
+lift is **not** KY-empty; its KY space is exactly 2-dimensional (dt∧dv and the (x,y) area form), both
+covariantly constant, both squaring to *reducible* Killing tensors, and forced by the product
+structure — so "admits any KY tensor" does not discriminate inside this family. Repro:
+`scripts/121_candidate_B_transcendental.py`.
+
+## §122 — bridge round 8 / Ledger G6: Cartan–Karlhede extended to order 2
+
+The bridge could not test G6 — *"CK terminates at order ≤ 2 for all 4D vacuum type-D pairs (theory
+allows 7)"* — because `ck.py` computed orders 0 and 1 only. Order 2 is now live, and G6 is exactly the
+**Collins–d'Inverno–Vickers 1990** theorem (Class. Quantum Grav. 7, 2005: the Karlhede bound for
+type-D *vacuum* drops from 7 to 2), which this battery machine-checks rather than cites. **What order
+2 adds, structurally:** at order 1 every surviving component `D_a Ψ₂` carries nonzero boost/spin
+weight, so only weight-cancelling *products* like `(D_l Ψ₂)(D_n Ψ₂)` are invariant; at order 2 the
+weights add, so `D_l D_n Ψ₂` and `D_m D_mb Ψ₂` are weight-(0,0) Cartan invariants outright (hence a
+general `weight_invariants()`, not another hard-coded pair). **Ground truth:** Karlhede–Lindström–Åman
+1982 (Gen. Rel. Grav. 14, 569) — the horizon appears in the derivatives of curvature; our order-1
+`(D_l Ψ₂)(D_n Ψ₂)` *and* order-2 `D_m D_mb Ψ₂` both vanish at r=2M and track M (root at 2 for M=1, at
+4 for M=2 — a sharp test a sign/factor slip would fail). Termination uses **Karlhede's criterion, both
+halves** (invariant count *and* isotropy dimension): Schwarzschild is (t,iso) = (1,2)→(1,1)→(1,1),
+i.e. ck_order 2 — counting invariants alone would stop early at order 1. Three measured fixes this
+forced (all in `ck.py`): `covariant_derivative_weyl` now builds only the 21 independent Weyl
+components per direction (Kerr's ∇C: >10 min → ~11 s); `generic_branch()` drops Piecewise branches on
+`Eq(sin θ,0)` (the axis, measure zero) that faked θ-dependence and inflated Schwarzschild to a phantom
+t2=2; and `zsimp` gained an `expand_trig`+`simplify` stage for a multiple-angle-over-radical zero
+(`D_m D_l Ψ₂ ≡ 0`) that plain simplify/trigsimp miss — a false-nonzero eats the spin isotropy and
+gives the wrong termination order. (§119's lesson again: the wall is the simplifier.) Order 2 is
+**opt-in** (`ck_signature(..., order2=True)`), so §116–§119 stay bit-for-bit. Repro:
+`scripts/122_ck_order2.py`.
+
 ## §119 — bridge round 7: bumpy ε=0.35 vs Manko-Novikov q=0.5, decided at order 0
 
 The bridge asked us to decide (or prove undecidable) whether two rotating quadrupole deformations of

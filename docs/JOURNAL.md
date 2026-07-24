@@ -6,6 +6,52 @@ built, what broke, what the machine taught us. Numbers live in
 
 ---
 
+## 2026-07-23 — BRIDGE ROUND 8: the two G2 adversarial metrics + CK order 2 (G6)
+- The bridge's Falsification Ledger opened three asks against leg Q's *"legible ⟺ KY-integrable"*
+  (8/8, φ=1.0). All 8 catalog entries were FOUND; G2 asks us to DESIGN two metrics that break the
+  coincidence of KY-ness, integrability, and polynomial-invariance. Blind protocol throughout:
+  metric-only JSON to tabula, sealed verdicts to the bridge (`data/bridge_round8/`).
+- §120 CANDIDATE A -- integrable, NO Killing-Yano root. Built (not found) a Stäckel-separable
+  metric with an irreducible rank-2 Killing tensor whose four MIXED eigenvalues are distinct.
+  THE CERTIFICATE, machine-proved: K^a_b = -(g⁻¹Y)² and g⁻¹Y is g-antisymmetric ⇒ char poly of any
+  Y·Y is an exact perfect square ⇒ every eigenvalue of any Y·Y has even multiplicity. Distinct
+  eigenvalues ⇒ no KY root, for ANY 2-form, pointwise (stronger than "the KY PDE has no solution").
+  And no KY tensor at ALL: order-3 jet bound = 0 (one-sided, so 0 is a proof; controls Minkowski 10,
+  Schwarzschild 1). It HAD to be non-vacuum: Collinson 1976 / Dietz-Rüdiger 1981 give KT ⇒ KY for
+  type-D vacua -- the theorem that made leg Q's all-vacuum catalog unable to separate H_KY from
+  H_INT. New general tool `scripts/killing_yano.py`.
+- §121 CANDIDATE B -- integrable, TRANSCENDENTAL invariant. The obstruction dictates the answer:
+  the momentum grading ({H,F_k} homogeneous degree k+1, machine-checked) means any integral analytic
+  in p splits into polynomial Killing tensors, so a transcendental one must be non-analytic in p.
+  IDENTIFIED from the literature, not invented: Galajinsky arXiv:2106.09335, Bianchi type-IV, 4D lift
+  ds²-2dtdv. I = p_y/p_x - ln p_x, {I,H₄}=0 exact (ln = the predicted non-analyticity). Polynomial
+  invariants of degree ≤4 excluded: Killing-tensor jet dims ranks 1-4 = {0,1,0,1} (flat-2D control
+  3,6,10,15). CAVEAT flagged to bridge, not resolved: its KY space is exactly 2-dim (dt∧dv + area
+  form), both covariantly constant, squares reducible, forced by product structure -- non-
+  discriminating. The gate is theirs.
+- §122 CK ORDER 2 (G6). ck.py did orders 0-1 only; order 2 now live. G6 = Collins-d'Inverno-Vickers
+  1990 (type-D vacuum Karlhede bound is 2, not 7); ground truth = Karlhede-Lindström-Åman 1982 (the
+  horizon invariant). What order 2 adds: order-1 D_a Ψ₂ all carry nonzero weight (only products are
+  invariant); order 2's D_l D_n Ψ₂, D_m D_mb Ψ₂ are weight-(0,0) invariants outright. Both our order-1
+  (D_l Ψ₂)(D_n Ψ₂) AND order-2 D_m D_mb Ψ₂ vanish at r=2M and track M. Termination = Karlhede BOTH
+  halves: Schwarzschild (1,2)→(1,1)→(1,1), ck_order 2 (counting invariants alone stops early at 1).
+- THREE MEASURED FIXES this forced, all in ck.py -- and each is the §119 lesson again (the wall is
+  the simplifier, not the algorithm):
+    * covariant_derivative_weyl computed all 4⁴ slots/direction; ∇_e preserves the Weyl symmetries,
+      so only 21 of 256 are independent. Kerr's ∇C: >10min → ~11s. Gated numerically vs the naive
+      version (1024 comps × 3 points, max diff 3e-123).
+    * a Piecewise guard on Eq(sinθ,0) -- the axis, where canonical m is undefined -- faked θ-dependence
+      and inflated Schwarzschild to a phantom t2=2. generic_branch() drops measure-zero-supported
+      branches only (equality conditions), never inequality (positive-measure) ones.
+    * D_m D_l Ψ₂ of Schwarzschild is ≡0 but printed as (r-2)^(3/2)(sin2θ·tanθ+cos2θ-1)/(...), which
+      simplify AND trigsimp both leave alone; expand_trig then simplify kills it in 0.02s. A false-
+      nonzero eats the spin isotropy → wrong termination order. This one was surfaced by a diagnostic
+      probe I nearly discarded.
+- Order 2 is OPT-IN (order2=True); §116 (9/9), §117 (12/12), §118 (6/6), §119 all re-verified
+  unchanged. And a runaway-process lesson: a stale 2-hour probe hit 34 GB RSS + 14 GB swap; the user
+  flagged it. Verified all four live pythons were mine (scratchpad provenance) before killing by
+  explicit PID -- the [[VM pkill self-match]] discipline.
+
 ## 2026-06-24 — NEW CAMPAIGN: observational signatures ("what would we see?"); §86 rotating face
 - After banking item-3 (the eyes-open swing confirmed the symbolic wall — `_quadrupole_deriv.py` swamped, 2.5h
   Ricci), stepped back and picked a new direction that LEANS INTO the engine's numerical strength and avoids

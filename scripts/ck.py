@@ -217,6 +217,36 @@ def sign_of(e):
 
 
 # --------------------------------------------------------------------------- basics
+def generic_branch(e):
+    """Drop Piecewise branches that only hold on a measure-zero coordinate set.
+
+    Why this is needed and why it is safe. The canonical null tetrad of a spherically or
+    axially symmetric metric has m proportional to 1/sin(theta), so sympy guards every
+    simplification with a branch on Eq(sin(theta), 0) and returns e.g.
+
+        Piecewise((9*(2-r)/(4*r**11*tan(theta)**2), Eq(sin(theta), 0)), (0, True))
+
+    for a component that is identically zero off the axis. Left alone this fake theta
+    dependence inflates the functional-invariant count -- it is what first made Schwarzschild
+    report t2 = 2 instead of 1, i.e. it looked like a second independent Cartan invariant.
+
+    The set the discarded branches live on is exactly the set where the frame does not exist
+    (sin(theta) = 0 is the coordinate axis, where m is undefined), and a Cartan invariant is
+    only defined where the frame is. So only branches whose condition is an EQUALITY are
+    dropped -- an inequality condition carves out a region of positive measure and is left
+    alone, because that would be a genuine case split rather than a chart artifact."""
+    if not e.has(sp.Piecewise):
+        return e
+
+    def fix(pw):
+        keep = [(val, cond) for val, cond in pw.args
+                if not isinstance(cond, sp.Equality)]
+        if len(keep) == 1:
+            return keep[0][0]
+        return sp.Piecewise(*keep) if keep else pw
+    return e.replace(lambda x: isinstance(x, sp.Piecewise), fix)
+
+
 def zsimp(e):
     """Zero test / normal form for frame components, domain-aware and ESCALATING.
 
@@ -231,8 +261,11 @@ def zsimp(e):
     """
     if e == 0:
         return sp.S.Zero
+    e = generic_branch(e)
+    if e == 0:
+        return sp.S.Zero
     # (1) cheap: rational normal form, no sp.simplify anywhere
-    c = sp.cancel(sp.together(sp.expand(e)))
+    c = generic_branch(sp.cancel(sp.together(sp.expand(e))))
     if c == 0:
         return sp.S.Zero
     if _CHEAP_ONLY:
@@ -242,7 +275,22 @@ def zsimp(e):
     if c == 0:
         return sp.S.Zero
     rr = refine(sp.radsimp(c))
-    rr = sp.simplify(sp.expand(sp.powdenest(rr, force=True)))
+    rr = generic_branch(sp.simplify(sp.expand(sp.powdenest(rr, force=True))))
+    if rr == 0:
+        return sp.S.Zero
+    # TRIG STAGE. Neither simplify() nor trigsimp() alone reduces a multiple-angle expression
+    # sitting on top of a radical -- the order-2 component D_m D_l Psi2 of Schwarzschild came
+    # out as (r-2)^(3/2)(sin(2th)tan(th) + cos(2th) - 1)/(...), which is identically ZERO, and
+    # both left it untouched. expand_trig() first, then simplify(), kills it in 0.02 s.
+    # The cost of missing it is not cosmetic: a component wrongly believed nonzero carries a
+    # nonzero spin weight, so it consumes the residual spin isotropy and Schwarzschild reports
+    # isotropy 0 instead of 1 -- i.e. the wrong Karlhede termination order. (§119's lesson
+    # again: the wall is the simplifier.)
+    if rr.has(sp.sin, sp.cos, sp.tan, sp.cot):
+        tt = sp.simplify(sp.expand_trig(rr))
+        if tt == 0:
+            return sp.S.Zero
+        rr = tt
     return sp.S.Zero if sp.simplify(rr) == 0 else rr
 
 
@@ -541,25 +589,40 @@ def segre_type(geo, Rm=None):
 
 # --------------------------------------------------------------------------- curvature derivatives
 def covariant_derivative_weyl(geo, C=None):
-    """nabla_e C_{abcd}, all indices down (index order: [e][a][b][c][d])."""
+    """nabla_e C_{abcd}, all indices down (index order: [e][a][b][c][d]).
+
+    Only the INDEPENDENT components are actually computed. nabla_e preserves the Weyl index
+    symmetries -- antisymmetry within each pair and symmetry under exchanging the pairs -- so
+    of the 4^4 = 256 (abcd) slots per direction only 21 are independent, and the rest are
+    signed copies. The naive version computed all 256, each with four Christoffel corrections
+    and a cancel(together(.)): that is a ~12x waste, and on Kerr it is the difference between
+    nabla C not finishing in ten minutes and finishing. Verified against the naive version
+    component-by-component in scripts/122_ck_order2.py."""
     C = weyl_tensor(geo) if C is None else C
     n, x, Gam = geo.n, geo.coords, geo.christoffel
-    out = [[[[[None] * n for _ in range(n)] for _ in range(n)] for _ in range(n)] for _ in range(n)]
+    out = [[[[[sp.S.Zero] * n for _ in range(n)] for _ in range(n)] for _ in range(n)]
+           for _ in range(n)]
+    pairs = [(a, b) for a in range(n) for b in range(a + 1, n)]
     for e in range(n):
-        for a in range(n):
-            for b in range(n):
-                for c in range(n):
-                    for d in range(n):
-                        t = sp.diff(C[a][b][c][d], x[e])
-                        for f in range(n):
-                            t -= (Gam[f][e][a] * C[f][b][c][d] + Gam[f][e][b] * C[a][f][c][d]
-                                  + Gam[f][e][c] * C[a][b][f][d] + Gam[f][e][d] * C[a][b][c][f])
-                        out[e][a][b][c][d] = sp.cancel(sp.together(t))
+        for i, (a, b) in enumerate(pairs):
+            for (c, d) in pairs[i:]:
+                t = sp.diff(C[a][b][c][d], x[e])
+                for f in range(n):
+                    t -= (Gam[f][e][a] * C[f][b][c][d] + Gam[f][e][b] * C[a][f][c][d]
+                          + Gam[f][e][c] * C[a][b][f][d] + Gam[f][e][d] * C[a][b][c][f])
+                v = sp.cancel(sp.together(t))
+                for (A, B, s1) in ((a, b, 1), (b, a, -1)):
+                    for (Cc, Dd, s2) in ((c, d, 1), (d, c, -1)):
+                        out[e][A][B][Cc][Dd] = s1 * s2 * v
+                        out[e][Cc][Dd][A][B] = s1 * s2 * v
     return out
 
 
-def frame_component5(DC, vs):
-    """Contract nabla C with five tetrad vectors."""
+def frame_component5(DC, vs, simp=None):
+    """Contract nabla C with five tetrad vectors. `simp` overrides the normal form -- the
+    order-2 machinery passes the cheap one, because it makes twenty of these calls per
+    component and only the final combination needs the escalating zero test."""
+    simp = zsimp if simp is None else simp
     n = 4
     s = sp.S.Zero
     v0, v1, v2, v3, v4 = vs
@@ -578,7 +641,7 @@ def frame_component5(DC, vs):
                     for d in range(n):
                         if v4[d] != 0:
                             s += DC[e][a][b][c][d] * v0[e] * v1[a] * v2[b] * v3[c] * v4[d]
-    return zsimp(s)
+    return simp(s)
 
 
 def isotropy_invariants(comp, ty):
@@ -627,6 +690,130 @@ def isotropy_invariants(comp, ty):
         for k, v in comp.items():
             inv[k] = v
     return {k: v for k, v in inv.items() if v is not UNDECIDED}
+
+
+FRAME_WEIGHT = {"l": (1, 0), "n": (-1, 0), "m": (0, 1), "mb": (0, -1)}
+
+
+def weight_invariants(comp, weights, tag=""):
+    """Turn boost/spin-COVARIANT frame components into ISOTROPY INVARIANTS, generically.
+
+    Two sources of invariants under the type-D residual isotropy (boost A on l/n, spin theta
+    on m/mb): a component whose total weight is already (0,0) IS an invariant on its own, and
+    two components with exactly opposite weights have an invariant PRODUCT. Order 1 has only
+    the second kind -- D_l Psi2 and D_n Psi2 carry weights +1 and -1 and nothing is neutral --
+    which is why isotropy_invariants() could hard-code its two pairs. Order 2 has both: e.g.
+    D_l D_n Psi2 has weight (+1)+(-1) = 0 and is directly a Cartan invariant. That is the real
+    reason order 2 buys so much more than order 1, and it needs the general rule."""
+    inv = {}
+    keys = sorted(comp)
+    for k in keys:
+        if weights.get(k) == (0, 0):
+            inv[f"{tag}{k}"] = zsimp(comp[k])
+    for i, ka in enumerate(keys):
+        wa = weights.get(ka)
+        if wa is None or wa == (0, 0):
+            continue
+        for kb in keys[i + 1:]:
+            wb = weights.get(kb)
+            if wb is None:
+                continue
+            if (wa[0] + wb[0], wa[1] + wb[1]) == (0, 0):
+                inv[f"{tag}({ka})({kb})"] = zsimp(comp[ka] * comp[kb])
+    return inv
+
+
+def residual_isotropy(ty, iso0, layers):
+    """The isotropy dimension left after the frame components of orders 1..q are fixed.
+
+    This is the half of Karlhede's termination criterion that order-0-only code cannot see,
+    and getting it wrong makes the algorithm stop too early. For type D the group left after
+    canonicalisation is a boost on (l, n) and a spin on (m, mb). A NONZERO component with
+    nonzero boost weight can be normalised by the boost, so it uses the boost up; likewise for
+    spin. Schwarzschild is the instructive case: at order 1 only D_l Psi2 and D_n Psi2 survive
+    (boost weight +/-1, spin weight 0), so the boost is fixed and the spin is not -- the
+    isotropy drops 2 -> 1 and the recursion has NOT terminated, even though t1 = t0. It
+    terminates at order 2, which is exactly the Collins-d'Inverno-Vickers (1990) bound.
+
+    `layers` is a list of (components, weights) for successive orders."""
+    if ty != "D":
+        return iso0
+    boost_fixed = spin_fixed = False
+    for comps, wts in layers:
+        for k, v in comps.items():
+            if v == 0:
+                continue
+            b, s = wts.get(k, (0, 0))
+            boost_fixed = boost_fixed or bool(b)
+            spin_fixed = spin_fixed or bool(s)
+    return max(0, iso0 - int(boost_fixed) - int(spin_fixed))
+
+
+def covariant_derivative_vector(geo, v):
+    """nabla_f v^a for a CONTRAVARIANT tetrad vector; returned as [f][a]."""
+    n, x, Gam = geo.n, geo.coords, geo.christoffel
+    return [[sp.cancel(sp.together(sp.diff(v[a], x[f])
+                                   + sum(Gam[a][f][mm] * v[mm] for mm in range(n))))
+             for a in range(n)] for f in range(n)]
+
+
+def second_frame_component(geo, DC, vs, w, dvs):
+    """w^f v1^e v2^a v3^b v4^c v5^d  nabla_f nabla_e C_abcd, WITHOUT ever building the
+    4^6-component tensor nabla nabla C.
+
+    The trick is the Leibniz rule read backwards. The order-1 frame component
+    F = v1^e v2^a v3^b v4^c v5^d (nabla C)_{eabcd} is an honest scalar FIELD, so
+
+        v1..v5 nabla_f (nabla C) = d_f F - sum_k [ F with v_k replaced by nabla_f v_k ],
+
+    which needs only derivatives of the tetrad vectors and five more contractions of the
+    order-1 tensor we already have. Building nabla nabla C directly is 4096 components each
+    carrying six Christoffel corrections, and it does not finish on anything interesting."""
+    cheap = lambda e: sp.cancel(sp.together(sp.expand(e)))
+    F = frame_component5(DC, vs, simp=cheap)
+    tot = sp.S.Zero
+    for f in range(geo.n):
+        if w[f] == 0:
+            continue
+        term = sp.diff(F, geo.coords[f])
+        for k in range(5):
+            mod = list(vs)
+            mod[k] = [dvs[k][f][a] for a in range(geo.n)]
+            term -= frame_component5(DC, mod, simp=cheap)
+        tot += w[f] * cheap(term)
+    return zsimp(tot)
+
+
+def cartan_order2(geo, tet, DC, ty="D", which=None):
+    """Order-2 Cartan components D_w D_u Psi_k in the canonical frame, plus their weights.
+
+    Returns (components, weights). Components are boost/spin COVARIANT -- feed them through
+    weight_invariants() before comparing anything."""
+    names = dict(zip(("l", "n", "m", "mb"), range(4)))
+    dtet = [covariant_derivative_vector(geo, v) for v in tet]
+    if which is None:
+        if ty == "D":
+            base = ("l", "m", "mb", "n")          # the Psi2 slot pattern
+            psi = "Psi2"
+        elif ty == "N":
+            base = ("n", "mb", "n", "mb")
+            psi = "Psi4"
+        else:
+            base = ("l", "m", "mb", "n")
+            psi = "Psi2"
+        which = [(f"D_{w}_D_{u}_{psi}", (w, u) + base)
+                 for w in ("l", "n", "m", "mb") for u in ("l", "n", "m", "mb")]
+    comps, weights = {}, {}
+    for lab, ks in which:
+        w = tet[names[ks[0]]]
+        vs = [tet[names[k]] for k in ks[1:]]
+        slots = [names[k] for k in ks[1:]]
+        val = second_frame_component(geo, DC, vs, w, [dtet[s] for s in slots])
+        wa, wb = FRAME_WEIGHT[ks[0]], FRAME_WEIGHT[ks[1]]
+        weights[lab] = (wa[0] + wb[0], wa[1] + wb[1])
+        if val != 0:
+            comps[lab] = val
+    return comps, weights
 
 
 def cartan_order1(geo, tet, C=None, DC=None, which=None):
@@ -819,8 +1006,13 @@ def relation_certificate(inv0, inv1, coords):
 
 
 # --------------------------------------------------------------------------- the top-level call
-def ck_signature(geo, label="", verbose=False, tet=None):
-    """The full order-0 + order-1 Cartan signature of a spacetime, chart-independent.
+def ck_signature(geo, label="", verbose=False, tet=None, order2=False):
+    """The full order-0 + order-1 + order-2 Cartan signature of a spacetime, chart-independent.
+
+    `order2=True` runs the §122 order-2 recursion. It is OPT-IN, not the default: order 2
+    costs roughly 30x order 1 (it is the only way to decide some pairs, and pure overhead for
+    the many that order 0 or 1 already settle), and leaving the default alone keeps the frozen
+    §116-§119 verdicts bit-for-bit reproducible.
 
     `tet` optionally seeds the starting null tetrad. Canonicalization makes the seed
     irrelevant to the RESULT, but some geometries have no timelike coordinate direction to
@@ -861,6 +1053,35 @@ def ck_signature(geo, label="", verbose=False, tet=None):
     t1, und1 = functional_rank(inv0 + [v for v in inv1.values() if v != 0], geo.coords)
     ratios = order0_ratios(inv0)
     ratios1 = invariant_ratios([v for v in inv1.values() if v != 0], "J")
+    # ---- ORDER 2. Skipped when it cannot say anything: nabla C = 0 already terminates the
+    # recursion, and type I is decided by the relabelling-immune order-0 data instead.
+    comp2, inv2, ratios2, t2, und2, w2 = {}, {}, {}, t1, False, {}
+    if order2 and not dc_zero and ty in ("D", "N"):
+        comp2, w2 = cartan_order2(geo, tet, DC, ty)
+        inv2 = weight_invariants(comp2, w2, tag="K:")
+        t2, und2 = functional_rank(
+            inv0 + [v for v in inv1.values() if v != 0]
+            + [v for v in inv2.values() if v != 0], geo.coords)
+        ratios2 = invariant_ratios([v for v in inv2.values() if v != 0], "K")
+    # KARLHEDE'S TERMINATION CRITERION, both halves: stop at the first order q where NEITHER
+    # the number of functionally independent invariants NOR the isotropy dimension changed
+    # from order q-1. Tracking only the invariant count stops too early -- see
+    # residual_isotropy() for the Schwarzschild case that makes the difference.
+    w1 = {f"D_{a}_Psi2": FRAME_WEIGHT[a] for a in FRAME_WEIGHT}
+    w1.update({f"D_{a}_Psi4": FRAME_WEIGHT[a] for a in FRAME_WEIGHT})
+    w1.update({f"D_{a}_Psi0": FRAME_WEIGHT[a] for a in FRAME_WEIGHT})
+    iso1 = residual_isotropy(ty, iso, [(comp1, w1)])
+    iso2 = residual_isotropy(ty, iso, [(comp1, w1), (comp2, w2)]) if comp2 else iso1
+    if dc_zero:
+        ck_order = 1               # nabla C = 0: nothing can change at any higher order
+    elif (t1, iso1) == (t0, iso):
+        ck_order = 1
+    elif not order2 or ty not in ("D", "N"):
+        ck_order = UNDECIDED
+    elif (t2, iso2) == (t1, iso1):
+        ck_order = 2
+    else:
+        ck_order = UNDECIDED          # still moving at order 2: needs order 3
     # THE DISCRETE PND FREEDOM. Type I has four distinct principal null directions and the
     # quartic solver returns them in an arbitrary order, so "align l with roots[0]" is a
     # CHOICE: relabelling the axes of a Kasner permutes the PNDs and lands on a different --
@@ -893,7 +1114,11 @@ def ck_signature(geo, label="", verbose=False, tet=None):
             "speciality_I3_over_J2": speciality,
             "order1_components": sorted(comp1), "order1_invariants": inv1,
             "order1_labels": sorted(inv1), "t1": t1, "nabla_C_zero": dc_zero,
-            "certificate": cert, "cert_failures": fails, "undecided": und0 or und1}
+            "order2_components": sorted(comp2), "order2_invariants": inv2,
+            "order2_labels": sorted(inv2), "order2_ratios": ratios2, "t2": t2,
+            "isotropy_dim1": iso1, "isotropy_dim2": iso2, "ck_order": ck_order,
+            "certificate": cert, "cert_failures": fails,
+            "undecided": und0 or und1 or und2}
 
 
 def equivalent(sig1, sig2):
@@ -931,12 +1156,26 @@ def equivalent(sig1, sig2):
     if sig1["t0"] != sig2["t0"] or sig1["t1"] != sig2["t1"]:
         return INEQUIVALENT, [f"invariant counts (t0,t1) "
                               f"({sig1['t0']},{sig1['t1']}) vs ({sig2['t0']},{sig2['t1']})"]
+    if sig1.get("t2") is not None and sig2.get("t2") is not None \
+            and sig1["t2"] != sig2["t2"]:
+        return INEQUIVALENT, [f"order-2 invariant count t2 differs: "
+                              f"{sig1['t2']} vs {sig2['t2']}"]
+    # The order-2 components include weight-(0,0) ones -- D_l D_n Psi2 and D_m D_mb Psi2 -- so
+    # the SET of surviving order-2 invariant labels is itself a chart-free discriminator, in
+    # the same way the order-1 label set is.
+    if sig1.get("order2_labels") is not None and sig2.get("order2_labels") is not None \
+            and sig1["order2_labels"] != sig2["order2_labels"] \
+            and sig1["petrov"] != "I":
+        return INEQUIVALENT, [
+            f"different surviving order-2 Cartan invariants: "
+            f"{sorted(set(sig1['order2_labels']) ^ set(sig2['order2_labels']))}"]
     # Dimensionless ratios of the invariants: pure numbers, hence chart-free labels. Differing
     # ratios are a rigorous INEQUIVALENT (invariants disagree); matching ones are necessary.
     matched_ratios = []
     # For type I the frame-component ratios depend on WHICH of the four PNDs was aligned first,
     # so they are not comparable across presentations; use the relabelling-immune I^3/J^2.
-    ratio_keys = () if sig1["petrov"] == "I" else ("order0_ratios", "order1_ratios")
+    ratio_keys = () if sig1["petrov"] == "I" else ("order0_ratios", "order1_ratios",
+                                                   "order2_ratios")
     if sig1["petrov"] == "I":
         a, b = sig1.get("speciality_I3_over_J2"), sig2.get("speciality_I3_over_J2")
         if a is UNDECIDED or b is UNDECIDED or a is None or b is None:
@@ -999,8 +1238,20 @@ def equivalent(sig1, sig2):
 
     c1, c2 = sig1["certificate"], sig2["certificate"]
     if c1 is None or c2 is None or sig1["cert_failures"] or sig2["cert_failures"]:
+        # The order-1 resultant elimination is one route to a certificate; a DEMONSTRATED
+        # termination of the recursion is another, and it does not need the elimination to
+        # finish. If both signatures stop growing at order 2 (t2 = t1) and every chart-free
+        # invariant ratio at orders 0, 1 and 2 agrees, the Cartan data agree at the terminating
+        # order, which is what the theorem asks for.
+        o1, o2 = sig1.get("ck_order"), sig2.get("ck_order")
+        if o1 == o2 == 2 and matched_ratios and not (sig1["undecided"] or sig2["undecided"]):
+            return EQUIVALENT, [
+                "the CK recursion TERMINATES at order 2 for both (t2 = t1, isotropy already "
+                "frozen at order 0), and all chart-free invariant ratios agree through order 2.",
+                *matched_ratios[:4]]
         return UNDECIDED, ["certificate incomplete: "
-                           + "; ".join(sig1["cert_failures"] + sig2["cert_failures"])]
+                           + "; ".join(sig1["cert_failures"] + sig2["cert_failures"])
+                           + f"; ck_order {o1} vs {o2}"]
     if set(c1) != set(c2):
         return INEQUIVALENT, [f"different surviving order-1 components: "
                               f"{sorted(set(c1) ^ set(c2))}"]

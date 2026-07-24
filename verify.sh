@@ -109,6 +109,10 @@ NAMES+=("04 campaign");           CMDS+=("scripts/04_campaign.py")
 [ -f scripts/118_novelty_proven.py ] && { NAMES+=("118 NOVELTY proof-backed (§02 KNOWN_LIKELY upgraded to a CK proof; FLAT_OR_VSI and BLIND_SPOT adjudicated where invariants are blind; CANDIDATE_NEW backed by a decision against every catalog entry)"); CMDS+=("scripts/118_novelty_proven.py"); }
 [ -f scripts/119_bridge_bumpy_mn.py ] && { NAMES+=("119 bridge round 7: bumpy eps=0.35 vs Manko-Novikov q=0.5 -> INEQUIVALENT at ORDER 0 (bumpy is not Ricci-flat, proven symbolically; MN is exact vacuum) -- decided below tier T1, no canonical frame needed"); CMDS+=("scripts/119_bridge_bumpy_mn.py"); }
 
+[ -f scripts/120_candidate_A_no_ky.py ] && { NAMES+=("120 G2 candidate A: designed metric, irreducible rank-2 Killing tensor, NO Killing-Yano root (four distinct mixed eigenvalues; (Y.Y)^a_b always has even-multiplicity spectrum) and no KY tensor at all (jet bound 0; controls Minkowski 10, Schwarzschild 1)"); CMDS+=("scripts/120_candidate_A_no_ky.py"); }
+[ -f scripts/121_candidate_B_transcendental.py ] && { NAMES+=("121 G2 candidate B: Galajinsky metric, TRANSCENDENTAL invariant I = p_y/p_x - ln p_x exactly conserved; polynomial invariants of degree <=4 excluded (Killing-tensor dims 0,1,0,1; flat-2D control 3,6,10,15)"); CMDS+=("scripts/121_candidate_B_transcendental.py --quick"); }
+[ -f scripts/122_ck_order2.py ] && { NAMES+=("122 Cartan-Karlhede ORDER 2 (ledger G6): Karlhede-Lindstrom-Aman horizon invariant reproduced at orders 1 and 2 (vanishes at r=2M, tracks M); termination order machine-checked against Collins-d Inverno-Vickers"); CMDS+=("scripts/122_ck_order2.py --quick"); }
+
 fail=0
 GATE="$(dirname "$0")/gate.log"; : > "$GATE"   # also written here so the dashboard (reads ROOT/gate.log) stays current
 for i in "${!NAMES[@]}"; do
