@@ -72,7 +72,25 @@ from gr_engine import Geometry
 # Taub-NUT included) to genuine completion. The budget exists only so a true hang cannot lock the
 # gate forever; a metric that walls does so on its own compute, not on an artificial cutoff.
 QUICK = "--quick" in sys.argv
-BUDGET = 900 if QUICK else 3600
+
+# THE BUDGET IS GLOBAL, NOT PER-STEP.  Learned the hard way: the first version gave EACH
+# budgeted call its own BUDGET seconds, and wrapped only sections (D) and (E). Sections (A)-(C)
+# ran with no wall-clock guard at all, so a single SymPy recursion in (A) ran for 4.6 HOURS --
+# past even the sum of every per-step budget -- and blocked the whole gate. A "safety budget"
+# that covers half the battery and multiplies by the number of steps is not a bound. So:
+#   TOTAL   is the ceiling for the ENTIRE battery, start to finish.
+#   STEP    is the most any single step may take, and is additionally clamped to what remains.
+# The docstring's promise -- "the guard against a true hang" -- is now actually kept.
+TOTAL = 900 if QUICK else 3600
+STEP = TOTAL // 3
+_DEADLINE = None                      # set in main()
+
+
+def remaining():
+    """Seconds left in the global budget (0.0 once spent)."""
+    if _DEADLINE is None:
+        return float(STEP)
+    return max(0.0, _DEADLINE - time.time())
 
 t, r, th, ph, rho = sp.symbols("t r theta phi rho", positive=True)
 u = sp.Symbol("u", real=True)
@@ -84,12 +102,18 @@ class Walled(Exception):
 
 
 def budgeted(seconds, fn, *a, **kw):
-    """Run fn under a wall-clock budget. A symbolic step that does not finish is a MEASURED
-    limit, not a crash -- the repo's three-valued discipline applied to compute time."""
+    """Run fn under a wall-clock budget, CLAMPED TO THE GLOBAL DEADLINE. A symbolic step that
+    does not finish is a MEASURED limit, not a crash -- the repo's three-valued discipline
+    applied to compute time. SIGALRM interrupts pure-Python SymPy work fine (verified: the
+    4.6-hour runaway was a stack of _PyEval_EvalFrameDefault, i.e. interruptible -- there was
+    simply no alarm set on that code path)."""
+    left = remaining()
+    if left <= 0:
+        raise Walled()                # global budget already spent: do not start new work
     def boom(signum, frame):
         raise Walled()
     old = signal.signal(signal.SIGALRM, boom)
-    signal.alarm(int(seconds))
+    signal.alarm(max(1, int(min(seconds, left))))
     try:
         return fn(*a, **kw)
     finally:
@@ -215,18 +239,30 @@ def gate_nabla_c():
 
 
 def main():
+    global _DEADLINE
+    _DEADLINE = time.time() + TOTAL
     print(__doc__.split("Repro:")[0])
+    print(f"  [budget] GLOBAL {TOTAL}s for the whole battery (per step <= {STEP}s, clamped to "
+          f"what remains){' --quick' if QUICK else ''}")
     ok = []
+    unverified = []      # ground-truth sections we could not reach: these must NOT pass silently
 
     # ------------------------------------------------------------- (A)
     t0 = time.time()
-    worst = gate_nabla_c()
-    okA = worst < 1e-20
+    try:
+        worst = budgeted(STEP, gate_nabla_c)
+        okA = worst < 1e-20
+        print(f"  (A) the symmetry-reduced nabla C vs the naive 4^4 loop, all 1024 components x "
+              f"3 random points:")
+        print(f"      max |difference| = {worst:.1e}   {'✅ identical' if okA else '❌'}   "
+              f"({time.time()-t0:.1f}s)")
+    except Walled:
+        okA = False
+        unverified.append("(A) nabla C cross-check")
+        print(f"  (A) WALLED after {time.time()-t0:.0f}s -- the naive 1024-component loop did not "
+              f"finish inside the budget.")
+        print(f"      UNVERIFIED (not refuted). This is the section that ran 4.6h unguarded.")
     ok.append(okA)
-    print(f"  (A) the symmetry-reduced nabla C vs the naive 4^4 loop, all 1024 components x 3 "
-          f"random points:")
-    print(f"      max |difference| = {worst:.1e}   {'✅ identical' if okA else '❌'}   "
-          f"({time.time()-t0:.1f}s)")
 
     # ------------------------------------------------------------- (B) published ground truth
     print(f"\n  (B) GROUND TRUTH -- Karlhede-Lindstroem-Aaman (1982): the horizon shows up in "
@@ -236,7 +272,13 @@ def main():
     okB = True
     for name, Mv in (("Schwarzschild M=1", 1), ("Schwarzschild M=2", 2)):
         t0 = time.time()
-        s = signature(name, lambda Mv=Mv: schwarzschild(Mv))
+        try:
+            s = budgeted(STEP, signature, name, lambda Mv=Mv: schwarzschild(Mv))
+        except Walled:
+            okB = False
+            unverified.append(f"(B) {name} horizon invariant")
+            print(f"      {name}: WALLED after {time.time()-t0:.0f}s -- UNVERIFIED (not refuted)")
+            continue
         sigs[name] = s
         i1 = sp.factor(list(s["order1_invariants"].values())[0])
         i2 = sp.factor(s["order2_invariants"].get("K:D_m_D_mb_Psi2", sp.S.Zero))
@@ -257,19 +299,39 @@ def main():
     #                     isotropic coordinates, whose metric functions share no visible form
     #                     with 1-2M/r) is still recognised with order 2 running.
     print(f"\n  (C) order-2 controls:")
-    v, why = ck.equivalent(sigs["Schwarzschild M=1"], sigs["Schwarzschild M=2"])
-    okC1 = v == ck.INEQUIVALENT
-    print(f"      discrimination -- Schwarzschild M=1 vs M=2  -> {v}  {'✅' if okC1 else '❌'}")
-    print(f"          {why[0][:104] if why else ''}")
-    t0 = time.time()
-    sig_iso = signature("Schwarzschild (isotropic chart)", schwarzschild_isotropic)
-    sigs["Schwarzschild (isotropic chart)"] = sig_iso
-    v2, why2 = ck.equivalent(sigs["Schwarzschild M=1"], sig_iso)
-    okC2 = v2 == ck.EQUIVALENT
-    note2 = "✅ the costume seen through, order 2 running" if okC2 else "❌"
-    print(f"      recognition -- Schwarzschild vs ISOTROPIC chart -> {v2}  {note2}   "
-          f"({time.time()-t0:.0f}s)")
-    print(f"          {why2[0][:104] if why2 else ''}")
+    sig_iso = None
+    if "Schwarzschild M=1" not in sigs or "Schwarzschild M=2" not in sigs:
+        okC1 = okC2 = False
+        unverified.append("(C) order-2 controls (a (B) signature walled)")
+        print(f"      SKIPPED -- a section-(B) signature walled, so there is nothing to compare.")
+    else:
+        try:
+            v, why = budgeted(STEP, ck.equivalent, sigs["Schwarzschild M=1"],
+                              sigs["Schwarzschild M=2"])
+            okC1 = v == ck.INEQUIVALENT
+            print(f"      discrimination -- Schwarzschild M=1 vs M=2  -> {v}  "
+                  f"{'✅' if okC1 else '❌'}")
+            print(f"          {why[0][:104] if why else ''}")
+        except Walled:
+            okC1 = False
+            unverified.append("(C) discrimination control")
+            print(f"      discrimination -- WALLED -- UNVERIFIED (not refuted)")
+        t0 = time.time()
+        try:
+            sig_iso = budgeted(STEP, signature, "Schwarzschild (isotropic chart)",
+                               schwarzschild_isotropic)
+            sigs["Schwarzschild (isotropic chart)"] = sig_iso
+            v2, why2 = budgeted(STEP, ck.equivalent, sigs["Schwarzschild M=1"], sig_iso)
+            okC2 = v2 == ck.EQUIVALENT
+            note2 = "✅ the costume seen through, order 2 running" if okC2 else "❌"
+            print(f"      recognition -- Schwarzschild vs ISOTROPIC chart -> {v2}  {note2}   "
+                  f"({time.time()-t0:.0f}s)")
+            print(f"          {why2[0][:104] if why2 else ''}")
+        except Walled:
+            okC2 = False
+            unverified.append("(C) recognition control")
+            print(f"      recognition -- WALLED after {time.time()-t0:.0f}s -- UNVERIFIED "
+                  f"(not refuted)")
     ok.append(okC1 and okC2)
 
     # ------------------------------------------------------------- (D) G6
@@ -287,15 +349,15 @@ def main():
     for name, builder in cases:
         if name in sigs:
             s, dt = sigs[name], 0.0
-        elif name == "Schwarzschild (isotropic chart)":
+        elif name == "Schwarzschild (isotropic chart)" and sig_iso is not None:
             s, dt = sig_iso, 0.0
         else:
             t0 = time.time()
             try:
-                s = budgeted(BUDGET, signature, name, builder)
+                s = budgeted(STEP, signature, name, builder)
             except Walled:
                 walls.append(name)
-                print(f"      {name:34s} WALLED after {BUDGET}s of symbolic work "
+                print(f"      {name:34s} WALLED (global budget) after symbolic work "
                       f"(measured, not assumed)")
                 continue
             except Exception as e:
@@ -310,15 +372,27 @@ def main():
         g6 &= good
         print(f"      {name:34s} type {s['petrov']}  (t,iso): {chain:26s} "
               f"ck_order = {s['ck_order']}  {'✅' if good else '❌'}  ({dt:.0f}s)")
-    ok.append(g6)                      # walls are reported honestly, not counted as G6 failures
-    print(f"      G6 verdict on the metrics that completed: "
-          f"{'SUPPORTED -- every one terminates at order <= 2 ✅' if g6 else 'VIOLATED ❌'}")
+    # VACUOUS-PASS GUARD. Walls in (D) are a measured limit, not a G6 failure -- but if too few
+    # metrics actually completed, "every one terminates at order <= 2" is vacuously true and
+    # would report SUPPORTED having checked almost nothing. G6 needs real evidence to count.
+    completed = len(cases) - len(walls)
+    MIN_FOR_G6 = 3
+    if completed < MIN_FOR_G6:
+        g6 = False
+        unverified.append(f"(D) G6 -- only {completed}/{len(cases)} metrics completed")
+        print(f"      G6: INSUFFICIENT EVIDENCE -- only {completed}/{len(cases)} metrics "
+              f"completed (need >= {MIN_FOR_G6}).")
+        print(f"          Reported as UNVERIFIED rather than vacuously SUPPORTED.")
+    else:
+        print(f"      G6 verdict on the {completed}/{len(cases)} metrics that completed: "
+              f"{'SUPPORTED -- every one terminates at order <= 2 ✅' if g6 else 'VIOLATED ❌'}")
+    ok.append(g6)
     print(f"      This machine-checks Collins-d'Inverno-Vickers (1990), who proved the bound "
           f"is 2 for")
     print(f"      type D VACUUM against the general bound of 7. Independent route, same "
           f"number.")
     if walls:
-        print(f"      NOT reached inside the {BUDGET}s budget: {walls} -- recorded as a "
+        print(f"      NOT reached inside the {TOTAL}s global budget: {walls} -- recorded as a "
               f"measured limit.")
 
     # ------------------------------------------------------------- (E) leg Y's three pairs
@@ -336,7 +410,7 @@ def main():
             okE = False
             continue
         try:
-            v, why = budgeted(BUDGET, ck.equivalent, sigs[A], sigs[B])
+            v, why = budgeted(STEP, ck.equivalent, sigs[A], sigs[B])
         except Walled:
             print(f"      {A} vs {B}: UNDECIDED -- comparison walled")
             okE = False
@@ -348,9 +422,20 @@ def main():
     ok.append(okE)
 
     passed = all(ok)
-    print(f"\nCK ORDER 2: {'PASSED ✅' if passed else 'FAILED ❌'}  "
-          "(order-2 recursion live; the Karlhede-Lindstroem-Aaman horizon invariant reproduced "
-          "at orders 1 and 2; G6 machine-checked against Collins-d'Inverno-Vickers)")
+    elapsed = time.time() + TOTAL - _DEADLINE
+    if unverified:
+        # A resource wall is NOT a refutation -- but it is also NOT a verification, and the gate's
+        # contract is "green = every battery verified its claims". Say so loudly and fail, so a
+        # silently-degrading battery can never show up as green.
+        print(f"\nCK ORDER 2: RESOURCE-WALLED ❌  ({elapsed:.0f}s of {TOTAL}s budget)")
+        print(f"  UNVERIFIED (walled, not refuted): {unverified}")
+        print(f"  Nothing here is refuted -- these claims were simply not reached inside the "
+              f"budget.")
+        print(f"  Re-run without --quick for the full {3600}s budget, or raise TOTAL.")
+        return 1
+    print(f"\nCK ORDER 2: {'PASSED ✅' if passed else 'FAILED ❌'}  ({elapsed:.0f}s of {TOTAL}s "
+          "budget) (order-2 recursion live; the Karlhede-Lindstroem-Aaman horizon invariant "
+          "reproduced at orders 1 and 2; G6 machine-checked against Collins-d'Inverno-Vickers)")
     return 0 if passed else 1
 
 
