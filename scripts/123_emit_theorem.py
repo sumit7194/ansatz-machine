@@ -56,12 +56,26 @@ T2 -- THE BICONDITIONAL.  Under G1 (rank guard holds) and G2 (the sampled orbit 
        the invariants. Caught by G2 + the separation guard.
     O3 MEASURE-ZERO COINCIDENCE: sampled points accidentally satisfy an extra algebraic relation;
        probability zero under generic sampling, and it does not persist across independent resamples.
+    O4 SMOOTH-APPROXIMATION FALSE-POSITIVE (surfaced by the bridge's independent cross-gate of R2):
+       a RICH basis over BOUNDED orbits. A high-degree polynomial can approximate a transcendental
+       invariant closely enough over the finite sampled range that sigma_min/sigma_max falls below
+       tau_rel and emit FALSELY fires on a quantity that is not a true invariant. Neither G1 (the
+       polynomial is full column rank off-orbit) nor G2 (it IS nearly constant on every sampled
+       orbit) catches it. The guard that does is OUT-OF-SAMPLE: a true invariant stays conserved on
+       new / wider-range orbits, an approximation drifts. Mitigation: a train/validate orbit split
+       (emit_validated below), i.e. accept only if the emitted combination also rides at the floor
+       on held-out wider orbits. This is the approximation-vs-representation distinction the cos-atom
+       demo already makes -- O4 marks its failure edge: from BOUNDED data alone the in-sample floor
+       cannot separate a good-enough approximation from an exact representation.
 
 T3 -- SCOPE: exact-arithmetic / below-floor numeric; finite bases (polynomial, or polynomial plus
-  named transcendental atoms); autonomous invariants; the guards G1/G2. It does NOT certify the
-  emitted invariant is unique or 'fundamental', and legibility is BASIS-RELATIVE by construction --
-  which is the whole point, and is demonstrated (the pendulum, illegible in a polynomial basis, is
-  legible the moment cos is added to the basis).
+  named transcendental atoms); autonomous invariants; the guards G1/G2, and for a RICH basis over
+  bounded data the out-of-sample guard against O4. It does NOT certify the emitted invariant is
+  unique or 'fundamental', and legibility is BASIS-RELATIVE by construction -- which is the whole
+  point, and is demonstrated (the pendulum, illegible in a polynomial basis, is legible the moment
+  cos is added to the basis). The deepest honest limit, made precise by O4: from bounded trajectory
+  data the in-sample criterion cannot distinguish an exact representation from a sufficiently good
+  approximation -- only out-of-sample behaviour can.
 
 Repro: .venv/bin/python scripts/123_emit_theorem.py
 """
@@ -103,6 +117,37 @@ def emit(orbits, basis_fns, tau_rel=TAU_REL):
     return {"accepted": bool(accepted), "sigma_min": float(smin), "sigma_max": float(smax),
             "rel": float(rel), "nulldim": nulldim, "rank_ok": bool(rank_ok),
             "guard_min": float(guard_sv[-1] / guard_sv[0]), "coeffs": Vt[-1]}
+
+
+TAU_VAL = 1e-4      # O4 out-of-sample floor: a TRUE invariant stays conserved on held-out, wider
+                    # orbits (drift ~ integration floor, <=1e-6); a smooth APPROXIMATION that fit
+                    # the bounded training data drifts (>=1e-3). The gap is ~2 orders either side.
+
+
+def validation_drift(coeffs, val_orbits, basis_fns):
+    """The O4 guard, as the bridge proposed: given the emitted c from training, how well is
+    I = sum_k c_k phi_k conserved on HELD-OUT, WIDER-range orbits? Returns the worst per-orbit
+    normalized drift std(I)/scale. A genuine invariant stays flat; a good-enough polynomial
+    approximation over bounded data drifts once the orbit range widens."""
+    worst = 0.0
+    for orb in val_orbits:
+        B = np.array([[f(z) for f in basis_fns] for z in orb], float)
+        I = B @ np.asarray(coeffs, float)
+        scale = np.abs(B).mean() * np.linalg.norm(coeffs) + 1e-30
+        worst = max(worst, float(I.std() / scale))
+    return worst
+
+
+def emit_validated(train_orbits, val_orbits, basis_fns, tau_rel=TAU_REL, tau_val=TAU_VAL):
+    """emit() + the O4 out-of-sample guard. Accept iff the in-sample criterion fires AND the
+    emitted combination stays conserved on wider held-out orbits. This is the guard that
+    distinguishes an EXACT REPRESENTATION from a good-enough APPROXIMATION, which no in-sample
+    criterion can do from bounded data alone."""
+    r = emit(train_orbits, basis_fns, tau_rel)
+    drift = validation_drift(r["coeffs"], val_orbits, basis_fns) if r["accepted"] else float("inf")
+    r["val_drift"] = drift
+    r["accepted"] = bool(r["accepted"] and drift <= tau_val)
+    return r
 
 
 # ------------------------------------------------------------------ tiny separable integrators
@@ -251,11 +296,45 @@ def main():
     print(f"    the null space to the TRUE invariants (G2). {n1} -> {n3}  "
           f"{'✅' if okF else '❌'}")
 
+    # =============================================================== (G) OBSTRUCTION O4 (bridge cross-gate)
+    print("\n(G) OBSTRUCTION O4 -- smooth-approximation false-positive over bounded data")
+    print("    (surfaced by the bridge's independent R2 reproduction; folded in here):")
+    ptrain = [pendulum_orbit([0.5, 0.3], [0.0, 0.8]), pendulum_orbit([1.1, 0.7], [0.6, 0.0]),
+              pendulum_orbit([0.2, 1.0], [0.4, 0.5])]
+    pval = [pendulum_orbit([1.6, 1.2], [0.9, 0.3]), pendulum_orbit([2.0, 0.5], [0.2, 1.1])]
+    print("    degree sweep on the pendulum (transcendental invariant, polynomial basis):")
+    for deg in (2, 4, 6, 8):
+        fd, _ = poly_basis(deg)
+        rr = emit(ptrain, fd)
+        flag = "  <- FALSE EMIT (polynomial hugs the transcendental invariant on bounded data)" \
+            if rr["accepted"] else ""
+        print(f"      deg {deg}: sigma_min/sigma_max = {rr['rel']:.1e} (m={len(fd)}) "
+              f"-> in-sample emit = {rr['accepted']}{flag}")
+    fd6, _ = poly_basis(6)
+    rG_bad = emit_validated(ptrain, pval, fd6)
+    fd6t = fd6 + [lambda s: np.cos(s[0]), lambda s: np.cos(s[1])]
+    rG_true = emit_validated(ptrain, pval, fd6t)
+    hval = [harmonic_orbit([1.7, 1.3], [0.2, 1.4]), harmonic_orbit([2.1, 0.6], [1.0, 0.3])]
+    rG_harm = emit_validated(orbits, hval, fns)
+    print(f"    THE O4 GUARD -- out-of-sample validation on WIDER held-out orbits (floor {TAU_VAL:.0e}):")
+    print(f"      pendulum deg-6 (approximation): in-sample rel = {rG_bad['rel']:.1e} EMITS, but "
+          f"validation drift = {rG_bad['val_drift']:.1e} -> accepted = {rG_bad['accepted']}")
+    print(f"      pendulum deg-6 + cos (TRUE rep): validation drift = {rG_true['val_drift']:.1e} "
+          f"-> accepted = {rG_true['accepted']}")
+    print(f"      harmonic deg-2 (TRUE poly inv): validation drift = {rG_harm['val_drift']:.1e} "
+          f"-> accepted = {rG_harm['accepted']}")
+    okG = (not rG_bad["accepted"]) and rG_true["accepted"] and rG_harm["accepted"]
+    ok.append(okG)
+    print(f"    => the O4 guard REJECTS the polynomial approximation and KEEPS both true invariants:")
+    print(f"       from bounded data the in-sample floor cannot tell approximation from")
+    print(f"       representation; the out-of-sample floor can.  {'✅' if okG else '❌'}")
+
     passed = all(ok)
     print(f"\nEMIT-LEGIBILITY THEOREM: {'PASSED ✅' if passed else 'FAILED ❌'}  "
           f"({sum(ok)}/{len(ok)}) -- forward direction proven exact; legible <=> invariant in "
-          "span(Phi) demonstrated with the round-8 adversaries reproduced; O1/O2 obstructions "
-          "exhibited and guarded. Prior art: SID / Kaiser-Kutz-Brunton; no novelty claimed.")
+          "span(Phi) with the round-8 adversaries reproduced; O1/O2 obstructions guarded; O4 "
+          "(smooth-approximation false-positive, bridge cross-gate) guarded out-of-sample. "
+          "Prior art: SID / Kaiser-Kutz-Brunton; no novelty claimed.")
     return 0 if passed else 1
 
 

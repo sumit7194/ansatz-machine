@@ -2402,3 +2402,30 @@ nice-19 (alphaludo-l4, trainer untouched). Dashboards live on both hosts.
   O(dt^2) drift on the NONLINEAR pendulum masqueraded as 'not in span' (sigma_min 5e-5) -> fixed with
   a 4th-order Yoshida symplectic so a true invariant rides near machine precision. Both are exactly
   the conditioning/noise-floor guards T1 asks to state. Battery count -> 104.
+
+## 2026-07-24 — §123 + O4: the smooth-approximation false-positive (bridge cross-gate of R2)
+- The bridge independently reimplemented the emit criterion from the stated algorithm (their own
+  code + Yoshida-4, no import of §123) and reproduced all four teeth with matching scales -- cross-gate
+  CLOSED. They then surfaced a FOURTH obstruction O4 that our deg-4 demo had sat just below: sweeping
+  the polynomial degree on the pendulum, at deg-6 the polynomial approximates the transcendental
+  invariant closely enough over the BOUNDED orbit set that sigma_min/sigma_max falls below tau_rel and
+  emit FALSELY fires on a non-invariant. Neither G1 (full column rank off-orbit) nor G2 (nearly
+  constant on every sampled orbit) catches it.
+- VERIFIED THEIR FINDING BEFORE FOLDING IT IN (own reproduction, even sharper than theirs -- our
+  cleaner Yoshida orbits let the polynomial fit better): deg-2 rel=8.8e-3 no-emit, deg-4 1.9e-5
+  no-emit, deg-6 3.2e-14 FALSE EMIT, deg-8 7.1e-18 FALSE EMIT. (They reported deg-6 = 2.7e-7; the
+  discrepancy is integrator accuracy, not disagreement -- both show the false emit.)
+- FOLDED IN THE FIX (their proposed guard): O4 = smooth-approximation false-positive over bounded
+  data; mitigation = an OUT-OF-SAMPLE train/validate orbit split (emit_validated + validation_drift).
+  Fit c on the training orbits, then test whether I = sum c_k phi_k stays conserved on HELD-OUT,
+  WIDER-range orbits. A true invariant rides at the integration floor there; an approximation drifts.
+  Discriminator is an ABSOLUTE validation floor tau_val=1e-4 (NOT a ratio -- a ratio wrongly rejected
+  the true +cos representation whose training residual was ~2e-16). Results: pendulum deg-6 emits
+  in-sample (3.2e-14) but validation drift 5.8e-3 -> REJECTED; pendulum+cos (true rep) validation
+  drift 9.7e-7 -> KEPT; harmonic deg-2 (true poly invariant) validation drift 2.6e-15 -> KEPT.
+- THE DEEPER POINT O4 makes precise, added to T3 scope: from BOUNDED trajectory data the in-sample
+  criterion cannot distinguish an exact representation from a good-enough approximation -- only
+  out-of-sample behaviour can. This is the same approximation-vs-representation distinction the
+  cos-atom demo already made, now with its failure edge marked and guarded.
+- §123 now 7/7 (added case (G)). Bridge's independent write-up + code: falsification/R2_emit_theorem/
+  (their commit d7e07fa); they will re-gate against the updated battery. Battery count unchanged (104).

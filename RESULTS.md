@@ -1877,4 +1877,11 @@ adversaries as worked cases; the novelty question is deferred to the quantum ses
 threshold-calibration bugs the tests caught (σ_min-vs-σ_next rejected the harmonic's correct
 machine-zero because its null space is multi-dimensional; leapfrog drift on the nonlinear pendulum
 faked "not in span") were fixed to a relative floor and a 4th-order symplectic integrator — the exact
-conditioning/noise-floor guards T1 asks to state. Repro: `scripts/123_emit_theorem.py`.
+conditioning/noise-floor guards T1 asks to state. **O4, from the bridge's cross-gate:** sweeping the
+polynomial degree, a deg-6 polynomial hugs the transcendental pendulum invariant closely enough over
+the *bounded* orbit set to fall below the floor and *falsely emit* a non-invariant — a regime neither
+G1 nor G2 catches. The guard that does is out-of-sample: a true invariant stays conserved on held-out
+*wider* orbits (validation drift ≤1e-6), an approximation drifts (≥5e-3). Folded in as an emit_validated
+train/validate split. The precise honest limit it names: from bounded data alone the in-sample floor
+cannot separate an exact representation from a sufficiently good approximation — only out-of-sample
+behaviour can. §123 now 7/7. Repro: `scripts/123_emit_theorem.py`.
