@@ -2360,3 +2360,45 @@ nice-19 (alphaludo-l4, trainer untouched). Dashboards live on both hosts.
   and no single answer is correct. The refusal now prints the offending expression, the seed index,
   the declared domain, and the SAMPLED SIGNS, so the caller can see whether they are straddling an
   ergosurface (restrict the region) or merely hit an oracle limit (declare it, or pass tet=).
+
+## 2026-07-24 — §123 THE EMIT-LEGIBILITY THEOREM (bridge Falsification v2, item R2)
+- Round 8 killed the flagship "legible <=> KY-integrable" (§120 A: LEGIBLE with no KY root; §121 B:
+  ILLEGIBLE though integrable). Corrected empirical law: legible <=> the conserved invariant is
+  polynomial-representable in the probe's basis. The ask: promote that to a THEOREM about our emit
+  engine's linear core.
+- PRIOR-ART SWEEP (mandatory, own 2-search sweep; NOVELTY DEFERRED to the quantum session's
+  GitHub/PyPI/arXiv sweep and NOT claimed here): the fact "a conserved quantity in a basis is a null
+  vector of the trajectory design matrix" is the foundation of the Sparse-Invariant / SID method
+  (Liu-Madhavan-Tegmark; Kaiser-Kutz-Brunton arXiv:1811.00961; the SVD-null-space conserved-quantity
+  literature). Our contribution is NOT a new theorem -- it is the EXACT three-valued statement matched
+  to how our engine actually thresholds + the extracted obstruction map + the two round-8 adversaries
+  as worked cases. Said so plainly, in the battery and to the bridge.
+- T1 (the criterion, as implemented, cf. _qinvariant.py): mean-subtracted multi-orbit design matrix
+  M[(o,i),k] = phi_k(z) - per-orbit mean; SVD; ACCEPT iff sigma_min <= tau_rel * sigma_max (relative
+  floor: a true null vector rides at the numerical/integration floor, non-invariants at the DATA
+  SCALE ~sigma_max); rank guard G1 (Phi full column rank on random points). The below-floor
+  null-space dimension = the number of independent invariants in span(Phi).
+- T2 (the biconditional): (<==) EXACT & UNCONDITIONAL -- if I in span(Phi) is conserved then along
+  each orbit it equals gamma_o, so every mean-subtracted row dotted with c is gamma_o - gamma_o = 0,
+  M c = 0, sigma_min = 0. A representable invariant is ALWAYS emitted (no false negatives); proven
+  symbolically. (==>) under G1 + G2 (orbit set invariant-separating), a null vector is a genuine
+  invariant in span(Phi). OBSTRUCTION MAP where ==> fails: O1 hidden identity (c in ker Phi itself;
+  deterministic, caught by G1 -- the real u4/om false-zero); O2 finite-data aliasing (one 1-D orbit
+  makes many functions look conserved; caught by G2 as orbit diversity collapses the null space to
+  the true invariants); O3 measure-zero coincidence (prob 0 under generic sampling, no persistence
+  across resamples).
+- T3 scope: exact/below-floor numeric; finite bases (polynomial, or polynomial + named transcendental
+  atoms); autonomous invariants; the guards; legibility is BASIS-RELATIVE by construction.
+- BATTERY 123, 6/6: (A) forward direction proven exact & symbolic; (B) harmonic oscillator -> LEGIBLE
+  (poly invariant present, Candidate A analog, null-space dim 4, sigma_min/sigma_max = 4e-16);
+  (C) pendulum H=(p^2)/2-cos x-cos y -> ILLEGIBLE in the polynomial basis (transcendental invariant,
+  Candidate B analog, ratio 8.8e-3); (D) THE CORE CLAIM -- the SAME pendulum flips to LEGIBLE the
+  moment cos x, cos y are added to the basis (ratio 2.8e-12, null-space dim 2): legibility is
+  basis-relative; (E) O1 hidden identity exhibited and caught by the rank guard; (F) O2 single-orbit
+  aliasing exhibited (10 spurious below-floor SVs -> 4 with 3 diverse orbits).
+- CALIBRATION BUGS THE TESTS CAUGHT (threshold, not theorem): v1 accept criterion used sigma_min vs
+  sigma_next (a SINGLE-invariant gap) and rejected the harmonic's correct machine-zero because its
+  null space is MULTI-dimensional -> fixed to the relative floor sigma_min/sigma_max. And leapfrog's
+  O(dt^2) drift on the NONLINEAR pendulum masqueraded as 'not in span' (sigma_min 5e-5) -> fixed with
+  a 4th-order Yoshida symplectic so a true invariant rides near machine precision. Both are exactly
+  the conditioning/noise-floor guards T1 asks to state. Battery count -> 104.
