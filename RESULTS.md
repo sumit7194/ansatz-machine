@@ -1847,3 +1847,34 @@ finish in 8.5 minutes under `zsimp`'s full `sp.simplify` chain and finished in *
 `cancel(together(expand(·)))`; `zsimp` now escalates. Full Kerr CK remains out of reach (a second
 hot spot past the tetrad stage), logged as the instrument's reach. Repro:
 `scripts/119_bridge_bumpy_mn.py`.
+
+
+## §123 — the emit-legibility theorem: what a linear-probe emit engine can and cannot read
+
+Round 8 falsified the flagship "legible ⟺ KY-integrable" — §120 Candidate A was legible with no
+Killing-Yano root, §121 Candidate B was integrable yet illegible. The bridge asked us to promote the
+corrected empirical law — **legible ⟺ the conserved invariant is polynomial-representable in the
+probe's basis** — to a theorem about our emit engine's linear core. **The emit step is a linear
+certificate**: express the invariant in a basis Φ, mean-subtract each orbit (killing the additive
+constant), stack diverse orbits, SVD, and accept a right-singular vector whose singular value rides at
+the floor. The theorem: under a rank guard (Φ full column rank) and an invariant-separating orbit set,
+**emit succeeds ⟺ a nonconstant I ∈ span(Φ) is conserved.** The forward direction is exact and
+unconditional (a representable invariant makes every mean-subtracted row exactly γ−γ=0, so it is
+*always* emitted — no false negatives), proven symbolically. The reverse holds under the guards, and
+the obstruction map is explicit: **O1** a hidden basis identity (caught by the rank guard — the real
+u⁴/ω false-zero), **O2** finite-data aliasing from too few orbits (caught by orbit diversity collapsing
+the null space to the true invariants), **O3** a measure-zero coincidence (probability zero under
+generic sampling). Worked cases reproduce both round-8 adversaries: a harmonic oscillator is legible
+(polynomial invariant present, σ_min/σ_max = 4e-16), a pendulum H = ½p²−cos x−cos y is **illegible in a
+polynomial basis** (its invariant is transcendental) — and **flips to legible the instant cos is added
+to the basis** (σ_min/σ_max: 8.8e-3 → 2.8e-12). The same system, opposite legibility, purely from the
+probe: legibility is basis-relative, which is the whole content of the corrected law.
+**Prior art, swept and respected:** this is the Sparse-Invariant / SID null-space-of-a-data-matrix
+result ([Liu–Madhavan–Tegmark](https://research.iaifi.org/posts/discovering-new-interpretable-conservation-laws-as-sparse-invariants/);
+[Kaiser–Kutz–Brunton](https://arxiv.org/pdf/1811.00961)). **We claim no novelty** — the contribution is
+the exact three-valued statement matched to our thresholds, the obstruction map, and the two
+adversaries as worked cases; the novelty question is deferred to the quantum session's sweep. Two
+threshold-calibration bugs the tests caught (σ_min-vs-σ_next rejected the harmonic's correct
+machine-zero because its null space is multi-dimensional; leapfrog drift on the nonlinear pendulum
+faked "not in span") were fixed to a relative floor and a 4th-order symplectic integrator — the exact
+conditioning/noise-floor guards T1 asks to state. Repro: `scripts/123_emit_theorem.py`.
