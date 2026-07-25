@@ -289,7 +289,13 @@ thread again).
 | 04 | **Campaign** ([04_campaign.py](scripts/04_campaign.py)): six rungs across the ladder, including two aimed deliberately outside the catalog to exercise the CANDIDATE_NEW pathway. Kept as the frozen *memoryless* regression — the time capsule of first discovery. Results in [RESULTS.md](RESULTS.md). | ✅ |
 | 05 | **Catalog auto-growth** ([05_generalize.py](scripts/05_generalize.py)) — the machine's memory. A confirmed find gets its constants tested one by one against the full symbolic verifier: free ones are "hair" (mass), fixed ones are law (the Λ coefficient). The resulting family is proved as a theorem and persisted to `catalog_discoveries.json`; the machine never rediscovers it again. | ✅ |
 | 06 | **Two-function hall** ([06_two_function.py](scripts/06_two_function.py)): ansatz −f(r)dt² + dr²/h(r) + r²dΩ² with independent genomes for f and h. Birkhoff's theorem says this hall holds nothing beyond the knowns — making it a pure honesty stress test, **passed with zero false novelty**: every hit classified as known/grown, every gauge check came out f/h = constant. | ✅ |
-| 07 | Genuinely unmined territory next: stationary/off-diagonal rational forms (the Kerr lesson), modified-gravity field equations (EdGB genre), maybe an LLM proposer if GP plateaus. | ⬜ next |
+| 07 | **Stationary hall + closed-form REDUCE** ([08](scripts/08_stationary.py), [21–22](scripts/21_rot_fingerprint.py), [44](scripts/44_discover_rotating.py)): off-diagonal g_tφ hunt rediscovers Kerr + Kerr-Newman blind. The modified-gravity EdGB black hole (known only numerically since 1996) gets a compact closed-form fit — **0.2751%** static / **0.1730%** rotating, both on a *sealed* holdout, fewer constants than the published Konoplya–Zhidenko genre. | ✅ |
+| 08 | **Matter, thermodynamics, no-hair** ([26–38](scripts/26_information_meter.py)): Reissner–Nordström discovered from a Maxwell source (not hand-derived), no-hair **proven** as a structural theorem for any n, Λ (not just observed on one metric), S = A/4 + the first law recovered, energy-conditions/cosmology/exotic-spacetime classifiers. | ✅ |
+| 09 | **General analyzer + observational campaign** ([40–96](scripts/40_analyzer.py)): one tool eats *any* metric → a report card (horizon, thermodynamics, causal structure, energy conditions); a 21-lens cross-validation bridge to sibling projects; shadow/lensing/QNM/tidal observables; a horizon-independent black-hole-vs-mimicker discriminator (two-light-ring test). | ✅ |
+| 10 | **Exact bumpy black holes + chaos as a LISA signature** ([97–110](scripts/97_zipoy_voorhees_integrability.py)): exact quadrupole-deformed vacua (Zipoy–Voorhees, Manko–Novikov) exhibit genuine chaos — Poincaré sections, Lyapunov exponents, box-dimension, and a native frequency-drift detector all agree; a resonance "devil's staircase" is a concrete, non-Kerr gravitational-wave signature. | ✅ |
+| 11 | **Higher-dimensional theorems + thermodynamic gravity** ([111–115](scripts/111_kaluza_klein.py)): 5D/6D Kaluza–Klein reduction **proven** as a theorem (the dilaton is required — a planted "drop it" trap is caught, not missed), the twisted-fibre modulus identified as an axion; Jacobson's 1995 Clausius-to-Einstein derivation machine-verified. | ✅ |
+| 12 | **Cartan–Karlhede + the emit-legibility theorem** ([116–123](scripts/ck.py)): the first Python/SymPy equivalence-problem solver, closing the fingerprint's declared VSI blind spot (§5 above); a linear-probe "does a conserved invariant exist in this basis" criterion proven exact, with its false-positive failure mode characterized and guarded. | ✅ |
+| 13 | Open: CK types II/III + the null-rotation isotropy; the Kerr expression-swell wall (order-2 CK walls on Kerr — the simplifier, not the algorithm, per §4). Rotating EdGB as a full 2D PDE stays parked (prior art exists). | ⬜ next |
 
 Environment: `.venv` (Python ≥3.12, SymPy 1.14). Run everything: `./verify.sh`
 
@@ -323,12 +329,23 @@ Environment: `.venv` (Python ≥3.12, SymPy 1.14). Run everything: `./verify.sh`
 
 ## What's next
 
-Lives in [docs/ROADMAP.md](docs/ROADMAP.md), ranked. Headlines: the stationary
-hall (off-diagonal g_tφ in rational coordinates — rotating BTZ first, the
-Kerr-shaped mansion later), the modified-gravity REDUCE (the EdGB black hole,
-known only numerically since 1996, via the closed-form-fit genre), and the
-missing-from-the-world Python Cartan–Karlhede (SHIPPED, §116–§118: types D/I/N +
-Segre matter sector, the §02 blind spot closed). Two early open threads were
-answered by the machine itself: the 2+1 rung's permanent blind spot IS the
-"no local degrees of freedom in 3D" lesson, and catalog growth went from
-open thread to shipped feature (05/07).
+Full detail in [docs/ROADMAP.md](docs/ROADMAP.md) and [docs/JOURNAL.md](docs/JOURNAL.md)
+(dated, as-it-happened). Genuinely open right now: Cartan–Karlhede types II/III and
+the order-1 null-rotation isotropy (§116–§123 cover D/I/N only); the Kerr
+expression-swell wall that stops full-order-2 CK from completing on a rotating
+metric (measured, not guessed — the wall is the simplifier, per §4, not the
+algorithm); rotating EdGB as a full 2D PDE (parked — prior art exists). Two early
+open threads were answered by the machine itself: the 2+1 rung's permanent blind
+spot IS the "no local degrees of freedom in 3D" lesson, and catalog growth went
+from open thread to shipped feature (05/07).
+
+**A second mode of work since §111:** cross-validating with sibling projects — a
+neural network that learns geometry from raw observations
+([tabula-geometrica](https://github.com/sumit7194/tabula-geometrica)), real-LIGO
+searches ([DeepStrain](https://github.com/sumit7194/deepstrain)), a quantum-
+foundations lab ([vestigium](https://github.com/sumit7194/vestigium)) — via a
+shared falsification ledger ([trivium](https://github.com/sumit7194/trivium)).
+This repo supplies the exact, proof-backed answers the others check their
+inferred/measured/simulated ones against; §111–§123 (Kaluza–Klein, Jacobson,
+Cartan–Karlhede, the emit-legibility theorem) all originated as asks from that
+collaboration.
