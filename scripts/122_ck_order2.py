@@ -21,10 +21,41 @@ TWO PUBLISHED RESULTS ARE USED AS GROUND TRUTH (this battery is not self-graded)
       (root at r = 2 for M = 1, at r = 4 for M = 2), which is a sharp test: a sign or factor
       error in the second derivative would move the root.
 
-  (2) COLLINS, d'INVERNO & VICKERS, Class. Quantum Grav. 7 (1990) 2005, "The Karlhede
+  (2) COLLINS, d'INVERNO & VICKERS, Class. Quantum Grav. 7 (1990) 2005-2015, "The Karlhede
       classification of type D vacuum spacetimes": the bound on the order of differentiation
-      needed for type D VACUUM is reduced from the general 7 to TWO. G6 is exactly this
-      theorem, and this battery machine-checks it on our catalog rather than citing it.
+      needed for type D VACUUM is reduced below Karlhede's general counting bound. G6 is
+      exactly this theorem, and this battery machine-checks it on our catalog rather than
+      citing it.
+
+      *** COUNTING CONVENTION -- STATE WHICH NUMBER YOU MEAN ***
+      The bridge's A3 audit found secondary sources quoting THREE for type D vacuum where we
+      say TWO. Both are right; they count different things. Resolved from primary sources we
+      actually read (not from memory):
+
+        * Karlhede's counting argument is q <= dim G0 + n + 1. For type D, dim G0 = 2
+          (boost+spin) and n = 4, giving q <= 7 -- the "theory allows 7" we contrast against.
+          That +1 is the FINAL CONFIRMING iteration, so q counts ITERATIONS (steps), and
+          iteration 0 (the undifferentiated Weyl spinor) is one of them.
+        * McNutt, Coley et al., "Cartan Invariants and Event Horizon Detection"
+          (arXiv:1709.03362), sec. 4, works KERR -- a type D vacuum -- explicitly:
+          "the second iteration ... begins by computing the SECOND covariant derivative of the
+          Weyl spinor ... No functionally independent invariants appear ... Thus t1 = t2 = 2
+          and dim(H1) = dim(H2) = 0; the Cartan-Karlhede algorithm TERMINATES AFTER THE SECOND
+          ITERATION, in agreement with Aman (1984)."
+          Highest derivative computed = 2. Iterations performed = 3 (orders 0, 1, 2).
+
+      So: THREE = number of iterations including order 0 and the confirming step.
+          TWO   = highest covariant-derivative order actually computed.
+      OUR ck_order is the SECOND convention -- the highest derivative order reached before
+      (t, isotropy) stopped moving (see ck.py, where ck_order = 2 iff (t2,iso2) == (t1,iso1)).
+      Our measurement and the "3" in the literature are the SAME FACT stated two ways.
+
+      NOT SETTLED HERE: CdV 1990's own number in its own convention -- the paper is paywalled
+      and we did not read it. What we verified is the reference itself (correct), and the
+      independently reproduced Kerr worked example above. Note also that the widely quoted
+      "q <= 6 for type D" is NOT this paper: it is Collins & d'Inverno, Class. Quantum Grav.
+      10 (1993) 343-51, the type-D NON-VACUUM case (ref [5] of arXiv:0710.0688). Vacuum and
+      non-vacuum bounds are different results and are easy to conflate.
 
 TERMINATION IS KARLHEDE'S CRITERION, BOTH HALVES. Stop at the first order where neither the
 number of functionally independent invariants NOR the isotropy dimension changed. Counting
