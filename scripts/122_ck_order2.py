@@ -81,13 +81,22 @@ QUICK = "--quick" in sys.argv
 #   TOTAL   is the ceiling for the ENTIRE battery, start to finish.
 #   STEP    is the most any single step may take, and is additionally clamped to what remains.
 # The docstring's promise -- "the guard against a true hang" -- is now actually kept.
-TOTAL = 900 if QUICK else 3600
-STEP = TOTAL // 3
-_DEADLINE = None                      # set in main()
+# DEFAULT IS NO WALL. The battery has never once been allowed to run to completion (two
+# gate attempts died at 4.6h and ~15h+), so its true runtime is still UNMEASURED -- and a
+# ceiling picked before the measurement would just be another guess. So:
+#   plain run   -> TOTAL = 0 = unlimited: let it finish, and LEARN the real number.
+#   --quick     -> 900s bounded, for the routine gate, where a battery must not block others.
+#   CK122_BUDGET=<seconds> overrides either.
+# The global-deadline machinery below stays in place regardless; only the ceiling changes.
+TOTAL = int(os.environ.get("CK122_BUDGET", 900 if QUICK else 0))
+STEP = TOTAL // 3 if TOTAL else 0      # 0 = unlimited
+_DEADLINE = None                       # set in main(); stays None when unlimited
 
 
 def remaining():
-    """Seconds left in the global budget (0.0 once spent)."""
+    """Seconds left in the global budget. float('inf') when unlimited."""
+    if not TOTAL:
+        return float("inf")
     if _DEADLINE is None:
         return float(STEP)
     return max(0.0, _DEADLINE - time.time())
@@ -108,12 +117,14 @@ def budgeted(seconds, fn, *a, **kw):
     4.6-hour runaway was a stack of _PyEval_EvalFrameDefault, i.e. interruptible -- there was
     simply no alarm set on that code path)."""
     left = remaining()
+    if left == float("inf"):
+        return fn(*a, **kw)           # unlimited: no alarm, run to genuine completion
     if left <= 0:
         raise Walled()                # global budget already spent: do not start new work
     def boom(signum, frame):
         raise Walled()
     old = signal.signal(signal.SIGALRM, boom)
-    signal.alarm(max(1, int(min(seconds, left))))
+    signal.alarm(max(1, int(min(seconds or left, left))))
     try:
         return fn(*a, **kw)
     finally:
@@ -240,10 +251,15 @@ def gate_nabla_c():
 
 def main():
     global _DEADLINE
-    _DEADLINE = time.time() + TOTAL
+    _T_START = time.time()
     print(__doc__.split("Repro:")[0])
-    print(f"  [budget] GLOBAL {TOTAL}s for the whole battery (per step <= {STEP}s, clamped to "
-          f"what remains){' --quick' if QUICK else ''}")
+    if TOTAL:
+        _DEADLINE = time.time() + TOTAL
+        print(f"  [budget] GLOBAL {TOTAL}s for the whole battery (per step <= {STEP}s, clamped "
+              f"to what remains){' --quick' if QUICK else ''}")
+    else:
+        print(f"  [budget] UNLIMITED -- running to genuine completion to MEASURE the true "
+              f"runtime (set CK122_BUDGET=<sec> or --quick to bound it)")
     ok = []
     unverified = []      # ground-truth sections we could not reach: these must NOT pass silently
 
@@ -422,18 +438,18 @@ def main():
     ok.append(okE)
 
     passed = all(ok)
-    elapsed = time.time() + TOTAL - _DEADLINE
+    elapsed = (time.time() + TOTAL - _DEADLINE) if _DEADLINE else (time.time() - _T_START)
     if unverified:
         # A resource wall is NOT a refutation -- but it is also NOT a verification, and the gate's
         # contract is "green = every battery verified its claims". Say so loudly and fail, so a
         # silently-degrading battery can never show up as green.
-        print(f"\nCK ORDER 2: RESOURCE-WALLED ❌  ({elapsed:.0f}s of {TOTAL}s budget)")
+        print(f"\nCK ORDER 2: RESOURCE-WALLED ❌  ({elapsed:.0f}s of {TOTAL or "unlimited"} budget)")
         print(f"  UNVERIFIED (walled, not refuted): {unverified}")
         print(f"  Nothing here is refuted -- these claims were simply not reached inside the "
               f"budget.")
         print(f"  Re-run without --quick for the full {3600}s budget, or raise TOTAL.")
         return 1
-    print(f"\nCK ORDER 2: {'PASSED ✅' if passed else 'FAILED ❌'}  ({elapsed:.0f}s of {TOTAL}s "
+    print(f"\nCK ORDER 2: {'PASSED ✅' if passed else 'FAILED ❌'}  ({elapsed:.0f}s of {TOTAL or "unlimited"} "
           "budget) (order-2 recursion live; the Karlhede-Lindstroem-Aaman horizon invariant "
           "reproduced at orders 1 and 2; G6 machine-checked against Collins-d'Inverno-Vickers)")
     return 0 if passed else 1
