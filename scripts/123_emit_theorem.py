@@ -10,14 +10,51 @@ Liouville integrability. The corrected empirical claim:
 
 The ask: promote that empirical boundary to a THEOREM about our emit engine's linear core.
 
-PRIOR ART (own sweep, mandatory; novelty deferred to the quantum session's GitHub/PyPI/arXiv
-sweep as instructed -- we CLAIM NONE here): the fact "a conserved quantity expressed in a basis is
-a null vector of the trajectory design matrix" is the foundation of the Sparse-Invariant / SID
-method -- Liu, Madhavan & Tegmark (sparse conservation laws), Kaiser, Kutz & Brunton
-(arXiv:1811.00961), and the SVD-null-space conserved-quantity literature. What is ours here is
-(a) the EXACT, three-valued statement matched to how our engine actually thresholds, and (b) the
-extracted obstruction map with the two round-8 adversaries as worked cases. Not a new theorem --
-a proof that our instrument's boundary IS this known boundary.
+PRIOR ART -- THIS RESULT IS PUBLISHED. WE CLAIM NO NOVELTY. The precise citation (verified in
+the full text, not the abstract):
+
+  OELLERICH & EMELIANENKO, "Towards Robust Data-Driven Automated Recovery of Symbolic
+  Conservation Laws from Limited Data", arXiv:2403.04889 / Mach. Learn.: Sci. Technol. (2024).
+  Same instrument -- candidate library -> design matrix -> SVD -> near-null singular value --
+  and the failure condition is stated as an explicit TRICHOTOMY whose FIRST BRANCH IS THIS
+  THEOREM: when no zero singular value is found, either
+      (1) "the starting library does not contain the appropriate terms"   <- our (T2)
+      (2) "inadequate data due to noise or amount"                        <- our O2
+      (3) "the system does not contain a conservation law".
+  They are also SHARPER than us in two places we should own rather than paper over:
+      * their cutoff is NOISE-CALIBRATED -- Cor. 4.2 gives sigma_cutoff = sqrt(Np)*||eps||^(2/3),
+        derived from a perturbation bound. Our TAU_REL below is a hand-set round number chosen to
+        sit under the observed floor. Theirs dominates ours on the merits.
+      * Thm 4.2 gives a spectral-gap criterion for library adequacy, sigma_r^2 >= C_gap(sqrt(Np)+N).
+
+  RAY, "From Data to Laws: Neural Discovery of Conservation Laws Without False Positives",
+  arXiv:2603.20474 (Mar 2026): log-basis Lasso + constancy gate + diversity filter. ADJACENT to
+  O4, not covering it -- it targets false positives on chaotic systems generally, and its
+  FDR=0.0 / F1=1.0 is reported on the FOUR benchmark systems that have true conservation laws,
+  not across all nine.
+
+WHY O4 SURVIVES THE SHARPER CUTOFF (measured independently by the bridge, their leg R7): applying
+Oellerich's noise-calibrated cutoff to our degree-6 pendulum case does NOT reject it -- the false
+positive passes by 28x, because O4's residual sits ~5 orders of magnitude ABOVE the noise floor.
+O4 is therefore NOT a noise phenomenon and no noise-calibrated threshold can see it. It is an
+APPROXIMATION phenomenon, and the approximation-vs-representation distinction is invisible
+in-sample BY CONSTRUCTION. That is the honest standing of O4: a real, sharply characterised
+failure mode the literature brushes past rather than solves -- a line in a methods section, not
+a paper.
+
+WHERE IT DOES BECOME DECIDABLE (the forward pointer, not claimed here): drop trajectory data
+entirely and impose {I, H} = 0 -- a LINEAR condition on the coefficients c_k computable from the
+GENERATOR alone. No data, no noise, no threshold; "is there an invariant in span(Phi)" becomes
+"is an exactly-computable symbolic nullspace nontrivial". An approximation can fit bounded data
+but cannot satisfy an identity, so O4 dissolves rather than being guarded against. NOTE: exact
+Killing-tensor computation is itself completely standard (we already do it in §98 and §121), so
+that route needs its own prior-art sweep before any novelty claim; the candidate contribution is
+the BRIDGE between the data-driven and generator-based criteria -- the statement that one is
+decidable and the other only ever statistical -- plus the O4 demonstration, NOT the computation.
+
+WHAT IS OURS HERE, then: (a) the three-valued statement matched to how our engine actually
+thresholds, and (b) the extracted obstruction map with the two round-8 adversaries as worked
+cases. Not a new theorem -- a proof that our instrument's boundary IS this known boundary.
 
 ------------------------------------------------------------------------------------------------
 T1 -- THE EMIT CRITERION, as implemented (cf. scripts/_qinvariant.py).
@@ -334,7 +371,9 @@ def main():
           f"({sum(ok)}/{len(ok)}) -- forward direction proven exact; legible <=> invariant in "
           "span(Phi) with the round-8 adversaries reproduced; O1/O2 obstructions guarded; O4 "
           "(smooth-approximation false-positive, bridge cross-gate) guarded out-of-sample. "
-          "Prior art: SID / Kaiser-Kutz-Brunton; no novelty claimed.")
+          "PRIOR ART: Oellerich & Emelianenko arXiv:2403.04889 -- their failure trichotomy's "
+          "first branch IS this theorem, and their noise-calibrated cutoff dominates our tau. "
+          "NO NOVELTY CLAIMED.")
     return 0 if passed else 1
 
 
