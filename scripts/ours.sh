@@ -25,13 +25,34 @@ ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 LEDGER="$ROOT/data/our_pids.txt"
 mkdir -p "$ROOT/data"; touch "$LEDGER"
 
+# Boot generation: PIDs are only meaningful within one boot. After a reboot PID 1186 may
+# belong to a stranger -- observed for real: a post-reboot boot-storm process briefly occupied
+# a tracked PID and the ledger reported it [LIVE]. Entries are stamped with the boot time and
+# any entry from an earlier boot is STALE, never "ours".
+_boot()    { sysctl -n kern.boottime 2>/dev/null | sed 's/.*sec = \([0-9]*\).*/\1/'; }
 _cwd_of()  { lsof -a -p "$1" -d cwd -Fn 2>/dev/null | grep '^n' | head -1 | cut -c2-; }
 _cmd_of()  { ps -o command= -p "$1" 2>/dev/null | head -1; }
 _ppid_of() { ps -o ppid= -p "$1" 2>/dev/null | tr -d ' '; }
 _etime_of(){ ps -o etime= -p "$1" 2>/dev/null | tr -d ' '; }
 _alive()   { ps -p "$1" >/dev/null 2>&1; }
 
-_tracked() { awk 'NF{print $1}' "$LEDGER" 2>/dev/null; }
+# Only entries from the CURRENT boot may be treated as ours.
+_tracked() {
+  local b; b="$(_boot)"
+  awk -v boot="$b" 'NF{
+        e=""; for(i=1;i<=NF;i++) if ($i ~ /^boot=/) { e=substr($i,6) }
+        if (e=="" || e==boot) print $1
+      }' "$LEDGER" 2>/dev/null
+}
+
+# entries written before the current boot (their PIDs may now belong to anyone)
+_is_stale() {
+  local b; b="$(_boot)"
+  awk -v pid="$1" -v boot="$b" 'NF && $1==pid {
+        e=""; for(i=1;i<=NF;i++) if ($i ~ /^boot=/) { e=substr($i,6) }
+        if (e!="" && e!=boot) { print "stale"; exit }
+      }' "$LEDGER" 2>/dev/null
+}
 
 # Walk ancestry toward PID 1; echo the first tracked ancestor found (including self).
 _tracked_ancestor() {
@@ -100,7 +121,7 @@ case "$cmd" in
       "$ROOT"*) ;;
       *) echo "WARNING: pid $pid cwd is '${cwd:-<unreadable>}', outside $ROOT." ;;
     esac
-    echo "$pid $label started=$(date +%Y-%m-%dT%H:%M:%S) cwd=${cwd:-?}" >> "$LEDGER"
+    echo "$pid $label started=$(date +%Y-%m-%dT%H:%M:%S) boot=$(_boot) cwd=${cwd:-?}" >> "$LEDGER"
     echo "tracked: $pid ($label)"
     ;;
 
@@ -117,6 +138,8 @@ case "$cmd" in
         for d in $(_descendants "$pid"); do
           printf "     └─ %s  %s  %s\n" "$d" "$(_etime_of "$d")" "$(_cmd_of "$d" | cut -c1-88)"
         done
+      elif [ -n "$(_is_stale "$pid")" ]; then
+        printf "  [STALE - previous boot, PID may now belong to anyone] %s  %s\n" "$pid" "$label"
       else
         printf "  [dead] %s  %s\n" "$pid" "$label"
       fi
@@ -134,6 +157,13 @@ case "$cmd" in
     fi
     cwd="$(_cwd_of "$pid")"
     anc="$(_tracked_ancestor "$pid")"
+    if [ -n "$(_is_stale "$pid")" ]; then
+      echo "pid $pid"
+      echo "  VERDICT : STALE LEDGER ENTRY (written before the current boot)."
+      echo "            This PID was ours in a PREVIOUS boot; it may now belong to any"
+      echo "            process. DO NOT TOUCH. Run 'ours.sh prune' to clear it."
+      exit 0
+    fi
     echo "pid $pid"
     echo "  command : $(_cmd_of "$pid" | cut -c1-120)"
     echo "  cwd     : ${cwd:-<unreadable>}"
