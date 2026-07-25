@@ -204,10 +204,79 @@ DOMAINS = {
 }
 
 
+# ------------------------------------------------------------------ progress + resume
+# This battery has repeatedly run for HOURS and been killed (4.6h by a gate, 6h+ by an overnight
+# shutdown), losing every completed signature each time. Two fixes, both cheap:
+#   1. a DURABLE progress log, fsync'd per line, so the run can be watched live
+#      (tail -f data/s122_progress.log) and so a kill leaves evidence of how far it got;
+#   2. a SIGNATURE CACHE on disk, so a restart resumes instead of recomputing. The expensive
+#      artifacts are exactly the per-metric order-2 signatures, and they are pure functions of
+#      (metric, code), so caching them is safe.
+# CACHE INVALIDATION IS PART OF CORRECTNESS: the key includes a hash of ck.py AND of this file,
+# so any change to the algorithm or the metric definitions invalidates every entry. Resuming onto
+# stale results after a bug fix would be exactly the kind of silent wrongness the gate exists to
+# prevent.
+PROGRESS = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "data",
+                        "s122_progress.log")
+CACHE_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "data", "s122_cache")
+_T0 = time.time()
+
+
+def _code_fingerprint():
+    import hashlib
+    h = hashlib.sha256()
+    for f in ("ck.py", "122_ck_order2.py"):
+        fp = os.path.join(os.path.dirname(os.path.abspath(__file__)), f)
+        with open(fp, "rb") as fh:
+            h.update(fh.read())
+    return h.hexdigest()[:16]
+
+
+def progress(msg):
+    """Print AND append to a durable, fsync'd log so a killed run leaves a trail."""
+    line = f"[{time.time()-_T0:8.1f}s] {msg}"
+    print(line, flush=True)
+    try:
+        os.makedirs(os.path.dirname(PROGRESS), exist_ok=True)
+        with open(PROGRESS, "a") as fh:
+            fh.write(line + "\n")
+            fh.flush()
+            os.fsync(fh.fileno())
+    except Exception:
+        pass                      # never let logging break the battery
+
+
 def signature(name, builder, order2=True):
+    """Compute a CK signature, resuming from the on-disk cache when the code is unchanged."""
+    import pickle
+    fp = _code_fingerprint()
+    slug = "".join(c if c.isalnum() else "_" for c in name)
+    path = os.path.join(CACHE_DIR, f"{slug}__o{int(order2)}__{fp}.pkl")
+    if os.path.exists(path):
+        try:
+            with open(path, "rb") as fh:
+                s = pickle.load(fh)
+            progress(f"  RESUMED {name} from cache (code fingerprint {fp})")
+            return s
+        except Exception as e:
+            progress(f"  cache unreadable for {name} ({type(e).__name__}); recomputing")
+    progress(f"  computing signature: {name} (order2={order2}) ...")
+    t0 = time.time()
     geo, tet = builder()
     ck.set_domain(*DOMAINS[name])
-    return ck.ck_signature(geo, name, tet=tet, order2=order2)
+    s = ck.ck_signature(geo, name, tet=tet, order2=order2)
+    progress(f"  DONE {name} in {time.time()-t0:.0f}s -> cached")
+    try:
+        os.makedirs(CACHE_DIR, exist_ok=True)
+        tmp = path + ".tmp"
+        with open(tmp, "wb") as fh:
+            pickle.dump(s, fh)
+            fh.flush()
+            os.fsync(fh.fileno())
+        os.replace(tmp, path)          # atomic: never a half-written cache entry
+    except Exception as e:
+        progress(f"  (could not cache {name}: {type(e).__name__})")
+    return s
 
 
 # ------------------------------------------------------------------ (A) gate the nabla-C rewrite

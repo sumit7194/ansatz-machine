@@ -6,3 +6,5 @@ __pycache__/
 runs/
 data/our_pids.txt
 data/*.log
+data/s122_cache/
+data/s122_progress.log
