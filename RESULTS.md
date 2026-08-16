@@ -1003,7 +1003,26 @@ integrator is correct and Kerr is integrable. **(B)** λ(Kerr)≈0.009 ≈ 0 —
 (proven §78) forbids chaos. **(C)** λ(Majumdar–Papapetrou di-hole — two holes, no Carter-like symmetry)≈2.09
 — CHAOTIC, ~222× Kerr. **(D)** integrability ⟺ a hidden symmetry (§78) ⟺ λ≈0: the chaos lens *measures* what
 the Killing-tensor proof *certifies*. Honest: largest-Lyapunov two-orbit estimate (not SALI); the di-hole
-orbit dips near a center so its λ is large but unambiguously >0. Repro: `scripts/79_geodesic_chaos.py`.
+orbit dips near a center so its λ is large but unambiguously >0.
+**(E) THE λ(T) DISCRIMINATOR — and the like-for-like correction it forced.** A sister project (tabula)
+certified *integrable* Kerr as chaotic on λ = +0.019, because finite-time bias goes as **ln(T)/T** and was
+the same order as their claimed signal; their fix was a better *discriminator* rather than a better threshold
+— sweep T and ask whether λ **decays** like ln(T)/T (bias ⇒ regular) or **plateaus** (chaos). Run against
+ours, the first table looked textbook — Kerr halving per doubling, di-hole at **1.7850 for every T**. *Identical
+to four decimals across an 8× range in T is too clean.* Instrumenting the **actual** integrated time: the
+di-hole orbit falls into a non-physical region and **stops at T = 21.0 (34 blocks) in every run** — all four
+were the same computation, and the "perfect plateau" was nothing varying. **A plateau is only evidence if
+something was varied**; an early-terminating computation produces one for free and it is indistinguishable
+from genuine stability. That exposed the real defect: **(B) and (C) were never measured over the same
+interval** — Kerr to T=400 (bias 0.015), di-hole dead at T=21 (bias 0.145), an order of magnitude apart, and
+the headline ratio compared them directly. Shipped **1.7850 vs 0.0066 → 190×** (flattered); matched
+**1.7850 vs 0.1442 at T≈20 → 12.4×** (honest). **And at matched T, Kerr itself reads λ = 0.144 — which would
+fail (B)'s own |λ| < 0.05 gate:** (B) passed because Kerr is integrated **19× longer**, so the gate's comfort
+came from the mismatch rather than the physics. Verdict unchanged and now gated on facts that survive the
+sweep — Kerr's λ halves as T doubles (0.0094 → 0.0047, decay not plateau), the di-hole is **12.3× above its
+own bias** at its own T and **12.4× above Kerr at matched T**. §79 4/4 → **5/5**. *Second rule recorded: two
+controls compared against each other must be measured under the same conditions, or the comparison measures
+the difference in conditions.* Repro: `scripts/79_geodesic_chaos.py`.
 
 ## §80 — Petrov type of Kerr (numeric): completing the lens off-diagonal
 *ROADMAP §v8 (minor).* §57 returned UNKNOWN for Kerr — its symbolic Weyl tensor swamps (the §48/§57 limit;
