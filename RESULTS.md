@@ -1093,9 +1093,25 @@ a²(1−E²)=0.035) to the digit. **(C) Deformed Kerr (§82 metric):** NO machin
 survives ⇒ the deformed metric is NON-integrable.* **(D) Synthesis:** the fit recovers Carter for Kerr (11
 orders below the deformed) and finds none for the deformed metric — genuine discrimination, not artifact. With
 §84 (regular Poincaré tori): **the deformation breaks integrability but KAM-gently — near-integrable, no hidden
-symmetry.** This resolves §82's "undetermined" and refutes "a different Killing tensor survives." *Honest
-caveat: "no conserved QUADRATIC in a Carter-rich basis" — a higher-order (quartic) Killing tensor isn't
-excluded, but no quadratic Carter exists.* Two false positives were caught getting here (the §82 "a²ε scaling"
+symmetry.** This resolves §82's "undetermined" and refutes "a different Killing tensor survives." **(E) The band test — is (B) a fact about the spacetime, or only about a slice of it?**
+tabula (SpaceTime/curvature) reported that an ensemble varying a conserved quantity over a NARROW band makes
+its powers near-parallel and silently UNDER-COUNTS, so a broken rung reads as a clean one. Ours is the extreme
+case: (B)/(C) hold E and L **fixed** and vary only inclination — band width **zero** in two of three conserved
+directions. Widening it made the Kerr gate **fail** (Carter no longer found), which looked exactly like their
+bug. Two hypotheses fit, with opposite predictions, so it was tested rather than reported: **H1** solver
+under-count vs **H2** basis adequacy. Carter is p_θ²+L²cot²θ+a²(1−E²)cos²θ, and our columns u²/om and u²
+carried **constant** coefficients — right on a fixed-(E,L) slice, structurally unable to represent Q off it.
+Adding the two E,L-dependent columns recovers Carter on the wide ensemble at smallest SV **1.4e-10**, gap
+6.5e7, recovered **a² = 0.360 against the true 0.36**. **H2, decisively:** the solver was right and the basis
+was slice-specific — *"not in the span" was a fact about the basis, never about the spacetime.* The twin lesson,
+worth as much as theirs: **a zero-width band can make a basis look ADEQUATE when it is only slice-adequate** —
+their band hid a near-degeneracy, ours hid a representation deficiency, same cause (the ensemble never
+exercised the direction the guard was meant to test). Section (E) reruns the whole test on a strictly harder
+ensemble (E, L **and** inclination varied): control recovers Carter with the right a², deformed stays empty at
+ε = 2, 5, 10 (8.8e-3, 1.2e-2, 3.9e-2). §85 4/4 → **5/5**. *Scope, now stated rather than assumed: "no conserved
+quadratic in a Carter-ADEQUATE basis across an ensemble varying E, L and inclination" — not "on one (E,L)
+slice". Honest caveat unchanged otherwise: a higher-order (quartic) Killing tensor isn't excluded, but no
+quadratic Carter exists.* Two false positives were caught getting here (the §82 "a²ε scaling"
 and this basis identity) — the stress-test discipline earning its keep. Optional dep numpy (SVD; skips like
 §77's qnm). Repro: `scripts/85_no_carter_under_deformation.py`.
 
