@@ -2876,3 +2876,41 @@ and standalone, banked now because this repo has lost multi-hour runs to shutdow
   divergence, worth recording: the artifact's severity scales as (ensemble variability)/(effect
   size) -- ours was 10-18 orbits against a ~5x effect, theirs 174-341 against a ~20x effect.
   §85 5/5 -> 6/6 (new section C2).
+
+## 2026-08-16 -- P0 PHASE 1 COMPLETE: the Kerr order-2 profile, measured end to end
+- KERR a=1/2, FULL ORDER-2 SIGNATURE: 3,501.2 s = 58.4 MIN. First time this has ever completed.
+  Baseline: three prior attempts, longest 6h11m with ZERO of Kerr's 16 components finished.
+- DELIVERABLE MET (>=80% of wall-clock attributed to named stages) -- and it is ONE stage:
+      cartan_order2 (nabla-nabla-C + frame)  3302.33 s   94.3%   output 849 ops
+      isotropy_invariants order 1              76.88 s    2.2%
+      cartan_order1 (frame components)         71.80 s    2.1%
+      everything else                          ~50   s    1.4%
+- THE REPRESENTATION COMPARISON (component COUNTS identical between the two metrics; only
+  expression SIZE differs, so a large ratio is swell not bulk). Kerr/Schwarzschild:
+      isotropy_invariants order 1   5722x   <- LARGEST RATIO IN THE TABLE, and where the 3.6 GB
+                                               peak RSS lives. Next target after cartan_order2.
+      canonical_frame                323x
+      covariant_derivative_weyl      260x
+      functional_rank order 2        235x
+      cartan_order1                  227x
+      weight_invariants order 2      117x
+      cartan_order2                  102x   (35.4x in ops)
+      TOTAL                          103x   (34.1 s -> 3501.2 s)
+- MY OWN PROJECTION WAS WRONG, in the optimistic direction for once: from 9 of 16 components I
+  told the coordinator 66-72 min. Actual 58.4. The remaining components were CHEAP (28.7, 55.5,
+  36.9, 37.1 s) because they fall below the size gate -- the per-component spread is 15 s to 528 s,
+  a 35x bimodality, and I extrapolated from a window that happened to contain the expensive ones.
+  EXTRAPOLATING A BIMODAL COST FROM A PREFIX IS NOT A PROJECTION. Corrected to them.
+- THE GATE STILL MISSES, and the margin is now razor-thin rather than comfortable. The frozen bar
+  is the WHOLE CATALOG under 60 min: Kerr alone is 58.4, the four static entries add ~1.7 min
+  (32 + 32 + 37 s measured, unchanged by the size gate since they sit below it), so the catalog is
+  past 60 min BEFORE Taub-NUT is computed at all. Recorded MISSED. Not restating the bar.
+- WHAT PHASE 2 BOUGHT, exactly: cartan_order1 4,187.68 s -> 71.80 s (58x); one order-2 component
+  ~3,000 s -> 462 s; a signature that had never finished -> 58.4 min. The pre-registered NULL --
+  "the wall is not crossable by normalisation; order-2 CK on rotating metrics requires a GHP-style
+  representation change" -- is REFUTED. Normalisation crossed it.
+- STILL UNATTRIBUTED: within cartan_order2, each component makes ~21 contractions at ~3 s under the
+  new route (~63 s), against components costing 462 s. So ~85% of a component's cost is somewhere
+  other than the contraction that was fixed. [UNTESTED HYPOTHESIS] the once-per-component zsimp
+  escalation on the nonzero path; the killing check is to time zsimp separately from the
+  contractions inside one component. Not guessed at further -- Phase 3 measures it.

@@ -1,0 +1,42 @@
+NO CARTER CONSTANT UNDER DEFORMATION — symbolic frontier cracked numerically
+
+  (A) basis independence (smallest SV on random points): 4.54e-02  ✅ no hidden identity
+
+  (B) KERR [10 orbits]: smallest SV=5.64e-14, gap=3.6e+10 → one clean invariant
+      recovered  C ≈ p_θ² + 11.56·cot²θ + 0.035·cos²θ   vs Carter  p_θ² + 11.56·cot²θ + 0.035·cos²θ   ✅ recovers Carter
+
+  (C) DEFORMED Kerr — smallest SV (no machine-zero, no gap):
+        ε= 2 [16 orbits]: smallest SV=3.07e-03, gap=1.2
+        ε= 5 [18 orbits]: smallest SV=5.68e-03, gap=1.6
+        ε=10 [18 orbits]: smallest SV=1.62e-02, gap=2.4
+      no conserved quadratic at any ε ⇒ NON-integrable   ✅
+
+  (C2) MATCHED ARMS — the same 10 orbits at every ε (they survive all four):
+        ε= 0: smallest SV=5.64e-14, gap=35987999813.9  ← control, machine-zero
+        ε= 2: smallest SV=2.19e-03, gap=1.9
+        ε= 5: smallest SV=2.22e-03, gap=5.9
+        ε=10: smallest SV=2.07e-03, gap=6.9
+      the shipped 'obstruction GROWS with ε' (3.1e-3→5.7e-3→1.6e-2) does NOT survive
+      arm-matching — it is FLAT (2.19e-03→2.22e-03→2.07e-03). That trend was
+      ENSEMBLE COMPOSITION (10/16/18/18 survivors), not physics, and (C) used to gate on it.
+      What survives is stronger for being measured on fixed arms: no machine-zero at any
+      ε, ~11 orders above the control, and the GAP does grow.   ✅
+
+  (E) BAND TEST — E,L VARIED across orbits [10 orbits], not just inclination:
+        plain basis (constant coeffs):  smallest SV=9.23e-03 → Carter NOT in span
+        + L²·cot²θ and (1−E²)·cos²θ:    smallest SV=1.42e-10, gap=6.5e+07 → Carter recovered
+        recovered a² coefficient = 0.360  vs  a² = 0.360  ✅
+        deformed, SAME wide ensemble + adequate basis: ε=2: 8.8e-03, ε=5: 1.2e-02, ε=10: 3.9e-02
+      (B) was slice-scoped and is now ensemble-scoped; (C) survives the harder test. ✅
+
+  (D) The fit RECOVERS Carter for Kerr (11 orders below the deformed) and finds NONE for the
+      deformed metric — genuine discrimination, not basis artifact. With §84 (regular tori):
+      the deformation breaks integrability but KAM-gently ⇒ near-integrable, no hidden symmetry.
+      Resolves §82's 'undetermined'; refutes 'a different Killing tensor survives'.
+      Scope, after (E): no conserved quadratic in a Carter-adequate basis across an
+      ensemble that varies E, L AND inclination — not merely on one (E,L) slice.   ✅
+
+NO CARTER UNDER DEFORMATION: PASSED ✅  (Kerr Carter recovered; deformed has no conserved quadratic ⇒ non-integrable but KAM-regular)
+real 384.88
+user 372.71
+sys 3.86

@@ -94,3 +94,69 @@ pid 97054   log /Users/sumit/Github/conjecture_machine/data/p0_stage_profile.log
       . second_frame_component #9     208.45s  (cumulative 2348.4s, rss 3673MB)
       . second_frame_component #10    237.73s  (cumulative 2586.1s, rss 3673MB)
       . second_frame_component #11    291.92s  (cumulative 2878.1s, rss 3673MB)
+      . second_frame_component #12    265.50s  (cumulative 3143.6s, rss 3673MB)
+      . second_frame_component #13     28.70s  (cumulative 3172.3s, rss 3673MB)
+      . second_frame_component #14     55.49s  (cumulative 3227.7s, rss 3673MB)
+      . second_frame_component #15     36.85s  (cumulative 3264.6s, rss 3673MB)
+      . second_frame_component #16     37.06s  (cumulative 3301.7s, rss 3673MB)
+    [Kerr a=1/2] cartan_order2 (nabla-nabla-C + frame)   3302.33s  ops=849       peak_rss=  3673MB  (+0)
+
+  INSIDE THE HOT STAGE -- Kerr a=1/2   (stage took 3302.3s)
+    function (nested, do not sum)         calls    seconds   share    us/call
+    second_frame_component                   16    3301.66  100.0%  206353818
+    frame_component5                        256    3102.39   93.9%   12118729
+    zsimp                                    16     194.37    5.9%   12147967
+    covariant_derivative_vector               4       0.65    0.0%     163246
+    [Kerr a=1/2] weight_invariants order 2               8.73s  ops=1185      peak_rss=  3673MB  (+0)
+    [Kerr a=1/2] functional_rank order 2                18.46s  ops=0         peak_rss=  3673MB  (+0)
+    [Kerr a=1/2] residual_isotropy                       0.00s  ops=0         peak_rss=  3673MB  (+0)
+    -> t0=1 t1=2 t2=2   order-1 comps=4 order-2 comps=16
+
+  PER-STAGE PROFILE -- Kerr a=1/2   (accounted 3501.2s)
+    stage                                 seconds   share  output ops
+    cartan_order2 (nabla-nabla-C + frame)    3302.33   94.3%         849
+    isotropy_invariants order 1             76.88    2.2%         102
+    cartan_order1 (frame components)        71.80    2.1%         120
+    functional_rank order 2                 18.46    0.5%           0
+    covariant_derivative_weyl (order 1)      10.49    0.3%       18536
+    weight_invariants order 2                8.73    0.2%        1185
+    weyl_tensor                              7.67    0.2%        3864
+    canonical_frame                          3.63    0.1%         135
+    functional_rank order 1                  0.64    0.0%           0
+    nabla_C_zero scan                        0.44    0.0%           0
+    riemann_zero scan                        0.13    0.0%           0
+    functional_rank order 0                  0.03    0.0%           0
+    ricci_invariants                         0.01    0.0%           0
+    residual_isotropy                        0.00    0.0%           0
+    segre_type                               0.00    0.0%           0
+    null_tetrad                              0.00    0.0%         119
+    ricci_scalar (zsimp)                     0.00    0.0%           0
+    >=80% of wall-clock is in 1 stage(s): cartan_order2 (nabla-nabla-C + frame)
+
+==============================================================================
+  THE COMPARISON THE HYPOTHESIS IS ABOUT
+  Component COUNTS are identical between the two metrics at every stage; only
+  expression SIZE differs. So a ratio far above 1 in a stage is representation
+  swell, not bulk.
+    stage                                 Schw s     Kerr s    ratio  ops ratio
+    weyl_tensor                             0.65       7.67     11.8x      37.2x
+    null_tetrad                             0.31       0.00      0.0x       1.9x
+    canonical_frame                         0.01       3.63    322.6x       2.1x
+    ricci_scalar (zsimp)                    0.00       0.00      0.6x       infx
+    ricci_invariants                        0.02       0.01      0.2x       infx
+    segre_type                              0.00       0.00      0.9x       infx
+    riemann_zero scan                       0.01       0.13     13.4x       infx
+    functional_rank order 0                 0.00       0.03     24.2x       infx
+    covariant_derivative_weyl (order 1)      0.04      10.49    259.7x       9.5x
+    nabla_C_zero scan                       0.24       0.44      1.9x       infx
+    cartan_order1 (frame components)        0.32      71.80    226.5x       6.3x
+    isotropy_invariants order 1             0.01      76.88   5722.2x      20.4x
+    functional_rank order 1                 0.01       0.64     60.0x       infx
+    cartan_order2 (nabla-nabla-C + frame)     32.36    3302.33    102.0x      35.4x
+    weight_invariants order 2               0.07       8.73    116.7x      51.5x
+    functional_rank order 2                 0.08      18.46    234.8x       infx
+    residual_isotropy                       0.00       0.00      5.1x       infx
+
+  totals: Schwarzschild 34.1s   Kerr 3501.2s (103x)
+
+finished 2026-08-16T12:48:50  peak RSS 3673 MB

@@ -48,7 +48,7 @@ def main():
         return 0
     # imported here (not at module level): _qinvariant needs numpy, so a numpy-less
     # checkout skips above instead of crashing on import.
-    from _qinvariant import BNAMES, basis, check_independence, fit, metric, survives as _survives
+    from _qinvariant import BNAMES, basis, check_independence, fit, metric
 
     print("NO CARTER CONSTANT UNDER DEFORMATION — symbolic frontier cracked numerically\n")
     ok = []
@@ -104,13 +104,28 @@ def main():
     # What survives matching is the claim that actually matters and is now stronger for being
     # measured on fixed arms: at EVERY ε there is no machine-zero, ~11 orders above the ε=0
     # control. The GAP does grow (1.9 → 5.9 → 6.9), which is a real trend on matched arms.
-    from _qinvariant import fit_multi
-    common = [p2 for p2 in p2list
-              if all(_survives(metric(e), E, L, p2, r0) for e in (0, 2, 5, 10))]
+    # Integrate ONCE per (eps, orbit) and reuse. The first version of this section called a
+    # survives() probe and then fit_multi(), each re-integrating the same orbits, and took 744 s --
+    # a 7x regression on a battery the gate runs 107 of. Caching drops it back to the same order as
+    # the rest of the battery without changing a single number.
+    from _qinvariant import trajectory
+    EPSS = (0, 2, 5, 10)
+    traj = {}
+    for eps in EPSS:
+        f = metric(eps)
+        for p2 in p2list:
+            pts = trajectory(f, E, L, p2, r0)
+            traj[(eps, p2)] = pts if (pts and len(pts) >= 2500) else None
+    common = [p2 for p2 in p2list if all(traj[(e, p2)] is not None for e in EPSS)]
     Sm = {}
-    for eps in (0, 2, 5, 10):
-        Sx, _, _ = fit_multi(metric(eps), [(E, L, p2) for p2 in common], r0,
-                             lambda st, e, l: basis(st))
+    for eps in EPSS:
+        blocks = []
+        for p2 in common:
+            pts = traj[(eps, p2)]
+            P = np.array([basis(st) for st in pts[:: max(1, len(pts) // 250)]], float)
+            blocks.append(P - P.mean(axis=0, keepdims=True))
+        D = np.vstack(blocks)
+        Sx = np.linalg.svd(D / (np.linalg.norm(D, axis=0) + 1e-30), compute_uv=False)
         Sm[eps] = (Sx[-1], Sx[-2] / Sx[-1])
     matched_empty = all(Sm[e][0] > 1e-4 for e in (2, 5, 10))
     control_zero = Sm[0][0] < 1e-9
