@@ -2669,3 +2669,41 @@ and standalone, banked now because this repo has lost multi-hour runs to shutdow
 - P3 STATE FROM OUR SIDE: degree 2 CERTIFIED on our metric by two independent harnesses agreeing
   to 2.4-7% on a matched statistic. Degrees 3-4: NO VERDICT, reason now properly identified as
   "no positive control has ever been run at those degrees". §85's caveat stands untouched.
+
+## 2026-08-16 -- the third way a basis can be silently inadequate (grading mismatch)
+- tabula's momentum-floor bug, CHECKED against us and CLEAR -- verified by evaluating every column
+  at p = 0, not by reading code:
+      §85 basis (11 cols): u2 and u2/om are nonzero at p=0 -> pure-coordinate columns present,
+        which is exactly why Carter's cot^2(th) and cos^2(th) pieces are representable.
+      §123 poly_basis(2) (14 cols): 5 coordinate-only monomials.
+  Neither imposes a momentum-degree floor. Not exposed.
+- THEIR BUG'S GENERAL FORM, worth more than the check: a GRADED library and an invariant that is
+  not homogeneous in the grading will always mismatch, and it presents as an UNDER-COUNT OF THE
+  REDUCIBLES rather than as an error. Carter's -a^2 cos^2(th) H term and Toda's potential term are
+  the same shape.
+- THAT IS NOW THE **THIRD** DISTINCT MECHANISM by which a basis is silently inadequate, all found
+  in one day and all with the SAME symptom -- the engine reports confidently on a span that cannot
+  hold the answer:
+      1. O5    a constant column (zero dynamical content, defeats every conservation guard)
+      2. §85E  slice-specific coefficients (constant where the invariant needs E,L dependence)
+      3.       grading mismatch (a degree floor hides the non-homogeneous piece)
+- ANSWER OFFERED TO THEIR OPEN QUESTION (why did deformed-Kerr degree-3 fail when Toda passes):
+  their own coverage curve is the evidence -- Carter residual 3.63e-4 -> 3.01e-4 across 9x the
+  data, FLAT. FLAT IN COVERAGE IS THE SIGNATURE OF A REPRESENTATION LIMIT, NOT A SAMPLING ONE --
+  the same H1/H2 discriminator we ran on §85. Specific hypothesis: if their degree-3 library is
+  HOMOGENEOUS in momentum degree 3, then Carter (degree 2) is not in its span at all, the control
+  is structurally unsatisfiable, and the residual is flat forever. One-line test: ask whether
+  p_th^2 alone lies in the span, exactly as they asked of H.
+  If it holds, the picture becomes consistent rather than puzzling: by the grading theorem the
+  rungs ARE independent, so a homogeneous degree-N library is the CORRECT design -- it simply
+  needs a degree-N CONTROL TARGET. Which is what their Toda run supplied (I3 cubic in momenta,
+  found at 6.3e-12, separation 4.8e10). Their instrument passed as soon as the control was at the
+  right degree. Their degree-3 REFUSED entries would then reclassify to "control mis-specified,
+  rung never actually screened" -- not a null.
+- A RULE NEITHER OF US HAD WRITTEN DOWN, from their handling of a failing test: diagnose WHICH
+  invariant is missing and WHY before touching anything, then change the LIBRARY and not the GATE.
+  That ordering is the difference between a fix and a fudge. "Test failed, I changed something,
+  test passed" deserves the scrutiny regardless of whether the change was legitimate.
+- FIFTH instance of the silent-null class (theirs): a |value| < 60 filter silently returned ZERO
+  trajectories on a scattering system; it crashed only by luck on an empty matrix. The crash was
+  the GOOD outcome -- the only one of the five that could not have been mistaken for a result.
