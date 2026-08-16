@@ -2579,3 +2579,48 @@ and standalone, banked now because this repo has lost multi-hour runs to shutdow
   must be verified against the baseline by simplifying the difference to zero, since a faster
   WRONG answer is worth less than a slow right one. Deferred: it was competing for memory with
   the primary run and was stopped (our own process, verified by ledger before signalling).
+
+## 2026-08-16 -- cross-check with tabula: the two "drift" numbers were never the same statistic
+- THEIR CHALLENGE, and they were right: we had been comparing our number to theirs as if they
+  measured the same thing. They do not.
+    OURS  (_qinvariant.fit): the SMALLEST SINGULAR VALUE of the per-orbit mean-subtracted,
+          column-normalized design matrix. An INFIMUM OVER THE WHOLE SPAN -- "how close to a null
+          vector does the best candidate get" -- whose scale depends on column normalization and
+          row count.
+    THEIRS: a within-orbit / total VARIANCE RATIO for CARTER SPECIFICALLY. Evaluated AT ONE
+          VECTOR, not minimized over a span, and a pure ratio.
+  Not commensurable. The earlier "agreement at eps=5,10, gap at eps=2" was an artifact of
+  comparing different quantities; the pattern flips once the statistic is matched.
+- SO WE COMPUTED THEIRS ON OUR TRAJECTORIES. First pass had a confound of my own making: the
+  surviving-orbit count varies with eps (10, 16, 18, 18 -- orbits are discarded when they leave
+  r in [1.9,30]), so a POOLED-variance denominator was computed over a DIFFERENT ensemble at each
+  eps. Fixed by restricting to the 10 orbits that survive at EVERY eps.
+  On the common ensemble, ours vs theirs (both = within/total variance of Carter, pinned E,L):
+        eps=2 : 1.243e-3  vs  1.34e-3   -> agree to 7%
+        eps=5 : 8.723e-3  vs  8.52e-3   -> agree to 2.4%
+        eps=10: 2.966e-1  vs  3.92e-2   -> differ 7.6x
+  That is a far stronger independent confirmation at eps=2 and 5 than the singular-value
+  comparison ever showed, and it isolates the disagreement to ONE point.
+- NOISE-FLOOR HYPOTHESIS DEAD ON OUR SIDE TOO: our eps=0 floor on THEIR statistic is 2.87e-27
+  (theirs 1.48e-28 -- same order), and our eps points sit 4.3e23 / 3.0e24 / 1.0e26 above it.
+  Neither of us is measuring a floor at weak coupling.
+- eps=10 IS NOT INTEGRATION-LIMITED, by their own bug-1 diagnostic applied to us: refining h from
+  0.02 -> 0.01 -> 0.005 (steps 9000 -> 36000) moves the number by <0.2%:
+        eps=5 : 7.470e-3, 7.471e-3, 7.471e-3
+        eps=10: 6.514e-1, 6.520e-1, 6.523e-1
+  Flat in dt. Refining the integrator does not move it, so it is not the integrator.
+- THE ACTUAL CAUSE, and it is a SCOPE FINDING ABOUT OUR OWN eps=10 POINT. The bump
+  1 + eps(3u^2-1)/r^3 is a steep function of r, so identical eps does NOT mean identical
+  deformation unless the orbits reach the same radii. Measured radial reach and bump magnitude:
+        eps= 0: r in [7.35, 11.20]   max|bump-1| = 0.0000
+        eps= 2: r in [6.44, 11.64]   max|bump-1| = 0.0075
+        eps= 5: r in [4.80, 12.14]   max|bump-1| = 0.0453
+        eps=10: r in [2.00, 12.78]   max|bump-1| = 1.2548   <-- !!
+  At eps=10 our orbits reach the INNER CUTOFF r=2.00, where the deformation is LARGER THAN THE
+  FUNCTION IT MULTIPLIES -- g_tt is scaled by up to -0.25, i.e. sign-flipped. That is not a large
+  perturbation, it is a different spacetime region. If their orbits stay outside, their eps=10 is
+  a far milder deformation at the same eps, which accounts for 7.6x without either side erring.
+- WHAT WE OWE OUR OWN RESULTS: §85's eps=10 point must not be read as "a large but still
+  perturbative deformation". eps=2 and eps=5 are perturbative (max|bump-1| = 0.008 and 0.045);
+  eps=10 is not. The monotone growth across eps=2,5,10 stands, but the third point is
+  qualitatively different from the first two and should be labelled.
