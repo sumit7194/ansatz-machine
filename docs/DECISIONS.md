@@ -279,3 +279,50 @@ is intact for the core; the precise QNM is an explicitly-numerical companion
 oracle (like the finite-difference `numeric_curvature.py`, but with the standard
 peer-reviewed tool rather than a hand roll). Validated: Schwarzschild ℓ=2,n=0 =
 0.37367−0.08896i (exact Leaver), the 221 overtone available — battery 77.
+
+---
+
+**D28 — P0 primary gate: MISSED. Recorded as missed; the bar is not restated.**
+
+*The gate, as frozen before running (verbatim):* §122 completes its full catalog
+**including Kerr a=1/2 and Taub–NUT**, unbudgeted, in under **60 minutes**
+wall-clock on this machine, all G6 verdicts green, no section reporting
+RESOURCE-WALLED. Binary, and explicitly *"not gameable by relaxing a threshold."*
+
+*The pre-registered NULL:* "the wall is not crossable by normalisation; order-2
+CK on rotating metrics requires a GHP-style representation change."
+
+**VERDICT: MISSED.** Measured, 2026-08-16:
+
+    Kerr a=1/2, full order-2 signature   3,501.2 s = 58.4 min   (first ever completion)
+    Schwarzschild M=1                          32 s
+    Schwarzschild M=2                          32 s
+    ZV delta=1                                 37 s
+                                             --------
+    Kerr + statics                          60.1 min   -- past the bar already
+    + isotropic chart, Taub-NUT, pair comparisons   (see the factor line below)
+
+The catalog exceeds 60 minutes **before the sixth metric is computed at all**, so
+the gate is FALSE on a measured lower bound, independent of Taub-NUT.
+
+**THE NULL IS REFUTED, and that is the actual result.** Normalisation crossed the
+wall: 29-87x on one frame contraction, 58x on `cartan_order1` (4,187.68 s ->
+71.80 s), a signature that had never finished in three attempts (longest 6h11m
+with ZERO of Kerr's 16 components done) -> 58.4 min. All six frozen batteries
+(§116-§121) re-run verdict-identical. No representation change was needed.
+
+**Why the bar is not being restated**, recorded because the temptation was real
+and the miss is thin: 60 minutes was a guess made when the honest state of
+knowledge was "this has never completed." A guess that turns out to be ~1x off is
+a badly-calibrated bar, not a failed programme -- and the way to say that is to
+report the miss AND the factor, not to move the bar so the sentence reads better.
+Precedent: S3's gate was unreachable by construction, its postulate was supported,
+the frozen bar was not met, and it was not relabelled.
+
+Consequence for new code: a pre-registered gate is FROZEN once running starts.
+If it turns out to have been set without knowing the size of the thing it
+measures, that fact is reported next to the verdict -- it is never used to adjust
+the verdict. See also the rule this day bought twice over: **every pre-registered
+criterion needs a known-PASS and a known-FAIL before it gates anything** (our
+"bit-identical" clause had no known-pass on output containing timestamps and
+nearly forced a revert of a correct 87x fix).
