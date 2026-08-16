@@ -2429,3 +2429,34 @@ nice-19 (alphaludo-l4, trainer untouched). Dashboards live on both hosts.
   cos-atom demo already made, now with its failure edge marked and guarded.
 - §123 now 7/7 (added case (G)). Bridge's independent write-up + code: falsification/R2_emit_theorem/
   (their commit d7e07fa); they will re-gate against the updated battery. Battery count unchanged (104).
+
+## 2026-08-16 -- §123 O5: the nuisance channel. A correctness fix to shipped work.
+- SOURCE: tabula's planted control (their §166 four-clause certificate, clause C4), relayed via the
+  bridge and independently confirmed by deepstrain on --holdout-segments. THREE repos, ONE structural
+  hole, found in a day -- and found by a sister's planted control, not by a disagreement.
+- THE HOLE, verified in our own code before fixing anything: add a CONSTANT column to the basis and
+  the false emit passes EVERY guard we had, structurally rather than marginally.
+    * mean-subtraction zeroes the column      -> sigma_min/sigma_max = EXACTLY 0.0
+    * G1 rank guard PASSES                    -> a constant IS linearly independent of the monomials
+    * validation drift = EXACTLY 0.0          -> a constant has zero variance; it validates BETTER
+                                                 than a real invariant
+  Dominant coefficient landed on index 14 of 14 -- the nuisance itself. O1-O4 are all blind to it,
+  and no conservation test can ever catch it, because a constant IS perfectly conserved.
+- WHY IT WAS A CORRECTNESS ISSUE AND NOT A CURIOSITY: our only defence was a CONVENTION -- poly_basis
+  happens to exclude the constant term. A convention is not a guard. Anyone assembling a basis by hand,
+  or any future basis-learning step, reintroduces it silently.
+- THE FIX (informativeness(), TAU_INFO=1e-6): ask the question none of O1-O4 ask -- does the emitted
+  quantity SEPARATE orbits? A genuine invariant takes different values on different orbits; that is
+  what makes it informative. A nuisance constant takes the same value everywhere. Statistic = std of
+  per-orbit means of I, relative to I's own scale. Planted constant: 0.0. Harmonic's true invariant:
+  3.1e-1. Wired into emit_validated as a third conjunct alongside the rank and drift guards.
+- SHARED PRECONDITION, stated so it is not mistaken for a free lunch: this needs orbits that genuinely
+  carry different invariant values -- the SAME diversity G2 already requires. It adds no new data cost.
+- RELATION TO tabula's C4: strictly cheaper (no forward model, one pass over the same data) and catches
+  the same confounding, so it is usable as a PRE-FILTER ahead of C4's coverage-hungry confirm step.
+  Relayed back to them as such. Credit stays with tabula; the sharpening is only in the criterion.
+- THE ONE-LINE LESSON, worth more than the patch: HELD-OUT VALIDATION CATCHES OVERFITTING, NOT
+  CONFOUNDING. O4 (approximation) and O5 (confounding) are different failure modes and need
+  different guards; passing the first says nothing about the second.
+- §123 now 8/8 (added case (H)). Battery count unchanged (104). Frozen-verdict check: no other
+  battery touched.

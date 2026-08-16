@@ -1884,4 +1884,19 @@ G1 nor G2 catches. The guard that does is out-of-sample: a true invariant stays 
 *wider* orbits (validation drift ≤1e-6), an approximation drifts (≥5e-3). Folded in as an emit_validated
 train/validate split. The precise honest limit it names: from bounded data alone the in-sample floor
 cannot separate an exact representation from a sufficiently good approximation — only out-of-sample
-behaviour can. §123 now 7/7. Repro: `scripts/123_emit_theorem.py`.
+behaviour can. **O5, from tabula's planted control (their §166 clause C4), independently confirmed by
+deepstrain:** a nuisance channel with *zero dynamical content* — a constant basis column — defeats every
+guard above at once, and does so structurally rather than marginally. Mean-subtraction zeroes the column,
+so σ_min/σ_max = **exactly 0**; the G1 rank guard *passes*, because a constant is genuinely linearly
+independent of the monomials; and validation drift is **exactly 0**, because a constant has zero variance —
+it validates *better* than a real invariant. Our only prior defence was a convention (`poly_basis` happens
+to omit the constant term), and a convention is not a guard. The guard that catches it asks the one question
+none of O1–O4 ask: does the emitted quantity *distinguish* orbits? A genuine invariant takes different values
+on different orbits — that is what makes it informative; a nuisance constant takes the same value everywhere.
+`informativeness` = spread of per-orbit means of I, relative to I's own scale, floored at 1e-6. On the planted
+constant it reads 0.0; on the harmonic's true invariant, 3.1e-1. Note the shared precondition: this needs
+orbits that genuinely carry different invariant values — the *same* diversity G2 already requires. It is
+strictly cheaper than tabula's state-prediction route (no forward model, one pass over the same data) and
+catches the same confounding, so it is usable as a pre-filter ahead of C4's coverage-hungry confirm step.
+The honest limit it names, in one line: **held-out validation catches overfitting, not confounding.**
+§123 now 8/8. Repro: `scripts/123_emit_theorem.py`.

@@ -105,6 +105,19 @@ T2 -- THE BICONDITIONAL.  Under G1 (rank guard holds) and G2 (the sampled orbit 
        demo already makes -- O4 marks its failure edge: from BOUNDED data alone the in-sample floor
        cannot separate a good-enough approximation from an exact representation.
 
+    O5 CONSERVED-BUT-UNINFORMATIVE (surfaced by tabula's C4 clause, reproduced here in our own
+       engine before adopting it): a candidate that is constant EVERYWHERE, not just along each
+       orbit. Planting a single constant column in the basis produces sigma_min/sigma_max =
+       EXACTLY 0, passes the G1 rank guard (a constant is linearly independent of the monomials),
+       and scores validation drift EXACTLY 0 -- a constant has zero variance, so it validates
+       BETTER than the genuine invariant. All of O1-O4 are conservation tests, and this object is
+       perfectly conserved; no sharpening of them can ever catch it. Our only prior defence was a
+       CONVENTION -- poly_basis excludes the constant term -- which is not a guard.
+       The guard that does catch it is INFORMATIVENESS: a real conserved quantity takes different
+       values on different orbits (that is what makes it a label); a nuisance constant does not.
+       See informativeness() below. Credit: tabula's C4 (candidate must be a function of the
+       dynamical state); the orbit-separation formulation is ours.
+
 T3 -- SCOPE: exact-arithmetic / below-floor numeric; finite bases (polynomial, or polynomial plus
   named transcendental atoms); autonomous invariants; the guards G1/G2, and for a RICH basis over
   bounded data the out-of-sample guard against O4. It does NOT certify the emitted invariant is
@@ -175,15 +188,46 @@ def validation_drift(coeffs, val_orbits, basis_fns):
     return worst
 
 
-def emit_validated(train_orbits, val_orbits, basis_fns, tau_rel=TAU_REL, tau_val=TAU_VAL):
+TAU_INFO = 1e-6     # O5 floor: the emitted quantity must SEPARATE orbits by at least this much,
+                    # relative to its own scale, or it is conserved-but-uninformative.
+
+
+def informativeness(coeffs, orbits, basis_fns):
+    """The O5 guard: does the candidate actually DISTINGUISH orbits?
+
+    A genuine conserved quantity takes DIFFERENT values on different orbits -- that is exactly
+    what makes it informative (H labels the energy shell; the Carter constant labels the torus).
+    A nuisance constant takes the SAME value everywhere and is conserved trivially. Both are
+    perfectly conserved, so no conservation test can separate them, however sharp: this is a
+    different axis from O1-O4 entirely.
+
+    Returns the spread of per-orbit means of I, normalized by I's scale. Zero for a constant.
+
+    NOTE the shared precondition: this needs orbits that genuinely carry different invariant
+    values, which is the SAME diversity G2 already requires. If every sampled orbit happens to
+    sit on one level set, a real invariant looks uninformative too -- so O5 and G2 are satisfied
+    by the same orbit design, and neither is a free lunch."""
+    means, scale = [], 0.0
+    c = np.asarray(coeffs, float)
+    for orb in orbits:
+        B = np.array([[f(z) for f in basis_fns] for z in orb], float)
+        means.append(float((B @ c).mean()))
+        scale = max(scale, float(np.abs(B).mean() * np.linalg.norm(c)))
+    return float(np.std(means) / (scale + 1e-30))
+
+
+def emit_validated(train_orbits, val_orbits, basis_fns, tau_rel=TAU_REL, tau_val=TAU_VAL,
+                   tau_info=TAU_INFO):
     """emit() + the O4 out-of-sample guard. Accept iff the in-sample criterion fires AND the
     emitted combination stays conserved on wider held-out orbits. This is the guard that
     distinguishes an EXACT REPRESENTATION from a good-enough APPROXIMATION, which no in-sample
     criterion can do from bounded data alone."""
     r = emit(train_orbits, basis_fns, tau_rel)
     drift = validation_drift(r["coeffs"], val_orbits, basis_fns) if r["accepted"] else float("inf")
+    info = informativeness(r["coeffs"], train_orbits + val_orbits, basis_fns) if r["accepted"] else 0.0
     r["val_drift"] = drift
-    r["accepted"] = bool(r["accepted"] and drift <= tau_val)
+    r["informativeness"] = info
+    r["accepted"] = bool(r["accepted"] and drift <= tau_val and info >= tau_info)
     return r
 
 
@@ -365,6 +409,24 @@ def main():
     print(f"    => the O4 guard REJECTS the polynomial approximation and KEEPS both true invariants:")
     print(f"       from bounded data the in-sample floor cannot tell approximation from")
     print(f"       representation; the out-of-sample floor can.  {'✅' if okG else '❌'}")
+
+    # =============================================================== (H) OBSTRUCTION O5 (tabula C4)
+    print("\n(H) OBSTRUCTION O5 -- conserved-but-uninformative (tabula's C4, reproduced here):")
+    nuis = fns + [lambda s: 1.0]          # a CONSTANT column: zero dynamical content
+    rH_bad = emit_validated(orbits, hval, nuis)
+    print(f"    basis + a CONSTANT column: sigma_min/sigma_max = {rH_bad['rel']:.1e}, "
+          f"G1 rank_ok = {rH_bad['rank_ok']}, validation drift = {rH_bad['val_drift']:.1e}")
+    print(f"      -> O1-O4 ALL PASS. A constant is perfectly conserved, so no conservation test")
+    print(f"         can ever catch it; it validates BETTER than a real invariant (drift 0).")
+    print(f"    informativeness (spread of per-orbit means) = {rH_bad['informativeness']:.1e} "
+          f"(floor {TAU_INFO:.0e}) -> accepted = {rH_bad['accepted']}")
+    rH_ok = emit_validated(orbits, hval, fns)
+    print(f"    the GENUINE harmonic invariant: informativeness = "
+          f"{rH_ok['informativeness']:.1e} -> accepted = {rH_ok['accepted']}")
+    okH = (not rH_bad["accepted"]) and rH_ok["accepted"]
+    ok.append(okH)
+    print(f"    => O5 rejects the nuisance and keeps the real invariant: a conserved quantity")
+    print(f"       must SEPARATE orbits to be informative.  {'✅' if okH else '❌'}")
 
     passed = all(ok)
     print(f"\nEMIT-LEGIBILITY THEOREM: {'PASSED ✅' if passed else 'FAILED ❌'}  "
