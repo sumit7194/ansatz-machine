@@ -1108,7 +1108,14 @@ the identity u²/om−u⁴/om−u²≡0, a FALSE machine-zero SV — the stress-
 battery). **(B) Validation — Kerr:** the fit recovers the Carter constant cleanly — smallest SV **5.6e-14**,
 gap 3.6e10, and the recovered vector = p_θ² + 11.56·cot²θ + 0.035·cos²θ matches Carter (L²=11.56,
 a²(1−E²)=0.035) to the digit. **(C) Deformed Kerr (§82 metric):** NO machine-zero SV — smallest sits at
-3.1e-3 (ε=2) → 5.7e-3 (ε=5) → 1.6e-2 (ε=10), GROWING with ε, no gap. **Scope on the ε sweep, measured after a
+3.1e-3 (ε=2) → 5.7e-3 (ε=5) → 1.6e-2 (ε=10), no gap. **(C2) — and "GROWING with ε" was ENSEMBLE COMPOSITION,
+not physics.** Our surviving-orbit count *varies with ε* (10, 16, 18, 18) because orbits are discarded when they
+leave r∈[1.9,30] and the deformation changes which ones do, so that sweep compared four different ensembles —
+and (C) **gated** on the trend. On the 10 orbits surviving at every ε: **2.19e-3 → 2.22e-3 → 2.07e-3, flat.**
+The gate is removed. What survives is stronger for being measured on fixed arms: no machine-zero at any ε,
+~11 orders above the control, and the **gap** does grow (1.9 → 5.9 → 6.9) — the real trend the singular value
+was being credited with. *Corollary, the general form: when the selection criterion depends on the swept
+variable, the arms differ by construction and no amount of care within an arm fixes it.* **Scope on the ε sweep, measured after a
 cross-check with tabula:** the bump 1+ε(3u²−1)/r³ is a steep function of r, so equal ε is *not* equal
 deformation unless orbits reach equal radii. Measured reach — ε=2: r∈[6.44,11.64], max|bump−1| = **0.0075**;
 ε=5: r∈[4.80,12.14], **0.045**; ε=10: r∈[2.00,12.78], **1.25**. At ε=10 the orbits hit the inner cutoff where
@@ -1885,7 +1892,23 @@ that patch made §116 more than **7× slower**, because without `expand` the che
 and everything escalates to the expensive chain. `expand()` is the most costly thing in `ck.py` on rotating
 metrics and the most *useful* thing on static ones, and which it is depends only on **input size**:
 Schwarzschild's raw contraction is **50 ops**, Kerr's is **3,710** — a 74× gap, so `EXPAND_MAX_OPS = 500`
-sits in open space rather than on a cliff. One Kerr order-2 component: **~3,000 s → 430 s**. All six frozen
+sits in open space rather than on a cliff. **PHASE 1 COMPLETE — the measured profile.** Kerr a=1/2's full order-2 signature now runs in
+**3,501.2 s = 58.4 min**, the first time it has ever completed (three prior attempts, longest **6 h 11 m with
+zero of Kerr's 16 components finished**). ≥80% of wall-clock attributed, and it is **one stage**: `cartan_order2`
+**3302.33 s / 94.3%** (output 849 ops), `isotropy_invariants` 76.88 s / 2.2%, `cartan_order1` 71.80 s / 2.1%,
+everything else ~50 s. **The representation comparison** — component *counts* are identical between the two
+metrics, so a large Kerr/Schwarzschild ratio is swell, not bulk: `isotropy_invariants` **5722×** (the largest
+in the table, and where the 3.6 GB peak RSS lives), `canonical_frame` 323×, `covariant_derivative_weyl` 260×,
+`cartan_order1` 227×, `cartan_order2` **102×**, total **103×** (34.1 s → 3501.2 s). *Note the stage holding
+94.3% of the time has one of the smallest ratios* — the effect is real but does not live where the clock does.
+**P0 primary gate: MISSED.** The frozen bar is the whole catalog under 60 min; Kerr alone is 58.4 and the
+static entries add ~1.7 min, so the catalog passes 60 before Taub–NUT is computed at all. Recorded as missed;
+the bar is not restated. *A projection of ours was also wrong here and is corrected in place: from 9 of 16
+components we said 66–72 min, and the last four came in cheap (28.7, 55.5, 36.9, 37.1 s) because they fall
+below the size gate — **extrapolating a bimodal cost from a prefix is not a projection**.* Still unattributed:
+~85% of a component's cost is somewhere other than the contraction that was fixed (~21 contractions × ~3 s ≈
+63 s against components up to 528 s); Phase 3 measures it rather than guessing. One Kerr order-2 component:
+**~3,000 s → 462 s**. All six frozen
 batteries (§116, §117, §118, §119, §120, §121) re-run **verdict-identical**, at unchanged speed. *A note on
 that check, because it nearly cost us the fix: a raw `diff` flagged three batteries as differing and every
 difference was a **printed elapsed time**. A bit-identical criterion is only meaningful against output that is
