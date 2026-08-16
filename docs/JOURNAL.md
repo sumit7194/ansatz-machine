@@ -2624,3 +2624,48 @@ and standalone, banked now because this repo has lost multi-hour runs to shutdow
   perturbative deformation". eps=2 and eps=5 are perturbative (max|bump-1| = 0.008 and 0.045);
   eps=10 is not. The monotone growth across eps=2,5,10 stands, but the third point is
   qualitatively different from the first two and should be labelled.
+
+## 2026-08-16 -- P3: the missing positive control at degrees 3-4 (prior art found)
+- tabula's degree-3/4 rungs report "after deflating the reducibles, nothing separates", and they
+  read that as a third answer: not coverage (refuted by their flat curve), not a miscount
+  (refuted by their own test), but no separated structure to count.
+- THE PROBLEM WITH READING IT AS AN ANSWER: their control at those rungs asks whether the engine
+  recovers CARTER -- but Carter is degree 2, and deflating the degree-3 reducibles already removes
+  p_t*K and p_phi*K, i.e. every place Carter appears at that degree. So at degrees 3-4 the control
+  asks the engine to find something not known to be there, and an empty complement is consistent
+  with BOTH "correctly nothing" (Kerr has no irreducible rank-3/4 KT) and "instrument blind".
+  A NULL AT A RUNG WITH NO POSITIVE CONTROL IS NOT A NULL. This is their own REFUSED-LIBRARY
+  principle one level up, and a 4th instance of "didn't happen" and "happened and found nothing"
+  producing the same output.
+- I CHECKED WHETHER "correctly nothing" IS A THEOREM. It is not, as far as I can find: Kerr's
+  rank-2 KT and its Killing-Yano root are standard, but I found no result excluding irreducible
+  rank-3 or rank-4 Killing tensors for Kerr. So it is the EXPECTATION, not an established fact,
+  and must not be cited as one.
+- THE POSITIVE CONTROL EXISTS AND IS EXPLICIT -- Cariglia & Galajinsky, "Ricci-flat spacetimes
+  admitting higher rank Killing tensors", Phys. Lett. B (2015), arXiv:1503.02162. Ricci-flat
+  (vacuum) spacetimes admitting IRREDUCIBLE rank-3 and rank-4 Killing tensors, built by
+  Eisenhart-lifting DRACH's two-dimensional integrable systems and oxidising in the free
+  parameters. Signature (2,q), q = 2,3,4; some 4D solutions anti-self-dual.
+  Run a degree-3/4 ladder on one of those and the ambiguity collapses: finds the known KT ->
+  instrument validated at that degree, and "nothing on deformed Kerr" becomes a result; misses it
+  -> instrument blind at degree >= 3 and every degree-3/4 rung so far is REFUSED, not null.
+  CAVEAT stated up front: signature (2,q) means TWO timelike directions, so these are not
+  Lorentzian. Irrelevant for an INSTRUMENT control (a positive control needs a known answer, not
+  a physical one; H = 1/2 g^ab p_a p_b and the grading argument are signature-blind) but it must
+  be said, or it reads as a claim about vacuum black holes.
+  Note: Galajinsky is the same author behind the §121 transcendental-invariant result the bridge
+  relayed in round 8 -- we were already standing in this corner of the literature.
+- TWO RULES TAKEN FROM THEIR FAILED REBUILD, both better than any threshold:
+    * A CONTROL THAT CANNOT FAIL IS NOT A CONTROL. They calibrated a cutoff as the geometric mean
+      of the first two singular values, which makes the control return 1 BY CONSTRUCTION; four
+      rungs "passed" and it was arithmetic. Same shape as our "code right, check wrong" (3x).
+    * A SCALE-FREE STATISTIC CANNOT ANSWER "IS ANYTHING HERE". Normalizing a spectrum by its own
+      largest value destroys exactly the information the absolute question needs. Generalized:
+      the normalization that makes rungs COMPARABLE is the one that makes them UNINTERPRETABLE
+      individually, so a pipeline needs a comparable statistic AND an absolute one and they
+      cannot be the same number. This is precisely why our O5 informativeness guard had to be a
+      SEPARATE absolute quantity rather than a tighter threshold on the scale-free
+      sigma_min/sigma_max -- we got that right by instinct and now have the reason.
+- P3 STATE FROM OUR SIDE: degree 2 CERTIFIED on our metric by two independent harnesses agreeing
+  to 2.4-7% on a matched statistic. Degrees 3-4: NO VERDICT, reason now properly identified as
+  "no positive control has ever been run at those degrees". §85's caveat stands untouched.
