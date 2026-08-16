@@ -80,3 +80,6 @@ pid 64531   log /Users/sumit/Github/conjecture_machine/data/p0_stage_profile.log
     [Kerr a=1/2] functional_rank order 0                 0.03s  ops=0         peak_rss=    89MB  (+0)
     [Kerr a=1/2] covariant_derivative_weyl (order 1)     10.80s  ops=18536     peak_rss=    90MB  (+1)
     [Kerr a=1/2] nabla_C_zero scan                       0.48s  ops=0         peak_rss=    91MB  (+1)
+    [Kerr a=1/2] cartan_order1 (frame components)     4187.68s  ops=120       peak_rss=   495MB  (+404)
+    [Kerr a=1/2] isotropy_invariants order 1           101.50s  ops=102       peak_rss=  3643MB  (+3148)
+    [Kerr a=1/2] functional_rank order 1                 0.66s  ops=0         peak_rss=  3643MB  (+0)

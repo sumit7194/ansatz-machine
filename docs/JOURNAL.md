@@ -2533,3 +2533,49 @@ nice-19 (alphaludo-l4, trainer untouched). Dashboards live on both hosts.
 - §123 8/8 -> 9/9. Also checked and clear: their bug 2 (greedy column pruning silently removing
   the columns a known invariant needs). We prune nothing; §123's basis omits the constant term by
   DEFINITION, not by pruning, and O5 now guards that hole anyway.
+
+## 2026-08-16 -- P0 PHASE 1: the CK order-2 wall, located. My hypothesis was WRONG.
+Instrument: scripts/_p0_stage_profile.py. Kerr run still in flight; everything below is measured
+and standalone, banked now because this repo has lost multi-hour runs to shutdowns twice.
+
+- CONTROL (Schwarzschild M=1, 32.4s): cartan_order2 = 94.9% of the whole signature, output 24 ops.
+  Inside it (nested, not disjoint): second_frame_component 16 calls / 31.35s; frame_component5
+  176 calls / 26.71s = 85% OF THE ENTIRE SIGNATURE at 152 ms/call; zsimp 16 calls / 4.41s.
+  The FIRST covariant derivative is nearly free: 0.04s for 1942 ops. 770x the time for 4x the
+  component count -- the jump is not in how MANY things are computed.
+
+- KERR, per stage so far: weyl_tensor 7.6s, nabla C 10.8s (vs control 0.04s = 270x, for only 9.5x
+  the expression size -- SUPERLINEAR), canonical_frame 3.9s, cartan_order1 ~46 min,
+  isotropy_invariants 101.5s with PEAK RSS 3643 MB. That 3.6 GB spike is the single most
+  important operational number here: a memory cap set on my earlier 4x-too-small free-memory
+  misread would have killed the run, and the misread would have been invisible in the result.
+
+- MY HYPOTHESIS, STATED AND THEN REFUTED. I predicted cartan_order1 walls because it uses the
+  full escalating zsimp chain while cartan_order2 was already switched to the cheap normal form
+  (the §119 "the wall is the simplifier" lesson applied to one stage and not its neighbour).
+  Measured on ONE Kerr order-1 component, fresh process per variant:
+      full escalating zsimp chain : 271.69s   ops=20
+      cheap cancel(together(expand)) : 282.42s   ops=20
+  A 4% difference. THE SIMPLIFIER CHOICE IS NOT THE WALL. Hypothesis dead, and it would have
+  been a wasted Phase 2.
+
+- A MEASUREMENT BUG I MADE AND CAUGHT: my first run of that comparison read 231s cheap vs 6.7s
+  full and I nearly reported a 35x win. It was pure SymPy CACHE CONTAMINATION -- the second call
+  reused everything the first had built, so whichever normal form runs SECOND looks free. Two
+  normal forms can only be compared in SEPARATE PROCESSES. Generalizes: any A/B on a cached
+  symbolic pipeline is invalid in one process.
+
+- WHERE THE TIME ACTUALLY GOES, split inside one frame_component5 call on Kerr:
+      accumulate 243 nonzero terms :   0.01s     3,710 ops
+      expand()                     :   1.03s    90,841 ops   (24x inflation)
+      together()                   :   2.31s   238,430 ops
+      cancel()                     : 295.18s        20 ops   <-- 99% of the cost
+  So a five-minute computation returns a 20-op answer, and THE PIPELINE MANUFACTURES THE SWELL IT
+  THEN UNDOES: the raw sum is 3,710 ops, expand/together inflate it 64x, and cancel spends five
+  minutes bringing it back to 20. This is the representation hypothesis confirmed in the sharpest
+  possible form -- the cost is in intermediates, not in the answer, and not in the algorithm.
+- PHASE 2 CANDIDATE (measured, not assumed): routes that skip the manufacturing -- cancel(raw),
+  cancel(together(raw)), radsimp(raw), per-term cancel then sum. Probe written; each candidate
+  must be verified against the baseline by simplifying the difference to zero, since a faster
+  WRONG answer is worth less than a slow right one. Deferred: it was competing for memory with
+  the primary run and was stopped (our own process, verified by ledger before signalling).
