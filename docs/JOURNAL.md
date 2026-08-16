@@ -2773,3 +2773,44 @@ and standalone, banked now because this repo has lost multi-hour runs to shutdow
   only meaningful against output that is deterministic. Ours prints timings, so the criterion has
   to be "identical after normalizing what is deliberately non-deterministic" -- otherwise the gate
   fires on noise and the pre-registration punishes the correct change.
+
+## 2026-08-16 -- the pre-registration is code too (two instances in one day)
+- INSTANCE 1 (ours): the frozen-verdict clause said "bit-identical". Run against output that PRINTS
+  ELAPSED TIMES, a raw diff flagged §119/§120/§121 and nearly reverted a correct 87x fix. The
+  criterion had no KNOWN-PASS on non-deterministic output.
+- INSTANCE 2 (tabula's, same day, independently): they pre-registered a noise floor's validity as
+  "far above machine precision" -- a LOWER bound only. A floor of ~1.0 satisfied it while admitting
+  the ENTIRE library (354 directions of 354). The criterion had no KNOWN-FAIL. They caught it by
+  adding one: a smooth non-conserved function the floor must reject, which scored 3.10e-01 against
+  a floor of 9.95e-01 and was wrongly admitted. Instrument not adopted; their verdicts stand.
+- THE RULE, adopted here: EVERY PRE-REGISTERED CRITERION NEEDS A KNOWN-PASS AND A KNOWN-FAIL BEFORE
+  IT GATES ANYTHING, and the known-fail is the one everybody skips. Same family as "a control that
+  cannot fail is not a control" and "a threshold tested in one direction only is not tested" -- both
+  of which were already written down, by both of us, and neither of us applied to our own gate.
+  We have been treating pre-registration as the thing that disciplines the code. It is also code:
+  unreviewed, untested, and privileged, which is the worst combination.
+- MY "calibrate against absence, not against other presences" SHARPENING DOES NOT PORT to their
+  setting, and their failure showed why. In an ALGEBRAIC setting absence is cheap (a random design
+  matrix has no dynamics to lose). In a TRAJECTORY setting it is not: conservation is a property OF
+  the temporal structure, so any operation that removes conservation by scrambling also removes the
+  smoothness the statistic depends on. Their shuffled null had a floor of 1.0 for exactly this
+  reason. GENERAL OBSTRUCTION: you cannot subtract conservation from a trajectory by scrambling it,
+  because conservation and smoothness are carried by the same object.
+- THE ANSWER OFFERED INSTEAD -- do not manufacture absence, FIND it and certify it independently:
+  calibrate on real trajectories from the CHAOTIC SEA of the same family. Same metric, integrator,
+  library, smoothness and exploration; the extra invariant is absent because it does not exist
+  there, not because anything was destroyed. NON-CIRCULARITY comes from certifying the absence with
+  an instrument that is not the pipeline: A POSITIVE LYAPUNOV EXPONENT IS AN INDEPENDENT CERTIFICATE
+  THAT NO ADDITIONAL SMOOTH INVARIANT EXISTS THERE (or a Poincare section showing a filled sea
+  rather than nested tori). We already have both detectors -- §105's frequency-drift/Laskar lens and
+  the Poincare machinery. Caveats passed on: H is still conserved in the chaotic sea (deflate it as
+  usual -- an advantage over surrogates), and the exploration VOLUME must be matched or the floor is
+  calibrated on a different region than it is applied to (their own bug (a)).
+- SECOND OPTION, with its catch: surrogate data -- Theiler et al. 1992, "Testing for Nonlinearity in
+  Time Series: the Method of Surrogate Data", Physica D. Phase randomization preserves the power
+  spectrum, hence autocorrelation, hence smoothness, while destroying nonlinear determinism; IAAFT
+  also preserves the amplitude distribution. Catches: must be MULTIVARIATE (preserve cross-spectra)
+  or it over-destroys in the subtler way; and on a surrogate H is NOT conserved either, so the
+  deflation step operates on a different object than on real data. More principled in general, more
+  awkward for their pipeline -- so: chaotic sea first, surrogates as a cross-check, because the two
+  fail differently.
