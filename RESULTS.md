@@ -1915,4 +1915,14 @@ orbits that genuinely carry different invariant values — the *same* diversity 
 strictly cheaper than tabula's state-prediction route (no forward model, one pass over the same data) and
 catches the same confounding, so it is usable as a pre-filter ahead of C4's coverage-hungry confirm step.
 The honest limit it names, in one line: **held-out validation catches overfitting, not confounding.**
-§123 now 8/8. Repro: `scripts/123_emit_theorem.py`.
+**O5 note on scope**, from tabula's bug 5 (*"a floor calibrated at one rung does not transfer to another"* — theirs,
+calibrated at 163-dim and applied at 442-dim, let a rung report 441 conserved directions out of 410): we share
+**one** TAU_REL across the whole degree sweep (m = 14 → 494) and blame every deg-6/8 false emit on O4, but
+σ_min/σ_max shrinks with column count for purely **dimensional** reasons — two diagnoses, one number. The control
+that separates them holds basis, degree, m and row count fixed and destroys only the *conserved structure* (random
+points, provably no invariant in the span): **7.8e-01 → 4.3e-02 → 3.3e-03 → 2.4e-04** at degrees 2/4/6/8. The
+dimensional trend is real and monotone (≈one decade per two degrees) but at deg 8 still sits **245× above** the
+floor, while the false emits read 3.2e-14 and 7.1e-18 — ten decades lower. **O4's attribution stands.** The limit
+it names: *TAU_REL is not size-independent* — a structureless library crosses 1e-6 past degree ~13, so sharing one
+floor across rungs is safe here and unsafe in general. Case (I) now ships the structureless control per degree, so
+the floor is **calibrated rather than assumed**. §123 now 9/9. Repro: `scripts/123_emit_theorem.py`.
