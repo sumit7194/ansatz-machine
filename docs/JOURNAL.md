@@ -2460,3 +2460,26 @@ nice-19 (alphaludo-l4, trainer untouched). Dashboards live on both hosts.
   different guards; passing the first says nothing about the second.
 - §123 now 8/8 (added case (H)). Battery count unchanged (104). Frozen-verdict check: no other
   battery touched.
+
+## 2026-08-16 -- P3 prep: tabula's grading theorem, checked rather than trusted
+- WHY: their pre-reg leans on it, and our half is the one that turns a rung into a theorem, so
+  we do not get to take it on trust. scripts/_p3_grading_check.py.
+- THE MECHANISM, verified symbolically on a GENERIC 2D metric (three arbitrary functions of both
+  coordinates, no symmetry to hide behind): for a PURE GEODESIC H = 1/2 g^ab p_a p_b, the
+  Poisson bracket {H, .} raises momentum degree by EXACTLY ONE. Checked for k = 0..5: the image
+  of a generic homogeneous degree-k F_k occupies degree k+1 and nothing else. Hence in
+  sum_k {H, F_k} = 0 the terms sit in disjoint graded slots and cannot cancel each other, so
+  each {H, F_k} = 0 separately. THE RUNGS ARE INDEPENDENT. Grading theorem CONFIRMED.
+- ITS BOUNDARY, also measured: add a potential (H = T + V(x)) and the bracket lands in TWO
+  slots, k+1 AND k-1. Components then mix by +/-1 and only the EVEN/ODD PARITY decouples, not
+  each degree. The theorem is about geodesic flow specifically -- which is the case P3 needs,
+  but it is not a general Hamiltonian fact and should not be quoted as one.
+- WHAT IT DOES **NOT** ESTABLISH, and this is the part that was being over-claimed: grading gives
+  INDEPENDENCE of the rungs, not FINITENESS of the ladder. Each fixed degree r is an
+  overdetermined system of finite type and so decidable in principle; there is NO a priori bound
+  on r. Nothing rules out an irreducible degree-7 Killing tensor for a metric with none at 2-6.
+  So a screen over degrees 1..4 is a MAP OF WHERE WE LOOKED on the degree axis -- exactly the
+  honesty tabula already applies to the family axis. Relayed to them.
+- The analytic (non-polynomial) case reduces to the polynomial one: homogeneous Taylor components
+  in p are unique and {H,.} applies termwise inside the radius of convergence, so an analytic
+  first integral is an infinite family of polynomial ones -- no MORE finite, not less.
