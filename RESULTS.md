@@ -1846,6 +1846,33 @@ t2=2; and `zsimp` gained an `expand_trig`+`simplify` stage for a multiple-angle-
 gives the wrong termination order. (§119's lesson again: the wall is the simplifier.) Order 2 is
 **opt-in** (`ck_signature(..., order2=True)`), so §116–§119 stay bit-for-bit. Repro:
 `scripts/122_ck_order2.py`.
+**THE WALL, LOCATED AND REMOVED (P0 Phases 1–2).** This battery had never once completed Kerr: two runs
+died at 4.6 h and 6 h+, and a third reached **6 h 11 m with zero of Kerr's 16 order-2 components finished**.
+We had guessed the cause three times and been wrong three times, so we profiled instead. **Phase 1** — one
+signature, stage by stage, with Schwarzschild as a control (component *counts* are identical between the two
+metrics, so a large time ratio is representation swell, not bulk): 94.9% of the control's 32.4 s is
+`cartan_order2`, and inside it `frame_component5` is **85% of the entire signature**. Splitting one Kerr
+contraction: accumulate 243 terms **0.01 s / 3,710 ops** → `expand()` **1.03 s / 90,841 ops** → `together()`
+**2.31 s / 238,430 ops** → `cancel()` **295 s / 20 ops**. *A five-minute computation returning a 20-op answer,
+and the pipeline manufactures the swell it then undoes.* The hypothesis we went in with — that order 1 walls
+on the expensive simplifier chain — was **refuted**: full chain 271.7 s vs cheap 282.4 s, a 4% difference.
+(A first attempt at that comparison read 231 s vs 6.7 s and was pure SymPy **cache contamination** — whichever
+normal form runs second reuses everything the first built. Two normal forms can only be compared in separate
+processes.) **Phase 2**, one cold process per route, each verified against the baseline by simplifying the
+difference to zero *before* its timing was allowed to count: `cancel(together(expand(s)))` **261.9 s** →
+`cancel(s)` **9.1 s (29×)** → `cancel(together(s))` **3.0 s (87×)**, all returning the identical 20-op
+expression; `radsimp` 0.9 s but 160,331 ops, not a normal form, rejected. **The fix is not "drop expand"** —
+that patch made §116 more than **7× slower**, because without `expand` the cheap branch stops detecting zeros
+and everything escalates to the expensive chain. `expand()` is the most costly thing in `ck.py` on rotating
+metrics and the most *useful* thing on static ones, and which it is depends only on **input size**:
+Schwarzschild's raw contraction is **50 ops**, Kerr's is **3,710** — a 74× gap, so `EXPAND_MAX_OPS = 500`
+sits in open space rather than on a cliff. One Kerr order-2 component: **~3,000 s → 430 s**. All six frozen
+batteries (§116, §117, §118, §119, §120, §121) re-run **verdict-identical**, at unchanged speed. *A note on
+that check, because it nearly cost us the fix: a raw `diff` flagged three batteries as differing and every
+difference was a **printed elapsed time**. A bit-identical criterion is only meaningful against output that is
+deterministic — ours prints timings, so the pre-registered gate has to normalize what is deliberately
+non-deterministic, or it fires on noise and punishes the correct change.* Instruments:
+`scripts/_p0_stage_profile.py`.
 
 ## §119 — bridge round 7: bumpy ε=0.35 vs Manko-Novikov q=0.5, decided at order 0
 
