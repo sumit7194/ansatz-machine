@@ -48,7 +48,7 @@ def main():
         return 0
     # imported here (not at module level): _qinvariant needs numpy, so a numpy-less
     # checkout skips above instead of crashing on import.
-    from _qinvariant import BNAMES, basis, check_independence, fit, metric
+    from _qinvariant import BNAMES, basis, check_independence, fit, metric, survives as _survives
 
     print("NO CARTER CONSTANT UNDER DEFORMATION — symbolic frontier cracked numerically\n")
     ok = []
@@ -83,14 +83,49 @@ def main():
         Sd, nd, _ = fit(metric(eps), E, L, p2list, r0)
         Sds[eps] = (Sd[-1], Sd[-2] / Sd[-1], nd)
     no_invariant = all(s > 1e-4 and g < 10 for s, g, _ in Sds.values())
-    grows = Sds[2][0] < Sds[5][0] < Sds[10][0]                 # obstruction scales with deformation
-    okC = no_invariant and grows
+    okC = no_invariant
     ok.append(okC)
     print(f"\n  (C) DEFORMED Kerr — smallest SV (no machine-zero, no gap):")
     for eps in (2, 5, 10):
         s, g, nd = Sds[eps]
         print(f"        ε={eps:>2} [{nd} orbits]: smallest SV={s:.2e}, gap={g:.1f}")
-    print(f"      no conserved quadratic; obstruction GROWS with ε ⇒ NON-integrable   {'✅' if okC else '❌'}")
+    print(f"      no conserved quadratic at any ε ⇒ NON-integrable   {'✅' if okC else '❌'}")
+
+    # (C2) THE ARMS ARE NOT MATCHED — and one shipped sub-claim does not survive matching them.
+    # tabula's rule, from their own survivorship bias: "a threshold applied to two arms is only
+    # meaningful if the arms were produced under the same conditions; otherwise it measures the
+    # conditions." Ours are not: the SURVIVING-ORBIT COUNT varies with ε (10, 16, 18, 18), because
+    # orbits are discarded when they leave r∈[1.9,30] and the deformation changes which ones do.
+    # So (C)'s ε-sweep compared four DIFFERENT ensembles. Re-measured on the 10 orbits that survive
+    # at EVERY ε, the smallest singular value is FLAT, not monotone:
+    #     shipped (per-ε):  3.07e-3 → 5.68e-3 → 1.62e-2   "grows with ε"
+    #     matched (common): 2.19e-3 → 2.22e-3 → 2.07e-3   flat
+    # THE GROWTH WAS ENSEMBLE COMPOSITION, NOT PHYSICS, and (C) used to GATE on it. Removed.
+    # What survives matching is the claim that actually matters and is now stronger for being
+    # measured on fixed arms: at EVERY ε there is no machine-zero, ~11 orders above the ε=0
+    # control. The GAP does grow (1.9 → 5.9 → 6.9), which is a real trend on matched arms.
+    from _qinvariant import fit_multi
+    common = [p2 for p2 in p2list
+              if all(_survives(metric(e), E, L, p2, r0) for e in (0, 2, 5, 10))]
+    Sm = {}
+    for eps in (0, 2, 5, 10):
+        Sx, _, _ = fit_multi(metric(eps), [(E, L, p2) for p2 in common], r0,
+                             lambda st, e, l: basis(st))
+        Sm[eps] = (Sx[-1], Sx[-2] / Sx[-1])
+    matched_empty = all(Sm[e][0] > 1e-4 for e in (2, 5, 10))
+    control_zero = Sm[0][0] < 1e-9
+    gap_grows = Sm[2][1] < Sm[5][1] < Sm[10][1]
+    okC2 = matched_empty and control_zero and gap_grows
+    ok.append(okC2)
+    print(f"\n  (C2) MATCHED ARMS — the same {len(common)} orbits at every ε (they survive all four):")
+    for eps in (0, 2, 5, 10):
+        tag = "  ← control, machine-zero" if eps == 0 else ""
+        print(f"        ε={eps:>2}: smallest SV={Sm[eps][0]:.2e}, gap={Sm[eps][1]:.1f}{tag}")
+    print(f"      the shipped 'obstruction GROWS with ε' (3.1e-3→5.7e-3→1.6e-2) does NOT survive")
+    print(f"      arm-matching — it is FLAT ({Sm[2][0]:.2e}→{Sm[5][0]:.2e}→{Sm[10][0]:.2e}). That trend was")
+    print(f"      ENSEMBLE COMPOSITION (10/16/18/18 survivors), not physics, and (C) used to gate on it.")
+    print(f"      What survives is stronger for being measured on fixed arms: no machine-zero at any")
+    print(f"      ε, ~11 orders above the control, and the GAP does grow.   {'✅' if okC2 else '❌'}")
 
     # (E) THE BAND TEST — is (B) a fact about the spacetime, or only about a slice of it?
     # tabula (SpaceTime/curvature) reported that an ensemble varying a conserved quantity over a
@@ -132,7 +167,7 @@ def main():
           f"{'✅' if okE else '❌'}")
 
     # (D) synthesis
-    okD = okA and okB and okC and okE
+    okD = okA and okB and okC and okC2 and okE
     ok.append(okD)
     print(f"\n  (D) The fit RECOVERS Carter for Kerr (11 orders below the deformed) and finds NONE for the")
     print(f"      deformed metric — genuine discrimination, not basis artifact. With §84 (regular tori):")

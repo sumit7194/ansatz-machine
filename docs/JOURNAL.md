@@ -2848,3 +2848,31 @@ and standalone, banked now because this repo has lost multi-hour runs to shutdow
 - SECOND RULE, from the matched-T finding: two controls compared against each other must be
   measured under the SAME conditions, or the comparison measures the difference in conditions.
   Ours differed by 19x in integration time and nobody had looked.
+
+## 2026-08-16 -- §85 (C2): "the obstruction GROWS with eps" was ENSEMBLE COMPOSITION, not physics
+- tabula's rule, from their own survivorship bias: "a threshold applied to two arms is only
+  meaningful if the arms were produced under the same conditions; otherwise it measures the
+  conditions." Applied to our own eps sweep it FALSIFIED A SHIPPED SUB-CLAIM that (C) GATED ON.
+- OUR ARMS WERE NEVER MATCHED: the surviving-orbit count varies with eps -- 10, 16, 18, 18 at
+  eps = 0, 2, 5, 10 -- because orbits are discarded when they leave r in [1.9,30] and the
+  deformation changes which ones do. So the sweep compared FOUR DIFFERENT ENSEMBLES.
+      shipped (per-eps) : 3.07e-3 -> 5.68e-3 -> 1.62e-2   "GROWS with eps"
+      matched (common 10): 2.19e-3 -> 2.22e-3 -> 2.07e-3   FLAT
+  The gate `grows = S[2] < S[5] < S[10]` is REMOVED. I had also endorsed this trend to tabula
+  ("your growth-with-eps point was right and it is visible") -- corrected to them directly.
+- WHAT SURVIVES, and is stronger for being on fixed arms: at EVERY eps there is NO machine-zero,
+  ~11 orders above the eps=0 control (5.64e-14). And the GAP does grow on matched arms
+  (1.9 -> 5.9 -> 6.9), which is the real trend the singular value was being credited with.
+- THE COROLLARY THIS ROUND PRODUCED, which is the general form of both instances today:
+  WHEN THE SELECTION CRITERION DEPENDS ON THE SWEPT VARIABLE, THE ARMS DIFFER BY CONSTRUCTION AND
+  NO AMOUNT OF CARE WITHIN AN ARM FIXES IT. tabula's version hid a signal (their filter kept
+  regular orbits, so they found only regular orbits, and one row rested on n=1); ours MANUFACTURED
+  one. Same root, opposite symptom.
+- A NINTH DISTINCT SHAPE for the catalogue, and it is not "a check that could only come out one
+  way": this is A COMPARISON THAT COULD NOT BE FLAT. The first is about the threshold, the second
+  about the arms.
+- tabula RE-RAN THEIR OWN growth claim on fixed arms after this warning and it SURVIVED (174
+  common survivors of 900; 1.65e-3 -> 9.73e-3 -> 3.62e-2, monotone). Their proposed reason for the
+  divergence, worth recording: the artifact's severity scales as (ensemble variability)/(effect
+  size) -- ours was 10-18 orbits against a ~5x effect, theirs 174-341 against a ~20x effect.
+  §85 5/5 -> 6/6 (new section C2).

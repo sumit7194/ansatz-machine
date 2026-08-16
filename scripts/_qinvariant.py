@@ -70,6 +70,14 @@ BNAMES = ["pth2", "pr2", "pr*pth", "u2", "u2/om", "pth2*u2", "pr2*u2",
           "r*pth2", "r2*pth2", "pr2*r", "pr2*r2"]
 
 
+def survives(f, E, L, p2, r0):
+    """Did this orbit last long enough to be used? Same test fit() applies internally -- exposed
+    so a caller can build an ensemble that is IDENTICAL across parameter values instead of one that
+    silently changes composition as the metric changes."""
+    pts = trajectory(f, E, L, p2, r0)
+    return bool(pts and len(pts) >= 2500)
+
+
 def basis_EL(s, E, L):
     """basis() plus the two columns whose coefficients Carter needs to DEPEND on E and L.
 
