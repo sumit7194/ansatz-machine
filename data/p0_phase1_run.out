@@ -83,3 +83,4 @@ pid 97054   log /Users/sumit/Github/conjecture_machine/data/p0_stage_profile.log
     [Kerr a=1/2] cartan_order1 (frame components)       71.80s  ops=120       peak_rss=   236MB  (+144)
     [Kerr a=1/2] isotropy_invariants order 1            76.88s  ops=102       peak_rss=  3673MB  (+3438)
     [Kerr a=1/2] functional_rank order 1                 0.64s  ops=0         peak_rss=  3673MB  (+0)
+      . second_frame_component #1     462.08s  (cumulative 462.1s, rss 3673MB)

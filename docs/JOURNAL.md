@@ -2814,3 +2814,37 @@ and standalone, banked now because this repo has lost multi-hour runs to shutdow
   deflation step operates on a different object than on real data. More principled in general, more
   awkward for their pipeline -- so: chaotic sea first, surrogates as a cross-check, because the two
   fail differently.
+
+## 2026-08-16 -- §79: our chaos controls were never measured over the same interval
+- SOURCE: tabula's known-negative failure. Their two-trajectory Lyapunov estimator read
+  lambda = +0.019 on INTEGRABLE Kerr -- finite-time bias goes as ln(T)/T, which is ~0.04 at their
+  T=120, the SAME ORDER as the claimed signal. Their fix was a better DISCRIMINATOR, not a better
+  threshold: sweep T and ask whether lambda DECAYS like ln(T)/T (bias => regular) or PLATEAUS.
+- RUN AGAINST OURS IT FOUND SOMETHING WORSE THAN A THRESHOLD PROBLEM. First result looked perfect:
+      T:        100      200      400      800
+      Kerr:  0.0263   0.0132   0.0066   0.0033      halving per doubling -> decays -> REGULAR
+      dihole: 1.7850   1.7850   1.7850   1.7850      a flawless plateau -> CHAOTIC
+  IDENTICAL TO FOUR DECIMALS ACROSS AN 8x RANGE IN T IS TOO CLEAN. Instrumented the ACTUAL
+  integrated time: the di-hole orbit falls into a non-physical region and STOPS AT T=21.0 (34
+  blocks) in every run. All four were the same computation. The "perfect plateau" was nothing
+  varying, not chaos holding steady. A plateau and a dead orbit look identical in that table.
+- THE REAL DEFECT, in shipped work: §79's (B) and (C) ARE NOT MEASURED LIKE FOR LIKE. Kerr runs to
+  T=400 (bias 0.015); the di-hole dies at T=21 (bias 0.145). An order of magnitude apart, and the
+  headline ratio compared them directly.
+      shipped comparison : 1.7850 vs 0.0066 (T=400) ->  190-271x   <- flattered
+      matched comparison : 1.7850 vs 0.1442 (T=20.4) ->      12.4x  <- honest
+  AND THE SHARP PART: at MATCHED T, Kerr itself reads lambda = 0.144, which would FAIL (B)'s own
+  |lambda| < 0.05 gate. (B) passes because Kerr is integrated 19x LONGER, i.e. the gate's apparent
+  comfort came from the interval mismatch rather than from the physics.
+- VERDICT UNCHANGED, MARGIN CORRECTED. The di-hole is genuinely chaotic: 12.3x above its OWN bias
+  at its own T, and 12.4x above Kerr at matched T. Kerr is genuinely regular: lambda halves as T
+  doubles (0.0094 -> 0.0047), which is decay, not a plateau. Both now GATED on those facts rather
+  than on a single-T number: (D) requires decay-under-T for Kerr, di-hole above its own bias, and
+  di-hole above Kerr AT MATCHED T. §79 4/4 -> 5/5.
+- THE GENERAL RULE: A PLATEAU IS ONLY EVIDENCE IF SOMETHING WAS VARIED. When a statistic is
+  identical across a swept parameter, check that the sweep actually happened before reading it as
+  stability -- an early-terminating computation produces a perfect plateau for free. Same family as
+  the silent-null class: "didn't vary" and "varied and didn't move" produce the same output.
+- SECOND RULE, from the matched-T finding: two controls compared against each other must be
+  measured under the SAME conditions, or the comparison measures the difference in conditions.
+  Ours differed by 19x in integration time and nobody had looked.

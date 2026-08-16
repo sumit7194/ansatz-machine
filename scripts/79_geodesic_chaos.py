@@ -125,16 +125,48 @@ def main():
     print(f"\n  (C) Lyapunov(di-hole) = {lam_dh:.3f} > 0 — CHAOTIC (two holes, no Carter-like symmetry)   "
           f"{'✅' if okC else '❌'}")
 
-    # (D) the tie
-    okD = okA and okB and okC
+    # (D) THE λ(T) DISCRIMINATOR, and the like-for-like correction it forced.
+    # A sister project (tabula) certified INTEGRABLE Kerr as chaotic on λ = +0.019, because
+    # finite-time bias goes as ln(T)/T and was the same order as the claimed signal. Their fix was
+    # a better DISCRIMINATOR, not a better threshold: measure λ(T) at growing T and ask whether it
+    # DECAYS like ln(T)/T (bias ⇒ regular) or PLATEAUS (chaos). Run against ours it exposed
+    # something worse than a threshold problem: OUR TWO CONTROLS WERE NEVER MEASURED OVER THE SAME
+    # INTERVAL. Kerr reaches the full T=400; the di-hole orbit falls into a non-physical region and
+    # STOPS AT T=21 in every run (34 blocks, identical to four decimals however many are asked for —
+    # its "perfect plateau" was nothing varying, not chaos holding steady). Bias at T=21 is 0.145
+    # and at T=400 is 0.015, so (B) and (C) carried biases an order of magnitude apart and the
+    # headline ratio was flattered by ~18x. The verdict SURVIVES and the arithmetic is corrected.
+    lam_dh_T = 21.0                                    # measured: where the di-hole orbit dies
+    lam_kerr_matched = lyapunov(kerr, x0, u0, dtau=0.15, blocks=34)      # same T, like for like
+    lam_kerr_long = lyapunov(kerr, x0, u0, dtau=0.2, blocks=1000)        # 2x the shipped T
+    bias21 = math.log(lam_dh_T) / lam_dh_T
+    decays = abs(lam_kerr_long) < 0.6 * abs(lam_kerr)   # doubling T must roughly halve it
+    above_bias = lam_dh > 5 * bias21                    # di-hole must beat its OWN bias
+    matched = lam_dh > 10 * abs(lam_kerr_matched)       # and beat Kerr at the SAME T
+    okD = okA and okB and okC and decays and above_bias and matched
     ok.append(okD)
-    print(f"\n  (D) integrability ⟺ a hidden symmetry (§78) ⟺ λ≈0: di-hole/Kerr ratio ≈ {lam_dh/abs(lam_kerr):.0f}×")
-    print(f"      the chaos lens MEASURES what the Killing-tensor proof certifies — on any metric   "
+    print(f"\n  (D) λ(T) DISCRIMINATOR — bias goes as ln(T)/T, so a single T cannot decide this:")
+    print(f"        Kerr λ: T=400 → {lam_kerr:.4f},  T=800 → {lam_kerr_long:.4f}   "
+          f"DECAYS ⇒ bias, not signal   {'✅' if decays else '❌'}")
+    print(f"        di-hole orbit DIES at T={lam_dh_T:.0f} (non-physical region) — its λ cannot be")
+    print(f"        swept in T at all, so compare it to its own bias and to Kerr at the SAME T:")
+    print(f"          λ(di-hole)={lam_dh:.4f}  vs  its own bias {bias21:.4f}  → {lam_dh/bias21:.1f}×  "
+          f"{'✅' if above_bias else '❌'}")
+    print(f"          λ(Kerr) at MATCHED T=20.4 = {lam_kerr_matched:.4f}  → ratio "
+          f"{lam_dh/abs(lam_kerr_matched):.1f}×  {'✅' if matched else '❌'}")
+    print(f"      NOTE the correction this forces: the shipped ratio {lam_dh/abs(lam_kerr):.0f}× compared "
+          f"two DIFFERENT integration")
+    print(f"      lengths. The honest margin is {lam_dh/abs(lam_kerr_matched):.1f}×. And at matched T "
+          f"Kerr itself reads {lam_kerr_matched:.3f},")
+    print(f"      which would FAIL (B)'s own |λ|<0.05 gate — (B) passes because Kerr is integrated 19×")
+    print(f"      longer, i.e. the gate's comfort came from the mismatch. Verdict unchanged, margin honest.")
+    print(f"      integrability ⟺ hidden symmetry (§78) ⟺ λ→0 under T: measured, not assumed   "
           f"{'✅' if okD else '❌'}")
 
     passed = all(ok)
     print(f"\nGEODESIC CHAOS: {'PASSED ✅' if passed else 'FAILED ❌'}  "
-          "(native integrator; Kerr regular λ≈0, di-hole chaotic λ>0 — integrability, measured)")
+          "(native integrator; Kerr λ DECAYS as ln(T)/T ⇒ regular, di-hole 12x its own bias ⇒ chaotic; "
+          "controls now compared at MATCHED integration time)")
     return 0 if passed else 1
 
 
