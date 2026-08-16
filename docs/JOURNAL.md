@@ -2738,3 +2738,38 @@ and standalone, banked now because this repo has lost multi-hour runs to shutdow
   That is the test doing its job. The failure mode to avoid was the one they named -- a tidy story
   that makes both parties more confident than the evidence supports. Recording the refutation next
   to the original rather than editing the original.
+
+## 2026-08-16 -- P0 PHASE 2: the §122 wall was sp.expand(). Fixed, size-gated, verdicts preserved.
+- PHASE 1 SAID: 99% of an order-2 frame contraction is ONE sp.cancel(), handed 238,430 ops to
+  return 20, and the pipeline MANUFACTURES that swell itself (raw 3,710 -> expand 90,841 ->
+  together 238,430). Phase 2 asked whether a route that skips the manufacturing gets the same
+  answer faster. ONE COLD PROCESS PER ROUTE -- my first Phase 2 script ran all candidates in one
+  process and would have reproduced exactly the cache contamination I had caught an hour earlier.
+      shipped  cancel(together(expand(s)))   261.86s   20 ops
+      cancel   cancel(s)                       9.09s   20 ops   MATCHES baseline   29x
+      together cancel(together(s))             3.01s   20 ops   MATCHES baseline   87x
+      radsimp  radsimp(s)                      0.91s  160331 ops -> not a normal form, REJECTED
+  Each candidate verified against the baseline by simplifying the difference to zero BEFORE its
+  timing was allowed to mean anything. A faster wrong answer is worth less than a slow right one.
+- FIRST PATCH ("drop expand") WAS WRONG IN THE OTHER DIRECTION, and the validation caught it:
+  §116 went from 80s to >7x SLOWER and did not finish in ten minutes. Cause: without expand the
+  cheap branch stops detecting zeros, so nearly everything escalates to the expensive chain, which
+  costs far more than expand ever did on small inputs.
+- THE REAL SHAPE: expand() is the most expensive thing in ck.py on rotating metrics and the most
+  USEFUL thing on static ones, and which it is depends entirely on the SIZE of what it is handed.
+  Measured raw contraction sizes: Schwarzschild 50 ops (expand free, 0.00s), Kerr 3,710 ops
+  (expand-route 235s). A 74x gap, so a size gate sits in open space rather than on a cliff.
+  EXPAND_MAX_OPS = 500, applied in zsimp() and in second_frame_component()'s cheap form.
+- RESULT: one Kerr order-2 component 3,000s -> 429.86s (7x). Projected full Kerr order-2 stage
+  ~13 hours -> ~1.9 hours. Static batteries unchanged in speed (they are below the gate).
+- FROZEN-VERDICT CHECK PASSED, and my FIRST check was WRONG -- the fourth "code right, check
+  wrong" in this repo. A raw diff reported §119, §120, §121 as DIFFERING and I nearly reverted a
+  correct change. Every difference was a PRINTED ELAPSED TIME ("computed exactly in 98s" vs "94s",
+  "(0.2s)" vs "(0.1s)") -- non-deterministic BY DESIGN and not a verdict. With timings normalized:
+      116 VERDICTS IDENTICAL  80.07 -> 76.08s      119 VERDICTS IDENTICAL  100.31 -> 96.61s
+      117 VERDICTS IDENTICAL  30.70 -> 28.09s      120 VERDICTS IDENTICAL   25.18 -> 23.14s
+      118 VERDICTS IDENTICAL  51.45 -> 47.08s      121 VERDICTS IDENTICAL  107.94 -> 97.20s
+  THE LESSON, since "bit-identical" was MY OWN pre-registered clause: a bit-identical criterion is
+  only meaningful against output that is deterministic. Ours prints timings, so the criterion has
+  to be "identical after normalizing what is deliberately non-deterministic" -- otherwise the gate
+  fires on noise and the pre-registration punishes the correct change.

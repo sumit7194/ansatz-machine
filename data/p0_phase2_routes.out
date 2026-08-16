@@ -1,0 +1,6 @@
+shipped       261.86s  ops=20
+cancel          9.09s  ops=20
+           MATCHES shipped baseline
+together        3.01s  ops=20
+           MATCHES shipped baseline
+radsimp         0.91s  ops=160331

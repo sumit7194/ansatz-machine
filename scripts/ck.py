@@ -247,6 +247,12 @@ def generic_branch(e):
     return e.replace(lambda x: isinstance(x, sp.Piecewise), fix)
 
 
+# Above this input size, sp.expand() manufactures more swell than it removes -- see zsimp().
+# Measured regimes are 50 ops (Schwarzschild, expand free and useful) and 3710 ops (Kerr, expand
+# costs 87x), so this sits in the middle of a 74x gap rather than on a cliff.
+EXPAND_MAX_OPS = 500
+
+
 def zsimp(e):
     """Zero test / normal form for frame components, domain-aware and ESCALATING.
 
@@ -264,8 +270,36 @@ def zsimp(e):
     e = generic_branch(e)
     if e == 0:
         return sp.S.Zero
-    # (1) cheap: rational normal form, no sp.simplify anywhere
-    c = generic_branch(sp.cancel(sp.together(sp.expand(e))))
+    # (1) cheap: rational normal form, no sp.simplify anywhere -- with expand() SIZE-GATED.
+    #
+    # expand() is the single most expensive thing in this file on rotating metrics and the single
+    # most useful thing on static ones, and which it is depends entirely on the size of what it is
+    # handed. Both halves are measured (§P0 Phases 1-2, one order-2 frame contraction each,
+    # one cold process per route -- two normal forms cannot be compared in one process, SymPy's
+    # cache makes whichever runs second look free):
+    #
+    #   Kerr a=1/2, raw contraction 3710 ops:
+    #       cancel(together(expand(s)))  261.86 s     expand inflates 3,710 -> 90,841 ops,
+    #       cancel(together(s))            3.01 s     together carries it to 238,430, and cancel
+    #       cancel(s)                      9.09 s     spends five minutes undoing swell the
+    #                                                 pipeline manufactured. Answer: 20 ops either
+    #                                                 way. Dropping expand: 87x, IDENTICAL result.
+    #   Schwarzschild M=1, raw contraction 50 ops:
+    #       cancel(together(expand(s)))    0.00 s     and dropping expand made §116 more than 7x
+    #                                                 SLOWER -- without it the cheap branch stops
+    #                                                 detecting zeros, so nearly everything
+    #                                                 escalates to the chain below, which costs far
+    #                                                 more than expand ever did.
+    #
+    # So the fix is not "drop expand", which was our first patch and was wrong in the other
+    # direction. It is to spend it only where it cannot blow up. The two regimes are 74x apart in
+    # input size (50 vs 3710), so the gate sits comfortably between them and no realistic case is
+    # near it. Correctness is unaffected either way: this is only the CHEAP branch of an escalating
+    # test, and anything it fails to reduce to zero falls through to the expensive chain below.
+    e_ops = sp.count_ops(e)
+    c = (sp.cancel(sp.together(sp.expand(e))) if e_ops <= EXPAND_MAX_OPS
+         else sp.cancel(sp.together(e)))
+    c = generic_branch(c)
     if c == 0:
         return sp.S.Zero
     if _CHEAP_ONLY:
@@ -769,7 +803,10 @@ def second_frame_component(geo, DC, vs, w, dvs):
     which needs only derivatives of the tetrad vectors and five more contractions of the
     order-1 tensor we already have. Building nabla nabla C directly is 4096 components each
     carrying six Christoffel corrections, and it does not finish on anything interesting."""
-    cheap = lambda e: sp.cancel(sp.together(sp.expand(e)))
+    # Same size gate as zsimp() -- see the measurements there. expand() is nearly free and
+    # genuinely useful below the gate, and catastrophic above it.
+    cheap = lambda e: (sp.cancel(sp.together(sp.expand(e)))
+                       if sp.count_ops(e) <= EXPAND_MAX_OPS else sp.cancel(sp.together(e)))
     F = frame_component5(DC, vs, simp=cheap)
     tot = sp.S.Zero
     for f in range(geo.n):
