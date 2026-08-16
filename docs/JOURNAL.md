@@ -2483,3 +2483,29 @@ nice-19 (alphaludo-l4, trainer untouched). Dashboards live on both hosts.
 - The analytic (non-polynomial) case reduces to the polynomial one: homogeneous Taylor components
   in p are unique and {H,.} applies termwise inside the radius of convergence, so an analytic
   first integral is an infinite family of polynomial ones -- no MORE finite, not less.
+
+## 2026-08-16 -- §85 section (E): the band test. tabula's bug (a), landed on our side as its twin.
+- THEIR REPORT: an ensemble that varies a conserved quantity over a NARROW band makes its own
+  powers near-parallel, the solver under-counts, and an under-counted rung LOOKS LIKE A CLEAN ONE.
+  Their K0 returned 2 where 3 were provably present; corr(L, L^2) = 0.99923 over their band.
+- OURS IS THE EXTREME CASE OF THE HAZARD: §85 (B)/(C) hold E and L FIXED and vary only
+  inclination -- a band of width ZERO in two of the three conserved directions.
+- FIRST RESULT LOOKED LIKE THEIR BUG: widening (E,L) made the Kerr validation gate FAIL --
+  null-dim 1 -> 0, Carter not found. I did NOT report that, because two hypotheses fit it:
+    H1 solver under-count (their bug), vs H2 basis adequacy.
+  They make OPPOSITE predictions, so the test is cheap: give the basis the E,L dependence Carter
+  actually needs (Q = p_th^2 + L^2 cot^2 th + a^2(1-E^2) cos^2 th -- our columns u^2/om and u^2
+  carried CONSTANT coefficients) and rerun on the WIDE ensemble.
+- H2 CONFIRMED, decisively: with the two E,L-dependent columns added, Carter returns at
+  smallest SV 1.4e-10 with a 6.5e7 gap, and the recovered a^2 coefficient is 0.360 against the
+  true a^2 = 0.36. So the solver was right and the BASIS was slice-specific. "Not in the span"
+  was a fact about the basis, never about the spacetime.
+- WHY IT STILL MATTERS, and this is the twin of their bug rather than a refutation of it:
+  A ZERO-WIDTH BAND CAN MAKE A BASIS LOOK ADEQUATE WHEN IT IS ONLY SLICE-ADEQUATE. Their narrow
+  band hid a near-degeneracy; ours hid a representation deficiency. Same cause -- the ensemble
+  did not exercise the direction the guard was supposed to test.
+- THE CLAIM IS UNCHANGED AND NOW STRONGER. Folded in as §85 section (E), which runs the WHOLE
+  test on a strictly harder ensemble (E, L AND inclination varied): control recovers Carter with
+  the right a^2; deformed stays empty at eps = 2, 5, 10 (8.8e-3, 1.2e-2, 3.9e-2). §85 4/4 -> 5/5.
+- SCOPE, now stated rather than assumed: "no conserved quadratic in a Carter-ADEQUATE basis
+  across an ensemble varying E, L and inclination" -- not "on one (E,L) slice".

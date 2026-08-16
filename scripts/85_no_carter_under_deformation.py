@@ -48,7 +48,7 @@ def main():
         return 0
     # imported here (not at module level): _qinvariant needs numpy, so a numpy-less
     # checkout skips above instead of crashing on import.
-    from _qinvariant import BNAMES, check_independence, fit, metric
+    from _qinvariant import BNAMES, basis, check_independence, fit, metric
 
     print("NO CARTER CONSTANT UNDER DEFORMATION — symbolic frontier cracked numerically\n")
     ok = []
@@ -92,13 +92,54 @@ def main():
         print(f"        ε={eps:>2} [{nd} orbits]: smallest SV={s:.2e}, gap={g:.1f}")
     print(f"      no conserved quadratic; obstruction GROWS with ε ⇒ NON-integrable   {'✅' if okC else '❌'}")
 
+    # (E) THE BAND TEST — is (B) a fact about the spacetime, or only about a slice of it?
+    # tabula (SpaceTime/curvature) reported that an ensemble varying a conserved quantity over a
+    # NARROW band makes its powers near-parallel and silently under-counts. Ours is the extreme
+    # case: (B) and (C) hold E and L FIXED, a band of width ZERO in two of the three conserved
+    # directions. Widening it makes (B) FAIL — and the reason is not their bug but its twin:
+    # the basis carries CONSTANT coefficients on u^2/om and u^2, so it can represent Carter only
+    # ON the fixed-(E,L) slice. Off the slice Carter is genuinely not in the span. Restore the
+    # E,L dependence the invariant actually needs and it comes back at machine zero. So the
+    # verdict survives a strictly HARDER ensemble, and (B)'s scope is now stated rather than
+    # assumed: a zero-width band can make a basis look adequate when it is only slice-adequate.
+    from _qinvariant import BNAMES_EL, basis_EL, fit_multi
+    rng = np.random.default_rng(0)
+    wide = [(E + 0.03 * rng.uniform(-1, 1), L + 1.2 * rng.uniform(-1, 1), p2)
+            for p2 in p2list]
+    Sn, nn, _ = fit_multi(metric(0), wide, r0, lambda st, e, l: basis(st))
+    Sw, nw, vw = fit_multi(metric(0), wide, r0, basis_EL)
+    slice_only = Sn[-1] > 1e-6                       # plain basis loses Carter off the slice
+    recovered = Sw[-1] < 1e-8 and Sw[-2] / Sw[-1] > 1e5
+    tw = dict(zip(BNAMES_EL, vw))
+    a2 = tw["(1-E2)*u2"] / tw["pth2"]
+    coeff_ok = abs(a2 - 0.6**2) / 0.6**2 < 0.1       # must reproduce a^2, not just any zero
+    Se = {}
+    for eps in (2, 5, 10):
+        Sd, _, _ = fit_multi(metric(eps), wide, r0, basis_EL)
+        Se[eps] = Sd[-1]
+    still_empty = all(v > 1e-4 for v in Se.values())
+    okE = slice_only and recovered and coeff_ok and still_empty
+    ok.append(okE)
+    print(f"\n  (E) BAND TEST — E,L VARIED across orbits [{nw} orbits], not just inclination:")
+    print(f"        plain basis (constant coeffs):  smallest SV={Sn[-1]:.2e} → Carter NOT in span")
+    print(f"        + L²·cot²θ and (1−E²)·cos²θ:    smallest SV={Sw[-1]:.2e}, "
+          f"gap={Sw[-2] / Sw[-1]:.1e} → Carter recovered")
+    print(f"        recovered a² coefficient = {a2:.3f}  vs  a² = {0.6**2:.3f}  "
+          f"{'✅' if coeff_ok else '❌'}")
+    print(f"        deformed, SAME wide ensemble + adequate basis: "
+          + ", ".join(f"ε={e}: {v:.1e}" for e, v in Se.items()))
+    print(f"      (B) was slice-scoped and is now ensemble-scoped; (C) survives the harder test. "
+          f"{'✅' if okE else '❌'}")
+
     # (D) synthesis
-    okD = okA and okB and okC
+    okD = okA and okB and okC and okE
     ok.append(okD)
     print(f"\n  (D) The fit RECOVERS Carter for Kerr (11 orders below the deformed) and finds NONE for the")
     print(f"      deformed metric — genuine discrimination, not basis artifact. With §84 (regular tori):")
     print(f"      the deformation breaks integrability but KAM-gently ⇒ near-integrable, no hidden symmetry.")
-    print(f"      Resolves §82's 'undetermined'; refutes 'a different Killing tensor survives'.   {'✅' if okD else '❌'}")
+    print(f"      Resolves §82's 'undetermined'; refutes 'a different Killing tensor survives'.")
+    print(f"      Scope, after (E): no conserved quadratic in a Carter-adequate basis across an")
+    print(f"      ensemble that varies E, L AND inclination — not merely on one (E,L) slice.   {'✅' if okD else '❌'}")
 
     passed = all(ok)
     print(f"\nNO CARTER UNDER DEFORMATION: {'PASSED ✅' if passed else 'FAILED ❌'}  "

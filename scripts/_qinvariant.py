@@ -70,6 +70,43 @@ BNAMES = ["pth2", "pr2", "pr*pth", "u2", "u2/om", "pth2*u2", "pr2*u2",
           "r*pth2", "r2*pth2", "pr2*r", "pr2*r2"]
 
 
+def basis_EL(s, E, L):
+    """basis() plus the two columns whose coefficients Carter needs to DEPEND on E and L.
+
+    Carter is Q = p_th^2 + L^2 cot^2(th) + a^2(1-E^2)cos^2(th). The plain basis carries CONSTANT
+    coefficients on u^2/om and u^2, so it can represent Q only on a slice of FIXED E and L --
+    which is exactly the ensemble the original fit used. Off that slice the representation needs
+    the E,L dependence made explicit, and without it Carter is genuinely not in the span. The
+    distinction matters: "not in the span" is a fact about the BASIS, not about the spacetime."""
+    r_, th_, pr, pth = s
+    u = math.cos(th_)
+    om = 1 - u * u
+    return basis(s) + [L * L * u * u / om, (1 - E * E) * u * u]
+
+
+BNAMES_EL = BNAMES + ["L2*u2/om", "(1-E2)*u2"]
+
+
+def fit_multi(f, orbits, r0, bfn):
+    """Null-space fit over an ensemble whose orbits may differ in E and L, not just inclination.
+
+    bfn(state, E, L) -> feature row, so the basis may carry explicit E,L dependence."""
+    blocks, used = [], 0
+    for (E, L, p2) in orbits:
+        pts = trajectory(f, E, L, p2, r0)
+        if not pts or len(pts) < 2500:
+            continue
+        used += 1
+        sub = pts[:: max(1, len(pts) // 250)]
+        Phi = np.array([bfn(st, E, L) for st in sub], dtype=float)
+        blocks.append(Phi - Phi.mean(axis=0, keepdims=True))
+    D = np.vstack(blocks)
+    scale = np.linalg.norm(D, axis=0) + 1e-30
+    U, S, Vt = np.linalg.svd(D / scale, full_matrices=False)
+    vec = Vt[-1] / scale
+    return S, used, vec / np.max(np.abs(vec))
+
+
 def check_independence():
     """SVD the basis on random phase-space points — every singular value must be > 0
     (full column rank), else the basis has a hidden identity (false invariants)."""
