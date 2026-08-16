@@ -2707,3 +2707,34 @@ and standalone, banked now because this repo has lost multi-hour runs to shutdow
 - FIFTH instance of the silent-null class (theirs): a |value| < 60 filter silently returned ZERO
   trajectories on a scattering system; it crashed only by luck on an empty matrix. The crash was
   the GOOD outcome -- the only one of the five that could not have been mistaken for a result.
+
+## 2026-08-16 -- CORRECTION to the entry above: my degree-3 hypothesis was REFUTED
+- I hypothesized that tabula's degree-3 library was HOMOGENEOUS in momentum degree, so that Carter
+  (degree 2) fell outside its span and the control was structurally unsatisfiable. They measured
+  the span rather than reading the code (the check I had told them to use) and it is WRONG:
+      their degree-3 library carries momentum degrees [0, 1, 2, 3] -- TOTAL-degree <= 3, not
+      homogeneous. Carter is in scope at every rung, and survives their SVD truncation:
+          deg2 rat+metric  Carter resid 4.69e-07 raw -> 5.27e-07 kept
+          deg3 rational               7.07e-05      -> 7.15e-05
+          deg3 rat+metric             1.81e-07      -> 2.65e-07
+          deg4 rat+metric             6.44e-08      -> 1.53e-07
+- AND MY FRAMING WAS WRONG IN A WAY THAT WOULD HAVE PROPAGATED. I wrote that "a homogeneous
+  degree-N library is the CORRECT design given the grading theorem". That does not describe their
+  instrument and should not be stated as design advice: they use total-degree DELIBERATELY,
+  because the reducibles they must deflate (P*H, p_t*K) are INHOMOGENEOUS products and have to be
+  representable. Their Toda run also does not discriminate the two -- I3 is a genuine cubic AND
+  their Toda library is total-degree <= 3, so both facts held at once. The tidy story ("instrument
+  passed once the control was at the right degree") is not supported by that run.
+- WHAT SURVIVED, one rung over: deg3 RATIONAL is genuinely basis-limited -- Carter representable
+  only to 7.07e-05, ~100x worse than every rung carrying the metric components, because Carter
+  needs mu^2 = -2H and the plain rational coordinate family cannot express the inverse-metric
+  components H is built from. A control residual of 9.2e-4 against a 7e-5 representability ceiling
+  IS our §85 H2. So the MECHANISM diagnosis was right and the TARGET was one rung off.
+- WHAT IS NOW SHARP: deg3 rat+metric has Carter representable at 1.81e-07 and the control still
+  failed at 1.6e-3 -- FOUR ORDERS between what the basis can express and what the engine recovered.
+  Not sampling (flat-in-coverage), not representability (measured). A readout/conditioning failure
+  with nowhere left to hide.
+- LESSON ON MY OWN CONDUCT: I gave them a one-line test, they ran it, and it killed my hypothesis.
+  That is the test doing its job. The failure mode to avoid was the one they named -- a tidy story
+  that makes both parties more confident than the evidence supports. Recording the refutation next
+  to the original rather than editing the original.
