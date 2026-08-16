@@ -1089,7 +1089,13 @@ the identity u²/om−u⁴/om−u²≡0, a FALSE machine-zero SV — the stress-
 battery). **(B) Validation — Kerr:** the fit recovers the Carter constant cleanly — smallest SV **5.6e-14**,
 gap 3.6e10, and the recovered vector = p_θ² + 11.56·cot²θ + 0.035·cos²θ matches Carter (L²=11.56,
 a²(1−E²)=0.035) to the digit. **(C) Deformed Kerr (§82 metric):** NO machine-zero SV — smallest sits at
-3.1e-3 (ε=2) → 5.7e-3 (ε=5) → 1.6e-2 (ε=10), GROWING with ε, no gap. *No Carter-like conserved quantity
+3.1e-3 (ε=2) → 5.7e-3 (ε=5) → 1.6e-2 (ε=10), GROWING with ε, no gap. **Scope on the ε sweep, measured after a
+cross-check with tabula:** the bump 1+ε(3u²−1)/r³ is a steep function of r, so equal ε is *not* equal
+deformation unless orbits reach equal radii. Measured reach — ε=2: r∈[6.44,11.64], max|bump−1| = **0.0075**;
+ε=5: r∈[4.80,12.14], **0.045**; ε=10: r∈[2.00,12.78], **1.25**. At ε=10 the orbits hit the inner cutoff where
+the deformation *exceeds the function it multiplies* (g_tt scaled by up to −0.25, sign-flipped). **ε=2 and ε=5
+are perturbative; ε=10 is not** — the monotone growth stands, but the third point is a qualitatively different
+regime and must not be read as "a large but still perturbative deformation". *No Carter-like conserved quantity
 survives ⇒ the deformed metric is NON-integrable.* **(D) Synthesis:** the fit recovers Carter for Kerr (11
 orders below the deformed) and finds none for the deformed metric — genuine discrimination, not artifact. With
 §84 (regular Poincaré tori): **the deformation breaks integrability but KAM-gently — near-integrable, no hidden
