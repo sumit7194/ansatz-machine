@@ -2509,3 +2509,27 @@ nice-19 (alphaludo-l4, trainer untouched). Dashboards live on both hosts.
   the right a^2; deformed stays empty at eps = 2, 5, 10 (8.8e-3, 1.2e-2, 3.9e-2). §85 4/4 -> 5/5.
 - SCOPE, now stated rather than assumed: "no conserved quadratic in a Carter-ADEQUATE basis
   across an ensemble varying E, L and inclination" -- not "on one (E,L) slice".
+
+## 2026-08-16 -- §123 case (I): is the relative floor DIMENSIONAL? (tabula bug 5)
+- THEIR BUG 5: a floor calibrated at one rung does not transfer to another. Theirs, calibrated on
+  a 163-dim library and applied at 442-dim, let a rung report 441 conserved directions out of 410.
+- OUR EXPOSURE, which is the same shape: §123 sweeps polynomial degree 2/4/6/8 (m = 14/69/209/494)
+  against ONE shared TAU_REL = 1e-6, and attributes every deg-6/8 false emit to O4 (a polynomial
+  approximating a transcendental invariant). But sigma_min/sigma_max of any tall-thin matrix
+  shrinks with column count for purely DIMENSIONAL reasons. Two diagnoses, one number.
+- THE CONTROL that separates them: hold basis, degree, m and row count fixed and destroy only the
+  CONSERVED STRUCTURE -- random phase-space points, provably no invariant in the span.
+      deg 2 (m= 14): 7.8e-01     deg 6 (m=209): 3.3e-03
+      deg 4 (m= 69): 4.3e-02     deg 8 (m=494): 2.4e-04
+- VERDICT: the dimensional trend is REAL and monotone -- about one decade per two degrees, 3.5
+  decades across the sweep -- but at deg 8 it still sits 245x ABOVE the floor, while the deg-6/8
+  false emits read 3.2e-14 and 7.1e-18, TEN decades lower. So (G)'s attribution to O4 STANDS;
+  those emits are approximation, not dimension. Their bug does not currently bite us.
+- BUT THE MECHANISM IS PRESENT AND NOW QUANTIFIED, which is worth more than "we are fine":
+  TAU_REL is NOT size-independent. Extrapolating one decade per two degrees, a structureless
+  library crosses 1e-6 somewhere past degree ~13. Sharing one floor across rungs is safe HERE
+  and unsafe in general. Case (I) now ships the structureless control per degree, so the floor is
+  CALIBRATED rather than assumed -- tabula's "every rung ships its own control", adopted.
+- §123 8/8 -> 9/9. Also checked and clear: their bug 2 (greedy column pruning silently removing
+  the columns a known invariant needs). We prune nothing; §123's basis omits the constant term by
+  DEFINITION, not by pruning, and O5 now guards that hole anyway.

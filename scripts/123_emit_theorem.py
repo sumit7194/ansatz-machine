@@ -428,6 +428,38 @@ def main():
     print(f"    => O5 rejects the nuisance and keeps the real invariant: a conserved quantity")
     print(f"       must SEPARATE orbits to be informative.  {'✅' if okH else '❌'}")
 
+    # ============================================= (I) IS THE FLOOR DIMENSIONAL? (tabula's bug 5)
+    # tabula: "a floor calibrated at one rung does not transfer to another" -- theirs, calibrated
+    # at a 163-dim library and applied at 442-dim, let a rung report 441 conserved directions out
+    # of 410. We share ONE TAU_REL across the whole degree sweep above (m = 14 -> 494) and blame
+    # every deg-6/8 false emit on O4. But sigma_min/sigma_max of any tall-thin matrix shrinks with
+    # the column count for purely dimensional reasons, so those two diagnoses could be conflated.
+    # THE CONTROL that separates them: hold the basis, the degree, m and the row count fixed and
+    # destroy only the CONSERVED STRUCTURE -- random phase-space points, provably no invariant in
+    # the span. Whatever the floor reads there is the dimensional contribution alone.
+    print("\n(I) IS THE FLOOR DIMENSIONAL? -- structureless control at each degree (tabula bug 5):")
+    rngI = np.random.default_rng(0)
+    dim_floor, margin_ok = {}, True
+    for deg in (2, 4, 6, 8):
+        bf, _ = poly_basis(deg)
+        rand = [rngI.uniform(-2.0, 2.0, size=(400, 4)) for _ in range(6)]
+        rr = emit(rand, bf)
+        dim_floor[deg] = rr["rel"]
+        margin_ok &= not rr["accepted"]
+        print(f"      deg {deg}: m={len(bf):3d}  sigma_min/sigma_max = {rr['rel']:.2e} "
+              f"on data with NO invariant -> emit = {rr['accepted']}")
+    print(f"    the dimensional trend is REAL and monotone ({dim_floor[2]:.1e} -> {dim_floor[8]:.1e},")
+    print(f"    about one decade per two degrees) but at deg 8 it still sits "
+          f"{dim_floor[8] / TAU_REL:.0f}x")
+    print(f"    ABOVE the floor, while the deg-6/8 false emits read 3e-14 and 7e-18 -- ten decades")
+    print(f"    lower. So those are approximation (O4), not dimension, and (G)'s attribution holds.")
+    okI = margin_ok
+    ok.append(okI)
+    print(f"    THE LIMIT THIS NAMES: TAU_REL is NOT size-independent. Extrapolating the trend, a")
+    print(f"    structureless library crosses 1e-6 somewhere past degree ~13. Sharing one floor")
+    print(f"    across rungs is safe HERE and is not safe in general -- each rung should ship its")
+    print(f"    own structureless control, which is what this case now does.  {'✅' if okI else '❌'}")
+
     passed = all(ok)
     print(f"\nEMIT-LEGIBILITY THEOREM: {'PASSED ✅' if passed else 'FAILED ❌'}  "
           f"({sum(ok)}/{len(ok)}) -- forward direction proven exact; legible <=> invariant in "
