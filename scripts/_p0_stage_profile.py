@@ -51,6 +51,7 @@ from analyzer import weyl_tensor
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 _mod = __import__("122_ck_order2")
 kerr, schwarzschild, DOMAINS = _mod.kerr, _mod.schwarzschild, _mod.DOMAINS
+taub_nut = _mod.taub_nut
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 LOG = os.path.join(ROOT, "data", "p0_stage_profile.log")
@@ -245,6 +246,27 @@ def main():
                "second_frame_component"):
         _wrap(ck, _f)
     control_only = "--control" in sys.argv
+    # --taub-nut profiles the ONE catalog entry never timed. It is what turns the P0 gate's
+    # "missed" from a lower bound into an exact factor. The first attempt was lost whole to a
+    # reboot -- 27 minutes of compute and a 0-byte output file -- because nothing was written
+    # until the end. Every stage here is fsync'd as it completes, so a second reboot costs only
+    # the stage in flight, and the log itself says how far it got.
+    if "--taub-nut" in sys.argv:
+        _note("=" * 78)
+        _note(f"P0 -- Taub-NUT n=1/2 order-2 signature   started "
+              f"{time.strftime('%Y-%m-%dT%H:%M:%S')}")
+        _note(f"pid {os.getpid()}   log {LOG}")
+        _note("  WHY: the last unmeasured catalog entry. Kerr = 3501.2 s = 58.4 min; statics")
+        _note("  = 101 s. The gate (whole catalog < 60 min) is already FALSE on those alone,")
+        _note("  so this does not change the verdict -- it only makes the margin exact.")
+        _note("=" * 78)
+        r = profile_signature("Taub-NUT n=1/2", taub_nut)
+        _note(f"\n  TAUB-NUT TOTAL: {r['total']:.1f} s = {r['total'] / 60:.2f} min")
+        _note(f"  catalog so far: Kerr 3501.2 + Taub-NUT {r['total']:.1f} + statics 101 "
+              f"= {(3501.2 + r['total'] + 101) / 60:.1f} min   vs the 60 min bar "
+              f"-> MISSED by {(3501.2 + r['total'] + 101) / 3600:.2f}x")
+        _note(f"finished {time.strftime('%Y-%m-%dT%H:%M:%S')}  peak RSS {_rss_mb():.0f} MB")
+        return
     _note("=" * 78)
     _note(f"P0 PHASE 1 -- CK order-2 stage profile   started {time.strftime('%Y-%m-%dT%H:%M:%S')}")
     _note(f"pid {os.getpid()}   log {LOG}")

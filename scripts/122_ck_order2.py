@@ -208,16 +208,46 @@ def kerr(a=sp.Rational(1, 2), Mv=1):
 
 
 def taub_nut(N=sp.Rational(1, 2), Mv=1):
-    """Taub-NUT in the u = cos(theta) chart, with the orthonormal frame supplied explicitly
-    (Gram-Schmidt cannot settle the sign of a frame norm here)."""
+    """Taub-NUT in the u = cos(theta) chart, with a PND-ALIGNED tetrad supplied explicitly.
+
+        ds^2 = -f (dt + 2Nu dphi)^2 + dr^2/f + S du^2/(1-u^2) + S(1-u^2) dphi^2
+        f = (r^2 - 2Mr - N^2)/S,   S = r^2 + N^2,   u = cos(theta)
+
+    TWO BUGS FIXED HERE, both found on 2026-08-19 while chasing a nine-hour "wall":
+
+    (1) THE METRIC WAS NOT TAUB-NUT. The previous version put the NUT term in the dphi slot --
+        S(1-u^2)(dphi - 2Nu dt)^2 -- instead of the dt slot. That is not a chart change, it is a
+        different geometry, and it is NOT A VACUUM SOLUTION: max |R_ab| ~ 33 at sampled interior
+        points, against exactly 0 for the form above. Taub-NUT is a vacuum solution, so the
+        Ricci-flatness check is decisive and should have been run when the entry was added.
+        Nothing green ever rested on it -- §122 always walled here before producing a verdict --
+        but it would have produced a confident wrong one the moment it finished.
+
+    (2) THE TETRAD WAS NOT PND-ALIGNED, which is what caused the "wall". canonical_frame only
+        runs its symbolic PND quartic solve when Psi0 != 0. Kerr is handed the Kinnersley tetrad,
+        which IS the canonical frame (only Psi2 survives), so that branch is skipped and the stage
+        costs 3.63 s. The old Taub-NUT tetrad left all five Psi nonzero, so the solve ran over
+        radical-laden coefficients and did not return in 9 HOURS. Structurally the old frame was
+        nearly right -- the sign of the NUT term in E3 was flipped, matching the wrong metric.
+
+    VERIFIED: Ricci-flat (max |R_ab| = 0 at sampled points); check_tetrad clean; only Psi2 nonzero,
+    computed in 2.9 s; and Psi2 = -(M + iN)/(r + iN)^3, the textbook Taub-NUT value -- an
+    independent confirmation of BOTH the metric and the frame, since a wrong either would not
+    reproduce the closed form."""
     S = r**2 + N**2
     f = (r**2 - 2 * Mv * r - N**2) / S
-    P = sp.Matrix([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [-2 * N * u, 0, 0, 1]])
-    g = sp.simplify(P.T * sp.diag(-f, 1 / f, S / (1 - u**2), S * (1 - u**2)) * P)
     sq, sf, sn, sS = sp.sqrt(2), sp.sqrt(f), sp.sqrt(1 - u**2), sp.sqrt(S)
-    E0, E1 = [1 / sf, 0, 0, 0], [0, sf, 0, 0]
-    E2 = [0, 0, -sn / sS, 0]
-    E3 = [2 * N * u / (sS * sn), 0, 0, 1 / (sS * sn)]
+    # orthonormal co-frame, rows omega^a in the (dt, dr, du, dphi) basis; g = omega^T eta omega
+    Om = sp.Matrix([[sf, 0, 0, 2 * N * u * sf],
+                    [0, 1 / sf, 0, 0],
+                    [0, 0, sS / sn, 0],
+                    [0, 0, 0, sS * sn]])
+    g = sp.simplify(Om.T * sp.diag(-1, 1, 1, 1) * Om)
+    # the dual frame, in closed form (equivalently Om.inv() column-wise)
+    E0 = [1 / sf, 0, 0, 0]
+    E1 = [0, sf, 0, 0]
+    E2 = [0, 0, sn / sS, 0]
+    E3 = [-2 * N * u / (sS * sn), 0, 0, 1 / (sS * sn)]
     tet = ([(E0[k] + E1[k]) / sq for k in range(4)],
            [(E0[k] - E1[k]) / sq for k in range(4)],
            [(E2[k] + sp.I * E3[k]) / sq for k in range(4)],

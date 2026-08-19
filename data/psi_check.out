@@ -1,0 +1,4 @@
+  Kerr a=1/2       nonzero Psi: [2]   (10.6s)
+      -> PND quartic solve SKIPPED (Psi0 = 0)
+  Taub-NUT n=1/2   nonzero Psi: [0, 1, 2, 3, 4]   (93.6s)
+      -> PND quartic solve REQUIRED (Psi0 != 0)  <-- the wall

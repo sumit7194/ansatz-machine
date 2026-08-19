@@ -1,0 +1,9 @@
+  weyl_tensor done
+    slow: weyl_scalars call #1 took 44.5s (cum 44.5s)
+    slow: zsimp call #1 took 6.1s (cum 6.1s)
+    slow: zsimp call #2 took 7.4s (cum 13.5s)
+    slow: zsimp call #3 took 6.1s (cum 19.5s)
+    slow: zsimp call #4 took 7.1s (cum 26.6s)
+    slow: zsimp call #5 took 5.9s (cum 32.5s)
+    slow: psis call #1 took 77.0s (cum 77.0s)
+    slow: petrov_type call #1 took 11.9s (cum 11.9s)

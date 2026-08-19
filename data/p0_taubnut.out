@@ -1,0 +1,47 @@
+==============================================================================
+P0 -- Taub-NUT n=1/2 order-2 signature   started 2026-08-19T23:51:49
+pid 18569   log /Users/sumit/Github/conjecture_machine/data/p0_stage_profile.log
+  WHY: the last unmeasured catalog entry. Kerr = 3501.2 s = 58.4 min; statics
+  = 101 s. The gate (whole catalog < 60 min) is already FALSE on those alone,
+  so this does not change the verdict -- it only makes the margin exact.
+==============================================================================
+
+  === Taub-NUT n=1/2 (order2=True) ===
+    [Taub-NUT n=1/2] weyl_tensor                             3.19s  ops=2212      peak_rss=    68MB  (+7)
+    [Taub-NUT n=1/2] null_tetrad                             0.00s  ops=161       peak_rss=    68MB  (+0)
+    [Taub-NUT n=1/2] canonical_frame                         0.95s  ops=174       peak_rss=    75MB  (+7)
+    -> Petrov type D, isotropy dim 2
+    [Taub-NUT n=1/2] ricci_scalar (zsimp)                    0.00s  ops=0         peak_rss=    75MB  (+0)
+    [Taub-NUT n=1/2] ricci_invariants                        0.00s  ops=0         peak_rss=    75MB  (+0)
+    [Taub-NUT n=1/2] segre_type                              0.00s  ops=0         peak_rss=    75MB  (+0)
+    [Taub-NUT n=1/2] riemann_zero scan                       0.05s  ops=0         peak_rss=    75MB  (+0)
+    [Taub-NUT n=1/2] functional_rank order 0                 0.02s  ops=0         peak_rss=    75MB  (+0)
+    [Taub-NUT n=1/2] covariant_derivative_weyl (order 1)      2.65s  ops=8112      peak_rss=    76MB  (+1)
+    [Taub-NUT n=1/2] nabla_C_zero scan                       0.06s  ops=0         peak_rss=    76MB  (+0)
+    [Taub-NUT n=1/2] cartan_order1 (frame components)        7.94s  ops=78        peak_rss=   159MB  (+82)
+    [Taub-NUT n=1/2] isotropy_invariants order 1            26.28s  ops=43        peak_rss=  3590MB  (+3431)
+    [Taub-NUT n=1/2] functional_rank order 1                 0.10s  ops=0         peak_rss=  3590MB  (+0)
+      . second_frame_component #1       8.01s  (cumulative 8.0s, rss 3590MB)
+      . second_frame_component #2       2.12s  (cumulative 10.1s, rss 3590MB)
+      . second_frame_component #3       0.23s  (cumulative 10.4s, rss 3590MB)
+      . second_frame_component #4       0.21s  (cumulative 10.6s, rss 3590MB)
+      . second_frame_component #5       1.88s  (cumulative 12.5s, rss 3590MB)
+      . second_frame_component #6       3.02s  (cumulative 15.5s, rss 3590MB)
+      . second_frame_component #7       0.22s  (cumulative 15.7s, rss 3590MB)
+      . second_frame_component #8       0.21s  (cumulative 15.9s, rss 3590MB)
+      . second_frame_component #9       9.09s  (cumulative 25.0s, rss 3590MB)
+      . second_frame_component #10      4.35s  (cumulative 29.3s, rss 3590MB)
+      . second_frame_component #11      6.29s  (cumulative 35.6s, rss 3590MB)
+      . second_frame_component #12      4.45s  (cumulative 40.1s, rss 3590MB)
+      . second_frame_component #13      3.16s  (cumulative 43.2s, rss 3590MB)
+      . second_frame_component #14      3.11s  (cumulative 46.4s, rss 3590MB)
+      . second_frame_component #15      2.12s  (cumulative 48.5s, rss 3590MB)
+      . second_frame_component #16      2.01s  (cumulative 50.5s, rss 3590MB)
+    [Taub-NUT n=1/2] cartan_order2 (nabla-nabla-C + frame)     50.74s  ops=250       peak_rss=  3590MB  (+0)
+
+  INSIDE THE HOT STAGE -- Taub-NUT n=1/2   (stage took 50.7s)
+    function (nested, do not sum)         calls    seconds   share    us/call
+    second_frame_component                   16      50.49   99.5%    3155870
+    frame_component5                        216      44.19   87.1%     204589
+    zsimp                                    16       4.29    8.5%     268408
+    covariant_derivative_vector               4       0.23    0.5%      58742

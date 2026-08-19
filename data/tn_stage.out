@@ -1,0 +1,3 @@
+  weyl_tensor         13.17s
+  null_tetrad          0.00s  (supplied explicitly by taub_nut())
+  canonical_frame  >900s  DID NOT RETURN  <- this is the wall

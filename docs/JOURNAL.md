@@ -2914,3 +2914,46 @@ and standalone, banked now because this repo has lost multi-hour runs to shutdow
   other than the contraction that was fixed. [UNTESTED HYPOTHESIS] the once-per-component zsimp
   escalation on the nonzero path; the killing check is to time zsimp separately from the
   contractions inside one component. Not guessed at further -- Phase 3 measures it.
+
+## 2026-08-19/20 -- THE TAUB-NUT "WALL" WAS A WRONG METRIC. Two real bugs in shipped code.
+- CHASING a 9-hour hang (the run died to a power loss having logged only weyl_tensor and
+  null_tetrad in its first 14 s, then nothing for up to 9h12m -- bracketed by the reboot at 10:56).
+  The durable per-stage log is what made that diagnosable at all; the previous attempt left a
+  0-byte file.
+- MEASURED, not inferred, in three steps:
+    (a) canonical_frame does NOT return in 900 s on Taub-NUT. Kerr: 3.63 s. Schwarzschild: 0.01 s.
+    (b) sub-profile inside it: psis 77 s, petrov_type 11.9 s account for the first 89 s, then one
+        call that never returns.
+    (c) THE DISCRIMINATOR -- which Psi are nonzero in the SUPPLIED tetrad:
+            Kerr a=1/2      nonzero Psi: [2]            -> PND quartic solve SKIPPED
+            Taub-NUT n=1/2  nonzero Psi: [0,1,2,3,4]    -> PND quartic solve REQUIRED
+        canonical_frame only runs the symbolic quartic solve when Psi0 != 0. Kerr is handed the
+        Kinnersley tetrad, which IS the canonical frame, so the branch is skipped. Taub-NUT was
+        handed a frame that left all five nonzero.
+- THEN THE BIGGER BUG, found by checking the metric before building a tetrad for it:
+  **OUR taub_nut() WAS NOT TAUB-NUT, AND WAS NOT A VACUUM SOLUTION.**
+        ours (NUT term in the dphi slot):  max |R_ab| = 3.366e+01   NOT VACUUM
+        standard (NUT term in the dt slot): max |R_ab| = 0.000e+00   VACUUM
+  Taub-NUT is a vacuum solution, so Ricci-flatness is decisive and should have been run when the
+  entry was added. That is a one-line check we run everywhere else and skipped here.
+- BLAST RADIUS, checked before fixing: taub_nut() is used ONLY in §122's catalog + 3 pair
+  comparisons (and my profiler). NO committed result quotes a Taub-NUT verdict, because §122
+  ALWAYS WALLED THERE before producing one. So nothing green rested on it -- but it would have
+  produced a confident WRONG verdict the moment it finished. The hang hid the bug.
+- THE FIX: correct metric ds^2 = -f(dt + 2Nu dphi)^2 + dr^2/f + S du^2/(1-u^2) + S(1-u^2)dphi^2,
+  plus a PND-ALIGNED tetrad built by inverting the orthonormal co-frame. The old frame was
+  structurally nearly right -- the SIGN of the NUT term in E3 was flipped, matching the wrong metric.
+- VERIFIED FOUR WAYS: Ricci-flat (max |R_ab| = 0); check_tetrad clean; only Psi2 nonzero (2.9 s);
+  and **Psi2 = -(M + iN)/(r + iN)^3**, the textbook Taub-NUT value -- an independent confirmation of
+  BOTH metric and frame, since a wrong either would not reproduce the closed form.
+- RESULT: canonical_frame **>9 HOURS -> 0.96 s**, Petrov D, isotropy 2 (correct for Taub-NUT).
+  Stages through cartan_order2 now total ~90 s: weyl 3.20, canonical_frame 0.96, nabla C 2.65,
+  cartan_order1 7.94, isotropy_invariants 26.28, cartan_order2 50.74 (Kerr's was 3302 -- Taub-NUT
+  is 65x CHEAPER at order 2, which is the opposite of what the "wall" implied).
+- A NEW, SEPARATE WALL remains at weight_invariants order 2 (>19 min and running, RSS 3.4 GB).
+  Different stage, different metric, not the same bug -- logged, not guessed at.
+- THE LESSON, and it is the sharpest of the whole P0 arc: **A HANG CAN BE A WRONG ANSWER IN
+  DISGUISE.** We spent days treating Taub-NUT as a performance problem. It was a correctness
+  problem whose symptom was slowness, and the "wall was expand()" story was only ever true for
+  Kerr. Before optimising a stage that will not terminate, check that its INPUT is what you think
+  it is.
