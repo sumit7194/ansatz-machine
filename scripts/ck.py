@@ -55,9 +55,34 @@ def domain():
     return sp.And(*_ASSUME) if _ASSUME else None
 
 
+# The only functions sp.refine can rewrite (sympy.assumptions.refine.handlers_dict):
+#   Abs, sign, arg, atan2, re, im, Pow  (+ matrix ones we never produce).
+# A Pow with an INTEGER exponent is already in simplest form -- no positivity assumption can
+# change r**14 -- so it is refinable only when the exponent is non-integer, which is the
+# sqrt((1-u^2)^2) -> (1-u^2) case we actually need.
+_REFINABLE = (sp.Abs, sp.sign, sp.arg, sp.atan2, sp.re, sp.im, sp.conjugate)
+
+
+def _has_refinable(e):
+    """Is there anything in `e` that sp.refine could possibly rewrite?
+
+    MEASURED, 2026-08-20: sp.refine on a 71-op expression -- a degree-14 rational function of r
+    with Gaussian-integer coefficients, containing NO Abs, sign, arg, re, im and NO fractional
+    powers -- consumed 2.59 GB and was killed. It recurses through every Pow asking assumption
+    questions, and on a high-degree complex polynomial that is catastrophic while being a
+    GUARANTEED NO-OP: there is nothing there for any assumption to simplify. That call is what
+    took down the overnight Taub-NUT run (>54 min in weight_invariants, swap 1.7 -> 5.6 GB).
+    Skipping it is not a shortcut; it returns exactly what refine would have returned."""
+    if e.has(*_REFINABLE):
+        return True
+    return any(p.exp.is_Integer is False for p in e.atoms(sp.Pow))
+
+
 def refine(e):
     d = domain()
-    return sp.refine(e, d) if d is not None else e
+    if d is None or not isinstance(e, sp.Basic) or not _has_refinable(e):
+        return e
+    return sp.refine(e, d)
 
 
 def _predicate_to_relational(p):

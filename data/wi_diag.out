@@ -1,0 +1,11 @@
+  setup done in 58.0s: type D, 6 order-2 components, 250 ops total
+  5 zsimp calls to make
+    -> attempting neutral D_l_D_n_Psi2                         in=    45 ops
+       OK     0.1s  out=    45 ops
+    -> attempting neutral D_m_D_mb_Psi2                        in=    45 ops
+       OK     0.1s  out=    45 ops
+    -> attempting neutral D_mb_D_m_Psi2                        in=    45 ops
+       OK     0.1s  out=    45 ops
+    -> attempting neutral D_n_D_l_Psi2                         in=    45 ops
+       OK     0.1s  out=    45 ops
+    -> attempting product (D_l_D_l_Psi2)(D_n_D_n_Psi2)         in=    37 ops

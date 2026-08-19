@@ -1,0 +1,5 @@
+  target expression: 37 ops
+    -> cancel(together(expand(e)))
+       OK    0.0s  out=      71 ops
+    -> refine(a)
+    !! SELF-KILL at 2.59 GB -- step in flight is the wall

@@ -2957,3 +2957,43 @@ and standalone, banked now because this repo has lost multi-hour runs to shutdow
   problem whose symptom was slowness, and the "wall was expand()" story was only ever true for
   Kerr. Before optimising a stage that will not terminate, check that its INPUT is what you think
   it is.
+
+## 2026-08-20 -- the second Taub-NUT wall: sp.refine() burning 2.6 GB on a guaranteed no-op
+- OVERNIGHT: the fixed-metric run reached weight_invariants order 2 and DIED there after ~54 min.
+  No traceback. The watchdog is what made it diagnosable: free memory pinned at 0.06 GB the whole
+  hour while swap climbed 1.7 -> 5.6 GB, then the process vanished and both recovered instantly
+  (free 5.77 GB, swap 5.6 -> 1.05 GB). Consistent with an OOM kill; I could not get a kill message
+  without sudo, so it is recorded as CONSISTENT WITH, not confirmed.
+- ISOLATED IN THREE BOUNDED STEPS (each self-capped so it could not repeat the night's damage --
+  macOS refuses RLIMIT_AS, so a daemon thread samples our own RSS and exits hard at the cap):
+    (1) weight_invariants makes only 5 zsimp calls here. Four are weight-NEUTRAL components,
+        45 ops each, 0.1 s each. The fifth -- the PRODUCT (D_l_D_l_Psi2)(D_n_D_n_Psi2), 37 OPS --
+        self-killed at 3.16 GB.
+    (2) inside zsimp: cancel(together(expand(e))) = 0.0 s -> 71 ops. Then refine(a) on those
+        71 ops self-killed at 2.59 GB. THE WALL IS refine().
+    (3) which assumption? NONE of them -- it is refine itself:
+            none    OK 0.0s (unchanged)      u_only  SELF-KILL >2 GB
+            r_only  SELF-KILL >2 GB          both    SELF-KILL >2 GB
+- WHAT THE EXPRESSION ACTUALLY IS: a degree-4-over-degree-14 RATIONAL FUNCTION OF r ALONE with
+  Gaussian-integer coefficients. NO Abs, NO sign, NO arg/re/im, NO fractional powers. sp.refine
+  has handlers only for {Abs, sign, arg, atan2, re, im, Pow, + matrix ops}; the only one present
+  is Pow, and a Pow with an INTEGER exponent cannot be rewritten by any positivity assumption.
+  SO THE CALL WAS A GUARANTEED NO-OP THAT COST 2.6 GB -- refine recursing every power of a
+  degree-14 complex polynomial asking assumption questions with no possible answer to act on.
+- THE FIX: a precondition guard, _has_refinable(e) -- call sp.refine only when the expression
+  contains something refine could actually rewrite (Abs/sign/arg/atan2/re/im/conjugate, or a Pow
+  with non-integer exponent). NOT a shortcut: it returns exactly what refine would have returned.
+  Unit-tested on the two cases refine genuinely earns its keep, both still working:
+      Abs(sin th) under Q.positive(sin th) -> sin(theta)      (the §111 chart-artifact lesson)
+      sqrt((1-u^2)^2) under Q.positive     -> 1 - u^2
+- VALIDATION: all six frozen batteries VERDICT-IDENTICAL (baseline recaptured via git stash, since
+  the reboots had wiped /private/tmp -- the first comparison printed "REVERT REQUIRED" purely from
+  missing files, which is itself an instance of a check failing for a reason unrelated to the code).
+      116 70.70s  117 25.63s  118 42.88s  119 90.82s  120 22.33s  121 92.56s -- all identical.
+- RESULT: weight_invariants order 2  >54 min + OOM  ->  **0.77 s**. Peak RSS 3.9 GB -> **160 MB**.
+- **TAUB-NUT n=1/2 NOW COMPLETES: 62.8 s = 1.05 min**, the first time ever. Stages: cartan_order2
+  46.78, cartan_order1 7.75, weyl 3.13, nabla C 2.57, canonical_frame 0.89, everything else <1 s.
+- THE PATTERN, now three for three: EVERY wall in this arc was a normalizer handed an input it
+  could not cope with, and in two of the three the work was provably useless -- expand() inflating
+  3,710 ops to 90,841 so cancel could undo it, and refine() recursing a degree-14 polynomial with
+  nothing to refine. The algorithm was never the problem.
