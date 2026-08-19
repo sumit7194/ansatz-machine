@@ -300,10 +300,20 @@ CK on rotating metrics requires a GHP-style representation change."
     ZV delta=1                                 37 s
                                              --------
     Kerr + statics                          60.1 min   -- past the bar already
-    + isotropic chart, Taub-NUT, pair comparisons   (see the factor line below)
 
-The catalog exceeds 60 minutes **before the sixth metric is computed at all**, so
-the gate is FALSE on a measured lower bound, independent of Taub-NUT.
+**FACTOR, completed 2026-08-20** once Taub-NUT was fixed and could be measured at
+all (it had never completed; see the journal for the two bugs that prevented it):
+
+    Kerr a=1/2      3,501.2 s          Taub-NUT n=1/2      62.8 s
+    statics (3)       101   s          isotropic chart   RESOURCE-WALL (see below)
+                                       ---------------------------------
+    Kerr + Taub-NUT + statics        =  61.1 min   -> MISSED by 1.02x
+    with the isotropic chart         >  78    min  -> MISSED by >1.3x
+
+The isotropic chart -- the SAME spacetime as Schwarzschild M=1, which costs 32 s --
+ran 19+ minutes at 4.4 GB RSS with swap climbing, i.e. it resource-walls. The gate
+also required "no section reporting RESOURCE-WALLED", so that clause fails
+independently of the clock.
 
 **THE NULL IS REFUTED, and that is the actual result.** Normalisation crossed the
 wall: 29-87x on one frame contraction, 58x on `cartan_order1` (4,187.68 s ->
