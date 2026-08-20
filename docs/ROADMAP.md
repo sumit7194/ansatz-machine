@@ -1,5 +1,47 @@
 # Roadmap
 
+## CURRENT DIRECTION (set 2026-08-20)
+
+**The honest verdict on the §116-§122 Cartan-Karlhede arc: tooling, not discovery.** CK is a 1980
+algorithm; CLASSI ran it in SHEEP/Lisp in the 1980s on far smaller machines, and our G6 result
+machine-checks Collins-d'Inverno-Vickers (1990). Kerr taking 54 minutes was never a frontier -- it
+was four of our own bugs. What the arc actually bought is a working equivalence prover and a
+simplifier stack that no longer swamps.
+
+**User's steer, verbatim:** *"are we just doing what others have already done with smaller machine,
+or are we trying new things, I would prefer later even if it continues to fail... we dont want to
+run just for sake of running."* And: *"dont worry about risks, we have nothing depending on these,
+its just side projects."*
+
+**THE OPEN QUESTION:** does the quadrupole-deformed Kerr admit an **irreducible Killing tensor of
+rank 3 or rank 4**?
+
+- Named in our own §85 caveat: *"a higher-order (quartic) Killing tensor isn't excluded."*
+- Our previous attempt (`scripts/_killing_search.py`) is marked DEAD END -- 7.5 h, no output, the
+  *"expand-everything is exponentially wasteful"* blow-up. That is exactly the wall class we took
+  down four times this week. The obstruction was the normalizer, not the mathematics.
+- The grading theorem (`scripts/_p3_grading_check.py`, verified not assumed) makes each rank an
+  INDEPENDENT, FINITE linear problem.
+- **A negative result is a THEOREM**, not a screen. A numerical ladder can never output "no rank-4
+  KT exists"; only a symbolic prover can.
+- Prior art swept: Ramond arXiv:2607.27129 (2026-07-29) is a TIDAL quadrupole on the body, RANK 2
+  only. Cariglia-Galajinsky arXiv:1503.02162 *construct* Ricci-flat metrics with irreducible rank-3
+  and rank-4 KTs -- so the objects exist, and they are our positive control. No theorem found
+  excluding rank-3/4 for Kerr or deformed Kerr.
+
+**Method (the momentum-space form the grading theorem licenses):** a rank-r KT is exactly a
+conserved F = K^{a1..ar} p_a1..p_ar, homogeneous of degree r in the momenta, with {H, F} = 0. So
+posit F as a sum of degree-r momentum monomials with unknown coefficient functions of (r, u),
+compute the Poisson bracket, and collect -- a linear PDE system whose size is measurable up front.
+
+**Sequence:** (1) measure the system size and check the bracket builds at all; (2) validate the
+prover on KNOWN-NONZERO cases -- Kerr rank 2 must yield Carter, Cariglia-Galajinsky must yield its
+rank-3/4 tensor (a null from an unvalidated prover is worthless); (3) only then, deformed Kerr.
+
+---
+
+# Roadmap
+
 *Ranked by expected value per hour. Open threads from RESULTS.md live here
 now; move items to JOURNAL.md entries as they complete.*
 
