@@ -76,7 +76,35 @@ def deformed_kerr_inv(a=sp.Rational(3, 5), M=1, eps=sp.Symbol("epsilon")):
     return g
 
 
-METRICS = {"kerr": kerr_inv, "deformed": deformed_kerr_inv}
+def cariglia_galajinsky_inv(alpha=1, beta=1):
+    """Cariglia & Galajinsky, arXiv:1503.02162, their SECOND Drach solution (their Eq. 20-21) --
+    a Ricci-flat 4D metric with a KNOWN IRREDUCIBLE RANK-3 Killing tensor. Our positive control.
+
+        dtau^2 = -2 U(x,y) dt^2 + 2 dt ds + 2 dx dy,     U = alpha/sqrt(x) + beta/sqrt(y)
+
+    THE HALF-INTEGER POWERS ARE REMOVED BY x = X^2, y = Y^2, which makes every component rational
+    and lets the polynomial ansatz apply. A Killing tensor is a chart-independent object, so this
+    costs nothing. Then 2 dx dy = 8 X Y dX dY and U = alpha/X + beta/Y.
+
+    WHY THIS ONE. The authors state it is irreducible when alpha and beta are BOTH nonzero, and that
+    it BECOMES REDUCIBLE when either vanishes ("the isometry group is extended by extra Killing
+    vectors"). So the same family carries a known-PASS and a known-FAIL -- exactly what rule 1 of
+    our verification discipline demands of any criterion before it gates anything. Most Drach
+    systems would NOT do: 7 of the 10 are reducible, their "cubic" integral being just the Poisson
+    bracket of two quadratic ones, so picking one blindly would validate nothing.
+
+    Index order matches this module's convention (0 and 3 ignorable, 1 and 2 carry the dependence):
+    (t, X, Y, s) with t <-> t, r <-> X, u <-> Y, ph <-> s."""
+    U = alpha / r + beta / u
+    g = sp.zeros(4, 4)
+    g[0, 3] = g[3, 0] = 1                    # from the 2 dt ds cross term
+    g[3, 3] = 2 * U                          # inverse of [[-2U, 1], [1, 0]] is [[0, 1], [1, 2U]]
+    g[1, 2] = g[2, 1] = sp.Rational(1, 4) / (r * u)     # inverse of the 8XY dXdY block
+    return g
+
+
+METRICS = {"kerr": kerr_inv, "deformed": lambda: deformed_kerr_inv(eps=sp.Integer(2)), "cg": cariglia_galajinsky_inv,
+           "cg_reducible": lambda: cariglia_galajinsky_inv(alpha=1, beta=0)}
 
 
 def monomials(deg):
@@ -92,7 +120,8 @@ def mono_expr(e):
     return sp.prod([m**k for m, k in zip(MOM, e)])
 
 
-def ansatz(rank, deg_r, deg_u, den_pow, a_spin=sp.Rational(1, 2), M=1, den_S=0, den_D=0):
+def ansatz(rank, deg_r, deg_u, den_pow, a_spin=sp.Rational(1, 2), M=1, den_S=0, den_D=0,
+           den_r=0, den_u=0):
     """Explicit ansatz for the coefficient functions, built BEFORE the bracket so no substitution
     into Derivative() is ever needed.
 
@@ -122,12 +151,16 @@ def ansatz(rank, deg_r, deg_u, den_pow, a_spin=sp.Rational(1, 2), M=1, den_S=0, 
             den *= (r**2 + a_spin**2 * u**2)**den_S
         if den_D:
             den *= (r**2 - 2 * M * r + a_spin**2)**den_D
+        if den_r:
+            den *= r**den_r
+        if den_u:
+            den *= u**den_u
         cs.append(terms / den)
     return cs, mons, unknowns
 
 
 def solve_kt(rank, ginv, deg_r=3, deg_u=3, den_pow=1, verbose=True, den_S=0, den_D=0,
-             ckpt=None):
+             ckpt=None, den_r=0, den_u=0, den_det=0):
     """Solve {H, F} = 0 over the ansatz, assembling the linear system COLUMN BY COLUMN.
 
     WHY COLUMN-WISE. The first version built one expression carrying all ~150 symbolic unknowns and
@@ -155,6 +188,24 @@ def solve_kt(rank, ginv, deg_r=3, deg_u=3, den_pow=1, verbose=True, den_S=0, den
         den *= (r**2 + a_spin**2 * u**2)**den_S
     if den_D:
         den *= (r**2 - 2 * r + a_spin**2)**den_D
+    if den_r:
+        den *= r**den_r
+    if den_u:
+        den *= u**den_u
+    if den_det:
+        # the deformed metric's inverse carries the determinant polynomial (r-degree 9) in its
+        # denominators; nothing smaller can represent even a constant coefficient
+        dens = set()
+        for i in range(4):
+            for j in range(4):
+                if ginv[i, j] != 0:
+                    d = sp.denom(sp.together(ginv[i, j]))
+                    if d != 1:
+                        dens.add(d)
+        L = sp.Integer(1)
+        for d in dens:
+            L = sp.lcm(L, d)
+        den *= sp.factor(L)**den_det
 
     cols = [(mi, j, k) for mi in range(len(mons))
             for j in range(deg_r + 1) for k in range(deg_u + 1)]
@@ -284,6 +335,9 @@ def main():
     ap.add_argument("--den", type=int, default=1)
     ap.add_argument("--den-S", type=int, default=0)
     ap.add_argument("--den-D", type=int, default=0)
+    ap.add_argument("--den-r", type=int, default=0)
+    ap.add_argument("--den-u", type=int, default=0)
+    ap.add_argument("--den-det", type=int, default=0)
     args = ap.parse_args()
 
     print(f"KILLING-TENSOR SEARCH -- metric={args.metric}, rank={args.rank}\n")
@@ -293,7 +347,8 @@ def main():
         ck_path = (f"data/kt_{args.metric}_r{args.rank}_{args.deg_r}_{args.deg_u}"
                    f"_{args.den}{args.den_S}{args.den_D}.ckpt")
         sols = solve_kt(args.rank, ginv, args.deg_r, args.deg_u, args.den,
-                        den_S=args.den_S, den_D=args.den_D, ckpt=ck_path)
+                        den_S=args.den_S, den_D=args.den_D, ckpt=ck_path,
+                        den_r=args.den_r, den_u=args.den_u, den_det=args.den_det)
         print(f"\n  SOLUTION SPACE: dimension {len(sols)}")
         for i, F in enumerate(sols):
             print(f"    [{i}] {sp.sstr(F)[:150]}")
@@ -307,3 +362,135 @@ def main():
 
 if __name__ == "__main__":
     raise SystemExit(main())
+
+
+# --------------------------------------------------------------------- the point-sampling route
+def solve_kt_sampled(rank, ginv, deg_r, deg_u, den, n_points=None, primes=(2147483647, 2147483629),
+                     verbose=True, seed=12345):
+    """Same Killing-tensor system, assembled by EVALUATION AT EXACT RATIONAL POINTS.
+
+    WHY. The symbolic column route costs 19 s/column on the deformed metric (its inverse carries a
+    degree-9 determinant polynomial), i.e. ~10 h at rank 3 -- unaffordable on a machine with daytime
+    power cuts. This is §21's trick, credited in the roadmap to Sumit's "terms-as-vector-dimensions"
+    intuition: NEVER MATERIALIZE THE GIANT EXPRESSION. {H,F}=0 is linear in the unknowns, so
+    evaluating the coefficient conditions at many exact rational (r,u) points gives the SAME linear
+    system with rational entries and no expression swell anywhere.
+
+    Rank is taken modulo two large primes rather than over Q: an exact rational nullspace on a
+    ~3000 x 2000 matrix is the new bottleneck, while a modular rank is fast and, agreeing across two
+    independent primes, is wrong only with probability ~1/p^2. Disagreement is reported, never
+    averaged -- if the primes differ the answer is UNKNOWN, not the mean.
+
+    The system is deliberately OVERDETERMINED (more points than unknowns); §21's G0 gate is the
+    same idea -- solve on part and verify on held-out probes."""
+    import numpy as np
+
+    H = sp.Rational(1, 2) * sum(ginv[i, j] * MOM[i] * MOM[j] for i in range(4) for j in range(4))
+    mons = monomials(rank)
+    out_mons = monomials(rank + 1)
+    cols = [(mi, j, k) for mi in range(len(mons))
+            for j in range(deg_r + 1) for k in range(deg_u + 1)]
+    n_unk = len(cols)
+    if n_points is None:                       # overdetermine by ~50%
+        n_points = int(1.5 * n_unk / len(out_mons)) + 4
+    if verbose:
+        print(f"  rank {rank}: {n_unk} unknowns, {len(out_mons)} momentum monomials, "
+              f"{n_points} sample points -> {n_points*len(out_mons)} rows", flush=True)
+
+    dH = [sp.diff(H, r), sp.diff(H, u)]
+    dHdp = [sp.diff(H, MOM[1]), sp.diff(H, MOM[2])]
+    # (r,u)-dependent weight of each column and its derivatives, symbolic but TINY
+    ws = []
+    for (mi, j, k) in cols:
+        w = r**j * u**k / den
+        ws.append((w, sp.diff(w, r), sp.diff(w, u)))
+    dm = [[sp.diff(mono_expr(e), MOM[1]), sp.diff(mono_expr(e), MOM[2])] for e in mons]
+    me = [mono_expr(e) for e in mons]
+
+    rng = np.random.default_rng(seed)
+    rows_num, t0 = [], time.time()
+    pts_used = 0
+    tries = 0
+    while pts_used < n_points and tries < 20 * n_points:
+        tries += 1
+        r0 = sp.Rational(int(rng.integers(3, 60)), int(rng.integers(1, 7)))
+        u0 = sp.Rational(int(rng.integers(-9, 10)), 11)
+        sub = {r: r0, u: u0}
+        try:
+            dH0 = [sp.together(d.subs(sub)) for d in dH]
+            dHdp0 = [sp.together(d.subs(sub)) for d in dHdp]
+            if any(x.has(sp.zoo, sp.nan, sp.oo) for x in dH0 + dHdp0):
+                continue
+            wv = []
+            ok = True
+            for (w, wr, wu) in ws:
+                a, b, c = w.subs(sub), wr.subs(sub), wu.subs(sub)
+                if any(x.has(sp.zoo, sp.nan, sp.oo) for x in (a, b, c)):
+                    ok = False
+                    break
+                wv.append((a, b, c))
+            if not ok:
+                continue
+        except Exception:
+            continue
+        # build this point's block of rows: one per output momentum monomial
+        block = {e: [sp.S.Zero] * n_unk for e in out_mons}
+        for i, (mi, j, k) in enumerate(cols):
+            w, wr, wu = wv[i]
+            expr = (dH0[0] * w * dm[mi][0] + dH0[1] * w * dm[mi][1]
+                    - dHdp0[0] * wr * me[mi] - dHdp0[1] * wu * me[mi])
+            if expr == 0:
+                continue
+            poly = sp.Poly(sp.expand(expr), *MOM)
+            for e in out_mons:
+                c = poly.coeff_monomial(mono_expr(e))
+                if c != 0:
+                    block[e][i] = c
+        for e in out_mons:
+            row = block[e]
+            if any(x != 0 for x in row):
+                rows_num.append(row)
+        pts_used += 1
+        if verbose and pts_used % 10 == 0:
+            print(f"    {pts_used}/{n_points} points  ({time.time()-t0:.0f}s)", flush=True)
+    if verbose:
+        print(f"  {len(rows_num)} rows assembled in {time.time()-t0:.1f}s", flush=True)
+
+    # clear denominators per row, reduce mod p, rank by Gaussian elimination
+    dims = []
+    for p in primes:
+        M = np.zeros((len(rows_num), n_unk), dtype=np.int64)
+        for a, row in enumerate(rows_num):
+            L = sp.Integer(1)
+            for x in row:
+                if x != 0:
+                    L = sp.lcm(L, sp.denom(x))
+            for b, x in enumerate(row):
+                if x != 0:
+                    M[a, b] = int(sp.Integer(sp.cancel(x * L)) % p)
+        rank_p, piv = 0, 0
+        rows_n, cols_n = M.shape
+        for c in range(cols_n):
+            nz = np.nonzero(M[piv:, c])[0]
+            if nz.size == 0:
+                continue
+            i0 = piv + nz[0]
+            if i0 != piv:
+                M[[piv, i0]] = M[[i0, piv]]
+            inv = pow(int(M[piv, c]), p - 2, p)
+            M[piv] = (M[piv] * inv) % p
+            nzb = np.nonzero(M[:, c])[0]
+            nzb = nzb[nzb != piv]
+            if nzb.size:
+                M[nzb] = (M[nzb] - np.outer(M[nzb, c], M[piv])) % p
+            piv += 1
+            rank_p += 1
+            if piv == rows_n:
+                break
+        dims.append(n_unk - rank_p)
+        if verbose:
+            print(f"    mod {p}: rank {rank_p} -> nullspace dimension {n_unk - rank_p}", flush=True)
+    if dims[0] != dims[1]:
+        print(f"  PRIMES DISAGREE {dims} -> UNKNOWN, not averaged", flush=True)
+        return None
+    return dims[0]
