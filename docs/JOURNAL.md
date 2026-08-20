@@ -3138,3 +3138,48 @@ higher-order (quartic) Killing tensor isn't excluded". Rank 3 is now closed.
 - ALSO MEASURED, on Kerr itself: rank 3 = dimension 8 = its reducibles (p_t^3, p_t^2 p_phi,
   p_t p_phi^2, p_phi^3, p_t H, p_phi H, p_t Q, p_phi Q) -> NO irreducible rank-3 KT for KERR either,
   same ansatz scope. That one I could find no theorem for either way.
+
+## 2026-08-21 -- rank-3 null ROBUST; prover VALIDATED AT RANK 4; the eps=0 on-substrate control
+**ROBUSTNESS OF THE RANK-3 NULL -- both tests passed.** The claim sent yesterday was scoped to one
+ansatz size and one deformation value, which are exactly the two ways it could have been an artifact.
+    A. degrees (12,12) -> (14,14), 4500 unknowns, eps=2 : DIMENSION 6  (unchanged)
+    B. eps = 2 -> 5, degrees (12,12)                    : DIMENSION 6  (unchanged)
+  So the null is NOT ansatz-limited at that boundary, and NOT specific to eps=2. Both primes agree
+  in both runs. The claim is now about the deformation family rather than one point in it.
+
+**PROVER VALIDATED AT RANK 4**, on Cariglia-Galajinsky's 5D oxidation (arXiv:1503.02162 Eq. 26):
+    rank-4 solution space 34, reducible span 33  ->  EXACTLY ONE irreducible, matching the paper.
+  Also found 1 irreducible at rank 3 there (17 - 16), consistent with it being an oxidation of the
+  rank-3 system. Substrate verified first: Ricci-flat exactly, and the KNOWN-FAIL reproduces the
+  paper's own Eq (4) prediction R_tt = 2c = 0.5000 with every other component exactly zero.
+  Target derived from Eq (24), NOT transcribed from Eq (29), per tabula's warning -- their
+  PDF-to-text collapsed an index (K_ttxw -> K_tttw) and the transcribed tensor is not conserved
+  (drift 0.30). The published paper is right; I confirmed K_ttxw independently from the HTML.
+
+**FOUR BUGS, EVERY ONE CAUGHT BY A CONTROL RATHER THAN BY READING CODE:**
+  1. rank 1 returned 40 instead of 3. TWO OVERLAPPING STRING REPLACEMENTS: the first changed the
+     text the second was anchored to, so the second silently did nothing. The sampled route built
+     the ansatz weight in the NEW coordinates and then differentiated it with respect to the OLD
+     ones -- identically zero, so half the Poisson bracket vanished.
+  2. the symbolic route was still entirely 4D; its solutions came out containing "/r", a symbol
+     absent from a 5D metric.
+  3. rank-4 irreducible count came out NEGATIVE (28 - 30 = -2). Impossible: every reducible IS a
+     solution, so dim(reducible) <= dim(solution) ALWAYS. Cause: products of four rank-1 solutions
+     carry den^4 while the rank-4 ansatz was given den^1 -- THE ANSATZ COULD NOT HOLD THE
+     REDUCIBLES IT IS OBLIGED TO CONTAIN. Now written into the code as a permanent invariant; a
+     negative irreducible count is the cheapest detector of an inadequate ansatz there is.
+  4. the reducible span was UNDER-COUNTED TWICE by hand-picking generators (22, then 30, truth 33).
+     A degree-4 reducible factors as 1+3 or 2+2, so the span needs the prover's OWN solution basis
+     at EVERY lower rank -- k1 x k3 and k2 x k2. Building it from k1 and k2 alone omits
+     (Killing vector) x (irreducible rank-3), which this metric has. THIRD time in this project a
+     hand-chosen generator set under-counted reducibles.
+
+**THE eps=0 ON-SUBSTRATE CONTROL (tabula's suggestion, and it is a good one).** They found their
+numerical readout could not see a standout on bumped Kerr even at eps=0 where Carter certainly
+exists -- separation 1.060 with Carter in the reducible list vs 1.049 with it withheld, ratio 0.99 --
+which retracted their claim that §168's degree-4 rungs deserved a rerun. Run through OUR deformed
+pipeline (its own denominator construction and ansatz, not the Kerr-specific one that validated the
+prover): eps=0, rank 1 = 2, **rank 2 = 5** against 4 reducibles without Carter, so Carter stands out
+as the single irreducible. Our prover passes the control theirs failed -- as expected, since the
+failure was numerical conditioning and ours takes ranks exactly over GF(p), but expected is not
+measured and now it is measured.

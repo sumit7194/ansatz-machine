@@ -38,8 +38,27 @@ import sympy as sp
 
 t, r, u, ph = sp.symbols("t r u phi", real=True)
 pt, pr, pu, pp = sp.symbols("p_t p_r p_u p_phi", real=True)
+
+# ---------------------------------------------------------------- dimension, configurable
+# DEFAULT: the 4D stationary-axisymmetric setting (t, r, u, phi) where the metric depends only on
+# (r, u) and t, phi are ignorable. DEP names the coordinate indices the metric actually depends on;
+# the Poisson bracket then needs only those terms, since dF/dx^a and dH/dx^a vanish elsewhere.
+#
+# WHY THIS IS CONFIGURABLE NOW: the rank-4 positive control is Cariglia-Galajinsky's FIVE-dimensional
+# oxidation (their Eq. 26), and a prover that hardcodes four coordinates cannot use it. Running rank
+# 4 on the deformed metric without that control would be a null from an instrument never shown to
+# find one when it exists -- exactly what we told tabula not to do.
+DIM = 4
 COORDS = (t, r, u, ph)
 MOM = (pt, pr, pu, pp)
+DEP = (1, 2)
+
+
+def set_dim(coords, mom, dep):
+    """Reconfigure for an n-dimensional metric. `dep` = indices the metric depends on."""
+    global DIM, COORDS, MOM, DEP
+    assert len(coords) == len(mom), "one momentum per coordinate"
+    DIM, COORDS, MOM, DEP = len(coords), tuple(coords), tuple(mom), tuple(dep)
 
 
 def kerr_inv(a=sp.Rational(1, 2), M=1):
@@ -110,7 +129,7 @@ METRICS = {"kerr": kerr_inv, "deformed": lambda: deformed_kerr_inv(eps=sp.Intege
 def monomials(deg):
     """All momentum monomials of total degree `deg`, as exponent tuples over (pt, pr, pu, pp)."""
     out = []
-    for e in itertools.product(range(deg + 1), repeat=4):
+    for e in itertools.product(range(deg + 1), repeat=DIM):
         if sum(e) == deg:
             out.append(e)
     return sorted(out, reverse=True)
@@ -148,13 +167,13 @@ def ansatz(rank, deg_r, deg_u, den_pow, a_spin=sp.Rational(1, 2), M=1, den_S=0, 
                 terms += a * r**j * u**k
         den = (1 - u**2)**den_pow
         if den_S:
-            den *= (r**2 + a_spin**2 * u**2)**den_S
+            den *= (D0**2 + a_spin**2 * D1**2)**den_S
         if den_D:
             den *= (r**2 - 2 * M * r + a_spin**2)**den_D
         if den_r:
-            den *= r**den_r
+            den *= D0**den_r
         if den_u:
-            den *= u**den_u
+            den *= D1**den_u
         cs.append(terms / den)
     return cs, mons, unknowns
 
@@ -180,18 +199,19 @@ def solve_kt(rank, ginv, deg_r=3, deg_u=3, den_pow=1, verbose=True, den_S=0, den
     import pickle
     from collections import defaultdict
 
-    H = sp.Rational(1, 2) * sum(ginv[i, j] * MOM[i] * MOM[j] for i in range(4) for j in range(4))
+    H = sp.Rational(1, 2) * sum(ginv[i, j] * MOM[i] * MOM[j] for i in range(DIM) for j in range(DIM))
     mons = monomials(rank)
     a_spin = sp.Rational(1, 2)
-    den = (1 - u**2)**den_pow
+    D0, D1 = COORDS[DEP[0]], COORDS[DEP[1]]
+    den = (1 - D1**2)**den_pow
     if den_S:
-        den *= (r**2 + a_spin**2 * u**2)**den_S
+        den *= (D0**2 + a_spin**2 * D1**2)**den_S
     if den_D:
-        den *= (r**2 - 2 * r + a_spin**2)**den_D
+        den *= (D0**2 - 2 * D0 + a_spin**2)**den_D
     if den_r:
-        den *= r**den_r
+        den *= D0**den_r
     if den_u:
-        den *= u**den_u
+        den *= D1**den_u
     if den_det:
         # the deformed metric's inverse carries the determinant polynomial (r-degree 9) in its
         # denominators; nothing smaller can represent even a constant coefficient
@@ -230,9 +250,9 @@ def solve_kt(rank, ginv, deg_r=3, deg_u=3, den_pow=1, verbose=True, den_S=0, den
     out_mons = monomials(rank + 1)
     for i in range(done, len(cols)):
         mi, j, k = cols[i]
-        Fi = r**j * u**k * mono_expr(mons[mi]) / den
+        Fi = (COORDS[DEP[0]]**j * COORDS[DEP[1]]**k * mono_expr(mons[mi]) / den)
         br = sp.S.Zero
-        for idx, x in ((1, r), (2, u)):
+        for idx, x in [(i, COORDS[i]) for i in DEP]:
             br += sp.diff(H, x) * sp.diff(Fi, MOM[idx]) - sp.diff(H, MOM[idx]) * sp.diff(Fi, x)
         poly = sp.Poly(sp.expand(br), *MOM)
         for e in out_mons:
@@ -259,7 +279,7 @@ def solve_kt(rank, ginv, deg_r=3, deg_u=3, den_pow=1, verbose=True, den_S=0, den
         lin = sp.S.Zero
         for i, c in colmap.items():
             lin += sp.Symbol(f"A{i}") * sp.cancel(c * L)
-        pc = sp.Poly(sp.expand(lin), r, u)
+        pc = sp.Poly(sp.expand(lin), COORDS[DEP[0]], COORDS[DEP[1]])
         for coeff in pc.coeffs():
             if coeff != 0:
                 eqs.append(coeff)
@@ -278,7 +298,7 @@ def solve_kt(rank, ginv, deg_r=3, deg_u=3, den_pow=1, verbose=True, den_S=0, den
         F = sp.S.Zero
         for i, (mi, j, k) in enumerate(cols):
             if v[i] != 0:
-                F += v[i] * r**j * u**k * mono_expr(mons[mi]) / den
+                F += v[i] * COORDS[DEP[0]]**j * COORDS[DEP[1]]**k * mono_expr(mons[mi]) / den
         sols.append(sp.cancel(sp.together(F)))
     return sols
 
@@ -288,7 +308,7 @@ def build(rank, ginv, verbose=True):
 
     Returns (equations, unknown_functions, timing). Each equation is the coefficient of one
     degree-(rank+1) momentum monomial -- a linear PDE in the unknowns and their (r,u) derivatives."""
-    H = sp.Rational(1, 2) * sum(ginv[i, j] * MOM[i] * MOM[j] for i in range(4) for j in range(4))
+    H = sp.Rational(1, 2) * sum(ginv[i, j] * MOM[i] * MOM[j] for i in range(DIM) for j in range(DIM))
     mons = monomials(rank)
     cs = [sp.Function(f"c{i}")(r, u) for i in range(len(mons))]
     F = sum(c * mono_expr(e) for c, e in zip(cs, mons))
@@ -298,7 +318,7 @@ def build(rank, ginv, verbose=True):
     t0 = time.time()
     # position dependence is only through r (index 1) and u (index 2)
     br = sp.S.Zero
-    for idx, x in ((1, r), (2, u)):
+    for idx, x in [(i, COORDS[i]) for i in DEP]:
         br += sp.diff(H, x) * sp.diff(F, MOM[idx]) - sp.diff(H, MOM[idx]) * sp.diff(F, x)
     t_br = time.time() - t0
 
@@ -365,6 +385,16 @@ if __name__ == "__main__":
 
 
 # --------------------------------------------------------------------- the point-sampling route
+# A SANITY CHECK THAT MUST NEVER FAIL, and did:
+#   every REDUCIBLE is a product of lower-rank solutions, hence itself a solution.
+#   So dim(reducible span) <= dim(solution space), ALWAYS.
+# On the CG 5D control at rank 4 this came out 30 > 28, which is impossible -- and the cause was
+# the ansatz: products of four rank-1 solutions carry denominators up to den^4, while the rank-4
+# ansatz was given den^1, so it could not hold the reducibles it is obliged to contain. A negative
+# "irreducible count" is the cheapest possible detector of an inadequate ansatz; check it before
+# reading any dimension as a result.
+
+
 def solve_kt_sampled(rank, ginv, deg_r, deg_u, den, n_points=None, primes=(2147483647, 2147483629),
                      verbose=True, seed=12345, rows_ckpt=None):
     """Same Killing-tensor system, assembled by EVALUATION AT EXACT RATIONAL POINTS.
@@ -385,7 +415,7 @@ def solve_kt_sampled(rank, ginv, deg_r, deg_u, den, n_points=None, primes=(21474
     same idea -- solve on part and verify on held-out probes."""
     import numpy as np
 
-    H = sp.Rational(1, 2) * sum(ginv[i, j] * MOM[i] * MOM[j] for i in range(4) for j in range(4))
+    H = sp.Rational(1, 2) * sum(ginv[i, j] * MOM[i] * MOM[j] for i in range(DIM) for j in range(DIM))
     mons = monomials(rank)
     out_mons = monomials(rank + 1)
     cols = [(mi, j, k) for mi in range(len(mons))
@@ -397,14 +427,14 @@ def solve_kt_sampled(rank, ginv, deg_r, deg_u, den, n_points=None, primes=(21474
         print(f"  rank {rank}: {n_unk} unknowns, {len(out_mons)} momentum monomials, "
               f"{n_points} sample points -> {n_points*len(out_mons)} rows", flush=True)
 
-    dH = [sp.diff(H, r), sp.diff(H, u)]
-    dHdp = [sp.diff(H, MOM[1]), sp.diff(H, MOM[2])]
+    dH = [sp.diff(H, COORDS[i]) for i in DEP]
+    dHdp = [sp.diff(H, MOM[i]) for i in DEP]
     # (r,u)-dependent weight of each column and its derivatives, symbolic but TINY
     ws = []
     for (mi, j, k) in cols:
-        w = r**j * u**k / den
-        ws.append((w, sp.diff(w, r), sp.diff(w, u)))
-    dm = [[sp.diff(mono_expr(e), MOM[1]), sp.diff(mono_expr(e), MOM[2])] for e in mons]
+        w = COORDS[DEP[0]]**j * COORDS[DEP[1]]**k / den
+        ws.append((w, sp.diff(w, COORDS[DEP[0]]), sp.diff(w, COORDS[DEP[1]])))
+    dm = [[sp.diff(mono_expr(e), MOM[i]) for i in DEP] for e in mons]
     me = [mono_expr(e) for e in mons]
 
     # BANK THE ASSEMBLED ROWS. Assembly is the expensive half (24 min at rank 3 on the deformed
@@ -434,7 +464,7 @@ def solve_kt_sampled(rank, ginv, deg_r, deg_u, den, n_points=None, primes=(21474
         tries += 1
         r0 = sp.Rational(int(rng.integers(3, 60)), int(rng.integers(1, 7)))
         u0 = sp.Rational(int(rng.integers(-9, 10)), 11)
-        sub = {r: r0, u: u0}
+        sub = {COORDS[DEP[0]]: r0, COORDS[DEP[1]]: u0}
         try:
             dH0 = [sp.together(d.subs(sub)) for d in dH]
             dHdp0 = [sp.together(d.subs(sub)) for d in dHdp]
@@ -456,8 +486,8 @@ def solve_kt_sampled(rank, ginv, deg_r, deg_u, den, n_points=None, primes=(21474
         block = {e: [sp.S.Zero] * n_unk for e in out_mons}
         for i, (mi, j, k) in enumerate(cols):
             w, wr, wu = wv[i]
-            expr = (dH0[0] * w * dm[mi][0] + dH0[1] * w * dm[mi][1]
-                    - dHdp0[0] * wr * me[mi] - dHdp0[1] * wu * me[mi])
+            expr = sum(dH0[q] * w * dm[mi][q] for q in range(len(DEP)))
+            expr -= sum((wr, wu)[q] * dHdp0[q] * me[mi] for q in range(len(DEP)))
             if expr == 0:
                 continue
             poly = sp.Poly(sp.expand(expr), *MOM)
