@@ -1901,7 +1901,14 @@ metrics, so a large Kerr/Schwarzschild ratio is swell, not bulk: `isotropy_invar
 in the table, and where the 3.6 GB peak RSS lives), `canonical_frame` 323×, `covariant_derivative_weyl` 260×,
 `cartan_order1` 227×, `cartan_order2` **102×**, total **103×** (34.1 s → 3501.2 s). *Note the stage holding
 94.3% of the time has one of the smallest ratios* — the effect is real but does not live where the clock does.
-**P0 primary gate: MISSED.** The frozen bar is the whole catalog under 60 min; Kerr alone is 58.4 and the
+**P0 primary gate: MISSED on 2026-08-19, then PASSED on 2026-08-20 after four wall fixes — both dated
+verdicts stand, and the bar was never restated.** COLD RUN (cache emptied first), 2026-08-20:
+Schwarzschild M=1 **32s**, M=2 **33s**, isotropic chart **18s** (was >8 h and never completed), ZV δ=1 **36s**,
+Taub–NUT **64s** (had *never* completed), Kerr **3,064s** (was 3,501s) → **3,248.76 s = 54.15 min** against the
+60-minute bar, with 6/6 metrics, G6 **SUPPORTED** (every `ck_order = 2`), **zero RESOURCE-WALLED**, and every
+pair comparison correct — including Schwarzschild recognised as **EQUIVALENT** to itself in the isotropic
+chart. *The first complete run of this catalog in the project's history.* The original verdict below is left
+exactly as recorded: **MISSED.** The frozen bar is the whole catalog under 60 min; Kerr alone is 58.4 and the
 static entries add ~1.7 min, so the catalog passes 60 before Taub–NUT is computed at all. Recorded as missed;
 the bar is not restated. *A projection of ours was also wrong here and is corrected in place: from 9 of 16
 components we said 66–72 min, and the last four came in cheap (28.7, 55.5, 36.9, 37.1 s) because they fall

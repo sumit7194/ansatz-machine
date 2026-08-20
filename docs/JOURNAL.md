@@ -3059,3 +3059,38 @@ and standalone, banked now because this repo has lost multi-hour runs to shutdow
   banked under the OLD fingerprint, which is honest. But the 5 signatures cached under
   12c483b9089ccb50 are now orphaned for FUTURE runs, so the next run recomputes them (~3 min).
   Small, but it was avoidable by editing after the run rather than during it.
+
+## 2026-08-20 -- §122 COMPLETES FOR THE FIRST TIME. P0 gate PASSED on re-evaluation.
+- COLD RUN (cache emptied first, so "cold" is a fact about the directory rather than an inference
+  from a hash): 3,248.76 s = **54.15 min** against the 60-minute bar. Every clause checked
+  separately -- 6/6 metrics, unbudgeted, G6 SUPPORTED with every ck_order = 2, ZERO
+  RESOURCE-WALLED, and the pair comparisons all correct (including Schwarzschild recognised as
+  EQUIVALENT to itself in the isotropic chart -- the costume seen through at order 2).
+      Schwarzschild M=1  32s    ZV delta=1        36s
+      Schwarzschild M=2  33s    Taub-NUT n=1/2    64s   <- had NEVER completed
+      isotropic chart    18s    Kerr a=1/2     3,064s   <- was 3,501s
+      (isotropic was >8 HOURS and never completed, three days ago)
+- BOTH VERDICTS ARE ON THE RECORD, and that is the point: D28 MISSED (2026-08-19, 1.02x) stays
+  exactly as written; D29 PASSED (2026-08-20) is a SECOND dated evaluation of the SAME frozen
+  criterion against improved code. Had the bar been restated on the 19th when it was 66 SECONDS
+  over, yesterday's miss would have disappeared -- and with it the record that four real bugs
+  were sitting behind it. A gate rewritten when the number improves is not a gate.
+- WHAT THE FOUR WALLS ACTUALLY WERE, now that all of them are down:
+      1. Kerr, cartan_order2      sp.expand() inflating 3,710 ops -> 90,841 so cancel could spend
+                                  five minutes undoing it, to return 20 ops. Size-gated.
+      2. Taub-NUT, canonical_frame  NOT a performance problem at all -- the metric was WRONG (NUT
+                                  term in the dphi slot, |R_ab| ~ 33, not a vacuum solution) and
+                                  the 9-hour hang was HIDING it. >9 h -> 0.96 s.
+      3. Taub-NUT, weight_invariants  sp.refine() burning 2.6 GB on an expression with NOTHING
+                                  refinable in it -- a guaranteed no-op. >54 min + OOM -> 0.77 s.
+      4. isotropic, cartan_order2  sp.refine() again, but legitimately applicable this time --
+                                  walking a whole tree to perform node-LOCAL rewrites. The first
+                                  refine guard was necessary but NOT SUFFICIENT, which only a
+                                  second metric exposed. >8 h -> 11.67 s.
+  THREE OF THE FOUR were expensive work that was provably unnecessary. The algorithm was never the
+  problem, the derivative order was never the problem, and NOT ONCE did reasoning about the code
+  find the cause -- every one came from a bounded measurement, and three hypotheses of mine were
+  refuted along the way (the simplifier chain at order 1; input bulk on the isotropic chart; a
+  66-72 min projection that came in at 58.4).
+- THE ONE-LINE LESSON OF THE ARC: **a hang can be a wrong answer in disguise.** Before optimising
+  a stage that will not terminate, check that its INPUT is what you think it is.
