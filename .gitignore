@@ -8,3 +8,12 @@ data/our_pids.txt
 data/*.log
 data/s122_cache/
 data/s122_progress.log
+
+# Killing-tensor search caches: resumable computation artifacts, not results.
+# kt_def_rows_r3.pkl alone is 172 MB (above GitHub's limit) and is regenerable in ~24 min.
+# They must stay on disk for power-cut resumption, and must NOT be versioned.
+data/*.pkl
+data/*.ckpt
+data/kt_*.out
+data/s122_*.out
+data/p0_*.out

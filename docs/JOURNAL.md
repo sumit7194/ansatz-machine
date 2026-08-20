@@ -3094,3 +3094,47 @@ and standalone, banked now because this repo has lost multi-hour runs to shutdow
   66-72 min projection that came in at 58.4).
 - THE ONE-LINE LESSON OF THE ARC: **a hang can be a wrong answer in disguise.** Before optimising
   a stage that will not terminate, check that its INPUT is what you think it is.
+
+## 2026-08-20/21 -- P3: NO IRREDUCIBLE RANK-2 OR RANK-3 KILLING TENSOR ON THE DEFORMED KERR
+This is the first genuinely OPEN question this project has answered rather than reproduced, and it
+exists because the four-wall arc made the swell tractable. §85's own caveat named it: "a
+higher-order (quartic) Killing tensor isn't excluded". Rank 3 is now closed.
+
+- METHOD (momentum form, licensed by the grading theorem we VERIFIED in _p3_grading_check.py):
+  a rank-r KT is exactly a conserved F = K^{a1..ar}p_a1..p_ar with {H,F}=0. A bounded ansatz turns
+  that into linear algebra. scripts/_kt_search.py.
+- THE OLD ROUTE'S WALL WAS OURS, AGAIN: _killing_search.py died at 7.5 h on the tensor form
+  ("expand-everything is exponentially wasteful"). The momentum form plus this project's own §21
+  trick -- credited in ROADMAP to Sumit's "terms-as-vector-dimensions" intuition, never materialize
+  the giant expression, evaluate at exact rational points -- took rank 3 on Kerr from 304 s to 35 s
+  and made the deformed metric feasible at all.
+- PROVER VALIDATED AT BOTH RANKS BEFORE ANY NULL WAS BELIEVED (rule 8):
+    rank 2: Kerr returns DIMENSION 5, and CARTER IS IN THE SPAN EXACTLY (residual identically 0,
+            coefficient 1) -- not merely counted.
+    rank 3: Cariglia-Galajinsky arXiv:1503.02162 second Drach solution -- transcribed, VERIFIED
+            RICCI-FLAT before use (the Taub-NUT lesson), and the prover returns EXACTLY ONE
+            irreducible cubic tensor, matching the paper.
+- THE RESULT, deformed Kerr a=3/5, eps=2 (§82/§85's metric):
+    rank 1: dimension 2  = the two Killing vectors                      (p_t, p_phi)
+    rank 2: dimension 4  = the reducibles                               -> NO irreducible rank-2 KT
+    rank 3: dimension 6  = the reducibles                               -> NO irreducible rank-3 KT
+  Both ranks: solution space EQUALS the reducible span, verified by an independent rank test on 400
+  random phase-space points (6 candidates, numerical rank 6) rather than counted by hand -- the
+  count-by-hand is exactly what failed on the control, where I expected 6 and the truth was 10
+  because that system is superintegrable.
+  Modular ranks agree across TWO large primes; disagreement would have been reported UNKNOWN.
+- WHAT RANK 2 UPGRADES: §85 said "no conserved quadratic in a Carter-adequate basis" from a
+  numerical null-space fit over sampled orbits. This says NO RANK-2 KILLING TENSOR EXISTS, from the
+  Killing equation itself. Two instruments with different failure modes, same verdict.
+- SCOPE, stated rather than implied: a = 3/5 and eps = 2 specifically; coefficients of the form
+  P(r,u)/D_common with deg P <= (12,12), where D_common is the LCM of the inverse metric's
+  denominators (r-degree 11, u-degree 10). Higher numerator degree, a different denominator
+  structure, general eps, and RANK 4 are all still open. Rank 4 has no positive control yet --
+  Cariglia-Galajinsky's 5D oxidation (their Eq. 24-29) is the route.
+- PRIOR ART, swept before claiming: Ramond arXiv:2607.27129 (2026-07-29) proves tidal quadrupoles
+  destroy integrability, but that is a tidal quadrupole on the BODY and RANK 2 only.
+  Cariglia-Galajinsky CONSTRUCT metrics with irreducible rank-3/4 KTs. No theorem found excluding
+  rank-3/4 for Kerr or deformed Kerr.
+- ALSO MEASURED, on Kerr itself: rank 3 = dimension 8 = its reducibles (p_t^3, p_t^2 p_phi,
+  p_t p_phi^2, p_phi^3, p_t H, p_phi H, p_t Q, p_phi Q) -> NO irreducible rank-3 KT for KERR either,
+  same ansatz scope. That one I could find no theorem for either way.

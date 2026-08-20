@@ -366,7 +366,7 @@ if __name__ == "__main__":
 
 # --------------------------------------------------------------------- the point-sampling route
 def solve_kt_sampled(rank, ginv, deg_r, deg_u, den, n_points=None, primes=(2147483647, 2147483629),
-                     verbose=True, seed=12345):
+                     verbose=True, seed=12345, rows_ckpt=None):
     """Same Killing-tensor system, assembled by EVALUATION AT EXACT RATIONAL POINTS.
 
     WHY. The symbolic column route costs 19 s/column on the deformed metric (its inverse carries a
@@ -406,6 +406,25 @@ def solve_kt_sampled(rank, ginv, deg_r, deg_u, den, n_points=None, primes=(21474
         ws.append((w, sp.diff(w, r), sp.diff(w, u)))
     dm = [[sp.diff(mono_expr(e), MOM[1]), sp.diff(mono_expr(e), MOM[2])] for e in mons]
     me = [mono_expr(e) for e in mons]
+
+    # BANK THE ASSEMBLED ROWS. Assembly is the expensive half (24 min at rank 3 on the deformed
+    # metric) and the modular rank is the cheap half -- but a power cut during the RANK step was
+    # throwing the assembly away too. Same rule as the order-2 component cache: cache granularity
+    # must match the failure mode, not the code structure.
+    import pickle
+    if rows_ckpt and os.path.exists(rows_ckpt):
+        try:
+            with open(rows_ckpt, "rb") as fh:
+                saved_unk, rows_num = pickle.load(fh)
+            if saved_unk == n_unk:
+                if verbose:
+                    print(f"  RESUMED {len(rows_num)} assembled rows from {rows_ckpt}", flush=True)
+                return _rank_from_rows(rows_num, n_unk, primes, verbose)
+            if verbose:
+                print(f"  checkpoint is for {saved_unk} unknowns, need {n_unk}; reassembling",
+                      flush=True)
+        except Exception:
+            pass
 
     rng = np.random.default_rng(seed)
     rows_num, t0 = [], time.time()
@@ -455,8 +474,18 @@ def solve_kt_sampled(rank, ginv, deg_r, deg_u, den, n_points=None, primes=(21474
             print(f"    {pts_used}/{n_points} points  ({time.time()-t0:.0f}s)", flush=True)
     if verbose:
         print(f"  {len(rows_num)} rows assembled in {time.time()-t0:.1f}s", flush=True)
+    if rows_ckpt:
+        with open(rows_ckpt + ".tmp", "wb") as fh:
+            pickle.dump((n_unk, rows_num), fh)
+        os.replace(rows_ckpt + ".tmp", rows_ckpt)
+        if verbose:
+            print(f"  rows banked to {rows_ckpt}", flush=True)
+    return _rank_from_rows(rows_num, n_unk, primes, verbose)
 
-    # clear denominators per row, reduce mod p, rank by Gaussian elimination
+
+def _rank_from_rows(rows_num, n_unk, primes, verbose):
+    """Clear denominators per row, reduce mod p, rank by Gaussian elimination over GF(p)."""
+    import numpy as np
     dims = []
     for p in primes:
         M = np.zeros((len(rows_num), n_unk), dtype=np.int64)
