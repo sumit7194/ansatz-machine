@@ -1,0 +1,19 @@
+  setup done: type D
+    -> cartan_order2 component D_l_D_l_Psi2
+       OK    0.71s  nonzero
+    -> cartan_order2 component D_l_D_n_Psi2
+       OK    0.42s  nonzero
+    -> cartan_order2 component D_l_D_m_Psi2
+       OK    0.56s  zero
+    -> cartan_order2 component D_l_D_mb_Psi2
+       OK    0.35s  zero
+    -> cartan_order2 component D_n_D_l_Psi2
+       OK    0.36s  nonzero
+    -> cartan_order2 component D_n_D_n_Psi2
+       OK    0.35s  nonzero
+    -> cartan_order2 component D_n_D_m_Psi2
+       OK    0.35s  zero
+    -> cartan_order2 component D_n_D_mb_Psi2
+       OK    0.34s  zero
+    -> cartan_order2 component D_m_D_l_Psi2
+    !! SELF-KILL >0.9 GB -- call in flight is the wall

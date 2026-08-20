@@ -1,0 +1,20 @@
+  tetrad supplied by the metric? False  (None => Gram-Schmidt)
+    -> weyl_tensor
+       OK    1.43s
+    -> null_tetrad (Gram-Schmidt)
+       OK    1.57s
+    -> weyl_scalars in that tetrad
+       OK    0.06s
+       nonzero Psi: [2]  -> PND quartic solve SKIPPED
+    -> canonical_frame
+       OK    0.03s
+       type D, isotropy 2
+    -> covariant_derivative_weyl
+       OK    0.13s
+    -> cartan_order1
+       OK    5.61s
+    -> isotropy_invariants
+       OK    0.23s
+    -> relation_certificate_resultant  (the §116 double-cover suspect)
+       OK    0.11s
+  ALL STAGES ATTEMPTED

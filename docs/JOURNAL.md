@@ -2997,3 +2997,41 @@ and standalone, banked now because this repo has lost multi-hour runs to shutdow
   could not cope with, and in two of the three the work was provably useless -- expand() inflating
   3,710 ops to 90,841 so cancel could undo it, and refine() recursing a degree-14 polynomial with
   nothing to refine. The algorithm was never the problem.
+
+## 2026-08-20 -- the FOURTH wall: sp.refine again, and the first guard was necessary-not-sufficient
+- §122's isotropic-chart entry ran 8h+ without finishing -- on SCHWARZSCHILD IN DISGUISE, the same
+  spacetime the standard chart does in 32 s. Diagnosed live, with every probe self-capped so the
+  running job was never crowded out (py-spy needs root on macOS, so no live Python frames; the
+  built-in sample(1) showed only that it sat in pure-Python bytecode, no SymPy C path).
+- LOCALIZED IN FIVE BOUNDED STEPS, and TWO HYPOTHESES DIED ON THE WAY:
+    order 0 + order 1, every stage           ~9 s total
+    order-2 components, directions l and n   0.3-0.7 s EACH (8 of them)
+    order-2 component D_m_D_l_Psi2           >900 MB, never returns   <- the wall
+      x  NOT the escalating simplifier: set_cheap_simplify(True) still blows up
+      x  NOT input bulk: the order-1 input is 162 ops -- SMALLER than Taub-NUT's 237, which works
+    inside second_frame_component, every constituent is FAST:
+      dtet 0.09s, F 0.14s, sp.diff 0.00s, all five re-contractions <=0.20s, cheap(term) 0.04s
+    so the cost is in the COMBINATION step: zsimp(tot) on 264 ops -> >2 GB
+    walking zsimp's chain: generic_branch 0.00s, cancel(together(expand)) 0.02s -> 147 ops,
+      generic_branch 0.00s, then **refine -> SELF-KILL >2 GB**
+- SO IT IS refine() AGAIN -- BUT A DIFFERENT CASE, AND THE FIRST FIX DOES NOT COVER IT.
+  On Taub-NUT the call was a provable NO-OP (no refinable atoms) and _has_refinable() skipped it.
+  Here the expression genuinely carries RADICALS (the isotropic tetrad comes from Gram-Schmidt),
+  so the precondition CORRECTLY lets it through -- and sp.refine still exceeds 2 GB on 147 ops.
+  THE PRECONDITION WAS NECESSARY BUT NOT SUFFICIENT. Recording that plainly: the first fix looked
+  complete and was not, and only a second measurement on a different metric exposed it.
+- THE REAL FIX: sp.refine only ever does NODE-LOCAL rewrites (Abs(x)->x, sqrt(x**2)->x,
+  sign(x)->1), but sp.refine(WHOLE_TREE, dom) walks every node asking assumption questions. So
+  collect the refinable subexpressions, refine EACH ONE ALONE (each is tiny), and xreplace back.
+  Same rewrites, bounded work. Deepest-first so an inner rewrite is visible to an outer one.
+- VERIFIED: Abs(sin th) -> sin(theta); sqrt((1-u^2)^2) -> 1 - u^2; and nested inside a rational,
+  (|sin|+3)/(|sin|-1) -> (sin+3)/(sin-1), i.e. it still reaches refinable atoms buried in a tree.
+- RESULT: the isotropic chart's FULL cartan_order2, all 16 components: **11.67 s** (was 8h+ and
+  never completing). All six frozen batteries VERDICT-IDENTICAL against the ORIGINAL pre-guard
+  code, and §116 is 1.7x FASTER as a side effect (72.79 -> 42.48 s).
+- FOUR WALLS, FOUR MEASUREMENTS, AND THE SAME SHAPE EVERY TIME: a normalizer handed an input it
+  could not cope with -- expand() (Kerr), a wrong metric masquerading as slowness (Taub-NUT
+  canonical_frame), refine() on a no-op (Taub-NUT weight_invariants), refine() on a whole tree
+  (isotropic). In THREE of the four the expensive work was provably unnecessary. The algorithm was
+  never the problem, and not once did reasoning about the code find it -- every one came from a
+  bounded measurement, and two of my own hypotheses were refuted along the way.

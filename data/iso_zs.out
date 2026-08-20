@@ -1,0 +1,9 @@
+  target: 264 ops, radicals=True
+    -> generic_branch(tot)
+       OK    0.00s  ops=     264
+    -> cancel(together(expand))
+       OK    0.02s  ops=     147
+    -> generic_branch
+       OK    0.00s  ops=     147
+    -> refine  <-- prime suspect (radicals present)
+    !! SELF-KILL >2.0 GB -- step in flight is the wall

@@ -1,0 +1,9 @@
+  --- f=2 (theta) ---
+    raw term (unsimplified)                          ops=      422
+    cheap(term)                                      0.04s  ops=      245
+  --- f=3 (phi) ---
+    raw term (unsimplified)                          ops=      432
+    cheap(term)                                      0.00s  ops=        0
+  raw tot ops=264
+  has radicals? True  -> refine WILL run (not a no-op here)
+    !! SELF-KILL >2.0 GB -- step in flight is the wall

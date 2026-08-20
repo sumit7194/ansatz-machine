@@ -1,0 +1,18 @@
+  w = m ; nonzero w components at indices [2, 3]
+    covariant_derivative_vector x4 (dtet)              0.09s  ops=      676
+    F = frame_component5(DC, vs)                       0.14s  ops=      143
+  --- direction f=2 (coord theta) ---
+      sp.diff(F, theta)   [H_diff]                     0.00s  ops=        0
+      re-contraction k=0   [H_recon]                   0.20s  ops=      199
+      re-contraction k=1   [H_recon]                   0.00s  ops=        0
+      re-contraction k=2   [H_recon]                   0.18s  ops=      221
+      re-contraction k=3   [H_recon]                   0.16s  ops=      221
+      re-contraction k=4   [H_recon]                   0.00s  ops=        0
+  --- direction f=3 (coord phi) ---
+      sp.diff(F, phi)   [H_diff]                       0.00s  ops=        0
+      re-contraction k=0   [H_recon]                   0.00s  ops=        0
+      re-contraction k=1   [H_recon]                   0.00s  ops=        0
+      re-contraction k=2   [H_recon]                   0.20s  ops=      215
+      re-contraction k=3   [H_recon]                   0.19s  ops=      215
+      re-contraction k=4   [H_recon]                   0.00s  ops=        0
+  DONE

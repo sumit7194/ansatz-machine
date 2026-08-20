@@ -79,10 +79,33 @@ def _has_refinable(e):
 
 
 def refine(e):
+    """Domain-aware refinement, applied LOCALLY.
+
+    sp.refine only ever performs NODE-LOCAL rewrites -- Abs(x)->x, sqrt(x**2)->x, sign(x)->1 and
+    friends -- but sp.refine(whole_expression, dom) walks the entire tree asking assumption
+    questions at every node. On the two walls this cost us that was catastrophic:
+      * Taub-NUT: a 71-op expression with NOTHING refinable in it -> 2.59 GB. Caught by the
+        _has_refinable() precondition below (the call was a guaranteed no-op).
+      * isotropic Schwarzschild: a 147-op expression that DOES carry radicals, so the
+        precondition correctly lets it through -- and sp.refine still exceeded 2 GB, walling
+        §122's catalog for 8+ hours on a spacetime the standard chart does in 32 s.
+    So the precondition is necessary but not sufficient. Since the rewrites are node-local, we
+    collect the refinable subexpressions, refine each one ALONE (each is tiny), and substitute
+    back. Same rewrites, bounded work."""
     d = domain()
     if d is None or not isinstance(e, sp.Basic) or not _has_refinable(e):
         return e
-    return sp.refine(e, d)
+    targets = set(e.atoms(*_REFINABLE))
+    targets |= {p for p in e.atoms(sp.Pow) if p.exp.is_Integer is False}
+    if not targets:
+        return e
+    # deepest first, so an inner rewrite is visible to an outer one
+    sub = {}
+    for t in sorted(targets, key=lambda x: -sp.count_ops(x)):
+        r = sp.refine(t, d)
+        if r != t:
+            sub[t] = r
+    return e.xreplace(sub) if sub else e
 
 
 def _predicate_to_relational(p):
