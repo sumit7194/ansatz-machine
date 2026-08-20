@@ -307,6 +307,55 @@ def progress(msg):
         pass                      # never let logging break the battery
 
 
+class _ComponentCache:
+    """Disk-backed per-COMPONENT store for the order-2 stage.
+
+    The signature cache above banks a metric only once its WHOLE signature is done. That is the
+    right granularity for a machine that stays up, and the wrong one for this machine: Kerr's
+    signature is ~58 minutes and a daytime power cut has now destroyed it twice, losing every
+    minute. cartan_order2 is a loop over 16 INDEPENDENT components at ~3 minutes each, so caching
+    at that level turns an all-or-nothing 58-minute bet into 3-minute increments.
+
+    Same invalidation rule as the signature cache, for the same reason: the key carries the code
+    fingerprint AND the metric name, so any edit to ck.py or to a metric definition orphans every
+    entry rather than silently resuming onto a stale component."""
+
+    def __init__(self, name, fp):
+        self.dir = os.path.join(CACHE_DIR, "components")
+        self.slug = "".join(c if c.isalnum() else "_" for c in name)
+        self.fp = fp
+        os.makedirs(self.dir, exist_ok=True)
+
+    def _path(self, label):
+        lab = "".join(c if c.isalnum() else "_" for c in label)
+        return os.path.join(self.dir, f"{self.slug}__{lab}__{self.fp}.pkl")
+
+    def get(self, label):
+        import pickle
+        p = self._path(label)
+        if not os.path.exists(p):
+            return None
+        try:
+            with open(p, "rb") as fh:
+                return pickle.load(fh)
+        except Exception:
+            return None           # unreadable == miss; recompute rather than guess
+
+    def put(self, label, value):
+        import pickle
+        try:
+            p = self._path(label)
+            tmp = p + ".tmp"
+            with open(tmp, "wb") as fh:
+                pickle.dump(value, fh)
+                fh.flush()
+                os.fsync(fh.fileno())
+            os.replace(tmp, p)     # atomic: a cut mid-write cannot leave a half-entry
+            progress(f"    cached component {label}")
+        except Exception:
+            pass                   # caching must never break the battery
+
+
 def signature(name, builder, order2=True):
     """Compute a CK signature, resuming from the on-disk cache when the code is unchanged."""
     import pickle
@@ -325,7 +374,8 @@ def signature(name, builder, order2=True):
     t0 = time.time()
     geo, tet = builder()
     ck.set_domain(*DOMAINS[name])
-    s = ck.ck_signature(geo, name, tet=tet, order2=order2)
+    s = ck.ck_signature(geo, name, tet=tet, order2=order2,
+                        comp_cache=_ComponentCache(name, fp) if order2 else None)
     progress(f"  DONE {name} in {time.time()-t0:.0f}s -> cached")
     try:
         os.makedirs(CACHE_DIR, exist_ok=True)

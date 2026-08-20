@@ -3035,3 +3035,27 @@ and standalone, banked now because this repo has lost multi-hour runs to shutdow
   (isotropic). In THREE of the four the expensive work was provably unnecessary. The algorithm was
   never the problem, and not once did reasoning about the code find it -- every one came from a
   bounded measurement, and two of my own hypotheses were refuted along the way.
+
+## 2026-08-20 -- per-COMPONENT caching for the order-2 stage (the outage adaptation)
+- CONTEXT the user supplied and it changes the engineering: this machine has DAYTIME POWER
+  OUTAGES; nights are usable. The §122 signature cache resumed 5 of 6 metrics in 1.5 s after a
+  cut -- the first time that design paid off for real -- but it banks a signature only once the
+  WHOLE thing is done, and Kerr is a single ~58-MINUTE ATOM. A cut at minute 50 loses all fifty.
+  That has now happened twice.
+- THE FIX: cartan_order2 is a loop over 16 INDEPENDENT components at ~3 min each on Kerr, so
+  caching at COMPONENT granularity turns an all-or-nothing 58-minute bet into 3-minute increments.
+    * ck.py stays I/O-FREE: cartan_order2(..., cache=None) takes a store with .get/.put, and
+      ck_signature grew comp_cache= to thread it through. The library does not touch disk.
+    * the battery supplies _ComponentCache: same invalidation rule as the signature cache (key
+      carries the code fingerprint AND the metric name), and writes are ATOMIC (tmp + os.replace)
+      so a cut mid-write cannot leave a half-entry that would later be read as a result.
+    * A CACHED ZERO IS A REAL RESULT. Miss is signalled by `is None`, never by truthiness --
+      exactly the "didn't happen vs happened and found nothing" trap we catalogued nine times.
+- VALIDATED before relying on it: Schwarzschild order-2, cold 31.05 s -> warm 0.00 s, 6 nonzero
+  components IDENTICAL on reuse, and identical to the no-cache path. 16 entries written (all 16
+  components, zeros included).
+- A COST I INTRODUCED AND SHOULD HAVE SEQUENCED BETTER: I edited ck.py while the Kerr run was in
+  flight. The running process is unaffected (its code was already loaded) and its result will be
+  banked under the OLD fingerprint, which is honest. But the 5 signatures cached under
+  12c483b9089ccb50 are now orphaned for FUTURE runs, so the next run recomputes them (~3 min).
+  Small, but it was avoidable by editing after the run rather than during it.

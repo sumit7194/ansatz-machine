@@ -1,0 +1,118 @@
+Step 122 — CARTAN-KARLHEDE AT ORDER 2 (bridge round 8, ask D / Falsification Ledger G6).
+
+The bridge went to test G6 -- "CK terminates at order <= 2 for all 4D vacuum type-D pairs in
+our catalog (theory allows 7)" -- and could not, because ck.py computed orders 0 and 1 only.
+This step adds the order-2 recursion and tests G6 with it.
+
+WHAT ORDER 2 ADDS, structurally. At order 1 the surviving components D_a Psi2 all carry
+NONZERO boost/spin weight, so none is an invariant by itself and only weight-cancelling
+PRODUCTS like (D_l Psi2)(D_n Psi2) can be compared. At order 2 the weights add, so components
+such as D_l D_n Psi2 and D_m D_mb Psi2 have total weight (0,0) and are Cartan invariants
+outright. That is the real reason order 2 buys so much more than order 1, and it is why
+ck.py grew a general weight_invariants() rather than another hard-coded pair list.
+
+TWO PUBLISHED RESULTS ARE USED AS GROUND TRUTH (this battery is not self-graded):
+
+  (1) KARLHEDE, LINDSTROEM & AAMAN, Gen. Rel. Grav. 14 (1982) 569, "A note on a local effect at
+      the Schwarzschild sphere": the scalar built from nabla(Riemann) changes sign exactly at
+      the horizon. Our order-1 invariant (D_l Psi2)(D_n Psi2) must therefore vanish at r = 2M,
+      and it does -- and so does the order-2 invariant D_m D_mb Psi2. Both track M correctly
+      (root at r = 2 for M = 1, at r = 4 for M = 2), which is a sharp test: a sign or factor
+      error in the second derivative would move the root.
+
+  (2) COLLINS, d'INVERNO & VICKERS, Class. Quantum Grav. 7 (1990) 2005-2015, "The Karlhede
+      classification of type D vacuum spacetimes": the bound on the order of differentiation
+      needed for type D VACUUM is reduced below Karlhede's general counting bound. G6 is
+      exactly this theorem, and this battery machine-checks it on our catalog rather than
+      citing it.
+
+      *** COUNTING CONVENTION -- STATE WHICH NUMBER YOU MEAN ***
+      The bridge's A3 audit found secondary sources quoting THREE for type D vacuum where we
+      say TWO. Both are right; they count different things. Resolved from primary sources we
+      actually read (not from memory):
+
+        * Karlhede's counting argument is q <= dim G0 + n + 1. For type D, dim G0 = 2
+          (boost+spin) and n = 4, giving q <= 7 -- the "theory allows 7" we contrast against.
+          That +1 is the FINAL CONFIRMING iteration, so q counts ITERATIONS (steps), and
+          iteration 0 (the undifferentiated Weyl spinor) is one of them.
+        * McNutt, Coley et al., "Cartan Invariants and Event Horizon Detection"
+          (arXiv:1709.03362), sec. 4, works KERR -- a type D vacuum -- explicitly:
+          "the second iteration ... begins by computing the SECOND covariant derivative of the
+          Weyl spinor ... No functionally independent invariants appear ... Thus t1 = t2 = 2
+          and dim(H1) = dim(H2) = 0; the Cartan-Karlhede algorithm TERMINATES AFTER THE SECOND
+          ITERATION, in agreement with Aman (1984)."
+          Highest derivative computed = 2. Iterations performed = 3 (orders 0, 1, 2).
+
+      So: THREE = number of iterations including order 0 and the confirming step.
+          TWO   = highest covariant-derivative order actually computed.
+      OUR ck_order is the SECOND convention -- the highest derivative order reached before
+      (t, isotropy) stopped moving (see ck.py, where ck_order = 2 iff (t2,iso2) == (t1,iso1)).
+      Our measurement and the "3" in the literature are the SAME FACT stated two ways.
+
+      NOT SETTLED HERE: CdV 1990's own number in its own convention -- the paper is paywalled
+      and we did not read it. What we verified is the reference itself (correct), and the
+      independently reproduced Kerr worked example above. Note also that the widely quoted
+      "q <= 6 for type D" is NOT this paper: it is Collins & d'Inverno, Class. Quantum Grav.
+      10 (1993) 343-51, the type-D NON-VACUUM case (ref [5] of arXiv:0710.0688). Vacuum and
+      non-vacuum bounds are different results and are easy to conflate.
+
+TERMINATION IS KARLHEDE'S CRITERION, BOTH HALVES. Stop at the first order where neither the
+number of functionally independent invariants NOR the isotropy dimension changed. Counting
+invariants alone stops too early: Schwarzschild has t1 = t0 = 1, but its isotropy drops 2 -> 1
+at order 1 (the boost is used up by D_l Psi2, the spin is not), so the recursion is still
+moving; it settles at order 2 with (t, iso) = (1, 1). See ck.residual_isotropy().
+
+THREE FIXES THIS FORCED, each measured (all in ck.py):
+  * covariant_derivative_weyl computed all 4^4 index slots per direction; nabla_e preserves the
+    Weyl symmetries, so only 21 of 256 are independent. Kerr's nabla C went from
+    not-finishing-in-10-minutes to ~11 s. Gated below against the naive version.
+  * a Piecewise guard on Eq(sin(theta), 0) -- the axis, where the canonical m is undefined --
+    was faking theta dependence and inflating Schwarzschild to t2 = 2 (a phantom second
+    invariant). ck.generic_branch() drops branches supported on a measure-zero set only.
+  * D_m D_l Psi2 of Schwarzschild is identically zero but came out as
+    (r-2)^(3/2)(sin(2th)tan(th) + cos(2th) - 1)/(...), which neither simplify() nor trigsimp()
+    reduces. A component wrongly believed nonzero eats the spin isotropy, so Schwarzschild
+    reported isotropy 0 and the WRONG termination order. expand_trig() then simplify() kills
+    it. (§119's finding again: the wall is the simplifier.)
+
+Order 2 is OPT-IN (ck_signature(..., order2=True)): it costs ~30x order 1, and the frozen
+§116-§119 verdicts stay bit-for-bit reproducible without it.
+
+The full battery runs the WHOLE type-D vacuum catalog -- Schwarzschild (two masses and the
+isotropic chart), ZV delta=1, Taub-NUT and Kerr -- to genuine completion. `--quick` trims only
+the wall-clock safety budget (the guard against a true hang), never which metrics are tested;
+G6 is a claim about the whole catalog, so the whole catalog is what it is checked against.
+
+
+  [budget] UNLIMITED -- running to genuine completion to MEASURE the true runtime (set CK122_BUDGET=<sec> or --quick to bound it)
+  (A) the symmetry-reduced nabla C vs the naive 4^4 loop, all 1024 components x 3 random points:
+      max |difference| = 3.0e-123   ✅ identical   (1.5s)
+
+  (B) GROUND TRUTH -- Karlhede-Lindstroem-Aaman (1982): the horizon shows up in the
+      derivatives of curvature. Our invariants must vanish at r = 2M, and track M:
+[     1.5s]   RESUMED Schwarzschild M=1 from cache (code fingerprint 12c483b9089ccb50)
+      Schwarzschild M=1:  order-1 (D_l Psi2)(D_n Psi2) = -9*(r - 2)/(2*r**9)
+                          order-2  D_m D_mb Psi2      = 6*(r - 2)/r**6
+                          both vanish at r = 2M = 2:  ✅   (0s)
+[     1.5s]   RESUMED Schwarzschild M=2 from cache (code fingerprint 12c483b9089ccb50)
+      Schwarzschild M=2:  order-1 (D_l Psi2)(D_n Psi2) = -18*(r - 4)/r**9
+                          order-2  D_m D_mb Psi2      = 12*(r - 4)/r**6
+                          both vanish at r = 2M = 4:  ✅   (0s)
+
+  (C) order-2 controls:
+      discrimination -- Schwarzschild M=1 vs M=2  -> INEQUIVALENT  ✅
+          certificate mismatch on (D_l_Psi2)(D_n_Psi2): 729*w**9 + 729*w**8/8 + 243*w**6*z + 27*w**3*z**2 + z**3 v
+[     1.5s]   RESUMED Schwarzschild (isotropic chart) from cache (code fingerprint 12c483b9089ccb50)
+      recognition -- Schwarzschild vs ISOTROPIC chart -> EQUIVALENT  ✅ the costume seen through, order 2 running   (0s)
+          (D_l_Psi2)(D_n_Psi2) matches: 729*w**9 + 729*w**8/8 + 243*w**6*z + 27*w**3*z**2 + z**3
+
+  (D) LEDGER G6 -- does CK terminate at order <= 2 on the 4D vacuum type-D catalog?
+      (Karlhede's criterion, both halves: the first order at which neither t nor the isotropy moves.)
+      Schwarzschild M=1                  type D  (t,iso): (1,2) -> (1,1) -> (1,1)    ck_order = 2  ✅  (0s)
+      Schwarzschild M=2                  type D  (t,iso): (1,2) -> (1,1) -> (1,1)    ck_order = 2  ✅  (0s)
+      Schwarzschild (isotropic chart)    type D  (t,iso): (1,2) -> (1,1) -> (1,1)    ck_order = 2  ✅  (0s)
+[     1.5s]   RESUMED ZV delta=1 (prolate spheroidal) from cache (code fingerprint 12c483b9089ccb50)
+      ZV delta=1 (prolate spheroidal)    type D  (t,iso): (1,2) -> (1,1) -> (1,1)    ck_order = 2  ✅  (0s)
+[     1.5s]   RESUMED Taub-NUT n=1/2 from cache (code fingerprint 12c483b9089ccb50)
+      Taub-NUT n=1/2                     type D  (t,iso): (1,2) -> (1,1) -> (1,1)    ck_order = 2  ✅  (0s)
+[     1.5s]   computing signature: Kerr a=1/2 (order2=True) ...

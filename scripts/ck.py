@@ -869,13 +869,26 @@ def second_frame_component(geo, DC, vs, w, dvs):
     return zsimp(tot)
 
 
-def cartan_order2(geo, tet, DC, ty="D", which=None):
+def cartan_order2(geo, tet, DC, ty="D", which=None, cache=None):
     """Order-2 Cartan components D_w D_u Psi_k in the canonical frame, plus their weights.
 
     Returns (components, weights). Components are boost/spin COVARIANT -- feed them through
-    weight_invariants() before comparing anything."""
+    weight_invariants() before comparing anything.
+
+    `cache` is an optional per-COMPONENT store with .get(label) -> value-or-None and
+    .put(label, value). This function stays I/O-free; the caller supplies whatever backing it
+    wants. WHY IT EXISTS: this stage is the expensive one (94% of a Kerr signature), it is a
+    loop over 16 INDEPENDENT components, and the caller's signature-level cache only banks a
+    COMPLETED signature -- so a machine that loses power mid-Kerr loses the whole ~58 minutes.
+    Component granularity turns that into losing ~3 minutes. A cached value of zero is a real
+    result and is distinguished from a miss by `is None`, not by truthiness."""
     names = dict(zip(("l", "n", "m", "mb"), range(4)))
-    dtet = [covariant_derivative_vector(geo, v) for v in tet]
+    _dtet = []                      # built lazily: a fully cached run should not pay for it
+
+    def dtet():
+        if not _dtet:
+            _dtet.extend(covariant_derivative_vector(geo, v) for v in tet)
+        return _dtet
     if which is None:
         if ty == "D":
             base = ("l", "m", "mb", "n")          # the Psi2 slot pattern
@@ -890,12 +903,17 @@ def cartan_order2(geo, tet, DC, ty="D", which=None):
                  for w in ("l", "n", "m", "mb") for u in ("l", "n", "m", "mb")]
     comps, weights = {}, {}
     for lab, ks in which:
-        w = tet[names[ks[0]]]
-        vs = [tet[names[k]] for k in ks[1:]]
-        slots = [names[k] for k in ks[1:]]
-        val = second_frame_component(geo, DC, vs, w, [dtet[s] for s in slots])
         wa, wb = FRAME_WEIGHT[ks[0]], FRAME_WEIGHT[ks[1]]
         weights[lab] = (wa[0] + wb[0], wa[1] + wb[1])
+        val = cache.get(lab) if cache is not None else None
+        if val is None:
+            w = tet[names[ks[0]]]
+            vs = [tet[names[k]] for k in ks[1:]]
+            slots = [names[k] for k in ks[1:]]
+            d = dtet()
+            val = second_frame_component(geo, DC, vs, w, [d[s] for s in slots])
+            if cache is not None:
+                cache.put(lab, val)
         if val != 0:
             comps[lab] = val
     return comps, weights
@@ -1091,7 +1109,7 @@ def relation_certificate(inv0, inv1, coords):
 
 
 # --------------------------------------------------------------------------- the top-level call
-def ck_signature(geo, label="", verbose=False, tet=None, order2=False):
+def ck_signature(geo, label="", verbose=False, tet=None, order2=False, comp_cache=None):
     """The full order-0 + order-1 + order-2 Cartan signature of a spacetime, chart-independent.
 
     `order2=True` runs the §122 order-2 recursion. It is OPT-IN, not the default: order 2
@@ -1142,7 +1160,7 @@ def ck_signature(geo, label="", verbose=False, tet=None, order2=False):
     # recursion, and type I is decided by the relabelling-immune order-0 data instead.
     comp2, inv2, ratios2, t2, und2, w2 = {}, {}, {}, t1, False, {}
     if order2 and not dc_zero and ty in ("D", "N"):
-        comp2, w2 = cartan_order2(geo, tet, DC, ty)
+        comp2, w2 = cartan_order2(geo, tet, DC, ty, cache=comp_cache)
         inv2 = weight_invariants(comp2, w2, tag="K:")
         t2, und2 = functional_rank(
             inv0 + [v for v in inv1.values() if v != 0]
