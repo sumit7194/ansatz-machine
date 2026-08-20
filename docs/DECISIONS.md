@@ -336,3 +336,47 @@ the verdict. See also the rule this day bought twice over: **every pre-registere
 criterion needs a known-PASS and a known-FAIL before it gates anything** (our
 "bit-identical" clause had no known-pass on output containing timestamps and
 nearly forced a revert of a correct 87x fix).
+
+---
+
+**D29 — P0 primary gate: PASSED on re-evaluation (2026-08-20). D28's MISSED stands.**
+
+*Same frozen criterion, second evaluation, after four wall fixes. This is NOT a
+retroactive pass and D28 is NOT edited: on 2026-08-19 the gate was measured and
+MISSED by 1.02x with the code as it then stood, and that remains true of that
+code. What changed is the code, not the bar.*
+
+**COLD RUN, cache directory emptied first so "cold" does not rest on hash
+arithmetic** (`data/s122_cold.out`, 2026-08-20 15:04-15:58):
+
+    Schwarzschild M=1                   32 s
+    Schwarzschild M=2                   33 s
+    Schwarzschild (isotropic chart)     18 s     <- was >8 h, never completed
+    ZV delta=1 (prolate spheroidal)     36 s
+    Taub-NUT n=1/2                      64 s     <- had NEVER completed
+    Kerr a=1/2                       3,064 s     <- was 3,501 s
+                                    ---------
+    TOTAL WALL-CLOCK              3,248.76 s  =  54.15 min      (bar: 60 min)
+
+Every clause checked separately, not inferred from the headline:
+  1. full catalog incl. Kerr AND Taub-NUT ... 6/6 metrics computed
+  2. unbudgeted .......................... "3248s of unlimited budget"
+  3. under 60 minutes wall-clock ......... 54.15 min
+  4. all G6 verdicts green ............... SUPPORTED, 6/6, every ck_order = 2
+  5. no section RESOURCE-WALLED .......... 0 occurrences
+
+**The pre-registered NULL remains REFUTED, and more strongly than in D28:** the
+null said order-2 CK on rotating metrics "requires a GHP-style representation
+change". Four walls were crossed without one -- all four were a normalizer handed
+an input it could not cope with, and in three of the four the expensive work was
+provably unnecessary (expand() inflating 3,710 ops to 90,841 so cancel could undo
+it; refine() on an expression with nothing refinable in it; refine() walking a
+whole tree to do node-local rewrites). The fourth was not a performance problem
+at all -- the Taub-NUT entry was a WRONG METRIC that was not even a vacuum
+solution, and its nine-hour hang was hiding that.
+
+Consequence for new code, and the reason both entries stay: a frozen gate is
+evaluated against the code AS IT STANDS, and a later evaluation is a NEW dated
+result rather than a correction of the old one. Had the bar been restated on
+2026-08-19 when it was 66 seconds over, yesterday's MISSED would have vanished --
+and with it the record that four real bugs were sitting behind it.
