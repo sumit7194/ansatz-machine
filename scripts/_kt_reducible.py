@@ -120,6 +120,56 @@ def main():
 #
 # Repro:  .venv/bin/python scripts/_kt_reducible.py <delta> <rank_max> --representable
 # ---------------------------------------------------------------------------------------------
+
+def _rank_at_points(exprs, primes, seed=20260822):
+    """Rank of a set of phase-space functions, measured over GF(p) at random integer points.
+
+    Rational evaluation is exact but the numerators explode past degree 4 -- a 60x20 rank took
+    almost an hour. Reducing each evaluated Rational mod p keeps every entry a machine word.
+    Two primes, because a single prime can drop rank by bad luck; agreement is the check."""
+    if not exprs:
+        return 0
+    n = len(exprs)
+    rng = random.Random(seed)
+    ranks = []
+    for p in primes:
+        rows = []
+        for _ in range(n + 8):
+            sub = {t: rng.randint(2, 97), x: rng.randint(3, 89), y: sp.Rational(rng.randint(1, 30), 61),
+                   ph: rng.randint(2, 97)}
+            for m in MO:
+                sub[m] = rng.randint(-60, 60)
+            row = []
+            bad = False
+            for e in exprs:
+                v = sp.nsimplify(e.subs(sub))
+                num, den = sp.fraction(sp.cancel(v))
+                num, den = int(num), int(den)
+                if den % p == 0:
+                    bad = True
+                    break
+                row.append(num % p * pow(den, -1, p) % p)
+            if not bad:
+                rows.append(row)
+        # Gaussian elimination over GF(p)
+        rk = 0
+        for col in range(n):
+            piv = next((i for i in range(rk, len(rows)) if rows[i][col] % p), None)
+            if piv is None:
+                continue
+            rows[rk], rows[piv] = rows[piv], rows[rk]
+            inv = pow(rows[rk][col], -1, p)
+            rows[rk] = [v * inv % p for v in rows[rk]]
+            for i in range(len(rows)):
+                if i != rk and rows[i][col]:
+                    f = rows[i][col]
+                    rows[i] = [(a - f * b) % p for a, b in zip(rows[i], rows[rk])]
+            rk += 1
+        ranks.append(rk)
+    assert ranks[0] == ranks[1], f"primes disagree on rank: {ranks}"
+    return ranks[0]
+
+
 def representable():
     delta = int(sys.argv[1])
     rmax = int(sys.argv[2])
@@ -157,6 +207,7 @@ def representable():
     for r in range(1, rmax + 1):
         tot = ok = 0
         dropped = []
+        keep = []
         for expo in itertools.product(*[range(r // d + 1) for d in degs]):
             if sum(e * d for e, d in zip(expo, degs)) != r:
                 continue
@@ -183,10 +234,18 @@ def representable():
                     break
             if fits:
                 ok += 1
+                keep.append(val)
             else:
                 dropped.append(lab)
-        print(f"  rank {r}: {tot:3d} reducible products, {ok:3d} REPRESENTABLE in the den^1 ansatz",
-              flush=True)
+        # COUNTING THE REPRESENTABLE PRODUCTS IS NOT ENOUGH -- they have to be INDEPENDENT.
+        # If two of them were linearly dependent, the span would be smaller than the count, the
+        # prover's dimension would exceed it, and the surplus would read as an irreducible tensor.
+        # So measure the rank of the representable set itself, over GF(p) at random integer points
+        # (two primes; exact rationals blow up past rank 4 and take minutes per rank).
+        rk = _rank_at_points(keep, (2147483647, 2147483629))
+        flag = "" if rk == ok else f"   <-- {ok - rk} RELATION(S), span is only {rk}"
+        print(f"  rank {r}: {tot:3d} reducible products, {ok:3d} REPRESENTABLE in the den^1 ansatz,"
+              f" independent rank {rk}{flag}", flush=True)
         if dropped:
             print(f"           dropped ({len(dropped)}): {', '.join(dropped)}", flush=True)
 
