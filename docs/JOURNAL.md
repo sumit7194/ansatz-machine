@@ -3249,3 +3249,46 @@ deg P <= (12,12)):**
   false premises are harder to notice than plain errors, because nothing downstream breaks. The only
   defence that has worked is someone measuring the premise -- never me re-examining the argument.
 - §106's RESULTS entry now carries the corrected justification, with the headline unchanged.
+
+## 2026-08-21 -- ZIPOY-VOORHEES: no irreducible Killing tensor at rank 2, 3 or 4 on an EXACT VACUUM
+The deformed Kerr we closed this morning is NOT a vacuum solution (§119 proved R_ab != 0), so that
+null is about an ad-hoc testbed. ZV is an exact vacuum solution -- a genuine spacetime -- and it is
+rational at integer delta, so the same prover applies. Verified Ricci-flat at delta = 1 and 2
+BEFORE any of it was written.
+
+    delta=1 (CONTROL -- ZV delta=1 IS Schwarzschild):   rank1 2   rank2 5   rank3 8
+    delta=2 (the open question, exact vacuum):          rank1 2   rank2 4   rank3 6   rank4 8
+    reducible spans, MEASURED not hand-counted:                2        4        6        8
+    => NO IRREDUCIBLE KILLING TENSOR AT RANK 2, 3 OR 4.
+
+**WHY THE CONTROL IS BETTER HERE THAN IT WAS ON THE DEFORMED KERR.** ZV delta=1 is Schwarzschild in
+prolate spheroidal coordinates, where nothing about the metric functions looks like 1 - 2M/r -- so
+it exercises the SAME coordinate family and the SAME denominator structure as the delta=2 run.
+Its 2/5/8 is stable across two ansatz sizes. Contrast the eps=0 control on the deformed Kerr, which
+tabula correctly rejected: eps=0 IS Kerr, a genuinely different substrate.
+
+**C5 SATISFIED ON THE delta=2 SUBSTRATE ITSELF, at every certifying degree.** The generators p_t,
+p_phi and H each satisfy {H,F} = 0 EXACTLY there, so every product does by Leibniz -- which is
+stronger than checking products individually and far cheaper. A plausible non-solution
+(p_t^2 p_x p_y) is correctly rejected.
+
+**WHAT IT UPGRADES.** §97/§98 claimed ZV delta != 1 has "no conserved quantity quadratic OR quartic
+in the momenta" from a NUMERICAL null-space screen. This says it from the Killing equation, exactly,
+over GF(p). That matters more than usual because the bridge measured the numerical detector in this
+same family and found it carries NO information about the physics -- 35-43% pass fraction at EVERY
+delta including integrable Schwarzschild, Spearman +0.089 against |delta-1| over 498 orbits.
+
+**TWO PROCESS NOTES.**
+- The rank-4 verification DIED SILENTLY the first time, after printing ranks 1-3 -- no traceback,
+  just gone (H^2 for ZV is a large expression). A silent death is indistinguishable from "found
+  nothing", so the rerun was self-capped to name what killed it, and made cheap two ways: LEIBNIZ
+  ({H,FG} = {H,F}G + F{H,G}, so verifying the three GENERATORS suffices and no product bracket is
+  ever expanded) and a NUMERICAL rank for the span instead of a symbolic one. A rank is a rank.
+- Measured span including H^2 is 9, excluding it 8 -- the same structure as the deformed Kerr, where
+  H^2 is the single element needing a larger denominator. So the rank-4 scope limitation is
+  identical and equally narrow: one known reducible outside the ansatz, nothing else.
+
+**SCOPE:** delta = 2, coefficients P(x,y)/D_common with the ansatz degrees MEASURED from the
+coefficient numerators (x<=10, y<=12) rather than inferred from the denominator -- the heuristic
+that failed silently here and returned a solution space SMALLER than the reducible span until the
+invariant dim(reducible) <= dim(solution) caught it.
