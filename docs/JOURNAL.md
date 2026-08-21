@@ -3183,3 +3183,43 @@ prover): eps=0, rank 1 = 2, **rank 2 = 5** against 4 reducibles without Carter, 
 as the single irreducible. Our prover passes the control theirs failed -- as expected, since the
 failure was numerical conditioning and ours takes ranks exactly over GF(p), but expected is not
 measured and now it is measured.
+
+## 2026-08-21 -- P3 CLOSED as far as this machine reaches: no irreducible KT at rank 2, 3, or 4
+**RANK 4, deformed Kerr a=3/5 eps=2, scoped to denominator power 1:**
+    solution space 8, reducible span AT den^1 measured 8  ->  ZERO irreducible.
+  Run finished in 3,952 s (66 min) at ~00:45; the morning power cut at 06:20 came six hours later
+  and cost nothing. The keepalive log is what made that statement possible rather than a guess.
+
+**THE REDUCIBLE SPAN WAS MEASURED, NOT COUNTED** -- hand-counting had been wrong three times this
+week (22, then 30, truth 33), each time by omitting a factorisation. Here the measurement AGREED
+with the hand-count (8), and turned up the detail that matters for the scope: the FULL rank-4
+reducible span is 9, and exactly ONE element -- H^2 -- needs den^2. So the den^1 scope excludes
+precisely one known reducible and nothing else, which is a much tighter statement of the limitation
+than "we truncated the ansatz".
+
+**WHY den^1 AND NOT THE FULL PROBLEM, measured rather than assumed.** An ansatz able to hold H^2
+needs r-deg 22, u-deg 20 -> 35 monomials x 528 terms = **18,480 unknowns**, ~27,720 rows:
+    assembly  ~11.8 h    rank step  ~8.9 h    => ~20 h, before memory becomes binding
+on a machine that loses power in the daytime. Measuring that cost is what revealed the cheaper
+question: H^2 is a REDUCIBLE, already known to be a solution, so the ansatz does not need to hold it
+to hunt an IRREDUCIBLE. The den^1 search is the SAME scope the rank-3 result already carries.
+
+**HONEST LIMITATION, stated so it cannot be read away:** a rank-4 irreducible whose coefficients
+genuinely REQUIRE den^2 would be missed by this search. Nothing here excludes one.
+
+**WHERE P3 NOW STANDS on the deformed Kerr (a=3/5, eps=2, coefficients P(r,u)/D_common,
+deg P <= (12,12)):**
+    rank 1: dimension 2 = the Killing vectors
+    rank 2: dimension 4 = reducibles  -> NO irreducible  (upgrades §85 from a numerical screen)
+    rank 3: dimension 6 = reducibles  -> NO irreducible  (robust: degrees (14,14) and eps=5 both 6)
+    rank 4: dimension 8 = reducibles  -> NO irreducible at den^1
+§85's caveat ("a higher-order QUARTIC Killing tensor isn't excluded") is closed at this scope.
+
+**THE VALIDATION CHAIN behind those nulls, since a null is only worth its controls:**
+    rank 2 -- Kerr returns 5 and CARTER IS IN THE SPAN EXACTLY (residual identically 0)
+    rank 3 -- Cariglia-Galajinsky 4D returns EXACTLY ONE irreducible, matching the paper
+    rank 4 -- Cariglia-Galajinsky 5D returns EXACTLY ONE irreducible, matching the paper
+    C5, on the eps=2 substrate itself -- all six rank-3 reducibles verified {H,F} = 0 EXACTLY,
+       and a plausible non-solution (p_t^2 p_r p_u) correctly rejected. tabula's clause, and their
+       question exposed that our eps=0 control did NOT satisfy it: eps=0 IS Kerr, a different
+       substrate. "Same pipeline, same ansatz construction" is not "same substrate".
