@@ -2157,5 +2157,28 @@ construction (`scripts/_kt_emit_basis.py`). Their degree-4 arm is **coverage-lim
 representation-limited** (basis rank rising 413 → 666 → 974 with orbit count), so it remains open
 rather than negative.
 
+**THREE INSTRUMENTS, AND WHAT MATTERS IS WHERE EACH IS BLIND RATHER THAN WHERE EACH IS STRONG**
+(tabula's framing, `notes/A10_for_bridge.md`; adopted here because it is a better scope statement
+than ours was):
+
+    §132 (tabula)  numerical, bound geodesics at FIXED (E,L), ONE Stäckel target, degree 2
+                   blind: one target, one degree, one shell, integration precision only
+    §124 (ours)    exact GF(p) nullspace, two primes, ranks 1-6
+                   BLIND AT den² -- not negative there, blind
+    bridge         independent numerical screen, NO denominator scope, degree 2 closed
+                   degree 4 COVERAGE-limited (rank 413 -> 666 -> 974) -> open, not negative
+
+**Three instruments whose failure modes do not intersect, agreeing on the overlap, is worth more
+than any one of them extending its own bound.** A numerical certify and a symbolic one can be wrong
+in completely different ways, which is exactly what makes the agreement load-bearing rather than
+decorative. Concretely: our exact closure supplies four ranks tabula's §132 never touched, and
+supplies them exactly rather than numerically; §132's certify correspondingly narrows to *"no rank-2
+Killing tensor of the Stäckel form, to integration precision"*; and the bridge covers the den²
+region **neither** symbolic arm can see at all.
+
+**And the caveats survive narrower rather than retired.** *Certify = no low-degree invariant, not
+provably chaotic.* **Blindness and negativity are different, and instruments almost never volunteer
+which one they are reporting** — that distinction is the single most important line in this section.
+
 Repro: `scripts/_kt_zv_high.py <delta> <rank>`, `scripts/_kt_reducible.py <delta> <rank_max>
 [--representable]`, `scripts/_kt_emit_basis.py <delta> <rank> <den_power>`.
