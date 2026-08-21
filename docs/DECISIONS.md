@@ -477,3 +477,36 @@ fail and did not.
     irred.  0   0   0   0    0    0
 
 Still open at the time of writing: δ=2 rank 5 (predicted 10) and δ=2 rank 6 (predicted 12).
+
+## D32 — second pre-registered prediction lands (2026-08-21, δ=2 rank 5)
+
+**Predicted 10 in `0bddd58`. Measured 10, on both primes.**
+
+    mod 2147483647: rank 7998 -> nullspace dimension 10
+    mod 2147483629: rank 7998 -> nullspace dimension 10
+    ZV delta=2 RANK 5: DIMENSION 10   [5604s]
+
+Representable reducible products at δ=2 rank 5: **10 of 12** (dropping `p_φ·H²` and `p_t·H²`, both
+carrying L²), independent rank **10**. So irreducible = 0, and the **deformed vacuum** arm now closes
+at ranks 1–5.
+
+**One artifact in that output needs its provenance stated, because it is misleading and it is our own
+rule 17.** The run printed a trailing line:
+
+    hand-count of reducibles at this rank: 10  (MUST be measured before it is believed)
+
+That line was **deleted from `_kt_zv_high.py` in `0bddd58`**, hours before this result landed. The
+process had loaded the old code at launch and kept printing it — *don't edit code while a run using
+it is in flight*, and the consequence here is cosmetic rather than corrupting. **It agrees with the
+measurement (10) only because the old table happened to be correct for δ=2 at ranks 1–5** — it is
+wrong for δ=1 from rank 2 on, and wrong for δ=2 at rank 6 (13 against a measured 12). Anyone reading
+`data/kt_zvh_d2_r5.out` later should treat that line as a fossil of pre-`0bddd58` code, not as a
+concurring source. The δ=2 rank-6 run, launched after the patch, does not print it.
+
+**Standing after this:**
+
+    δ=1   ranks 1-6 CLOSED    2, 5, 8, 11, 14, 17   irreducible 0 at every rank
+    δ=2   ranks 1-5 CLOSED    2, 4, 6,  8, 10       irreducible 0 at every rank
+    δ=2   rank 6 running, pre-registered 12, 70/154 points
+
+Two pre-registered predictions made, two held. Both had a known-FAIL in each direction.
