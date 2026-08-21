@@ -380,3 +380,69 @@ evaluated against the code AS IT STANDS, and a later evaluation is a NEW dated
 result rather than a correction of the old one. Had the bar been restated on
 2026-08-19 when it was 66 seconds over, yesterday's MISSED would have vanished --
 and with it the record that four real bugs were sitting behind it.
+
+## D30 — the reducible span becomes a measurement, and rank 6 becomes a pre-registered test (2026-08-21)
+
+**What happened.** The δ=1 rank-5 prover returned DIMENSION 14 against a hand-counted reducible span
+of 10. Subtracted the way every previous rung was subtracted, that reads **four irreducible Killing
+tensors on Schwarzschild** — integrable since 1916. The prover was right; the hand-count was wrong.
+
+**Why the hand-count was wrong, and it is not the failure we already catalogued.** The table
+`{1:2, 2:4, 3:6, 4:8, 5:10, 6:13}` was **substrate-independent when the answer is substrate-dependent**.
+It is correct for δ=2 at ranks 1–5. It is wrong for δ=1 from rank 2 onward, because δ=1 *is*
+Schwarzschild and carries an extra conserved quantity, L². And L² is invisible where we looked for
+generators: its building blocks L_x, L_y are **not axisymmetric**, so they are absent from the rank-1
+ansatz and the prover correctly reports rank-1 dimension 2 — while **L² itself is axisymmetric** and
+sits in rank 2 as an honest solution. *A generator can be invisible at its own rank and present at
+twice it.* The undercount then compounds with every rank, which is why ranks 2 and 3 agreed and
+rank 5 blew open. The sharpest form: **the δ=1 control's extra symmetry is exactly what a shared
+table cannot express, and the control was built to be the trustworthy arm.**
+
+**Why no existing guard caught it.** Our free structural check is `dim(reducible) ≤ dim(solution)`,
+an impossibility that cannot fail. It catches an ansatz too small to hold its own reducibles. It is
+**blind to a reducible count that is too small**, because undercounting keeps the inequality
+satisfied and moves the surplus into the "irreducible" column. Opposite errors; only one has a free
+guard, and the blind one relabels an accounting error **as a discovery**.
+
+**Decision 1 — the reducible span is now measured by committed code**, `scripts/_kt_reducible.py`,
+never hand-counted. Generators are validated by exact `{H,g} = 0` with a known-FAIL (`p_t² p_x p_y`,
+correctly rejected), and the generator set is only accepted when the resulting counts reproduce
+independently measured prover dimensions at three or more low ranks. The wrong table is deleted from
+`_kt_zv_high.py` rather than left printing beside a correct number.
+
+**Decision 2 — the comparison is made in the SAME space.** The prover's solution space is
+`(bounded-degree polynomial)/L` — one power of the denominator. The reducible span is a fact about
+the spacetime and knows nothing about L. So the honest quantity is
+**dim(reducible AND den¹-representable)**, computed by construction per product, with every excluded
+product named. Measured:
+
+    δ=1   rank 1:  2 of  2      δ=2   rank 1:  2 of  2
+          rank 2:  5 of  5            rank 2:  4 of  4
+          rank 3:  8 of  8            rank 3:  6 of  6
+          rank 4: 11 of 14            rank 4:  8 of  9   (drops H²)
+          rank 5: 14 of 20            rank 5: 10 of 12
+          rank 6: 17 of 30            rank 6: 12 of 16
+
+Every product dropped contains **two or more degree-2 generators**, which carries L² past a den¹
+ansatz. Against the prover: δ=1 ranks 1,2,3,4,5 = 2, 5, 8, 11, 14 and δ=1 representable =
+2, 5, 8, 11, 14. δ=2 ranks 1,2,3,4 = 2, 4, 6, 8 and δ=2 representable = 2, 4, 6, 8. **Ten exact
+agreements, no residual. Irreducible count is 0 at every rank measured so far, on both arms.**
+
+**Decision 3 — PRE-REGISTERED, recorded before the runs land.** The den¹ representability count is
+a *prediction* of what the prover must return:
+
+    δ=2 rank 5  ->  10        (in flight at the time of writing, 20/147 points)
+    δ=1 rank 6  ->  17
+    δ=2 rank 6  ->  12
+
+**Known-FAIL: any value other than these.** A number above the prediction is an irreducible tensor
+and the headline result of this project; a number below it violates
+`dim(reducible ∩ ansatz) ≤ dim(solution)` and condemns the ansatz. Either outcome is informative,
+which is what makes rank 6 worth its ~5.6 h — it is no longer a box to tick. Note the earlier
+hand-count also had δ=2 rank 6 at **13**, against a measured 12; that error was independent of the
+δ=1 one and would have manufactured a spurious irreducible tensor there too.
+
+**Standing rule adopted.** *If a claim is a difference of two numbers, both terms need the same
+evidentiary standard, and the one that feels too obvious to script is the one to script.* Here the
+first term was measured over GF(p), checkpointed and versioned; the second lived in throwaway
+heredocs and was wrong four times.

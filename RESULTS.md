@@ -1544,10 +1544,26 @@ the same bin offset, so the gain cancels. **That premise is false**: offset = fr
 d(offset)/d(f) = 100 and a frequency change of 0.01 advances the offset a full cycle — x₀ = 8.048 and 8.050,
 *0.002 apart*, measure at offsets 0.038 and 0.803, effectively decorrelated. Near a separatrix this is close
 to worst case, since frequency varies fastest exactly there. **The real protection is that the gain's total
-range is bounded**: worst possible distortion of ANY drift ratio is 1.592/0.753 = **2.11×**, leaving ≥127× of
-the 267× contrast in the worst case and 226× at the measured offsets. The correct rule, and it is simpler
-than the same-δ carve-out we were reaching for: **a drift ratio with contrast ≫ 2.11× is safe, cross-δ
+range is bounded**: worst possible distortion of ANY drift ratio is 1.6179/0.7502 = **2.157×**, leaving ≥124× of
+the 267× contrast in the worst case. The correct rule, and it is simpler
+than the same-δ carve-out we were reaching for: **a drift ratio with contrast ≫ 2.157× is safe, cross-δ
 included; a ratio at or under ~2–3× is uninterpretable.**
+
+*Corrected 2026-08-21 (bridge, `e632c4e`).* The bound first quoted here was **2.11×**, and that number was
+a **finite-N artifact**: it was the gain range measured at N = 200, the ladder's own record length, quoted as
+though it were a property of the estimator. The bias has a clean 1/N tail with a well-defined limit —
+Richardson extrapolation 2g(2N) − g(N) agrees to 2e-6 across two independent pairs (N = 800/1600 and
+1600/3200) — so the asymptotic range is 0.7502–1.6179 and the bound is **2.157×**. The direction that matters:
+**the correct bound is WORSE than the one we shipped**, so a bound quoted from one record length is not
+conservative by default. Nothing in §106's headline changes; the margin moves 127× → 124×.
+Two methodological points came with it, both worth more than the number:
+(i) the bridge had reported the residual as *"flat to 0.04–1.3%"* — a **range**, which invites the reading
+"measurement noise". The residuals were in fact **monotone and halving with each doubling of N**. *A range
+hides structure; a limit does not*, and that misreading had already cost one correct mechanism a
+retraction.
+(ii) **A residual that converges with a clean scaling law is itself evidence that no further uncontrolled
+variable is still sliding** — a third confound would not politely converge as 1/N. That is a free
+self-check available on any sweep after the variables you believe matter have been controlled.
 
 ## §107 — the devil's staircase: resonance frequency-locking (the quasi-static LISA signature)
 
