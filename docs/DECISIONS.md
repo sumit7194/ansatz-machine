@@ -446,3 +446,34 @@ hand-count also had δ=2 rank 6 at **13**, against a measured 12; that error was
 evidentiary standard, and the one that feels too obvious to script is the one to script.* Here the
 first term was measured over GF(p), checkpointed and versioned; the second lived in throwaway
 heredocs and was wrong four times.
+
+## D31 — the first pre-registered prediction lands (2026-08-21, δ=1 rank 6)
+
+**Predicted 17 in `0bddd58`, before the run started. Measured 17, on both primes.**
+
+    mod 2147483647: rank 3511 -> nullspace dimension 17
+    mod 2147483629: rank 3511 -> nullspace dimension 17
+    ZV delta=1 RANK 6: DIMENSION 17   [815s]
+
+The prediction was not a guess with a margin — it was the count of degree-6 products of the
+measured generators `{p_t, p_φ, H, L²}` that a den¹ ansatz can represent: **17 of 30**, with the
+13 excluded products named individually, every one containing two or more degree-2 generators.
+A den² object cannot be held by a den¹ ansatz, so those 13 *must* be absent, and 17 *must* be what
+the prover returns if there is no irreducible tensor. It returned 17.
+
+**Why this is a different kind of evidence from the ten agreements that preceded it.** Those were
+retrodictions: measured after the prover's number was known, and although the arithmetic was
+independent, nothing stopped a wrong generator set from being tuned until it matched. This one was
+**committed to disk, with a known-FAIL in both directions, before the run existed** — any value
+above 17 is an irreducible Killing tensor and this project's headline; any value below violates
+`dim(reducible ∩ ansatz) ≤ dim(solution)` and condemns the ansatz. The prediction had somewhere to
+fail and did not.
+
+**δ=1 (Schwarzschild, in prolate spheroidal coordinates, den¹ scope) now closes at ranks 1–6:**
+
+    rank    1   2   3   4    5    6
+    prover  2   5   8  11   14   17
+    repr.   2   5   8  11   14   17
+    irred.  0   0   0   0    0    0
+
+Still open at the time of writing: δ=2 rank 5 (predicted 10) and δ=2 rank 6 (predicted 12).
