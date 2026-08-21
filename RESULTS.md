@@ -2129,5 +2129,33 @@ independence and finiteness of *each* rung, but **nothing bounds the rank** — 
 map rather than closing the general question, and "retires §98's caveat" is true of the caveat *as
 stated* and false of the question behind it.
 
+**INDEPENDENT EXTERNAL CONFIRMATION AT MOMENTUM-DEGREE 2, ON AN INSTRUMENT WITH NO den SCOPE AT
+ALL** (bridge session, `77d7070` / `51bee88`). A numerical conservation screen along real ZV
+geodesics — 2-DOF reduction with E and L varied across the ensemble so they re-enter the count
+honestly — returned, with the threshold fixed on the δ=1 arm and applied unchanged to δ=2:
+
+    momentum degree 2:   δ=1 -> 5   (predicted 5)      δ=2 -> 4   (predicted 4)
+
+**This is the one result here that our own compute could not have produced.** That screen never
+forms `L`, so it is not restricted to den¹ — **it looked into the region our prover is BLIND in
+(not negative — blind) and found nothing there either.** Both counts stable across tol in
+[1e-7, 1e-10]; the δ=2 spectrum has a **ten-order gap at the cut** (2.04e-03 → 4.76e-13), so 4 is
+not a threshold artifact; δ=1 was run and reported before δ=2 was run at all. H's exact direction
+is recovered from the 5 null directions at **6.3e-15**, and a random-direction control sits at
+**99.94%**. So at degree 2 the den¹ caveat below hides nothing, and the claim is unfenced.
+
+Two things were needed to make that screen work, and both are ours to have gotten wrong first:
+the coefficient of `L²` in total angular momentum is **`1/(1−y²)`, not a polynomial** (y = cos θ,
+so this is just the textbook `1/sin²θ`) — their first attempt used polynomial coefficients and
+returned a **clean, symptomless 4 where 5 exists**, §85's basis-adequacy failure exactly. And the
+coefficient basis we supplied for their degree-4 attempt was deliberately **not** the span of our
+own reducible products: that basis is sized to hold the reducibles, so it would have calibrated
+perfectly and left an irreducible tensor **no room to appear**. *A calibration passed by
+construction is not evidence.* We sent `{x^i y^j / L^k}` instead — independent for free, distinct
+numerator monomials over a common denominator, no rank estimate and no tolerance anywhere in the
+construction (`scripts/_kt_emit_basis.py`). Their degree-4 arm is **coverage-limited, not
+representation-limited** (basis rank rising 413 → 666 → 974 with orbit count), so it remains open
+rather than negative.
+
 Repro: `scripts/_kt_zv_high.py <delta> <rank>`, `scripts/_kt_reducible.py <delta> <rank_max>
-[--representable]`.
+[--representable]`, `scripts/_kt_emit_basis.py <delta> <rank> <den_power>`.
