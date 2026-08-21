@@ -3292,3 +3292,86 @@ delta including integrable Schwarzschild, Spearman +0.089 against |delta-1| over
 coefficient numerators (x<=10, y<=12) rather than inferred from the denominator -- the heuristic
 that failed silently here and returned a solution space SMALLER than the reducible span until the
 invariant dim(reducible) <= dim(solution) caught it.
+
+## 2026-08-21 (night) — the reducible span becomes a measurement; rank 6 becomes a test
+
+The δ=1 rank-5 prover returned **DIMENSION 14** against a hand-count of **10** reducibles. Subtracted
+the way every earlier rung was subtracted: *four irreducible Killing tensors on Schwarzschild*. That
+is absurd on sight, which is the only reason it was caught inside an hour — and the absurdity was an
+accident of which metric happened to carry the error. **The same undercount at rank 6 on a metric
+nobody has priors about would have looked publishable.**
+
+Three things were wrong. The first two are interesting; the third is the actual bug.
+
+**(1) A generator can be invisible at its own rank and present at twice it.** Schwarzschild's L² is
+built from L_x, L_y, which are **not axisymmetric** — so they are correctly absent from an
+axisymmetric rank-1 ansatz, and the prover reporting rank-1 dimension 2 is *right*. But **L² itself
+is axisymmetric** and sits in rank 2 as an honest solution. A hand-count over the *manifest* Killing
+vectors therefore misses L², and every product containing it, at every rank above. The undercount
+compounds — which is exactly why ranks 2 and 3 agreed and rank 5 blew open.
+
+**(2) A shared constant across arms is a claim that the arms are the same.** The table
+`{1:2, 2:4, 3:6, 4:8, 5:10, 6:13}` was applied to both δ. It is **correct for δ=2**. δ=1 *is*
+Schwarzschild — more symmetry, more conserved quantities — and that extra symmetry is the entire
+reason δ=1 is in the run. One table cannot express the difference the control exists to provide.
+**The arm built to be trustworthy is the arm the shared constant was wrong for.** It was also wrong
+at δ=2 rank 6 — 13 against a measured 12 — an error independent of the δ=1 one, which would have
+manufactured a spurious irreducible tensor on the deformed arm as well. Two independent errors in
+six entries.
+
+**(3) The comparison was being made in the wrong space, and this is the real fix.** The prover's
+solution space is `(bounded-degree polynomial)/L` — **one power of the denominator**. The reducible
+span is a fact about the spacetime and knows nothing about L. `dim(reducible) ≤ dim(solution)` was
+therefore never the right inequality. The honest quantity is **dim(reducible AND den¹-representable)**,
+computed per product by construction, with every excluded product named:
+
+    δ=1   rank 1:  2 of  2        δ=2   rank 1:  2 of  2
+          rank 2:  5 of  5              rank 2:  4 of  4
+          rank 3:  8 of  8              rank 3:  6 of  6
+          rank 4: 11 of 14              rank 4:  8 of  9    dropped: H²
+          rank 5: 14 of 20              rank 5: 10 of 12
+          rank 6: 17 of 30              rank 6: 12 of 16
+
+Every dropped product contains **two or more degree-2 generators**, which carries L² past a den¹
+ansatz. Against the prover: δ=1 measured 2, 5, 8, 11, 14 — predicted 2, 5, 8, 11, 14. δ=2 measured
+2, 4, 6, 8 — predicted 2, 4, 6, 8. **Ten exact agreements, zero residual. Irreducible = 0 at every
+rank measured, on both arms.** Including δ=2 rank 4 dropping exactly H², which the old heredoc had
+found by hand.
+
+**Why no guard caught it.** `dim(reducible) ≤ dim(solution)` is a structural impossibility that
+*cannot fail*, so it feels like total coverage. It catches an ansatz too small to hold its own
+reducibles. It is **blind to a reducible count that is too small**, because undercounting keeps the
+inequality satisfied and moves the surplus into the "irreducible" column. Opposite errors; only one
+has a free guard, and the blind one **relabels an accounting error as a discovery**. Every other
+rule in `verification-discipline` protects against a false null. This is the first that protects
+against a false find.
+
+**The load-bearing half of the claim was the unversioned half.** `dim(solution) − dim(reducible)`:
+the first term is measured over GF(p), checkpointed, versioned, cross-checked against two primes.
+The second was hand-produced in throwaway heredocs and has now been **wrong four times**. Standing
+rule adopted: *if a claim is a difference of two numbers, both terms need the same evidentiary
+standard, and the one that feels too obvious to script is the one to script.* The asymmetry is not
+laziness — it is that the hard-looking term looks like where the risk is. Same shape as the bridge's
+2.11× gain bound, corrected the same night, which was also the number that never entered version
+control.
+
+**What this buys: rank 6 stops being a box to tick.** The representability count is a *prediction* of
+what the prover must return, committed before the runs land (D30, `0bddd58`):
+
+    δ=2 rank 5  ->  10        δ=1 rank 6  ->  17        δ=2 rank 6  ->  12
+
+**Known-FAIL: any other value.** Above the prediction is an irreducible Killing tensor and this
+project's headline result; below it violates `dim(reducible ∩ ansatz) ≤ dim(solution)` and condemns
+the ansatz. Both directions informative — which is the difference between a test and a run.
+
+**Sister-session traffic, same night.** tabula audited their own reducible machinery against this bug
+before replying: safe at the arithmetic level (they measure the fitted span's rank rather than
+enumerating) but exposed one level up, where *which* products to fit is still a hand-written loop.
+Their immunity on Kerr is real and checked rather than assumed — Kerr has exactly two Killing
+vectors plus Walker–Penrose and no non-axisymmetric rotation generator, so there is nothing that
+could hide at rank 1 and reappear at rank 2. They also contributed the sharpest rule of the night,
+from a guard of their own that suppressed a correct result within an hour of being encoded: **a rule
+you apply by hand gets a sanity check each time; a rule you encode as a guard never gets one again.**
+Their failure destroyed a finding, ours would have manufactured one — and theirs is harder to catch,
+because **a wrong abstention is indistinguishable from a legitimate "insufficient evidence" and can
+never look absurd.** Prefer guards that flag over guards that decide.
