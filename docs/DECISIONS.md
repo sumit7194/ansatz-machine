@@ -510,3 +510,44 @@ concurring source. The δ=2 rank-6 run, launched after the patch, does not print
     δ=2   rank 6 running, pre-registered 12, 70/154 points
 
 Two pre-registered predictions made, two held. Both had a known-FAIL in each direction.
+
+## D33 — third pre-registered prediction lands; ZV closed at ranks 1–6 on both arms (2026-08-22)
+
+**Predicted 12 in `0bddd58`. Measured 12, on both primes.**
+
+    mod 2147483647: rank 12000 -> nullspace dimension 12
+    mod 2147483629: rank 12000 -> nullspace dimension 12
+    ZV delta=2 RANK 6: DIMENSION 12   [11472s, 18480 rows, 12012 unknowns]
+
+**FINAL STANDING — Zipoy-Voorhees, an exact vacuum solution, closed at momentum-ranks 1 through 6
+on both arms:**
+
+    rank                     1    2    3    4    5    6
+    δ=1  prover              2    5    8   11   14   17
+         representable       2    5    8   11   14   17
+         independent rank    2    5    8   11   14   17
+         IRREDUCIBLE         0    0    0    0    0    0
+
+    δ=2  prover              2    4    6    8   10   12
+         representable       2    4    6    8   10   12
+         independent rank    2    4    6    8   10   12
+         IRREDUCIBLE         0    0    0    0    0    0
+
+**Twelve exact agreements. Three of them were pre-registered with a known-FAIL in both directions**
+(δ=1 rank 6 → 17, δ=2 rank 5 → 10, δ=2 rank 6 → 12), all committed at 23:42 on 2026-08-21 before
+any of the three runs had produced a result. **Three predictions made, three held.**
+
+**The distinction that matters and that we are keeping in the record:** nine of the twelve are
+**retrodictions** — the arithmetic was independent of the prover, but nothing structurally prevented
+a wrong generator set from being tuned until it matched. The three pre-registered ones had somewhere
+to fail. A fourth kind of evidence is stronger still and is not ours: the bridge's numerical
+conservation screen returned **5 at δ=1 and 4 at δ=2 at momentum-degree 2**, on an instrument with
+**no denominator scope at all**, confirming the one place our prover is blind rather than negative.
+
+**Scope, unchanged and stated plainly.** This is den¹. Products carrying L² (H², H·L², L⁴ and their
+multiples) fall outside the ansatz on **both** sides of the subtraction and are excluded from both,
+by construction and by name — 13 of 30 at δ=1 rank 6, 4 of 16 at δ=2 rank 6. Widening to den² is
+open; the bridge's degree-4 screen at den² is **coverage-limited, not representation-limited**
+(basis rank rising 413 → 666 → 974 with orbit count) and therefore open rather than negative.
+**Nothing bounds the rank** — the grading theorem gives rung independence and finiteness of each
+rung, not of the ladder. So this extends §98's map; it does not close the question behind it.
