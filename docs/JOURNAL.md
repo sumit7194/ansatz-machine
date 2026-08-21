@@ -3223,3 +3223,29 @@ deg P <= (12,12)):**
        and a plausible non-solution (p_t^2 p_r p_u) correctly rejected. tabula's clause, and their
        question exposed that our eps=0 control did NOT satisfy it: eps=0 IS Kerr, a different
        substrate. "Same pipeline, same ansatz construction" is not "same substrate".
+
+## 2026-08-21 -- §106's headline survives, its JUSTIFICATION does not (bridge/G3 measurement)
+- THE DEFECT, found by the bridge in OUR code: `poincare.frequency_drift` (§105, gated) has a GAIN
+  that depends on where an orbit's frequency falls in the FFT bin grid -- measured range 0.753 to
+  1.592 over a 32-offset sweep. So absolute drift values are NOT comparable across delta at the ~2x
+  level, and delta-structure can be manufactured with no physics in it. Their whole delta ladder
+  (9 values, 498 orbits) turned out to carry no information about the physics on this statistic:
+  pass fraction 35-43% at EVERY delta INCLUDING integrable Schwarzschild.
+- I ARGUED §106's 267x CONTRAST WAS SAFE BECAUSE THE TWO ORBITS ARE 0.012 APART IN x0 AND SO SIT AT
+  NEARLY THE SAME BIN OFFSET, SO THE GAIN CANCELS. **THAT PREMISE IS FALSE.** offset =
+  frac(f*N_half), so d(offset)/d(f) = 100: a frequency change of 0.01 advances the offset a FULL
+  CYCLE. Measured -- x0 = 8.048 and 8.050, only 0.002 apart, sit at offsets 0.038 and 0.803.
+  Effectively decorrelated, and NEAR A SEPARATRIX IT IS CLOSE TO WORST CASE because frequency varies
+  fastest exactly there.
+- THE HEADLINE SURVIVES FOR A DIFFERENT AND BETTER REASON: the gain's TOTAL RANGE is bounded, so the
+  worst possible distortion of ANY drift ratio is 1.592/0.753 = 2.11x. Against 267x that leaves
+  >=127x in the worst case and 226x at the measured offsets. The correct rule is simpler than the
+  same-delta carve-out both of us were reaching for: **a drift ratio with contrast >> 2.11x is safe,
+  CROSS-delta included; a ratio at or under ~2-3x is uninterpretable.**
+- THIRD INSTANCE THIS WEEK OF A PATTERN IN MY OWN REASONING: an argument reaching a conclusion that
+  SURVIVES, through a premise that does NOT hold. (1) the degree-3 homogeneous-library hypothesis,
+  refuted by tabula measuring their span; (2) the flat-in-coverage argument, built on a description
+  where only one of two rungs was actually flat; (3) this. Surviving conclusions reached through
+  false premises are harder to notice than plain errors, because nothing downstream breaks. The only
+  defence that has worked is someone measuring the premise -- never me re-examining the argument.
+- §106's RESULTS entry now carries the corrected justification, with the headline unchanged.

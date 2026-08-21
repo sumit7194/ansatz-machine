@@ -1530,11 +1530,24 @@ realization of the same layer) but both signatures persist at h and h/2 while th
 show neither at any h; and the layer sits at ρ≈7.48–7.50 vs the literature's quoted 7.518 (~0.5%,
 units/convention nuance) — we exhibit the documented layer's existence at the documented (δ, E, Lz), not
 the exact quoted coordinate. Battery `106` asserts the triple contrast (layer fires + escapes · island
-quiet + survives, a **267× drift ratio 0.012 apart in x0** · torus quiet). **With §105, both exact
+quiet + survives, a **267× drift ratio 0.012 apart in x0** · torus quiet — *and see the gain-bound note below*). **With §105, both exact
 bumpy-BH metrics in the engine (MN rotating, ZV static) now have their algebraic non-integrability backed
 by an exhibited geometric positive control** — the frequency-drift detector is 3-for-3 on thin layers.
 Repro: `scripts/106_zv_thin_layer_chaos.py` (hunt scaffolding `scripts/_zv_freqdrift_hunt.py`,
 `scripts/_zv_freqdrift_refine.py`).
+*GAIN-BOUND NOTE (2026-08-21, measured by the bridge/G3 at our request).* `poincare.frequency_drift`'s
+**gain varies with where an orbit's frequency falls in the FFT bin grid** — measured range 0.753 to 1.592
+over a 32-offset sweep. So any single drift value carries an unknown multiplicative factor, and **absolute
+drift values are not comparable across δ at the ~2× level**. *The 267× contrast above survives, but NOT for
+the reason we first gave.* We argued the two orbits are only 0.012 apart in x₀ and therefore sit at nearly
+the same bin offset, so the gain cancels. **That premise is false**: offset = frac(f·N_half), so
+d(offset)/d(f) = 100 and a frequency change of 0.01 advances the offset a full cycle — x₀ = 8.048 and 8.050,
+*0.002 apart*, measure at offsets 0.038 and 0.803, effectively decorrelated. Near a separatrix this is close
+to worst case, since frequency varies fastest exactly there. **The real protection is that the gain's total
+range is bounded**: worst possible distortion of ANY drift ratio is 1.592/0.753 = **2.11×**, leaving ≥127× of
+the 267× contrast in the worst case and 226× at the measured offsets. The correct rule, and it is simpler
+than the same-δ carve-out we were reaching for: **a drift ratio with contrast ≫ 2.11× is safe, cross-δ
+included; a ratio at or under ~2–3× is uninterpretable.**
 
 ## §107 — the devil's staircase: resonance frequency-locking (the quasi-static LISA signature)
 
