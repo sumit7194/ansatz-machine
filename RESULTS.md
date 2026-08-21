@@ -2037,3 +2037,97 @@ floor, while the false emits read 3.2e-14 and 7.1e-18 — ten decades lower. **O
 it names: *TAU_REL is not size-independent* — a structureless library crosses 1e-6 past degree ~13, so sharing one
 floor across rungs is safe here and unsafe in general. Case (I) now ships the structureless control per degree, so
 the floor is **calibrated rather than assumed**. §123 now 9/9. Repro: `scripts/123_emit_theorem.py`.
+
+## §124 — no irreducible Killing tensor on Zipoy-Voorhees at ranks 1–6 (δ=1 closed; δ=2 in flight)
+
+**What is new here, and why it is a theorem rather than a screen.** §97/§98 ruled out a conserved
+quantity *quadratic or quartic* in the momenta on ZV δ≠1 — by a **numerical null-space screen over
+sampled orbits**, the instrument class whose failure modes this repo has spent a week cataloguing.
+§98 stated its own residual caveat: *"a rank ≥ 6 tensor isn't excluded."* This asks the same question
+of the **Killing equation itself**, symbolically, over GF(p) with two primes. A numerical screen can
+only ever report *we did not find one here*; an exact linear-algebra null result over a stated ansatz
+is a statement about the equation. Zipoy-Voorhees is an **exact vacuum solution** (verified Ricci-flat
+at δ = 1 and 2 before any of this ran — the Taub-NUT lesson), so unlike the deformed-Kerr testbed of
+§85, this is a claim about a genuine spacetime.
+
+**The control is free, which is the reason to do it this way.** ZV at δ=1 **is** Schwarzschild, in
+prolate spheroidal coordinates where nothing about the metric functions looks like 1 − 2M/r. So the
+prover must recover Schwarzschild's Killing algebra in the *same coordinate family* and the *same
+denominator structure* as the δ=2 run — an on-substrate positive control by construction. This is
+exactly what §119's ε=0 control failed to be for the deformed Kerr, where ε=0 is Kerr and therefore a
+different substrate (denominator degree 11 collapsing to 4).
+
+**The result. δ=1 (Schwarzschild) closed at ranks 1–6:**
+
+    rank                     1    2    3    4    5    6
+    prover dimension         2    5    8   11   14   17
+    representable reducible  2    5    8   11   14   17
+    independent rank         2    5    8   11   14   17
+    IRREDUCIBLE              0    0    0    0    0    0
+
+**δ=2 (the deformed vacuum), ranks 1–4 closed, 5 and 6 running:**
+
+    rank                     1    2    3    4    5    6
+    prover dimension         2    4    6    8    ?    ?
+    representable reducible  2    4    6    8   10   12
+    independent rank         2    4    6    8   10   12
+    IRREDUCIBLE              0    0    0    0    ?    ?
+
+**Three things had to be right, and only the first was.**
+
+**(1) The prover.** Rank-r ansatz, coefficients `(bounded-degree polynomial)/L`, obstruction assembled
+by point-sampling and the rank taken modulo two large primes rather than over ℚ. Validated by
+recovering Carter exactly at rank 2 on Kerr, and by finding **exactly one** irreducible tensor at
+ranks 3 and 4 on the Cariglia–Galajinsky Ricci-flat controls (arXiv:1503.02162), where one provably
+exists. Ansatz degrees are **measured from the coefficient numerators**, never inferred from the
+denominator — ZV's `((x²−1)/(x²−y²))^(δ²)` drives numerators to y-degree 10 against a y-degree-2
+denominator, and the inferred-from-denominator heuristic failed silently, returning a solution space
+*smaller than its own reducible span*.
+
+**(2) The reducible span had to stop being a hand-count, and this is where a false discovery nearly
+happened.** δ=1 rank 5 returned prover dimension **14** against a hand-count of **10**, which
+subtracts to *four irreducible Killing tensors on Schwarzschild* — integrable since 1916. Three
+errors, and the third is the real one:
+
+- **A generator can be invisible at its own rank and present at twice it.** Schwarzschild's L² is
+  built from L_x, L_y, which are **not axisymmetric** and so are correctly absent from the rank-1
+  ansatz; **L² itself is axisymmetric** and is an honest rank-2 solution. Hand-counting products of
+  the *manifest* Killing vectors misses it, and the undercount **compounds with rank**.
+- **The table was substrate-independent when the answer is substrate-dependent.** One reducible
+  table was used for both arms. It is *correct for δ=2*. δ=1 has more symmetry — the entire reason it
+  is the control — and one constant cannot express the difference the control exists to provide. It
+  was also wrong at δ=2 rank 6 (13 against 12), independently: **two errors in six entries.**
+- **The comparison was being made in the wrong space.** The prover solves in `(bounded poly)/L`,
+  **one power of the denominator**; the reducible span is a fact about the spacetime and knows nothing
+  about L. `dim(reducible) ≤ dim(solution)` was never the right inequality. The honest quantity is
+  **dim(reducible ∧ den¹-representable)**, computed per product by construction with every exclusion
+  named — every dropped product contains two or more degree-2 generators, which carries L².
+
+**(3) Counting the representable products was still not enough — they had to be independent.** If two
+were linearly dependent, the span would be smaller than the count, the prover's dimension would exceed
+it, and the surplus would read as an irreducible tensor: the same failure one level in. Measured over
+GF(p) at random integer points, two primes: **count == rank at every rank on both arms, no relations.**
+
+**Why no guard caught (2).** `dim(reducible) ≤ dim(solution)` is a structural impossibility that
+*cannot fail*, so it feels like total coverage. It catches an ansatz too small to hold its own
+reducibles. It is **blind to a reducible count that is too small**, because undercounting keeps the
+inequality satisfied and moves the surplus into the "irreducible" column. Opposite errors, only one
+guarded — and the unguarded one **relabels an accounting error as a discovery.**
+
+**Pre-registration, and the one number that counts as evidence rather than consistency.** Ten of the
+agreements above are **retrodictions**: the arithmetic was independent, but nothing structurally
+prevented a wrong generator set from being tuned until it matched. **δ=1 rank 6 = 17 was committed to
+disk in `0bddd58` before the run existed**, with a known-FAIL in both directions — above 17 is an
+irreducible Killing tensor and this project's headline; below 17 violates the impossibility and
+condemns the ansatz. It returned 17 on both primes. δ=2 ranks 5 and 6 carry live pre-registrations of
+**10** and **12** from the same commit.
+
+**Scope, stated plainly.** This is `den¹` scope: products needing a squared denominator (H², H·L²,
+L⁴ and their multiples) fall outside the ansatz on *both* sides of the subtraction and are excluded
+from both, by construction and by name. Widening to den² is open. The grading theorem gives rung
+independence and finiteness of *each* rung, but **nothing bounds the rank** — so this extends §98's
+map rather than closing the general question, and "retires §98's caveat" is true of the caveat *as
+stated* and false of the question behind it.
+
+Repro: `scripts/_kt_zv_high.py <delta> <rank>`, `scripts/_kt_reducible.py <delta> <rank_max>
+[--representable]`.
