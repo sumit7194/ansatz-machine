@@ -2065,13 +2065,13 @@ different substrate (denominator degree 11 collapsing to 4).
     independent rank         2    5    8   11   14   17
     IRREDUCIBLE              0    0    0    0    0    0
 
-**δ=2 (the deformed vacuum), ranks 1–4 closed, 5 and 6 running:**
+**δ=2 (the deformed vacuum) closed at ranks 1–6:**
 
     rank                     1    2    3    4    5    6
-    prover dimension         2    4    6    8    ?    ?
+    prover dimension         2    4    6    8   10   12
     representable reducible  2    4    6    8   10   12
     independent rank         2    4    6    8   10   12
-    IRREDUCIBLE              0    0    0    0    ?    ?
+    IRREDUCIBLE              0    0    0    0    0    0
 
 **Three things had to be right, and only the first was.**
 
@@ -2114,13 +2114,13 @@ reducibles. It is **blind to a reducible count that is too small**, because unde
 inequality satisfied and moves the surplus into the "irreducible" column. Opposite errors, only one
 guarded — and the unguarded one **relabels an accounting error as a discovery.**
 
-**Pre-registration, and the one number that counts as evidence rather than consistency.** Ten of the
+**Pre-registration, and which numbers count as evidence rather than consistency.** Nine of the twelve
 agreements above are **retrodictions**: the arithmetic was independent, but nothing structurally
 prevented a wrong generator set from being tuned until it matched. **δ=1 rank 6 = 17 was committed to
 disk in `0bddd58` before the run existed**, with a known-FAIL in both directions — above 17 is an
 irreducible Killing tensor and this project's headline; below 17 violates the impossibility and
-condemns the ansatz. It returned 17 on both primes. δ=2 ranks 5 and 6 carry live pre-registrations of
-**10** and **12** from the same commit.
+condemns the ansatz. It returned 17 on both primes. **δ=2 rank 5 returned 10 and δ=2 rank 6 returned 12, both
+pre-registered in the same commit, both on both primes. Three predictions made, three held.**
 
 **Scope, stated plainly.** This is `den¹` scope: products needing a squared denominator (H², H·L²,
 L⁴ and their multiples) fall outside the ansatz on *both* sides of the subtraction and are excluded
