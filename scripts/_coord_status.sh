@@ -12,9 +12,23 @@
 # than its window, or whose pid is gone, is UNKNOWN and must fail OPEN -- never treated as busy).
 COORD=/Users/sumit/Github/.claude-coordination
 [ -d "$COORD" ] || exit 0
-N=$(pgrep -f "scripts/_kt_" 2>/dev/null | wc -l | tr -d ' ')
-RSS=0
+# THE PROBE MATCHED THE OBSERVER until 2026-08-22. `pgrep -f` matches any command line
+# CONTAINING the pattern, so a shell, editor, grep or tool call that merely MENTIONS
+# scripts/_kt_... registered as a Killing-tensor job. Reproduced: with one prover running, a
+# `bash -c 'while :; do sleep 1; done  # scripts/_kt_zv_den2.py' ` made this file advertise
+# "2 proc". That is a PHANTOM JOB ON AN IDLE BOX, which under our coordination protocol is this
+# session telling a sister not to launch -- the false-STOP direction, which costs someone else
+# their run and produces no symptom here. (bridge hit the identical bug; quantum's finding that
+# pgrep skips the CALLER'S ANCESTORS is why it never showed up when tested from a shell -- the
+# writer runs from the keepalive, a different process tree, where nothing is exempt.)
+# Fix: keep a pid only if the kernel says the executable really is python.
+PIDS=""
 for p in $(pgrep -f "scripts/_kt_" 2>/dev/null); do
+  case "$(ps -o comm= -p "$p" 2>/dev/null)" in *[Pp]ython*) PIDS="$PIDS $p";; esac
+done
+N=$(echo $PIDS | wc -w | tr -d ' ')
+RSS=0
+for p in $PIDS; do
   r=$(ps -o rss= -p "$p" 2>/dev/null | tr -d ' '); RSS=$((RSS + ${r:-0}))
 done
 RSS=$((RSS / 1024))
@@ -43,7 +57,7 @@ HEAVY=false; [ "$RSS" -gt 2048 ] && HEAVY=true      # derived from measured RSS,
 # Now published: writer_pid = the long-lived process that invoked this (the keepalive), and
 # job_pids = the actual measured jobs. Both checkable by a reader; neither is this script.
 WRITER=$PPID
-JOBS_CSV=$(pgrep -f "scripts/_kt_" 2>/dev/null | paste -sd, - )
+JOBS_CSV=$(echo $PIDS | tr ' ' ',')
 printf '{"session":"ansatz","repo":"/Users/sumit/Github/conjecture_machine","state":"%s","heavy":%s,"writer_pid":%s,"job_pids":"%s","rss_total_mb":%s,"disk_free_gb":%s,"mem_free_gb":%s,"mem_available_gb":%s,"mem_rule":"free+speculative vs +inactive+purgeable; SCHEDULE ON mem_available_gb; page size read from hw.pagesize","stale_after_s":600,"detail":"%s","updated":"%s"}\n' \
   "$STATE" "$HEAVY" "$WRITER" "$JOBS_CSV" "$RSS" "${DISK:-0}" "${MEMFREE:-0}" "${MEMAVAIL:-0}" "$DETAIL" "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
   > "$COORD/ansatz.status.tmp"
