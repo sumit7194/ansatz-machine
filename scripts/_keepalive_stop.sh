@@ -26,7 +26,16 @@ ps -p "$PID" >/dev/null 2>&1 || { echo "pid $PID not running"; exit 0; }
 CMD=$(ps -o args= -p "$PID" 2>/dev/null)
 case "$CMD" in
   *conjecture_machine/scripts/_keepalive.sh*|*scripts/_keepalive.sh*)
-    kill "$PID" && echo "stopped OUR keepalive, pid $PID" ;;
+    # `kill` returning 0 means THE SIGNAL WAS DELIVERED, not that the process is gone. Reporting
+    # "stopped" on that is reporting the wrong event -- bridge's stop script printed exactly that
+    # and the process was still alive two and a half minutes later, and a caller who proceeds on
+    # the message can end up starting a second writer. Verify by re-ps, and say which happened.
+    kill "$PID" 2>/dev/null
+    for _ in 1 2 3 4 5 6 7 8 9 10; do
+      ps -p "$PID" >/dev/null 2>&1 || { echo "stopped OUR keepalive, pid $PID (confirmed gone)"; exit 0; }
+      sleep 1
+    done
+    echo "SIGNAL SENT to pid $PID but it is STILL ALIVE after 10s -- do NOT start another" ; exit 1 ;;
   *)
     echo "REFUSING: pid $PID is not our keepalive -- it is: $CMD" ; exit 1 ;;
 esac
