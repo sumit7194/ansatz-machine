@@ -56,9 +56,23 @@ HEAVY=false; [ "$RSS" -gt 2048 ] && HEAVY=true      # derived from measured RSS,
 # (a status that never existed at all, so nothing could go stale).
 # Now published: writer_pid = the long-lived process that invoked this (the keepalive), and
 # job_pids = the actual measured jobs. Both checkable by a reader; neither is this script.
-WRITER=$PPID
-JOBS_CSV=$(echo $PIDS | tr ' ' ',')
-printf '{"session":"ansatz","repo":"/Users/sumit/Github/conjecture_machine","state":"%s","heavy":%s,"writer_pid":%s,"job_pids":"%s","rss_total_mb":%s,"disk_free_gb":%s,"mem_free_gb":%s,"mem_available_gb":%s,"mem_rule":"free+speculative vs +inactive+purgeable; SCHEDULE ON mem_available_gb; page size read from hw.pagesize","stale_after_s":600,"detail":"%s","updated":"%s"}\n' \
+# TOKEN RE-DERIVED AND VERIFIED EVERY TICK, never captured once. `updated` is a claim about every
+# other field and the token is one of them -- a token captured at startup is not a measurement, it
+# is a constant that happened to be true when written. Verified ALIVE *and* still the keepalive,
+# because a bare liveness check certifies any unrelated process that inherited a recycled pid.
+# `null` is the honest answer when no loop is running: it means "no automatic heartbeat, trust
+# `updated` and nothing else" rather than advertising a token that cannot be confirmed.
+WRITER=null
+PIDFILE=/Users/sumit/Github/.claude-coordination/.ansatz.writer.pid
+if [ -r "$PIDFILE" ]; then
+  w=$(cat "$PIDFILE" 2>/dev/null)
+  case "$w" in ''|*[!0-9]*) w="";; esac
+  if [ -n "$w" ] && ps -p "$w" >/dev/null 2>&1; then
+    case "$(ps -o args= -p "$w" 2>/dev/null)" in *_keepalive.sh*) WRITER=$w;; esac
+  fi
+fi
+JOBS_CSV=$(echo $PIDS | tr ' ' ',')   # emitted inside [] as a JSON list, not a string
+printf '{"session":"ansatz","repo":"/Users/sumit/Github/conjecture_machine","state":"%s","heavy":%s,"writer_pid":%s,"writer_cmd_match":"_keepalive.sh","job_pids":[%s],"rss_total_mb":%s,"disk_free_gb":%s,"mem_free_gb":%s,"mem_available_gb":%s,"mem_rule":"free+speculative vs +inactive+purgeable; SCHEDULE ON mem_available_gb; page size read from hw.pagesize","stale_after_s":600,"detail":"%s","updated":"%s"}\n' \
   "$STATE" "$HEAVY" "$WRITER" "$JOBS_CSV" "$RSS" "${DISK:-0}" "${MEMFREE:-0}" "${MEMAVAIL:-0}" "$DETAIL" "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
   > "$COORD/ansatz.status.tmp"
 mv "$COORD/ansatz.status.tmp" "$COORD/ansatz.status"
