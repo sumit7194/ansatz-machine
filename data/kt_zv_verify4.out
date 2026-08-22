@@ -1,0 +1,11 @@
+  GENERATORS on the delta=2 substrate (products follow by Leibniz):
+    p_t    {H,F} = 0 exactly
+    p_phi  {H,F} = 0 exactly
+    H      {H,F} = 0 exactly
+    KNOWN-FAIL p_t^2 p_x p_y: nonzero -> correctly rejected
+
+  rank-4 reducible span, measured on 500 random phase-space points:
+    including H^2 : 9
+    excluding H^2 : 8
+  rank-4 solution space found by the prover: 8
+  => irreducible: 8 - 8 = 0  (H^2 needs a larger denominator, as on Kerr)

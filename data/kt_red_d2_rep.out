@@ -1,0 +1,10 @@
+ZV delta=2: ansatz is (poly x<=10, y<=12) / L, with L of x-deg 8, y-deg 2
+  rank 1:   2 reducible products,   2 REPRESENTABLE in the den^1 ansatz, independent rank 2
+  rank 2:   4 reducible products,   4 REPRESENTABLE in the den^1 ansatz, independent rank 4
+  rank 3:   6 reducible products,   6 REPRESENTABLE in the den^1 ansatz, independent rank 6
+  rank 4:   9 reducible products,   8 REPRESENTABLE in the den^1 ansatz, independent rank 8
+           dropped (1): H^2
+  rank 5:  12 reducible products,  10 REPRESENTABLE in the den^1 ansatz, independent rank 10
+           dropped (2): p_phi*H^2, p_t*H^2
+  rank 6:  16 reducible products,  12 REPRESENTABLE in the den^1 ansatz, independent rank 12
+           dropped (4): H^3, p_phi^2*H^2, p_t*p_phi*H^2, p_t^2*H^2

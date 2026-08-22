@@ -1,0 +1,10 @@
+ZV delta=1: CHECKING each candidate generator with an exact Poisson bracket
+    p_t    degree 1   {H,g} = 0 exactly: YES
+    p_phi  degree 1   {H,g} = 0 exactly: YES
+    H      degree 2   {H,g} = 0 exactly: YES
+    Lsq    degree 2   {H,g} = 0 exactly: YES
+    KNOWN-FAIL p_t^2 p_x p_y: {H,g} = 0: NO (correctly rejected)
+  rank 1:   2 products spanning a space of MEASURED DIMENSION 2   [0.0s]
+  rank 2:   5 products spanning a space of MEASURED DIMENSION 5   [0.5s]
+  rank 3:   8 products spanning a space of MEASURED DIMENSION 8   [0.6s]
+  rank 4:  14 products spanning a space of MEASURED DIMENSION 14   [169.7s]

@@ -1,0 +1,26 @@
+KILLING-TENSOR SEARCH -- metric=kerr, rank=2
+
+  inverse metric: 86 ops
+  ansatz: 10 coefficients x 30 terms = 300 unknowns; denominator (1-u^2)^1 S^1 D^1
+    column 25/300  (3s)
+    column 50/300  (17s)
+    column 75/300  (30s)
+    column 100/300  (35s)
+    column 125/300  (40s)
+    column 150/300  (55s)
+    column 175/300  (79s)
+    column 200/300  (89s)
+    column 225/300  (97s)
+    column 250/300  (106s)
+    column 275/300  (114s)
+    column 300/300  (116s)
+  columns assembled in 115.9s
+  rows cleared + split in 20.2s: 1548 linear equations
+  nullspace in 0.5s: DIMENSION 5
+
+  SOLUTION SPACE: dimension 5
+    [0] -p_t**2
+    [1] -p_phi*p_t
+    [2] (-16*p_phi**2*r**2 + 32*p_phi**2*r - 4*p_phi**2*u**2 - 32*p_phi*p_t*r*u**2 + 32*p_phi*p_t*r + 16*p_r**2*r**4*u**2 - 16*p_r**2*r**4 - 64*p_r**2*r**3*u*
+    [3] (-64*p_phi**2*r**4 + 128*p_phi**2*r**3 - 32*p_phi**2*r + 4*p_phi**2*u**4 + 32*p_phi*p_t*r*u**4 - 32*p_phi*p_t*r - 16*p_r**2*r**4*u**4 + 16*p_r**2*r**4
+    [4] (-64*p_phi**2*r**4*u**2 + 128*p_phi**2*r**3*u**2 - 16*p_phi**2*r**2*u**4 + 32*p_phi**2*r*u**4 - 32*p_phi**2*r*u**2 + 32*p_phi*p_t*r*u**4 - 32*p_phi*p_

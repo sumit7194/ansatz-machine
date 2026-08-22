@@ -1,0 +1,11 @@
+CG 5D OXIDATION -- rank-4 POSITIVE CONTROL
+  the paper claims ONE irreducible rank-4 Killing tensor here
+
+  rank 1: dimension 3   [0s]
+  rank 2: dimension 8   [2s]
+  rank 3: dimension 16   [11s]
+  rank 4: dimension 28   [37s]
+
+  rank-4 reducible span (products of the 3 KVs and H), measured: 22
+  => IRREDUCIBLE rank-4 directions: 28 - 22 = 6
+  VERDICT: PROVER VALIDATED AT RANK 4

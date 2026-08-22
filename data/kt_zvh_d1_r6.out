@@ -1,0 +1,8 @@
+ZV delta=1, RANK 6   ansatz x<=5, y<=6
+  rank 6: 3528 unknowns, 120 momentum monomials, 48 sample points -> 5760 rows
+  RESUMED 5760 assembled rows from /Users/sumit/Github/conjecture_machine/data/kt_zvhigh_d1_r6.pkl
+    mod 2147483647: rank 3511 -> nullspace dimension 17
+    mod 2147483629: rank 3511 -> nullspace dimension 17
+
+  ZV delta=1 RANK 6: DIMENSION 17   [83s]
+  reducible span: run scripts/_kt_reducible.py -- it is MEASURED, not counted

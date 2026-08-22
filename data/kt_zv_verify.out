@@ -1,0 +1,6 @@
+  rank 1: solution 2, reducible span MEASURED 2 (2 products) -> irreducible 0
+           C5 on delta=2: all 2 reducibles satisfy {H,F}=0 exactly: YES
+  rank 2: solution 4, reducible span MEASURED 4 (4 products) -> irreducible 0
+           C5 on delta=2: all 4 reducibles satisfy {H,F}=0 exactly: YES
+  rank 3: solution 6, reducible span MEASURED 6 (6 products) -> irreducible 0
+           C5 on delta=2: all 6 reducibles satisfy {H,F}=0 exactly: YES

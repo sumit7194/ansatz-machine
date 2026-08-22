@@ -1,0 +1,6 @@
+  bases: rank-1 3, rank-2 8, rank-3 17
+  rank-3 reducible span: 16  -> irreducible at rank 3: 1
+  rank-4 reducible span from 87 products (1x3 and 2x2): 33
+  rank-4 solution space: 34
+  => IRREDUCIBLE: 34 - 33 = 1
+  VERDICT: PROVER VALIDATED AT RANK 4 (paper claims 1)

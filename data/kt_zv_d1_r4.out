@@ -1,0 +1,13 @@
+ZIPOY-VOORHEES delta=1, rank 4
+  denominator x-deg 3, y-deg 2; coefficient numerators x-deg 3, y-deg 4; ansatz x<=5, y<=6
+  rank 4: 1470 unknowns, 56 momentum monomials, 43 sample points -> 2408 rows
+    10/43 points  (37s)
+    20/43 points  (72s)
+    30/43 points  (107s)
+    40/43 points  (141s)
+  2408 rows assembled in 152.2s
+  rows banked to /Users/sumit/Github/conjecture_machine/data/kt_zv_d1_r4.pkl
+    mod 2147483647: rank 1459 -> nullspace dimension 11
+    mod 2147483629: rank 1459 -> nullspace dimension 11
+
+  ZV delta=1 RANK 4: DIMENSION 11   [172s]

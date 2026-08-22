@@ -1,0 +1,9 @@
+ZV delta=1, RANK 4, DENOMINATOR L^2
+  reducible-holding box x<=6, y<=8; ansatz box x<=10, y<=12 (margin 4)
+  14 reducible products at this rank, all representable at den^2
+  rank 4: 5005 unknowns, 56 momentum monomials, 138 sample points -> 7728 rows
+  RESUMED 7728 assembled rows from /Users/sumit/Github/conjecture_machine/data/kt_zvd2_d1_r4.pkl
+    mod 2147483647: rank 4991 -> nullspace dimension 14
+    mod 2147483629: rank 4991 -> nullspace dimension 14
+
+  ZV delta=1 RANK 4 den^2: DIMENSION 14   [287s]

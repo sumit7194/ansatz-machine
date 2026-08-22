@@ -1,0 +1,3 @@
+=== TEST A: same eps=2, ansatz degrees +2 (is the null ansatz-limited?)
+=== TEST B: eps=5, original degrees (is the null eps-specific?)
+ALLDONE

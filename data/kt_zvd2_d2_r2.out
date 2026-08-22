@@ -1,0 +1,37 @@
+ZV delta=2, RANK 2, DENOMINATOR L^2
+  reducible-holding box x<=16, y<=12; ansatz box x<=20, y<=16 (margin 4)
+  4 reducible products at this rank, all representable at den^2
+  rank 2: 3570 unknowns, 20 momentum monomials, 271 sample points -> 5420 rows
+    10/271 points  (75s)
+    20/271 points  (140s)
+    30/271 points  (208s)
+    40/271 points  (277s)
+    50/271 points  (353s)
+    60/271 points  (425s)
+    70/271 points  (501s)
+    80/271 points  (575s)
+    90/271 points  (646s)
+    100/271 points  (729s)
+    110/271 points  (790s)
+    120/271 points  (877s)
+    130/271 points  (958s)
+    140/271 points  (1041s)
+    150/271 points  (1121s)
+    160/271 points  (1198s)
+    170/271 points  (1278s)
+    180/271 points  (1343s)
+    190/271 points  (1409s)
+    200/271 points  (1483s)
+    210/271 points  (1556s)
+    220/271 points  (1620s)
+    230/271 points  (1688s)
+    240/271 points  (1758s)
+    250/271 points  (1832s)
+    260/271 points  (1905s)
+    270/271 points  (1973s)
+  5420 rows assembled in 1980.2s
+  rows banked to /Users/sumit/Github/conjecture_machine/data/kt_zvd2_d2_r2.pkl
+    mod 2147483647: rank 3566 -> nullspace dimension 4
+    mod 2147483629: rank 3566 -> nullspace dimension 4
+
+  ZV delta=2 RANK 2 den^2: DIMENSION 4   [2249s]

@@ -1,0 +1,45 @@
+KILLING-TENSOR SEARCH -- metric=kerr, rank=3
+
+  inverse metric: 86 ops
+  ansatz: 20 coefficients x 35 terms = 700 unknowns; denominator (1-u^2)^1 S^1 D^1
+    column 25/700  (3s)
+    column 50/700  (15s)
+    column 75/700  (29s)
+    column 100/700  (38s)
+    column 125/700  (41s)
+    column 150/700  (48s)
+    column 175/700  (63s)
+    column 200/700  (88s)
+    column 225/700  (101s)
+    column 250/700  (108s)
+    column 275/700  (118s)
+    column 300/700  (127s)
+    column 325/700  (133s)
+    column 350/700  (135s)
+    column 375/700  (152s)
+    column 400/700  (173s)
+    column 425/700  (192s)
+    column 450/700  (198s)
+    column 475/700  (219s)
+    column 500/700  (239s)
+    column 525/700  (253s)
+    column 550/700  (260s)
+    column 575/700  (269s)
+    column 600/700  (278s)
+    column 625/700  (287s)
+    column 650/700  (296s)
+    column 675/700  (302s)
+    column 700/700  (304s)
+  columns assembled in 303.9s
+  rows cleared + split in 67.1s: 3317 linear equations
+  nullspace in 19.1s: DIMENSION 8
+
+  SOLUTION SPACE: dimension 8
+    [0] -p_t**3
+    [1] -p_phi*p_t**2
+    [2] (-16*p_phi**2*p_t*r**2 + 32*p_phi**2*p_t*r - 4*p_phi**2*p_t*u**2 - 32*p_phi*p_t**2*r*u**2 + 32*p_phi*p_t**2*r + 16*p_r**2*p_t*r**4*u**2 - 16*p_r**2*p_
+    [3] (-64*p_phi**2*p_t*r**4 + 128*p_phi**2*p_t*r**3 - 32*p_phi**2*p_t*r + 4*p_phi**2*p_t*u**4 + 32*p_phi*p_t**2*r*u**4 - 32*p_phi*p_t**2*r - 16*p_r**2*p_t*
+    [4] (-64*p_phi**2*p_t*r**4*u**2 + 128*p_phi**2*p_t*r**3*u**2 - 16*p_phi**2*p_t*r**2*u**4 + 32*p_phi**2*p_t*r*u**4 - 32*p_phi**2*p_t*r*u**2 + 32*p_phi*p_t*
+    [5] (-16*p_phi**3*r**2 + 32*p_phi**3*r - 4*p_phi**3*u**2 - 32*p_phi**2*p_t*r*u**2 + 32*p_phi**2*p_t*r + 16*p_phi*p_r**2*r**4*u**2 - 16*p_phi*p_r**2*r**4 -
+    [6] (-64*p_phi**3*r**4 + 128*p_phi**3*r**3 - 32*p_phi**3*r + 4*p_phi**3*u**4 + 32*p_phi**2*p_t*r*u**4 - 32*p_phi**2*p_t*r - 16*p_phi*p_r**2*r**4*u**4 + 16
+    [7] (-64*p_phi**3*r**4*u**2 + 128*p_phi**3*r**3*u**2 - 16*p_phi**3*r**2*u**4 + 32*p_phi**3*r*u**4 - 32*p_phi**3*r*u**2 + 32*p_phi**2*p_t*r*u**4 - 32*p_phi

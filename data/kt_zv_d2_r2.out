@@ -1,0 +1,20 @@
+ZIPOY-VOORHEES delta=2, rank 2
+  denominator x-deg 8, y-deg 2; coefficient numerators x-deg 8, y-deg 10; ansatz x<=10, y<=12
+  rank 2: 1430 unknowns, 20 momentum monomials, 111 sample points -> 2220 rows
+    10/111 points  (31s)
+    20/111 points  (58s)
+    30/111 points  (87s)
+    40/111 points  (113s)
+    50/111 points  (141s)
+    60/111 points  (169s)
+    70/111 points  (197s)
+    80/111 points  (226s)
+    90/111 points  (253s)
+    100/111 points  (281s)
+    110/111 points  (304s)
+  2220 rows assembled in 306.9s
+  rows banked to /Users/sumit/Github/conjecture_machine/data/kt_zv_d2_r2.pkl
+    mod 2147483647: rank 1426 -> nullspace dimension 4
+    mod 2147483629: rank 1426 -> nullspace dimension 4
+
+  ZV delta=2 RANK 2: DIMENSION 4   [343s]

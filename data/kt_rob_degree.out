@@ -1,0 +1,27 @@
+  common denominator: r-degree 11, u-degree 10; numerator degrees r<=14, u<=14
+  rank 3: 4500 unknowns, 35 momentum monomials, 196 sample points -> 6860 rows
+    10/196 points  (157s)
+    20/196 points  (292s)
+    30/196 points  (430s)
+    40/196 points  (570s)
+    50/196 points  (716s)
+    60/196 points  (868s)
+    70/196 points  (1021s)
+    80/196 points  (1169s)
+    90/196 points  (1308s)
+    100/196 points  (1452s)
+    110/196 points  (1568s)
+    120/196 points  (1712s)
+    130/196 points  (1847s)
+    140/196 points  (1987s)
+    150/196 points  (2133s)
+    160/196 points  (2276s)
+    170/196 points  (2418s)
+    180/196 points  (2537s)
+    190/196 points  (2658s)
+  6860 rows assembled in 2748.9s
+  rows banked to /Users/sumit/Github/conjecture_machine/data/kt_def_rows_r3_e2_b2.pkl
+    mod 2147483647: rank 4494 -> nullspace dimension 6
+    mod 2147483629: rank 4494 -> nullspace dimension 6
+
+DEFORMED KERR (a=3/5, eps=2, degree bump +2)  RANK 3: DIMENSION 6   [3208s]

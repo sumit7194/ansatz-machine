@@ -1,0 +1,10 @@
+CG 5D rank-4 control, ansatz widened so it CAN hold the reducibles
+  rank 4: 3150 unknowns, 126 momentum monomials, 41 sample points -> 5166 rows
+    10/41 points  (107s)
+    20/41 points  (204s)
+    30/41 points  (303s)
+    40/41 points  (402s)
+  4879 rows assembled in 411.7s
+    mod 2147483647: rank 3116 -> nullspace dimension 34
+    mod 2147483629: rank 3116 -> nullspace dimension 34
+  den=(2X)^4, degrees (8,4): rank-4 dimension 34   [449s]

@@ -14,6 +14,11 @@ data/s122_progress.log
 # They must stay on disk for power-cut resumption, and must NOT be versioned.
 data/*.pkl
 data/*.ckpt
-data/kt_*.out
+# data/kt_*.out was ignored here until 2026-08-22. It should not have been. The rule above it
+# targets the .pkl row-banks (2.6 GB, above GitHub's limit, regenerable); the .out RUN LOGS total
+# 176 KB across 44 files and are the ONLY artifact carrying the numbers RESULTS 124 cites. A
+# gitignore written for size swept up the receipts: every prover dimension in that section existed
+# on one local disk and in no committed artifact. Found by running the bridge's provenance audit
+# on ourselves after they ran it on themselves. The logs are now tracked.
 data/s122_*.out
 data/p0_*.out

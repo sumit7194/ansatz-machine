@@ -1,0 +1,112 @@
+ZV delta=1, momentum degree 2, denominator power k=1
+  L = (x - 1)*(x + 1)**2*(y - 1)*(y + 1)
+  reducible products at this degree: 5
+  MEASURED numerator box that holds every one of them over L^1: x<=3, y<=4
+  => COEFFICIENT BASIS: { x^i y^j / L^1 : 0<=i<=3, 0<=j<=4 }  = 20 functions
+     linearly independent BY CONSTRUCTION (distinct numerator monomials over a
+
+ZV delta=1, momentum degree 2, denominator power k=2
+  L = (x - 1)*(x + 1)**2*(y - 1)*(y + 1)
+  reducible products at this degree: 5
+  MEASURED numerator box that holds every one of them over L^2: x<=6, y<=6
+  => COEFFICIENT BASIS: { x^i y^j / L^2 : 0<=i<=6, 0<=j<=6 }  = 49 functions
+     linearly independent BY CONSTRUCTION (distinct numerator monomials over a
+
+ZV delta=1, momentum degree 3, denominator power k=1
+  L = (x - 1)*(x + 1)**2*(y - 1)*(y + 1)
+  reducible products at this degree: 8
+  MEASURED numerator box that holds every one of them over L^1: x<=3, y<=4
+  => COEFFICIENT BASIS: { x^i y^j / L^1 : 0<=i<=3, 0<=j<=4 }  = 20 functions
+     linearly independent BY CONSTRUCTION (distinct numerator monomials over a
+
+ZV delta=1, momentum degree 3, denominator power k=2
+  L = (x - 1)*(x + 1)**2*(y - 1)*(y + 1)
+  reducible products at this degree: 8
+  MEASURED numerator box that holds every one of them over L^2: x<=6, y<=6
+  => COEFFICIENT BASIS: { x^i y^j / L^2 : 0<=i<=6, 0<=j<=6 }  = 49 functions
+     linearly independent BY CONSTRUCTION (distinct numerator monomials over a
+
+  !! Lsq^2 needs a denominator beyond L^1
+  !! H*Lsq needs a denominator beyond L^1
+  !! H^2 needs a denominator beyond L^1
+  !! H^2 needs a denominator beyond L^1
+  !! H^2 needs a denominator beyond L^1
+  !! H^2 needs a denominator beyond L^1
+
+ZV delta=1, momentum degree 4, denominator power k=2
+  L = (x - 1)*(x + 1)**2*(y - 1)*(y + 1)
+  reducible products at this degree: 14
+  MEASURED numerator box that holds every one of them over L^2: x<=6, y<=8
+  => COEFFICIENT BASIS: { x^i y^j / L^2 : 0<=i<=6, 0<=j<=8 }  = 63 functions
+     linearly independent BY CONSTRUCTION (distinct numerator monomials over a
+
+  !! Lsq^3 needs a denominator beyond L^1
+  !! H*Lsq^2 needs a denominator beyond L^1
+  !! H*Lsq^2 needs a denominator beyond L^1
+  !! H*Lsq^2 needs a denominator beyond L^1
+  !! H^2*Lsq needs a denominator beyond L^1
+  !! H^2*Lsq needs a denominator beyond L^1
+
+  !! Lsq^3 needs a denominator beyond L^2
+  !! H*Lsq^2 needs a denominator beyond L^2
+  !! H^2*Lsq needs a denominator beyond L^2
+  !! H^3 needs a denominator beyond L^2
+  !! H^3 needs a denominator beyond L^2
+  !! H^3 needs a denominator beyond L^2
+
+ZV delta=2, momentum degree 2, denominator power k=1
+  L = (x - 1)**2*(x + 1)**6*(y - 1)*(y + 1)
+  reducible products at this degree: 4
+  MEASURED numerator box that holds every one of them over L^1: x<=8, y<=10
+  => COEFFICIENT BASIS: { x^i y^j / L^1 : 0<=i<=8, 0<=j<=10 }  = 99 functions
+     linearly independent BY CONSTRUCTION (distinct numerator monomials over a
+
+ZV delta=2, momentum degree 2, denominator power k=2
+  L = (x - 1)**2*(x + 1)**6*(y - 1)*(y + 1)
+  reducible products at this degree: 4
+  MEASURED numerator box that holds every one of them over L^2: x<=16, y<=12
+  => COEFFICIENT BASIS: { x^i y^j / L^2 : 0<=i<=16, 0<=j<=12 }  = 221 functions
+     linearly independent BY CONSTRUCTION (distinct numerator monomials over a
+
+ZV delta=2, momentum degree 3, denominator power k=1
+  L = (x - 1)**2*(x + 1)**6*(y - 1)*(y + 1)
+  reducible products at this degree: 6
+  MEASURED numerator box that holds every one of them over L^1: x<=8, y<=10
+  => COEFFICIENT BASIS: { x^i y^j / L^1 : 0<=i<=8, 0<=j<=10 }  = 99 functions
+     linearly independent BY CONSTRUCTION (distinct numerator monomials over a
+
+ZV delta=2, momentum degree 3, denominator power k=2
+  L = (x - 1)**2*(x + 1)**6*(y - 1)*(y + 1)
+  reducible products at this degree: 6
+  MEASURED numerator box that holds every one of them over L^2: x<=16, y<=12
+  => COEFFICIENT BASIS: { x^i y^j / L^2 : 0<=i<=16, 0<=j<=12 }  = 221 functions
+     linearly independent BY CONSTRUCTION (distinct numerator monomials over a
+
+  !! H^2 needs a denominator beyond L^1
+  !! H^2 needs a denominator beyond L^1
+  !! H^2 needs a denominator beyond L^1
+  !! H^2 needs a denominator beyond L^1
+  !! H^2 needs a denominator beyond L^1
+  !! H^2 needs a denominator beyond L^1
+
+ZV delta=2, momentum degree 4, denominator power k=2
+  L = (x - 1)**2*(x + 1)**6*(y - 1)*(y + 1)
+  reducible products at this degree: 9
+  MEASURED numerator box that holds every one of them over L^2: x<=16, y<=20
+  => COEFFICIENT BASIS: { x^i y^j / L^2 : 0<=i<=16, 0<=j<=20 }  = 357 functions
+     linearly independent BY CONSTRUCTION (distinct numerator monomials over a
+
+  !! H^3 needs a denominator beyond L^1
+  !! H^3 needs a denominator beyond L^1
+  !! H^3 needs a denominator beyond L^1
+  !! H^3 needs a denominator beyond L^1
+  !! H^3 needs a denominator beyond L^1
+  !! H^3 needs a denominator beyond L^1
+
+  !! H^3 needs a denominator beyond L^2
+  !! H^3 needs a denominator beyond L^2
+  !! H^3 needs a denominator beyond L^2
+  !! H^3 needs a denominator beyond L^2
+  !! H^3 needs a denominator beyond L^2
+  !! H^3 needs a denominator beyond L^2
+

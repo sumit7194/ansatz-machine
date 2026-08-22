@@ -1,0 +1,6 @@
+  eps=0 common denominator: r-deg 4, u-deg 4; ansatz r<=5, u<=6
+  rank 1: dimension 2   [8s]
+  rank 2: dimension 5   [29s]
+
+  reducibles at rank 2 WITHOUT Carter: p_t^2, p_t p_phi, p_phi^2, H = 4
+  so a prover that can see Carter on this substrate must return 5, not 4.

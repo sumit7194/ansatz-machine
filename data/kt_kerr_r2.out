@@ -1,0 +1,15 @@
+KILLING-TENSOR SEARCH -- metric=kerr, rank=2
+
+  inverse metric: 86 ops
+  ansatz: 10 coefficients x 15 terms = 150 unknowns; denominator (1-u^2)^1 S^1 D^1
+    column 25/150  (9s)
+    column 50/150  (18s)
+    column 75/150  (28s)
+    column 100/150  (36s)
+    column 125/150  (43s)
+    column 150/150  (45s)
+  columns assembled in 45.5s
+  rows cleared + split in 9.2s: 1035 linear equations
+  nullspace in 0.1s: DIMENSION 0
+
+  SOLUTION SPACE: dimension 0

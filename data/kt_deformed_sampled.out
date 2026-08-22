@@ -1,0 +1,6 @@
+  common denominator: r-degree 11, u-degree 10
+
+DEFORMED KERR (a=3/5, eps=2) -- the open question
+  ansatz numerator degrees: r<=12, u<=12
+
+  RANK 1: dimension 2   [159s]

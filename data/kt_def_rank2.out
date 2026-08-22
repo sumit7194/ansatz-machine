@@ -1,0 +1,19 @@
+  rank 2: 1690 unknowns, 20 momentum monomials, 130 sample points -> 2600 rows
+    10/130 points  (42s)
+    20/130 points  (81s)
+    30/130 points  (121s)
+    40/130 points  (160s)
+    50/130 points  (203s)
+    60/130 points  (245s)
+    70/130 points  (287s)
+    80/130 points  (329s)
+    90/130 points  (368s)
+    100/130 points  (410s)
+    110/130 points  (445s)
+    120/130 points  (487s)
+    130/130 points  (527s)
+  2600 rows assembled in 526.8s
+    mod 2147483647: rank 1686 -> nullspace dimension 4
+    mod 2147483629: rank 1686 -> nullspace dimension 4
+
+DEFORMED KERR (a=3/5, eps=2)  RANK 2: DIMENSION 4   [588s]

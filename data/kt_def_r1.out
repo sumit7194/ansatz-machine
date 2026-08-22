@@ -1,0 +1,5 @@
+KILLING-TENSOR SEARCH -- metric=deformed, rank=1
+
+  inverse metric: 540 ops
+  ansatz: 4 coefficients x 91 terms = 364 unknowns; denominator (1-u^2)^0 S^0 D^0
+    column 25/364  (479s)

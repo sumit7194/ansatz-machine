@@ -1,0 +1,11 @@
+FULL reducible spans (no ansatz restriction), independence measured over GF(p), two primes
+
+ZV delta=1   generators: ['p_t', 'p_phi', 'H', 'Lsq']
+   rank 2: FULL span = 5 products, independent rank 5
+   rank 4: FULL span = 14 products, independent rank 14
+   rank 6: FULL span = 30 products, independent rank 30
+
+ZV delta=2   generators: ['p_t', 'p_phi', 'H']
+   rank 2: FULL span = 4 products, independent rank 4
+   rank 4: FULL span = 9 products, independent rank 9
+   rank 6: FULL span = 16 products, independent rank 16

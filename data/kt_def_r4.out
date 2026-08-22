@@ -1,0 +1,27 @@
+DEFORMED KERR rank 4, SCOPED to denominator power 1 (as rank 3 was)
+  ansatz r<=12, u<=12
+  rank 4: 5915 unknowns, 56 momentum monomials, 162 sample points -> 9072 rows
+    10/162 points  (221s)
+    20/162 points  (418s)
+    30/162 points  (618s)
+    40/162 points  (816s)
+    50/162 points  (1030s)
+    60/162 points  (1244s)
+    70/162 points  (1457s)
+    80/162 points  (1670s)
+    90/162 points  (1867s)
+    100/162 points  (2078s)
+    110/162 points  (2246s)
+    120/162 points  (2456s)
+    130/162 points  (2655s)
+    140/162 points  (2860s)
+    150/162 points  (3074s)
+    160/162 points  (3274s)
+  9072 rows assembled in 3316.0s
+  rows banked to /Users/sumit/Github/conjecture_machine/data/kt_def_rows_r4_e2_scoped.pkl
+    mod 2147483647: rank 5907 -> nullspace dimension 8
+    mod 2147483629: rank 5907 -> nullspace dimension 8
+
+  RANK 4 (den^1 scope): DIMENSION 8   [3952s]
+  representable reducibles at this scope: 8
+  => irreducible at this scope: 8 - 8 = 0

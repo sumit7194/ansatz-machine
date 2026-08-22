@@ -1,0 +1,6 @@
+  bases: rank-1 3, rank-2 8
+  rank-4 reducible span from 99 products: 30
+  rank-4 solution space (measured earlier, same ansatz): 34
+  => IRREDUCIBLE: 34 - 30 = 4
+  sanity (must hold): reducible <= solution?  True
+  VERDICT: MISMATCH -- paper claims 1, measured 4

@@ -1,0 +1,13 @@
+ZV delta=1, RANK 5   ansatz x<=5, y<=6
+  rank 5: 2352 unknowns, 84 momentum monomials, 46 sample points -> 3864 rows
+    10/46 points  (62s)
+    20/46 points  (120s)
+    30/46 points  (178s)
+    40/46 points  (236s)
+  3864 rows assembled in 273.9s
+  rows banked to /Users/sumit/Github/conjecture_machine/data/kt_zvhigh_d1_r5.pkl
+    mod 2147483647: rank 2338 -> nullspace dimension 14
+    mod 2147483629: rank 2338 -> nullspace dimension 14
+
+  ZV delta=1 RANK 5: DIMENSION 14   [317s]
+  hand-count of reducibles at this rank: 10  (MUST be measured before it is believed)
