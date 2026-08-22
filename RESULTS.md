@@ -2129,8 +2129,17 @@ independence and finiteness of *each* rung, but **nothing bounds the rank** — 
 map rather than closing the general question, and "retires §98's caveat" is true of the caveat *as
 stated* and false of the question behind it.
 
-**INDEPENDENT EXTERNAL CONFIRMATION AT MOMENTUM-DEGREE 2, ON AN INSTRUMENT WITH NO den SCOPE AT
-ALL** (bridge session, `77d7070` / `51bee88`). A numerical conservation screen along real ZV
+**EXTERNAL CONFIRMATION AT MOMENTUM-DEGREE 2, ON AN INSTRUMENT WITH NO den SCOPE AT ALL — BUT NOT A
+BLIND ONE, AND THE DISTINCTION IS OURS TO STATE** (bridge session, `77d7070` / `51bee88`).
+**We sent them the target numbers (5/14/30 at δ=1, 4/9/16 at δ=2) BEFORE they built the screen.**
+So this is *a prediction of ours tested by a different instrument* — the correct direction, and the
+reason it still counts — but it is **not a blind confirmation**, and a screen whose target is visible
+can drift toward it through threshold and basis choices without anyone intending it. Two things
+limit that here and neither removes it: their δ=1 arm first returned **4 while the target was 5**,
+and they reported the 4 rather than reaching for the target; the gap was then closed by fixing a
+*named* basis inadequacy (`1/(1−y²)` is not a polynomial), not by tuning. Recorded in the sessions'
+shared `DISCLOSURES.md` as a **spent channel**: this pair can no longer run a blind check on this
+quantity, and a future one should be routed to a session with no history on it. A numerical conservation screen along real ZV
 geodesics — 2-DOF reduction with E and L varied across the ensemble so they re-enter the count
 honestly — returned, with the threshold fixed on the δ=1 arm and applied unchanged to δ=2:
 
