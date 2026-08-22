@@ -8,7 +8,13 @@ LOG="$(cd "$(dirname "$0")/.." && pwd)/data/overnight_state.log"
 # a TRANSIENT SHELL when anyone runs it by hand -- so every manual test poisoned the field with a
 # pid that was dead milliseconds later, and a reader could not tell which kind of write it held.
 WRITERPID=/Users/sumit/Github/.claude-coordination/.ansatz.writer.pid
-for i in $(seq 1 600); do
+# UNBOUNDED, deliberately. This was `seq 1 600` -- 600 ticks of 60s, so the keepalive TERMINATED
+# BY DESIGN after ten hours, with no error, no log line and no signal. A heartbeat with a built-in
+# expiry is the worst version of a heartbeat: it dies healthy, at an hour nobody is watching, and
+# the file it stops refreshing goes stale for a reason that looks exactly like a crash. It also
+# means the process being ABSENT is not evidence of anything having gone wrong, which destroys the
+# diagnostic value of noticing it is gone.
+while :; do
   # "Pages free" ALONE understated headroom ~12x for two days in this very log -- macOS parks
   # reclaimable memory in `inactive`, and a morning reader reconstructing a power cut was being
   # shown 0.4 GB on a machine with 7 GB available. Our own rule, broken in our own durable trace,
