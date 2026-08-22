@@ -2220,9 +2220,18 @@ than the spacetime. It held at every rung.
 
 **Ranks 2 and 3 are calibration and had to come back unchanged** — nothing was excluded at those
 ranks under den¹, so a *change* there would have meant the wider box broke something rather than
-revealed something. **δ=2 rank 2 additionally agrees with the bridge's independent numerical screen**,
-which has no denominator scope at all, and which filed 4 as a prediction on the record before this
-run completed.
+revealed something. **δ=2 rank 2 additionally agrees with the bridge's numerical screen**, which has
+no denominator scope at all, and which filed 4 as a prediction on the record before this run
+completed. **That screen is a different INSTRUMENT, not an independent EXPECTATION** -- section 124
+records the channel as *spent*: we sent them the target numbers before they built it. So this is a
+prediction of theirs, filed before our run, agreeing with a prediction of ours, filed before
+theirs -- **mutually pre-registered, and blind in neither direction.**
+
+*(This sentence said "independent numerical screen" until it was corrected minutes after being
+written. Section 124 had already struck exactly that word for exactly that channel, eighty lines
+above in this same file, hours earlier. **A correction applied in one place does not travel to the
+next place the claim is made** -- and the second instance is the more dangerous, because the first
+correction is on the record and makes the file look audited.)*
 
 **THE RESULT IS THE δ=1 RANK-4 ROW, AND IT IS THE COMPLETE ACCOUNTING RATHER THAN THE MATCHING
 COUNT.** den¹ gave 11; den² gives 14; and the three new elements are **exactly `Lsq²`, `H·Lsq` and
