@@ -441,25 +441,47 @@ def solve_kt_sampled(rank, ginv, deg_r, deg_u, den, n_points=None, primes=(21474
     # metric) and the modular rank is the cheap half -- but a power cut during the RANK step was
     # throwing the assembly away too. Same rule as the order-2 component cache: cache granularity
     # must match the failure mode, not the code structure.
+    # BANKED INCREMENTALLY, NOT ONLY AT THE END. Three power cuts in two days cost three FULL
+    # assemblies, because the old checkpoint was all-or-nothing: a run 95% through its points had
+    # written nothing and restarted from zero. The saved state carries the RNG's bit-generator
+    # state as well as the rows, so a resumed run draws THE IDENTICAL point sequence it would have
+    # drawn -- a resume is the same computation, not a similar one. Rule 15 (cache granularity must
+    # match the failure mode) applied to the failure mode we actually have, which is power.
     import pickle
-    if rows_ckpt and os.path.exists(rows_ckpt):
-        try:
-            with open(rows_ckpt, "rb") as fh:
-                saved_unk, rows_num = pickle.load(fh)
-            if saved_unk == n_unk:
-                if verbose:
-                    print(f"  RESUMED {len(rows_num)} assembled rows from {rows_ckpt}", flush=True)
-                return _rank_from_rows(rows_num, n_unk, primes, verbose)
-            if verbose:
-                print(f"  checkpoint is for {saved_unk} unknowns, need {n_unk}; reassembling",
-                      flush=True)
-        except Exception:
-            pass
-
     rng = np.random.default_rng(seed)
     rows_num, t0 = [], time.time()
     pts_used = 0
     tries = 0
+    if rows_ckpt and os.path.exists(rows_ckpt):
+        try:
+            with open(rows_ckpt, "rb") as fh:
+                saved = pickle.load(fh)
+            if len(saved) == 2:                       # legacy: complete assembly only
+                saved_unk, saved_rows = saved
+                if saved_unk == n_unk:
+                    if verbose:
+                        print(f"  RESUMED {len(saved_rows)} assembled rows from {rows_ckpt}",
+                              flush=True)
+                    return _rank_from_rows(saved_rows, n_unk, primes, verbose)
+            else:
+                saved_unk, saved_rows, saved_pts, saved_tries, saved_state = saved
+                if saved_unk == n_unk:
+                    rows_num, pts_used, tries = saved_rows, saved_pts, saved_tries
+                    rng.bit_generator.state = saved_state
+                    if pts_used >= n_points:
+                        if verbose:
+                            print(f"  RESUMED {len(rows_num)} assembled rows from {rows_ckpt}",
+                                  flush=True)
+                        return _rank_from_rows(rows_num, n_unk, primes, verbose)
+                    if verbose:
+                        print(f"  RESUMED PARTIAL assembly: {pts_used}/{n_points} points, "
+                              f"{len(rows_num)} rows, RNG state restored", flush=True)
+            if saved_unk != n_unk and verbose:
+                print(f"  checkpoint is for {saved_unk} unknowns, need {n_unk}; reassembling",
+                      flush=True)
+                rows_num, pts_used, tries = [], 0, 0
+        except Exception:
+            rows_num, pts_used, tries = [], 0, 0
     while pts_used < n_points and tries < 20 * n_points:
         tries += 1
         r0 = sp.Rational(int(rng.integers(3, 60)), int(rng.integers(1, 7)))
@@ -502,11 +524,15 @@ def solve_kt_sampled(rank, ginv, deg_r, deg_u, den, n_points=None, primes=(21474
         pts_used += 1
         if verbose and pts_used % 10 == 0:
             print(f"    {pts_used}/{n_points} points  ({time.time()-t0:.0f}s)", flush=True)
+        if rows_ckpt and pts_used % 20 == 0:
+            with open(rows_ckpt + ".tmp", "wb") as fh:
+                pickle.dump((n_unk, rows_num, pts_used, tries, rng.bit_generator.state), fh)
+            os.replace(rows_ckpt + ".tmp", rows_ckpt)
     if verbose:
         print(f"  {len(rows_num)} rows assembled in {time.time()-t0:.1f}s", flush=True)
     if rows_ckpt:
         with open(rows_ckpt + ".tmp", "wb") as fh:
-            pickle.dump((n_unk, rows_num), fh)
+            pickle.dump((n_unk, rows_num, pts_used, tries, rng.bit_generator.state), fh)
         os.replace(rows_ckpt + ".tmp", rows_ckpt)
         if verbose:
             print(f"  rows banked to {rows_ckpt}", flush=True)
