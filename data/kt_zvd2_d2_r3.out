@@ -2,14 +2,7 @@ ZV delta=2, RANK 3, DENOMINATOR L^2
   reducible-holding box x<=16, y<=12; ansatz box x<=20, y<=16 (margin 4)
   6 reducible products at this rank, all representable at den^2
   rank 3: 7140 unknowns, 35 momentum monomials, 310 sample points -> 10850 rows
-    10/310 points  (180s)
-    20/310 points  (338s)
-    30/310 points  (519s)
-    40/310 points  (706s)
-    50/310 points  (886s)
-    60/310 points  (1058s)
-    70/310 points  (1229s)
-    80/310 points  (1403s)
-    90/310 points  (1568s)
-    100/310 points  (1742s)
-    110/310 points  (1881s)
+  RESUMED PARTIAL assembly: 120/310 points, 4200 rows, RNG state restored
+    130/310 points  (167s)
+    140/310 points  (336s)
+    150/310 points  (513s)

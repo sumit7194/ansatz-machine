@@ -19,6 +19,17 @@ for p in $(pgrep -f "scripts/_kt_" 2>/dev/null); do
 done
 RSS=$((RSS / 1024))
 DISK=$(df -g / | tail -1 | awk '{print $4}')
+# WE PUBLISHED NO MEMORY VIEW AT ALL until 2026-08-22 -- only rss_total_mb and disk. A sister
+# sizing a launch against this file got our footprint and no read on the machine. quantum
+# published the opposite error (free+speculative only, understating headroom 12x, a false STOP).
+# Both fields are published here, labelled, with the rule in the file so no reader has to guess
+# which one they are holding. Page size READ, never typed.
+PGSZ=$(sysctl -n hw.pagesize)
+eval "$(vm_stat | awk -v z="$PGSZ" '
+  /Pages free/{f=$3} /Pages inactive/{i=$3} /Pages speculative/{s=$3} /Pages purgeable/{p=$3}
+  END{gsub(/\./,"",f);gsub(/\./,"",i);gsub(/\./,"",s);gsub(/\./,"",p);
+      printf "MEMFREE=%.2f; MEMAVAIL=%.2f\n", (f+s)*z/1073741824, (f+i+s+p)*z/1073741824}')"
+PO1=$(vm_stat | awk '/Pageouts/{gsub(/\./,"",$NF); print $NF}')
 if [ "$N" -gt 0 ]; then STATE=running; DETAIL="symbolic Killing-tensor search (${N} proc), single-threaded"
 else STATE=idle; DETAIL=""; fi
 HEAVY=false; [ "$RSS" -gt 2048 ] && HEAVY=true      # derived from measured RSS, never hand-set
@@ -33,7 +44,7 @@ HEAVY=false; [ "$RSS" -gt 2048 ] && HEAVY=true      # derived from measured RSS,
 # job_pids = the actual measured jobs. Both checkable by a reader; neither is this script.
 WRITER=$PPID
 JOBS_CSV=$(pgrep -f "scripts/_kt_" 2>/dev/null | paste -sd, - )
-printf '{"session":"ansatz","repo":"/Users/sumit/Github/conjecture_machine","state":"%s","heavy":%s,"writer_pid":%s,"job_pids":"%s","rss_total_mb":%s,"disk_free_gb":%s,"stale_after_s":600,"detail":"%s","updated":"%s"}\n' \
-  "$STATE" "$HEAVY" "$WRITER" "$JOBS_CSV" "$RSS" "${DISK:-0}" "$DETAIL" "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
+printf '{"session":"ansatz","repo":"/Users/sumit/Github/conjecture_machine","state":"%s","heavy":%s,"writer_pid":%s,"job_pids":"%s","rss_total_mb":%s,"disk_free_gb":%s,"mem_free_gb":%s,"mem_available_gb":%s,"mem_rule":"free+speculative vs +inactive+purgeable; SCHEDULE ON mem_available_gb; page size read from hw.pagesize","stale_after_s":600,"detail":"%s","updated":"%s"}\n' \
+  "$STATE" "$HEAVY" "$WRITER" "$JOBS_CSV" "$RSS" "${DISK:-0}" "${MEMFREE:-0}" "${MEMAVAIL:-0}" "$DETAIL" "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
   > "$COORD/ansatz.status.tmp"
 mv "$COORD/ansatz.status.tmp" "$COORD/ansatz.status"
