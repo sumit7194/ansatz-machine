@@ -650,5 +650,21 @@ help is a different sampling design (orbits spread over the (x,y) domain rather 
 radial window), not more of this one. **Their degree-4 den² arm therefore remains OPEN, not
 negative** — and §124 already says so.
 
+**Two additions from the bridge, and the second is a shape I had not named.**
+
+**(1) The failure is JOINT, which is what makes it a method failure.** Their clean-design
+extrapolation gave 1957–2104 and failed identically to mine. **Two independent people applying the
+same method to the same corrected data got the same wrong answer.** Note the sting: this is the
+non-intersecting-failure-modes argument (rule 31) arriving as a *counterexample* — our extrapolation
+methods were **identical**, so agreement between them was worth exactly nothing. Two instruments
+agreeing is evidence only when their failure modes differ; two applications of one method agreeing
+is not a second opinion.
+
+**(2) A CORRECTED INPUT DOES NOT LAUNDER THE INFERENCE BUILT ON IT.** The ordering is the
+instructive part: I flagged the design confound, they corrected the ladder on that advice, α was
+refitted on clean inputs, **and the extrapolation failed anyway.** Having fixed the data creates the
+*feeling* of having fixed the analysis, and those are separate acts — the same structure as rule 30
+(stating a rule versus encoding it), which I had for tooling and had not applied to inference.
+
 **§124 is unaffected.** The degree-2 result it cites stands exactly as run: 5 at δ=1, 4 at δ=2,
 threshold fixed on the control arm, ten-order gap at the cut, H recovered at 6.3e-15.
