@@ -551,3 +551,67 @@ open; the bridge's degree-4 screen at den² is **coverage-limited, not represent
 (basis rank rising 413 → 666 → 974 with orbit count) and therefore open rather than negative.
 **Nothing bounds the rank** — the grading theorem gives rung independence and finiteness of each
 rung, not of the ladder. So this extends §98's map; it does not close the question behind it.
+
+## D34 — den² ladder: scope written FIRST, then predictions, then the runs (2026-08-22)
+
+Per rule 37, the exclusion list is written **before** the headline, so it is a specification of what
+this establishes rather than a subtraction from something already believed.
+
+### WHAT THIS CANNOT REACH, stated before a single run
+
+1. **den³ and beyond.** Coefficients carrying `L³` produce the same clean integer as their absence,
+   exactly as den² did to the den¹ prover. This moves the blind spot; it does not remove it.
+2. **Numerator degree above the stated box.** The ansatz is
+   `(polynomial of degree ≤ dx, dy) / L²`. There is **no a priori bound** on the numerator degree of
+   a genuine Killing tensor, so the box is a *choice*. It is set to the measured reducible-holding
+   box **plus a margin of 4 in each variable** — strictly larger than what it must contain, and
+   still finite.
+3. **Rank ≥ 5 at den².** Not attempted here on cost grounds. Named, not silently omitted.
+4. **Non-integer δ.** ZV is rational only at integer δ; δ = 1 and 2 only.
+5. **Nothing bounds the rank.** Unchanged from §124. The grading theorem gives rung independence
+   and finiteness of *each* rung, not of the ladder.
+
+### THE FREE STRUCTURAL CHECK, and it is new
+
+Any `p/L` equals `(p·L)/L²`. With the boxes below, the **den¹ ansatz sits strictly inside the den²
+ansatz** — δ=1: den¹ (5,6) × L(3,2) = (8,8) ≤ (10,10); δ=2: den¹ (10,12) × L(8,2) = (18,14) ≤
+(20,16). Therefore:
+
+> **dim(den² solution) ≥ dim(den¹ solution), ALWAYS.**
+
+A den² answer *below* the den¹ answer is impossible and condemns the run. Same class as
+`dim(reducible) ≤ dim(solution)`, costs nothing, and — per rule 18 — it guards one direction only.
+
+### PRE-REGISTERED PREDICTIONS, with two-sided known-FAILs
+
+At den², **every** reducible product becomes representable — the exclusions that made §124's den¹
+numbers smaller than the full spans disappear. So:
+
+    arm/rank        den¹ measured    den² PREDICTED     what changes
+    δ=1 rank 2            5                5           nothing was dropped at den¹
+    δ=1 rank 3            8                8           nothing was dropped at den¹
+    δ=1 rank 4           11               14           Lsq², H·Lsq, H² become representable
+    δ=2 rank 2            4                4           nothing was dropped; ALSO bridge-confirmed
+    δ=2 rank 3            6                6           nothing was dropped at den¹
+    δ=2 rank 4            8                9           H² becomes representable
+
+**The two rank-4 rows are the entire experiment. Ranks 2 and 3 are calibration** — they must
+reproduce the den¹ answers exactly, because nothing was excluded there in the first place, and
+δ=2 rank 2 carries an **external** check: the bridge's independent screen, which has no denominator
+scope at all, returned 4.
+
+**KNOWN-FAIL, both directions:**
+- **Above the prediction** → a Killing tensor that is not a product of the measured generators,
+  living at den². At δ=2 that is **an irreducible Killing tensor on an exact vacuum solution** and
+  the headline result of this project.
+- **Below the den¹ answer** → violates the containment above; the run is wrong, not the spacetime.
+- **Between the den¹ answer and the prediction at rank 4** → the box does not hold what it was
+  measured to hold; an assembly or degree bug, not a physics result.
+
+### Sizes, so the cost is on record before it is spent
+
+    δ=1 r2   1210 unknowns    94 points        δ=2 r2   3570 unknowns   271 points
+    δ=1 r3   2420 unknowns   107 points        δ=2 r3   7140 unknowns   310 points
+    δ=1 r4   5005 unknowns   138 points        δ=2 r4  18375 unknowns   496 points
+
+Repro: `scripts/_kt_zv_den2.py <delta> <rank>`.
