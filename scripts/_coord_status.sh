@@ -22,7 +22,18 @@ DISK=$(df -g / | tail -1 | awk '{print $4}')
 if [ "$N" -gt 0 ]; then STATE=running; DETAIL="symbolic Killing-tensor search (${N} proc), single-threaded"
 else STATE=idle; DETAIL=""; fi
 HEAVY=false; [ "$RSS" -gt 2048 ] && HEAVY=true      # derived from measured RSS, never hand-set
-printf '{"session":"ansatz","repo":"/Users/sumit/Github/conjecture_machine","state":"%s","heavy":%s,"pid":%s,"rss_total_mb":%s,"disk_free_gb":%s,"stale_after_s":600,"detail":"%s","updated":"%s"}\n' \
-  "$STATE" "$HEAVY" "$$" "$RSS" "${DISK:-0}" "$DETAIL" "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
+# THE `pid` FIELD WAS DEAD BY CONSTRUCTION UNTIL 2026-08-22. It published `$$` -- the PID of THIS
+# script, which exits milliseconds later. The field exists so a reader can apply blackhole's rule
+# ("a status whose pid is gone is UNKNOWN, fail open"), and it therefore made every read of this
+# file resolve to UNKNOWN, forever. A liveness field that is guaranteed dead is worse than absent:
+# absent is visible, always-dead looks like a working mechanism failing safe. Found by checking
+# `ps` against the field rather than reading the code, after quantum reported the mirror bug
+# (a status that never existed at all, so nothing could go stale).
+# Now published: writer_pid = the long-lived process that invoked this (the keepalive), and
+# job_pids = the actual measured jobs. Both checkable by a reader; neither is this script.
+WRITER=$PPID
+JOBS_CSV=$(pgrep -f "scripts/_kt_" 2>/dev/null | paste -sd, - )
+printf '{"session":"ansatz","repo":"/Users/sumit/Github/conjecture_machine","state":"%s","heavy":%s,"writer_pid":%s,"job_pids":"%s","rss_total_mb":%s,"disk_free_gb":%s,"stale_after_s":600,"detail":"%s","updated":"%s"}\n' \
+  "$STATE" "$HEAVY" "$WRITER" "$JOBS_CSV" "$RSS" "${DISK:-0}" "$DETAIL" "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
   > "$COORD/ansatz.status.tmp"
 mv "$COORD/ansatz.status.tmp" "$COORD/ansatz.status"
