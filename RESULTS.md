@@ -2191,3 +2191,63 @@ which one they are reporting** — that distinction is the single most important
 
 Repro: `scripts/_kt_zv_high.py <delta> <rank>`, `scripts/_kt_reducible.py <delta> <rank_max>
 [--representable]`, `scripts/_kt_emit_basis.py <delta> <rank> <den_power>`.
+
+## §125 — den²: looking into the region the §124 prover is blind in
+
+**What this is for.** §124's headline carries one caveat: the prover solves in `(polynomial)/L`, **one
+power of the denominator**, so a Killing tensor whose coefficients carry `L²` produces **the same
+clean integer as its absence.** Blind, not negative. This ladder widens the ansatz to `den²` and
+asks whether anything was hiding there.
+
+**Scope written BEFORE the runs** (D34, and this ordering is the point — a scope written first is a
+specification, written last it is a subtraction): den³ and beyond still blind; numerator degree
+above the stated box unreachable and the box is a *choice*, set to the measured reducible-holding
+box **plus a margin of 4 in each variable** so it is strictly larger than what it must contain;
+rank ≥ 5 at den² not attempted; non-integer δ out of reach; and **nothing bounds the rank.**
+
+**A free structural check comes with the widening.** Any `p/L` equals `(p·L)/L²`, so with these
+boxes the den¹ ansatz sits **strictly inside** the den² ansatz — therefore
+**dim(den²) ≥ dim(den¹), always.** A den² answer below its den¹ counterpart condemns the run rather
+than the spacetime. It held at every rung.
+
+**Six predictions, committed before any den² run existed. Five tested, five held:**
+
+    rank              2      3      4
+    δ=1  den¹         5      8     11
+    δ=1  den²         5      8     14      predicted 5, 8, 14
+    δ=2  den¹         4      6      8
+    δ=2  den²         4      6     ----    predicted 4, 6, (9 not run)
+
+**Ranks 2 and 3 are calibration and had to come back unchanged** — nothing was excluded at those
+ranks under den¹, so a *change* there would have meant the wider box broke something rather than
+revealed something. **δ=2 rank 2 additionally agrees with the bridge's independent numerical screen**,
+which has no denominator scope at all, and which filed 4 as a prediction on the record before this
+run completed.
+
+**THE RESULT IS THE δ=1 RANK-4 ROW, AND IT IS THE COMPLETE ACCOUNTING RATHER THAN THE MATCHING
+COUNT.** den¹ gave 11; den² gives 14; and the three new elements are **exactly `Lsq²`, `H·Lsq` and
+`H²` — precisely the products that `L²` makes representable, with no residue.** Every element of the
+increase is identified, and nothing is left over. A matching count would be consistent with an
+irreducible tensor coincidentally offsetting a miscount; **a complete accounting is not.** So on the
+Schwarzschild arm at rank 4, widening into the blind region recovers the reducibles that were being
+excluded and nothing else: **no irreducible Killing tensor was hiding there.**
+
+**δ=2 RANK 4 IS OPEN AND BLOCKED ON TOOLING, NOT MATHEMATICS.** The rung was cancelled on a memory
+finding about our own instrument, recorded in full at D37: the figure we published three times —
+**4.75 GiB/prime** — is the size of the numpy matrix at the *rank step*. The peak is the
+**assembly**, which materialises every row as a Python list-of-lists of exact integers before any
+numpy exists, at **63 bytes/entry measured**:
+
+    rank 3:  10850 ×  7140 =  77M entries  ->  MEASURED 4.58 GB
+    rank 4:  34720 × 18375 = 638M entries  ->  PROJECTED ~38 GB
+
+**It does not fit at any concurrency** — not alongside another session, not alone, not with every
+process on the machine stopped. What unblocks it is **online elimination**: reduce each row into a
+running basis as it arrives, keeping at most `n_unk` rows, which bounds memory independently of the
+sample count. Deferred deliberately — it is a change to the numerical core and will be held to the
+bar the resume fix met, a **known-answer rung reproduced bit-identically** before it is trusted on a
+rung with no known answer, with the ceiling **verified by measurement and by which phase the
+high-water mark falls in**, never by `18375² × 8` arithmetic (which is the same *kind* of object as
+the 4.75 figure — correct about a structure, silent about which phase dominates).
+
+Repro: `scripts/_kt_zv_den2.py <delta> <rank>`. Logs in `data/kt_zvd2_*.out`, tracked.

@@ -25,3 +25,6 @@ ZV delta=2, RANK 3, DENOMINATOR L^2
   10850 rows assembled in 3196.8s
   rows banked to /Users/sumit/Github/conjecture_machine/data/kt_zvd2_d2_r3.pkl
     mod 2147483647: rank 7134 -> nullspace dimension 6
+    mod 2147483629: rank 7134 -> nullspace dimension 6
+
+  ZV delta=2 RANK 3 den^2: DIMENSION 6   [4068s]
