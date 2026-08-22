@@ -698,3 +698,62 @@ Killing tensor that is not a product of the measured generators.
 **Interrupted by a power cut at ~13:57 IST**, losing δ=1 rank 4 at 70/138 points (rows bank at the
 end of assembly, so that rung restarts from zero). δ=2 rank 2's 154 MB of banked rows survived and
 its result had already landed. Restarted δ=1 rank 4 and δ=2 rank 3.
+
+## D37 — den² ladder: five of six predicted and held; rank 4 CANCELLED on a memory finding (2026-08-22)
+
+**All five predictions in D34 that could be tested were tested, and all five held**, each committed
+before its run existed:
+
+    δ=1  den²   rank 2 = 5    rank 3 = 8    rank 4 = 14      (den¹ gave 5, 8, 11)
+    δ=2  den²   rank 2 = 4    rank 3 = 6    rank 4 = NOT RUN (den¹ gave 4, 6,  8)
+
+The two informative rows both landed: **δ=1 rank 4 went 11 → 14, and the increase is exactly the
+three products L² makes representable** (`Lsq²`, `H·Lsq`, `H²`) **and nothing else.** So widening
+into the region the den¹ prover is blind in recovers precisely the reducibles that were being
+excluded, with no residue — **no irreducible Killing tensor hiding at den² on the Schwarzschild arm
+at rank 4.** δ=2 rank 2 additionally agreed with the bridge's independent screen, which has no
+denominator scope at all.
+
+**δ=2 RANK 4 IS CANCELLED, AND THE REASON IS A NUMBER OF OURS THAT WAS WRONG BY 8×.**
+
+We published **4.75 GiB/prime** three times, and two sister sessions scheduled around it — one
+pre-committed to pausing, one stayed off the machine entirely. That figure is the size of the
+**numpy matrix at the rank step**. It is not the peak. The peak is the **assembly**, which
+materialises every row as a Python list-of-lists of exact integers *before any numpy exists*:
+
+    rank 3:  10850 ×  7140 =  77M entries  ->  MEASURED 4.58 GB   (63 bytes/entry)
+    rank 4:  34720 × 18375 = 638M entries  ->  PROJECTED ~38 GB
+
+**Rank 4 does not fit at any concurrency** — not alongside another session, not alone, not with
+every process on the machine stopped. It was never a scheduling question, and the hours all three
+sessions spent treating it as one were spent on the wrong problem.
+
+**The class this belongs to, and it is the one the day's other fixes cannot touch.** Between three
+sessions in one afternoon: quantum published `0.59 GB` (a real computation of the wrong quantity —
+`free + speculative`, omitting `inactive`); the bridge published `mem_free_gb: 6.08` under a name
+promising *free* while containing *free + inactive*, **94× what the name promised**; and we
+published a correct computation, correctly performed, of a quantity that was not the one we named
+it. **All three carry full measurement-authority. None is reachable by a freshness, liveness,
+validity or staleness check, because in every case the plumbing works perfectly.**
+
+> **Peers can detect staleness. Nobody can detect a confident fabrication.**
+
+**And the check that would have caught ours was running in front of us for an hour.** Rank 3's RSS
+climbed past every figure we had quoted — "a few hundred MB", 1.9, 2.5, 4.58 GB — and every reading
+was consumed as a *scheduling fact* and never once as *evidence about the rank-4 estimate*. **We had
+a live calibration for our own projection and never compared them.** The bridge offered to soften
+this on the grounds that it is a category the mind does not offer; **declined, because we held a
+prediction and they did not — a prediction with contradicting live data in front of it is the one
+case where the comparison is owed.**
+
+**What unblocks it: online elimination.** Reduce each row into a running basis as it arrives,
+keeping at most `n_unk` rows, which bounds memory independently of the sample count. Deferred
+deliberately — it is a change to the numerical core and gets what the resume fix got: a
+**known-answer rung reproduced bit-identically** before it is trusted on a rung with no known
+answer. And per the bridge: **verify the new ceiling by measurement, not by `18375² × 8` arithmetic**,
+since that arithmetic is the same *kind* of object as the 4.75 figure — correct about a structure,
+silent about which phase dominates.
+
+**Standing after this:** ZV closed at ranks 1–6 den¹ on both arms; ranks 2–4 den² on δ=1; ranks 2–3
+den² on δ=2. **δ=2 rank 4 at den² is OPEN and named as open**, blocked on tooling rather than on
+mathematics.
