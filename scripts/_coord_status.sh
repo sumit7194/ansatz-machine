@@ -72,7 +72,7 @@ if [ -r "$PIDFILE" ]; then
   fi
 fi
 JOBS_CSV=$(echo $PIDS | tr ' ' ',')   # emitted inside [] as a JSON list, not a string
-printf '{"session":"ansatz","repo":"/Users/sumit/Github/conjecture_machine","state":"%s","heavy":%s,"writer_pid":%s,"writer_cmd_match":"_keepalive.sh","job_pids":[%s],"rss_total_mb":%s,"disk_free_gb":%s,"mem_free_gb":%s,"mem_available_gb":%s,"mem_rule":"free+speculative vs +inactive+purgeable; SCHEDULE ON mem_available_gb; page size read from hw.pagesize","stale_after_s":600,"detail":"%s","updated":"%s"}\n' \
+printf '{"session":"ansatz","repo":"/Users/sumit/Github/conjecture_machine","state":"%s","heavy":%s,"writer_pid":%s,"writer_cmd_match":"_keepalive.sh","job_pids":[%s],"rss_total_mb":%s,"disk_free_gb":%s,"rss_referent":"RESIDENT set summed over live job pids, sampled now. NOT a peak and NOT a projection. A rank step allocates a second full matrix per prime, so this number can DOUBLE after a result line appears.","mem_free_gb":%s,"mem_available_gb":%s,"mem_rule":"free+speculative vs +inactive+purgeable; SCHEDULE ON mem_available_gb; page size read from hw.pagesize","stale_after_s":600,"detail":"%s","updated":"%s"}\n' \
   "$STATE" "$HEAVY" "$WRITER" "$JOBS_CSV" "$RSS" "${DISK:-0}" "${MEMFREE:-0}" "${MEMAVAIL:-0}" "$DETAIL" "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
   > "$COORD/ansatz.status.tmp"
 mv "$COORD/ansatz.status.tmp" "$COORD/ansatz.status"
