@@ -668,3 +668,33 @@ refitted on clean inputs, **and the extrapolation failed anyway.** Having fixed 
 
 **§124 is unaffected.** The degree-2 result it cites stands exactly as run: 5 at δ=1, 4 at δ=2,
 threshold fixed on the control arm, ten-order gap at the cut, H recovered at 6.3e-15.
+
+## D36 — den² calibration arm: three of three passed, including the external one (2026-08-22)
+
+All three predicted in D34, before any den² run existed. All three measured on both primes.
+
+    δ=1 rank 2 den² = 5    predicted 5    PASS   (den¹ was 5)
+    δ=1 rank 3 den² = 8    predicted 8    PASS   (den¹ was 8)
+    δ=2 rank 2 den² = 4    predicted 4    PASS   (den¹ was 4; ALSO the bridge's number)
+
+**These had to reproduce the den¹ answers exactly**, because nothing was excluded at those ranks in
+the first place — so a *change* here would have meant the wider box broke something rather than
+revealed something. The containment check holds at all three: no den² answer fell below its den¹
+counterpart.
+
+**δ=2 rank 2 carries an external test as well.** The bridge's numerical screen — no denominator
+scope, entirely different failure modes — returned **4** at momentum-degree 2 on δ=2, and stated
+that value *as a prediction on the record before this run completed*. It now agrees with an exact
+GF(p) nullspace over a den² ansatz. **Both instruments are at den² on this point**, rather than one
+being extended to meet the other.
+
+**What the calibration arm does NOT establish**, stated because the temptation is to read three
+passes as more than they are: it shows the den² machinery reproduces known answers where nothing
+was hidden. **It says nothing yet about the region the ladder was built for.** The two rank-4 rows
+are the experiment — δ=1 predicted **14** against den¹'s 11, δ=2 predicted **9** against den¹'s 8 —
+and the increase is exactly the products that L² makes representable. Anything above those is a
+Killing tensor that is not a product of the measured generators.
+
+**Interrupted by a power cut at ~13:57 IST**, losing δ=1 rank 4 at 70/138 points (rows bank at the
+end of assembly, so that rung restarts from zero). δ=2 rank 2's 154 MB of banked rows survived and
+its result had already landed. Restarted δ=1 rank 4 and δ=2 rank 3.
