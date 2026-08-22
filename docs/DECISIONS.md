@@ -615,3 +615,40 @@ scope at all, returned 4.
     δ=1 r4   5005 unknowns   138 points        δ=2 r4  18375 unknowns   496 points
 
 Repro: `scripts/_kt_zv_den2.py <delta> <rank>`.
+
+## D35 — a pre-registered prediction of MINE that FAILED (2026-08-22, the bridge's n=320)
+
+Recorded at the same weight as D31/D32/D33, which recorded three that held. **A record showing only
+successful pre-registrations is not a record of pre-registration.**
+
+**I predicted the bridge's basis rank at n=320 would land at 1900–2100 if saturating and ~3900 if
+linear, target 2205. Measured: 1364.** My band overestimated by **47%**. Their own clean-design
+extrapolation gave 1957–2104 and was wrong in the same direction and by nearly the same amount, so
+this is not a disagreement between us — **both extrapolations failed identically.**
+
+    n= 20 -> 475      alpha 20->40   = 0.642
+    n= 40 -> 741      alpha 40->80   = 0.501
+    n= 80 -> 1049     alpha 80->320  = 0.189   <- collapsed
+    n=320 -> 1364     predicted 1900-2100
+
+**The methodological cause, which is theirs and is the transferable part:**
+
+> **A decelerating trend has no stable exponent to extrapolate, and fitting one on consecutive pairs
+> assumes exactly the thing it is measuring.**
+
+I had warned them to *"compare against the α trend, not the gap"* — correct as far as it went, and
+**still not enough**, because I then extrapolated using that trend as though it were stationary. The
+α values were not a noisy estimate of one exponent; they were samples of a function still bending.
+Note the error survived the design-confound correction: α was refitted on the clean ladder and the
+extrapolation failed anyway, so **the fault is in the extrapolation, not in the inputs**.
+
+**The finding this produces is stronger than the one I proposed.** Not *"degree 4 needs more
+orbits"* but: **no affordable orbit count reaches full rank with this sampling design** — per-orbit
+yield collapses faster than the deficit closes. At 8× the orbits and 16× the rows of the arm that
+first failed, the screen recovers **4 conserved directions against the 14 required**. What would
+help is a different sampling design (orbits spread over the (x,y) domain rather than drawn from a
+radial window), not more of this one. **Their degree-4 den² arm therefore remains OPEN, not
+negative** — and §124 already says so.
+
+**§124 is unaffected.** The degree-2 result it cites stands exactly as run: 5 at δ=1, 4 at δ=2,
+threshold fixed on the control arm, ten-order gap at the cut, H recovered at 6.3e-15.
