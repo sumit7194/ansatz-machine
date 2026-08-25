@@ -1,0 +1,9 @@
+ZV delta=1, RANK 2, DENOMINATOR L^2
+  reducible-holding box x<=6, y<=6; ansatz box x<=10, y<=10 (margin 4)
+  5 reducible products at this rank, all representable at den^2
+  rank 2: 1210 unknowns, 20 momentum monomials, 94 sample points -> up to 1880 rows
+  storage: 2 x int32[1880,1210] = 0.02 GiB resident
+    10/94 points, 200 rows  (23s)
+    20/94 points, 400 rows  (45s)
+    30/94 points, 600 rows  (66s)
+    40/94 points, 800 rows  (88s)
