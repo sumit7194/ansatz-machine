@@ -579,3 +579,170 @@ def _rank_from_rows(rows_num, n_unk, primes, verbose):
         print(f"  PRIMES DISAGREE {dims} -> UNKNOWN, not averaged", flush=True)
         return None
     return dims[0]
+
+
+def solve_kt_modp(rank, ginv, deg_r, deg_u, den, n_points=None,
+                  primes=(2147483647, 2147483629), verbose=True, seed=12345,
+                  ckpt=None, ckpt_every=150, chunk=2000):
+    """Same system as solve_kt_sampled, but REDUCED MOD p DURING ASSEMBLY.
+
+    WHY THIS EXISTS. solve_kt_sampled accumulates every row as a Python list of exact rationals and
+    only converts to numpy at the end, so BOTH structures are live at once. Measured at 63 bytes per
+    entry, delta=2 rank 4 at den^2 needs 638M entries = 37 GB for the Python half alone, plus 4.75
+    GiB for the numpy half: 42 GB, which fits nowhere. We published "4.75 GiB/prime" for a day and
+    declined the rung on it; that figure was the numpy matrix at the RANK STEP, not the peak.
+
+    THE 37 GB WAS NEVER A PROPERTY OF THE PROBLEM. It is the cost of holding, as Python objects,
+    integers that fit in 4 bytes. Reducing each row mod p as it is produced means the Python
+    structure never exists: storage is two int32 arrays, 3.8 GiB total, and the run fits in RAM.
+
+    int32 STORAGE, int64 ARITHMETIC. Residues are < 2^31 so they store in int32, but the
+    elimination forms products up to p^2 ~ 4.6e18, which needs int64. The update is therefore done
+    on int64 views of row CHUNKS -- a whole-matrix int64 temporary would be 4 GiB and reintroduce
+    the problem one level down.
+
+    NOT A DROP-IN REPLACEMENT AND NOT YET TRUSTED. This changes the numerical path, so it is held to
+    the bar the resume fix met: reproduce a known-answer rung EXACTLY before it is believed on a rung
+    with no known answer."""
+    import numpy as np
+
+    H = sp.Rational(1, 2) * sum(ginv[i, j] * MOM[i] * MOM[j] for i in range(DIM) for j in range(DIM))
+    mons = monomials(rank)
+    out_mons = monomials(rank + 1)
+    cols = [(mi, j, k) for mi in range(len(mons))
+            for j in range(deg_r + 1) for k in range(deg_u + 1)]
+    n_unk = len(cols)
+    if n_points is None:
+        n_points = int(1.5 * n_unk / len(out_mons)) + 4
+    max_rows = n_points * len(out_mons)
+    if verbose:
+        print(f"  rank {rank}: {n_unk} unknowns, {len(out_mons)} momentum monomials, "
+              f"{n_points} sample points -> up to {max_rows} rows", flush=True)
+        print(f"  storage: {len(primes)} x int32[{max_rows},{n_unk}] = "
+              f"{len(primes)*max_rows*n_unk*4/2**30:.2f} GiB resident", flush=True)
+
+    dH = [sp.diff(H, COORDS[i]) for i in DEP]
+    dHdp = [sp.diff(H, MOM[i]) for i in DEP]
+    ws = []
+    for (mi, j, k) in cols:
+        w = COORDS[DEP[0]]**j * COORDS[DEP[1]]**k / den
+        ws.append((w, sp.diff(w, COORDS[DEP[0]]), sp.diff(w, COORDS[DEP[1]])))
+    dm = [[sp.diff(mono_expr(e), MOM[i]) for i in DEP] for e in mons]
+    me = [mono_expr(e) for e in mons]
+
+    Ms = [np.zeros((max_rows, n_unk), dtype=np.int32) for _ in primes]
+    nrows, pts_used, tries = 0, 0, 0
+    rng = np.random.default_rng(seed)
+    t0 = time.time()
+
+    if ckpt and os.path.exists(ckpt + ".npz"):
+        try:
+            z = np.load(ckpt + ".npz", allow_pickle=True)
+            if int(z["n_unk"]) == n_unk:
+                nrows, pts_used, tries = int(z["nrows"]), int(z["pts"]), int(z["tries"])
+                for pi in range(len(primes)):
+                    Ms[pi][:nrows] = z[f"M{pi}"]
+                rng.bit_generator.state = z["rng"].item()
+                if verbose:
+                    print(f"  RESUMED PARTIAL: {pts_used}/{n_points} points, {nrows} rows, "
+                          f"RNG state restored", flush=True)
+        except Exception:
+            nrows, pts_used, tries = 0, 0, 0
+
+    def bank():
+        if not ckpt:
+            return
+        np.savez(ckpt + ".tmp.npz", n_unk=n_unk, nrows=nrows, pts=pts_used, tries=tries,
+                 rng=np.array(rng.bit_generator.state, dtype=object),
+                 **{f"M{pi}": Ms[pi][:nrows] for pi in range(len(primes))})
+        os.replace(ckpt + ".tmp.npz", ckpt + ".npz")
+
+    while pts_used < n_points and tries < 20 * n_points:
+        tries += 1
+        r0 = sp.Rational(int(rng.integers(3, 60)), int(rng.integers(1, 7)))
+        u0 = sp.Rational(int(rng.integers(-9, 10)), 11)
+        sub = {COORDS[DEP[0]]: r0, COORDS[DEP[1]]: u0}
+        try:
+            dH0 = [sp.together(d.subs(sub)) for d in dH]
+            dHdp0 = [sp.together(d.subs(sub)) for d in dHdp]
+            if any(x.has(sp.zoo, sp.nan, sp.oo) for x in dH0 + dHdp0):
+                continue
+            wv, ok = [], True
+            for (w, wr, wu) in ws:
+                a, b, c = w.subs(sub), wr.subs(sub), wu.subs(sub)
+                if any(x.has(sp.zoo, sp.nan, sp.oo) for x in (a, b, c)):
+                    ok = False
+                    break
+                wv.append((a, b, c))
+            if not ok:
+                continue
+        except Exception:
+            continue
+        block = {e: [sp.S.Zero] * n_unk for e in out_mons}
+        for i, (mi, j, k) in enumerate(cols):
+            w, wr, wu = wv[i]
+            expr = sum(dH0[q] * w * dm[mi][q] for q in range(len(DEP)))
+            expr -= sum((wr, wu)[q] * dHdp0[q] * me[mi] for q in range(len(DEP)))
+            if expr == 0:
+                continue
+            poly = sp.Poly(sp.expand(expr), *MOM)
+            for e in out_mons:
+                c = poly.coeff_monomial(mono_expr(e))
+                if c != 0:
+                    block[e][i] = c
+        for e in out_mons:
+            row = block[e]
+            nz = [(b, x) for b, x in enumerate(row) if x != 0]
+            if not nz:
+                continue
+            L = sp.Integer(1)
+            for _, x in nz:
+                L = sp.lcm(L, sp.denom(x))
+            for pi, p in enumerate(primes):
+                for b, x in nz:
+                    Ms[pi][nrows, b] = int(sp.Integer(sp.cancel(x * L)) % p)
+            nrows += 1
+        pts_used += 1
+        if verbose and pts_used % 10 == 0:
+            print(f"    {pts_used}/{n_points} points, {nrows} rows  ({time.time()-t0:.0f}s)",
+                  flush=True)
+        if ckpt and pts_used % ckpt_every == 0:
+            bank()
+    bank()
+    if verbose:
+        print(f"  {nrows} rows assembled in {time.time()-t0:.1f}s", flush=True)
+
+    dims = []
+    for pi, p in enumerate(primes):
+        M = Ms[pi][:nrows]
+        rk, piv = 0, 0
+        t1 = time.time()
+        for c in range(n_unk):
+            nz = np.nonzero(M[piv:, c])[0]
+            if nz.size == 0:
+                continue
+            i0 = piv + nz[0]
+            if i0 != piv:
+                M[[piv, i0]] = M[[i0, piv]]
+            inv = pow(int(M[piv, c]), p - 2, p)
+            M[piv] = ((M[piv].astype(np.int64) * inv) % p).astype(np.int32)
+            nzb = np.nonzero(M[:, c])[0]
+            nzb = nzb[nzb != piv]
+            pivrow = M[piv].astype(np.int64)
+            for s in range(0, nzb.size, chunk):     # chunked: a whole-matrix int64 temp is 4 GiB
+                idx = nzb[s:s + chunk]
+                blk = M[idx].astype(np.int64)
+                blk -= np.outer(blk[:, c], pivrow)
+                M[idx] = (blk % p).astype(np.int32)
+            piv += 1
+            rk += 1
+            if verbose and rk % 2000 == 0:
+                print(f"    mod {p}: {rk} pivots  ({time.time()-t1:.0f}s)", flush=True)
+        if verbose:
+            print(f"    mod {p}: rank {rk} -> nullspace dimension {n_unk - rk}  "
+                  f"[{time.time()-t1:.0f}s]", flush=True)
+        dims.append(n_unk - rk)
+    if len(set(dims)) != 1:
+        print(f"  PRIMES DISAGREE: {dims} -- UNKNOWN, not averaged", flush=True)
+        return None
+    return dims[0]

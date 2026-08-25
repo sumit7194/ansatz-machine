@@ -83,6 +83,12 @@ if __name__ == "__main__":
     ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     ck = os.path.join(ROOT, "data", f"kt_zvd2_d{delta}_r{rank}.pkl")
     t0 = time.time()
-    d = K.solve_kt_sampled(rank, ginv, dx, dy, L**2, verbose=True, rows_ckpt=ck)
+    # --modp reduces each row mod p AS IT IS ASSEMBLED, so the exact-integer Python structure never
+    # exists. Same system, same points, same seed -- different storage. It must reproduce a known
+    # rung EXACTLY before it is used on one with no known answer.
+    if "--modp" in sys.argv:
+        d = K.solve_kt_modp(rank, ginv, dx, dy, L**2, verbose=True, ckpt=ck + ".modp")
+    else:
+        d = K.solve_kt_sampled(rank, ginv, dx, dy, L**2, verbose=True, rows_ckpt=ck)
     print(f"\n  ZV delta={delta} RANK {rank} den^2: DIMENSION {d}   [{time.time()-t0:.0f}s]",
           flush=True)
