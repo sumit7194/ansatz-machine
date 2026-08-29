@@ -1,0 +1,23 @@
+ZV delta=2, RANK 4, DENOMINATOR L^2
+  reducible-holding box x<=16, y<=20; ansatz box x<=16, y<=20 (margin 4)
+  9 reducible products at this rank, all representable at den^2
+  rank 4: 12495 unknowns, 56 momentum monomials, 338 sample points -> up to 18928 rows
+  storage: 2 x int32[18928,12495] = 1.76 GiB resident
+  RESUMED PARTIAL: 338/338 points, 18928 rows, RNG state restored
+  18928 rows assembled in 2.4s
+    mod 2147483647: 2000 pivots  (68s)
+    mod 2147483647: 4000 pivots  (180s)
+    mod 2147483647: 6000 pivots  (345s)
+    mod 2147483647: 8000 pivots  (510s)
+    mod 2147483647: 10000 pivots  (722s)
+    mod 2147483647: 12000 pivots  (986s)
+    mod 2147483647: rank 12481 -> nullspace dimension 14  [1056s]
+    mod 2147483629: 2000 pivots  (65s)
+    mod 2147483629: 4000 pivots  (173s)
+    mod 2147483629: 6000 pivots  (335s)
+    mod 2147483629: 8000 pivots  (499s)
+    mod 2147483629: 10000 pivots  (707s)
+    mod 2147483629: 12000 pivots  (962s)
+    mod 2147483629: rank 12481 -> nullspace dimension 14  [1028s]
+
+  ZV delta=2 RANK 4 den^2: DIMENSION 14   [2088s]
