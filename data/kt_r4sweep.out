@@ -1,0 +1,5 @@
+delta=1 rank 4 den^2 -- TRUE ANSWER 14 -- dimension vs sample count
+  points=138  ->  dimension 14   (2061s)
+  points=200  ->  dimension 14   (2940s)
+  points=280  ->  dimension 14   (4396s)
+DONE

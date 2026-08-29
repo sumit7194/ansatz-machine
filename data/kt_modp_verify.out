@@ -7,3 +7,13 @@ ZV delta=1, RANK 2, DENOMINATOR L^2
     20/94 points, 400 rows  (45s)
     30/94 points, 600 rows  (66s)
     40/94 points, 800 rows  (88s)
+    50/94 points, 1000 rows  (111s)
+    60/94 points, 1200 rows  (134s)
+    70/94 points, 1400 rows  (157s)
+    80/94 points, 1600 rows  (179s)
+    90/94 points, 1800 rows  (201s)
+  1880 rows assembled in 209.8s
+    mod 2147483647: rank 1205 -> nullspace dimension 5  [2s]
+    mod 2147483629: rank 1205 -> nullspace dimension 5  [2s]
+
+  ZV delta=1 RANK 2 den^2: DIMENSION 5   [213s]

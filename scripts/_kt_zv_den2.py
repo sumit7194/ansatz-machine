@@ -76,6 +76,13 @@ if __name__ == "__main__":
             bx, by = max(bx, pp.degree(x)), max(by, pp.degree(y))
 
     dx, dy = bx + MARGIN, by + MARGIN
+    # --box DX DY overrides the ansatz box. The box is a CHOICE, and its size is the one structural
+    # difference between the delta=1 rank-4 run (143 coefficient functions, answer 14 and correct)
+    # and the delta=2 rank-4 run (525 functions, answer 34 against a reducible span of 9). If
+    # enlarging the box on a KNOWN-ANSWER rung inflates its dimension, the box is the mechanism.
+    if "--box" in sys.argv:
+        i = sys.argv.index("--box")
+        dx, dy = int(sys.argv[i + 1]), int(sys.argv[i + 2])
     print(f"ZV delta={delta}, RANK {rank}, DENOMINATOR L^2", flush=True)
     print(f"  reducible-holding box x<={bx}, y<={by}; ansatz box x<={dx}, y<={dy} "
           f"(margin {MARGIN})", flush=True)
@@ -86,8 +93,15 @@ if __name__ == "__main__":
     # --modp reduces each row mod p AS IT IS ASSEMBLED, so the exact-integer Python structure never
     # exists. Same system, same points, same seed -- different storage. It must reproduce a known
     # rung EXACTLY before it is used on one with no known answer.
+    # --points N overrides the sample count. The default is a ROW-COUNT heuristic
+    # (1.5 x unknowns / equations-per-point) and says nothing about whether the points suffice to
+    # PIN DOWN the coefficient functions, which is a different requirement.
+    npts = None
+    if "--points" in sys.argv:
+        npts = int(sys.argv[sys.argv.index("--points") + 1])
     if "--modp" in sys.argv:
-        d = K.solve_kt_modp(rank, ginv, dx, dy, L**2, verbose=True, ckpt=ck + ".modp")
+        tag = f".modp{'' if npts is None else '.p' + str(npts)}"
+        d = K.solve_kt_modp(rank, ginv, dx, dy, L**2, n_points=npts, verbose=True, ckpt=ck + tag)
     else:
         d = K.solve_kt_sampled(rank, ginv, dx, dy, L**2, verbose=True, rows_ckpt=ck)
     print(f"\n  ZV delta={delta} RANK {rank} den^2: DIMENSION {d}   [{time.time()-t0:.0f}s]",

@@ -1,0 +1,6 @@
+delta=1 rank 2 den^2 -- TRUE ANSWER 5 -- dimension vs ANSATZ BOX (points auto-scaled)
+  reducible-holding box is x<=6,y<=6; default ansatz is x<=10,y<=10 = 121 functions
+  box x<=10,y<=10 = 121 functions, 94 points  ->  dimension 5   (5s)
+  box x<=14,y<=14 = 225 functions, 172 points  ->  dimension 5   (825s)
+  box x<=20,y<=20 = 441 functions, 334 points  ->  dimension 9   (3194s)
+DONE

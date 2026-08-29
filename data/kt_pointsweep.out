@@ -1,0 +1,8 @@
+delta=1 rank 2 den^2 — TRUE ANSWER 5 — dimension vs sample count
+  points=40  ->  dimension 416
+  points=60  ->  dimension 126
+  points=80  ->  dimension 5
+  points=94  ->  dimension 5
+  points=120  ->  dimension 5
+  points=160  ->  dimension 5
+DONE

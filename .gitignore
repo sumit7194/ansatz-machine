@@ -13,6 +13,14 @@ data/s122_progress.log
 # kt_def_rows_r3.pkl alone is 172 MB (above GitHub's limit) and is regenerable in ~24 min.
 # They must stay on disk for power-cut resumption, and must NOT be versioned.
 data/*.pkl
+# .npz added 2026-08-29 after `git add -A` committed 5 GB of solver checkpoints. The rule above
+# covered .pkl and .ckpt -- the extensions the checkpoints used AT THE TIME. solve_kt_modp banks
+# numpy arrays as .npz, a new extension the rule never anticipated, so the bulk arrays walked
+# straight past it. Note this is the EXACT MIRROR of the 08-22 defect in this same file, where
+# `data/kt_*.out` was too BROAD and swept up the run logs that were the only evidence for the
+# results. Too broad hides the receipts; too narrow commits the bulk. Same file, opposite errors,
+# one week apart, and neither was a judgement about evidentiary value -- both were about extensions.
+data/*.npz
 data/*.ckpt
 # data/kt_*.out was ignored here until 2026-08-22. It should not have been. The rule above it
 # targets the .pkl row-banks (2.6 GB, above GitHub's limit, regenerable); the .out RUN LOGS total
