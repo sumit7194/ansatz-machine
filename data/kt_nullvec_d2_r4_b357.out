@@ -1,0 +1,19 @@
+ZV delta=2 rank 4 den^2, box x<=16 y<=20, 338 points
+  12495 unknowns; reusing banked matrix kt_zvd2_d2_r4.pkl.modp.p338.npz
+  loaded int32[18928,12495] = 0.88 GiB, prime 2147483647
+    2000 pivots  (67s)
+    4000 pivots  (177s)
+    6000 pivots  (344s)
+    8000 pivots  (516s)
+    10000 pivots  (733s)
+    12000 pivots  (996s)
+    rank 12481 -> nullspace dimension 14  [1067s]
+  extracted 3 of 14 nullspace vectors
+
+  vector 0: IDENTITY HOLDS (0 nonzero coefficients mod p)
+  vector 1: NOT AN IDENTITY (298 nonzero coefficients mod p)
+  vector 2: IDENTITY HOLDS (0 nonzero coefficients mod p)
+  KNOWN-FAIL (vector 0, one coefficient +1): NOT AN IDENTITY (12 nonzero coefficients mod p)
+  checker rejects a 1-coefficient perturbation (12 bad coefficients) -- it is able to say FAIL
+
+  2/3 extracted vectors are EXACT solutions of the Killing equation

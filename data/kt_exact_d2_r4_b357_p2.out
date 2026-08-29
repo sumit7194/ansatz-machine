@@ -1,0 +1,52 @@
+ZV delta=2 rank 4 den^2, box x<=16 y<=20 (357 funcs), 338 points, prime 2147483629
+  eliminating int32[18928,12495] = 0.88 GiB...
+    2000 pivots  (68s)
+    4000 pivots  (179s)
+    6000 pivots  (342s)
+    8000 pivots  (511s)
+    10000 pivots  (725s)
+    12000 pivots  (990s)
+    rank 12481 -> nullspace dimension 14  [1058s]
+  extracted and cached ALL 14 nullspace vectors
+    bracket 1/14: denominator (x - 1)**8*(x + 1)**24*(y - 1)**3*(y + 1)**3  (0s)
+    bracket 2/14: denominator (x - 1)**8*(x + 1)**24*(y - 1)**3*(y + 1)**3  (0s)
+    bracket 3/14: denominator (x - 1)**8*(x + 1)**24*(y - 1)**3*(y + 1)**3  (1s)
+    bracket 4/14: denominator (x - 1)**8*(x + 1)**24*(y - 1)**3*(y + 1)**3  (1s)
+    bracket 5/14: denominator (x - 1)**15*(x + 1)**41*(y - 1)**5*(y + 1)**5  (1s)
+    bracket 6/14: denominator (x - 1)**15*(x + 1)**41*(y - 1)**5*(y + 1)**5  (2s)
+    bracket 7/14: denominator (x - 1)**15*(x + 1)**41*(y - 1)**5*(y + 1)**5  (2s)
+    bracket 8/14: denominator (x - 1)**15*(x + 1)**41*(y - 1)**5*(y + 1)**5  (3s)
+    bracket 9/14: denominator (x - 1)**15*(x + 1)**41*(y - 1)**5*(y + 1)**5  (3s)
+    bracket 10/14: denominator (x - 1)**15*(x + 1)**41*(y - 1)**5*(y + 1)**5  (3s)
+    bracket 11/14: denominator (x - 1)**15*(x + 1)**41*(y - 1)**5*(y + 1)**5  (4s)
+    bracket 12/14: denominator (x - 1)**15*(x + 1)**41*(y - 1)**5*(y + 1)**5  (5s)
+    bracket 13/14: denominator (x - 1)**15*(x + 1)**41*(y - 1)**5*(y + 1)**5  (6s)
+    bracket 14/14: denominator (x - 1)**15*(x + 1)**41*(y - 1)**5*(y + 1)**5  (7s)
+  common denominator for all 14 brackets: (x - 1)**15*(x + 1)**41*(y - 1)**5*(y + 1)**5
+    cleared 1/14: 0 nonzero terms (10s)
+    cleared 2/14: 909 nonzero terms (17s)
+    cleared 3/14: 0 nonzero terms (19s)
+    cleared 4/14: 909 nonzero terms (24s)
+    cleared 5/14: 0 nonzero terms (47s)
+    cleared 6/14: 0 nonzero terms (71s)
+    cleared 7/14: 909 nonzero terms (101s)
+    cleared 8/14: 0 nonzero terms (125s)
+    cleared 9/14: 0 nonzero terms (148s)
+    cleared 10/14: 909 nonzero terms (178s)
+    cleared 11/14: 0 nonzero terms (249s)
+    cleared 12/14: 0 nonzero terms (324s)
+    cleared 13/14: 0 nonzero terms (401s)
+    cleared 14/14: 909 nonzero terms (488s)
+  vectors with identically-zero bracket: [0, 2, 4, 5, 7, 8, 10, 11, 12]
+  cross-check: vectors 0,2 zero and 1 nonzero, agreeing with _kt_nullvec
+  C is 4545 x 14 over GF(2147483629)
+
+  sampled nullspace dimension : 14
+  rank of the bracket map C   : 5
+  EXACT solution dimension    : 9
+
+  9 reducible products: H^2, p_phi^2 H, p_phi^4, p_t p_phi H, p_t p_phi^3, p_t^2 H, p_t^2 p_phi^2, p_t^3 p_phi, p_t^4
+  reducible span dimension    : 9
+
+  IRREDUCIBLE at delta=2, rank 4, den^2, box 16x20: 0
+  (the sampled 14 was an upper bound carrying 5 dimensions of sampling slack)

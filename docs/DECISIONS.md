@@ -757,3 +757,60 @@ silent about which phase dominates.
 **Standing after this:** ZV closed at ranks 1–6 den¹ on both arms; ranks 2–4 den² on δ=1; ranks 2–3
 den² on δ=2. **δ=2 rank 4 at den² is OPEN and named as open**, blocked on tooling rather than on
 mathematics.
+
+## D38 — a count is an upper bound, not a measurement; and the Phase 4 pre-registration (2026-08-30)
+
+**The defect in every den² number we have published.** `solve_kt_modp` returns the nullspace
+dimension of a system sampled at random points. Sampling is sound for **rejecting** a candidate — a
+fixed nonzero polynomial almost never vanishes at 338 random places — and it is **not** sound for
+accepting one, because the nullspace is computed *after* the points are drawn. Schwartz–Zippel
+bounds the wrong direction. All a count establishes is `dim(sampled) ≥ dim(true)`.
+
+We did not notice because on δ=1 the two coincide, so four flat box sweeps looked like convergence
+rather than like a substrate where the slack happens to be zero.
+
+**What made it visible.** δ=2 rank 4 den² gave 14 / 24 / 34 at boxes 357 / 437 / 525 against a
+reducible span of 9 — an exact line, `dim = 5·dx − 66`. A quantity that tracks the *ansatz* and not
+the *geometry* is not a property of the spacetime. `_kt_nullvec.py` then reconstructed three basis
+vectors and tested `{H,F}=0` as a polynomial identity: **two hold, one does not (298 nonzero
+coefficients).** The sampled nullspace demonstrably contains non-solutions.
+
+**Why one-at-a-time could not finish it.** True solutions form a *subspace*; the RREF basis is not
+aligned to it. A vector failing does not remove exactly one dimension and a vector passing does not
+certify its neighbours. Testing all 14 would still have left `2 ≤ dim ≤ 13`.
+
+**The computation that did.** `{H,F}` is linear in `F`, so with `v = Σ aᵢvᵢ` over the sampled basis,
+`dim(true) = nullity(C)` where `C` stacks every bracket coefficient — a 14-column solve rather than
+another overnight sweep. Result at box 357, prime 2147483647: **exact dimension 9, reducible span 9,
+irreducible 0.** The excess was `5(dx−15)` of pure sampling slack, and the true dimension was 9 at
+every box all along. The D34–D37 prediction of 9 **holds**; the 34 that appeared to break it was
+never a measurement.
+
+**A guard fired on the real computation, not on a planted error.** Clearing each bracket with its
+own `cancel()` is not a linear operation and would have corrupted `C` into a clean, wrong integer
+with no error raised. Calibrating one fixed `L^M` on vector 0 was not enough either — at box 357
+vectors 0–3 clear with `(x−1)⁸(x+1)²⁴(y−1)³(y+1)³` and vectors 4–13 need
+`(x−1)¹⁵(x+1)⁴¹(y−1)⁵(y+1)⁵`. The run **stopped** rather than proceed. The fix takes the lcm of all
+denominators before clearing any.
+
+**Held open, not claimed.** Nine is one prime and one box. A nonzero rational can reduce to zero mod
+p, so a false vanishing is exactly the failure two primes exist to catch. Both confirmations
+(prime 2147483629 at box 357; box 437 where the sampled count was 24) are running.
+
+### Pre-registration, recorded BEFORE the run lands
+
+Phase 4 holds the box FIXED at 357 and raises points 338 → 500. The exact answer there is **9** and
+the sampled answer at 338 points was **14**. We do **not** know which way this goes, and say so in
+advance rather than after:
+
+- **If it returns 14** — slack is structural in the ansatz, not point-limited. More points at fixed
+  box do not help, and every sampled count in this project needs the exact test before it means
+  anything.
+- **If it returns 9** — slack was point-limited. The sampled route is salvageable by sampling
+  harder, and the box sweeps were under-pointed rather than wrong in kind.
+- **If it returns something between** — slack shrinks with points but does not close, and the exact
+  test is required regardless.
+
+The prior data cannot separate these: slack tracked box (5/15/25) while point count *also* rose
+(338/413/496), so the two were never independently varied. That is precisely the confound Phase 4
+was queued to break, and it was queued before we knew the exact answer.

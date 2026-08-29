@@ -2260,3 +2260,89 @@ high-water mark falls in**, never by `18375² × 8` arithmetic (which is the sam
 the 4.75 figure — correct about a structure, silent about which phase dominates).
 
 Repro: `scripts/_kt_zv_den2.py <delta> <rank>`. Logs in `data/kt_zvd2_*.out`, tracked.
+
+## §126 — δ=2 rank 4 den² closes at ZERO, and the counts that said otherwise were upper bounds
+
+**The rung.** Zipoy–Voorhees δ=2, rank 4, denominator L². Exact solution dimension **9**, reducible
+span **9**, **irreducible 0**. Confirmed at two primes (2147483647, 2147483629) and two boxes
+(357 and 437 coefficient functions). The D34–D37 prediction of 9 **holds**.
+
+**What the sampled prover reported instead:** 14, 24, 34 at boxes 357, 437, 525 — an exact line,
+`dim = 5·dx − 66`. Against a reducible span of 9 that reads as five, fifteen, twenty-five new
+conserved quantities on a deformed vacuum. None of them exist.
+
+    box (dx,dy)   funcs   sampled   exact   reducible   irreducible
+    16, 20         357      14        9         9            0
+    18, 22         437      24        9         9            0
+    20, 24         525      34        -         9            -
+
+The exact dimension is **flat** across boxes and primes; the sampled dimension moved by ten between
+two boxes of the same rung. Flatness in box was the convergence criterion we set for ourselves, and
+the sampled number failed it while the exact number passes it.
+
+### Why a sampled count is an upper bound and not a measurement
+
+`solve_kt_modp` returns the nullspace dimension of `{H,F}=0` imposed at random points. Sampling is
+sound for **rejecting** a candidate — a *fixed* nonzero polynomial almost never vanishes at 338
+random places — and unsound for **accepting** one, because the nullspace is computed *after* the
+points are drawn. The vectors are selected to fit those points, so Schwartz–Zippel bounds the wrong
+direction. All that is established is `dim(sampled) ≥ dim(true)`.
+
+`_kt_nullvec.py` made this concrete: of three basis vectors of the 14-dimensional sampled nullspace,
+two satisfy `{H,F}=0` identically and **one does not** (298 nonzero coefficients). The sampled
+nullspace demonstrably contains non-solutions.
+
+**The measurement that replaced the count.** `{H,F}` is linear in `F`, so writing a general element
+as `Σ aᵢvᵢ` and stacking every bracket coefficient into a matrix `C` gives `dim(true) = nullity(C)`
+— a 24-column solve, not another overnight sweep. The rank of `C` is precisely the slack: 5 at box
+357, 15 at box 437. The growth law was never about the spacetime. It was `9 + 5(dx − 15)`.
+
+### The squeeze: why no previously published rung is affected
+
+Reducible tensors are verified solutions (`{H,g}=0` exactly), so the reducible span is a rigorous
+**lower** bound; the sampled count is a rigorous **upper** bound:
+
+> **reducible ≤ true ≤ sampled**, so whenever `sampled = reducible` the true dimension is pinned
+> exactly, with no exact test required.
+
+Every rung in §124 (twelve, both arms, den¹) and every den² rung in §125 (δ=1 ranks 2–4, δ=2 ranks
+2–3) has `sampled = reducible`. **Seventeen rungs squeezed, one gap** — and the gap was δ=2 rank 4,
+the rung already flagged anomalous and held open rather than published. Nothing retracts.
+
+This is structural rather than lucky, and it generalises:
+
+> **A "zero irreducible" result is self-certifying under sampling. A "nonzero irreducible" result
+> never is.** Claiming zero *is* the claim that sampled equals reducible, which is exactly the
+> condition that collapses the bounds. A positive claim lives entirely inside the region where
+> sampling is unsound.
+
+So the method could only ever have misled toward a **false discovery**, never a false absence. That
+is the dangerous direction, and δ=2 rank 4 walked into it with a 34 that looked like twenty-five new
+conserved quantities on an exact vacuum.
+
+### Two guards, one real and one of ours that misfired
+
+**Real.** Clearing each bracket with its own `cancel()` is not a linear operation and would have
+produced a clean, wrong integer with no error raised. Fixing a single power `L^M` calibrated on
+vector 0 was *also* insufficient: at box 357 vectors 0–3 clear with `(x−1)⁸(x+1)²⁴(y−1)³(y+1)³`
+while vectors 4–13 need `(x−1)¹⁵(x+1)⁴¹(y−1)⁵(y+1)⁵`, because `cancel()` had already removed a
+factor the early vectors happened to carry. The run **stopped**. The fix takes the lcm of all
+denominators before clearing any.
+
+**Ours, misfired.** The cross-check against `_kt_nullvec` hardcoded "vectors 0,1,2 are
+zero/nonzero/zero" — true at box 357, meaningless at box 437, where the nullspace is a different
+space and the basis comes from different free columns. It failed a correct run and discarded 716 s
+of completed work. The reference is now keyed to `(dx, dy, npts)` and reports *not applicable*
+where none exists, rather than inventing one. **A guard scoped to the context where it was measured
+is a guard; applied outside it, it is a second source of wrong answers** — the same shape as the
+`ps -o comm` truncation that reported a live four-hour prover as dead on the same night.
+
+**Verification of the verifier.** `_kt_nullvec --selftest` accepts `p_t⁴`, `p_t²p_φ²`, `p_φ⁴` and a
+mixed combination (solutions because t and φ are cyclic) and rejects `p_x⁴` with 495 nonzero
+coefficients. The live runs additionally reject a one-coefficient perturbation of a vector that
+passed. A checker that has only ever said PASS has not been shown able to say FAIL.
+
+**Standing after this:** ZV closed at ranks 1–6 den¹ on both arms and at every den² rung attempted,
+irreducible **zero everywhere**, with δ=2 rank 4 now closed exactly rather than by a count. Open:
+`Lsq` is *not* conserved at δ=2 (correctly rejected as a generator), which is why δ=2 has 9
+reducibles at rank 4 where Schwarzschild has 14.
