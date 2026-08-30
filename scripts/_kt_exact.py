@@ -50,7 +50,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import numpy as np
 import sympy as sp
 import _kt_search as K
-import _kt_zv as ZV
+import _kt_metrics as MM
 import _kt_nullvec as NV
 import _kt_reducible as R
 
@@ -58,6 +58,52 @@ t, x, y, ph = sp.symbols("t x y phi", real=True)
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PRIMES = (2147483647, 2147483629)
 P = PRIMES[0]
+
+
+MARGIN = 4
+
+
+def generators(ginv, rank, den):
+    """The reducible generators for this substrate, and every degree-`rank` product of them.
+
+    Lsq (total angular momentum) is INCLUDED ONLY IF {H,Lsq}=0 is verified on this metric. It is
+    conserved on Schwarzschild and NOT on Kerr or ZV delta=2, and a hand-written generator table
+    used across substrates is exactly the error that nearly manufactured "four irreducible Killing
+    tensors on Schwarzschild" (§124)."""
+    H = sp.cancel(sp.together(sum(ginv[a, b] * R.MO[a] * R.MO[b]
+                                  for a in range(4) for b in range(4))))
+    Lsq = (1 - y**2) * R.MO[2]**2 + R.MO[3]**2 / (1 - y**2)
+    gens = [("p_t", R.MO[0], 1), ("p_phi", R.MO[3], 1), ("H", H, 2)]
+    if sp.cancel(sp.together(sp.expand(R.poisson(H, Lsq)))) == 0:
+        gens.append(("Lsq", Lsq, 2))
+    degs = [d for _, _, d in gens]
+    prods, names = [], []
+    for expo in itertools.product(*[range(rank // d + 1) for d in degs]):
+        if sum(e * d for e, d in zip(expo, degs)) != rank:
+            continue
+        val, nm = sp.Integer(1), []
+        for n, e in enumerate(expo):
+            if e:
+                val *= gens[n][1]**e
+                nm.append(f"{gens[n][0]}^{e}" if e > 1 else gens[n][0])
+        prods.append(val)
+        names.append(" ".join(nm) or "1")
+    return [g[0] for g in gens], prods, names
+
+
+def reducible_box(prods, den):
+    """Smallest (dx, dy) whose x^j y^k / den basis represents every reducible product."""
+    bx = by = 0
+    for val in prods:
+        for coeff in sp.Poly(sp.expand(val), *R.MO).coeffs():
+            num, dd = sp.fraction(sp.cancel(sp.together(coeff)))
+            q = sp.cancel(sp.together(den / dd))
+            if sp.denom(q) != 1:
+                raise ValueError("a reducible needs a larger denominator power than requested; "
+                                 "--denpow is too small for this substrate and rank")
+            pp = sp.Poly(sp.expand(num * q), x, y)
+            bx, by = max(bx, pp.degree(x)), max(by, pp.degree(y))
+    return bx, by
 
 
 def rank_modp(rows, ncols, p):
@@ -173,26 +219,45 @@ def bracket_terms(v, cols, mons, ginv, den, L, M_pow, p):
 
 
 if __name__ == "__main__":
-    delta, rank = 2, 4
+    # Substrate, rank and denominator power are all arguments now. The defaults reproduce the
+    # committed delta=2 rank-4 den^2 run exactly, so the validated path is unchanged.
+    def arg(flag, default=None, cast=str):
+        return cast(sys.argv[sys.argv.index(flag) + 1]) if flag in sys.argv else default
+    spec = arg("--metric", "zv:2")
+    rank = arg("--rank", 4, int)
+    denpow = arg("--denpow", 2, int)
+    tag = arg("--tag", spec.replace(":", "") + f"_r{rank}_d{denpow}")
     K.set_dim((t, x, y, ph), sp.symbols("P_t P_x P_y P_phi", real=True), dep=(1, 2))
-    ginv = ZV.zv_inv(delta)
-    dens = set()
-    for i in range(4):
-        for j in range(4):
-            if ginv[i, j] != 0:
-                d = sp.denom(sp.together(ginv[i, j]))
-                if d != 1:
-                    dens.add(d)
-    L = sp.Integer(1)
-    for d in dens:
-        L = sp.lcm(L, d)
-    L = sp.factor(L)
-    den = L**2
+    ginv, mname = MM.get(spec)
+    L, gnx, gny = MM.denominator(ginv)
+    den = L**denpow
 
-    i = sys.argv.index("--box")
-    dx, dy = int(sys.argv[i + 1]), int(sys.argv[i + 2])
-    npts = int(sys.argv[sys.argv.index("--points") + 1])
-    matrix_path = sys.argv[sys.argv.index("--matrix") + 1]
+    npts = arg("--points", None, int)
+    matrix_path = arg("--matrix")
+    gnames, prods, pnames = generators(ginv, rank, den)
+    bx, by = reducible_box(prods, den)
+    if "--box" in sys.argv:
+        i = sys.argv.index("--box")
+        dx, dy = int(sys.argv[i + 1]), int(sys.argv[i + 2])
+    else:
+        dx, dy = bx + MARGIN, by + MARGIN
+    print(f"{mname}: generators {gnames}; {len(prods)} products at rank {rank}; "
+          f"reducible-holding box x<={bx} y<={by}", flush=True)
+
+    # No banked matrix? Produce one through the SAME sampler the published rungs used, so the
+    # control exercises the real code path rather than a shortcut written for it.
+    if matrix_path is None:
+        ckb = os.path.join(ROOT, "data", f"kt_bank_{tag}_b{(dx+1)*(dy+1)}")
+        matrix_path = ckb + ".npz"
+        if not os.path.exists(matrix_path):
+            print(f"  no banked matrix; sampling now into {os.path.basename(matrix_path)}",
+                  flush=True)
+            ds = K.solve_kt_modp(rank, ginv, dx, dy, den, n_points=npts, verbose=True,
+                                 primes=PRIMES, ckpt=ckb)
+            print(f"  SAMPLED dimension (upper bound): {ds}", flush=True)
+        zz = np.load(matrix_path, allow_pickle=False)
+        npts = int(zz["pts"])
+        zz.close()
     # --prime 1 selects the SECOND banked residue matrix. Two primes are not decoration here: a
     # nonzero rational can reduce to zero mod p, so a dimension that is real at one prime and not
     # the other is a false vanishing, and "exact solution dimension 9" would be an artifact.
@@ -205,12 +270,11 @@ if __name__ == "__main__":
     n_unk = len(cols)
     cidx = {c: n for n, c in enumerate(cols)}
     nfun = (dx + 1) * (dy + 1)
-    print(f"ZV delta={delta} rank {rank} den^2, box x<={dx} y<={dy} ({nfun} funcs), "
+    print(f"{mname} rank {rank} den^{denpow}, box x<={dx} y<={dy} ({nfun} funcs), "
           f"{npts} points, prime {P}", flush=True)
 
     # ---- stage 1: ALL nullspace vectors, cached so the ~1067s elimination happens once ----
-    vcache = os.path.join(ROOT, "data",
-                          f"kt_nullvecs_d{delta}_r{rank}_b{nfun}_p{PRIMES[pi]}.npz")
+    vcache = os.path.join(ROOT, "data", f"kt_nullvecs_{tag}_b{nfun}_p{PRIMES[pi]}.npz")
     if os.path.exists(vcache):
         z = np.load(vcache, allow_pickle=False)
         V = z["V"]
@@ -291,24 +355,9 @@ if __name__ == "__main__":
     print(f"  EXACT solution dimension    : {d_true}", flush=True)
 
     # ---- stage 3: the reducible span, measured in the same coefficient basis ----
-    H = sp.cancel(sp.together(sum(ginv[a, b] * R.MO[a] * R.MO[b]
-                                  for a in range(4) for b in range(4))))
-    Lsq = (1 - y**2) * R.MO[2]**2 + R.MO[3]**2 / (1 - y**2)
-    gens = [("p_t", R.MO[0], 1), ("p_phi", R.MO[3], 1), ("H", H, 2)]
-    if sp.cancel(sp.together(sp.expand(R.poisson(H, Lsq)))) == 0:
-        gens.append(("Lsq", Lsq, 2))
-    degs = [d for _, _, d in gens]
     mkey = {tuple(m): n for n, m in enumerate(mons)}
-    rvecs, names = [], []
-    for expo in itertools.product(*[range(rank // d + 1) for d in degs]):
-        if sum(e * d for e, d in zip(expo, degs)) != rank:
-            continue
-        val = sp.Integer(1)
-        nm = []
-        for n, e in enumerate(expo):
-            if e:
-                val *= gens[n][1]**e
-                nm.append(f"{gens[n][0]}^{e}" if e > 1 else gens[n][0])
+    rvecs = []
+    for val in prods:
         vec = np.zeros(n_unk, dtype=np.int64)
         pol = sp.Poly(sp.expand(val), *R.MO)
         for e, co in zip(pol.monoms(), pol.coeffs()):
@@ -317,13 +366,13 @@ if __name__ == "__main__":
                 continue
             num, dd = sp.fraction(sp.cancel(sp.together(co)))
             q = sp.cancel(sp.together(den / dd))
-            assert sp.denom(q) == 1, "a reducible needs more than L^2"
+            assert sp.denom(q) == 1, "a reducible needs a larger denominator power"
             pp = sp.Poly(sp.expand(num * q), x, y)
             for jk, c2 in zip(pp.monoms(), pp.coeffs()):
                 assert jk[0] <= dx and jk[1] <= dy, "a reducible does not fit the box"
                 vec[cidx[(mi, jk[0], jk[1])]] = int(c2) % P
         rvecs.append(vec)
-        names.append(" ".join(nm) or "1")
+    names = pnames
     r_rank = rank_modp([list(v) for v in rvecs], n_unk, P)
     print(f"\n  {len(rvecs)} reducible products: {', '.join(names)}", flush=True)
     print(f"  reducible span dimension    : {r_rank}", flush=True)
@@ -334,7 +383,7 @@ if __name__ == "__main__":
         print("\n  IMPOSSIBLE: reducible span exceeds the exact solution space. This condemns "
               "the run rather than reporting a number.", flush=True)
         sys.exit(3)
-    print(f"\n  IRREDUCIBLE at delta={delta}, rank {rank}, den^2, box {dx}x{dy}: "
+    print(f"\n  IRREDUCIBLE at {mname}, rank {rank}, den^{denpow}, box {dx}x{dy}: "
           f"{d_true - r_rank}", flush=True)
     print(f"  (the sampled {nsamp} was an upper bound carrying {nsamp - d_true} dimensions "
           f"of sampling slack)", flush=True)

@@ -1,0 +1,27 @@
+Kerr M=1 a=1/2: generators ['p_t', 'p_phi', 'H']; 4 products at rank 2; reducible-holding box x<=4 y<=4
+Kerr M=1 a=1/2 rank 2 den^1, box x<=8 y<=8 (81 funcs), 64 points, prime 2147483647
+  loaded 5 cached nullspace vectors
+    bracket 1/5: denominator (4*x**2 + y**2)**3*(y - 1)**2*(y + 1)**2*(4*x**2 - 8*x + 1)  (0s)
+    bracket 2/5: denominator (4*x**2 + y**2)**3*(y - 1)**2*(y + 1)**2*(4*x**2 - 8*x + 1)  (0s)
+    bracket 3/5: denominator (4*x**2 + y**2)**7*(y - 1)**4*(y + 1)**4*(4*x**2 - 8*x + 1)**5  (0s)
+    bracket 4/5: denominator (4*x**2 + y**2)**7*(y - 1)**4*(y + 1)**4*(4*x**2 - 8*x + 1)**5  (0s)
+    bracket 5/5: denominator (4*x**2 + y**2)**7*(y - 1)**4*(y + 1)**4*(4*x**2 - 8*x + 1)**5  (0s)
+  common denominator for all 5 brackets: (4*x**2 + y**2)**7*(y - 1)**4*(y + 1)**4*(4*x**2 - 8*x + 1)**5
+    cleared 1/5: 0 nonzero terms (1s)
+    cleared 2/5: 0 nonzero terms (1s)
+    cleared 3/5: 0 nonzero terms (7s)
+    cleared 4/5: 0 nonzero terms (15s)
+    cleared 5/5: 0 nonzero terms (24s)
+  vectors with identically-zero bracket: [0, 1, 2, 3, 4]
+  no _kt_nullvec reference for this box; cross-check not applicable (indices are not comparable across boxes)
+  C is 0 x 5 over GF(2147483647)
+
+  sampled nullspace dimension : 5
+  rank of the bracket map C   : 0
+  EXACT solution dimension    : 5
+
+  4 reducible products: H, p_phi^2, p_t p_phi, p_t^2
+  reducible span dimension    : 4
+
+  IRREDUCIBLE at Kerr M=1 a=1/2, rank 2, den^1, box 8x8: 1
+  (the sampled 5 was an upper bound carrying 0 dimensions of sampling slack)

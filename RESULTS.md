@@ -2353,3 +2353,45 @@ passed. A checker that has only ever said PASS has not been shown able to say FA
 irreducible **zero everywhere**, with δ=2 rank 4 now closed exactly rather than by a count. Open:
 `Lsq` is *not* conserved at δ=2 (correctly rejected as a generator), which is why δ=2 has 9
 reducibles at rank 4 where Schwarzschild has 14.
+
+## §127 — the exact test recovers the Carter constant: a known-NONZERO control
+
+**Why this was needed.** `_kt_exact` had returned exactly one kind of answer — **irreducible 0**,
+seven times over §126. By the rule applied to every other instrument here, a checker that has only
+ever said "nothing" has not been shown able to say "something". `_kt_nullvec --selftest` does not
+cover it: that validates the *identity checker* ("is this F a solution?"), not the *dimension
+pipeline* — the C matrix, the nullity, the reducible-span subtraction — which is what produces the
+headline number and which had never been asked to find something and succeeded.
+
+**Kerr at rank 2 is the control**, because it carries the Carter constant and the expected answer is
+therefore not in doubt. `a` is a specific nonzero rational (1/2); `a = 0` would silently hand back
+Schwarzschild, a larger symmetry algebra, and a different question.
+
+    Kerr M=1 a=1/2, rank 2, den^1, box 8x8 (81 funcs), 64 points
+      sampled 5   exact 5   reducible 4   ->  IRREDUCIBLE 1      both primes
+
+Generators came out `[p_t, p_phi, H]` with `Lsq` **correctly rejected** — Kerr is not spherically
+symmetric, and the generator set is verified per substrate by `{H,Lsq}=0` rather than carried over
+from a table. Sampling slack was **zero** here, which is itself informative: slack is not a constant
+property of the method but of the substrate and box (§126, D38).
+
+**The direction is identified, not merely counted.** A fifth dimension existing is not the same
+claim as "we found Carter". Constructing the textbook constant directly —
+`Q = p_θ² + y²[a²(μ² − E²) + L_z²/(1−y²)]` with `p_θ² = (1−y²)p_y²`, `E = −p_t`, `μ² = −g^ab p_a p_b`
+— gives `{H,Q} = 0` exactly, and adjoining `Q` to the reducible span raises its rank **4 → 5**,
+matching the measured exact dimension. The irreducible direction the tool reports *is* the Carter
+constant.
+
+**What this licenses.** §126's zeros were produced by an instrument now shown to work in both
+directions, on a substrate where the right answer was known in advance. Combined with the squeeze
+(`reducible ≤ true ≤ sampled`), the ZV closure stands on a validated tool rather than on an
+unfalsified one.
+
+**Tooling.** `scripts/_kt_metrics.py` is now the single place that knows what a substrate is
+(`zv:<delta>`, `kerr[:M[:a]]`), with the denominator and numerator degrees **measured** from `g^ab`
+rather than inferred from `deg(L)` — the §124 error that once produced a solution space smaller than
+its own reducible span. `_kt_exact` takes `--metric/--rank/--denpow`, measures the reducible-holding
+box itself, and banks its own matrix through the *same* sampler the published rungs used, so a
+control exercises the real code path rather than a shortcut written for it. The ZV δ=2 rank-4 run
+reproduces 9 / 9 / 0 unchanged after the refactor, and the new box code independently re-derived the
+reducible-holding box x≤16, y≤20 that `_kt_zv_den2` had measured by separate logic.
