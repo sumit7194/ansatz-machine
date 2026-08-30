@@ -814,3 +814,33 @@ advance rather than after:
 The prior data cannot separate these: slack tracked box (5/15/25) while point count *also* rose
 (338/413/496), so the two were never independently varied. That is precisely the confound Phase 4
 was queued to break, and it was queued before we knew the exact answer.
+
+### D38 resolved (2026-08-30 07:52) — the registered branch was "structural", and that is what landed
+
+**Phase 4: box 357 FIXED, points 338 → 500, both primes → dimension 14.** Identical to 338 points.
+Of the three branches recorded in advance, **"if it returns 14 — slack is structural in the ansatz,
+not point-limited"** is the one that holds.
+
+    box fixed at 357:   338 points -> 14      500 points -> 14      (+48% points, no change)
+    points scaled:      box 357 -> 14   box 437 -> 24   box 525 -> 34
+
+**Slack depends on the ansatz box alone and is invariant under point count.** The two were
+confounded in every earlier run because point counts were derived from a row-count heuristic that
+scaled with the box, so the sweeps varied both at once. Phase 4 was queued specifically to separate
+them, and it was queued before the exact answer was known.
+
+**The operational consequence.** *A sampled-vs-reducible gap cannot be closed by sampling harder.*
+More points do not shrink it — not marginally, not at all. When a count exceeds the reducible span,
+the exact test (`_kt_exact`) is the only instrument that resolves it. This retires the fallback that
+would otherwise have been reached for first ("the 34 is under-sampled, throw points at it"), which
+would have burned arbitrary compute and returned 34 every time.
+
+**Scope unchanged.** The squeeze still holds: `reducible ≤ true ≤ sampled` pins every rung where
+the ends coincide, which is all seventeen. What D38 changes is only the *remedy* for a rung where
+they do not.
+
+**A stale verdict line, flagged rather than quoted.** `phase4.sh` printed "14−9=5 remains
+unexplained and needs the exact test" from a canned `case` written the previous night, before
+`_kt_exact` existed. The 5 *is* explained — it is `rank(C)`, the bracket-map rank, measured at both
+primes. A driver's pre-written commentary is not a finding, and reading it back as one is how a
+superseded claim re-enters a record.

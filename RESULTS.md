@@ -2280,6 +2280,13 @@ The exact dimension is **flat** across boxes and primes; the sampled dimension m
 two boxes of the same rung. Flatness in box was the convergence criterion we set for ourselves, and
 the sampled number failed it while the exact number passes it.
 
+**And the slack cannot be sampled away.** Holding the box at 357 and raising points 338 → 500 (+48%)
+returns **14 at both primes** — identical. Slack depends on the ansatz box alone and is invariant
+under point count; the two were confounded in every earlier sweep only because the point count came
+from a row-count heuristic that scaled with the box. So *a sampled-vs-reducible gap cannot be closed
+by sampling harder* — the exact test is the only instrument that resolves one. Pre-registered as
+D38 before the run, and it is the branch that landed.
+
 ### Why a sampled count is an upper bound and not a measurement
 
 `solve_kt_modp` returns the nullspace dimension of `{H,F}=0` imposed at random points. Sampling is
