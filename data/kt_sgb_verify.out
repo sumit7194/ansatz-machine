@@ -1,0 +1,14 @@
+Verifying the static sGB transcription against the EdGB field equations.
+
+  background Ricci-flat (so D_ab keeps only the Riemann term): True
+  computed dG_ab (zeta-derivative of the Einstein tensor)
+  computed D_ab = 4 R_acbd grad^c grad^d theta
+  computed T_ab
+
+  constants fitted at two radii on the tt component (m symbolic): {c1: -2*m**4, c2: 2*m**4}
+    tt      residual 0 -- satisfied
+    rr      residual 0 -- satisfied
+    thth    residual 0 -- satisfied
+    phiphi  residual 0 -- satisfied
+
+  VERIFIED: Eqs (12)-(14) satisfy the O(zeta) EdGB field equations with a single normalisation {c1: -2*m**4, c2: 2*m**4}. Two constants cannot absorb a wrong r-dependence, so the coefficients are right.
