@@ -3451,3 +3451,37 @@ scripts producing cited results lived only in a session scratchpad that gets wip
 
 **Where it stands:** Zerilli gauge established from the paper (five radial functions, `K₀₀ = 0`
 fixing the residual ℓ=0 freedom). Stage 1 ✓, stage 2 ✓, stage 3 rerunning bounded, stage 4 written.
+
+## 2026-09-03
+
+**§129: the O(χ²) sGB metric, four stages of five complete.** Zerilli gauge established from the
+paper (five radial functions, `K₀₀ = 0` fixing the residual ℓ=0 freedom). Kerr Ricci-flat through
+O(χ²) ✓. Gauss–Bonnet confirmed against our own Riemann at four rational points across three masses
+✓. The dilaton derived in both sectors and confirmed against an exact quadrature (ℓ=0, with `C`
+forced by horizon regularity) and a hand-worked recursion (ℓ=2, predicting `q₂ = −7/15, q₃ = −7/5,
+q₄ = −16/5` before the solver ran) ✓. The O(ζχ²) Einstein tensor computed in 5.9h and checkpointed
+✓. Stage 5, the solve, running.
+
+**Three NO SOLUTIONs, one bug, three wrong diagnoses.** `sin²θ` in the metric versus a collection
+that substituted only `cos θ`. Blamed on the mass dimension, then the fall-off, then a sector
+structure — the second "fix" moved *further* from the truth, and the third derived an ansatz shape
+from an equation missing a term I had explicitly warned about in that same file's comments. Recorded
+as D40. The general lesson: **before adjusting an ansatz repeatedly, establish whether the answer is
+representable in it at all** — an hour of hand calculation located the fault in the code after three
+failed runs that each cost more.
+
+**A threshold I set and the user removed.** I had a "kill stage 4 at 2 hours" rule and was preparing
+to act. It would have destroyed ~2h of work ~2h from completion, for no gain — the checkpoint file
+did not exist yet, so the restructured version would have started from zero. Slow is not
+pathological, and a threshold anchored to a clock is the failure mode it claims to prevent.
+
+**Coordination.** A second session and a separate five-repo evaluation session both had this repo as
+cwd, which caused a research framing that was never mine to be attributed to me, and my own process
+to be reported as another session's. Both corrected with artifacts. Standing note: **verify sessions
+by working directory, and treat the off-limits list as incomplete rather than closed** — my
+instruction named eduspace/eduvizio, the bridge observed telos, neither had all three.
+
+**Provenance, third instance.** The χ² scripts producing cited results lived only in a session
+scratchpad that gets wiped. Rescued to `scripts/_kt_chi2_*.py`. After `data/kt_*.out` gitignored and
+`data/*.log` gitignored, the pattern is clear: **a size-or-location rule silently becomes a
+judgement about evidentiary value.**

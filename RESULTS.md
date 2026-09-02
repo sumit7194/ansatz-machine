@@ -2478,3 +2478,75 @@ physically required answer, and a rotating correction derived rather than read. 
 itself (sGB ranks 3–6, which Owen–Yunes–Witek left unsearched) needs one more piece: consistent
 bookkeeping in **both** ζ and χ, since the sGB solution is a double series and the current solver
 expands in one parameter only.
+
+## §129 — the O(χ²) sGB metric, derived in Zerilli gauge rather than transcribed
+
+**Why derive at all.** The O(χ) and O(χ²) corrections in arXiv:1405.2133 are long rational series
+whose PDF extraction interleaves numerators with denominators — at O(χ) the fragments `140m, 10m²,
+16m³, 400m⁴` must be paired with `9r, r², r³, 9r⁴` by guesswork, with the final sign undetermined.
+A mis-paired coefficient is **silent**: it yields a metric solving no field equation, on which "no
+Killing tensor survives" is guaranteed and vacuous. Deriving removes the failure mode we cannot see
+and turns the published values into a check on us.
+
+**Gauge, taken from the paper and not from memory.** The even-parity, stationary, axisymmetric,
+m=0 sector has five independent components; two gauge freedoms are fixed by **Zerilli gauge**,
+leaving three radial functions per multipole (ℓ=0 and ℓ=2). One freedom survives in ℓ=0 — a
+redefinition of the areal radius — fixed by `K₀₀ = 0`. Leaving it makes the system **degenerate**,
+and degeneracy here does not look like an error: it looks like an answer with a free constant in it.
+
+### Stage by stage, each checked against something not of our choosing
+
+    1  Kerr expanded to O(χ²) is Ricci-flat through O(χ²)              45s    ✓
+    2  Gauss-Bonnet vs OUR OWN Riemann, 4 rational points, 3 masses    130s   ✓
+    3  dilaton, both sectors vs independent hand derivations                  ✓
+    4  O(ζχ²) Einstein tensor, checkpointed to disk                    5.9h   ✓
+    5  the five Zerilli functions                                      running
+
+**Stage 3, the dilaton:**
+
+    ℓ=0:  P(r) = −(192m⁴ + 90m³r + 40m²r² + 15mr³ + 15r⁴)/(60mr⁵)
+    ℓ=2:  Q(r) = −m(48m² + 21mr + 7r²)/(15r⁵)
+
+ℓ=0 was confirmed against an exact quadrature of its own ODE, where `C = 1/(4m)` is **forced by
+killing the residue at the horizon**; ℓ=2 against a hand-worked recursion
+`[(j+3)(j−2)]q_j − 2j²q_{j−1} = s_j` that predicted `q₂ = −7/15, q₃ = −7/5, q₄ = −16/5` before the
+solver ran. Both match, and neither check shares code with the solver.
+
+**Stage 4** produced five nonzero components — `(0,0), (1,1), (1,2), (2,2), (3,3)` — with `(0,3)`
+zero, which is the correct structure: the *tφ* correction lives at O(ζχ) and is odd in spin, so it
+cannot appear at χ². Checkpointed (17 MB, gitignored as a resumable intermediate) so the solve can
+be re-run without repeating 5.9 hours.
+
+### Three misdiagnoses of one bug, recorded because each reasoned correctly about the wrong thing
+
+The O(χ²) dilaton returned `NO SOLUTION` three times. The cause was that the metric carries
+`sin²θ` while the equation collection substituted only `cos θ → c`; surviving `sin(θ)` became a
+spurious symbol that no coefficient choice could satisfy. It was blamed in turn on:
+
+1. **the mass dimension** — the ansatz *was* off by `m²`, a real bug, but not this one;
+2. **the fall-off** — "fixed" to `m^(4+k)/r^(6+k)`, which was *further* from the truth;
+3. **an exact ℓ=0 solution** that solved `box₀P = 168m⁴/r⁸`, dropping the O(χ²) box acting on
+   `ϑ⁽⁰⁾`. That term is `2m(12m³cos²θ + 8m²r + 3mr² + r³)/r⁸` and is not optional — the shape was
+   derived from an equation that does not exist. **The same file carries a comment warning that this
+   omission would be invisible downstream.**
+
+What broke the loop was working both sectors by hand and finding a solution *does* exist in the
+ansatz, which located the fault in the code rather than the mathematics. **The check that should
+have come first: before adjusting an ansatz three times, establish whether the answer is
+representable in it at all.**
+
+### Two computations killed, and one that should not have been
+
+`sp.simplify` has **no bounded cost**. A symbolic Kretschmann contraction ran 287 CPU-minutes on an
+expression whose answer is two terms, with no checkpointing; the same result was then settled in
+**130 seconds** by evaluating against our own Riemann at four rational points. The O(χ²) dilaton box
+ran 50 CPU-minutes on an empty output via the `√−g` form and finished in 183s rewritten with
+Christoffels. **Exact rational spot-checks are frequently decisive and orders of magnitude cheaper
+than a symbolic identity.**
+
+Against that, a "kill at 2 hours" threshold set for stage 4 was **wrong and was corrected by the
+user before it fired**. Killing would have discarded ~2h of work that was ~2h from clearing its
+hardest step and restarted from zero — strictly slower, buying only progress visibility a completed
+run does not need. The threshold was anchored to a clock rather than to evidence. The earlier kills
+had real justifications that did not apply: a cheaper method existed; an unbounded `simplify`
+existed. **Slow is not pathological.**
