@@ -25,3 +25,10 @@
 09-02 07:17:00    It was replaced by a truncate-at-every-step computation that finished in 20s
 09-02 07:17:00    and reproduced Eq. (15) -- see data/kt_sgb_derive.out and commit 64ef0c2.
 09-02 07:17:00  === ALL THREE STAGES RESOLVED (A pass, B pass after correction, C derived) ===
+09-02 07:21:42  RANK 3 FEASIBILITY: generic perturbation on Kerr, rank 3, denpow 2 (3380 columns)
+09-02 07:21:42    rank 2 at 1690 columns took 2628s; cost is ~cols^3, so expect roughly 6h
+09-02 09:05:24    rank 3 done in 6221s, PASSED=1  background 8, surviving 6, expected 6 -> PASS
+09-02 09:05:24    scaling: rank2 2628s at 1690 cols -> rank3 6221s at 3380 cols
+09-02 09:05:24  === RANK 3 FEASIBILITY DONE ===
+09-02 09:08:04  RANK 4 FEASIBILITY: generic perturbation on Kerr, rank 3, denpow 2 (5915 columns)
+09-02 09:08:04    rank2 2628s@1690, rank3 6221s@3380 -> scaling is NEAR-LINEAR (2.37x for 2x cols), not cubic. Expect ~3-4h, not the 30h a cubic law predicted.
