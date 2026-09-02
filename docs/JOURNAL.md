@@ -3375,3 +3375,79 @@ you apply by hand gets a sanity check each time; a rule you encode as a guard ne
 Their failure destroyed a finding, ours would have manufactured one — and theirs is harder to catch,
 because **a wrong abstention is indistinguishable from a legitimate "insufficient evidence" and can
 never look absurd.** Prefer guards that flag over guards that decide.
+
+## 2026-08-30
+
+**§126: δ=2 rank 4 den² closes at zero, and the counts that said otherwise were upper bounds.** The
+prover reported 14/24/34 at boxes 357/437/525 — an exact line `5·dx − 66` — which against a
+reducible span of 9 reads as five, fifteen and twenty-five new conserved quantities on an exact
+vacuum. None exist. The exact dimension is **9** at every box, at two primes: `_kt_exact` intersects
+the sampled nullspace with the true solution space, and `rank(C)` *is* the slack.
+
+**The method finding matters more than the rung.** A sampled nullspace dimension is an **upper
+bound**, not a measurement — sampling is sound for rejecting a candidate but not for accepting one,
+because the nullspace is computed *after* the points are drawn. Nothing published retracts, and not
+by luck: `reducible ≤ true ≤ sampled` pins every rung where the ends coincide, which was all
+seventeen. **A "zero irreducible" claim is self-certifying under sampling; a "nonzero" claim never
+is** — the method could only ever have misled toward a false *discovery*.
+
+**D38, pre-registered before the run:** holding the box fixed and raising points 338→500 returned 14
+at both primes. Slack lives in the ansatz box, not the point count — the two had been confounded in
+every earlier sweep because the heuristic scaled points with the box. **A sampled-vs-reducible gap
+cannot be closed by sampling harder.**
+
+**§127, the control that makes the zeros mean something.** `_kt_exact` had only ever returned zero.
+Kerr rank 2 → **irreducible 1**, and identified rather than counted: the textbook Carter constant
+satisfies `{H,Q}=0` and adjoining it raises the reducible span 4 → 5, matching the measured
+dimension.
+
+## 2026-09-01
+
+**The literature check that should have come first.** Vollmer (arXiv:1602.08968, 2016) proved no
+Killing tensor on Zipoy–Voorhees **up to valence 11**; §124/§126 did ranks 1–6. We are strictly
+inside a decade-old result by five ranks. Kokkinos (arXiv:2608.22523) covers rank 2 for the whole
+Weyl class and was posted **during** our δ=2 rank-4 computation. Correct, independent,
+methodologically different — and not new knowledge, which is exactly what the standing steer names.
+
+**The gap that is real:** Owen, Yunes & Witek (PRD 103, 124057) solved the Killing equation through
+**rank 6 in dCS** but only **rank 2 in sGB**, conjecturing without proof that nothing exists at any
+rank. Direction changed to sGB ranks 3–6 (D39).
+
+## 2026-09-02
+
+**§128: the order-by-order solver.** A truncated perturbative metric solves no field equation, so an
+*exact* Killing-tensor search on one returns zero for free. The right question is which **background**
+tensors survive: `{H₀,F₁} + {H₁,F₀} = 0`, one linear system in `(F₁, c)`. Controls — Kerr ∂/∂M and
+∂/∂a keep all 5; a generic perturbation keeps 4 (Carter dies); the covariant route via `gr_engine`
+agrees 5/5 and rejects a corrupted tensor; static sGB at χ⁰ keeps all 5 including `Lsq`.
+
+**Ranks 3 and 4 pass, and the controls strengthen with rank:** rank 3 destroys 2 Carter-derived
+directions (background 8 → 6), rank 4 destroys 5 (background 14 → 9). Scaling is ~cols^1.28, so the
+full ladder to rank 6 is reachable — my earlier cubic estimate was wrong.
+
+**The rotating correction, DERIVED not transcribed:**
+`W(r) = m⁴(9r⁴ + 140mr³ + 90m²r² + 144m³r − 400m⁴)/(15r⁷)` — exactly Eq. (15) under the *minus*
+reading, with the field equations settling an ambiguity the PDF text could not. Nine equations for
+eight unknowns, and the series terminated on its own.
+
+**Three controls that were wrong before they were right.** A generic perturbation whose denominators
+did not divide `L²` put `H₁` outside the ansatz and dropped the floor from 4 to 3 — 4.5 hours to
+surface, now a millisecond precondition guard. `--sgb-static` PASSED while running a Schwarzschild
+metric inside a **Kerr-built ansatz**, so it could not hold `Lsq` and a spherically symmetric
+perturbation preserves everything in any ansatz — vacuous, now refused explicitly. And a Ricci-flat
+guard rejected a valid background, relaxed *with the argument* rather than for convenience.
+
+**Two unbounded computations killed, both my error.** A symbolic Kretschmann contraction ran 287
+CPU-minutes on an expression whose answer is two terms, with **no checkpointing**; the same result
+was then validated in **130 seconds** against our own Riemann at four rational points across three
+masses. Then the O(χ²) dilaton box ran 50 CPU-minutes on an empty output via the
+`sqrt(-g)` form; rewritten in the Christoffel form, which needs no determinant, no square root and
+no `simplify`. **`sp.simplify` has no bounded cost, and exact rational spot-checks are frequently
+decisive and orders of magnitude cheaper than a symbolic identity.**
+
+**Provenance, third instance.** `data/kt_*.out` was once gitignored; then `data/*.log`; now the χ²
+scripts producing cited results lived only in a session scratchpad that gets wiped. Rescued to
+`scripts/_kt_chi2_*.py` (`07b78c2`). The rule keeps arriving in a new costume.
+
+**Where it stands:** Zerilli gauge established from the paper (five radial functions, `K₀₀ = 0`
+fixing the residual ℓ=0 freedom). Stage 1 ✓, stage 2 ✓, stage 3 rerunning bounded, stage 4 written.
