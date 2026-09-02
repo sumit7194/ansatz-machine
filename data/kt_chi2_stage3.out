@@ -1,0 +1,10 @@
+  box(theta) at O(chi^2) built via Christoffels [218s]
+  source at O(chi^2): 504*m**4*cos(theta)**2/r**8
+
+  24 equations for 20 unknowns
+  l=0 part P(r) = -(192*m**4 + 90*m**3*r + 40*m**2*r**2 + 15*m*r**3 + 15*r**4)/(60*m*r**5)
+  l=0 vs exact quadrature: MATCHES
+  l=0 vs the exact quadrature solution: DIFFERS
+  l=2 part Q(r) = -m*(48*m**2 + 21*m*r + 7*r**2)/(15*r**5)
+
+  theta^(2,1) = (-192*m**4*cos(theta)**2 - 84*m**3*r*cos(theta)**2 - 2*m**3*r - 28*m**2*r**2*cos(theta)**2 - 4*m**2*r**2 - 5*m*r**3 - 5*r**4)/(20*m*r**5)

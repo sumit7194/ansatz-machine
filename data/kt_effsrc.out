@@ -1,0 +1,4 @@
+  [box]^(chi^2) on theta^(0) = 2*m*(12*m**3*cos(theta)**2 + 8*m**2*r + 3*m*r**2 + r**3)/r**8
+  zero? False
+  RHS chi^2 coefficient (=-(1/2)*G_GB chi^2 part) = 504*m**4*cos(theta)**2/r**8
+  EFFECTIVE source for box_0(correction) = 2*m*(240*m**3*cos(theta)**2 - 8*m**2*r - 3*m*r**2 - r**3)/r**8

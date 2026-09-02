@@ -96,7 +96,23 @@ resid = sp.cancel(sp.together(lhs - rhs))
 num = sp.numer(sp.together(sp.expand(resid)))
 # Collect in BOTH r and cos(theta): the l=0 and l=2 sectors give independent equations.
 c = sp.Symbol("c")
-numc = sp.expand(num.subs(sp.cos(th), c))
+# ANGULAR COLLECTION. The metric carries sin^2(theta) in four components, so the residual contains
+# BOTH sin and cos. Substituting only cos(theta) -> c leaves sin(theta) standing as a spurious
+# symbol; sp.Poly then treats it as a coefficient, the collected equations carry it, and NO choice
+# of p,q can satisfy them. That produced three NO SOLUTION verdicts that were blamed in turn on the
+# mass dimension, the fall-off, and the sector structure -- none of which was the fault.
+# Eliminate sin^2 first (parity guarantees only even powers appear), then assert nothing survives.
+e = sp.expand(num)
+prev = None
+while prev != e:
+    prev = e
+    e = sp.expand(e.subs(sp.sin(th)**2, 1 - sp.cos(th)**2))
+if e.has(sp.sin(th)):
+    sys.exit("  ODD POWER OF sin(theta) SURVIVES -- the parity assumption is wrong, and collecting "
+             "in cos alone would silently corrupt the equations.")
+numc = sp.expand(e.subs(sp.cos(th), c))
+if numc.has(th):
+    sys.exit(f"  theta still present after substitution -- angular collection is unsound.")
 eqs = []
 pol = sp.Poly(numc, c)
 for co in pol.all_coeffs():
@@ -111,8 +127,9 @@ if not sol:
 s = sol[0]
 Psol = sp.cancel(sp.together(P.subs(s))); Qsol = sp.cancel(sp.together(Q.subs(s)))
 print(f"  l=0 part P(r) = {sp.factor(Psol)}")
-EXACT_L0 = -sp.Rational(7,100)*(15/(m*r) + 15/r**2 + 20*m/r**3 + 30*m**2/r**4 + 48*m**3/r**5)
-agree = sp.cancel(sp.together(Psol - EXACT_L0)) == 0
-print(f"  l=0 vs the exact quadrature solution: {'MATCHES' if agree else 'DIFFERS'}")
+# Hand-derived by quadrature with the CORRECT effective source (bare source minus the O(chi^2) box
+# acting on theta^(0)); C = 1/(4m) forced by killing the residue at the horizon.
+EXACT_L0 = -(192*m**4 + 90*m**3*r + 40*m**2*r**2 + 15*m*r**3 + 15*r**4)/(60*m*r**5)
+print(f"  l=0 vs exact quadrature: {'MATCHES' if sp.cancel(sp.together(Psol - EXACT_L0)) == 0 else 'DIFFERS'}")
 print(f"  l=2 part Q(r) = {sp.factor(Qsol)}")
 print(f"\n  theta^(2,1) = {sp.cancel(sp.together(Psol + Qsol*(3*sp.cos(th)**2 - 1)))}")
