@@ -1,0 +1,15 @@
+09-02 01:14:14  === OVERNIGHT CHAIN START ===
+09-02 01:14:14  STAGE A: generic perturbation must NOT preserve Carter (expect surviving 4, background 5)
+09-02 05:45:25    stage A: SELFTEST PASSED=0  (16271s)
+09-02 05:45:25      background 5, surviving 3, expected 4 -> FAIL
+09-02 05:45:25    CHAIN STOPPED: the solver is not validated, so nothing downstream would mean anything.
+09-02 05:45:25  === OVERNIGHT CHAIN END (blocked at A) ===
+09-02 05:49:57  === OVERNIGHT CHAIN START ===
+09-02 05:49:57  STAGE A0: fast version of the control at denpow 1 (cheap failure first)
+09-02 05:58:59    stage A0: PASSED=1  (542s)  background 5, surviving 4, expected 4 -> PASS
+09-02 05:58:59  STAGE A: same control at denpow 2 (the setting real runs use)
+09-02 06:42:47    stage A: SELFTEST PASSED=1  (2628s)
+09-02 06:42:47      background 5, surviving 4, expected 4 -> PASS
+09-02 06:42:47  STAGE B: static sGB (chi^0) must preserve EVERYTHING (spherical symmetry intact)
+09-02 06:50:31    stage B: CONTROL PASSED=1  (464s)  background 4, surviving 4
+09-02 06:50:31  STAGE C: derive the O(zeta chi) sGB correction from the field equations

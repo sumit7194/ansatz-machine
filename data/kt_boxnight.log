@@ -1,0 +1,30 @@
+08-29 13:48:09  PHASE 1: delta=1 rank 4 box sweep, true answer 14
+08-29 13:53:51    box x<=6,y<=8 = 63 funcs, 63 pts -> dimension 14  (342s)
+08-29 14:09:24    box x<=8,y<=10 = 99 funcs, 96 pts -> dimension 14  (933s)
+08-29 14:11:49    box x<=10,y<=12 = 143 funcs, 138 pts -> dimension 14  (145s)
+08-29 15:14:58    box x<=12,y<=14 = 195 funcs, 186 pts -> dimension 14  (3789s)
+08-29 15:14:58  PHASE 2: delta=2 rank 4 at NO-MARGIN box x<=16,y<=20 (357 funcs) -- predicted 9, margin-4 gave 34
+08-29 18:52:13  PHASE 2 RESUMED after power cut -- 338/338 points banked, rank step only
+08-29 19:27:10    delta=2 rank 4, box 357 funcs -> dimension 14  (2097s)
+08-29 19:27:10  PHASE 3: delta=2 rank 4 at MARGIN-2 box x<=18,y<=22 (437 funcs) -- the flatness partner
+08-30 01:44:54    delta=2 rank 4, box 437 funcs -> dimension 24  (22664s)
+08-30 01:44:54    FLATNESS: 357 -> 14, 437 -> 24, 525 -> 34
+08-30 01:44:54    NOT FLAT: 357 and 437 disagree. Onset lies between them; neither is trustworthy alone.
+08-30 01:44:54  ALL PHASES DONE
+08-30 01:45:11  PHASE 4: delta=2 rank 4, box FIXED at 357, POINTS 338 -> 500. Does 14 hold?
+08-30 02:43:40  CONFIRM 1: exact dimension at box 357, SECOND prime 2147483629. One prime can vanish falsely.
+08-30 03:09:36    box 357 prime 2 -> exact dim 9, irreducible 0  (prime 1 gave 9 and 0)
+08-30 03:09:36  CONFIRM 2: exact dimension at box 437, where the SAMPLED count was 24. Tests box-flatness of the EXACT number.
+08-30 03:53:47    box 437 -> exact dim NONE, irreducible NONE  (sampled there was 24)
+08-30 03:53:47    NOT CONFIRMED: prime2=9 box437=NONE; the single-prime 9 does not stand alone.
+08-30 03:53:47  CONFIRM DONE
+08-30 03:54:47  CONFIRM 2 RETRY: box 437 after scoping the cross-check to the box it was measured on.
+08-30 04:07:10    box 437 -> exact dim 9, reducible 9, irreducible 0  (sampled 24)
+08-30 04:07:10  REGRESSION: box 357 prime 1 re-run, to prove the cross-check edit did not break the working path.
+08-30 04:15:46    regression box 357 -> exact dim 9 (expect 9), cross-check line present: 1 (expect 1)
+08-30 04:15:46    CONFIRMED: exact dim 9 at two primes AND two boxes; cross-check intact. Sampled 14/24 was slack.
+08-30 04:15:46  CONFIRM2 DONE
+08-30 07:52:45    box 357, 500 points -> dimension 14  (22054s)
+08-30 07:52:45    14 HOLDS at 1.5x the points. Not point-limited. 14-9=5 remains unexplained and needs the exact test.
+08-30 07:52:45  PHASE 4 DONE
+08-30 10:06:11  PERTURB SELFTEST: Kerr-family deformations must KEEP Carter; a generic one must NOT.

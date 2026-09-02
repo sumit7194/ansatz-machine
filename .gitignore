@@ -6,6 +6,13 @@ __pycache__/
 runs/
 data/our_pids.txt
 data/*.log
+# ...EXCEPT the driver logs whose lines are cited as evidence in RESULTS.md / docs/DECISIONS.md.
+# A size rule is not a judgement about evidentiary value: data/kt_*.out was once ignored, which
+# left every number in a published section uncommitted. These two carry the §124-§127 phase
+# results and timings, so they are tracked; the other ~60 logs here are watchdog and progress
+# noise and stay ignored.
+!data/kt_boxnight.log
+!data/kt_overnight.log
 data/s122_cache/
 data/s122_progress.log
 
