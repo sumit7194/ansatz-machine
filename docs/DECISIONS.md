@@ -887,3 +887,46 @@ including `kt_boxnight.log`, which carries the §124–§127 phase results and t
 RESULTS.md. Zero `.log` files were tracked. This is the same provenance failure the repo already
 records paying for with `data/kt_*.out`: **a size rule is not a judgement about evidentiary value.**
 Narrow negation added; the ~60 watchdog and progress logs stay ignored.
+
+## D40 — a NO SOLUTION that was a property of the ANSATZ, not of the equation (2026-09-02)
+
+**The symptom.** The O(χ²) dilaton derivation returned `NO SOLUTION` twice — 20 equations for 16
+unknowns, then 29 for 20. Both times the over-determined system was doing exactly what it was built
+to do: refusing to fit rather than producing a plausible wrong answer.
+
+**Both failures were the ansatz having the wrong SHAPE, and the second attempt moved further away.**
+The first ansatz was `Σ p_k m^k/r^(1+k)`. Reasoning from the source (`504 m⁴cos²θ/r⁸`) and the fact
+that the box operator lowers the radial power by two, the correction "must" lead with `m⁴/r⁶`, so
+the ansatz became `Σ p_k m^(4+k)/r^(6+k)`. That is sound reasoning about the *particular* solution
+and it is still wrong.
+
+**What settled it was solving the ℓ=0 sector exactly by quadrature** rather than guessing a third
+time:
+
+    r(r-2m) P' = C - 168 m⁴/(5 r⁵)
+    C = 21/(20m)                      forced by killing the residue at the horizon
+    P(r) = -(7/100)[ 15/(mr) + 15/r² + 20m/r³ + 30m²/r⁴ + 48m³/r⁵ ]
+
+The solution is rational, but *only* for that one value of `C`. Its terms run as `m^(k-1)/r^(1+k)`
+— the structure of `ϑ⁽⁰⁾ = (1/mr)(1 + m/r + 4/3 m²/r²)` itself. The leading `1/(mr)` comes from a
+**homogeneous admixture fixed by horizon regularity**, and it dominates the `m⁴/r⁶` behaviour that
+dimensional analysis of the source predicts. The first ansatz was off by `m²`; the second was off by
+much more.
+
+**The general lesson, which is the reason this gets a decision line.** *Dimensional analysis of the
+SOURCE constrains the particular solution and says nothing about the homogeneous admixture a
+boundary condition will force.* Where regularity fixes an integration constant, that admixture can
+dominate the asymptotics — so an ansatz derived from the source alone can be structurally incapable
+of representing the answer, and no coefficient choice repairs it.
+
+**And the failure mode this belongs to.** A `NO SOLUTION` from an over-determined system is
+ambiguous in exactly the way a firing guard is: it may be a property of the equation (informative)
+or of the ansatz (an artifact). Reading it as the former would have been "no O(χ²) dilaton exists",
+which is false and would have blocked the whole sGB line. This is the seventh time in this arc that
+the instrument rather than the physics was at fault, and the resolution was the same each time:
+**ask why the check fired before acting on what it said.** Compare §128's three broken controls and
+the `(m⁴-1)` residuals that nearly condemned a correct metric.
+
+**Guard added:** the solver now cross-checks its ℓ=0 answer against the exact quadrature result. A
+disagreement there means the solver is wrong rather than the ansatz — a stronger test than either
+failing run had available.
