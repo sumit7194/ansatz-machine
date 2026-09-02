@@ -1,0 +1,16 @@
+Deriving the O(zeta chi) sGB correction from the field equations (8-term ansatz)
+
+  building the O(zeta chi) Einstein tensor (truncating at every step)...
+  perturbative inverse verified to O(zeta chi)
+  extracted the O(zeta chi) part of G_tphi
+  extracted the O(chi) source
+
+  ODE in W(r) obtained
+
+  9 equations for 8 unknowns
+  solution: {w0: 3/5, w1: 28/3, w2: 6, w3: 48/5, w4: -80/3, w5: 0, w6: 0, w7: 0}
+
+  W(r) = m**4*(-400*m**4 + 144*m**3*r + 90*m**2*r**2 + 140*m*r**3 + 9*r**4)/(15*r**7)
+
+  Eq.(15) reading A (last term -): MATCHES our derivation
+  Eq.(15) reading B (last term +): differs
