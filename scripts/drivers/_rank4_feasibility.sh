@@ -5,7 +5,7 @@
 cd /Users/sumit/Github/conjecture_machine
 L=data/kt_overnight.log
 say(){ echo "$(date '+%m-%d %H:%M:%S')  $*" >> "$L"; }
-say "RANK 4 FEASIBILITY: generic perturbation on Kerr, rank 3, denpow 2 (5915 columns)"
+say "RANK 4 FEASIBILITY: generic perturbation on Kerr, rank 4, denpow 2 (5915 columns)"
 say "  rank2 2628s@1690, rank3 6221s@3380 -> scaling is NEAR-LINEAR (2.37x for 2x cols), not cubic. Expect ~3-4h, not the 30h a cubic law predicted."
 s=$(date +%s)
 .venv/bin/python scripts/_kt_perturb.py --rank 4 --denpow 2 --selftest --only 2 \

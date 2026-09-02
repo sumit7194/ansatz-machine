@@ -1,0 +1,41 @@
+Kerr M=1 a=1/2, rank 4, den^2, reducible-holding box x<=8 y<=8, ansatz x<=12 y<=12, prime 2147483647
+  reducible span: 9  (H^2, p_phi^2 H, p_phi^4, p_t p_phi H, p_t p_phi^3, p_t^2 H, p_t^2 p_phi^2, p_t^3 p_phi, p_t^4)
+  --only 2: running a single case; the others are not re-verified here
+
+== generic perturbation (Carter must NOT) ==
+  rank 4: 5915 coefficient unknowns, box x<=12 y<=12
+    H0 200/5915 brackets (2s)
+    H0 400/5915 brackets (5s)
+    H0 600/5915 brackets (7s)
+    H0 800/5915 brackets (10s)
+    H0 1000/5915 brackets (14s)
+    H0 1200/5915 brackets (17s)
+    H0 1400/5915 brackets (20s)
+    H0 1600/5915 brackets (22s)
+    H0 1800/5915 brackets (25s)
+    H0 2000/5915 brackets (29s)
+    H0 2200/5915 brackets (32s)
+    H0 2400/5915 brackets (36s)
+    H0 2600/5915 brackets (40s)
+    H0 2800/5915 brackets (43s)
+    H0 3000/5915 brackets (46s)
+    H0 3200/5915 brackets (49s)
+    H0 3400/5915 brackets (51s)
+    H0 3600/5915 brackets (54s)
+    H0 3800/5915 brackets (58s)
+    H0 4000/5915 brackets (62s)
+    H0 4200/5915 brackets (66s)
+    H0 4400/5915 brackets (69s)
+    H0 4600/5915 brackets (73s)
+    H0 4800/5915 brackets (78s)
+    H0 5000/5915 brackets (81s)
+    H0 5200/5915 brackets (84s)
+    H0 5400/5915 brackets (87s)
+    H0 5600/5915 brackets (90s)
+    H0 5800/5915 brackets (93s)
+  background Killing space: dimension 14  (matrix (46409, 5915))
+  sources enlarge the denominator; re-clearing all columns
+  combined system (49951, 5929), nullity 23; surviving directions 9 of 14
+  background 14, surviving 9, expected 9 -> PASS
+
+  SELFTEST PASSED for: generic perturbation (Carter must NOT)

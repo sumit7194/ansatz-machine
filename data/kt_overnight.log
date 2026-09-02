@@ -32,3 +32,7 @@
 09-02 09:05:24  === RANK 3 FEASIBILITY DONE ===
 09-02 09:08:04  RANK 4 FEASIBILITY: generic perturbation on Kerr, rank 3, denpow 2 (5915 columns)
 09-02 09:08:04    rank2 2628s@1690, rank3 6221s@3380 -> scaling is NEAR-LINEAR (2.37x for 2x cols), not cubic. Expect ~3-4h, not the 30h a cubic law predicted.
+09-02 09:08:17    [label correction] the RANK 4 line above reads 'rank 3' from a sed slip; the run is --rank 4 (5915 cols). Script fixed.
+09-02 12:40:38    rank 4 done in 12754s, PASSED=1  background 14, surviving 9, expected 9 -> PASS
+09-02 12:40:38    scaling: rank2 2628s at 1690 cols -> rank4 12754s at 5915 cols
+09-02 12:40:38  === RANK 4 FEASIBILITY DONE ===
