@@ -1,0 +1,9 @@
+  perturbative inverse verified to O(chi^2): True  [2s]
+  Christoffels [3s]
+
+STAGE 1: Ricci vanishes through O(chi^2): True    [43s]
+  Riemann [133s]
+  raised index 3 [543s]
+  raised index 2 [1071s]
+  raised index 1 [2060s]
+  raised index 0 [4433s]

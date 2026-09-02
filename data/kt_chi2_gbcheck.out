@@ -1,0 +1,7 @@
+  Riemann built [95s]
+  point 0: chi^0 16/243 vs 16/243 | chi^2 -28/729 vs -28/729 -> MATCH
+  point 1: chi^0 48/15625 vs 48/15625 | chi^2 -504/390625 vs -504/390625 -> MATCH
+  point 2: chi^0 192/117649 vs 192/117649 | chi^2 -1728/823543 vs -1728/823543 -> MATCH
+  point 3: chi^0 27/1024 vs 27/1024 | chi^2 -5103/262144 vs -5103/262144 -> MATCH
+
+  Eq.(16) confirmed against our own Riemann at 4 points: True  [130s]

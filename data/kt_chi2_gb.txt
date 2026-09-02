@@ -1,0 +1,1 @@
+Add(Mul(Integer(-1), Integer(1008), Pow(Symbol('chi'), Integer(2)), Pow(Symbol('m', positive=True), Integer(4)), Pow(Symbol('r', positive=True), Integer(-8)), Pow(cos(Symbol('theta', positive=True)), Integer(2))), Mul(Integer(48), Pow(Symbol('m', positive=True), Integer(2)), Pow(Symbol('r', positive=True), Integer(-6))))
