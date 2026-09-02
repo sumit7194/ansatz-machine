@@ -2395,3 +2395,86 @@ box itself, and banks its own matrix through the *same* sampler the published ru
 control exercises the real code path rather than a shortcut written for it. The ZV δ=2 rank-4 run
 reproduces 9 / 9 / 0 unchanged after the refactor, and the new box code independently re-derived the
 reducible-holding box x≤16, y≤20 that `_kt_zv_den2` had measured by separate logic.
+
+## §128 — the order-by-order solver, and the sGB metric derived rather than transcribed
+
+**Why the exact test could not simply be pointed at sGB.** The slowly-rotating sGB and dCS black
+holes are TRUNCATED double series in coupling ζ and spin χ; they solve no field equation exactly.
+Asking `_kt_exact` for an exact Killing tensor of one returns **zero automatically** — a truncated
+metric generically has no exact symmetry — and that zero is an artifact of truncation, not a
+statement about the theory. The §124 error in a new costume: a correct computation answering the
+wrong question.
+
+**The right question.** With `g = g₀ + ζg₁`, expand both sides:
+
+    O(ζ⁰):   {H₀, F₀} = 0                  F₀ is a Killing tensor of the BACKGROUND
+    O(ζ¹):   {H₀, F₁} + {H₁, F₀} = 0       inhomogeneous, sourced by that tensor
+
+So the question is not "does a Killing tensor exist" but **which background tensors survive**, and
+that is one linear system in `(F₁, c)` with `F₀ = Σcᵢ F₀ᵢ`. `nullspace(M₀)` is the background
+Killing space; `nullspace([M₀ | S])` projected to the c-block is what survives. **Exact, not
+sampled** — there is no §126 slack to subtract, the nullity *is* the dimension.
+
+### Validation, every line of which can fail
+
+    Kerr family ∂/∂M      5 of 5 survive     Kerr(M+ζ) IS Kerr, so Carter must live
+    Kerr family ∂/∂a      5 of 5 survive
+    generic perturbation  4 of 5             Carter dies, reducible floor holds
+    covariant cross-check 5/5 agree          corrupted tensor rejected, 476 nonzero coefficients
+    static sGB at χ⁰      5 of 5 survive     spherical symmetry preserved, including Lsq
+
+The covariant check is worth its cost: `gr_engine` implements `∇₍ₐK_bc₎ = 0` from Christoffels and
+shares no code with the Hamiltonian route. Two formulations agreeing catches a sign, a bracket
+convention, or a factor of 2 in the index symmetrisation — none of which a single formulation
+checked twice would see.
+
+### The rotating correction, DERIVED
+
+Eq. (15) of arXiv:1405.2133 could not be read unambiguously: the PDF interleaves numerators with
+denominators, leaving `140m, 10m², 16m³, 400m⁴` to be paired with `9r, r², r³, 9r⁴` by guesswork,
+final sign undetermined. So it was derived instead, by imposing the O(ζχ) field equation on an
+undetermined series:
+
+    W(r) = m⁴(9r⁴ + 140mr³ + 90m²r² + 144m³r − 400m⁴) / (15r⁷)
+
+exactly Eq. (15) under the **minus** reading; the plus reading differs. **The ambiguity is settled
+by the field equations rather than by a choice.** Nine equations for eight unknowns — over-
+determined, so a wrong-shaped ansatz has no solution rather than a fitted one — and the series
+terminated on its own (`w₅ = w₆ = w₇ = 0` came out, they were not imposed).
+
+The published values were never an input. They are compared against at the end, which makes the
+paper a check on us rather than something we trusted.
+
+### Three controls that were wrong before they were right
+
+Recorded because **a passing control that tests nothing is worse than a failing one.**
+
+1. **The generic perturbation returned `surviving 3, expected 4` after 4.5 hours**, reading as "the
+   solver cannot keep the reducible floor". It could. `H = H₀ + ζH₁` is exactly conserved, so `H₀`
+   extends **iff** `F₁ = H₁` is available — and `H₁`'s coefficients *are* the entries of `ginv₁`.
+   The perturbation had denominators none of which divide `L²`, so `H₁` sat outside the ansatz.
+   Fixed to polynomials over `L`, plus a precondition guard answering representability in
+   milliseconds, plus a cheap denpow-1 pass before the expensive one — 9 min versus 4.5 h to catch
+   a bad control.
+
+2. **`--sgb-static` PASSED while testing nothing.** It swapped in the Schwarzschild-based sGB
+   metric but kept `L`, the denominator, the box and the reducible span computed from **Kerr**.
+   Kerr's `L` carries `4Δ` where Schwarzschild needs `(x−2)`, so the ansatz could not hold `Lsq`,
+   the background came out 4 instead of 5, and a spherically symmetric perturbation preserves
+   everything in *any* ansatz. Now the ansatz is built from the actual background, and a rank-2
+   spherically symmetric background with dimension < 5 is refused as VACUOUS rather than reported
+   as a pass. The new guard immediately earned itself: the sGB correction needs `den = L⁴`, since
+   its `g^rr` has denominator `15x⁷` while `L = x²(x−2)(y²−1)` reaches only `x⁴` at `L²`.
+
+3. **A Ricci-flat guard rejected a valid background.** `Schwarzschild + χ(Lense–Thirring)` is Kerr
+   truncated at linear order, so its Ricci vanishes at O(χ⁰) and O(χ¹) and is nonzero at O(χ²) —
+   exactly because Kerr's own O(χ²) terms were dropped. Relaxed *with the argument*: every `D_ab`
+   term dropped carries a factor of `R` or `R_ab`, so with `R_ab = O(χ²)` they enter at O(χ²) and
+   the routine is only used to O(χ¹).
+
+**Standing after this:** every layer beneath the open question is validated — metric against field
+equations, solver in both directions, two independent formulations, real sGB data giving the
+physically required answer, and a rotating correction derived rather than read. The open question
+itself (sGB ranks 3–6, which Owen–Yunes–Witek left unsearched) needs one more piece: consistent
+bookkeeping in **both** ζ and χ, since the sGB solution is a double series and the current solver
+expands in one parameter only.

@@ -844,3 +844,46 @@ unexplained and needs the exact test" from a canned `case` written the previous 
 `_kt_exact` existed. The 5 *is* explained — it is `rank(C)`, the bracket-map rank, measured at both
 primes. A driver's pre-written commentary is not a finding, and reading it back as one is how a
 superseded claim re-enters a record.
+
+## D39 — direction change: ZV was reproduction, sGB ranks 3–6 are not (2026-09-02)
+
+**The literature check that should have come first.** Vollmer (arXiv:1602.08968, 2016) already
+proved nonexistence of a nontrivial Killing tensor for Zipoy–Voorhees **up to valence 11**; §124 and
+§126 covered ranks 1–6. We are strictly inside a decade-old result, by five ranks. Worse for
+novelty, Kokkinos (arXiv:2608.22523, posted 23 Aug 2026 — *during* our δ=2 rank-4 computation)
+proves no irreducible rank-2 Killing tensor for the whole two-Killing-vector Weyl class in vacuum
+or electrovacuum, treating the γ-metric explicitly.
+
+Our work is correct, independently obtained and methodologically different (modular sampling plus
+an exact intersection over GF(p), versus their rigorous computer algebra). It is **not new
+knowledge.** That is exactly the outcome the user's standing steer names: *"are we just doing what
+others have already done with a smaller machine."*
+
+**The gap that is real.** Owen, Yunes & Witek (PRD 103, 124057, 2021) solved the Killing equation
+through **rank 6 in dynamical Chern–Simons** but only **rank 2 in scalar Gauss–Bonnet**. They
+conjecture — stating explicitly that they cannot prove — that no Killing tensor of any rank exists.
+sGB ranks 3–6 are unsearched. Separately, a dynamical-systems argument (arXiv:1804.04002)
+conjectures the exact dCS metric *does* possess a fourth constant, so the field is not settled.
+
+**Decision: point the instrument at sGB ranks 3–6.** Three reasons. It is explicitly open and named
+as such. The repo already carries EdGB machinery. And our route has a real methodological advantage
+over the approach that stalled: they hit overdetermined and inconsistent systems solving
+symbolically, where we have a modular sampler plus an exact test now validated in both directions
+(§127 recovers Carter; §128's controls kill it when they should).
+
+**What was built before asking the question, and why none of it was optional.** §128 records the
+order-by-order solver, its five controls, the covariant cross-check, and the derivation of the
+rotating correction. The rule underneath all of it: *a truncated perturbative metric solves no field
+equation, so an exact-Killing-tensor search on one returns zero for free.* Asking the open question
+with the wrong instrument would have produced a publishable-looking null that meant nothing.
+
+**Named as still missing, not glossed.** The sGB solution is a double series in coupling ζ **and**
+spin χ; the current solver expands in one parameter. Ranks 3–6 need consistent bookkeeping in both,
+which is a real design step and not a parameter change. Until it exists, no sGB rank-3+ result can
+be reported.
+
+**Also fixed here: evidence that was not committed.** `data/*.log` blanket-ignored every log,
+including `kt_boxnight.log`, which carries the §124–§127 phase results and the D38 timings quoted in
+RESULTS.md. Zero `.log` files were tracked. This is the same provenance failure the repo already
+records paying for with `data/kt_*.out`: **a size rule is not a judgement about evidentiary value.**
+Narrow negation added; the ~60 watchdog and progress logs stay ignored.

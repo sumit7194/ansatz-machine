@@ -13,3 +13,15 @@
 09-02 06:42:47  STAGE B: static sGB (chi^0) must preserve EVERYTHING (spherical symmetry intact)
 09-02 06:50:31    stage B: CONTROL PASSED=1  (464s)  background 4, surviving 4
 09-02 06:50:31  STAGE C: derive the O(zeta chi) sGB correction from the field equations
+09-02 07:17:00  --- CORRECTION, appended by hand. The two lines above are superseded: ---
+09-02 07:17:00    stage B's "background 4, surviving 4" was VACUOUS. That run used the
+09-02 07:17:00    Schwarzschild-based sGB metric inside an ansatz built from KERR, which cannot
+09-02 07:17:00    hold Lsq, so the background was 4 instead of 5 and a spherically symmetric
+09-02 07:17:00    perturbation preserves everything in any ansatz. Corrected run at denpow 4
+09-02 07:17:00    (the sGB g^rr needs L^4, not L^2): background 5, surviving 5 -- see
+09-02 07:17:00    data/kt_perturb_sgbstatic.out.
+09-02 07:17:00    STAGE C shows no completion here because the driver was killed deliberately:
+09-02 07:17:00    the gr_engine route was still inside the curvature computation at 13.5 min.
+09-02 07:17:00    It was replaced by a truncate-at-every-step computation that finished in 20s
+09-02 07:17:00    and reproduced Eq. (15) -- see data/kt_sgb_derive.out and commit 64ef0c2.
+09-02 07:17:00  === ALL THREE STAGES RESOLVED (A pass, B pass after correction, C derived) ===
