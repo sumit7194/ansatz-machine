@@ -1,0 +1,24 @@
+Kerr M=1 a=1/2, rank 2, den^4, reducible-holding box x<=16 y<=16, ansatz x<=20 y<=20, prime 2147483647
+  reducible span: 4  (H, p_phi^2, p_t p_phi, p_t^2)
+
+  sGB static background: generators ['p_t', 'p_phi', 'H', 'Lsq']; reducible span 5 (Lsq, H, p_phi^2, p_t p_phi, p_t^2); box x<=16 y<=14
+
+== sGB static (chi^0): every background tensor MUST survive (spherical symmetry is preserved) ==
+  rank 2: 2550 coefficient unknowns, box x<=16 y<=14
+    H0 200/2550 brackets (1s)
+    H0 400/2550 brackets (2s)
+    H0 600/2550 brackets (3s)
+    H0 800/2550 brackets (4s)
+    H0 1000/2550 brackets (5s)
+    H0 1200/2550 brackets (6s)
+    H0 1400/2550 brackets (7s)
+    H0 1600/2550 brackets (9s)
+    H0 1800/2550 brackets (10s)
+    H0 2000/2550 brackets (11s)
+    H0 2200/2550 brackets (12s)
+    H0 2400/2550 brackets (13s)
+  background Killing space: dimension 5  (matrix (8456, 2550))
+  sources enlarge the denominator; re-clearing all columns
+  combined system (12064, 2555), nullity 10; surviving directions 5 of 5
+  background 5, surviving 5
+  CONTROL PASSED: the static sGB correction kills nothing, as spherical symmetry requires.

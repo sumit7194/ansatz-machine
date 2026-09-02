@@ -1,0 +1,19 @@
+Kerr M=1 a=1/2, rank 2, den^1, reducible-holding box x<=4 y<=4, ansatz x<=8 y<=8, prime 2147483647
+  reducible span: 4  (H, p_phi^2, p_t p_phi, p_t^2)
+
+== covariant cross-check (gr_engine, shares no code with the bracket route) ==
+  rank 2: 810 coefficient unknowns, box x<=8 y<=8
+    H0 200/810 brackets (2s)
+    H0 400/810 brackets (5s)
+    H0 600/810 brackets (8s)
+    H0 800/810 brackets (10s)
+  background Killing space: dimension 5  (matrix (11805, 810))
+  combined system (11805, 815), nullity 10; surviving directions 5 of 5
+    background tensor 0: covariant residual mod p 0 -- IS a Killing tensor
+    background tensor 1: covariant residual mod p 0 -- IS a Killing tensor
+    background tensor 2: covariant residual mod p 0 -- IS a Killing tensor
+    background tensor 3: covariant residual mod p 0 -- IS a Killing tensor
+    background tensor 4: covariant residual mod p 0 -- IS a Killing tensor
+    KNOWN-FAIL (corrupted tensor 0): residual mod p 476 nonzero -- checker can reject
+  5/5 background tensors satisfy the COVARIANT Killing equation
+  CROSS-CHECK PASSED: both formulations agree on all background tensors, and the covariant routine rejects a corrupted one.

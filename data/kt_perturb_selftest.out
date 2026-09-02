@@ -1,0 +1,20 @@
+Kerr M=1 a=1/2, rank 2, den^2, reducible-holding box x<=8 y<=8, ansatz x<=12 y<=12, prime 2147483647
+  reducible span: 4  (H, p_phi^2, p_t p_phi, p_t^2)
+  --only 2: running a single case; the others are not re-verified here
+
+== generic perturbation (Carter must NOT) ==
+  rank 2: 1690 coefficient unknowns, box x<=12 y<=12
+    H0 200/1690 brackets (2s)
+    H0 400/1690 brackets (5s)
+    H0 600/1690 brackets (7s)
+    H0 800/1690 brackets (9s)
+    H0 1000/1690 brackets (13s)
+    H0 1200/1690 brackets (16s)
+    H0 1400/1690 brackets (19s)
+    H0 1600/1690 brackets (21s)
+  background Killing space: dimension 5  (matrix (16377, 1690))
+  sources enlarge the denominator; re-clearing all columns
+  combined system (17637, 1695), nullity 9; surviving directions 4 of 5
+  background 5, surviving 4, expected 4 -> PASS
+
+  SELFTEST PASSED for: generic perturbation (Carter must NOT)
