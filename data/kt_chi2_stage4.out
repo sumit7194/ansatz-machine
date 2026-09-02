@@ -1,0 +1,5 @@
+  perturbative inverse verified to O(zeta chi^2) [55s]
+  Christoffels [116s]
+  Ricci + scalar [14876s]
+  O(zeta chi^2) Einstein tensor [21376s]
+  wrote LHS to data/kt_chi2_stage4_lhs.txt [21381s]
