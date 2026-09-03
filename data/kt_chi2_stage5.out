@@ -1,0 +1,12 @@
+  background curvature [105s]
+  source at O(chi^2), CHECKPOINTED [14974s]
+  65 unknown coefficients, 13 terms per function
+  loaded checkpointed Einstein tensor [14988s]
+    component (0, 0) -> 33 equations [15095s]
+    component (1, 1) -> 66 equations [15169s]
+    component (1, 2) -> 99 equations [15184s]
+    component (2, 2) -> 132 equations [15293s]
+    component (3, 3) -> 165 equations [15385s]
+
+  165 equations for 65 unknowns
+  NO SOLUTION -- the Zerilli ansatz or the term count is wrong. That is information.

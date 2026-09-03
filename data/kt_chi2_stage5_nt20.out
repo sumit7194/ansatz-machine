@@ -1,0 +1,11 @@
+  loaded checkpointed source [5s]
+  100 unknown coefficients, 20 terms per function
+  loaded checkpointed Einstein tensor [16s]
+    component (0, 0) -> 41 equations [156s]
+    component (1, 1) -> 82 equations [254s]
+    component (1, 2) -> 122 equations [272s]
+    component (2, 2) -> 163 equations [419s]
+    component (3, 3) -> 204 equations [532s]
+
+  204 equations for 100 unknowns
+  NO SOLUTION -- the Zerilli ansatz or the term count is wrong. That is information.
