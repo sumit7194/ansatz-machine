@@ -1,0 +1,17 @@
+Schwarzschild background: L = x**2*(x - 2)*(y - 1)*(y + 1)
+  generators ['p_t', 'p_phi', 'H', 'Lsq']; 5 reducible products at rank 2
+  box x<=10 y<=10; den = L^2
+  1210 coefficient unknowns per level
+    op 200/1210 brackets (1s)
+    op 400/1210 brackets (2s)
+    op 600/1210 brackets (3s)
+    op 800/1210 brackets (4s)
+    op 1000/1210 brackets (5s)
+    op 1200/1210 brackets (6s)
+  operator matrix (4780, 1210) [41s]
+  chi^0 level: Schwarzschild Killing space = 5
+  chi^1 level: 5 of 5 extend  [42s]
+  chi^2 level: 5 of 5 extend  [204s]
+
+  Kerr Killing space at rank 2: got 5, expect 5
+  CONTROL PASSED: the chi-tower reproduces Kerr's Killing space from Schwarzschild's.
