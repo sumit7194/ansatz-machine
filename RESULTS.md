@@ -2590,3 +2590,63 @@ particular solution plus `d17` and `e16` homogeneous modes rather than an answer
 **Standing after §129:** the O(χ²) sGB metric is complete and derived rather than transcribed, with
 every stage checked against something not of our choosing. Per D41 the rank-2 Killing question is
 already settled three independent ways and is demoted to a control; **ranks 3–6 carry the claim.**
+
+## §130 — sGB rank 2: Carter does not survive. The control passes, and the instrument is ready.
+
+**The double-expansion solver, order by order in coupling ζ AND spin χ.** A truncated perturbative
+metric solves no field equation, so an exact Killing search on one returns zero for free; and
+"Kerr truncated at χ²" is not a valid background either, since its exact Killing space is just the
+reducibles and Carter is not in it — the question could not even be posed. Expanding both sides,
+
+    O(ζ¹χⁿ):  {H⁽⁰'⁰⁾, F⁽¹'ⁿ⁾} = −[ Σ_{j≥1} {H⁽⁰'ʲ⁾, F⁽¹'ⁿ⁻ʲ⁾} + Σ_j {H⁽¹'ʲ⁾, F⁽⁰'ⁿ⁻ʲ⁾} ]
+
+the unknown always sits under the **Schwarzschild** bracket, so one operator matrix (15220×5250 at
+rank 2, denpow 6) is built once and reused across all six levels.
+
+### The result, with every level predicted in advance
+
+    chi-tower (sGB off):  5 -> 5 -> 5     reproduces KERR's Killing space from Schwarzschild's
+    zeta chi^0:           5 of 5 survive  spherically symmetric — Carter lives
+    zeta chi^1:           5 of 5 survive  still Petrov type D  — Carter lives
+    zeta chi^2:           4 of 5 survive  type I appears       — Carter DIES
+    reducible floor:      4               only products of p_t, p_phi, H remain
+
+**Carter does not extend to O(ζχ²).** This agrees with three independent published arguments:
+Ayzenberg & Yunes' own observation that the O(χ²) solution is Petrov type I and type I admits no
+second-order Killing tensor; Owen, Yunes & Witek's direct rank-2 Killing search; and Deich,
+Cárdenas-Avendaño & Yunes' chaotic Poincaré sections. Per D41 this rung is a **control**, not a
+contribution — its value is that the instrument reproduces a settled answer, and the χ⁰/χ¹/χ²
+pattern tracks the Petrov classification level by level rather than merely landing on the endpoint.
+
+### The free control is non-vacuous, which took two corrections to establish
+
+Schwarzschild and Kerr have the **same** Killing dimension at every rank (5, 8, 14) because `Lsq`
+maps one-to-one onto Carter — so "the count is preserved" would also pass for a tower that did
+nothing. It is nevertheless decisive: `{H_Kerr, Lsq}` is **nonzero at χ²**, so `Lsq` alone does not
+extend and a do-nothing tower would have reported 4 of 5. Reporting 5 means the deformation was
+found, and `Lsq + χ²y²(μ²−p_t²)` was verified to commute at χ⁰, χ¹ and χ² *before* being used as the
+target. Two lines of Poisson bracket settled what three rounds of mod-p vector extraction could not.
+
+### Four wrong answers that looked right
+
+Recorded because each was plausible, and three of the four were caught only by a check rather than
+by inspection.
+
+1. **A source-assembly bug** used `F⁽⁰'⁰⁾` at every level instead of feeding `F⁽⁰'¹⁾` into level 2.
+   It returned 5 of 5 — Kerr's correct answer — on broken code. Fixed by carrying the whole chain.
+2. **The sGB perturbation was not representable** at denpow 2: *none* of its pieces fit the ansatz.
+   That run reported `4 of 5` then `4 of 4`, which reads exactly like Carter dying and the floor
+   holding — the expected answer, from a computation with no geometry in it. Measured requirement
+   is **denpow 6** with numerator degrees to (16,16); a guard now aborts rather than proceeding.
+3. **The reducible floor was computed twice and wrong twice** — from Schwarzschild it wrongly counted
+   `Lsq` (5), and Kerr's generators do not divide Schwarzschild's ansatz denominator. The floor is
+   combinatorial: products of `p_t, p_φ, H` at total degree = rank, giving 4, 6, 9, 12, 16 for ranks
+   2–6, matching every floor measured in §128.
+4. **Three mod-p/ℚ mixing failures** in one afternoon, all in *new* code written after the same bug
+   had been fixed elsewhere: anything downstream of `nullspace_modp` is a residue, and the first
+   exact-rational operation applied to it is a bug.
+
+**Standing after §130:** the instrument is validated on a rung where three independent published
+arguments agree, with its level-by-level behaviour tracking the Petrov classification. **Ranks 3–6
+are next, and they are what carries the claim** — Owen, Yunes & Witek searched dCS through rank 6
+but sGB only through rank 2, and no published argument reaches above rank 2 in sGB.

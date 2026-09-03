@@ -38,7 +38,7 @@ import _kt_exact as EX
 import _kt_perturb as PB
 
 t, x, y, ph = sp.symbols("t x y phi", real=True)
-chi = sp.Symbol("chi")
+chi, zeta = sp.symbols("chi zeta")
 PRIMES = (2147483647, 2147483629)
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -64,6 +64,59 @@ def kerr_chi_pieces(M=sp.Integer(1), a_over_m=sp.Integer(1)):
     for n in range(3):
         out.append(sp.Matrix(4,4, lambda i,j: sp.cancel(sp.together(
             sp.diff(gi[i,j], chi, n).subs(chi, 0)/sp.factorial(n)))))
+    return out
+
+
+def sgb_ginv_pieces(GI):
+    """g^ab pieces of the sGB correction at chi^0, chi^1, chi^2, in (t, x=r, y=cos th, phi).
+
+    All three come from THIS project's own derivations: the static pair verified against the EdGB
+    field equations (_kt_sgb_verify), the O(chi) frame-dragging term derived in commit 64ef0c2, and
+    the five Zerilli functions derived and verified at fresh points in §129.
+
+    The inverse is built perturbatively from Schwarzschild and truncated -- NOT by inverting the
+    truncated metric, which would silently mix in orders the solution does not control."""
+    f = 1 - 2/x
+    Y2 = 3*y**2 - 1
+    DG_TT = -(1)/(3*x**3)*(1 + 26/x + sp.Rational(66,5)/x**2 + sp.Rational(96,5)/x**3 - 80/x**4)
+    DG_RR = -(1)/(f**2*x**2)*(1 + 1/x + sp.Rational(52,3)/x**2 + 2/x**3
+                              + sp.Rational(16,5)/x**4 - sp.Rational(368,3)/x**5)
+    W_ROT = (9*x**4 + 140*x**3 + 90*x**2 + 144*x - 400)/(15*x**7)
+    H02f = -(-8820000 + 8173200*x + 15803900*x**2 - 4198950*x**3 - 4061710*x**4
+             - 2275145*x**5 + 164874*x**6 + 187446*x**7 + 187446*x**8)/(110250*x**10*(x-2))
+    H22f = -(149940000 - 201978000*x + 101014900*x**2 - 18766650*x**3 + 11833890*x**4
+             - 7545095*x**5 - 55626*x**6 + 150696*x**7 + 187446*x**8)/(110250*x**10*(x-2))
+    K2f  = -(8820000 - 6213200*x - 3416700*x**2 - 1855650*x**3 + 887110*x**4
+             + 800733*x**5 + 435540*x**6 + 187446*x**7)/(110250*x**10)
+    H00f =  (800 - 11264*x + 2172*x**2 + 1020*x**3 + 1214*x**4 + 156*x**5
+             + 210*x**6 + 15*x**7)/(90*x**9*(x-2))
+    H20f =  (8000 + 25312*x - 22664*x**2 - 724*x**3 + 640*x**4 + 1090*x**5
+             - 180*x**6 + 150*x**7 - 15*x**8 + 15*x**9)/(30*x**9*(x-2)**2)
+    h = sp.zeros(4,4)
+    h[0,0] = DG_TT + chi**2*f*(H00f + H02f*Y2)
+    h[1,1] = DG_RR + chi**2*(H20f + H22f*Y2)/f
+    h[0,3] = h[3,0] = chi*W_ROT*(1-y**2)
+    h[2,2] = chi**2*x**2*(K2f*Y2)/(1-y**2)      # g_thth -> g_yy: divide by (1-y^2)
+    h[3,3] = chi**2*x**2*(1-y**2)*(K2f*Y2)
+    # THE O(zeta) INVERSE PERTURBATION IS EXACTLY -g^-1 h g^-1 ON THE KERR BACKGROUND.
+    # Since h enters at O(zeta^1) and we keep only that order, no Neumann series is needed at all:
+    # (g + zeta h)^-1 = g^-1 - zeta g^-1 h g^-1 + O(zeta^2), and g^-1 for Kerr is already in hand
+    # from kerr_chi_pieces. The first version built a five-term Neumann series from Schwarzschild
+    # and separately inverted a symbolic 4x4 to recover the lower Kerr metric -- both unnecessary,
+    # and together they ran past ten minutes.
+    giK = sp.zeros(4,4)
+    for n in range(3):
+        giK += chi**n*GI[n]
+    def trc(e):
+        e = sp.expand(e)
+        return sp.Add(*[u for u in sp.Add.make_args(e) if sp.degree(u, chi) <= 2])
+    tmp = sp.Matrix(4,4, lambda i,j: trc(sp.expand(
+        sum(giK[i,k]*h[k,l]*giK[l,j] for k in range(4) for l in range(4)))))
+    gi = sp.Matrix(4,4, lambda i,j: -trc(sp.expand(tmp[i,j])))
+    out = []
+    for n in range(3):
+        out.append(sp.Matrix(4,4, lambda i,j: sp.cancel(sp.together(
+            sp.diff(gi[i,j], chi, n).subs(chi,0)/sp.factorial(n)))))
     return out
 
 
@@ -120,32 +173,81 @@ if __name__ == "__main__":
                 if v[j]:
                     F[mi] += int(v[j])*x**a_*y**b_
             return [sp.cancel(f/den) for f in F]
-        cur = [to_co(v) for v in bg]          # F^(0,0) basis
-        dim = len(cur)
-        levels = {}                            # n -> (nullspace vectors, c-block width)
+        # CHAINS, not just leading terms. The source at level n is
+        #     sum_{j>=1} {H^(0,j), F^(0,n-j)}
+        # so level 2 needs F^(0,1), the level-1 SOLUTION. The first version of this loop used
+        # F^(0,0) in every term -- it never fed level 1 into level 2 -- and still returned 5 of 5,
+        # which happens to be Kerr's answer. A control that passes on broken code is worse than one
+        # that fails, so each surviving direction now carries its whole chain.
+        #
+        # Coefficients stay mod p throughout. Brackets are computed symbolically over Q on mod-p
+        # REPRESENTATIVES, which is consistent because the bracket is Q-linear and reduction mod p
+        # is a ring homomorphism -- but the moment a result is fed to sp.Rational or sp.solve as if
+        # it were exact, it is garbage. That error has now appeared three times in this file alone.
+        def vec_to_co(v):
+            F = [sp.Integer(0)]*len(mons)
+            for j,(mi,a_,b_) in enumerate(cols):
+                c_ = int(v[j]) % p
+                if c_:
+                    F[mi] += c_*x**a_*y**b_
+            return [sp.cancel(f/den) for f in F]
+
+        chains = [[to_co(v)] for v in bg]      # chains[k][n] = F^(0,n) of direction k
+        dim = len(chains)
         for n in (1, 2):
             srcs = []
-            for i, F0 in enumerate(cur):
+            for ch in chains:
                 acc = sp.Integer(0)
                 for j in range(1, n+1):
-                    tog, _ = PB.bracket_raw_coeffs(F0, H[j], mons)
-                    acc += tog
+                    if n-j < len(ch):
+                        tog, _ = PB.bracket_raw_coeffs(ch[n-j], H[j], mons)
+                        acc += tog
                 srcs.append(acc)
-            rawsS = srcs
             D2 = D
-            for e in rawsS:
+            for e in srcs:
                 D2 = sp.lcm(D2, sp.denom(sp.together(e)))
             if sp.simplify(D2 - D) == 0:
-                dS = [PB.clear(e, D, p) for e in rawsS]
+                dS = [PB.clear(e, D, p) for e in srcs]
                 Mfull = PB.matrix_from_dicts(dicts0 + dS, n_w + dim)
             else:
-                Mfull, _ = PB.matrix_from(raws0 + rawsS, D2, p, n_w + dim)
+                Mfull, _ = PB.matrix_from(raws0 + srcs, D2, p, n_w + dim)
             ns = PB.nullspace_modp(Mfull, p)
-            levels[n] = (ns, dim)
-            cblock = [list(v[n_w:]) for v in ns]
-            surv = EX.rank_modp(cblock, dim, p) if cblock else 0
+            # Keep only vectors with a nonzero c-block; their F-blocks ARE the level-n solutions
+            # for the chain combination their c-block names. Vectors with c = 0 are homogeneous
+            # additions and carry no information about survival.
+            keep = []
+            cb_rows = []
+            for v in ns:
+                cb = [int(z) % p for z in v[n_w:]]
+                if any(cb):
+                    keep.append(v); cb_rows.append(cb)
+            surv = EX.rank_modp(cb_rows, dim, p) if cb_rows else 0
             print(f"  chi^{n} level: {surv} of {dim} extend  [{time.time()-t0:.0f}s]", flush=True)
+            # rebuild chains: each kept vector defines a new chain = its c-combination of the old
+            # chains, extended by its own F-block.
+            newch = []
+            for v, cb in zip(keep, cb_rows):
+                comb = []
+                for lvl in range(len(chains[0])):
+                    acc = [sp.Integer(0)]*len(mons)
+                    for k2, ck in enumerate(cb):
+                        if ck:
+                            for mi in range(len(mons)):
+                                acc[mi] += ck*chains[k2][lvl][mi]
+                    comb.append([sp.cancel(a_) for a_ in acc])
+                comb.append(vec_to_co(v))
+                newch.append(comb)
+            chains = newch
             dim = surv
+            if dim == 0:
+                break
+
+        import pathlib, pickle
+        ckf = pathlib.Path(f"data/kt_double_chains_r{rank}_d{denpow}_b{dx}x{dy}.pkl")
+        ckf.write_bytes(pickle.dumps([[[sp.srepr(e) for e in lvl] for lvl in ch]
+                                      for ch in chains]))
+        print(f"  chi-tower chains CHECKPOINTED to {ckf.name} "
+              f"({len(chains)} chains) [{time.time()-t0:.0f}s]", flush=True)
 
         want = EXPECT.get(rank)
         print(f"\n  Kerr Killing space at rank {rank}: got {dim}, expect {want}", flush=True)
@@ -208,3 +310,107 @@ if __name__ == "__main__":
                   "deformation as Carter's.", flush=True)
             print("\n  CONTROL PASSED, non-vacuously: the chi-tower deforms Lsq into Carter.",
                   flush=True)
+
+    if "--sgb" in sys.argv:
+        # THE zeta TOWER. With the chi-chains in hand (each a Kerr Killing tensor, F^(0,0..2)),
+        # ask which of them survive the sGB correction:
+        #   {H^(0,0), F^(1,n)} = -[ sum_{j>=1} {H^(0,j), F^(1,n-j)}
+        #                           + sum_{j>=0} {H^(1,j), F^(0,n-j)} ]
+        # Same reusable operator, same chain bookkeeping, same mod-p discipline.
+        SG = sgb_ginv_pieces(GI)
+        badrep = []
+        for n_ in range(3):
+            b = PB.check_perturbation_representable(SG[n_], dx, dy, den)
+            if b:
+                badrep.append((n_, b))
+        if badrep:
+            sys.exit(f"\n  sGB PERTURBATION NOT REPRESENTABLE at {badrep}. H^(1,j) lies outside "
+                     f"the ansatz, so directions will appear to die for reasons that have nothing "
+                     f"to do with the geometry. Measured requirement: denpow 6 with numerator "
+                     f"degrees to (16,16). Raise --denpow / --box and rerun.")
+        HS = [hamiltonian(M) for M in SG]
+        print(f"\n  sGB Hamiltonian pieces built and REPRESENTABLE [{time.time()-t0:.0f}s]",
+              flush=True)
+        # THE FLOOR IS COMBINATORIAL, and needs no metric at all. It is the number of products of
+        # p_t, p_phi and H of total degree = rank -- manifestly independent, since they carry
+        # distinct momentum structures. Two earlier attempts to compute it from a metric both
+        # failed: gi0 (Schwarzschild) wrongly counted Lsq, which sGB does not conserve; and Kerr's
+        # generators do not divide Schwarzschild's L^6 ansatz denominator. Counting is exact and
+        # matches every floor measured in §128 (rank 2 -> 4, rank 3 -> 6, rank 4 -> 9).
+        nred = sum(1 for a_ in range(rank+1) for b_ in range(rank+1)
+                   for c_ in range(rank//2+1) if a_ + b_ + 2*c_ == rank)
+        print(f"  reducible floor (products of p_t, p_phi, H at rank {rank}): {nred}", flush=True)
+
+        zchains = [[] for _ in chains]          # zchains[k][n] = F^(1,n) of direction k
+        zdim = len(chains)
+        alive = list(range(len(chains)))
+        for n in (0, 1, 2):
+            srcs = []
+            for k, ch in enumerate(chains):
+                acc = sp.Integer(0)
+                for j in range(1, n+1):                       # {H^(0,j), F^(1,n-j)}
+                    if n-j < len(zchains[k]):
+                        tg, _ = PB.bracket_raw_coeffs(zchains[k][n-j], H[j], mons)
+                        acc += tg
+                for j in range(0, n+1):                       # {H^(1,j), F^(0,n-j)}
+                    if n-j < len(ch):
+                        tg, _ = PB.bracket_raw_coeffs(ch[n-j], HS[j], mons)
+                        acc += tg
+                srcs.append(acc)
+            D2 = D
+            for e in srcs:
+                D2 = sp.lcm(D2, sp.denom(sp.together(e)))
+            if sp.simplify(D2 - D) == 0:
+                dS = [PB.clear(e, D, p) for e in srcs]
+                Mfull = PB.matrix_from_dicts(dicts0 + dS, n_w + zdim)
+            else:
+                Mfull, _ = PB.matrix_from(raws0 + srcs, D2, p, n_w + zdim)
+            ns = PB.nullspace_modp(Mfull, p)
+            keep, cbs = [], []
+            for v in ns:
+                cb = [int(z) % p for z in v[n_w:]]
+                if any(cb):
+                    keep.append(v); cbs.append(cb)
+            surv = EX.rank_modp(cbs, zdim, p) if cbs else 0
+            print(f"  zeta chi^{n} level: {surv} of {zdim} survive  [{time.time()-t0:.0f}s]",
+                  flush=True)
+            newch, newz = [], []
+            for v, cb in zip(keep, cbs):
+                comb = []
+                for lvl in range(len(chains[0])):
+                    acc = [sp.Integer(0)]*len(mons)
+                    for k2, ck in enumerate(cb):
+                        if ck:
+                            for mi in range(len(mons)):
+                                acc[mi] += ck*chains[k2][lvl][mi]
+                    comb.append([sp.cancel(a_) for a_ in acc])
+                newch.append(comb)
+                zc = []
+                for lvl in range(len(zchains[0]) if zchains and zchains[0] else 0):
+                    acc = [sp.Integer(0)]*len(mons)
+                    for k2, ck in enumerate(cb):
+                        if ck and lvl < len(zchains[k2]):
+                            for mi in range(len(mons)):
+                                acc[mi] += ck*zchains[k2][lvl][mi]
+                    zc.append([sp.cancel(a_) for a_ in acc])
+                zc.append(vec_to_co(v))
+                newz.append(zc)
+            chains, zchains = newch, newz
+            zdim = surv
+            if zdim == 0:
+                break
+
+        print(f"\n  SURVIVING at O(zeta chi^2), rank {rank}: {zdim}", flush=True)
+        print(f"  reducible floor: {nred}", flush=True)
+        if zdim == nred:
+            print("  => only the reducible floor survives. Carter does NOT extend, which is what "
+                  "three independent published arguments require (Petrov type I in Ayzenberg-Yunes; "
+                  "Owen-Yunes-Witek's Killing search; Deich et al.'s chaotic Poincare sections).",
+                  flush=True)
+        elif zdim > nred:
+            print(f"  => {zdim - nred} direction(s) ABOVE the reducible floor survive. At rank 2 "
+                  f"this CONTRADICTS three published arguments, so the instrument is the first "
+                  f"suspect, not the physics (D41).", flush=True)
+        else:
+            print(f"  => FEWER than the reducible floor survive, which is impossible: products of "
+                  f"p_t, p_phi and H are conserved exactly. This condemns the run.", flush=True)
