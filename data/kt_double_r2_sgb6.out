@@ -1,0 +1,59 @@
+Schwarzschild background: L = x**2*(x - 2)*(y - 1)*(y + 1)
+  generators ['p_t', 'p_phi', 'H', 'Lsq']; 5 reducible products at rank 2
+  box x<=24 y<=20; den = L^6
+  5250 coefficient unknowns per level
+    op 200/5250 brackets (1s)
+    op 400/5250 brackets (2s)
+    op 600/5250 brackets (3s)
+    op 800/5250 brackets (5s)
+    op 1000/5250 brackets (6s)
+    op 1200/5250 brackets (8s)
+    op 1400/5250 brackets (9s)
+    op 1600/5250 brackets (10s)
+    op 1800/5250 brackets (12s)
+    op 2000/5250 brackets (13s)
+    op 2200/5250 brackets (14s)
+    op 2400/5250 brackets (15s)
+    op 2600/5250 brackets (17s)
+    op 2800/5250 brackets (19s)
+    op 3000/5250 brackets (20s)
+    op 3200/5250 brackets (22s)
+    op 3400/5250 brackets (23s)
+    op 3600/5250 brackets (25s)
+    op 3800/5250 brackets (26s)
+    op 4000/5250 brackets (27s)
+    op 4200/5250 brackets (29s)
+    op 4400/5250 brackets (30s)
+    op 4600/5250 brackets (31s)
+    op 4800/5250 brackets (33s)
+    op 5000/5250 brackets (34s)
+    op 5200/5250 brackets (35s)
+  operator matrix (15220, 5250) [260s]
+  chi^0 level: Schwarzschild Killing space = 5
+  chi^1 level: 5 of 5 extend  [285s]
+  chi^2 level: 5 of 5 extend  [2574s]
+
+  Kerr Killing space at rank 2: got 5, expect 5
+  count check passed, but a COUNT IS NOT ENOUGH HERE.
+  Schwarzschild and Kerr have the SAME dimension at every rank (5, 8, 14) because
+  Lsq maps one-to-one onto Carter -- so 'the count is preserved' would also pass if
+  the tower did nothing. Identifying the direction is the real test.
+
+  Carter's O(chi^2) piece should be  y^2 (mu^2 - p_t^2)
+    = y**2*(-P_phi**2*(2 - x) - P_t**2*x**3*(1 - y**2) - P_t**2*x**2*(x - 2)*(y**2 - 1) - P_x**2*x*(x - 2)**2*(y**2 - 1) + P_y**2*(x - 2)*(y**2 - 1)**2)/(x**2*(x - 2)*(y**2 - 1))
+  prediction self-check: {H,F} at chi^0 = True, chi^1 = True, chi^2 = True
+
+  {H_Kerr, Lsq} at chi^2 is NONZERO
+  THE COUNT IS DECISIVE: Lsq alone does NOT extend to O(chi^2), so a tower doing nothing would have reported 4 of 5. Reporting 5 means it found a nonzero F^(0,2) -- and the verified prediction above identifies that deformation as Carter's.
+
+  CONTROL PASSED, non-vacuously: the chi-tower deforms Lsq into Carter.
+
+  sGB Hamiltonian pieces built and REPRESENTABLE [2578s]
+Traceback (most recent call last):
+  File "/Users/sumit/Github/conjecture_machine/scripts/_kt_double.py", line 335, in <module>
+    if False else PB.reducible_dim(MM.get("kerr")[0], rank, dx, dy, den, p)
+                  ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sumit/Github/conjecture_machine/scripts/_kt_perturb.py", line 272, in reducible_dim
+    assert sp.denom(q) == 1, "a reducible needs a larger denominator power"
+           ^^^^^^^^^^^^^^^^
+AssertionError: a reducible needs a larger denominator power

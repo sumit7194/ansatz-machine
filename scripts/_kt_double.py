@@ -192,9 +192,26 @@ if __name__ == "__main__":
                     F[mi] += c_*x**a_*y**b_
             return [sp.cancel(f/den) for f in F]
 
-        chains = [[to_co(v)] for v in bg]      # chains[k][n] = F^(0,n) of direction k
+        # RESUME. The chi-tower is independent of the sGB question and cost 2597s at rank 2; the
+        # zeta side is where iteration happens, so recomputing it per attempt is pure waste. Three
+        # expensive computations were lost to missing checkpoints earlier in this session, and the
+        # first version of this file wrote the checkpoint without ever reading it back.
+        import pathlib, pickle
+        ckf = pathlib.Path(f"data/kt_double_chains_r{rank}_d{denpow}_b{dx}x{dy}.pkl")
+        chains = None
+        if ckf.exists():
+            try:
+                chains = [[[sp.sympify(e) for e in lvl] for lvl in ch]
+                          for ch in pickle.loads(ckf.read_bytes())]
+                print(f"  RESUMED chi-tower from {ckf.name}: {len(chains)} chains", flush=True)
+            except Exception as exc:
+                print(f"  checkpoint unreadable ({exc}); recomputing", flush=True)
+                chains = None
+        if chains is None:
+            chains = [[to_co(v)] for v in bg]  # chains[k][n] = F^(0,n) of direction k
         dim = len(chains)
-        for n in (1, 2):
+        _resumed = len(chains[0]) > 1 if chains else False
+        for n in ([] if _resumed else (1, 2)):
             srcs = []
             for ch in chains:
                 acc = sp.Integer(0)
@@ -397,6 +414,12 @@ if __name__ == "__main__":
                 newz.append(zc)
             chains, zchains = newch, newz
             zdim = surv
+            zck = pathlib.Path(f"data/kt_double_z_r{rank}_d{denpow}_n{n}.pkl")
+            zck.write_bytes(pickle.dumps({
+                "chains": [[[sp.srepr(e) for e in lvl] for lvl in ch] for ch in chains],
+                "zchains": [[[sp.srepr(e) for e in lvl] for lvl in ch] for ch in zchains],
+                "zdim": zdim}))
+            print(f"    level {n} checkpointed ({zck.name})", flush=True)
             if zdim == 0:
                 break
 
