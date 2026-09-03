@@ -321,10 +321,13 @@ if __name__ == "__main__":
             print("  THE COUNT IS VACUOUS: Lsq survives unchanged, so 5-of-5 would also hold for "
                   "a tower that did nothing. This control proves nothing.", flush=True)
         else:
-            print("  THE COUNT IS DECISIVE: Lsq alone does NOT extend to O(chi^2), so a tower "
-                  "doing nothing would have reported 4 of 5. Reporting 5 means it found a "
-                  "nonzero F^(0,2) -- and the verified prediction above identifies that "
-                  "deformation as Carter's.", flush=True)
+            nfloor = sum(1 for a_ in range(rank+1) for b_ in range(rank+1)
+                         for c_ in range(rank//2+1) if a_+b_+2*c_ == rank)
+            print(f"  THE COUNT IS DECISIVE: Lsq alone does NOT extend to O(chi^2), so a tower "
+                  f"doing nothing would have reported {nfloor} of {dim} -- only the directions "
+                  f"built from p_t, p_phi and H, which survive trivially. Reporting {dim} means "
+                  f"it found a nonzero F^(0,2), and the verified prediction above identifies that "
+                  f"deformation as Carter's.", flush=True)
             print("\n  CONTROL PASSED, non-vacuously: the chi-tower deforms Lsq into Carter.",
                   flush=True)
 
@@ -426,14 +429,37 @@ if __name__ == "__main__":
         print(f"\n  SURVIVING at O(zeta chi^2), rank {rank}: {zdim}", flush=True)
         print(f"  reducible floor: {nred}", flush=True)
         if zdim == nred:
-            print("  => only the reducible floor survives. Carter does NOT extend, which is what "
-                  "three independent published arguments require (Petrov type I in Ayzenberg-Yunes; "
-                  "Owen-Yunes-Witek's Killing search; Deich et al.'s chaotic Poincare sections).",
-                  flush=True)
+            if rank == 2:
+                print("  => only the reducible floor survives. Carter does NOT extend, which is "
+                      "what three independent published arguments require (Petrov type I in "
+                      "Ayzenberg-Yunes; Owen-Yunes-Witek's Killing search; Deich et al.'s chaotic "
+                      "Poincare sections).", flush=True)
+            else:
+                print(f"  => only the reducible floor survives: no irreducible rank-{rank} Killing "
+                      f"tensor at O(zeta chi^2) that is analytic in zeta with a Kerr root.",
+                      flush=True)
+                print("     NO PUBLISHED ARGUMENT REACHES THIS RANK -- there is nothing here to "
+                      "agree with. Petrov type I forbids a rank-2 tensor and says nothing above it; "
+                      "Owen-Yunes-Witek searched rank 2. Do not report this as corroborated.",
+                      flush=True)
+                print(f"     EXPECTED, NOT INDEPENDENT: the rank-{rank} Kerr Killing space above "
+                      f"the floor is spanned by Carter times momenta, so Carter's death at rank 2 "
+                      f"made this the strongly favoured outcome. It is not a corollary -- for "
+                      f"F0 = Q p_t the O(zeta) source is {{H1,Q}} p_t and its solution G1 need not "
+                      f"factor as F1 p_t, so the obstruction sits in a larger space than rank 2's "
+                      f"and the extra factor could have killed it. It did not.", flush=True)
         elif zdim > nred:
-            print(f"  => {zdim - nred} direction(s) ABOVE the reducible floor survive. At rank 2 "
-                  f"this CONTRADICTS three published arguments, so the instrument is the first "
-                  f"suspect, not the physics (D41).", flush=True)
+            if rank == 2:
+                print(f"  => {zdim - nred} direction(s) ABOVE the reducible floor survive. At rank "
+                      f"2 this CONTRADICTS three published arguments, so the instrument is the "
+                      f"first suspect, not the physics (D41).", flush=True)
+            else:
+                print(f"  => {zdim - nred} direction(s) ABOVE the reducible floor survive. No "
+                      f"published argument reaches rank {rank}, so nothing is contradicted -- but "
+                      f"nothing corroborates it either, and a positive result is never "
+                      f"self-certifying (a sampled count is an UPPER bound). Identify the "
+                      f"direction and verify {{H,F}}=0 on it before this is called anything.",
+                      flush=True)
         else:
             print(f"  => FEWER than the reducible floor survive, which is impossible: products of "
                   f"p_t, p_phi and H are conserved exactly. This condemns the run.", flush=True)

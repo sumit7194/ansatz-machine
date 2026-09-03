@@ -970,3 +970,40 @@ sitting in the discussion section of a paper we had already mined for equations,
 for two days while its O(χ²) metric was being derived. **Reading the paper you are already using is
 cheaper than any literature gate**, and the parts that constrain a claim are rarely in the equations
 you came for.
+
+## D42 — a rank is only "new" if its Kerr Killing space has a new Q-power (2026-09-04)
+
+**The mistake this records.** While rank 3 was running it was described — to a sibling session, in
+this repo's own framing — as "the open rung nobody has reached." That is true about the *literature*
+and misleading about the *content*. The rank-3 Kerr Killing space is
+
+    8  =  6 (p_t^a p_phi^b H^c)  +  2 (Q p_t, Q p_phi)
+
+so every direction above the floor is Carter times a momentum, and Carter had already died at rank 2
+(§130). The rank-3 answer was strongly favoured before the 8.5-hour run started.
+
+**The decomposition, which reproduces Kerr's known dimensions and so is not a guess.** Writing the
+rank-r space as `Q^q x (reducible of degree r-2q)`:
+
+    rank 2:  4 + 1                 =  5     known 5
+    rank 3:  6 + 2                 =  8     known 8
+    rank 4:  9 + 4 + 1             = 14     known 14
+    rank 5: 12 + 6 + 2             = 20
+    rank 6: 16 + 9 + 4 + 1         = 30
+
+**The rule.** A rank whose non-floor directions are all `Q^1 x (momenta)` tests the same obstruction
+`{H1,Q}` that the rank below already tested, multiplied through. Its answer is not *implied* — the
+solution `G1` need not factor, so the obstruction sits in a larger space and could have been killed
+there — but it is expected, and reporting it as an independent result overstates it. **The first
+genuinely uncharted rank is the first one carrying a new power of Q: rank 4, where `Q²` appears.**
+
+**Consequence for sequencing.** Ranks 3 and 5 are consistency rungs; ranks 4 and 6 are the ones that
+can surprise. If compute is scarce, rank 4 before rank 5 — which inverts the natural ladder order
+and is the whole point of writing this down.
+
+**And the guard.** `_kt_double.py` printed rank-2 corroboration prose ("Petrov type I;
+Owen-Yunes-Witek; Deich et al.") at rank 3, where none of those arguments reach. Now rank-branched,
+and the rank-general control message reproduces rank 2's hardcoded numbers exactly — the check that
+a generalisation preserved the case it was generalised from. **Tenth instance in this arc of the
+instrument, not the physics, being at fault; first instance where the fault was in prose rather than
+in arithmetic, which is the kind that survives into a write-up.**

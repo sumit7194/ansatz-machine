@@ -6,6 +6,31 @@ built, what broke, what the machine taught us. Numbers live in
 
 ---
 
+## 2026-09-04 — sGB RANK 3: only the reducible floor survives, and a framing correction
+
+- **RANK 3 LANDED: 8 -> 6 = the reducible floor** (PID 67705, 8h32m, peak 2.6 GB, all three zeta
+  levels checkpointed). No irreducible rank-3 Killing tensor survives to O(zeta chi^2) on the stated
+  ansatz. §131 in RESULTS.
+- **CAUGHT A WRONG VERDICT LINE BEFORE WRITING IT UP.** The solver printed "which is what three
+  independent published arguments require (Petrov type I; Owen-Yunes-Witek; Deich et al.)" — that is
+  hardcoded rank-2 content, false at rank 3: Petrov type I forbids a rank-2 tensor and says nothing
+  above it. Nothing published reaches rank 3, so nothing corroborates this. Fixed and rank-branched.
+- **AND A CORRECTION AGAINST MYSELF.** I had called rank 3 "the open rung nobody has reached",
+  including to the bridge. True of the literature, misleading about the content: the rank-3 Kerr
+  space is 6 floor + 2 Carter-built (Q p_t, Q p_phi), so Carter's death at rank 2 made this the
+  favoured outcome. Not a corollary — the O(zeta) source is {H1,Q} p_t and its solution need not
+  factor as F1 p_t, so the obstruction was tested in a larger space — but expected. Withdrawn.
+- **D42:** a rank is only genuinely new if its Kerr Killing space carries a new power of Q. The
+  Q-power decomposition reproduces Kerr's known dims 5, 8, 14 at ranks 2-4 and predicts 20, 30 at
+  5-6. **Rank 4 is the first uncharted rank (Q^2 appears there); ranks 3 and 5 are consistency
+  rungs.** If compute is scarce, rank 4 before rank 5.
+- Solver fixes: verdict prose rank-branched; control message made rank-general and verified to
+  reproduce rank 2's hardcoded "4 of 5" exactly.
+- **Paused here at the user's request** — the box goes to a Fable-model evaluation. Rank 4 sized
+  (~3.9 GB int32, `scripts/_kt_modp32.py` validated) and deliberately NOT launched.
+
+---
+
 ## 2026-07-23 — BRIDGE ROUND 8: the two G2 adversarial metrics + CK order 2 (G6)
 - The bridge's Falsification Ledger opened three asks against leg Q's *"legible ⟺ KY-integrable"*
   (8/8, φ=1.0). All 8 catalog entries were FOUND; G2 asks us to DESIGN two metrics that break the

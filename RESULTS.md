@@ -2650,3 +2650,71 @@ by inspection.
 arguments agree, with its level-by-level behaviour tracking the Petrov classification. **Ranks 3–6
 are next, and they are what carries the claim** — Owen, Yunes & Witek searched dCS through rank 6
 but sGB only through rank 2, and no published argument reaches above rank 2 in sGB.
+
+## §131 — sGB rank 3: the floor and nothing else. And why that was expected.
+
+    rank 3, denpow 6, box 24x20, margin 6          PID 67705, 8h32m, peak RSS 2.6 GB
+    operator matrix                                27146 x 10500   [563s]
+    chi-tower                                      8 -> 8 -> 8     (control passed, non-vacuous)
+    reducible floor (p_t, p_phi, H at degree 3)    6
+
+    zeta chi^0 level      8 of 8 survive     [ 9405s]
+    zeta chi^1 level      8 of 8 survive     [13385s]
+    zeta chi^2 level      6 of 8 survive     [30714s]
+
+    SURVIVING at O(zeta chi^2), rank 3:  6  =  the reducible floor
+
+**No irreducible rank-3 Killing tensor survives to O(ζχ²)** — subject to the method's own limits,
+stated below. Every level is checkpointed (`data/kt_double_z_r3_d6_n{0,1,2}.pkl`) and the run is in
+`data/kt_double_r3_sgb.out`.
+
+### The result was strongly expected, and calling it a new rung was wrong
+
+The rank-3 Kerr Killing space decomposes exactly:
+
+    8  =  6 pure-reducible (p_t^a p_phi^b H^c, a+b+2c=3)  +  2 Carter-built (Q p_t, Q p_phi)
+
+so the two directions above the floor are *Carter times a momentum*. Once Carter died at rank 2
+(§130), these two dying was the strongly favoured outcome — this is **not** the independent new rung
+it was described as while the run was in flight. That description was an overclaim and is withdrawn.
+
+**It is nevertheless not a corollary of rank 2, and the difference is precise.** For `F₀ = Q p_t` the
+O(ζ) equation is `{H₀, G₁} = −{H₁, Q p_t}`, and since `p_t` is Killing for the full stationary metric
+(`{H₁, p_t} = 0`) the source is `{H₁,Q} p_t`. Rank 2 established that `{H₀, F₁} = −{H₁,Q}` has no
+solution in the ansatz. The rank-3 system asks whether `{H₀, G₁} = −{H₁,Q} p_t` has one, and `G₁`
+need **not** be of the form `F₁ p_t` — the obstruction is being tested in a strictly larger space,
+where the extra momentum factor could in principle have killed it. It did not. That is a real
+computation with an expected answer, which is a different thing from a restatement.
+
+### Nothing published reaches this rank, so nothing corroborates it
+
+The solver printed `"which is what three independent published arguments require (Petrov type I;
+Owen-Yunes-Witek; Deich et al.)"`. **That line was hardcoded rank-2 content emitted at rank 3 and it
+is false here.** Petrov type I forbids a rank-**2** Killing tensor and says nothing above it;
+Owen-Yunes-Witek searched sGB at rank 2; Deich et al.'s chaotic Poincaré sections are a numerical
+screen consistent with this, not a rank-3 theorem. At rank 3 there is no external agreement to
+claim, and claiming it would have been the §130 overclaim pointing the other way. Fixed at
+`scripts/_kt_double.py:429` — the verdict prose is now rank-branched, and the rank-general control
+message reproduces rank 2's hardcoded "4 of 5" exactly, which is what shows the generalisation is
+right.
+
+### The limit that bounds this result, stated rather than buried
+
+The method is perturbative in ζ: it takes a **Kerr** Killing tensor `F₀` and asks whether it extends.
+Any Killing tensor analytic in ζ has a Kerr root, so the sweep is complete for those — but a tensor
+that is **non-analytic in ζ** (or exists only at finite coupling) has no Kerr root and would not be
+seen. Combined with §3 of CLAUDE.md's standing caveat, the honest statement is:
+
+> No irreducible rank-3 Killing tensor of the O(χ²) sGB black hole that is analytic in ζ with a Kerr
+> root, by exact null over GF(p) with the reducible span subtracted, on the stated ansatz
+> (denpow 6, box 24×20). Not a statement about all rank-3 tensors, and not a statement about ranks
+> above 3.
+
+### Standing after §131
+
+Rank 2 is the control and passes; rank 3 adds the first rung with no published counterpart, and its
+value is mostly that it is **consistent** rather than that it is surprising. **The genuinely
+uncharted question starts at rank 4**, where the Kerr Killing space first contains directions built
+from `Q²` — a Carter-squared direction can die or survive independently of `Q p_t`, so rank 4 is the
+first rank whose answer is not strongly implied by §130. Rank 4 is sized at ~3.9 GB with int32
+storage (`scripts/_kt_modp32.py`, validated) and is not yet launched.
