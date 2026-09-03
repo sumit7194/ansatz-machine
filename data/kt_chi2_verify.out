@@ -1,0 +1,9 @@
+  loaded checkpoints [16s]
+    (0, 0): checked [47s]
+    (1, 1): checked [69s]
+    (1, 2): checked [74s]
+    (2, 2): checked [105s]
+    (3, 3): checked [141s]
+
+  60/60 fresh-point residuals vanish
+  VERIFIED: the derived metric satisfies the O(zeta chi^2) field equations at points outside the solve's sample.

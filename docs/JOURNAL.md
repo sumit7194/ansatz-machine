@@ -3485,3 +3485,21 @@ instruction named eduspace/eduvizio, the bridge observed telos, neither had all 
 scratchpad that gets wiped. Rescued to `scripts/_kt_chi2_*.py`. After `data/kt_*.out` gitignored and
 `data/*.log` gitignored, the pattern is clear: **a size-or-location rule silently becomes a
 judgement about evidentiary value.**
+
+## 2026-09-03 (later)
+
+**The O(χ²) sGB metric is DERIVED and VERIFIED.** All five Zerilli functions uniquely determined
+from the field equations, 60/60 residuals vanishing at fresh points outside the solve's sample
+(different seed, different radial range). Five distinctive coefficients — 11264, 1214, 25312, 22664,
+724 — match the published Eqs (30)–(33) that were declined for transcription. The paper confirms us
+rather than the reverse, which was the whole reason for deriving.
+
+**Three NO SOLUTIONs, one cause: the pole structure.** Diagnosed wrongly as mass dimension, then
+fall-off, then term count. The answer needed poles at the horizon that an `A = 8` ansatz could not
+reach — inferred correctly only by reading the published *form* (`1/(f³r³) = 1/(r-2m)³`) rather than
+reasoning from the source term.
+
+**The known-answer control was the turning point and it came fourth.** Four seconds of computation
+proved the solver sound and localised the fault; it also exposed two boundary conditions I had
+documented and never implemented. Order matters: *validate the instrument on a known answer before
+adjusting the hypothesis three times.*

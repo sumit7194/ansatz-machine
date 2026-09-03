@@ -2500,7 +2500,7 @@ and degeneracy here does not look like an error: it looks like an answer with a 
     2  Gauss-Bonnet vs OUR OWN Riemann, 4 rational points, 3 masses    130s   ✓
     3  dilaton, both sectors vs independent hand derivations                  ✓
     4  O(ζχ²) Einstein tensor, checkpointed to disk                    5.9h   ✓
-    5  the five Zerilli functions                                      running
+    5  the five Zerilli functions                                      DERIVED, verified
 
 **Stage 3, the dilaton:**
 
@@ -2550,3 +2550,43 @@ hardest step and restarted from zero — strictly slower, buying only progress v
 run does not need. The threshold was anchored to a clock rather than to evidence. The earlier kills
 had real justifications that did not apply: a cheaper method existed; an unbounded `simplify`
 existed. **Slow is not pathological.**
+
+### §129 concluded — the five Zerilli functions, derived and verified
+
+    H02 = -m³(-8820000m⁸ + 8173200m⁷r + 15803900m⁶r² - 4198950m⁵r³ - 4061710m⁴r⁴
+              - 2275145m³r⁵ + 164874m²r⁶ + 187446mr⁷ + 187446r⁸) / (110250 r¹⁰(r-2m))
+    H22 = -m³(149940000m⁸ - 201978000m⁷r + 101014900m⁶r² - 18766650m⁵r³ + 11833890m⁴r⁴
+              - 7545095m³r⁵ - 55626m²r⁶ + 150696mr⁷ + 187446r⁸) / (110250 r¹⁰(r-2m))
+    K2  = -m³(8820000m⁷ - 6213200m⁶r - 3416700m⁵r² - 1855650m⁴r³ + 887110m³r⁴
+              + 800733m²r⁵ + 435540mr⁶ + 187446r⁷) / (110250 r¹⁰)
+    H00 =  m³(800m⁷ - 11264m⁶r + 2172m⁵r² + 1020m⁴r³ + 1214m³r⁴ + 156m²r⁵
+              + 210mr⁶ + 15r⁷) / (90 r⁹(r-2m))
+    H20 =  m²(8000m⁹ + 25312m⁸r - 22664m⁷r² - 724m⁶r³ + 640m⁵r⁴ + 1090m⁴r⁵
+              - 180m³r⁶ + 150m²r⁷ - 15mr⁸ + 15r⁹) / (30 r⁹(r-2m)²)
+
+**Verified at points outside the solve's sample** — 60/60 residuals vanish with a different RNG seed
+*and* a different radial range (r ∈ [13,40] against the solve's [3,12]). Satisfying the equations
+where they were imposed proves nothing; satisfying them elsewhere is the check. The system was also
+over-determined 231 equations to 90 unknowns, so a fit was not available even in principle.
+
+**The published equations confirm us, which was the point of deriving.** The coefficients
+`11264, 1214, 25312, 22664, 724` all appear in Eqs (30)–(33) — the equations declined for
+transcription because their numerator/denominator pairing was guesswork in the PDF extraction.
+Five-digit values do not coincide by accident.
+
+**What finally resolved three NO SOLUTION verdicts: the POLE STRUCTURE.** The published
+`g_rr^(2,2) ~ m³/(f³r³) × [series to m⁹/r⁹]`, and since `1/(f³r³) = 1/(r-2m)³` with the series
+contributing `r⁹` downstairs, `H2 = f·g_rr` needs roughly `N/(r¹⁰(r-2m)²)`. An ansatz with `A = 8`
+could not reach it, and no coefficient choice ever would have. The solved functions bear this out:
+`r¹⁰(r-2m)` for ℓ=2, `r⁹(r-2m)²` for `H20`.
+
+**The known-answer control should have been first, not fourth.** Four seconds established that the
+solver, source, ansatz form and method were all sound, localising the fault to O(χ²)-specific
+structure — after three multi-hour failures diagnosed wrongly as mass dimension, fall-off and term
+count. It also surfaced two boundary conditions (asymptotic flatness, physical mass) that had been
+written into the stage-4 docstring and never implemented: without them the solve returns the correct
+particular solution plus `d17` and `e16` homogeneous modes rather than an answer.
+
+**Standing after §129:** the O(χ²) sGB metric is complete and derived rather than transcribed, with
+every stage checked against something not of our choosing. Per D41 the rank-2 Killing question is
+already settled three independent ways and is demoted to a control; **ranks 3–6 carry the claim.**
