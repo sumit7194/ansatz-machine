@@ -930,3 +930,43 @@ the `(m⁴-1)` residuals that nearly condemned a correct metric.
 **Guard added:** the solver now cross-checks its ℓ=0 answer against the exact quadrature result. A
 disagreement there means the solver is wrong rather than the ansatz — a stronger test than either
 failing run had available.
+
+## D41 — rank 2 in sGB is settled three ways; the value is at ranks 3–6 (2026-09-03)
+
+**A narrowing found in the source paper itself, not in a literature search.** While reading
+arXiv:1405.2133 for the O(χ²) metric structure, the discussion section states:
+
+> the solution … is of Petrov type I. **Petrov type I spacetimes do not possess a second-order
+> Killing tensor or a Carter-like constant.** This implies that geodesic motion may be chaotic once
+> corrections of O(α′²χ′²) are included.
+
+So the rank-2 answer for sGB at O(χ²) is argued **in the paper that supplies the metric**, by a
+Petrov-type argument that is independent of any Killing-equation computation.
+
+**That makes three independent arguments for rank 2**, none of them ours: Ayzenberg & Yunes by
+Petrov type; Owen, Yunes & Witek (PRD 103, 124057) by solving the Killing equation directly; and
+Deich, Cárdenas-Avendaño & Yunes (arXiv:2203.00524) from Poincaré sections showing chaotic phase
+space. A rank-2 result from us would be a fourth confirmation of a settled point — worth having as a
+**control** on our instrument, and worth nothing as a contribution.
+
+**Decision: rank 2 is demoted to a control, and the claim we pursue is ranks 3–6 only.** Two reasons
+this is not merely a matter of emphasis:
+
+1. **The Petrov argument does not reach higher rank.** Type I excludes a second-order Killing
+   tensor. It says nothing about rank 3, 4, 5 or 6, and the literature contains no argument that
+   does — OYW searched dCS through rank 6 but sGB only through rank 2, conjecturing without proof
+   that nothing exists at any rank.
+2. **It changes what a null means.** At rank 2 a null is a fourth confirmation. At ranks 3–6 a null
+   closes a stated conjecture by exact method, which is a different and citable object.
+
+**The falsifier tightens correspondingly.** Deich et al. find chaos numerically in this theory. If
+our method reports that Carter-like structure *survives* at rank 2 — where three independent
+arguments say it cannot — the instrument is the first suspect and not the physics. That is now a
+sharp, published disagreement to fail against rather than a quiet null, and it is the strongest
+external check available to this project.
+
+**Recorded also because of how it was found.** This was not turned up by a prior-art search; it was
+sitting in the discussion section of a paper we had already mined for equations, and it went unread
+for two days while its O(χ²) metric was being derived. **Reading the paper you are already using is
+cheaper than any literature gate**, and the parts that constrain a claim are rarely in the equations
+you came for.

@@ -51,37 +51,55 @@ def kerr_chi2():
 
 
 if __name__ == "__main__":
-    NT = int(sys.argv[sys.argv.index("--nterms")+1]) if "--nterms" in sys.argv else 12
-    NP = int(sys.argv[sys.argv.index("--points")+1]) if "--points" in sys.argv else 90
+    NT = int(sys.argv[sys.argv.index("--nterms")+1]) if "--nterms" in sys.argv else 13
+    NP = int(sys.argv[sys.argv.index("--points")+1]) if "--points" in sys.argv else 160
     t0 = time.time()
 
     # ---- the source, on the background only (no unknowns) ----
-    g = kerr_chi2()
-    g0 = sp.diag(-f, 1/f, r**2, r**2*sp.sin(th)**2)
-    gi0 = sp.diag(-1/f, f, 1/r**2, 1/(r**2*sp.sin(th)**2))
-    dg = sp.Matrix(4,4, lambda i,j: sp.expand(g[i,j]-g0[i,j])); A = gi0*dg
-    gi = gi0 - A*gi0 + A*A*gi0 - A*A*A*gi0
-    gi = sp.Matrix(4,4, lambda i,j: tr(sp.expand(gi[i,j]), 0, 2))
-    Gam = [[[tr(sp.expand(sum(gi[a,d]*(sp.diff(g[d,c],X[b]) + sp.diff(g[d,b],X[c])
-                                       - sp.diff(g[b,c],X[d])) for d in range(4))/2), 0, 2)
-             for c in range(4)] for b in range(4)] for a in range(4)]
-    Riem = [[[[tr(sp.expand(sp.diff(Gam[a][d][b],X[c]) - sp.diff(Gam[a][c][b],X[d])
-              + sum(Gam[a][c][e]*Gam[e][d][b] - Gam[a][d][e]*Gam[e][c][b] for e in range(4))), 0, 2)
-              for d in range(4)] for c in range(4)] for b in range(4)] for a in range(4)]
-    print(f"  background curvature [{time.time()-t0:.0f}s]", flush=True)
-    dth = [sp.diff(THETA, c) for c in X]
-    hess = sp.Matrix(4,4, lambda a,b: tr(sp.expand(sp.diff(THETA,X[a],X[b])
-                     - sum(Gam[c][a][b]*dth[c] for c in range(4))), 0, 2))
-    hup = sp.Matrix(4,4, lambda c,d: tr(sp.expand(sum(gi[c,e]*gi[d,ff]*hess[e,ff]
-                    for e in range(4) for ff in range(4))), 0, 2))
-    Rl = [[[[tr(sp.expand(sum(g[a,e]*Riem[e][b][c][d] for e in range(4))), 0, 2)
-             for d in range(4)] for c in range(4)] for b in range(4)] for a in range(4)]
-    D = sp.Matrix(4,4, lambda a,b: tr(sp.expand(4*sum(Rl[a][c][b][d]*hup[c,d]
-                  for c in range(4) for d in range(4))), 0, 2))
-    sq = tr(sp.expand(sum(gi[a,b]*dth[a]*dth[b] for a in range(4) for b in range(4))), 0, 2)
-    T = sp.Matrix(4,4, lambda a,b: tr(sp.expand(dth[a]*dth[b] - sp.Rational(1,2)*g[a,b]*sq), 0, 2))
-    S = sp.Matrix(4,4, lambda a,b: sp.expand(sp.diff(C1*D[a,b] + C2*T[a,b], chi, 2).subs(chi,0)/2))
-    print(f"  source at O(chi^2) [{time.time()-t0:.0f}s]", flush=True)
+    # CHECKPOINTED. Computing it takes ~4.2h and it does not depend on the ansatz, so iterating on
+    # the ansatz must not repeat it. The first run of this script did repeat-and-lose it: stage 4's
+    # Einstein tensor was checkpointed and stage 5's source was not, which is the third expensive
+    # computation lost to this in one session after the lesson had been written down twice.
+    _srcf = pathlib.Path("data/kt_chi2_stage5_src.txt")
+    if _srcf.exists():
+        S = sp.zeros(4,4)
+        for line in _srcf.read_text().splitlines():
+            k,_,v = line.partition(": ")
+            a,b = (int(x) for x in k.split(","))
+            S[a,b] = sp.sympify(v)
+        print(f"  loaded checkpointed source [{time.time()-t0:.0f}s]", flush=True)
+        _skip_src = True
+    else:
+        _skip_src = False
+    if not _skip_src:
+        g = kerr_chi2()
+        g0 = sp.diag(-f, 1/f, r**2, r**2*sp.sin(th)**2)
+        gi0 = sp.diag(-1/f, f, 1/r**2, 1/(r**2*sp.sin(th)**2))
+        dg = sp.Matrix(4,4, lambda i,j: sp.expand(g[i,j]-g0[i,j])); A = gi0*dg
+        gi = gi0 - A*gi0 + A*A*gi0 - A*A*A*gi0
+        gi = sp.Matrix(4,4, lambda i,j: tr(sp.expand(gi[i,j]), 0, 2))
+        Gam = [[[tr(sp.expand(sum(gi[a,d]*(sp.diff(g[d,c],X[b]) + sp.diff(g[d,b],X[c])
+                                           - sp.diff(g[b,c],X[d])) for d in range(4))/2), 0, 2)
+                 for c in range(4)] for b in range(4)] for a in range(4)]
+        Riem = [[[[tr(sp.expand(sp.diff(Gam[a][d][b],X[c]) - sp.diff(Gam[a][c][b],X[d])
+                  + sum(Gam[a][c][e]*Gam[e][d][b] - Gam[a][d][e]*Gam[e][c][b] for e in range(4))), 0, 2)
+                  for d in range(4)] for c in range(4)] for b in range(4)] for a in range(4)]
+        print(f"  background curvature [{time.time()-t0:.0f}s]", flush=True)
+        dth = [sp.diff(THETA, c) for c in X]
+        hess = sp.Matrix(4,4, lambda a,b: tr(sp.expand(sp.diff(THETA,X[a],X[b])
+                         - sum(Gam[c][a][b]*dth[c] for c in range(4))), 0, 2))
+        hup = sp.Matrix(4,4, lambda c,d: tr(sp.expand(sum(gi[c,e]*gi[d,ff]*hess[e,ff]
+                        for e in range(4) for ff in range(4))), 0, 2))
+        Rl = [[[[tr(sp.expand(sum(g[a,e]*Riem[e][b][c][d] for e in range(4))), 0, 2)
+                 for d in range(4)] for c in range(4)] for b in range(4)] for a in range(4)]
+        D = sp.Matrix(4,4, lambda a,b: tr(sp.expand(4*sum(Rl[a][c][b][d]*hup[c,d]
+                      for c in range(4) for d in range(4))), 0, 2))
+        sq = tr(sp.expand(sum(gi[a,b]*dth[a]*dth[b] for a in range(4) for b in range(4))), 0, 2)
+        T = sp.Matrix(4,4, lambda a,b: tr(sp.expand(dth[a]*dth[b] - sp.Rational(1,2)*g[a,b]*sq), 0, 2))
+        S = sp.Matrix(4,4, lambda a,b: sp.expand(sp.diff(C1*D[a,b] + C2*T[a,b], chi, 2).subs(chi,0)/2))
+        pathlib.Path("data/kt_chi2_stage5_src.txt").write_text(
+            "\n".join(f"{a},{b}: {sp.srepr(S[a,b])}" for a in range(4) for b in range(4)))
+        print(f"  source at O(chi^2), CHECKPOINTED [{time.time()-t0:.0f}s]", flush=True)
 
     # ---- the unknowns ----
     H02,H22,K2,H00,H20 = (sp.Function(n)(r) for n in ("H02","H22","K2","H00","H20"))
@@ -90,7 +108,13 @@ if __name__ == "__main__":
     for nm, fn in (("a",H02),("b",H22),("c",K2),("d",H00),("e",H20)):
         co = sp.symbols(f"{nm}0:{NT}")
         cs[nm] = list(co)
-        ser[fn] = sum(co[k]*m**(k+1)/r**(1+k) for k in range(NT))
+        # POLES AT THE HORIZON ARE REQUIRED. The published O(chi^2) components carry f^2 in their
+        # denominators, and a series in 1/r alone has poles only at r=0 -- it cannot represent
+        # anything with (r-2m) downstairs, so no coefficient choice could ever satisfy the
+        # equations. Same class as the dilaton, whose answer needed a homogeneous admixture the
+        # ansatz could not span. Dimensionless by construction: numerator total degree = A+B.
+        A, B = 8, 4
+        ser[fn] = sum(co[k]*m**(A+B-k)*r**k for k in range(NT))/(r**A*(r-2*m)**B)
     UNK = [x for v in cs.values() for x in v]
     print(f"  {len(UNK)} unknown coefficients, {NT} terms per function", flush=True)
 
