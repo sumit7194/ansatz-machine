@@ -113,10 +113,16 @@ if __name__ == "__main__":
         # anything with (r-2m) downstairs, so no coefficient choice could ever satisfy the
         # equations. Same class as the dilaton, whose answer needed a homogeneous admixture the
         # ansatz could not span. Dimensionless by construction: numerator total degree = A+B.
-        A, B = 8, 4
+        # POLE STRUCTURE, inferred from the published form rather than guessed. The paper's
+        # g_rr^(2,2) goes as m^3/(f^3 r^3) times a series running to m^9/r^9, and 1/(f^3 r^3) is
+        # 1/(r-2m)^3, so g_rr ~ m^3 [series]/(r-2m)^3 with the series contributing r^9 downstairs.
+        # In Zerilli form H2 = f * g_rr, that is roughly N/(r^10 (r-2m)^2). A = 8 could not reach it.
+        A = int(sys.argv[sys.argv.index("--A")+1]) if "--A" in sys.argv else 12
+        B = int(sys.argv[sys.argv.index("--B")+1]) if "--B" in sys.argv else 5
         ser[fn] = sum(co[k]*m**(A+B-k)*r**k for k in range(NT))/(r**A*(r-2*m)**B)
     UNK = [x for v in cs.values() for x in v]
-    print(f"  {len(UNK)} unknown coefficients, {NT} terms per function", flush=True)
+    print(f"  {len(UNK)} unknown coefficients, {NT} terms per function, poles r^-A (r-2m)^-B",
+          flush=True)
 
     LHS = {}
     for line in pathlib.Path("data/kt_chi2_stage4_lhs.txt").read_text().splitlines():
@@ -141,7 +147,19 @@ if __name__ == "__main__":
                 eqs.append(sp.numer(sp.together(val)))
         print(f"    component {k} -> {len(eqs)} equations [{time.time()-t0:.0f}s]", flush=True)
 
-    print(f"\n  {len(eqs)} equations for {len(UNK)} unknowns", flush=True)
+    # BOUNDARY CONDITIONS, validated on the known-answer control (_kt_chi2_control.py) where they
+    # turn a solution FAMILY into the exact verified static answer. Without them a successful solve
+    # returns the particular solution plus unconstrained homogeneous modes.
+    u = sp.Symbol("u", positive=True)
+    for fn, s_ in ser.items():
+        ser_u = sp.series(s_.subs(r, 1/u).subs(m, 1), u, 0, 3).removeO()
+        pu = sp.Poly(sp.expand(ser_u), u)
+        for pw in (0, 1):
+            co = pu.coeff_monomial(u**pw) if pw else pu.coeff_monomial(1)
+            if co != 0:
+                eqs.append(sp.numer(sp.together(co)))
+    print(f"\n  {len(eqs)} equations for {len(UNK)} unknowns (incl. boundary conditions)",
+          flush=True)
     sol = sp.solve(eqs, UNK, dict=True)
     if not sol:
         sys.exit("  NO SOLUTION -- the Zerilli ansatz or the term count is wrong. That is information.")

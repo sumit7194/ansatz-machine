@@ -1,0 +1,7 @@
+  O(zeta) Einstein tensor [1s]
+  source [1s]
+  88 equations for 26 unknowns (incl. boundary conditions) [4s]
+  g_tt correction recovered: True
+  g_rr correction recovered: True
+
+  CONTROL PASSED: the solver recovers the verified static solution, so the machinery is sound and the O(chi^2) structure is the suspect.

@@ -1,0 +1,9 @@
+  O(zeta) Einstein tensor [1s]
+  source [1s]
+  84 equations for 26 unknowns [4s]
+  g_tt correction recovered: False
+  g_rr correction recovered: False
+
+  CONTROL FAILED ON VALUES: solved, but not to the known answer.
+    got f*H0 = (-30*a12*m*r**6 + 15*a12*r**7 + 15*b11*m*r**6 + 400*m**7 - 96*m**6*r - 66*m**5*r**2 - 130*m**4*r**3 - 5*m**3*r**4)/(15*r**7)
+    want     = -m**3*(-400*m**4 + 96*m**3*r + 66*m**2*r**2 + 130*m*r**3 + 5*r**4)/(15*r**7)
