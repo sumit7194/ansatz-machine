@@ -105,8 +105,29 @@ tractable, and exactly why no finite ladder of them adds up to a claim about all
 > an actual argument. This repo does not have one. Anything claiming otherwise is overreach and
 > should be caught in review.
 
-Report closures as what they are: *no irreducible KT at ranks 1–N on substrate X, by exact null over
-GF(p), with the reducible span subtracted and both primes agreeing.*
+**And the rank bound is not the largest hole — stating it alone gets the emphasis wrong.** There are
+three ceilings, and they are listed here in order of severity, which is the reverse of how obvious
+they are:
+
+1. **Analyticity, for anything perturbative — and this one no amount of compute relaxes.** The
+   double-expansion solver works order by order: `{H₀,F₁} + {H₁,F₀} = 0`, so the leading term `F₀`
+   must be a Killing tensor of the *unperturbed* background. Every tensor the method can find is
+   therefore **analytic in the coupling with a root on the background**. A tensor that is
+   non-analytic in ζ (a `ζ^{1/2}`, anything non-perturbative like `e^{−1/ζ}`) or that exists only at
+   finite coupling has no such root and is **structurally invisible — not missed for want of a
+   bigger box or a higher rank, but outside what the method can express at all.** Ranks 1–6 can be
+   bought with compute; this cannot be bought at any price, and it is why a perturbative null is a
+   weaker object than an exact one at the same rank. §130/§131 are perturbative. Say so.
+2. **Rank.** As below — each rank is an independent finite problem, so no finite ladder reaches a
+   statement about all ranks. Buyable with compute, one rank at a time. And see **D42**: ranks are
+   not equally informative, so a long ladder can be fewer independent tests than its length.
+3. **The ansatz.** A null means nothing until the search space is shown to CONTAIN the answer —
+   the D40 lesson. Every reported closure is relative to a stated box and denominator power, and
+   the representability guard must have passed, not merely not fired.
+
+Report closures as what they are: *no irreducible KT at ranks 1–N on substrate X, **analytic in the
+coupling with a background root** (if perturbative), within ansatz `{x^a y^b / L^d}` for the stated
+box, by exact null over GF(p), with the reducible span subtracted and both primes agreeing.*
 
 ---
 
