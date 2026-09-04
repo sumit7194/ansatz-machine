@@ -51,3 +51,13 @@ data/p0_*.out
 # provenance is complete and public without republishing the papers themselves.
 external/high_rank_killing/prior_art/*.pdf
 external/high_rank_killing/prior_art/*.txt
+
+# REPO-WIDE: this repository is PUBLIC. Never track published papers anywhere in it, whatever
+# directory they land in. Provenance goes in a SOURCES/bibliography file with identifiers; the
+# files themselves stay local. Narrow rules above are kept for clarity; these are the backstop.
+*.pdf
+*.djvu
+*.epub
+*.ps
+prior_art/**/*.txt
+**/prior_art/*.txt

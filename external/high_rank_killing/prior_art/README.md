@@ -4,6 +4,12 @@ Full texts read for the M1 sweep (`report.md`, EXP-001). PDFs are the arXiv vers
 2026-09-04; `.txt` files are `pdftotext -layout` extractions and are what the quotations in
 `report.md` were taken from. Kept in the repo so the sweep can be re-audited offline.
 
+**Not true in THIS repository, which is public.** The `.pdf` and `.txt` files are present in
+the local working copy but deliberately untracked (see `.gitignore`) — these are published
+papers whose licences do not generally grant redistribution, and one is an APS-copyrighted
+RMP review. `SOURCES.md` is the tracked record. Fetch them from the arXiv identifiers above
+to re-audit offline.
+
 | file | paper |
 |---|---|
 | GHKW_1103.5366 | Gibbons, Houri, Kubizňák, Warnick — *Some spacetimes with higher rank Killing–Stäckel tensors*, PLB 700 (2011) 68 |
