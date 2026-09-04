@@ -57,6 +57,19 @@ if __name__ == "__main__":
             for b in range(5):
                 v = sp.simplify(geo.ricci[a, b].subs(pt))
                 mx = max(mx, abs(float(v)) if v.is_number else 1e99)
+    # SIGNATURE, printed because it was missed. This metric is signature (2,3) -- ULTRAHYPERBOLIC,
+    # not Lorentzian. That does not weaken it as a control: the Killing equation is linear in the
+    # metric and signature-blind, so finding an irreducible rank-4 tensor here still proves the
+    # prover is not a null-machine, which is the only job this control has. What it changes is the
+    # INTERPRETATION of our nulls -- there is no known Lorentzian Ricci-flat example with an
+    # irreducible Killing tensor of rank >= 3 in ANY dimension, so a null on a Lorentzian substrate
+    # is one more datum in a pattern nobody has broken, not an oddity of the metric we picked.
+    for pt in pts:
+        M = sp.Matrix(5, 5, lambda i, j: sp.nsimplify(g[i, j]).subs(pt))
+        ev = [complex(e).real for e in M.evalf().eigenvals(multiple=True)]
+        neg = sum(1 for e in ev if e < -1e-12); pos = sum(1 for e in ev if e > 1e-12)
+        kind = "LORENTZIAN" if (neg == 1 or pos == 1) else "ULTRAHYPERBOLIC"
+        print(f"  (0) signature at X={pt[X]}, y={pt[y]}: ({neg},{pos})  {kind}")
     print(f"  (A) Ricci-flat?  max |R_ab| = {mx:.3e}   "
           f"{'VACUUM ✓' if mx < 1e-12 else '*** NOT VACUUM ***'}")
 

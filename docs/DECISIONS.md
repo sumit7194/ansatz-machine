@@ -1007,3 +1007,41 @@ and the rank-general control message reproduces rank 2's hardcoded numbers exact
 a generalisation preserved the case it was generalised from. **Tenth instance in this arc of the
 instrument, not the physics, being at fault; first instance where the fault was in prose rather than
 in arithmetic, which is the kind that survives into a write-up.**
+
+## D43 — the rank-4 positive control is ultrahyperbolic, and that changes the reading not the control (2026-09-04)
+
+**Found by a sibling's prior-art sweep, verified here before being believed.** The bridge relayed
+that Cariglia-Galajinsky's rank-3/4 examples are signature (2,q), not Lorentzian. Rather than import
+that, the signature was computed locally on our own control metric (`scripts/_kt_cg5d.py`, their
+Eq. 26):
+
+    X=2, y=3     X=5, y=-7/2     X=1/2, y=-1     X=3, y=10
+    eigen -2 +3  -2 +3           -2 +3           -2 +3        -> signature (2,3), ULTRAHYPERBOLIC
+
+**The control is unaffected, and the reason is worth stating rather than assumed.** Its only job is
+to show the prover can return "something" where something exists — that it is not a null-machine.
+The Killing equation is linear in the metric components and makes no reference to signature, so
+finding an irreducible rank-4 tensor on a (2,3) substrate proves exactly what it was built to prove.
+Nothing in that argument uses Lorentzian.
+
+**What it does change is what a null MEANS, and this is the substantive part.** Per the relayed
+sweep (NOT verified here): no Lorentzian Ricci-flat or Einstein spacetime with an irreducible
+Killing tensor of rank >= 3 is known in ANY dimension, stated open by Cariglia-Galajinsky 2015 and
+Fordy-Galajinsky 2019. If that holds, our Lorentzian nulls are not facts about an awkward metric —
+they are another datum in a pattern nobody has broken, which makes them less surprising and more
+meaningful at once. It also relocates the interesting object: the Eisenhart-lift obstruction
+(vacuum iff the base potential is harmonic, with no harmonic potential carrying a cubic-or-higher
+integral in Hietarinta's list) would be a *reason*, where our ladder only produces *instances*.
+
+**CLAUDE.md was materially incomplete and is corrected.** It said CG "construct Ricci-flat metrics
+carrying irreducible rank-3 and rank-4 tensors — so the objects exist", which reads as though a
+Lorentzian vacuum example exists. Now qualified, with the signature stated and the control's status
+spelled out. **`_kt_cg5d.py` prints its own signature from now on** — the fix for "a property nobody
+checked because nobody thought to" is to make the substrate report it, the same discipline as
+verifying Ricci-flatness before calling something a spacetime (§124).
+
+**What was NOT imported.** The sweep's other claims — the rank-bound dimensions, Vollmer being three
+metric families rather than one (which would amend D39), the Kruglikov-Matveev and Kruglikov-Steneker
+nulls — are recorded as *unverified relay* and will get an independent literature check before any
+of them edits a decision here. Siblings send asks, not conclusions; copying a sibling's sweep in
+destroys the only thing independent agreement is worth (§0).

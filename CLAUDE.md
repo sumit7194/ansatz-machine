@@ -47,7 +47,13 @@ the equation. **A negative result is a THEOREM, not a screen.**
 **Prior art swept.** Nothing excludes rank-3 or rank-4 for Kerr or deformed Kerr. Ramond
 (arXiv:2607.27129) is a *tidal* quadrupole on the body, rank 2 only. Cariglia–Galajinsky
 (arXiv:1503.02162) **construct** Ricci-flat metrics carrying irreducible rank-3 and rank-4 tensors —
-so the objects exist, and they are the positive control.
+so the objects exist, and they are the positive control. **Their signature is (2,3) —
+ultrahyperbolic, not Lorentzian** (verified here: `scripts/_kt_cg5d.py` prints it, eigenvalue signs
+−2 +3 at every point tested). The control is unaffected — the Killing equation is signature-blind,
+so finding a rank-4 tensor there still proves the prover is not a null-machine. What it changes is
+what our nulls *mean*: no Lorentzian Ricci-flat spacetime with an irreducible Killing tensor of
+rank ≥ 3 is known in any dimension, so a Lorentzian null is one more datum in an unbroken pattern
+rather than a quirk of the substrate. **Read "the objects exist" as "in signature (2,3)".**
 
 ---
 

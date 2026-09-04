@@ -1,0 +1,132 @@
+Schwarzschild background: L = x**2*(x - 2)*(y - 1)*(y + 1)
+  generators ['p_t', 'p_phi', 'H', 'Lsq']; 14 reducible products at rank 4
+  box x<=24 y<=22; den = L^6
+  20125 coefficient unknowns per level
+    op 200/20125 brackets (1s)
+    op 400/20125 brackets (3s)
+    op 600/20125 brackets (4s)
+    op 800/20125 brackets (6s)
+    op 1000/20125 brackets (7s)
+    op 1200/20125 brackets (9s)
+    op 1400/20125 brackets (10s)
+    op 1600/20125 brackets (12s)
+    op 1800/20125 brackets (13s)
+    op 2000/20125 brackets (15s)
+    op 2200/20125 brackets (16s)
+    op 2400/20125 brackets (17s)
+    op 2600/20125 brackets (19s)
+    op 2800/20125 brackets (21s)
+    op 3000/20125 brackets (23s)
+    op 3200/20125 brackets (25s)
+    op 3400/20125 brackets (26s)
+    op 3600/20125 brackets (28s)
+    op 3800/20125 brackets (30s)
+    op 4000/20125 brackets (32s)
+    op 4200/20125 brackets (33s)
+    op 4400/20125 brackets (35s)
+    op 4600/20125 brackets (36s)
+    op 4800/20125 brackets (38s)
+    op 5000/20125 brackets (39s)
+    op 5200/20125 brackets (41s)
+    op 5400/20125 brackets (42s)
+    op 5600/20125 brackets (44s)
+    op 5800/20125 brackets (45s)
+    op 6000/20125 brackets (47s)
+    op 6200/20125 brackets (48s)
+    op 6400/20125 brackets (50s)
+    op 6600/20125 brackets (52s)
+    op 6800/20125 brackets (54s)
+    op 7000/20125 brackets (56s)
+    op 7200/20125 brackets (58s)
+    op 7400/20125 brackets (59s)
+    op 7600/20125 brackets (61s)
+    op 7800/20125 brackets (63s)
+    op 8000/20125 brackets (65s)
+    op 8200/20125 brackets (67s)
+    op 8400/20125 brackets (69s)
+    op 8600/20125 brackets (71s)
+    op 8800/20125 brackets (73s)
+    op 9000/20125 brackets (74s)
+    op 9200/20125 brackets (76s)
+    op 9400/20125 brackets (78s)
+    op 9600/20125 brackets (79s)
+    op 9800/20125 brackets (81s)
+    op 10000/20125 brackets (82s)
+    op 10200/20125 brackets (84s)
+    op 10400/20125 brackets (85s)
+    op 10600/20125 brackets (87s)
+    op 10800/20125 brackets (88s)
+    op 11000/20125 brackets (90s)
+    op 11200/20125 brackets (91s)
+    op 11400/20125 brackets (93s)
+    op 11600/20125 brackets (94s)
+    op 11800/20125 brackets (96s)
+    op 12000/20125 brackets (97s)
+    op 12200/20125 brackets (99s)
+    op 12400/20125 brackets (101s)
+    op 12600/20125 brackets (103s)
+    op 12800/20125 brackets (105s)
+    op 13000/20125 brackets (107s)
+    op 13200/20125 brackets (108s)
+    op 13400/20125 brackets (110s)
+    op 13600/20125 brackets (112s)
+    op 13800/20125 brackets (114s)
+    op 14000/20125 brackets (116s)
+    op 14200/20125 brackets (118s)
+    op 14400/20125 brackets (120s)
+    op 14600/20125 brackets (121s)
+    op 14800/20125 brackets (123s)
+    op 15000/20125 brackets (125s)
+    op 15200/20125 brackets (127s)
+    op 15400/20125 brackets (129s)
+    op 15600/20125 brackets (131s)
+    op 15800/20125 brackets (132s)
+    op 16000/20125 brackets (134s)
+    op 16200/20125 brackets (136s)
+    op 16400/20125 brackets (138s)
+    op 16600/20125 brackets (140s)
+    op 16800/20125 brackets (142s)
+    op 17000/20125 brackets (144s)
+    op 17200/20125 brackets (145s)
+    op 17400/20125 brackets (147s)
+    op 17600/20125 brackets (148s)
+    op 17800/20125 brackets (150s)
+    op 18000/20125 brackets (151s)
+    op 18200/20125 brackets (153s)
+    op 18400/20125 brackets (154s)
+    op 18600/20125 brackets (156s)
+    op 18800/20125 brackets (158s)
+    op 19000/20125 brackets (159s)
+    op 19200/20125 brackets (161s)
+    op 19400/20125 brackets (162s)
+    op 19600/20125 brackets (164s)
+    op 19800/20125 brackets (165s)
+    op 20000/20125 brackets (166s)
+  operator matrix (47144, 20125) [1147s]
+  operator matrix released (3.5 GB); only one large matrix resident from here
+  chi^0 level: Schwarzschild Killing space = 14
+  chi^1 level: 14 of 14 extend  [2284s]
+  chi^2 level: 14 of 14 extend  [17349s]
+  chi-tower chains CHECKPOINTED to kt_double_chains_r4_d6_b24x22.pkl (14 chains) [17354s]
+
+  Kerr Killing space at rank 4: got 14, expect 14
+  count check passed, but a COUNT IS NOT ENOUGH HERE.
+  Schwarzschild and Kerr have the SAME dimension at every rank (5, 8, 14) because
+  Lsq maps one-to-one onto Carter -- so 'the count is preserved' would also pass if
+  the tower did nothing. Identifying the direction is the real test.
+
+  Carter's O(chi^2) piece should be  y^2 (mu^2 - p_t^2)
+    = y**2*(-P_phi**2*(2 - x) - P_t**2*x**3*(1 - y**2) - P_t**2*x**2*(x - 2)*(y**2 - 1) - P_x**2*x*(x - 2)**2*(y**2 - 1) + P_y**2*(x - 2)*(y**2 - 1)**2)/(x**2*(x - 2)*(y**2 - 1))
+  prediction self-check: {H,F} at chi^0 = True, chi^1 = True, chi^2 = True
+
+  {H_Kerr, Lsq} at chi^2 is NONZERO
+  THE COUNT IS DECISIVE: Lsq alone does NOT extend to O(chi^2), so a tower doing nothing would have reported 9 of 14 -- only the directions built from p_t, p_phi and H, which survive trivially. Reporting 14 means it found a nonzero F^(0,2), and the verified prediction above identifies that deformation as Carter's.
+
+  CONTROL PASSED, non-vacuously: the chi-tower deforms Lsq into Carter.
+
+  sGB Hamiltonian pieces built and REPRESENTABLE [17357s]
+  reducible floor (products of p_t, p_phi, H at rank 4): 9
+  zeta chi^0 level: 14 of 14 survive  [24557s]
+    level 0 checkpointed (kt_double_z_r4_d6_n0.pkl)
+  zeta chi^1 level: 14 of 14 survive  [33778s]
+    level 1 checkpointed (kt_double_z_r4_d6_n1.pkl)
