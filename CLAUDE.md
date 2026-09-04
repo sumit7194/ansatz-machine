@@ -39,6 +39,30 @@ separate. Almost nothing else has one. Whether that is structural or a coinciden
 is not settled, and it is not a curiosity: the absence of a Carter-like constant means orbits are
 not integrable, which is an assumption the EMRI waveform programme is built on.
 
+> **But keep the motivation and the claim apart, because they are not the same statement.** What
+> this repo can establish is *"this metric admits no irreducible Killing tensor of rank r, within a
+> stated ansatz, analytic in the coupling"*. What the paragraph above reaches for is *"real orbits
+> around real objects are not integrable"*. The exactness of a GF(p) null bears entirely on the
+> first and **not at all — not weakly, not with a large error bar, but not at all** — on the second.
+> The gap between them is the substrate: our sGB metric is a **double truncation, at O(ζ) and
+> O(χ²)**, and an external measurement (relayed, not verified here) puts the O(χ²) spin-truncation
+> error of the Kerr 220 mode at ~6% at χ=0.69 and ~19% at χ=0.90 — and χ~0.9 is where EMRI central
+> objects actually sit. **The computation is exact; whether the object is the right one is a
+> separate question, and only the first is protected by working over a finite field.**
+>
+> *Which way the gap cuts is worth stating, because it is not symmetric.* Finding a Killing tensor
+> **present** in a truncation would be the fragile result — truncations are often more symmetric
+> than what they approximate, so an accidental symmetry is ordinary. Finding it **absent** is the
+> robust direction: restoring a hidden symmetry by adding higher-order terms takes a conspiracy
+> nothing supplies. **With one caveat that is our own §3 ceiling in a second coat** — that
+> robustness argument assumes analyticity. A symmetry of the full metric that is non-perturbative
+> in ζ or χ is not "fine-tuning"; it is simply invisible to an order-by-order method, and no
+> amount of agreement between truncation orders would reveal it.
+>
+> So: report the null as exact for the truncated metric, **strongly suggestive** for the physical
+> one, and never as a statement about EMRI orbits. That last step is a different claim needing a
+> different instrument, and this repo does not have one.
+
 **Why this repo can attack it at all.** Most integrability claims in the literature are numerical
 null-space screens over sampled orbits — they can only ever report *we did not find one here*. An
 exact linear-algebra null over a stated ansatz, over GF(p) with two primes, is a statement about
