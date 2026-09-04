@@ -43,3 +43,11 @@ data/*.ckpt
 # on ourselves after they ran it on themselves. The logs are now tracked.
 data/s122_*.out
 data/p0_*.out
+
+# Third-party papers imported with the high_rank_killing work. Present locally for the work,
+# NOT pushed: this repo is public, and these are published papers (arXiv licences vary and do
+# not generally grant redistribution; Cariglia_RMP is APS-copyrighted). The tracked
+# external/high_rank_killing/prior_art/SOURCES.md lists every one with its identifier so the
+# provenance is complete and public without republishing the papers themselves.
+external/high_rank_killing/prior_art/*.pdf
+external/high_rank_killing/prior_art/*.txt
