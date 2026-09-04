@@ -36,6 +36,46 @@ import _kt_search as K
 import _kt_metrics as MM
 import _kt_exact as EX
 import _kt_perturb as PB
+from _kt_modp32 import nullspace_modp32, matrix_from_dicts32, matrix_from32
+
+# INT32 STORAGE, INT64 ARITHMETIC. At rank 4 the operator matrix is ~20125 columns and the int64
+# elimination needs ~7.8 GB -- past what this laptop can give it. int32 storage halves that to
+# ~3.9 GB; the arithmetic still promotes to int64 in chunks, so nothing overflows. The routine was
+# validated vector-for-vector against nullspace_modp (scripts/_kt_modp32.py --selftest) before
+# being wired in here.
+#
+# AND A GUARD ON THE REAL DATA, because a self-test on random matrices is not the same as being
+# right on this one. Every returned vector is checked to satisfy M v = 0 (mod p) on the ACTUAL
+# matrix, in row chunks so the check itself cannot blow the memory it is protecting. This catches
+# a wrong answer; it does not prove completeness, which rests on the validated algorithm.
+INT32_MIN_COLS = 8000
+
+
+def nullspace(M, p, verify=True):
+    """Nullspace over GF(p), int32 storage above INT32_MIN_COLS columns, with a residual check."""
+    A = np.asarray(M)
+    ncols = A.shape[1] if A.size else 0
+    vecs = nullspace_modp32(A, p) if ncols >= INT32_MIN_COLS else PB.nullspace_modp(A, p)
+    if verify and vecs:
+        # SPLIT THE MULTIPLY, because the obvious check overflows. With M and V entries both up to
+        # p ~ 2^31, a single product is ~2^62 and summing thousands of them wraps int64 silently --
+        # the first version of this guard did exactly that and reported EVERY residual nonzero on a
+        # correct nullspace. Splitting V into 16-bit halves keeps each term under 2^47, so k up to
+        # ~65000 columns accumulates safely. Third time this specific overflow has been the bug
+        # rather than the thing under test.
+        V = np.array(vecs, dtype=np.int64).T % p          # (ncols, nvec)
+        Vhi, Vlo = V >> 16, V & 0xFFFF
+        bad = 0
+        for s0 in range(0, A.shape[0], 2000):
+            blk = np.asarray(A[s0:s0+2000], dtype=np.int64) % p
+            res = (((blk @ Vhi) % p) * 65536 + (blk @ Vlo)) % p
+            bad += int(np.count_nonzero(res))
+        if bad:
+            raise AssertionError(
+                f"NULLSPACE GUARD FAILED: {bad} nonzero residuals in M v mod p over "
+                f"{len(vecs)} vectors. The returned vectors are not in the nullspace -- the "
+                f"elimination is wrong, and every dimension downstream of it is meaningless.")
+    return vecs
 
 t, x, y, ph = sp.symbols("t x y phi", real=True)
 chi, zeta = sp.symbols("chi zeta")
@@ -158,9 +198,17 @@ if __name__ == "__main__":
     D = sp.Integer(1)
     for d_ in dens0:
         D = sp.lcm(D, d_)
-    M0, dicts0 = PB.matrix_from(raws0, D, p, n_w)
+    M0, dicts0 = matrix_from32(raws0, D, p, n_w, PB.clear)
     print(f"  operator matrix {M0.shape} [{time.time()-t0:.0f}s]", flush=True)
-    bg = PB.nullspace_modp(M0, p)
+    bg = nullspace(M0, p)
+    # FREE IT. M0 is never read again, but the name keeps ~3.9 GB (rank 4, int32) alive right up
+    # to the point where Mfull allocates another 3.9 GB beside it -- 7.8 GB against ~7.3 GB free,
+    # i.e. swap or death. The whole int32 conversion is wasted if both matrices are resident.
+    _m0_gb = M0.nbytes / 2**30
+    del M0
+    import gc; gc.collect()
+    print(f"  operator matrix released ({_m0_gb:.1f} GB); only one large matrix resident from here",
+          flush=True)
     print(f"  chi^0 level: Schwarzschild Killing space = {len(bg)}", flush=True)
 
     if "--control" in sys.argv:
@@ -225,10 +273,10 @@ if __name__ == "__main__":
                 D2 = sp.lcm(D2, sp.denom(sp.together(e)))
             if sp.simplify(D2 - D) == 0:
                 dS = [PB.clear(e, D, p) for e in srcs]
-                Mfull = PB.matrix_from_dicts(dicts0 + dS, n_w + dim)
+                Mfull = matrix_from_dicts32(dicts0 + dS, n_w + dim, p)
             else:
-                Mfull, _ = PB.matrix_from(raws0 + srcs, D2, p, n_w + dim)
-            ns = PB.nullspace_modp(Mfull, p)
+                Mfull, _ = matrix_from32(raws0 + srcs, D2, p, n_w + dim, PB.clear)
+            ns = nullspace(Mfull, p)
             # Keep only vectors with a nonzero c-block; their F-blocks ARE the level-n solutions
             # for the chain combination their c-block names. Vectors with c = 0 are homogeneous
             # additions and carry no information about survival.
@@ -382,10 +430,10 @@ if __name__ == "__main__":
                 D2 = sp.lcm(D2, sp.denom(sp.together(e)))
             if sp.simplify(D2 - D) == 0:
                 dS = [PB.clear(e, D, p) for e in srcs]
-                Mfull = PB.matrix_from_dicts(dicts0 + dS, n_w + zdim)
+                Mfull = matrix_from_dicts32(dicts0 + dS, n_w + zdim, p)
             else:
-                Mfull, _ = PB.matrix_from(raws0 + srcs, D2, p, n_w + zdim)
-            ns = PB.nullspace_modp(Mfull, p)
+                Mfull, _ = matrix_from32(raws0 + srcs, D2, p, n_w + zdim, PB.clear)
+            ns = nullspace(Mfull, p)
             keep, cbs = [], []
             for v in ns:
                 cb = [int(z) % p for z in v[n_w:]]

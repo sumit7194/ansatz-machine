@@ -17,10 +17,53 @@ checked below on random matrices before this is trusted on anything real.
 import numpy as np
 
 
-def nullspace_modp32(M, p, chunk=4000):
-    """Full nullspace basis over GF(p) of an integer matrix. Returns a list of int64 vectors."""
-    A = np.ascontiguousarray(np.asarray(M, dtype=np.int64) % p).astype(np.int32)
+def matrix_from_dicts32(dicts, ncols, p):
+    """Assemble the coefficient matrix DIRECTLY as int32, reduced into [0, p).
+
+    Why this exists rather than reusing _kt_perturb.matrix_from_dicts: that one allocates int64,
+    and at rank 4 the matrix is ~52000 x 20125, i.e. 7.8 GB int64 against 3.9 GB int32 -- more than
+    this laptop can hold. Downcasting AFTER assembly does not help; the int64 array has to exist
+    first. So the reduction has to happen as the matrix is filled.
+
+    Safe because clear() already returns every entry as int(c) % p, and p = 2^31 - 1, so the
+    largest possible value p-1 = 2147483646 is exactly representable in int32."""
+    keys = sorted(set().union(*dicts)) if dicts else []
+    kidx = {k: i for i, k in enumerate(keys)}
+    M = np.zeros((len(keys), ncols), dtype=np.int32)
+    for j, d in enumerate(dicts):
+        for k, v in d.items():
+            r = int(v) % p
+            if r:
+                M[kidx[k], j] = r
+    return M
+
+
+def matrix_from32(raws, D, p, ncols, clear_fn):
+    """matrix_from, assembling int32. clear_fn is _kt_perturb.clear, injected to avoid a cycle."""
+    dicts = [clear_fn(r, D, p) for r in raws]
+    return matrix_from_dicts32(dicts, ncols, p), dicts
+
+
+def nullspace_modp32(M, p, chunk=None):
+    """Full nullspace basis over GF(p) of an integer matrix. Returns a list of int64 vectors.
+
+    chunk=None sizes the row block so the int64 promotion inside the elimination stays near
+    256 MB. At rank 4 (20125 columns) a fixed chunk of 4000 promotes a 644 MB block and then
+    allocates another for the outer product -- 1.3 GB of transient on top of a 3.9 GB matrix,
+    which is a lot of the headroom to spend on a constant that was picked for a smaller problem."""
+    Ain = np.asarray(M)
+    if Ain.dtype == np.int32:
+        # ALREADY REDUCED, by contract (see matrix_from_dicts32). Do NOT promote to int64 here:
+        # at rank 4 that is a transient 7.8 GB allocation to produce the 3.9 GB array we came for,
+        # which defeats the entire point of this module. Verified rather than trusted, cheaply.
+        if Ain.size and (int(Ain.min()) < 0 or int(Ain.max()) >= p):
+            raise AssertionError("int32 input is not reduced into [0, p) -- refusing to eliminate")
+        A = np.ascontiguousarray(Ain)
+    else:
+        A = np.ascontiguousarray(np.asarray(M, dtype=np.int64) % p).astype(np.int32)
     rows, ncols = A.shape if A.size else (0, np.asarray(M).shape[1])
+    if chunk is None:
+        chunk = max(256, min(4000, (256 * 2**20) // max(1, ncols * 8)))
     piv_col, piv = [], 0
     for c in range(ncols):
         if piv >= rows:
