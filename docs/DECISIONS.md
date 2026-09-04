@@ -1029,9 +1029,36 @@ sweep (NOT verified here): no Lorentzian Ricci-flat or Einstein spacetime with a
 Killing tensor of rank >= 3 is known in ANY dimension, stated open by Cariglia-Galajinsky 2015 and
 Fordy-Galajinsky 2019. If that holds, our Lorentzian nulls are not facts about an awkward metric —
 they are another datum in a pattern nobody has broken, which makes them less surprising and more
-meaningful at once. It also relocates the interesting object: the Eisenhart-lift obstruction
-(vacuum iff the base potential is harmonic, with no harmonic potential carrying a cubic-or-higher
-integral in Hietarinta's list) would be a *reason*, where our ladder only produces *instances*.
+meaningful at once.
+
+**CORRECTION, same day, and it matters more than the thing it corrects.** The paragraph above
+originally called the Eisenhart-lift argument "the obstruction" and treated it as a mechanism
+explaining why Lorentzian vacuum is empty. The bridge relayed it that way and then withdrew it
+against the source. Cariglia-Galajinsky's actual sentence, quoted:
+
+> "Close inspection of two-dimensional integrable models possessing a cubic (or higher) integral of
+> motion [13] shows that none of them is described by a harmonic function. Thus the construction of
+> four-dimensional spacetimes of signature (1,3) which admit higher rank Killing tensors **seems to
+> be problematic within the Eisenhart approach**."
+
+That is an obstruction to **one construction route**, hedged by its own authors, inherited from a
+survey of 2d models. It is **not** a theorem about Lorentzian vacuum spacetimes. Calling it one
+promoted a limitation of a technique into a property of the physics. (The attribution to
+Hietarinta is also unverified — the paper says "[13]" and neither we nor the bridge opened it.)
+
+**The operational consequence, recorded before rank 4's verdict lands rather than after.** *Nothing
+currently on the table forbids an irreducible rank-4 Killing tensor in this setting.* So if rank 4
+returns anything above floor 9, the D41 reflex — "this contradicts published arguments, so the
+instrument is the first suspect" — **does not apply here**, because there is no such argument at
+rank 4. The verification burden stays exactly as heavy for a different reason: a sampled nullspace
+count is an UPPER bound, so a positive result is never self-certifying no matter what the
+literature says. Verify because positives cannot certify themselves, not because a theorem is
+being contradicted.
+
+The one claim from the sweep that is the paper's own words, still relayed rather than read here:
+"none of the Lorentzian spacetimes studied in [5],[7]-[12] solves the vacuum Einstein equations."
+Note how much narrower that is than "no Lorentzian example is known in any dimension" — it is a
+statement about the papers surveyed there. The narrower version is the one to quote.
 
 **CLAUDE.md was materially incomplete and is corrected.** It said CG "construct Ricci-flat metrics
 carrying irreducible rank-3 and rank-4 tensors — so the objects exist", which reads as though a
