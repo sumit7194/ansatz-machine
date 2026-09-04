@@ -110,6 +110,16 @@ matching the measured exact dimension.
     delta=1      prover dim      2    5    8   11   14   17
     (Schwarz.)   IRREDUCIBLE     0    0    0    0    0    0
 
+**Both rows are den¹, and that is a real restriction on what they say.** The dimensions grow
+linearly (+2, +3 per rank) rather than combinatorially because at den¹ every generator product
+needing `L²` or deeper — `H²`, `H·Lsq`, `Lsq²`, and everything above — is **outside the ansatz**.
+Enforcing `c+e ≤ 1` on `p_t^a p_φ^b H^c Lsq^e` reproduces both published rows exactly at all six
+ranks (2 4 6 8 10 12 and 2 5 8 11 14 17), against unrestricted spans of 2 4 6 9 12 16 and
+2 5 8 14 20 30. So at rank 6 the δ=1 search space holds 17 of the algebra's 30 reducible
+directions. The closure is sound — measured and reducible were compared inside the same ansatz —
+but it is a statement about the den¹ sector, and an irreducible tensor needing `L²` would have been
+invisible to it, not absent from it. **Ceiling 3 of §3, with a number on it.**
+
 **The δ=1 row is the free control and it is on-substrate by construction.** ZV at δ=1 *is*
 Schwarzschild, in prolate spheroidal coordinates where nothing looks like `1 - 2M/r` — so the prover
 must recover Schwarzschild's Killing algebra in the same coordinate family and the same denominator
