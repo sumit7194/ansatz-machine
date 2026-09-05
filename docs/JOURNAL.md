@@ -6,6 +6,31 @@ built, what broke, what the machine taught us. Numbers live in
 
 ---
 
+## 2026-09-05 — sGB RANK 4: the floor and nothing else, and the floor itself was wrong
+
+- **RANK 4 LANDED after 24h36m: 8 of 14 survive.** The run CONDEMNED ITSELF -- 8 against a
+  hardcoded floor of 9, which is impossible. The guard was right and the floor was the defect.
+- **Diagnosis.** A floor direction is conserved but only FINDABLE if its zeta-correction fits the
+  ansatz. The c=2 (H^2) correction needs a denominator not dividing L^6. c<=1 for rank<=3, so
+  rank 4 is the first rank that could expose this. Representability-aware floor reproduces every
+  rank: 4=4, 6=6, 9 combinatorial / 8 representable = 8 measured.
+- **Verdict, airtight:** the 8 representable floor directions are conserved AND in the ansatz, so
+  survivors >= 8; measured is exactly 8; therefore survivors = floor, nothing above.
+  **No irreducible rank-4 Killing tensor** -- and per D42 rank 4 was the first rung NOT forced by
+  Carter's death at rank 2, since Q^2 first exists there. §132.
+- **Two of my three diagnostic hypotheses were wrong first**, and one test script computed the
+  denominator of the denominator. Verified against all three ranks before believing the third.
+- **D44:** a floor is a claim about the SEARCH SPACE, not the algebra. Measure it, do not count it.
+  And `_kt_coverage.py`, written that morning to stop unstated coverage assumptions, shipped with
+  one -- the fix for the class was an instance of the class.
+- **D45 / LAUNCHED:** denpow 7 to close the one missing direction. Verified BEFORE launching that
+  the correction divides L^7 and the floor becomes 9 of 9. Margin 4 not 6, for memory: margin 6
+  needs ~7.6 GB peak against 7.29 GB available with swap already engaged. Cost stated -- margin 6
+  would have been a strict superset of the denpow-6 box, margin 4 is not, so the two runs are
+  complementary rather than nested.
+
+---
+
 ## 2026-09-04 — sGB RANK 3: only the reducible floor survives, and a framing correction
 
 - **RANK 3 LANDED: 8 -> 6 = the reducible floor** (PID 67705, 8h32m, peak 2.6 GB, all three zeta

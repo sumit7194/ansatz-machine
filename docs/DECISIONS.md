@@ -1072,3 +1072,50 @@ metric families rather than one (which would amend D39), the Kruglikov-Matveev a
 nulls — are recorded as *unverified relay* and will get an independent literature check before any
 of them edits a decision here. Siblings send asks, not conclusions; copying a sibling's sweep in
 destroys the only thing independent agreement is worth (§0).
+
+## D44 — the reducible floor is not combinatorial; it must be measured (2026-09-05)
+
+**What broke.** Rank 4 finished with 8 survivors against a hardcoded floor of 9 and condemned
+itself, correctly: reducibles are exactly conserved, so `survivors < floor` is impossible. The
+guard was right. **The floor was wrong.**
+
+**Why.** A floor direction `p_t^a p_φ^b H^c` is conserved, but the solver can only *find* it if its
+**ζ-correction** lies in the ansatz — and that correction carries denominator powers the background
+product does not. At O(ζχ²) the `c=2` direction needs `2(HK0·H1_2 + HK1·H1_1 + HK2·H1_0)`, whose
+denominator does not divide `L⁶`. Since `a+b+2c = rank` forces `c ≤ 1` for rank ≤ 3, **`H²` first
+exists at rank 4** — so ranks 2 and 3 could not have exposed this, and did not.
+
+**The rule.** *A floor is a claim about the search space, not about the algebra.* Counting conserved
+products answers "what is conserved"; the solver needs "what is conserved AND findable here". The
+solver now asks the representability guard per direction at run time and reports both numbers. The
+measured floor reproduces every rank: 4 = 4, 6 = 6, 9 combinatorial → 8 representable = 8 measured.
+
+**And the same error, committed twice in one day.** `scripts/_kt_coverage.py` was written that
+morning precisely to stop unstated coverage assumptions, and shipped with one: it modelled whether
+the *background product* fits, not its *ζ-correction*, and so reported sGB coverage as 100% when it
+was 8/9. **The fix for the class was an instance of the class.** The wrong row is kept in the file,
+labelled, because a counterexample inside the tool is worth more than a corrected number.
+
+## D45 — denpow 7 at margin 4, and why not margin 6 (2026-09-05)
+
+**The gap to close.** Only the `H²` direction was missing at denpow 6. Verified: its correction
+divides `L⁷` with numerator degrees (19,20), so **denpow 7 makes the floor 9 of 9** — checked before
+launching rather than hoped for, since a re-run that did not close the gap would be pure waste.
+
+**Margin 4, not the 6 used at denpow 6, and the reason is memory not physics.**
+
+    margin 4   box 25x22   20930 cols   matrix 3.8 GB   est peak 5.6 GB   floor 9/9
+    margin 5   box 26x23   22680 cols   matrix 4.5 GB   est peak 6.6 GB
+    margin 6   box 27x24   24500 cols   matrix 5.2 GB   est peak 7.6 GB   floor 9/9
+
+Available memory at launch was 7.29 GB with swap already 739 MB used, so margin 6 sits inside its
+own error bar on a 16 GB laptop running unattended. Margin 4 leaves 1.7 GB of headroom and closes
+the gap just as completely.
+
+**The honest cost, stated because it is easy to gloss.** Margin 6 would have been a **strict
+superset** of the denpow-6 run: re-expressing `N/L⁶` as `N·L/L⁷` raises numerator degrees by
+(3,2), so containing box 24×22 at denpow 7 needs 27×24. Margin 4's 25×22 does not contain it.
+**So the two runs are complementary, not nested** — denpow 6 searched wider numerators at shallower
+denominators, denpow 7 searches deeper denominators including the `H²` direction. Their union
+covers more than either, and neither supersedes the other. Do not report the second as replacing
+the first.
