@@ -6,6 +6,45 @@ built, what broke, what the machine taught us. Numbers live in
 
 ---
 
+## 2026-09-05 (later) — denpow 7 running; the literature read at source; §1 narrowed
+
+- **RANK 4 AT DENPOW 7 LAUNCHED** (PID 1078, box 27x24, 24500 unknowns, margin 6). The line the
+  run exists for has printed: **"reducible floor: 9 combinatorial, 9 REPRESENTABLE at denpow 7"**
+  against denpow 6's 8 of 9. The H^2 direction is now inside the ansatz, so the search space
+  contains the complete reducible algebra at rank 4. Also validates D44 end to end -- the measured
+  floor reports 9/9 here and 8/9 there, where a combinatorial count would have said 9 both times
+  and told us nothing.
+- Margin 6 chosen so the box is a STRICT SUPERSET of the denpow-6 run: re-expressing N/L^6 as
+  N.L/L^7 raises numerator degrees by (3,2), so containing 24x22 needs exactly 27x24. Enabled by
+  the user restarting to clear swap. chi-tower 14->14->14, control passed non-vacuously.
+- **A memory lesson against myself.** I sized margin 6 as marginal (peak ~7.2 GB vs 7.03 GB
+  available) off a single vm_stat taken while apps were still loading after the restart. Once
+  settled, available was 9.35 GB. That is rule 57 -- "a single free sample is not a state" --
+  which I had written down the day before and then applied a single sample to a 30-hour decision.
+  It biased toward caution so no harm, but the reasoning was already on the record as wrong.
+- **READ 0804.4705 AND 1712.08070 AT SOURCE** rather than acting on the relayed version, as
+  promised. Krtous/Frolov/Kubiznak prove uniqueness of Kerr-NUT-(A)dS from Einstein + a principal
+  CKY tensor, but ALSO that without Einstein imposed the principal tensor alone gives type D,
+  separability and complete geodesic integrability. **The field equations are not what generates
+  the symmetry.** §1's "structural or a coincidence of type-D vacua" loses its vacua half.
+- **The relay had it inverted and the correction held:** Petrov type D is a CONCLUSION of that
+  theorem, not a hypothesis, so it licenses nothing of the form "type D implies integrable". The
+  operative condition is the principal tensor, strictly stronger.
+- And the same three authors later found their own proof carried an **unstated** hypothesis
+  (spacelike gradients of the principal tensor's eigenvalues) and built Lorentzian metrics with
+  null eigenvalues (1712.08070). *A theorem correct inside a restriction its own statement did not
+  name* -- the same shape as this repo's den^1 ZV tables, in a published venue, found by its
+  authors. Both citations are abstract-level; bodies unread and the file says so.
+- Net effect is a better frame, not a stronger claim: deformed Kerr carries no principal tensor, so
+  no tower is expected, and our nulls are consistent with established structure rather than
+  surprising against it. Less novel and better motivated at once.
+- README lists cuspis among the siblings (navigational only, no results -- §0 applies to READMEs).
+- gitignore hardened for fetched third-party material: *.html/*.htm/*.mhtml, papers/, fetched/,
+  downloads/, and all of **/prior_art/** except its README and SOURCES bibliography. This repo is
+  public; provenance is tracked, bytes are not.
+
+---
+
 ## 2026-09-05 — sGB RANK 4: the floor and nothing else, and the floor itself was wrong
 
 - **RANK 4 LANDED after 24h36m: 8 of 14 survive.** The run CONDEMNED ITSELF -- 8 against a

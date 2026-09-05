@@ -61,3 +61,16 @@ external/high_rank_killing/prior_art/*.txt
 *.ps
 prior_art/**/*.txt
 **/prior_art/*.txt
+
+# FETCHED THIRD-PARTY MATERIAL -- never tracked in this PUBLIC repo, whatever the extension or
+# directory. Covers papers pulled from arXiv/journals and any scraped or cached page saved while
+# reading. Provenance belongs in a SOURCES/bibliography file with identifiers; the bytes stay local.
+*.html
+*.htm
+*.mhtml
+papers/
+fetched/
+downloads/
+**/prior_art/**
+!**/prior_art/README.md
+!**/prior_art/SOURCES.md
