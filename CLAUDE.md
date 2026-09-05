@@ -39,6 +39,29 @@ separate. Almost nothing else has one. Whether that is structural or a coinciden
 is not settled, and it is not a curiosity: the absence of a Carter-like constant means orbits are
 not integrable, which is an assumption the EMRI waveform programme is built on.
 
+> **Narrowed by the literature, read at abstract level from the source (not relayed).** Krtouš,
+> Frolov & Kubizňák (arXiv:0804.4705) prove two things with *different* hypotheses. With the
+> Einstein equations plus a **principal** conformal Killing–Yano tensor, the metric is forced to be
+> Kerr–NUT–(A)dS. But — their words — *"Even when the Einstein equations are not imposed, any
+> spacetime admitting such hidden symmetry can be written in a canonical form which guarantees…
+> it is of the Petrov type D, it allows the separation of variables … the geodesic motion in such a
+> spacetime is completely integrable."* **So the field equations are not what generates the
+> symmetry.** That removes the *"vacua"* half of the disjunction above.
+>
+> **It does not remove the other half, and the distinction is easy to get backwards.** Petrov type D
+> there is a **conclusion**, not a hypothesis; the operative condition is the principal tensor,
+> which is strictly stronger. Nothing in that theorem says "type D ⟹ integrable". And *which*
+> spacetimes carry a principal tensor is live rather than settled: the same three authors later
+> showed their own uniqueness proof carried an **unstated** hypothesis — that the principal tensor's
+> eigenvalues have gradients of spacelike character — and constructed new Lorentzian metrics with
+> **null** eigenvalues (arXiv:1712.08070), *"uncovering so a much richer structure of spacetimes
+> with principal tensor in four and higher dimensions."*
+>
+> **What this buys our nulls is a better frame, not a stronger claim.** Deformed Kerr is not
+> Kerr–NUT–(A)dS and carries no principal tensor, so no separability tower is expected of it —
+> which makes a null here *consistent with established structure* rather than surprising against
+> it. Less novel and better motivated at once, and that is the honest trade.
+
 > **But keep the motivation and the claim apart, because they are not the same statement.** What
 > this repo can establish is *"this metric admits no irreducible Killing tensor of rank r, within a
 > stated ansatz, analytic in the coupling"*. What the paragraph above reaches for is *"real orbits
