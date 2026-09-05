@@ -343,7 +343,9 @@ from open thread to shipped feature (05/07).
 neural network that learns geometry from raw observations
 ([tabula-geometrica](https://github.com/sumit7194/tabula-geometrica)), real-LIGO
 searches ([DeepStrain](https://github.com/sumit7194/deepstrain)), a quantum-
-foundations lab ([vestigium](https://github.com/sumit7194/vestigium)) — via a
+foundations lab ([vestigium](https://github.com/sumit7194/vestigium)), and the
+entanglement-entropy corner function `a(θ)` in 3d CFTs
+([cuspis](https://github.com/sumit7194/cuspis), joined 2026-09-05) — via a
 shared falsification ledger ([trivium](https://github.com/sumit7194/trivium)).
 This repo supplies the exact, proof-backed answers the others check their
 inferred/measured/simulated ones against; §111–§123 (Kaluza–Klein, Jacobson,
