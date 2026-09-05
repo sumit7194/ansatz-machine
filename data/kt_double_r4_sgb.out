@@ -130,3 +130,9 @@ Schwarzschild background: L = x**2*(x - 2)*(y - 1)*(y + 1)
     level 0 checkpointed (kt_double_z_r4_d6_n0.pkl)
   zeta chi^1 level: 14 of 14 survive  [33778s]
     level 1 checkpointed (kt_double_z_r4_d6_n1.pkl)
+  zeta chi^2 level: 8 of 14 survive  [88550s]
+    level 2 checkpointed (kt_double_z_r4_d6_n2.pkl)
+
+  SURVIVING at O(zeta chi^2), rank 4: 8
+  reducible floor: 9
+  => FEWER than the reducible floor survive, which is impossible: products of p_t, p_phi and H are conserved exactly. This condemns the run.

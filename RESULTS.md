@@ -2718,3 +2718,64 @@ uncharted question starts at rank 4**, where the Kerr Killing space first contai
 from `Q²` — a Carter-squared direction can die or survive independently of `Q p_t`, so rank 4 is the
 first rank whose answer is not strongly implied by §130. Rank 4 is sized at ~3.9 GB with int32
 storage (`scripts/_kt_modp32.py`, validated) and is not yet launched.
+
+## §132 — sGB rank 4: the floor and nothing else, over 8 of 9 reducible directions
+
+    rank 4, denpow 6, box 24x22, margin 6         PID 1655, 24h36m, peak RSS ~5.1 GB
+    operator matrix                               47144 x 20125   [1147s]
+    chi-tower                                     14 -> 14 -> 14  (control passed, non-vacuous)
+
+    zeta chi^0 level     14 of 14 survive    [24557s]
+    zeta chi^1 level     14 of 14 survive    [33778s]
+    zeta chi^2 level      8 of 14 survive    [88550s]
+
+    reducible floor      9 combinatorial, 8 REPRESENTABLE at denpow 6
+    SURVIVING             8  =  the representable floor, exactly
+
+**The run first reported itself CONDEMNED, and it was right to.** The hardcoded floor was the
+combinatorial count 9, and `8 < 9` is impossible — products of `p_t`, `p_φ` and `H` are exactly
+conserved, so the true dimension cannot fall below the floor. The guard fired correctly on a real
+inconsistency. **The defect was the floor, not the measurement.**
+
+### Why the floor was wrong, and why rank 4 is the first rank that could expose it
+
+A floor direction `p_t^a p_φ^b H^c` is exactly conserved, but the solver can only *find* it if its
+**ζ-correction fits the ansatz** — and that correction carries denominator powers the background
+product does not. At O(ζχ²):
+
+    c = 0   correction is identically 0                                  representable  (5 of these)
+    c = 1   correction is H_1^(2)                     (x,y) = (16,16)    representable  (3 of these)
+    c = 2   correction is 2(HK0 H1_2 + HK1 H1_1 + HK2 H1_0)
+            -- its denominator does NOT divide L^6                       NOT representable  (1)
+
+`a + b + 2c = rank` forces `c ≤ 1` for rank ≤ 3, so **`H²` first appears at rank 4** — which is
+exactly why ranks 2 and 3 never hit this and why it surfaced only now. The representability-aware
+floor reproduces every measured count: rank 2 → 4 = 4, rank 3 → 6 = 6, rank 4 → 9 combinatorial but
+**8 representable = 8 measured**.
+
+### The conclusion, and it is airtight given the above
+
+The 8 representable floor directions are exactly conserved *and* in the ansatz, so they are
+necessarily among the survivors: **survivors ⊇ 8**. The measured dimension is **exactly 8**.
+Therefore survivors *equal* the representable floor, with **nothing above it** — no irreducible
+rank-4 Killing tensor, same verdict as ranks 2 and 3.
+
+### The scope, which is a real limitation and not a formality
+
+`Q²` first appears at rank 4, which is why this rank was the first genuinely independent rung
+(D42). That part stands: the Carter-squared direction was searched and did not survive. But the
+search covered **8 of the 9 reducible directions**, and the missing one is not the interesting part
+— **the point is that an irreducible tensor whose ζ-correction needed `L⁷` would have been equally
+invisible.** Closing that gap needs a denpow-7 re-run, which is not done.
+
+Report it as: *no irreducible rank-4 Killing tensor of the O(ζ)O(χ²) sGB black hole, analytic in ζ
+with a Kerr root, within the denpow-6 ansatz on box 24×22, where 8 of 9 reducible directions are
+representable.*
+
+### And the coverage tool published hours earlier was wrong in exactly this way
+
+`scripts/_kt_coverage.py` reported sGB coverage as 100% at every rank, because it modelled whether
+the *background* product fits (`c+e ≤ denpow`) rather than whether its *ζ-correction* does. The fix
+for an unstated coverage assumption shipped with an unstated coverage assumption inside a day. The
+tool now carries that row as a labelled counterexample, and `_kt_double.py` **measures** the floor
+through the representability guard at run time instead of modelling it.

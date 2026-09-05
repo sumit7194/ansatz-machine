@@ -407,7 +407,34 @@ if __name__ == "__main__":
         # matches every floor measured in §128 (rank 2 -> 4, rank 3 -> 6, rank 4 -> 9).
         nred = sum(1 for a_ in range(rank+1) for b_ in range(rank+1)
                    for c_ in range(rank//2+1) if a_ + b_ + 2*c_ == rank)
-        print(f"  reducible floor (products of p_t, p_phi, H at rank {rank}): {nred}", flush=True)
+        # THE FLOOR IS NOT PURELY COMBINATORIAL -- see §132. A product p_t^a p_phi^b H^c is
+        # exactly conserved, but its zeta-chi^2 correction must also FIT THE ANSATZ to be found.
+        # At rank 4 the c=2 direction (H^2) needs 2(HK0 H1_2 + HK1 H1_1 + HK2 H1_0), whose
+        # denominator does not divide L^6, so it is invisible at denpow 6 and the representable
+        # floor is 8, not 9. Reporting the combinatorial 9 made a correct run look condemned.
+        # c <= 1 for rank <= 3, which is why ranks 2 and 3 never hit this.
+        def _corr(c):
+            if c == 0:
+                return sp.Integer(0)
+            if c == 1:
+                return HS[2]
+            return sp.expand(sum(c * H[i] ** (c - 1) * HS[j]
+                                 for i in range(3) for j in range(3) if i + j == 2))
+        nrep = 0
+        for a_ in range(rank + 1):
+            for b_ in range(rank + 1):
+                for c_ in range(rank // 2 + 1):
+                    if a_ + b_ + 2 * c_ != rank:
+                        continue
+                    nrep += 1 if PB.representable(_corr(c_), dx, dy, den) else 0
+        print(f"  reducible floor (products of p_t, p_phi, H at rank {rank}): "
+              f"{nred} combinatorial, {nrep} REPRESENTABLE at denpow {denpow}", flush=True)
+        if nrep < nred:
+            print(f"    NOTE: {nred - nrep} floor direction(s) need a deeper denominator than "
+                  f"L^{denpow} and are outside this ansatz. The comparison below uses the "
+                  f"representable floor; a survivor count equal to it means the floor and "
+                  f"nothing more, over {nrep} of {nred} reducible directions.", flush=True)
+        nred = nrep
 
         zchains = [[] for _ in chains]          # zchains[k][n] = F^(1,n) of direction k
         zdim = len(chains)
