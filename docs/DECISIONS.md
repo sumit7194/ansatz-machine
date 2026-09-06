@@ -1119,3 +1119,46 @@ superset** of the denpow-6 run: re-expressing `N/L⁶` as `N·L/L⁷` raises num
 denominators, denpow 7 searches deeper denominators including the `H²` direction. Their union
 covers more than either, and neither supersedes the other. Do not report the second as replacing
 the first.
+
+## D46 — the matrices are 0.01% dense, and the constraint was never storage (2026-09-07)
+
+**How this surfaced.** Rank 6 was requested. Sizing it the usual way said ~29 GB dense against ~9 GB
+usable, so it looked simply out of reach. Before reporting that, measured the matrix: **6.9 nonzeros
+per column, 3 per row, density 0.0124%.** The rank-4 matrix carries ~168,000 nonzeros in 1.36×10⁹
+cells — 5.1 GB of storage for ~1.3 MB of content.
+
+**So every box decision for weeks has been sized against a number four orders of magnitude larger
+than the information in the matrix.** That is not a small inefficiency; it is the reason rank 5 and
+6 looked impossible. The dense representation was a choice inherited from rank 2, where it was
+free, and never revisited when the ranks grew.
+
+**Two eliminators, and the honest split between them.**
+
+`_kt_stream.py` — a **certain** 2.27×. Elimination never needs the rows it has consumed: the echelon
+basis holds at most `ncols` rows, and rows reducing to zero are discardable at that moment. Working
+set becomes `ncols × ncols` rather than `nrows × ncols`. Rank 5 goes 13.0 → 5.7 GB and becomes
+runnable. Rank 6 goes 19.7 → 8.7 GB but only at box 22×24, which is the floor's own minimum — zero
+search slack, so not a real search (D38).
+
+`_kt_sparse.py` — an **uncertain** but potentially much larger win, gated on fill-in. Storage would
+be ~1.3 MB. Its self-test shows fill-in of 16× / 50× / 103× growing with size **on random
+matrices**, which are the worst case and say nothing about structured bracket matrices.
+`_kt_fillin_test.py` measures the real one against a known answer (rank-4 operator, nullity 14).
+
+**Both are equality tests, not comparisons, and that is a property worth having.** Processing
+columns left to right, the pivot columns are a property of the matrix and the reduced row echelon
+form is **unique** — so any correct elimination returns the same nullspace basis, not merely an
+equivalent one. A new eliminator that returns *approximately* the right nullity has a bug, not a
+different valid answer.
+
+**And the test that nearly did not exist.** The rank-2 smoke test of the rewired solver passed —
+and exercised only the dense path, because its matrix is 0.3 GB, under the switch. Streaming would
+first have run on a multi-day rank 5, where a bug has nothing cheap to disagree with. `STREAM_MIN_GB`
+is now env-overridable so the streaming path can be forced onto a case whose answer is known
+independently. *A code path that only executes on the expensive run is a code path with no control.*
+
+**Measured before running, not after (the §132 lesson applied forward).** Rank 6 needs **denpow 8**:
+its `H³` floor direction's ζ-correction needs `L⁸` with numerator degrees (22,24). The pattern is
+one denominator power per power of `H` — c=1 → L⁶, c=2 → L⁷, c=3 → L⁸ — so the rank at which a new
+`H^c` first appears is also the rank at which the required denominator deepens. That is now
+predictable rather than discovered by a condemned run.
