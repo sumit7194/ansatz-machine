@@ -37,6 +37,7 @@ import _kt_metrics as MM
 import _kt_exact as EX
 import _kt_perturb as PB
 from _kt_modp32 import nullspace_modp32, matrix_from_dicts32, matrix_from32
+from _kt_stream import nullspace_from_col_dicts
 
 # INT32 STORAGE, INT64 ARITHMETIC. At rank 4 the operator matrix is ~20125 columns and the int64
 # elimination needs ~7.8 GB -- past what this laptop can give it. int32 storage halves that to
@@ -49,6 +50,50 @@ from _kt_modp32 import nullspace_modp32, matrix_from_dicts32, matrix_from32
 # matrix, in row chunks so the check itself cannot blow the memory it is protecting. This catches
 # a wrong answer; it does not prove completeness, which rests on the validated algorithm.
 INT32_MIN_COLS = 8000
+STREAM_MIN_GB = float(os.environ.get("KT_STREAM_MIN_GB", "4.0"))
+# Above this the dense matrix is not built at all; stream instead. Overridable by env so the
+# streaming path can be FORCED on a small known-answer case -- otherwise it is only ever
+# exercised on the big runs, where a bug has nothing cheap to disagree with.
+
+
+def nullspace_dicts(dicts, ncols, p, verify=True, label=""):
+    """Nullspace from CLEARED COLUMN DICTS, choosing the eliminator by size.
+
+    Below STREAM_MIN_GB the dense int32 path is fastest and is used. Above it the matrix is never
+    materialised: rows are fed through in blocks and only the echelon basis is kept, which holds at
+    most ncols rows against the matrix's ~2.27 x ncols. Same answer either way -- the RREF is
+    unique, so this is a performance switch and not a modelling choice.
+
+    The residual guard runs off the DICTS rather than the matrix, so it costs O(nonzeros x nvec)
+    and needs no dense object of its own -- the earlier version of that guard allocated one, which
+    is the opposite of the point when the whole reason for streaming is that it does not fit."""
+    nrows = len(set().union(*dicts)) if dicts else 0
+    gb = nrows * ncols * 4 / 2**30
+    if gb > STREAM_MIN_GB:
+        vecs, st = nullspace_from_col_dicts(dicts, ncols, p)
+        print(f"    {label}streaming nullspace: dense would be {gb:.1f} GB, "
+              f"echelon basis {st['basis_gb']:.1f} GB, nullity {st['nullity']}", flush=True)
+    else:
+        M = matrix_from_dicts32(dicts, ncols, p)
+        vecs = nullspace_modp32(M, p)
+        del M
+    if verify and vecs:
+        bad = 0
+        for v in vecs:
+            acc = {}
+            for j, d in enumerate(dicts):
+                vj = int(v[j]) % p
+                if not vj:
+                    continue
+                for k, val in d.items():
+                    acc[k] = (acc.get(k, 0) + val * vj) % p
+            bad += sum(1 for r in acc.values() if r)
+        if bad:
+            raise AssertionError(
+                f"NULLSPACE GUARD FAILED: {bad} nonzero residuals over {len(vecs)} vectors. "
+                f"The returned vectors are not in the nullspace; every dimension downstream of "
+                f"this is meaningless.")
+    return vecs
 
 
 def nullspace(M, p, verify=True):
@@ -198,17 +243,14 @@ if __name__ == "__main__":
     D = sp.Integer(1)
     for d_ in dens0:
         D = sp.lcm(D, d_)
-    M0, dicts0 = matrix_from32(raws0, D, p, n_w, PB.clear)
-    print(f"  operator matrix {M0.shape} [{time.time()-t0:.0f}s]", flush=True)
-    bg = nullspace(M0, p)
-    # FREE IT. M0 is never read again, but the name keeps ~3.9 GB (rank 4, int32) alive right up
-    # to the point where Mfull allocates another 3.9 GB beside it -- 7.8 GB against ~7.3 GB free,
-    # i.e. swap or death. The whole int32 conversion is wasted if both matrices are resident.
-    _m0_gb = M0.nbytes / 2**30
-    del M0
+    dicts0 = [PB.clear(r, D, p) for r in raws0]
+    _nr = len(set().union(*dicts0)) if dicts0 else 0
+    print(f"  operator matrix ({_nr}, {n_w}) [{time.time()-t0:.0f}s]", flush=True)
+    bg = nullspace_dicts(dicts0, n_w, p, label="op ")
+    # NOTHING TO FREE ANY MORE. This used to hold a materialised M0 and delete it before Mfull
+    # allocated beside it. Going through nullspace_dicts, the operator matrix is never built as a
+    # dense object at all -- the dicts are the only persistent form and they are ~1.3 MB at rank 4.
     import gc; gc.collect()
-    print(f"  operator matrix released ({_m0_gb:.1f} GB); only one large matrix resident from here",
-          flush=True)
     print(f"  chi^0 level: Schwarzschild Killing space = {len(bg)}", flush=True)
 
     if "--control" in sys.argv:
@@ -273,10 +315,10 @@ if __name__ == "__main__":
                 D2 = sp.lcm(D2, sp.denom(sp.together(e)))
             if sp.simplify(D2 - D) == 0:
                 dS = [PB.clear(e, D, p) for e in srcs]
-                Mfull = matrix_from_dicts32(dicts0 + dS, n_w + dim, p)
+                ns_dicts = dicts0 + dS
             else:
-                Mfull, _ = matrix_from32(raws0 + srcs, D2, p, n_w + dim, PB.clear)
-            ns = nullspace(Mfull, p)
+                ns_dicts = [PB.clear(r, D2, p) for r in raws0 + srcs]
+            ns = nullspace_dicts(ns_dicts, n_w + dim, p)
             # Keep only vectors with a nonzero c-block; their F-blocks ARE the level-n solutions
             # for the chain combination their c-block names. Vectors with c = 0 are homogeneous
             # additions and carry no information about survival.
@@ -457,10 +499,10 @@ if __name__ == "__main__":
                 D2 = sp.lcm(D2, sp.denom(sp.together(e)))
             if sp.simplify(D2 - D) == 0:
                 dS = [PB.clear(e, D, p) for e in srcs]
-                Mfull = matrix_from_dicts32(dicts0 + dS, n_w + zdim, p)
+                ns_dicts = dicts0 + dS
             else:
-                Mfull, _ = matrix_from32(raws0 + srcs, D2, p, n_w + zdim, PB.clear)
-            ns = nullspace(Mfull, p)
+                ns_dicts = [PB.clear(r, D2, p) for r in raws0 + srcs]
+            ns = nullspace_dicts(ns_dicts, n_w + zdim, p)
             keep, cbs = [], []
             for v in ns:
                 cb = [int(z) % p for z in v[n_w:]]

@@ -74,6 +74,32 @@ def nullspace_stream(row_iter, ncols, p, block=2048, verbose=False):
                   "basis_gb": basis.nbytes / 2**30}
 
 
+def row_blocks_from_col_dicts(col_dicts, ncols, p, block=512):
+    """Yield dense int64 row blocks from COLUMN-oriented sparse dicts, never materialising the
+    whole matrix. The sparse pivot is tiny (~168k nonzeros at rank 4); only the emitted block is
+    dense, and at block=512 x 24500 that is 100 MB transient against a 5.1 GB full matrix."""
+    rows = {}
+    for j, d in enumerate(col_dicts):
+        for k, v in d.items():
+            v %= p
+            if v:
+                rows.setdefault(k, {})[j] = v
+    keys = list(rows)
+    for i in range(0, len(keys), block):
+        chunk = keys[i:i + block]
+        A = np.zeros((len(chunk), ncols), dtype=np.int64)
+        for r, k in enumerate(chunk):
+            for j, v in rows[k].items():
+                A[r, j] = v
+        yield A
+
+
+def nullspace_from_col_dicts(col_dicts, ncols, p, block=512, verbose=False):
+    """Streaming nullspace straight from the solver's cleared column dicts."""
+    return nullspace_stream(row_blocks_from_col_dicts(col_dicts, ncols, p, block),
+                            ncols, p, verbose=verbose)
+
+
 if __name__ == "__main__":
     import sys, os, time
     sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
