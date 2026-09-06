@@ -517,12 +517,31 @@ if __name__ == "__main__":
                       "agree with. Petrov type I forbids a rank-2 tensor and says nothing above it; "
                       "Owen-Yunes-Witek searched rank 2. Do not report this as corroborated.",
                       flush=True)
-                print(f"     EXPECTED, NOT INDEPENDENT: the rank-{rank} Kerr Killing space above "
-                      f"the floor is spanned by Carter times momenta, so Carter's death at rank 2 "
-                      f"made this the strongly favoured outcome. It is not a corollary -- for "
-                      f"F0 = Q p_t the O(zeta) source is {{H1,Q}} p_t and its solution G1 need not "
-                      f"factor as F1 p_t, so the obstruction sits in a larger space than rank 2's "
-                      f"and the extra factor could have killed it. It did not.", flush=True)
+                # D42: a rank is only genuinely new if its Kerr Killing space carries a NEW
+                # POWER of Q. Decompose as Q^q x (reducible of degree rank-2q); the highest q
+                # present is what decides. Rank 3 has only q<=1 (everything above the floor is
+                # Carter x momenta, so Carter's death at rank 2 nearly forces it); rank 4 first
+                # contains q=2. Printing the rank-3 sentence at rank 4 said the opposite of D42.
+                qmax = rank // 2
+                if qmax <= 1:
+                    print(f"     EXPECTED, NOT INDEPENDENT: the rank-{rank} Kerr Killing space "
+                          f"above the floor is spanned by Carter times momenta, so Carter's death "
+                          f"at rank 2 made this the strongly favoured outcome. Not a corollary -- "
+                          f"for F0 = Q p_t the O(zeta) source is {{H1,Q}} p_t and its solution G1 "
+                          f"need not factor as F1 p_t, so the obstruction sits in a larger space "
+                          f"than rank 2's and the extra factor could have killed it. It did not.",
+                          flush=True)
+                else:
+                    nq = [sum(1 for a in range(rank+1) for b in range(rank+1)
+                              for c in range((rank-2*q)//2+1) if a+b+2*c == rank-2*q)
+                          for q in range(qmax+1)]
+                    above = " + ".join(f"{nq[q]} (Q^{q})" for q in range(1, qmax+1))
+                    print(f"     INDEPENDENT RUNG (D42): the rank-{rank} Kerr Killing space is "
+                          f"{nq[0]} (floor) + {above} = {sum(nq)}. Q^{qmax} FIRST APPEARS AT THIS "
+                          f"RANK, so this outcome was NOT forced by Carter's death at rank 2 -- a "
+                          f"Q^{qmax} direction can die or survive independently of Q x momenta. "
+                          f"This is the first rank whose answer the lower ranks do not imply.",
+                          flush=True)
         elif zdim > nred:
             if rank == 2:
                 print(f"  => {zdim - nred} direction(s) ABOVE the reducible floor survive. At rank "

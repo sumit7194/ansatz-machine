@@ -6,6 +6,26 @@ built, what broke, what the machine taught us. Numbers live in
 
 ---
 
+## 2026-09-06 — sGB RANK 4 CLOSES at denpow 7, over the complete reducible algebra
+
+- **VERDICT: 9 of 14 survive, floor 9 of 9 representable.** Only the reducible floor, nothing above
+  it, and this time no direction was outside the ansatz. 35h05m, PID 1078. §133.
+- **Supersedes §132** rather than complementing it: box 27x24 at L^7 strictly contains 24x22 at L^6
+  (re-expressing N/L^6 as N.L/L^7 raises numerator degrees by (3,2)). The margin-6 choice the
+  machine restart paid for.
+- **The solver printed a WRONG line and I caught it before writing up.** "EXPECTED, NOT
+  INDEPENDENT: the space above the floor is spanned by Carter times momenta" -- true at rank 3,
+  false at rank 4, and it contradicts our own D42. Rank 4 is 9 (floor) + 4 (Q x momenta) + 1
+  (Q SQUARED); Q^2 first appears here and can die or survive independently, so this result was NOT
+  forced by Carter's death at rank 2. **Rank 4 is the first genuinely independent rung and it
+  closed.** Prose now branches on rank//2 and prints the decomposition.
+- Second time in three runs that stale rank-specific prose survived into a verdict. Both times the
+  arithmetic was right and the sentence was wrong -- the class that reaches a write-up unchallenged
+  because it does not look like a number.
+- By D42 the next independent rung is **rank 6** (Q^3 first appears); rank 5 is a consistency rung.
+
+---
+
 ## 2026-09-05 (later) — denpow 7 running; the literature read at source; §1 narrowed
 
 - **RANK 4 AT DENPOW 7 LAUNCHED** (PID 1078, box 27x24, 24500 unknowns, margin 6). The line the

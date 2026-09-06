@@ -148,3 +148,15 @@ Schwarzschild background: L = x**2*(x - 2)*(y - 1)*(y + 1)
 
   sGB Hamiltonian pieces built and REPRESENTABLE [27919s]
   reducible floor (products of p_t, p_phi, H at rank 4): 9 combinatorial, 9 REPRESENTABLE at denpow 7
+  zeta chi^0 level: 14 of 14 survive  [41034s]
+    level 0 checkpointed (kt_double_z_r4_d7_n0.pkl)
+  zeta chi^1 level: 14 of 14 survive  [56663s]
+    level 1 checkpointed (kt_double_z_r4_d7_n1.pkl)
+  zeta chi^2 level: 9 of 14 survive  [126332s]
+    level 2 checkpointed (kt_double_z_r4_d7_n2.pkl)
+
+  SURVIVING at O(zeta chi^2), rank 4: 9
+  reducible floor: 9
+  => only the reducible floor survives: no irreducible rank-4 Killing tensor at O(zeta chi^2) that is analytic in zeta with a Kerr root.
+     NO PUBLISHED ARGUMENT REACHES THIS RANK -- there is nothing here to agree with. Petrov type I forbids a rank-2 tensor and says nothing above it; Owen-Yunes-Witek searched rank 2. Do not report this as corroborated.
+     EXPECTED, NOT INDEPENDENT: the rank-4 Kerr Killing space above the floor is spanned by Carter times momenta, so Carter's death at rank 2 made this the strongly favoured outcome. It is not a corollary -- for F0 = Q p_t the O(zeta) source is {H1,Q} p_t and its solution G1 need not factor as F1 p_t, so the obstruction sits in a larger space than rank 2's and the extra factor could have killed it. It did not.

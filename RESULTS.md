@@ -2779,3 +2779,60 @@ the *background* product fits (`c+e ≤ denpow`) rather than whether its *ζ-cor
 for an unstated coverage assumption shipped with an unstated coverage assumption inside a day. The
 tool now carries that row as a labelled counterexample, and `_kt_double.py` **measures** the floor
 through the representability guard at run time instead of modelling it.
+
+## §133 — sGB rank 4 at denpow 7: the floor and nothing else, over the COMPLETE reducible algebra
+
+    rank 4, denpow 7, box 27x24, margin 6        PID 1078, 35h05m, peak RSS ~5.6 GB
+    operator matrix                              55663 x 24500   [1521s]
+    chi-tower                                    14 -> 14 -> 14  (control passed, non-vacuous)
+    reducible floor                              9 combinatorial, 9 REPRESENTABLE
+
+    zeta chi^0 level    14 of 14 survive   [ 41034s]
+    zeta chi^1 level    14 of 14 survive   [ 56663s]
+    zeta chi^2 level     9 of 14 survive   [126332s]
+
+    SURVIVING at O(zeta chi^2), rank 4:  9  =  the reducible floor, complete
+
+**This supersedes §132 rather than sitting beside it.** §132 ran at denpow 6, where the `H²`
+direction's ζ-correction needed `L⁷` and was outside the ansatz — floor 8 of 9, so the closure
+carried a coverage caveat. Here the floor is **9 of 9 representable**, measured per direction by the
+representability guard (D44) rather than counted. The box 27×24 at `L⁷` is a **strict superset** of
+§132's 24×22 at `L⁶`: re-expressing `N/L⁶` as `N·L/L⁷` raises numerator degrees by (3,2), so
+containing the old box needs exactly 27×24, which is why margin 6 and not the cheaper margin 4.
+
+**The conclusion.** The 9 floor directions are exactly conserved and all representable, so they are
+necessarily survivors: survivors ≥ 9. Measured is exactly 9. Therefore survivors **equal** the
+complete reducible floor with **nothing above it** — and this time there is no direction the ansatz
+could not see.
+
+### Rank 4 is the first rung the lower ranks do not imply, and the solver said otherwise
+
+The verdict printed *"EXPECTED, NOT INDEPENDENT: the space above the floor is spanned by Carter
+times momenta."* **That is true at rank 3 and false here** — stale rank-3 prose emitted at rank 4,
+contradicting this repo's own D42. The decomposition:
+
+    Q^0 x deg4 : 9   <- the floor
+    Q^1 x deg2 : 4   <- Carter x momenta
+    Q^2 x deg0 : 1   <- CARTER SQUARED, first appears at rank 4
+    total       14
+
+`Q²` can die or survive independently of `Q`×momenta, so Carter's death at rank 2 did **not** force
+this result. Ranks 2 and 3 were settled or near-forced; **rank 4 is the first genuinely independent
+rung, and it closed.** Prose now branches on `rank//2` and prints the decomposition.
+
+### What this does and does not establish
+
+*No irreducible rank-4 Killing tensor of the O(ζ)O(χ²) sGB black hole, analytic in ζ with a Kerr
+root, within the denpow-7 ansatz on box 27×24, over all 9 reducible directions, by exact null over
+GF(p) with the reducible span subtracted.*
+
+**No published argument reaches rank 4** — Petrov type I forbids a rank-2 tensor and says nothing
+above it; Owen–Yunes–Witek searched sGB at rank 2. So this is not corroborated by anything, and the
+§3 ceilings all still apply: analyticity first (a tensor non-perturbative in ζ or χ is invisible to
+an order-by-order method at any rank), then rank, then ansatz. And per §1 the substrate is a double
+truncation — exact for the truncated metric, strongly suggestive for the physical one, and not a
+statement about EMRI orbits.
+
+**Standing after §133:** ranks 1–4 closed on sGB, with rank 4 the first that was not implied by its
+predecessors. Ranks 5 and 6 remain; by D42, rank 5 is another consistency rung (`Q²`×momenta, no new
+power) and **rank 6 is the next independent one**, where `Q³` first appears.
