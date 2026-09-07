@@ -121,3 +121,6 @@ rank 4, denpow 7, box 27x24, 24500 columns
     op 24000/24500 brackets (211s)
     op 24200/24500 brackets (213s)
     op 24400/24500 brackets (214s)
+  built in 1606s: 55663 rows, 1219864 nonzeros, density 0.0894%
+
+  SPARSE : nullity 14  rank 24486  peak nonzeros 2,000,942 (1.6x)  [38s]

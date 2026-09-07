@@ -38,6 +38,7 @@ import _kt_exact as EX
 import _kt_perturb as PB
 from _kt_modp32 import nullspace_modp32, matrix_from_dicts32, matrix_from32
 from _kt_stream import nullspace_from_col_dicts
+from _kt_sparse import nullspace_sparse
 
 # INT32 STORAGE, INT64 ARITHMETIC. At rank 4 the operator matrix is ~20125 columns and the int64
 # elimination needs ~7.8 GB -- past what this laptop can give it. int32 storage halves that to
@@ -51,6 +52,8 @@ from _kt_stream import nullspace_from_col_dicts
 # a wrong answer; it does not prove completeness, which rests on the validated algorithm.
 INT32_MIN_COLS = 8000
 STREAM_MIN_GB = float(os.environ.get("KT_STREAM_MIN_GB", "4.0"))
+USE_SPARSE = os.environ.get("KT_SPARSE", "1") != "0"
+SPARSE_MAX_DENSITY = float(os.environ.get("KT_SPARSE_MAX_DENSITY", "0.02"))
 # Above this the dense matrix is not built at all; stream instead. Overridable by env so the
 # streaming path can be FORCED on a small known-answer case -- otherwise it is only ever
 # exercised on the big runs, where a bug has nothing cheap to disagree with.
@@ -69,7 +72,19 @@ def nullspace_dicts(dicts, ncols, p, verify=True, label=""):
     is the opposite of the point when the whole reason for streaming is that it does not fit."""
     nrows = len(set().union(*dicts)) if dicts else 0
     gb = nrows * ncols * 4 / 2**30
-    if gb > STREAM_MIN_GB:
+    nz = sum(len(d) for d in dicts)
+    dens = nz / (nrows * ncols) if nrows and ncols else 1.0
+    # SPARSE FIRST when the matrix is genuinely sparse. Measured on the rank-4 denpow-7 operator:
+    # density 0.089%, fill-in 1.6x, and the whole nullspace in 38 s where the dense elimination is
+    # the multi-hour step. Random sparse matrices fill in 16-103x and would make this a bad idea --
+    # bracket matrices do not, which is why it was measured (_kt_fillin_test.py) rather than
+    # assumed in either direction.
+    if USE_SPARSE and dens < SPARSE_MAX_DENSITY:
+        vecs, st = nullspace_sparse(dicts, ncols, p, track=True)
+        print(f"    {label}sparse nullspace: density {100*dens:.4f}%, fill {st['fill_factor']:.1f}x, "
+              f"peak {st['nonzeros_peak']:,} nz, nullity {st['nullity']} "
+              f"(dense would be {gb:.1f} GB)", flush=True)
+    elif gb > STREAM_MIN_GB:
         vecs, st = nullspace_from_col_dicts(dicts, ncols, p)
         print(f"    {label}streaming nullspace: dense would be {gb:.1f} GB, "
               f"echelon basis {st['basis_gb']:.1f} GB, nullity {st['nullity']}", flush=True)

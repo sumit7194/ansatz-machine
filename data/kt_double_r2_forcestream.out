@@ -28,3 +28,23 @@ Schwarzschild background: L = x**2*(x - 2)*(y - 1)*(y + 1)
     op 4800/5250 brackets (34s)
     op 5000/5250 brackets (35s)
     op 5200/5250 brackets (36s)
+  operator matrix (15220, 5250) [269s]
+    op streaming nullspace: dense would be 0.3 GB, echelon basis 0.1 GB, nullity 5
+  chi^0 level: Schwarzschild Killing space = 5
+  RESUMED chi-tower from kt_double_chains_r2_d6_b24x20.pkl: 5 chains
+  chi-tower chains CHECKPOINTED to kt_double_chains_r2_d6_b24x20.pkl (5 chains) [334s]
+
+  Kerr Killing space at rank 2: got 5, expect 5
+  count check passed, but a COUNT IS NOT ENOUGH HERE.
+  Schwarzschild and Kerr have the SAME dimension at every rank (5, 8, 14) because
+  Lsq maps one-to-one onto Carter -- so 'the count is preserved' would also pass if
+  the tower did nothing. Identifying the direction is the real test.
+
+  Carter's O(chi^2) piece should be  y^2 (mu^2 - p_t^2)
+    = y**2*(-P_phi**2*(2 - x) - P_t**2*x**3*(1 - y**2) - P_t**2*x**2*(x - 2)*(y**2 - 1) - P_x**2*x*(x - 2)**2*(y**2 - 1) + P_y**2*(x - 2)*(y**2 - 1)**2)/(x**2*(x - 2)*(y**2 - 1))
+  prediction self-check: {H,F} at chi^0 = True, chi^1 = True, chi^2 = True
+
+  {H_Kerr, Lsq} at chi^2 is NONZERO
+  THE COUNT IS DECISIVE: Lsq alone does NOT extend to O(chi^2), so a tower doing nothing would have reported 4 of 5 -- only the directions built from p_t, p_phi and H, which survive trivially. Reporting 5 means it found a nonzero F^(0,2), and the verified prediction above identifies that deformation as Carter's.
+
+  CONTROL PASSED, non-vacuously: the chi-tower deforms Lsq into Carter.
