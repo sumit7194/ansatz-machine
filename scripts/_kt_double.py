@@ -315,10 +315,12 @@ if __name__ == "__main__":
         if chains is None:
             chains = [[to_co(v)] for v in bg]  # chains[k][n] = F^(0,n) of direction k
         dim = len(chains)
-        _resumed = len(chains[0]) > 1 if chains else False
-        for n in ([] if _resumed else (1, 2)):
+        start_lvl = len(chains[0]) if chains and chains[0] else 1
+        for n in range(start_lvl, 3):
             srcs = []
-            for ch in chains:
+            for k, ch in enumerate(chains):
+                if len(chains) > 1:
+                    print(f"    [chi^{n}] computing bracket {k+1}/{len(chains)} [{time.time()-t0:.0f}s]", flush=True)
                 acc = sp.Integer(0)
                 for j in range(1, n+1):
                     if n-j < len(ch):
@@ -348,7 +350,9 @@ if __name__ == "__main__":
             # rebuild chains: each kept vector defines a new chain = its c-combination of the old
             # chains, extended by its own F-block.
             newch = []
-            for v, cb in zip(keep, cb_rows):
+            for vi, (v, cb) in enumerate(zip(keep, cb_rows)):
+                if len(keep) > 1 and vi % 5 == 0:
+                    print(f"    [chi^{n}] reconstructing solution {vi+1}/{len(keep)} [{time.time()-t0:.0f}s]", flush=True)
                 comb = []
                 for lvl in range(len(chains[0])):
                     acc = [sp.Integer(0)]*len(mons)
@@ -361,15 +365,13 @@ if __name__ == "__main__":
                 newch.append(comb)
             chains = newch
             dim = surv
+            # Checkpoint immediately after each level
+            ckf.write_bytes(pickle.dumps([[[sp.srepr(e) for e in lvl] for lvl in ch]
+                                          for ch in chains]))
+            print(f"  chi^{n} chains CHECKPOINTED to {ckf.name} "
+                  f"({len(chains)} chains, depth {len(chains[0])}) [{time.time()-t0:.0f}s]", flush=True)
             if dim == 0:
                 break
-
-        import pathlib, pickle
-        ckf = pathlib.Path(f"data/kt_double_chains_r{rank}_d{denpow}_b{dx}x{dy}.pkl")
-        ckf.write_bytes(pickle.dumps([[[sp.srepr(e) for e in lvl] for lvl in ch]
-                                      for ch in chains]))
-        print(f"  chi-tower chains CHECKPOINTED to {ckf.name} "
-              f"({len(chains)} chains) [{time.time()-t0:.0f}s]", flush=True)
 
         want = EXPECT.get(rank)
         print(f"\n  Kerr Killing space at rank {rank}: got {dim}, expect {want}", flush=True)
@@ -496,9 +498,26 @@ if __name__ == "__main__":
         zchains = [[] for _ in chains]          # zchains[k][n] = F^(1,n) of direction k
         zdim = len(chains)
         alive = list(range(len(chains)))
-        for n in (0, 1, 2):
+        start_zn = 0
+        for cand_n in (2, 1, 0):
+            cand_ck = pathlib.Path(f"data/kt_double_z_r{rank}_d{denpow}_n{cand_n}.pkl")
+            if cand_ck.exists():
+                try:
+                    data = pickle.loads(cand_ck.read_bytes())
+                    chains = [[[sp.sympify(e) for e in lvl] for lvl in ch] for ch in data["chains"]]
+                    zchains = [[[sp.sympify(e) for e in lvl] for lvl in ch] for ch in data["zchains"]]
+                    zdim = data["zdim"]
+                    start_zn = cand_n + 1
+                    print(f"  RESUMED zeta-tower from {cand_ck.name}: level {cand_n} complete ({zdim} directions)", flush=True)
+                    break
+                except Exception as exc:
+                    print(f"  checkpoint {cand_ck.name} unreadable ({exc})", flush=True)
+
+        for n in range(start_zn, 3):
             srcs = []
             for k, ch in enumerate(chains):
+                if len(chains) > 1:
+                    print(f"    [zeta chi^{n}] computing bracket {k+1}/{len(chains)} [{time.time()-t0:.0f}s]", flush=True)
                 acc = sp.Integer(0)
                 for j in range(1, n+1):                       # {H^(0,j), F^(1,n-j)}
                     if n-j < len(zchains[k]):
@@ -527,7 +546,9 @@ if __name__ == "__main__":
             print(f"  zeta chi^{n} level: {surv} of {zdim} survive  [{time.time()-t0:.0f}s]",
                   flush=True)
             newch, newz = [], []
-            for v, cb in zip(keep, cbs):
+            for vi, (v, cb) in enumerate(zip(keep, cbs)):
+                if len(keep) > 1 and vi % 5 == 0:
+                    print(f"    [zeta chi^{n}] reconstructing solution {vi+1}/{len(keep)} [{time.time()-t0:.0f}s]", flush=True)
                 comb = []
                 for lvl in range(len(chains[0])):
                     acc = [sp.Integer(0)]*len(mons)
