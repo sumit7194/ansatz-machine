@@ -6,6 +6,28 @@ built, what broke, what the machine taught us. Numbers live in
 
 ---
 
+## 2026-09-13 — Zipoy–Voorhees was closed at all ranks in 2013; rank 6 into its last level
+
+- **PRIOR ART FOUND ON OUR OWN METRIC.** Maciejewski, Przybylska & Stachowiak, PRD 88, 064003 (2013),
+  arXiv:1302.4234: no additional meromorphic first integral of ZV geodesics at delta=2 -- every rank.
+  Read at source (abstract + body). Our §124/§126 ranks 1-6 den^1 closure is a strict special case in
+  the functional sense. Residual not covered: polynomially irreducible but functionally dependent
+  tensors, no known mechanism on ZV. ZV was reproduction twice over (Vollmer, D39; this). §134, D47,
+  and a note on CLAUDE.md's §2 table so every session sees it.
+- **Why we missed it: vocabulary.** We searched "Killing tensor / rank / irreducible"; the paper says
+  "first integral / meromorphic / Liouville". D47 rule: search each neighbouring community's words.
+- **How it was found:** the user asked whether the fluid-blowup proofs (Chen-Hou; Buckmaster-Alpoge)
+  relate. They do not transfer directly, but the question led to the singularity <-> integrability
+  lineage (Kovalevskaya -> Painleve -> Ziglin -> Morales-Ramis), and one search in that vocabulary
+  surfaced the paper. An outsider's analogy beat the specialist sweep.
+- **Candidate next direction (proposed, not started):** Morales-Ramis on the sGB metric would attack
+  the rank ceiling AND the analyticity ceiling at once. Obstacles unassessed; recorded in D47.
+- **Rank 6 (pid 21373, running since Sep 8):** zeta chi^0 30/30 and zeta chi^1 30/30, both checkpointed;
+  now in zeta chi^2, the level that decides it. Floor 16. Footprint peaked ~21 GB (mostly compressed)
+  during zeta chi^0 -- RSS understated it ~5x (memory rule 66).
+
+---
+
 ## 2026-09-06 — sGB RANK 4 CLOSES at denpow 7, over the complete reducible algebra
 
 - **VERDICT: 9 of 14 survive, floor 9 of 9 representable.** Only the reducible floor, nothing above

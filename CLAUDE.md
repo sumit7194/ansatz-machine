@@ -133,6 +133,16 @@ matching the measured exact dimension.
     delta=1      prover dim      2    5    8   11   14   17
     (Schwarz.)   IRREDUCIBLE     0    0    0    0    0    0
 
+**Already closed at every rank, in print since 2013.** Maciejewski, Przybylska & Stachowiak
+(PRD 88, 064003; arXiv:1302.4234) prove by Morales–Ramis differential Galois theory that ZV at δ=2 has
+**no additional meromorphic first integral at all** — every rank, any meromorphic form. In the
+functional sense these rows are a strict special case of that theorem and add nothing; they keep their
+value as a **validated control for the instrument**, not as a result. The one residual theirs does not
+cover — a polynomially irreducible but functionally dependent tensor — has no known mechanism on ZV
+(§134, D47). **ZV was reproduction twice over:** Vollmer (D39) and this. Our prior-art sweep missed it
+because the paper says *first integral* and *Liouville*, never *Killing tensor* — search every
+neighbouring vocabulary before calling anything unsearched.
+
 **Both rows are den¹, and that is a real restriction on what they say.** The dimensions grow
 linearly (+2, +3 per rank) rather than combinatorially because at den¹ every generator product
 needing `L²` or deeper — `H²`, `H·Lsq`, `Lsq²`, and everything above — is **outside the ansatz**.

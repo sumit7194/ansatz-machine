@@ -1162,3 +1162,49 @@ its `H³` floor direction's ζ-correction needs `L⁸` with numerator degrees (2
 one denominator power per power of `H` — c=1 → L⁶, c=2 → L⁷, c=3 → L⁸ — so the rank at which a new
 `H^c` first appears is also the rank at which the required denominator deepens. That is now
 predictable rather than discovered by a condemned run.
+
+## D47 — Zipoy–Voorhees was closed at all ranks in 2013; our sweep missed it on vocabulary (2026-09-13)
+
+**The finding** (§134). Maciejewski, Przybylska & Stachowiak (PRD 88, 064003; arXiv:1302.4234) prove
+by Morales–Ramis differential Galois theory that geodesic motion in ZV at δ=2 has **no additional
+meromorphic first integral** — every rank, any meromorphic form. §124/§126 closed ranks 1–6 in the
+den¹ sector for the same δ, so in the functional sense they are a strict special case of a result
+already in print. The residual not covered — a polynomially irreducible but functionally dependent
+tensor — has no known mechanism on ZV, and §134 says so rather than overcorrecting.
+
+**Why a prior-art sweep missed a paper on exactly our metric: vocabulary.** We searched in our own
+terms — *Killing tensor, rank, irreducible*. That paper never uses them. It says *first integral,
+meromorphic, Liouville integrable, normal variational equation*. **The same object has at least three
+names in three communities** — Killing tensor (GR geometry), polynomial first integral (dynamical
+systems), Liouville integrability (Hamiltonian mechanics) — and a sweep phrased in one community's
+words cannot see results written in another's. It is quantum's rule from the bridge in a sharper form:
+a negative sweep survives only as far as its query vocabulary reaches.
+
+> **Rule.** Before calling anything unsearched, restate the question in each neighbouring
+> community's vocabulary and search each. For this project that means at minimum: *Killing tensor*,
+> *polynomial first integral*, *Liouville / non-integrability*, *differential Galois / Morales–Ramis*,
+> *Painlevé / Kovalevskaya*.
+
+**How it was found — credit where due.** Not by a sweep. The user asked whether the fluid-blowup
+results (Chen–Hou; Buckmaster–Alpöge) had any bearing here. They don't transfer directly — blowup is
+about a field becoming infinite, our question about an orbit being regular — but the question led to
+the real bridge between singularities and conserved quantities: Kovalevskaya (1889) located an
+integrable top by studying singularities in complex time, which grew through Painlevé and Ziglin into
+Morales–Ramis. Searching *that* lineage turned up this paper in one query. **An outsider's analogy
+reached a result our specialist sweep did not.**
+
+**What it opens: a candidate next direction, proposed and not started.** Applying Morales–Ramis to the
+sGB black hole would attack **two of §3's three ceilings at once**:
+
+1. **Rank** — it excludes integrals of *every* degree, not one rank at a time.
+2. **Analyticity** — it works on the Hamiltonian *as given* at finite ζ, not order by order, so it
+   does not require an integral to have a Kerr root. For the truncated metric as an exact Hamiltonian
+   system, a tensor non-analytic in ζ would *not* be invisible to it.
+
+It would **not** touch the third ceiling's physics caveat — the substrate is still the O(ζ)O(χ²)
+truncation — and it only excludes *meromorphic* integrals. Obstacles, unassessed: it needs a
+particular solution whose normal variational equation is solvable enough to compute a Galois group
+(the equatorial radial geodesic worked for ZV; sGB's slow-rotation terms may break that symmetry),
+and Kovacic-type algorithms can become intractable on large rational coefficients. A quick search found
+no application to EdGB/sGB — a narrow negative from a sweep phrased by me, so weak evidence that it is
+untried, **and exactly the kind the rule above warns about.**

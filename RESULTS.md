@@ -2836,3 +2836,50 @@ statement about EMRI orbits.
 **Standing after §133:** ranks 1–4 closed on sGB, with rank 4 the first that was not implied by its
 predecessors. Ranks 5 and 6 remain; by D42, rank 5 is another consistency rung (`Q²`×momenta, no new
 power) and **rank 6 is the next independent one**, where `Q³` first appears.
+
+## §134 — Zipoy–Voorhees was already closed at every rank, in 2013
+
+**Maciejewski, Przybylska & Stachowiak**, *"Nonexistence of the final first integral in the
+Zipoy-Voorhees space-time"*, **Phys. Rev. D 88, 064003 (2013)**, arXiv:1302.4234. Read at source —
+abstract and body — not relayed.
+
+**What it proves.** Theorem 3, verbatim: *"There does not exist an additional, meromorphic first
+integral of the geodesic motion in the Zipoy-Voorhees metric."* Rigorous for **δ = 2** — exactly the
+headline row of §124/§126 — with δ = 1/2 also checked, and a stated caveat that for general δ *"the
+rationalization of the NVE might not preserve the identity component of the differential Galois
+group."* Meromorphic, in their words, *"include not only the analytic functions of both momenta and
+coordinates, but also rational and transcendental ones as long as their singularities are just
+poles."* Method: Morales–Ramis differential Galois theory, with the normal variational equation
+taken along the **equatorial radial geodesic** (`y = 0, p₃ = 0`); the special energy surfaces
+μ = 0, μ² = 1, μ² = 5 are handled separately.
+
+    |                  | §124 / §126 (this repo)        | Maciejewski-Przybylska-Stachowiak 2013 |
+    |------------------|--------------------------------|----------------------------------------|
+    | substrate        | ZV delta = 2 (delta = 1 control)| ZV delta = 2 (delta = 1/2 checked)     |
+    | ranks            | 1 - 6                          | ALL -- any meromorphic integral        |
+    | search space     | polynomial in momenta, den^1   | all meromorphic functions              |
+    | "nothing new" =  | polynomially irreducible       | functionally independent (Liouville)   |
+    | method           | exact GF(p) linear algebra     | differential Galois group              |
+
+**In the functional sense, our ZV result is a strict special case and adds nothing.** A
+functionally independent rank-r Killing tensor with rational coefficients *is* a meromorphic first
+integral, so their theorem excludes it at every r; ours excluded it only at r ≤ 6 and only in the den¹
+sector, which at rank 6 holds 75% of the reducible algebra (§2 of CLAUDE.md, `_kt_coverage.py`).
+
+**The one thing theirs does not cover, stated so the demotion is not overdone.** Morales–Ramis rules
+out *independent* integrals. A Killing tensor that is **polynomially irreducible but functionally
+dependent** on the known ones — the `{Q₁,Q₂}` bracket cubic in `external/high_rank_killing` is that
+shape — is outside its statement. On ZV δ=2 the only known integrals are E, L_z and H, with no second
+quadratic integral to bracket against, so no mechanism for such a tensor is known. But "no known
+mechanism" is not a theorem, and our den¹ closure is too narrow to carry that residual on its own.
+**Honest reading: the residual is real in principle and empty in practice.**
+
+Their paper also notes that earlier work (their ref. [3], unread here) *"were able to exclude the
+existence of some polynomial first integrals."* A bridge relay earlier named Kruglikov–Matveev 2012
+(ZV δ=2, no polynomial integral below degree 7) — plausibly the same reference, **not verified**.
+
+**Standing after §134:** ZV was reproduction **twice over** — Vollmer (valence 11, D39) and
+Maciejewski–Przybylska–Stachowiak (all ranks, meromorphic). §124/§126 keep their value as a
+**validated control for the instrument**, not as a result. D39's pivot to sGB stands and is
+reinforced. And the method behind this paper is the one known tool that turns rank-bounded nulls into
+an all-rank statement — see D47.
