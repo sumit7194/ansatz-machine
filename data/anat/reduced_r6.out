@@ -1,0 +1,34 @@
+rank 6, L^8, box 30x28: 75516 unknowns, 30 Schwarzschild products (by Q power {0: 16, 1: 9, 2: 4, 3: 1}), prime 0 [17s]
+  660 sources built [27s]
+    [eps chi^2 timing] lcm+compare 42.8s | clear 92.4s = RESCALED 75516 operator columns as arrays, nnz 4,006,722 -> 45,768,756, by q (81 terms, 7.6s) + cleared 660 sources; new denominator factor (x - 2)**8*(y - 1)**8*(y + 1)**8
+    rust nullspace: 8 blocks (largest 13992 cols), nnz 47,438,953 -> peak 22,669,561, nullity 565, 4 thread(s), 199.2s
+  one system: 660 (product, deformation) columns, dim V = 535 [503s]
+
+  shape-sector deformations keeping ALL 30: dim 5 of 18
+  shape-sector deformations keeping H^2 Q^1 (pole order <= 0): dim 5
+  shape-sector deformations keeping H^1 Q^2 (pole order <= 1): dim 7
+  shape-sector deformations keeping H^0 Q^3 (pole order <= 2): dim 8
+
+  directions first appearing with Q^2 (pole order 1): 2
+    1*l2tt_2 + -32*l2tt_5 + 48*l2tt_6 + -40*l2ang_3 + -28*l2ang_4
+      survivors (21, {0: 16, 1: 0, 2: 4, 3: 1})
+    1*l2tt_3 + -12*l2tt_5 + 16*l2tt_6 + -15*l2ang_3 + -21/2*l2ang_4
+      survivors (21, {0: 16, 1: 0, 2: 4, 3: 1})
+
+  directions first appearing with Q^3 (pole order 2): 1
+    1*l2rr_5 + 100/609*l2ang_3 + 25/203*l2ang_4 + 321/2030*l2ang_5 + 103/174*l2ang_6
+      survivors (17, {0: 16, 1: 0, 2: 0, 3: 1})
+
+  named directions (§140, §141):
+    d1: (21, {0: 16, 1: 0, 2: 4, 3: 1})
+    d2: (21, {0: 16, 1: 0, 2: 4, 3: 1})
+    d3: (17, {0: 16, 1: 0, 2: 0, 3: 1})
+    control gaugeY2r_1: (30, {0: 16, 1: 9, 2: 4, 3: 1})
+    control gaugeY2y_1: (30, {0: 16, 1: 9, 2: 4, 3: 1})
+    control gaugeY2r_3: (30, {0: 16, 1: 9, 2: 4, 3: 1})
+    control gaugeY2y_3: (30, {0: 16, 1: 9, 2: 4, 3: 1})
+    random #0: (16, {0: 16, 1: 0, 2: 0, 3: 0})
+    random #1: (16, {0: 16, 1: 0, 2: 0, 3: 0})
+    random #2: (16, {0: 16, 1: 0, 2: 0, 3: 0})
+
+  total 504s
