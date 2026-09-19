@@ -3107,8 +3107,10 @@ is why §138 found three independent obstructions and no cancelling combination.
 
 **Scope.** Rank 2 only (Carter itself, not higher-rank tensors), first order in ε, through O(χ²), one
 prime, radial profiles to 1/r⁶ for the slots (1/r⁸ for the structural count) and the stated comparison
-families, within `{xᵃyᵇ/L⁶}`. "Only if" is established inside this finite space, not as a theorem. The
-link between Killing tensors and separability is classical (Carter 1968; Benenti–Francaviglia); whether
-the *converse at first order around Kerr* is already stated in the literature (Papadopoulos–Kokkotas and
-Carson–Yagi study metrics "preserving Kerr symmetries") has not been checked here yet — to do before
-calling any of this new.
+families, within `{xᵃyᵇ/L⁶}`. "Only if" is established inside this finite space, not as a theorem. **Not new as a
+principle, and said so:** separable ⇒ Carter is Carter (1968); the converse is the classical
+Benenti–Francaviglia theorem (1979) for Killing tensors with the right structural properties; and
+Papadopoulos–Kokkotas (arXiv:1807.08594) and Carson–Yagi (arXiv:2002.01028) *build* deformed Kerr metrics
+by imposing that separability. What this adds is a direct measurement at O(εχ²) that does not assume
+those structural properties, the explicit map of which sectors must move together, and the sGB
+diagnosis (§138) placed inside it.
