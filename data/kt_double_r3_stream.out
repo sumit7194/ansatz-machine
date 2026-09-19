@@ -1,0 +1,109 @@
+Schwarzschild background: L = x**2*(x - 2)*(y - 1)*(y + 1)
+  generators ['p_t', 'p_phi', 'H', 'Lsq']; 8 reducible products at rank 3
+  box x<=24 y<=20; den = L^6
+  10500 coefficient unknowns per level
+    operator from templates: 60 SymPy brackets for 10500 columns
+    [operator timing] templates 1.7s (60 SymPy brackets for 10500 columns) | D = 2*x**15*(x - 2)**8*(y - 1)**9*(y + 1)**9
+  operator matrix (27146, 10500) [3s]
+    op rust nullspace: 8 blocks (largest 2100 cols), nnz 493,989 -> peak 108,645, nullity 8, 4 thread(s), 0.0s
+    operator held as arrays: 493,989 nonzeros [0.1s]
+  chi^0 level: Schwarzschild Killing space = 8
+    [chi^1] computing bracket 1/8 [4s]
+    [chi^1] computing bracket 2/8 [4s]
+    [chi^1] computing bracket 3/8 [4s]
+    [chi^1] computing bracket 4/8 [4s]
+    [chi^1] computing bracket 5/8 [4s]
+    [chi^1] computing bracket 6/8 [4s]
+    [chi^1] computing bracket 7/8 [4s]
+    [chi^1] computing bracket 8/8 [5s]
+    [chi^1 timing] lcm+compare 0.1s | clear 0.2s = sources only (8)
+    rust nullspace: 8 blocks (largest 2100 cols), nnz 494,349 -> peak 108,645, nullity 16, 4 thread(s), 0.0s
+    [chi^1 timing] solve+guard 0.1s
+  chi^1 level: 8 of 8 extend  [5s]
+    [chi^1] reconstructing solution 1/8 [5s]
+    [chi^1] reconstructing solution 6/8 [5s]
+  chi^1 chains CHECKPOINTED to kt_double_chains_r3_d6_b24x20.pkl (8 chains, depth 2) [5s]
+    [chi^2] computing bracket 1/8 [5s]
+    [chi^2] computing bracket 2/8 [5s]
+    [chi^2] computing bracket 3/8 [5s]
+    [chi^2] computing bracket 4/8 [6s]
+    [chi^2] computing bracket 5/8 [6s]
+    [chi^2] computing bracket 6/8 [6s]
+    [chi^2] computing bracket 7/8 [6s]
+    [chi^2] computing bracket 8/8 [6s]
+    [chi^2 timing] lcm+compare 2.3s | clear 3.1s = RESCALED 10500 operator columns as arrays, nnz 493,989 -> 4,880,809, by q (66 terms, 0.8s) + cleared 8 sources; new denominator factor (x - 2)**10*(y - 1)**5*(y + 1)**5
+    rust nullspace: 8 blocks (largest 2100 cols), nnz 4,893,461 -> peak 1,094,102, nullity 16, 4 thread(s), 0.6s
+    [chi^2 timing] solve+guard 1.1s
+  chi^2 level: 8 of 8 extend  [13s]
+    [chi^2] reconstructing solution 1/8 [13s]
+    [chi^2] reconstructing solution 6/8 [14s]
+  chi^2 chains CHECKPOINTED to kt_double_chains_r3_d6_b24x20.pkl (8 chains, depth 3) [14s]
+
+  Kerr Killing space at rank 3: got 8, expect 8
+  count check passed, but a COUNT IS NOT ENOUGH HERE.
+  Schwarzschild and Kerr have the SAME dimension at every rank (5, 8, 14) because
+  Lsq maps one-to-one onto Carter -- so 'the count is preserved' would also pass if
+  the tower did nothing. Identifying the direction is the real test.
+
+  Carter's O(chi^2) piece should be  y^2 (mu^2 - p_t^2)
+    = y**2*(-P_phi**2*(2 - x) - P_t**2*x**3*(1 - y**2) - P_t**2*x**2*(x - 2)*(y**2 - 1) - P_x**2*x*(x - 2)**2*(y**2 - 1) + P_y**2*(x - 2)*(y**2 - 1)**2)/(x**2*(x - 2)*(y**2 - 1))
+  prediction self-check: {H,F} at chi^0 = True, chi^1 = True, chi^2 = True
+
+  {H_Kerr, Lsq} at chi^2 is NONZERO
+  THE COUNT IS DECISIVE: Lsq alone does NOT extend to O(chi^2), so a tower doing nothing would have reported 6 of 8 -- only the directions built from p_t, p_phi and H, which survive trivially. Reporting 8 means it found a nonzero F^(0,2), and the verified prediction above identifies that deformation as Carter's.
+
+  CONTROL PASSED, non-vacuously: the chi-tower deforms Lsq into Carter.
+
+  sGB Hamiltonian pieces built and REPRESENTABLE [17s]
+  reducible floor (products of p_t, p_phi, H at rank 3): 6 combinatorial, 6 REPRESENTABLE at denpow 6
+    [zeta chi^0] computing bracket 1/8 [17s]
+    [zeta chi^0] computing bracket 2/8 [17s]
+    [zeta chi^0] computing bracket 3/8 [17s]
+    [zeta chi^0] computing bracket 4/8 [17s]
+    [zeta chi^0] computing bracket 5/8 [17s]
+    [zeta chi^0] computing bracket 6/8 [17s]
+    [zeta chi^0] computing bracket 7/8 [18s]
+    [zeta chi^0] computing bracket 8/8 [18s]
+    [zeta chi^0 timing] lcm+compare 1.5s | clear 1.7s = RESCALED 10500 operator columns as arrays, nnz 493,989 -> 3,213,199, by q (36 terms, 0.4s) + cleared 8 sources; new denominator factor 15*(x - 2)**8*(y - 1)**3*(y + 1)**3
+    rust nullspace: 8 blocks (largest 2100 cols), nnz 3,217,723 -> peak 718,457, nullity 16, 4 thread(s), 0.3s
+    [zeta chi^0 timing] solve+guard 0.7s
+  zeta chi^0 level: 8 of 8 survive  [22s]
+    [zeta chi^0] reconstructing solution 1/8 [22s]
+    [zeta chi^0] reconstructing solution 6/8 [22s]
+    level 0 checkpointed (kt_double_z_r3_d6_n0.pkl)
+    [zeta chi^1] computing bracket 1/8 [23s]
+    [zeta chi^1] computing bracket 2/8 [23s]
+    [zeta chi^1] computing bracket 3/8 [23s]
+    [zeta chi^1] computing bracket 4/8 [23s]
+    [zeta chi^1] computing bracket 5/8 [23s]
+    [zeta chi^1] computing bracket 6/8 [23s]
+    [zeta chi^1] computing bracket 7/8 [23s]
+    [zeta chi^1] computing bracket 8/8 [23s]
+    [zeta chi^1 timing] lcm+compare 1.1s | clear 1.4s = RESCALED 10500 operator columns as arrays, nnz 493,989 -> 3,793,007, by q (44 terms, 0.5s) + cleared 8 sources; new denominator factor 15*(x - 2)**10*(y - 1)**3*(y + 1)**3
+    rust nullspace: 8 blocks (largest 2100 cols), nnz 3,794,151 -> peak 848,621, nullity 16, 4 thread(s), 0.5s
+    [zeta chi^1 timing] solve+guard 0.8s
+  zeta chi^1 level: 8 of 8 survive  [27s]
+    [zeta chi^1] reconstructing solution 1/8 [27s]
+    [zeta chi^1] reconstructing solution 6/8 [27s]
+    level 1 checkpointed (kt_double_z_r3_d6_n1.pkl)
+    [zeta chi^2] computing bracket 1/8 [28s]
+    [zeta chi^2] computing bracket 2/8 [28s]
+    [zeta chi^2] computing bracket 3/8 [28s]
+    [zeta chi^2] computing bracket 4/8 [29s]
+    [zeta chi^2] computing bracket 5/8 [30s]
+    [zeta chi^2] computing bracket 6/8 [30s]
+    [zeta chi^2] computing bracket 7/8 [31s]
+    [zeta chi^2] computing bracket 8/8 [32s]
+    [zeta chi^2 timing] lcm+compare 5.1s | clear 8.3s = RESCALED 10500 operator columns as arrays, nnz 493,989 -> 10,595,377, by q (168 terms, 1.9s) + cleared 8 sources; new denominator factor 55125*(x - 2)**20*(y - 1)**7*(y + 1)**7
+    rust nullspace: 8 blocks (largest 2100 cols), nnz 10,626,875 -> peak 2,384,611, nullity 14, 4 thread(s), 1.8s
+    [zeta chi^2 timing] solve+guard 2.8s
+  zeta chi^2 level: 6 of 8 survive  [48s]
+    [zeta chi^2] reconstructing solution 1/6 [48s]
+    [zeta chi^2] reconstructing solution 6/6 [49s]
+    level 2 checkpointed (kt_double_z_r3_d6_n2.pkl)
+
+  SURVIVING at O(zeta chi^2), rank 3: 6
+  reducible floor: 6
+  => only the reducible floor survives: no irreducible rank-3 Killing tensor at O(zeta chi^2) that is analytic in zeta with a Kerr root.
+     NO PUBLISHED ARGUMENT REACHES THIS RANK -- there is nothing here to agree with. Petrov type I forbids a rank-2 tensor and says nothing above it; Owen-Yunes-Witek searched rank 2. Do not report this as corroborated.
+     EXPECTED, NOT INDEPENDENT: the rank-3 Kerr Killing space above the floor is spanned by Carter times momenta, so Carter's death at rank 2 made this the strongly favoured outcome. Not a corollary -- for F0 = Q p_t the O(zeta) source is {H1,Q} p_t and its solution G1 need not factor as F1 p_t, so the obstruction sits in a larger space than rank 2's and the extra factor could have killed it. It did not.

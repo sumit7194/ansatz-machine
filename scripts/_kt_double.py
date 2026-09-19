@@ -178,6 +178,16 @@ def _nullspace_new(dicts, ncols, p, verify, label):
     return vecs
 
 
+def _stream_sources(srcs, Dc, codec, p, col0):
+    """Clear each source and convert it to arrays at once, so only ONE source dict is ever alive.
+    Materialising all of them first cost ~3 GB for the ~600 sources of the rank-6 anatomy runs."""
+    from _kt_coo import concat, from_dicts
+    parts = []
+    for j, e in enumerate(srcs):
+        parts.append(from_dicts([PB.clear(e, Dc, p)], codec, p, col0=col0 + j))
+    return concat(*parts) if parts else from_dicts([], codec, p, col0=col0)
+
+
 def _prep_level(srcs, D, dicts0, raws0, p, tag):
     """Turn a level's source terms into cleared column dicts, TIMING each part (D48 follow-up).
 
@@ -195,8 +205,7 @@ def _prep_level(srcs, D, dicts0, raws0, p, tag):
         from _kt_coo import Level, from_dicts, nnz_of
     if same:
         if arrays:
-            ns_dicts = Level([dicts0.coo, from_dicts([PB.clear(e, D, p) for e in srcs],
-                                                     dicts0.codec, p, col0=len(dicts0))])
+            ns_dicts = Level([dicts0.coo, _stream_sources(srcs, D, dicts0.codec, p, len(dicts0))])
         else:
             ns_dicts = dicts0 + [PB.clear(e, D, p) for e in srcs]
         how = f"sources only ({len(srcs)})"
@@ -209,8 +218,7 @@ def _prep_level(srcs, D, dicts0, raws0, p, tag):
             parts = rescale_coo(dicts0.coo, terms, p)
             t_r = time.time() - t_r
             size = f"as arrays, nnz {dicts0.coo.nnz:,} -> {nnz_of(parts):,}, "
-            ns_dicts = Level(parts + [from_dicts([PB.clear(e, D2, p) for e in srcs], dicts0.codec,
-                                                 p, col0=len(dicts0))])
+            ns_dicts = Level(parts + [_stream_sources(srcs, D2, dicts0.codec, p, len(dicts0))])
             del parts
         else:
             ops = [rescale(d, terms, p) for d in dicts0]
