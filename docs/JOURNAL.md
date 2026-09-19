@@ -6,6 +6,20 @@ built, what broke, what the machine taught us. Numbers live in
 
 ---
 
+## 2026-09-19 (late night) — why Carter dies (§138)
+
+- User's steer, kept: the goal is science and understanding — after a hard result, find WHY.
+- **Anatomy:** switched the sGB correction on piece by piece at rank 2. Static reshaping, the
+  frame-dragging change and the quadrupolar shape change EACH kill Carter alone; the spherical χ² piece
+  does not. My guess (the quadrupole alone) was wrong.
+- **Exact version** (`_kt_anatomy.py`): all (chain, piece) sources in one ζχ² system → the
+  Carter-preserving subspace is span{l0, spin, mass, gauge_r, gauge_y}; the obstruction space is 3-D.
+  Controls (spin/mass shifts, two coordinate changes) all land inside; the counts reproduce the table.
+  **Three independent obstructions — Kerr's hidden symmetry is a simultaneous condition on its static
+  profile, frame dragging and shape, and sGB violates all three.**
+- Setback, logged: the first anatomy batch all died with NameError — `--sgb` needs `--control` (the
+  χ-tower lives there). Fixed the cause: `--sgb` now implies it, with a message.
+
 ## 2026-09-19 (night) — rank 6 closes on prime 0
 
 - **ζχ²: 16 of 30 survive = the floor (§137).** The second independent rung (Q³, D42) closes: every

@@ -1,0 +1,39 @@
+rank 2, denpow 6, box 24x20: 5250 unknowns, 5 Kerr chains from data/kt_double_chains_r2_d6_b24x20.pkl
+  piece static   (sGB    ) representable: yes
+  piece rot      (sGB    ) representable: yes
+  piece l0       (sGB    ) representable: yes
+  piece l2       (sGB    ) representable: yes
+  piece spin     (control) representable: yes
+  piece mass     (control) representable: yes
+  piece gauge_r  (control) representable: yes
+  piece gauge_y  (control) representable: yes
+    [zeta chi^0 timing] lcm+compare 3.4s | clear 4.9s = RESCALED 5250 operator columns as arrays, nnz 228,789 -> 1,880,087, by q (54 terms, 0.3s) + cleared 40 sources; new denominator factor 15*(x - 2)**8*(y - 1)**5*(y + 1)**5
+  zeta chi^0: all 40 (chain, piece) sources solvable [19s]
+    [zeta chi^1 timing] lcm+compare 2.0s | clear 3.2s = RESCALED 5250 operator columns as arrays, nnz 228,789 -> 1,727,305, by q (44 terms, 0.3s) + cleared 40 sources; new denominator factor 15*(x - 2)**10*(y - 1)**3*(y + 1)**3
+  zeta chi^1: all 40 (chain, piece) sources solvable [28s]
+    [zeta chi^2 timing] lcm+compare 14.0s | clear 23.7s = RESCALED 5250 operator columns as arrays, nnz 228,789 -> 5,652,059, by q (210 terms, 1.2s) + cleared 40 sources; new denominator factor 55125*(x - 2)**20*(y - 1)**9*(y + 1)**9
+  zeta chi^2: 40 columns, solvable combinations dim V = 37 [79s]
+
+  SURVIVORS per single piece (must match the anatomy runs; floor = Kc - 1 at rank 2):
+    static   4 of 5   (sGB)
+    rot      4 of 5   (sGB)
+    l0       5 of 5   (sGB)
+    l2       4 of 5   (sGB)
+    spin     5 of 5   (control)
+    mass     5 of 5   (control)
+    gauge_r  5 of 5   (control)
+    gauge_y  5 of 5   (control)
+    full sGB 4 of 5
+
+  CARTER-PRESERVING DEFORMATIONS: dim 5 of 8  (pieces: ['static', 'rot', 'l0', 'l2', 'spin', 'mass', 'gauge_r', 'gauge_y'])
+    1*l0
+    1*spin
+    1*mass
+    1*gauge_r
+    1*gauge_y
+
+  controls (spin, mass, gauges) all Carter-preserving: True
+  Carter-preserving combinations of the sGB pieces alone: dim 1
+    1*l0
+
+  total 79s

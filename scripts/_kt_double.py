@@ -91,6 +91,20 @@ if KT_COO and (KT_SOLVER != "rust" or not KT_RESCALE):
 # Where checkpoints are read and written. A validation rerun points this elsewhere so it neither
 # resumes from nor overwrites the production checkpoints it is being compared against.
 KT_CKDIR = os.environ.get("KT_CKDIR", "data")
+# ANATOMY OF THE OBSTRUCTION. The sGB metric correction is a sum of physically distinct pieces, and
+# at O(zeta chi^2) the obstruction to extending a Kerr Killing tensor is LINEAR in them. Keeping only
+# some pieces asks WHICH physical part of the correction kills Carter:
+#   static = spherically symmetric static reshaping (DG_TT, DG_RR)
+#   rot    = frame-dragging correction at O(chi) (W_ROT)
+#   l0     = spherically symmetric part at O(chi^2) (H00, H20)
+#   l2     = quadrupolar part at O(chi^2), the change of SHAPE (H02, H22, K2)
+# Default: all four = the sGB black hole. Anything else is an experiment on a metric that solves no
+# field equation, is announced as such, and checkpoints under its own tag.
+SGB_ALL = ("static", "rot", "l0", "l2")
+KT_SGB_PIECES = tuple(sorted(p for p in os.environ.get("KT_SGB_PIECES", ",".join(SGB_ALL)).split(",") if p))
+if not set(KT_SGB_PIECES) <= set(SGB_ALL):
+    raise SystemExit(f"KT_SGB_PIECES must be a subset of {SGB_ALL}, got {KT_SGB_PIECES}")
+SGB_PARTIAL = set(KT_SGB_PIECES) != set(SGB_ALL)
 # Above this the dense matrix is not built at all; stream instead. Overridable by env so the
 # streaming path can be FORCED on a small known-answer case -- otherwise it is only ever
 # exercised on the big runs, where a bug has nothing cheap to disagree with.
@@ -328,7 +342,7 @@ def kerr_chi_pieces(M=sp.Integer(1), a_over_m=sp.Integer(1)):
     return out
 
 
-def sgb_ginv_pieces(GI):
+def sgb_ginv_pieces(GI, keep=None):
     """g^ab pieces of the sGB correction at chi^0, chi^1, chi^2, in (t, x=r, y=cos th, phi).
 
     All three come from THIS project's own derivations: the static pair verified against the EdGB
@@ -353,12 +367,14 @@ def sgb_ginv_pieces(GI):
              + 210*x**6 + 15*x**7)/(90*x**9*(x-2))
     H20f =  (8000 + 25312*x - 22664*x**2 - 724*x**3 + 640*x**4 + 1090*x**5
              - 180*x**6 + 150*x**7 - 15*x**8 + 15*x**9)/(30*x**9*(x-2)**2)
+    keep = KT_SGB_PIECES if keep is None else keep
+    k = {p: (1 if p in keep else 0) for p in SGB_ALL}   # anatomy switches (default all 1)
     h = sp.zeros(4,4)
-    h[0,0] = DG_TT + chi**2*f*(H00f + H02f*Y2)
-    h[1,1] = DG_RR + chi**2*(H20f + H22f*Y2)/f
-    h[0,3] = h[3,0] = chi*W_ROT*(1-y**2)
-    h[2,2] = chi**2*x**2*(K2f*Y2)/(1-y**2)      # g_thth -> g_yy: divide by (1-y^2)
-    h[3,3] = chi**2*x**2*(1-y**2)*(K2f*Y2)
+    h[0,0] = k["static"]*DG_TT + chi**2*f*(k["l0"]*H00f + k["l2"]*H02f*Y2)
+    h[1,1] = k["static"]*DG_RR + chi**2*(k["l0"]*H20f + k["l2"]*H22f*Y2)/f
+    h[0,3] = h[3,0] = k["rot"]*chi*W_ROT*(1-y**2)
+    h[2,2] = k["l2"]*chi**2*x**2*(K2f*Y2)/(1-y**2)      # g_thth -> g_yy: divide by (1-y^2)
+    h[3,3] = k["l2"]*chi**2*x**2*(1-y**2)*(K2f*Y2)
     # THE O(zeta) INVERSE PERTURBATION IS EXACTLY -g^-1 h g^-1 ON THE KERR BACKGROUND.
     # Since h enters at O(zeta^1) and we keep only that order, no Neumann series is needed at all:
     # (g + zeta h)^-1 = g^-1 - zeta g^-1 h g^-1 + O(zeta^2), and g^-1 for Kerr is already in hand
@@ -389,6 +405,11 @@ def hamiltonian(ginv):
 if __name__ == "__main__":
     def arg(fl, d=None, c=str):
         return c(sys.argv[sys.argv.index(fl)+1]) if fl in sys.argv else d
+    if "--sgb" in sys.argv and "--control" not in sys.argv:
+        # the zeta tower starts from the chi-tower's chains, which the --control block computes;
+        # without it --sgb died with a NameError deep inside (2026-09-19). Imply it, and say so.
+        print("  --sgb needs the chi-tower: adding --control", flush=True)
+        sys.argv.append("--control")
     rank = arg("--rank", 2, int)
     denpow = arg("--denpow", 2, int)
     margin = arg("--margin", 4, int)
@@ -396,6 +417,12 @@ if __name__ == "__main__":
     # Checkpoints hold mod-p data, so a second-prime run must never resume from the first prime's.
     # Prime 0 keeps the original names (every existing checkpoint is prime 0); others get a suffix.
     pfx = "" if p == PRIMES[0] else f"_p{PRIMES.index(p)}"
+    if SGB_PARTIAL:
+        # the chi-tower does not depend on the sGB pieces, but the zeta checkpoints do: tag them all
+        pfx += "_sgb-" + "-".join(KT_SGB_PIECES)
+        print(f"  *** ANATOMY RUN: sGB correction restricted to {KT_SGB_PIECES} of {SGB_ALL}. This metric "
+              f"solves no field equation; it asks which piece of the correction does what. ***",
+              flush=True)
     K.set_dim((t, x, y, ph), sp.symbols("P_t P_x P_y P_phi", real=True), dep=(1,2))
     t0 = time.time()
 

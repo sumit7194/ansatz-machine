@@ -82,3 +82,4 @@ rust/*/target/
 data/ckval*/
 data/*.legacy
 data/KT_THREADS*
+data/anat/*.pkl

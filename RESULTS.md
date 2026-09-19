@@ -2983,3 +2983,51 @@ lcm 76 s, rescale + source clearing 195 s, Rust solve 552 s on 123M nonzeros at 
 
 Artifacts: `data/kt_double_r6_zc1.out` (ζχ¹, identical to legacy), `data/kt_double_r6_zc2.out` (ζχ²,
 verdict); checkpoint `data/kt_double_z_r6_d8_n2.pkl` (gitignored, regenerable).
+
+## §138 — why Carter dies: three independent obstructions, and the one piece that is harmless
+
+§130 says Carter's constant does not survive the sGB correction; it does not say **why**. The
+correction to the metric is a sum of physically distinct pieces (code: `sgb_ginv_pieces`):
+
+    static   spherically symmetric reshaping of the non-rotating hole      (zeta chi^0: DG_TT, DG_RR)
+    rot      correction to frame dragging                                  (zeta chi^1: W_ROT)
+    l0       spherically symmetric part at second order in spin           (zeta chi^2: H00, H20)
+    l2       quadrupolar part at second order in spin -- the SHAPE        (zeta chi^2: H02, H22, K2)
+
+**Piece by piece** (rank 2, the tower rerun with only some pieces switched on — `KT_SGB_PIECES`,
+`data/anat/`; Carter lives = 5 of 5 at ζχ², dies = 4 of 5):
+
+    none (plain Kerr, control)   5/5  Carter lives      static only   4/5  dies
+    l0 only                      5/5  Carter lives      rot only      4/5  dies
+                                                        l2 only       4/5  dies
+    any three of the four        4/5  dies
+
+The guess was that the quadrupole — Kerr's shape — would carry it alone. It does not: **three
+physically different pieces each kill Carter by themselves.** The harmless one has a plain reason: at
+the order where Carter is tested (ζχ²), `l0` meets only the non-rotating background, so it is a
+spherically symmetric nudge to Schwarzschild and cannot break the rotational symmetry Carter is built
+from.
+
+**Exactly, not by counting** (`scripts/_kt_anatomy.py`, `data/anat/anatomy_r2.out`). At fixed Kerr
+background the tower is linear in the deformation, so each piece is carried through ζχ⁰ and ζχ¹ on
+its own and, at ζχ², every (chain, piece) source is a column of one system. Its nullspace gives the
+subspace of deformation weights that keep **every** Kerr direction alive:
+
+    Carter-preserving deformations (8 tested):  span{ l0, spin shift, mass shift, gauge_r, gauge_y }
+    obstruction space:                          3-dimensional  (40 columns, 37 solvable combinations)
+
+Checks, both directions: the survivor counts it implies reproduce the piece-by-piece table exactly;
+and the four deformations that **must** keep Carter — a shift of Kerr's spin, of its mass, and two
+pure coordinate changes — all land in the subspace, while static, rot and l2 do not.
+
+**What it means.** The three harmful pieces break Carter in **three independent ways**: no
+combination of them cancels, and adding a shift of Kerr's own mass or spin does not help. Coordinate
+changes cannot help either — their obstruction is identically zero (the same black hole relabelled),
+so they cannot cancel anything; the two gauge controls confirm it. **Kerr's hidden symmetry is a
+simultaneous condition on its static profile, its frame dragging and its shape; the sGB black hole
+violates all three, independently.** That is the intuitive content behind "Carter dies".
+
+**Scope, stated.** Rank 2, O(ζχ²), prime 0, within `{xᵃyᵇ/L⁶}` box 24×20 — the same ansatz as
+§130. It characterises the sGB pieces, not all conceivable deformations: a general static profile
+(not sGB's) may well have Carter-compatible directions beyond mass shifts and gauge; mapping that
+space is the natural next question.
