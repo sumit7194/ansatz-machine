@@ -1371,3 +1371,60 @@ identical to legacy again. **Rank 6's ζχ¹ on this pipeline: 30 of 30, checkpo
 pauses the Rust child too) — tested: state `T`, log frozen for 15 s, resumed, finished, checkpoints
 identical. And the core count is re-read before every solve from `data/KT_THREADS` (or a per-run
 `data/KT_THREADS.<pid>`) — tested: 1 → 4 threads mid-run.
+
+## D51 — literature check for the all-ranks direction: the gap is real, the obstacle is the order (2026-09-19)
+
+**Why this check, and how.** Every closure so far is one rank at a time (CLAUDE.md §3, ceiling 2).
+Morales–Ramis differential Galois theory is the known way past that ceiling: it rules out *any*
+additional meromorphic first integral, every rank at once — it is what closed ZV in 2013 (D47). Before
+building anything, per the ZV lesson, the search crossed every neighbouring vocabulary (Killing
+tensor / Carter-like constant / hidden symmetry / first integral / Liouville / meromorphic /
+differential Galois / Morales–Ramis / Ziglin / Kovacic / Melnikov / chaos) with the spacetimes (sGB,
+EdGB, dCS, higher-derivative-corrected Kerr, bumpy / deformed Kerr). A web sweep, not a citation-graph
+audit: "not found" below means not found by it.
+
+**What is in print for this metric.**
+- **Owen, Yunes & Witek**, PRD 103, 124057 (arXiv:2103.15891, v4 Jan 2024), read from the abstract
+  page: small coupling, slow rotation; both spacetimes Petrov type I; Killing equation solved **through
+  rank 6 in dCS but only rank 2 in scalar Gauss–Bonnet**, no nontrivial tensor found; they *conjecture*
+  no fourth constant. **So §131, §133 and §137 (sGB ranks 3, 4, 6) go past the published sGB result.**
+- **Deich et al., "Chaos in Quadratic Gravity"** (arXiv:2203.00524): Poincaré sections in sGB and dCS,
+  chaotic features that are tiny and near the horizon — numerical, "likely" no fourth constant.
+- **Cárdenas-Avendaño et al.** (arXiv:1804.04002), dCS only: *no* chaos found in sections through
+  fifth order in spin, and the opposite conjecture — the exact dCS black hole *may be integrable*.
+  **The dCS literature holds two contradictory numerical conjectures.**
+
+**What analytic all-rank methods have been applied to.** ZV (Maciejewski, Przybylska & Stachowiak
+2013), Chazy–Curzon, D-brane backgrounds, Schwarzschild perturbed by discs/rings and by gravitational
+waves (Melnikov), and the tidal-quadrupole problem (arXiv:2607.27129, a Carter-deformation argument).
+**None to sGB, EdGB, dCS, or any higher-derivative-corrected Kerr** — the gap D47 guessed at is there.
+
+**How ZV was done, i.e. what would have to transfer** (read from the paper body): linearise around
+radial motion through the centre in the equatorial plane — an invariant 2-D subsystem; change the
+independent variable to the radial coordinate so the normal variational equation becomes
+`ξ'' = r(x) ξ` with **rational** r; run Kovacic's algorithm to show it has no Liouvillian solution;
+exclude a few special parameter hypersurfaces. Our metric has every ingredient: the equatorial plane
+is invariant (the reflection symmetry was verified exactly, D48), the zero-angular-momentum radial
+motion is a 1-D quadrature, and every coefficient is rational in x.
+
+**The obstacle, stated before anyone builds: the order at which integrability breaks.** In the double
+expansion the obstruction first appears at **O(ζχ²)** — static sGB is spherically symmetric and O(ζχ)
+keeps Carter (the §130 prose). A first-order Morales–Ramis or Melnikov argument in a single small
+parameter sees nothing there. Two honest routes, neither free:
+
+1. **Finite-ζ Morales–Ramis on the truncated Hamiltonian.** Rigorous and algorithmic, but it proves
+   non-integrability *of the truncation at finite coupling* — the object CLAUDE.md §1 already says is
+   not the physical one, and a truncation being less integrable than its parent is not surprising. It
+   removes the rank ceiling for the truncated metric; it does not touch analyticity-in-ζ physics.
+2. **Higher-order variational equations** (Morales-Ruiz, Ramis & Simó, 2007) or a higher-order
+   Melnikov integral, organised in the same (ζ, χ) double expansion as the tower. This is the version
+   that matches what the metric can support, and it is harder: the monodromy correction has to be
+   carried to the order where Carter first fails.
+
+Tooling: SymPy 1.14 has **no Kovacic solver** (checked); it would have to be written, and validated on
+known cases (ZV δ=2 must come out non-Liouvillian; Kerr's own NVE along the same orbit must come out
+solvable — the positive control, D40's rule that a control must be able to fail).
+
+**Recommendation.** Route 1 first, but framed correctly: as a *tool-building* step with Kerr and ZV as
+controls, whose sGB answer is reported as a statement about the truncated Hamiltonian. Then judge
+route 2 with that tool in hand. Discuss with the user before building (feedback-checkpoint-discuss).

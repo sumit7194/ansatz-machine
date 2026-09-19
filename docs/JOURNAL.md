@@ -13,6 +13,12 @@ built, what broke, what the machine taught us. Numbers live in
 - 123M nonzeros, solved in 552 s at 4.2 GB — the level the legacy run thrashed in for days at 24 GB.
 - The log carries the stale "first rank the lower ranks do not imply" sentence (code loaded before
   b852c26); corrected in §137.
+- **Literature check for the all-ranks direction (D51).** Owen–Yunes–Witek searched sGB only to rank 2
+  (dCS to rank 6), so sGB ranks 3–6 here are past the published result. No Morales–Ramis / Ziglin /
+  Melnikov proof exists for sGB, dCS or corrected Kerr; the dCS literature holds two opposite numerical
+  conjectures. The ZV recipe transfers structurally, but the obstruction sits at O(ζχ²), so a finite-ζ
+  proof would speak about the truncation only. SymPy has no Kovacic; it would have to be built.
+- Rank 5 (both primes) queued behind rank 6 prime 1.
 - Rank 6 on prime 1 queued behind prime 0 by a detached waiter, so the machine did not sit idle while
   the user closed the app; it started on its own at 20:14.
 
