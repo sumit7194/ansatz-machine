@@ -1,0 +1,53 @@
+rank 4, box 27x24: 74 deformations, 14 Kerr chains [16s]
+  products: ['Lsq^2', 'H Lsq', 'H^2', 'p_phi^2 Lsq', 'p_phi^2 H', 'p_phi^4', 'p_t p_phi Lsq', 'p_t p_phi H', 'p_t p_phi^3', 'p_t^2 Lsq', 'p_t^2 H', 'p_t^2 p_phi^2', 'p_t^3 p_phi', 'p_t^4']
+  Q^2 product index [0], Q x (degree 2) indices [1, 3, 6, 9]
+    [eps chi^0 timing] lcm+compare 63.8s | clear 130.7s = RESCALED 24500 operator columns as arrays, nnz 1,219,864 -> 12,456,898, by q (70 terms, 2.2s) + cleared 1036 sources; new denominator factor 15*(x - 2)**9*(y - 1)**6*(y + 1)**6
+    rust nullspace: 8 blocks (largest 5140 cols), nnz 12,836,600 -> peak 4,550,460, nullity 1050, 4 thread(s), 13.3s
+  eps chi^0: 1036 columns, 74 deformations with every chain extending [427s]
+    [eps chi^1 timing] lcm+compare 53.8s | clear 129.8s = RESCALED 24500 operator columns as arrays, nnz 1,219,864 -> 14,526,006, by q (84 terms, 3.9s) + cleared 1036 sources; new denominator factor 15*(x - 2)**11*(y - 1)**6*(y + 1)**6
+    rust nullspace: 8 blocks (largest 5050 cols), nnz 14,870,077 -> peak 4,403,204, nullity 1024, 4 thread(s), 11.6s
+  eps chi^1: drag3_1 -- chains [3, 4, 6, 7, 9, 10, 11, 12, 13] do not extend; deformation set aside
+  eps chi^1: drag3_2 -- chains [3, 4, 6, 7, 9, 10, 11, 12, 13] do not extend; deformation set aside
+  eps chi^1: drag3_3 -- chains [3, 4, 6, 7, 9, 10, 11, 12, 13] do not extend; deformation set aside
+  eps chi^1: drag3_4 -- chains [3, 4, 6, 7, 9, 10, 11, 12, 13] do not extend; deformation set aside
+  eps chi^1: drag3_5 -- chains [3, 4, 6, 7, 9, 10, 11, 12, 13] do not extend; deformation set aside
+  eps chi^1: drag3_6 -- chains [3, 4, 6, 7, 9, 10, 11, 12, 13] do not extend; deformation set aside
+  eps chi^1: 1036 columns, 68 deformations with every chain extending [810s]
+    [eps chi^2 timing] lcm+compare 399.4s | clear 674.7s = RESCALED 24500 operator columns as arrays, nnz 1,219,864 -> 37,859,934, by q (264 terms, 8.3s) + cleared 952 sources; new denominator factor 55125*(x - 2)**23*(y - 1)**10*(y + 1)**10
+    rust nullspace: 8 blocks (largest 5558 cols), nnz 42,074,467 -> peak 13,054,728, nullity 892, 4 thread(s), 41.2s
+  eps chi^2: 952 (chain, deformation) columns, dim V = 878 [2529s]
+
+  ALL 14 rank-4 directions survive: dim 49 of 68
+  pure Q^2 survives:                dim 51 of 68
+  slot deformations where all 14 survive: dim 43; rank-2 Carter-compatible: dim 43; common: 43  -> SAME SPACE
+  slot deformations where pure Q^2 survives: dim 45; rank-2 Carter-compatible: dim 43; common: 43  -> DIFFERENT
+  (slot profiles set aside at rank 4 before chi^2: ['drag3_1', 'drag3_2', 'drag3_3', 'drag3_4', 'drag3_5', 'drag3_6'])
+
+  per deformation: survivors of 14, and whether any survivor carries a Q^2 component
+    tt_1          9 of 14   Q^2 survives: False
+    rr_1          9 of 14   Q^2 survives: False
+    ang_1         9 of 14   Q^2 survives: False
+    drag1_1       9 of 14   Q^2 survives: False
+    l0tt_1       14 of 14   Q^2 survives: True
+    l0rr_1       14 of 14   Q^2 survives: True
+    l0ang_1      14 of 14   Q^2 survives: True
+    l2tt_1        9 of 14   Q^2 survives: False
+    l2rr_1        9 of 14   Q^2 survives: False
+    l2ang_1       9 of 14   Q^2 survives: False
+    spin         14 of 14   Q^2 survives: True
+    mass         14 of 14   Q^2 survives: True
+    gauge_r      14 of 14   Q^2 survives: True
+    gauge_y      14 of 14   Q^2 survives: True
+    sGB_static    9 of 14   Q^2 survives: False
+    sGB_rot       9 of 14   Q^2 survives: False
+    sGB_l0       14 of 14   Q^2 survives: True
+    sGB_l2        9 of 14   Q^2 survives: False
+    random slot deformation #0:  9 of 14   Q^2 survives: False
+    random slot deformation #1:  9 of 14   Q^2 survives: False
+    random slot deformation #2:  9 of 14   Q^2 survives: False
+    random slot deformation #3:  9 of 14   Q^2 survives: False
+    random slot deformation #4:  9 of 14   Q^2 survives: False
+    random slot deformation #5:  9 of 14   Q^2 survives: False
+    full sGB      9 of 14   Q^2 survives: False
+
+  total 2536s

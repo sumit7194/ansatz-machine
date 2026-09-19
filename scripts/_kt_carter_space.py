@@ -338,6 +338,8 @@ if __name__ == "__main__":
     for i, a in enumerate(slot_idx):
         Es[i, a] = 1
     Ws = intersect_np(W, Es, A, p)[:, slot_idx]
+    if "--save" in sys.argv:
+        np.savez(arg("--save", None, str), Ws=Ws, slot_names=np.array([names[a] for a in slot_idx]))
     print(f"\n  built from the slot profiles alone: dim {Ws.shape[0]} of {len(slot_idx)}")
     for slot in SLOTS:
         idx = [i for i, a in enumerate(slot_idx) if names[a].rsplit("_", 1)[0] == slot]

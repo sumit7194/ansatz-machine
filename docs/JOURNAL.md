@@ -6,6 +6,20 @@ built, what broke, what the machine taught us. Numbers live in
 
 ---
 
+## 2026-09-19 (late) — does Carter² follow the rule? A CANDIDATE, not a result yet
+
+- `_kt_rank4_rule.py` (rank 4, the §139 deformation space + sGB pieces, 14 Kerr chains, 42 min):
+  **all 14 survive ⟺ Carter survives** — the slot space where every rank-4 direction extends is exactly
+  rank 2's 43-dim Carter-compatible space. Generic and single-piece deformations: 14/14 or the 9 floor.
+  Full sGB 9 of 14 = §133. ℓ=3 dragging dies at O(χ) again.
+- **But the pure-Q² chain extends on a 45-dim space: two directions where Carter² survives and Carter
+  does not** — at face value an irreducible rank-4 hidden symmetry at O(εχ²).
+- Boring explanation hunted first: rank 2 was mapped at L⁶, rank 4 at L⁷ (the D44 trap). Refuted —
+  rank 2 at L⁷ gives the same 43-dim subspace (identical, not just equal dimension).
+- Next (`_kt_q2_candidate.py`): extract the two directions; recount survivors; rebuild each as one
+  concrete metric and retest from scratch — Carter at rank 2 with L⁸ box 34×28 on both primes (must
+  still die), Q² at rank 4 on both primes (must still survive). Not in RESULTS until it passes.
+
 ## 2026-09-19 (later) — the Carter-compatible space, and separability (§139)
 
 - **Mapped** every stationary axisymmetric slow-rotation deformation of Kerr (11 slots × radial profiles)
