@@ -1,0 +1,20 @@
+(1) transcription of Johannsen Eq. (10)-(11)
+  (1a) trivial functions reproduce our Kerr pieces through chi^2: True
+  (1b) St*H splits into r-part + theta-part for ARBITRARY functions: True
+
+(3) are the Carter-compatible slot deformations exactly separable + gauge? (separable/gauge profiles x^-k (x-2)^-j, j <= 0)
+    [eps chi^0 timing] lcm+compare 9.1s | clear 23.3s = RESCALED 5250 operator columns as arrays, nnz 228,789 -> 1,880,087, by q (54 terms, 0.3s) + cleared 350 sources; new denominator factor (x - 2)**8*(y - 1)**5*(y + 1)**5
+    rust nullspace: 8 blocks (largest 1393 cols), nnz 1,911,643 -> peak 560,316, nullity 355, 2 thread(s), 0.3s
+  eps chi^0: 350 columns, every Kerr direction extends for a 70-dim space of the 70 [55s]
+    [eps chi^1 timing] lcm+compare 5.2s | clear 18.7s = RESCALED 5250 operator columns as arrays, nnz 228,789 -> 1,727,305, by q (44 terms, 0.2s) + cleared 350 sources; new denominator factor (x - 2)**10*(y - 1)**3*(y + 1)**3
+    rust nullspace: 8 blocks (largest 1350 cols), nnz 1,745,913 -> peak 475,737, nullity 349, 2 thread(s), 0.3s
+  eps chi^1: 350 columns, every Kerr direction extends for a 64-dim space of the 70 [88s]
+    [eps chi^2 timing] lcm+compare 46.7s | clear 83.6s = RESCALED 5250 operator columns as arrays, nnz 228,789 -> 5,652,059, by q (210 terms, 1.2s) + cleared 320 sources; new denominator factor (x - 2)**20*(y - 1)**9*(y + 1)**9
+    rust nullspace: 8 blocks (largest 1524 cols), nnz 6,022,371 -> peak 1,879,827, nullity 308, 2 thread(s), 1.4s
+  eps chi^2: 320 columns, every Kerr direction extends for a 47-dim space of the 64 [260s]
+  separable + gauge span: rank 118
+  slot deformations: rank 66; of which inside separable + gauge: 28
+  Carter-compatible slot deformations: 43; adding them to separable + gauge raises the rank by 15
+  => 15 Carter-compatible direction(s) are NOT separable + gauge within this basis
+
+  total 264s

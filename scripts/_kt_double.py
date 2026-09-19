@@ -375,7 +375,13 @@ def sgb_ginv_pieces(GI, keep=None):
     h[0,3] = h[3,0] = k["rot"]*chi*W_ROT*(1-y**2)
     h[2,2] = k["l2"]*chi**2*x**2*(K2f*Y2)/(1-y**2)      # g_thth -> g_yy: divide by (1-y^2)
     h[3,3] = k["l2"]*chi**2*x**2*(1-y**2)*(K2f*Y2)
-    # THE O(zeta) INVERSE PERTURBATION IS EXACTLY -g^-1 h g^-1 ON THE KERR BACKGROUND.
+    return ginv_perturbation(GI, h)
+
+
+def ginv_perturbation(GI, h):
+    """chi^0..chi^2 pieces of the O(eps) INVERSE-metric perturbation for a lower-index perturbation h
+    of Kerr (h may carry explicit chi). Shared by the sGB pieces and by general deformations (§139)."""
+    # THE O(eps) INVERSE PERTURBATION IS EXACTLY -g^-1 h g^-1 ON THE KERR BACKGROUND.
     # Since h enters at O(zeta^1) and we keep only that order, no Neumann series is needed at all:
     # (g + zeta h)^-1 = g^-1 - zeta g^-1 h g^-1 + O(zeta^2), and g^-1 for Kerr is already in hand
     # from kerr_chi_pieces. The first version built a five-term Neumann series from Schwarzschild

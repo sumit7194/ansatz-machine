@@ -3047,3 +3047,68 @@ rank 5's H² direction needs L⁷), floor 12 of 12 representable, ζ levels 20 �
 §132 era). The floor and nothing else. **Not a new rung** (D42): Q² first appeared at rank 4, and rank 5's
 Carter-built directions are Q^q times odd-degree reducibles — the run's own prose now says so correctly.
 The ladder is complete and two-prime from rank 2 through rank 6.
+
+## §139 — which deformations of Kerr keep Carter's constant: exactly the separable ones
+
+§138 asked why Carter dies in sGB. This asks the general question: **which** deformations of Kerr keep
+it? Rank 2, first order in the deformation ε, through O(χ²) — the order at which Carter is tested.
+
+**The space** (`scripts/_kt_carter_space.py`): every stationary, axisymmetric, reflection-symmetric
+deformation of slowly rotating Kerr in Regge–Wheeler-type slots, each with a free radial profile
+spanned by `r⁻¹…r⁻ᵏ`: static spherical (tt, rr, angular) at εχ⁰; frame dragging with ℓ = 1 (as in Kerr
+and sGB) and ℓ = 3 (an octupole current) at εχ¹; spherical and quadrupolar (the shape, Y₂) at εχ². The
+tower is linear in the deformation, so the Carter-compatible deformations are computed exactly as a
+subspace, level by level, never assuming anything survives.
+
+    kmax 6:   eps chi^0  70 of 70  |  eps chi^1  64 of 70  |  eps chi^2  47 of 64   (43 from slots alone)
+    kmax 8:   eps chi^0  92 of 92  |  eps chi^1  84 of 92  |  eps chi^2  63 of 84   (59 from slots alone)
+    conditions: 3 per power of 1/r + the same 5 low-order ones at both cutoffs -- not a truncation effect
+    controls (spin shift, mass shift, two coordinate changes): all inside, both runs
+
+Read slot by slot: **ℓ = 3 frame dragging kills Carter already at first order in spin**, any profile;
+**the spherical χ² sector is completely free**; and **nothing in the static, ℓ = 1 frame-dragging or shape
+sectors may change alone** — the static tt and rr profiles are fixed by the angular part, the frame
+dragging and the shape. §138's "conspiracy", written as equations.
+
+**Then the question that turns the equations into understanding: is "keeps Carter" the same as "stays
+separable"?** (`scripts/_kt_separable.py`). A metric whose Hamilton–Jacobi equation separates in r and θ
+keeps a Carter constant exactly. Carter's general separable class (Benenti–Francaviglia):
+
+    St g^ab = [A_tt(r), A_tphi(r), A_phiphi(r) on (t,phi); A_rr(r) d_r^2]
+            + [B_tt(th), B_tphi(th), B_phiphi(th) on (t,phi); B_thth(th) d_th^2],   St = R(r) + Theta(th)
+
+Checks first: Johannsen's form (arXiv:1501.02809 Eq. 10–11, a subfamily) and the general form both
+reproduce our Kerr pieces exactly with trivial functions; Johannsen's stays separable for arbitrary
+symbolic functions; and **all 88 linearized Johannsen deformations come out Carter-compatible** in the
+tower — an independent, literature-sourced test the map could have failed (it includes static
+non-spherical deformations the slot space never had).
+
+Then, as metric perturbations (cleared Hamiltonians as coefficient vectors, ranks mod p), the 43
+Carter-compatible slot directions against separable + pure coordinate changes:
+
+    comparison family                                      compatible directions NOT inside
+    Johannsen subfamily + radial/angular gauge, 1/r^k              15
+      + horizon-factor profiles 1/(r^k (r-2)^j), j <= 2            13
+      + l=2 radial gauge (xi^r ~ chi^2 R(r) Y2)                    10
+    GENERAL separable class + full gauge, j <= 2                    0   <- and the 23 non-compatible
+                                                                           slot directions are all outside
+
+**Within this space, a deformation of Kerr keeps Carter's constant if and only if it is a separable
+deformation (Carter's general class) up to a coordinate change.** Both directions are measured, not
+assumed: the compatible directions all lie in separable + gauge (rank does not rise), and the slot space
+meets separable + gauge in exactly the 43 dimensions the tower called compatible. Johannsen's perfect-
+square subfamily is not enough — the last ten directions need the general class's free radial (t,φ) block.
+
+**What it means, plainly.** Carter's constant exists because the orbit problem splits into an
+independent radial problem and an independent angular problem. At this order that is not merely
+sufficient but necessary: keep the split and Carter survives; break it and Carter dies. **sGB dies
+because its static reshaping, frame dragging and shape do not fit together into a split form** — which
+is why §138 found three independent obstructions and no cancelling combination.
+
+**Scope.** Rank 2 only (Carter itself, not higher-rank tensors), first order in ε, through O(χ²), one
+prime, radial profiles to 1/r⁶ for the slots (1/r⁸ for the structural count) and the stated comparison
+families, within `{xᵃyᵇ/L⁶}`. "Only if" is established inside this finite space, not as a theorem. The
+link between Killing tensors and separability is classical (Carter 1968; Benenti–Francaviglia); whether
+the *converse at first order around Kerr* is already stated in the literature (Papadopoulos–Kokkotas and
+Carson–Yagi study metrics "preserving Kerr symmetries") has not been checked here yet — to do before
+calling any of this new.

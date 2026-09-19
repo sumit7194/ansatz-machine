@@ -1,0 +1,56 @@
+rank 2, box 24x20: 70 deformations (66 slot profiles x^-1..x^-6, 4 controls), 5 Kerr chains [8s]
+    [eps chi^0 timing] lcm+compare 11.4s | clear 24.8s = RESCALED 5250 operator columns as arrays, nnz 228,789 -> 1,880,087, by q (54 terms, 0.4s) + cleared 350 sources; new denominator factor (x - 2)**8*(y - 1)**5*(y + 1)**5
+    rust nullspace: 8 blocks (largest 1393 cols), nnz 1,911,643 -> peak 560,316, nullity 355, 2 thread(s), 0.3s
+  eps chi^0: 350 columns, every Kerr direction extends for a 70-dim space of the 70 [55s]
+    [eps chi^1 timing] lcm+compare 5.3s | clear 21.8s = RESCALED 5250 operator columns as arrays, nnz 228,789 -> 1,727,305, by q (44 terms, 0.3s) + cleared 350 sources; new denominator factor (x - 2)**10*(y - 1)**3*(y + 1)**3
+    rust nullspace: 8 blocks (largest 1350 cols), nnz 1,745,913 -> peak 475,737, nullity 349, 2 thread(s), 0.4s
+  eps chi^1: 350 columns, every Kerr direction extends for a 64-dim space of the 70 [93s]
+    [eps chi^2 timing] lcm+compare 53.2s | clear 86.7s = RESCALED 5250 operator columns as arrays, nnz 228,789 -> 5,652,059, by q (210 terms, 1.2s) + cleared 320 sources; new denominator factor (x - 2)**20*(y - 1)**9*(y + 1)**9
+    rust nullspace: 8 blocks (largest 1524 cols), nnz 6,022,371 -> peak 1,879,827, nullity 308, 2 thread(s), 1.5s
+  eps chi^2: 320 columns, every Kerr direction extends for a 47-dim space of the 64 [277s]
+
+  CARTER-COMPATIBLE DEFORMATIONS: dim 47 of 70
+    control spin     inside: True
+    control mass     inside: True
+    control gauge_r  inside: True
+    control gauge_y  inside: True
+
+  built from the slot profiles alone: dim 43 of 66
+    tt     alone: 0 of 6 profiles keep Carter
+    rr     alone: 0 of 6 profiles keep Carter
+    ang    alone: 0 of 6 profiles keep Carter
+    drag1  alone: 0 of 6 profiles keep Carter
+    drag3  alone: 0 of 6 profiles keep Carter
+    l0tt   alone: 6 of 6 profiles keep Carter
+    l0rr   alone: 6 of 6 profiles keep Carter
+    l0ang  alone: 6 of 6 profiles keep Carter
+    l2tt   alone: 1 of 6 profiles keep Carter
+    l2rr   alone: 0 of 6 profiles keep Carter
+    l2ang  alone: 1 of 6 profiles keep Carter
+
+  CONDITIONS: a slot deformation keeps Carter iff these 23 relations hold (coefficient of x^-k in each slot):
+    1*tt_1 + 12*l2tt_2 + 3*l2tt_3 + -6*l2ang_1 + 6*l2ang_2 + -9/2*l2ang_3 + 3/4*l2ang_4 = 0
+    1*tt_2 + -1/4*ang_3 + -3/16*ang_4 + -7/64*ang_5 + -15/256*ang_6 + 4*drag1_1 + 2*drag1_2 + 1/2*drag1_3 + 1/8*drag1_4 + 1/32*drag1_5 + 1/128*drag1_6 + -36*l2tt_2 + -12*l2tt_3 + -3*l2tt_4 + -3/2*l2tt_5 + -3/8*l2tt_6 + -3/2*l2ang_4 + -3/8*l2ang_5 + -51/160*l2ang_6 = 0
+    1*tt_3 + 1/2*ang_3 + 1/8*ang_4 + 1/32*ang_5 + 1/128*ang_6 + 1*drag1_3 + 1/4*drag1_4 + 1/16*drag1_5 + 1/64*drag1_6 + -3/4*l2tt_6 + -3/4*l2ang_5 + 9/80*l2ang_6 = 0
+    1*tt_4 + 1/2*ang_4 + 1/8*ang_5 + 1/32*ang_6 + 1*drag1_4 + 1/4*drag1_5 + 1/16*drag1_6 + -3/4*l2ang_6 = 0
+    1*tt_5 + 1/2*ang_5 + 1/8*ang_6 + 1*drag1_5 + 1/4*drag1_6 = 0
+    1*tt_6 + 1/2*ang_6 + 1*drag1_6 = 0
+    1*rr_1 + -1/8*ang_3 + -3/32*ang_4 + -7/128*ang_5 + -15/512*ang_6 + 4*drag1_1 + 1*drag1_2 + 1/4*drag1_3 + 1/16*drag1_4 + 1/64*drag1_5 + 1/256*drag1_6 + -36*l2tt_2 + -12*l2tt_3 + -3*l2tt_4 + -3/4*l2tt_5 + -3/16*l2tt_6 + -3*l2rr_3 + 3*l2ang_4 + -3/16*l2ang_5 + -51/320*l2ang_6 = 0
+    1*rr_2 + 1/2*ang_3 + 1/4*ang_4 + 1/8*ang_5 + 1/16*ang_6 + -3*l2rr_4 + 21/4*l2ang_5 + 9/10*l2ang_6 = 0
+    1*rr_3 + 1/2*ang_4 + 1/4*ang_5 + 1/8*ang_6 + -3*l2rr_5 + 27/4*l2ang_6 = 0
+    1*rr_4 + 1/2*ang_5 + 1/4*ang_6 + -3*l2rr_6 = 0
+    1*rr_5 + 1/2*ang_6 = 0
+    1*rr_6 = 0
+    1*ang_1 + -1/8*ang_3 + -3/32*ang_4 + -7/128*ang_5 + -15/512*ang_6 + 4*drag1_1 + 1*drag1_2 + 1/4*drag1_3 + 1/16*drag1_4 + 1/64*drag1_5 + 1/256*drag1_6 + -36*l2tt_2 + -12*l2tt_3 + -3*l2tt_4 + -3/4*l2tt_5 + -3/16*l2tt_6 + 6*l2ang_1 + -6*l2ang_2 + 9/2*l2ang_3 + -3/4*l2ang_4 + -3/16*l2ang_5 + -51/320*l2ang_6 = 0
+    1*ang_2 + 3/4*ang_3 + 7/16*ang_4 + 15/64*ang_5 + 31/256*ang_6 + -8*drag1_1 + -2*drag1_2 + -1/2*drag1_3 + -1/8*drag1_4 + -1/32*drag1_5 + -1/128*drag1_6 + 72*l2tt_2 + 24*l2tt_3 + 6*l2tt_4 + 3/2*l2tt_5 + 3/8*l2tt_6 + 3/2*l2ang_4 + 9/8*l2ang_5 + 123/160*l2ang_6 = 0
+    1*drag3_1 = 0
+    1*drag3_2 = 0
+    1*drag3_3 = 0
+    1*drag3_4 = 0
+    1*drag3_5 = 0
+    1*drag3_6 = 0
+    1*l2tt_1 = 0
+    1*l2rr_1 = 0
+    1*l2rr_2 + 1*l2ang_1 + -1*l2ang_2 = 0
+
+  total 277s

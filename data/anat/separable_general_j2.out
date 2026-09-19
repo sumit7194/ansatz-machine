@@ -1,0 +1,12 @@
+(1) transcription of Johannsen Eq. (10)-(11)
+  (1a) trivial functions reproduce our Kerr pieces through chi^2: True
+  (1b) St*H splits into r-part + theta-part for ARBITRARY functions: True
+
+(3) are the Carter-compatible slot deformations exactly separable + gauge? (separable/gauge profiles x^-k (x-2)^-j, j <= 2)
+  compatible slot space loaded from data/anat/compat_slots_r2_k6.npy (dim 43)
+  separable + gauge span: rank 266
+  slot deformations: rank 66; of which inside separable + gauge: 43
+  Carter-compatible slot deformations: 43; adding them to separable + gauge raises the rank by 0
+  => every Carter-compatible slot deformation IS separable + gauge (non-vacuous: 23 slot directions are not)
+
+  total 44s

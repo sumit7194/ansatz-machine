@@ -1,0 +1,62 @@
+rank 2, box 24x20: 92 deformations (88 slot profiles x^-1..x^-8, 4 controls), 5 Kerr chains [9s]
+    [eps chi^0 timing] lcm+compare 11.9s | clear 30.4s = RESCALED 5250 operator columns as arrays, nnz 228,789 -> 1,880,087, by q (54 terms, 0.3s) + cleared 460 sources; new denominator factor (x - 2)**8*(y - 1)**5*(y + 1)**5
+    rust nullspace: 8 blocks (largest 1405 cols), nnz 1,919,263 -> peak 557,129, nullity 465, 2 thread(s), 0.3s
+  eps chi^0: 460 columns, every Kerr direction extends for a 92-dim space of the 92 [64s]
+    [eps chi^1 timing] lcm+compare 6.6s | clear 30.5s = RESCALED 5250 operator columns as arrays, nnz 228,789 -> 1,727,305, by q (44 terms, 0.3s) + cleared 460 sources; new denominator factor (x - 2)**10*(y - 1)**3*(y + 1)**3
+    rust nullspace: 8 blocks (largest 1350 cols), nnz 1,751,457 -> peak 475,737, nullity 457, 2 thread(s), 0.3s
+  eps chi^1: 460 columns, every Kerr direction extends for a 84-dim space of the 92 [114s]
+    [eps chi^2 timing] lcm+compare 64.0s | clear 111.8s = RESCALED 5250 operator columns as arrays, nnz 228,789 -> 5,652,059, by q (210 terms, 1.4s) + cleared 420 sources; new denominator factor (x - 2)**20*(y - 1)**9*(y + 1)**9
+    rust nullspace: 8 blocks (largest 1578 cols), nnz 6,127,279 -> peak 1,911,321, nullity 404, 2 thread(s), 1.5s
+  eps chi^2: 420 columns, every Kerr direction extends for a 63-dim space of the 84 [344s]
+
+  CARTER-COMPATIBLE DEFORMATIONS: dim 63 of 92
+    control spin     inside: True
+    control mass     inside: True
+    control gauge_r  inside: True
+    control gauge_y  inside: True
+
+  built from the slot profiles alone: dim 59 of 88
+    tt     alone: 0 of 8 profiles keep Carter
+    rr     alone: 0 of 8 profiles keep Carter
+    ang    alone: 0 of 8 profiles keep Carter
+    drag1  alone: 0 of 8 profiles keep Carter
+    drag3  alone: 0 of 8 profiles keep Carter
+    l0tt   alone: 8 of 8 profiles keep Carter
+    l0rr   alone: 8 of 8 profiles keep Carter
+    l0ang  alone: 8 of 8 profiles keep Carter
+    l2tt   alone: 1 of 8 profiles keep Carter
+    l2rr   alone: 0 of 8 profiles keep Carter
+    l2ang  alone: 1 of 8 profiles keep Carter
+
+  CONDITIONS: a slot deformation keeps Carter iff these 29 relations hold (coefficient of x^-k in each slot):
+    1*tt_1 + 12*l2tt_2 + 3*l2tt_3 + -6*l2ang_1 + 6*l2ang_2 + -9/2*l2ang_3 + 3/4*l2ang_4 = 0
+    1*tt_2 + -1/4*ang_3 + -3/16*ang_4 + -7/64*ang_5 + -15/256*ang_6 + -31/1024*ang_7 + -63/4096*ang_8 + 4*drag1_1 + 2*drag1_2 + 1/2*drag1_3 + 1/8*drag1_4 + 1/32*drag1_5 + 1/128*drag1_6 + 1/512*drag1_7 + 1/2048*drag1_8 + -36*l2tt_2 + -12*l2tt_3 + -3*l2tt_4 + -3/2*l2tt_5 + -3/8*l2tt_6 + -3/32*l2tt_7 + -3/128*l2tt_8 + -3/2*l2ang_4 + -3/8*l2ang_5 + -51/160*l2ang_6 + -139/640*l2ang_7 + -2409/17920*l2ang_8 = 0
+    1*tt_3 + 1/2*ang_3 + 1/8*ang_4 + 1/32*ang_5 + 1/128*ang_6 + 1/512*ang_7 + 1/2048*ang_8 + 1*drag1_3 + 1/4*drag1_4 + 1/16*drag1_5 + 1/64*drag1_6 + 1/256*drag1_7 + 1/1024*drag1_8 + -3/4*l2tt_6 + -3/16*l2tt_7 + -3/64*l2tt_8 + -3/4*l2ang_5 + 9/80*l2ang_6 + 21/320*l2ang_7 + 33/1280*l2ang_8 = 0
+    1*tt_4 + 1/2*ang_4 + 1/8*ang_5 + 1/32*ang_6 + 1/128*ang_7 + 1/512*ang_8 + 1*drag1_4 + 1/4*drag1_5 + 1/16*drag1_6 + 1/64*drag1_7 + 1/256*drag1_8 + -3/4*l2tt_7 + -3/16*l2tt_8 + -3/4*l2ang_6 + 1/16*l2ang_7 + 27/448*l2ang_8 = 0
+    1*tt_5 + 1/2*ang_5 + 1/8*ang_6 + 1/32*ang_7 + 1/128*ang_8 + 1*drag1_5 + 1/4*drag1_6 + 1/16*drag1_7 + 1/64*drag1_8 + -3/4*l2tt_8 + -3/4*l2ang_7 + 3/112*l2ang_8 = 0
+    1*tt_6 + 1/2*ang_6 + 1/8*ang_7 + 1/32*ang_8 + 1*drag1_6 + 1/4*drag1_7 + 1/16*drag1_8 + -3/4*l2ang_8 = 0
+    1*tt_7 + 1/2*ang_7 + 1/8*ang_8 + 1*drag1_7 + 1/4*drag1_8 = 0
+    1*tt_8 + 1/2*ang_8 + 1*drag1_8 = 0
+    1*rr_1 + -1/8*ang_3 + -3/32*ang_4 + -7/128*ang_5 + -15/512*ang_6 + -31/2048*ang_7 + -63/8192*ang_8 + 4*drag1_1 + 1*drag1_2 + 1/4*drag1_3 + 1/16*drag1_4 + 1/64*drag1_5 + 1/256*drag1_6 + 1/1024*drag1_7 + 1/4096*drag1_8 + -36*l2tt_2 + -12*l2tt_3 + -3*l2tt_4 + -3/4*l2tt_5 + -3/16*l2tt_6 + -3/64*l2tt_7 + -3/256*l2tt_8 + -3*l2rr_3 + 3*l2ang_4 + -3/16*l2ang_5 + -51/320*l2ang_6 + -139/1280*l2ang_7 + 1634999617*l2ang_8 = 0
+    1*rr_2 + 1/2*ang_3 + 1/4*ang_4 + 1/8*ang_5 + 1/16*ang_6 + 1/32*ang_7 + 1/64*ang_8 + -3*l2rr_4 + 21/4*l2ang_5 + 9/10*l2ang_6 + 27/80*l2ang_7 + 93/560*l2ang_8 = 0
+    1*rr_3 + 1/2*ang_4 + 1/4*ang_5 + 1/8*ang_6 + 1/16*ang_7 + 1/32*ang_8 + -3*l2rr_5 + 27/4*l2ang_6 + 3/2*l2ang_7 + 57/112*l2ang_8 = 0
+    1*rr_4 + 1/2*ang_5 + 1/4*ang_6 + 1/8*ang_7 + 1/16*ang_8 + -3*l2rr_6 + 33/4*l2ang_7 + 15/7*l2ang_8 = 0
+    1*rr_5 + 1/2*ang_6 + 1/4*ang_7 + 1/8*ang_8 + -3*l2rr_7 + 39/4*l2ang_8 = 0
+    1*rr_6 + 1/2*ang_7 + 1/4*ang_8 + -3*l2rr_8 = 0
+    1*rr_7 + 1/2*ang_8 = 0
+    1*rr_8 = 0
+    1*ang_1 + -1/8*ang_3 + -3/32*ang_4 + -7/128*ang_5 + -15/512*ang_6 + -31/2048*ang_7 + -63/8192*ang_8 + 4*drag1_1 + 1*drag1_2 + 1/4*drag1_3 + 1/16*drag1_4 + 1/64*drag1_5 + 1/256*drag1_6 + 1/1024*drag1_7 + 1/4096*drag1_8 + -36*l2tt_2 + -12*l2tt_3 + -3*l2tt_4 + -3/4*l2tt_5 + -3/16*l2tt_6 + -3/64*l2tt_7 + -3/256*l2tt_8 + 6*l2ang_1 + -6*l2ang_2 + 9/2*l2ang_3 + -3/4*l2ang_4 + -3/16*l2ang_5 + -51/320*l2ang_6 + -139/1280*l2ang_7 + 1634999617*l2ang_8 = 0
+    1*ang_2 + 3/4*ang_3 + 7/16*ang_4 + 15/64*ang_5 + 31/256*ang_6 + 63/1024*ang_7 + 127/4096*ang_8 + -8*drag1_1 + -2*drag1_2 + -1/2*drag1_3 + -1/8*drag1_4 + -1/32*drag1_5 + -1/128*drag1_6 + -1/512*drag1_7 + -1/2048*drag1_8 + 72*l2tt_2 + 24*l2tt_3 + 6*l2tt_4 + 3/2*l2tt_5 + 3/8*l2tt_6 + 3/32*l2tt_7 + 3/128*l2tt_8 + 3/2*l2ang_4 + 9/8*l2ang_5 + 123/160*l2ang_6 + 307/640*l2ang_7 + 5097/17920*l2ang_8 = 0
+    1*drag3_1 = 0
+    1*drag3_2 = 0
+    1*drag3_3 = 0
+    1*drag3_4 = 0
+    1*drag3_5 = 0
+    1*drag3_6 = 0
+    1*drag3_7 = 0
+    1*drag3_8 = 0
+    1*l2tt_1 = 0
+    1*l2rr_1 = 0
+    1*l2rr_2 + 1*l2ang_1 + -1*l2ang_2 = 0
+
+  total 344s

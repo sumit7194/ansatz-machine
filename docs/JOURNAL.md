@@ -6,6 +6,19 @@ built, what broke, what the machine taught us. Numbers live in
 
 ---
 
+## 2026-09-19 (later) — the Carter-compatible space, and separability (§139)
+
+- **Mapped** every stationary axisymmetric slow-rotation deformation of Kerr (11 slots × radial profiles)
+  through the tower: ℓ=3 dragging dies at O(χ), the spherical χ² sector is free, static/dragging/shape
+  must move together. Structure identical at 1/r⁶ and 1/r⁸ cutoffs.
+- **Keeps Carter ⟺ separable + gauge**, within the space: Johannsen's family (transcription checked,
+  all 88 of its deformations pass the tower) left 15 → 13 → 10 unexplained as the comparison widened;
+  the *general* separable class (free radial (t,φ) block) closed it to 0, non-vacuously (23 slot
+  directions outside, exactly the non-compatible ones).
+- Setbacks, logged and not retreated from: the 15 looked like new non-separable directions; each
+  widening was a specific hypothesis (horizon factors, ℓ=2 gauge, general class) and the last one was
+  the real answer. Rank 5 on both primes done meanwhile (floor; not a new rung). Rank 6 two-prime.
+
 ## 2026-09-19 (late night) — why Carter dies (§138)
 
 - User's steer, kept: the goal is science and understanding — after a hard result, find WHY.
