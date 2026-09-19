@@ -6,6 +6,24 @@ built, what broke, what the machine taught us. Numbers live in
 
 ---
 
+## 2026-09-19 — rank 6 stopped in its last level; replacing the solver
+
+- **Stopped PID 21373** at 10d 20h (user's decision; argv + cwd verified before SIGTERM). ζχ⁰ and ζχ¹
+  both 30/30 and checkpointed; ζχ² stopped after 6.3 days / ~68 CPU-h in its solve. All three
+  checkpoints re-read after the stop -- resume starts at ζχ². §135.
+- **Why:** 24 GB footprint on 16 GB RAM; thrashing since Sep 16 (state UN, ~7,400 swap-ins/s, CPU
+  13-22% and falling). An idle Mac made no difference, so it was the run's own memory. ~2 weeks to go
+  at that rate, and even then one prime. The user named it: sunk cost.
+- **Diagnosis (D48):** dict-of-dicts storage at ~200 B/nonzero; interpreted inner loop; full-RREF
+  elimination adding fill for nothing; and an unused exact symmetry -- all six Hamiltonian pieces are
+  invariant under equatorial reflection and time reversal, splitting rank 6 into 4 blocks of 18-20k.
+- **Built `scripts/_kt_fast.py`** (numba): block decomposition found automatically, flat int32 rows,
+  forward Markowitz + back-substitution. Validation in progress; must reproduce old vectors exactly.
+- **Next: a Rust port** at the user's request (they want to learn Rust), validated against the numba
+  version, with pause/resume, in-level checkpoints and a controllable core count.
+
+---
+
 ## 2026-09-13 — Zipoy–Voorhees was closed at all ranks in 2013; rank 6 into its last level
 
 - **PRIOR ART FOUND ON OUR OWN METRIC.** Maciejewski, Przybylska & Stachowiak, PRD 88, 064003 (2013),

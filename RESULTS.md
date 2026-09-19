@@ -2883,3 +2883,26 @@ Maciejewski–Przybylska–Stachowiak (all ranks, meromorphic). §124/§126 keep
 **validated control for the instrument**, not as a result. D39's pivot to sGB stands and is
 reinforced. And the method behind this paper is the one known tool that turns rank-bounded nulls into
 an all-rank statement — see D47.
+
+## §135 — sGB rank 6: stopped in the last level, everything before it checkpointed
+
+    rank 6, denpow 8, box 30x28, margin 6          PID 21373, Sep 8 21:19 -> Sep 19 17:37
+    operator matrix                                149072 x 75516
+    chi-tower                                      30 -> 30 -> 30   (control passed, non-vacuous)
+    reducible floor                                16 combinatorial, 16 REPRESENTABLE at denpow 8
+
+    zeta chi^0 level    30 of 30 survive    checkpointed
+    zeta chi^1 level    30 of 30 survive    checkpointed
+    zeta chi^2 level    NOT REACHED -- stopped after 6.3 days / ~68 CPU-hours in its solve
+
+**No verdict yet.** Everything up to ζχ² is correct and on disk
+(`kt_double_chains_r6_d8_b30x28.pkl`, `kt_double_z_r6_d8_n0.pkl`, `kt_double_z_r6_d8_n1.pkl`, all
+re-read after the stop), so the next run resumes at ζχ² rather than from zero.
+
+**Why it was stopped.** The ζχ² sparse elimination outgrew the machine: a 24 GB footprint (21 GB of
+it compressed) on 16 GB of RAM. From Sep 16 it was thrashing — state `UN` in every sample,
+~7,400 swap-ins/s, and 13–22% CPU, falling. Leaving the Mac idle made no difference (15% either
+way), so the bottleneck was the run's own memory, not competition. At that rate the estimate was
+roughly two more weeks with a wide error bar, and even a finished run is one prime; the reporting
+standard wants two. **The cause is the solver's storage, not the mathematics** — dict-of-dicts at
+~200 B/nonzero — which is what the replacement solver addresses (D48).

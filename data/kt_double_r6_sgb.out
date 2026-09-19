@@ -1,0 +1,588 @@
+Schwarzschild background: L = x**2*(x - 2)*(y - 1)*(y + 1)
+  generators ['p_t', 'p_phi', 'H', 'Lsq']; 30 reducible products at rank 6
+  box x<=30 y<=28; den = L^8
+  75516 coefficient unknowns per level
+    op 200/75516 brackets (2s)
+    op 400/75516 brackets (3s)
+    op 600/75516 brackets (5s)
+    op 800/75516 brackets (7s)
+    op 1000/75516 brackets (9s)
+    op 1200/75516 brackets (11s)
+    op 1400/75516 brackets (13s)
+    op 1600/75516 brackets (15s)
+    op 1800/75516 brackets (17s)
+    op 2000/75516 brackets (19s)
+    op 2200/75516 brackets (21s)
+    op 2400/75516 brackets (24s)
+    op 2600/75516 brackets (26s)
+    op 2800/75516 brackets (28s)
+    op 3000/75516 brackets (30s)
+    op 3200/75516 brackets (32s)
+    op 3400/75516 brackets (34s)
+    op 3600/75516 brackets (36s)
+    op 3800/75516 brackets (38s)
+    op 4000/75516 brackets (40s)
+    op 4200/75516 brackets (42s)
+    op 4400/75516 brackets (45s)
+    op 4600/75516 brackets (47s)
+    op 4800/75516 brackets (49s)
+    op 5000/75516 brackets (51s)
+    op 5200/75516 brackets (54s)
+    op 5400/75516 brackets (56s)
+    op 5600/75516 brackets (58s)
+    op 5800/75516 brackets (60s)
+    op 6000/75516 brackets (62s)
+    op 6200/75516 brackets (65s)
+    op 6400/75516 brackets (67s)
+    op 6600/75516 brackets (69s)
+    op 6800/75516 brackets (72s)
+    op 7000/75516 brackets (73s)
+    op 7200/75516 brackets (75s)
+    op 7400/75516 brackets (77s)
+    op 7600/75516 brackets (79s)
+    op 7800/75516 brackets (81s)
+    op 8000/75516 brackets (83s)
+    op 8200/75516 brackets (86s)
+    op 8400/75516 brackets (88s)
+    op 8600/75516 brackets (90s)
+    op 8800/75516 brackets (92s)
+    op 9000/75516 brackets (94s)
+    op 9200/75516 brackets (96s)
+    op 9400/75516 brackets (99s)
+    op 9600/75516 brackets (101s)
+    op 9800/75516 brackets (103s)
+    op 10000/75516 brackets (106s)
+    op 10200/75516 brackets (108s)
+    op 10400/75516 brackets (111s)
+    op 10600/75516 brackets (113s)
+    op 10800/75516 brackets (115s)
+    op 11000/75516 brackets (117s)
+    op 11200/75516 brackets (119s)
+    op 11400/75516 brackets (121s)
+    op 11600/75516 brackets (124s)
+    op 11800/75516 brackets (126s)
+    op 12000/75516 brackets (128s)
+    op 12200/75516 brackets (131s)
+    op 12400/75516 brackets (133s)
+    op 12600/75516 brackets (135s)
+    op 12800/75516 brackets (138s)
+    op 13000/75516 brackets (140s)
+    op 13200/75516 brackets (142s)
+    op 13400/75516 brackets (145s)
+    op 13600/75516 brackets (147s)
+    op 13800/75516 brackets (149s)
+    op 14000/75516 brackets (151s)
+    op 14200/75516 brackets (153s)
+    op 14400/75516 brackets (155s)
+    op 14600/75516 brackets (157s)
+    op 14800/75516 brackets (159s)
+    op 15000/75516 brackets (161s)
+    op 15200/75516 brackets (163s)
+    op 15400/75516 brackets (165s)
+    op 15600/75516 brackets (167s)
+    op 15800/75516 brackets (169s)
+    op 16000/75516 brackets (171s)
+    op 16200/75516 brackets (173s)
+    op 16400/75516 brackets (175s)
+    op 16600/75516 brackets (177s)
+    op 16800/75516 brackets (179s)
+    op 17000/75516 brackets (181s)
+    op 17200/75516 brackets (183s)
+    op 17400/75516 brackets (184s)
+    op 17600/75516 brackets (186s)
+    op 17800/75516 brackets (188s)
+    op 18000/75516 brackets (189s)
+    op 18200/75516 brackets (192s)
+    op 18400/75516 brackets (194s)
+    op 18600/75516 brackets (196s)
+    op 18800/75516 brackets (198s)
+    op 19000/75516 brackets (200s)
+    op 19200/75516 brackets (203s)
+    op 19400/75516 brackets (205s)
+    op 19600/75516 brackets (207s)
+    op 19800/75516 brackets (209s)
+    op 20000/75516 brackets (212s)
+    op 20200/75516 brackets (214s)
+    op 20400/75516 brackets (216s)
+    op 20600/75516 brackets (218s)
+    op 20800/75516 brackets (220s)
+    op 21000/75516 brackets (223s)
+    op 21200/75516 brackets (226s)
+    op 21400/75516 brackets (229s)
+    op 21600/75516 brackets (231s)
+    op 21800/75516 brackets (233s)
+    op 22000/75516 brackets (236s)
+    op 22200/75516 brackets (238s)
+    op 22400/75516 brackets (240s)
+    op 22600/75516 brackets (242s)
+    op 22800/75516 brackets (245s)
+    op 23000/75516 brackets (247s)
+    op 23200/75516 brackets (249s)
+    op 23400/75516 brackets (251s)
+    op 23600/75516 brackets (254s)
+    op 23800/75516 brackets (256s)
+    op 24000/75516 brackets (259s)
+    op 24200/75516 brackets (261s)
+    op 24400/75516 brackets (264s)
+    op 24600/75516 brackets (266s)
+    op 24800/75516 brackets (269s)
+    op 25000/75516 brackets (271s)
+    op 25200/75516 brackets (274s)
+    op 25400/75516 brackets (277s)
+    op 25600/75516 brackets (279s)
+    op 25800/75516 brackets (282s)
+    op 26000/75516 brackets (284s)
+    op 26200/75516 brackets (287s)
+    op 26400/75516 brackets (289s)
+    op 26600/75516 brackets (291s)
+    op 26800/75516 brackets (293s)
+    op 27000/75516 brackets (295s)
+    op 27200/75516 brackets (297s)
+    op 27400/75516 brackets (299s)
+    op 27600/75516 brackets (301s)
+    op 27800/75516 brackets (303s)
+    op 28000/75516 brackets (305s)
+    op 28200/75516 brackets (307s)
+    op 28400/75516 brackets (309s)
+    op 28600/75516 brackets (311s)
+    op 28800/75516 brackets (313s)
+    op 29000/75516 brackets (315s)
+    op 29200/75516 brackets (318s)
+    op 29400/75516 brackets (320s)
+    op 29600/75516 brackets (322s)
+    op 29800/75516 brackets (324s)
+    op 30000/75516 brackets (326s)
+    op 30200/75516 brackets (328s)
+    op 30400/75516 brackets (330s)
+    op 30600/75516 brackets (332s)
+    op 30800/75516 brackets (334s)
+    op 31000/75516 brackets (336s)
+    op 31200/75516 brackets (337s)
+    op 31400/75516 brackets (339s)
+    op 31600/75516 brackets (341s)
+    op 31800/75516 brackets (343s)
+    op 32000/75516 brackets (345s)
+    op 32200/75516 brackets (347s)
+    op 32400/75516 brackets (350s)
+    op 32600/75516 brackets (352s)
+    op 32800/75516 brackets (354s)
+    op 33000/75516 brackets (356s)
+    op 33200/75516 brackets (359s)
+    op 33400/75516 brackets (362s)
+    op 33600/75516 brackets (364s)
+    op 33800/75516 brackets (367s)
+    op 34000/75516 brackets (369s)
+    op 34200/75516 brackets (371s)
+    op 34400/75516 brackets (374s)
+    op 34600/75516 brackets (376s)
+    op 34800/75516 brackets (378s)
+    op 35000/75516 brackets (381s)
+    op 35200/75516 brackets (383s)
+    op 35400/75516 brackets (385s)
+    op 35600/75516 brackets (388s)
+    op 35800/75516 brackets (390s)
+    op 36000/75516 brackets (393s)
+    op 36200/75516 brackets (395s)
+    op 36400/75516 brackets (397s)
+    op 36600/75516 brackets (399s)
+    op 36800/75516 brackets (401s)
+    op 37000/75516 brackets (403s)
+    op 37200/75516 brackets (406s)
+    op 37400/75516 brackets (408s)
+    op 37600/75516 brackets (410s)
+    op 37800/75516 brackets (413s)
+    op 38000/75516 brackets (415s)
+    op 38200/75516 brackets (418s)
+    op 38400/75516 brackets (420s)
+    op 38600/75516 brackets (422s)
+    op 38800/75516 brackets (425s)
+    op 39000/75516 brackets (427s)
+    op 39200/75516 brackets (429s)
+    op 39400/75516 brackets (432s)
+    op 39600/75516 brackets (434s)
+    op 39800/75516 brackets (436s)
+    op 40000/75516 brackets (438s)
+    op 40200/75516 brackets (441s)
+    op 40400/75516 brackets (443s)
+    op 40600/75516 brackets (445s)
+    op 40800/75516 brackets (447s)
+    op 41000/75516 brackets (450s)
+    op 41200/75516 brackets (452s)
+    op 41400/75516 brackets (454s)
+    op 41600/75516 brackets (457s)
+    op 41800/75516 brackets (459s)
+    op 42000/75516 brackets (461s)
+    op 42200/75516 brackets (464s)
+    op 42400/75516 brackets (466s)
+    op 42600/75516 brackets (468s)
+    op 42800/75516 brackets (471s)
+    op 43000/75516 brackets (473s)
+    op 43200/75516 brackets (475s)
+    op 43400/75516 brackets (478s)
+    op 43600/75516 brackets (480s)
+    op 43800/75516 brackets (482s)
+    op 44000/75516 brackets (485s)
+    op 44200/75516 brackets (487s)
+    op 44400/75516 brackets (489s)
+    op 44600/75516 brackets (491s)
+    op 44800/75516 brackets (494s)
+    op 45000/75516 brackets (496s)
+    op 45200/75516 brackets (498s)
+    op 45400/75516 brackets (500s)
+    op 45600/75516 brackets (502s)
+    op 45800/75516 brackets (504s)
+    op 46000/75516 brackets (506s)
+    op 46200/75516 brackets (508s)
+    op 46400/75516 brackets (510s)
+    op 46600/75516 brackets (512s)
+    op 46800/75516 brackets (514s)
+    op 47000/75516 brackets (516s)
+    op 47200/75516 brackets (518s)
+    op 47400/75516 brackets (520s)
+    op 47600/75516 brackets (522s)
+    op 47800/75516 brackets (524s)
+    op 48000/75516 brackets (526s)
+    op 48200/75516 brackets (528s)
+    op 48400/75516 brackets (529s)
+    op 48600/75516 brackets (531s)
+    op 48800/75516 brackets (533s)
+    op 49000/75516 brackets (535s)
+    op 49200/75516 brackets (537s)
+    op 49400/75516 brackets (539s)
+    op 49600/75516 brackets (541s)
+    op 49800/75516 brackets (543s)
+    op 50000/75516 brackets (545s)
+    op 50200/75516 brackets (547s)
+    op 50400/75516 brackets (549s)
+    op 50600/75516 brackets (551s)
+    op 50800/75516 brackets (553s)
+    op 51000/75516 brackets (555s)
+    op 51200/75516 brackets (558s)
+    op 51400/75516 brackets (560s)
+    op 51600/75516 brackets (562s)
+    op 51800/75516 brackets (565s)
+    op 52000/75516 brackets (567s)
+    op 52200/75516 brackets (569s)
+    op 52400/75516 brackets (572s)
+    op 52600/75516 brackets (574s)
+    op 52800/75516 brackets (576s)
+    op 53000/75516 brackets (579s)
+    op 53200/75516 brackets (581s)
+    op 53400/75516 brackets (584s)
+    op 53600/75516 brackets (586s)
+    op 53800/75516 brackets (588s)
+    op 54000/75516 brackets (591s)
+    op 54200/75516 brackets (593s)
+    op 54400/75516 brackets (595s)
+    op 54600/75516 brackets (598s)
+    op 54800/75516 brackets (600s)
+    op 55000/75516 brackets (602s)
+    op 55200/75516 brackets (604s)
+    op 55400/75516 brackets (606s)
+    op 55600/75516 brackets (609s)
+    op 55800/75516 brackets (611s)
+    op 56000/75516 brackets (613s)
+    op 56200/75516 brackets (615s)
+    op 56400/75516 brackets (618s)
+    op 56600/75516 brackets (620s)
+    op 56800/75516 brackets (622s)
+    op 57000/75516 brackets (625s)
+    op 57200/75516 brackets (627s)
+    op 57400/75516 brackets (629s)
+    op 57600/75516 brackets (632s)
+    op 57800/75516 brackets (634s)
+    op 58000/75516 brackets (636s)
+    op 58200/75516 brackets (639s)
+    op 58400/75516 brackets (641s)
+    op 58600/75516 brackets (643s)
+    op 58800/75516 brackets (645s)
+    op 59000/75516 brackets (647s)
+    op 59200/75516 brackets (650s)
+    op 59400/75516 brackets (652s)
+    op 59600/75516 brackets (654s)
+    op 59800/75516 brackets (656s)
+    op 60000/75516 brackets (659s)
+    op 60200/75516 brackets (661s)
+    op 60400/75516 brackets (663s)
+    op 60600/75516 brackets (666s)
+    op 60800/75516 brackets (668s)
+    op 61000/75516 brackets (670s)
+    op 61200/75516 brackets (673s)
+    op 61400/75516 brackets (675s)
+    op 61600/75516 brackets (677s)
+    op 61800/75516 brackets (680s)
+    op 62000/75516 brackets (682s)
+    op 62200/75516 brackets (684s)
+    op 62400/75516 brackets (686s)
+    op 62600/75516 brackets (689s)
+    op 62800/75516 brackets (691s)
+    op 63000/75516 brackets (694s)
+    op 63200/75516 brackets (696s)
+    op 63400/75516 brackets (698s)
+    op 63600/75516 brackets (700s)
+    op 63800/75516 brackets (702s)
+    op 64000/75516 brackets (704s)
+    op 64200/75516 brackets (707s)
+    op 64400/75516 brackets (709s)
+    op 64600/75516 brackets (711s)
+    op 64800/75516 brackets (713s)
+    op 65000/75516 brackets (716s)
+    op 65200/75516 brackets (718s)
+    op 65400/75516 brackets (720s)
+    op 65600/75516 brackets (723s)
+    op 65800/75516 brackets (725s)
+    op 66000/75516 brackets (727s)
+    op 66200/75516 brackets (730s)
+    op 66400/75516 brackets (732s)
+    op 66600/75516 brackets (734s)
+    op 66800/75516 brackets (737s)
+    op 67000/75516 brackets (739s)
+    op 67200/75516 brackets (741s)
+    op 67400/75516 brackets (744s)
+    op 67600/75516 brackets (746s)
+    op 67800/75516 brackets (748s)
+    op 68000/75516 brackets (750s)
+    op 68200/75516 brackets (753s)
+    op 68400/75516 brackets (755s)
+    op 68600/75516 brackets (757s)
+    op 68800/75516 brackets (759s)
+    op 69000/75516 brackets (761s)
+    op 69200/75516 brackets (764s)
+    op 69400/75516 brackets (766s)
+    op 69600/75516 brackets (767s)
+    op 69800/75516 brackets (769s)
+    op 70000/75516 brackets (771s)
+    op 70200/75516 brackets (773s)
+    op 70400/75516 brackets (775s)
+    op 70600/75516 brackets (777s)
+    op 70800/75516 brackets (779s)
+    op 71000/75516 brackets (781s)
+    op 71200/75516 brackets (783s)
+    op 71400/75516 brackets (785s)
+    op 71600/75516 brackets (787s)
+    op 71800/75516 brackets (788s)
+    op 72000/75516 brackets (790s)
+    op 72200/75516 brackets (793s)
+    op 72400/75516 brackets (794s)
+    op 72600/75516 brackets (796s)
+    op 72800/75516 brackets (798s)
+    op 73000/75516 brackets (800s)
+    op 73200/75516 brackets (802s)
+    op 73400/75516 brackets (804s)
+    op 73600/75516 brackets (806s)
+    op 73800/75516 brackets (808s)
+    op 74000/75516 brackets (810s)
+    op 74200/75516 brackets (812s)
+    op 74400/75516 brackets (814s)
+    op 74600/75516 brackets (816s)
+    op 74800/75516 brackets (817s)
+    op 75000/75516 brackets (819s)
+    op 75200/75516 brackets (821s)
+    op 75400/75516 brackets (822s)
+  operator matrix (149072, 75516) [5567s]
+    op sparse nullspace: density 0.0356%, fill 5.7x, peak 22,761,952 nz, nullity 30 (dense would be 41.9 GB)
+  chi^0 level: Schwarzschild Killing space = 30
+    [chi^1] computing bracket 1/30 [6207s]
+    [chi^1] computing bracket 2/30 [6207s]
+    [chi^1] computing bracket 3/30 [6207s]
+    [chi^1] computing bracket 4/30 [6208s]
+    [chi^1] computing bracket 5/30 [6208s]
+    [chi^1] computing bracket 6/30 [6208s]
+    [chi^1] computing bracket 7/30 [6208s]
+    [chi^1] computing bracket 8/30 [6208s]
+    [chi^1] computing bracket 9/30 [6208s]
+    [chi^1] computing bracket 10/30 [6209s]
+    [chi^1] computing bracket 11/30 [6210s]
+    [chi^1] computing bracket 12/30 [6211s]
+    [chi^1] computing bracket 13/30 [6212s]
+    [chi^1] computing bracket 14/30 [6213s]
+    [chi^1] computing bracket 15/30 [6214s]
+    [chi^1] computing bracket 16/30 [6214s]
+    [chi^1] computing bracket 17/30 [6214s]
+    [chi^1] computing bracket 18/30 [6215s]
+    [chi^1] computing bracket 19/30 [6215s]
+    [chi^1] computing bracket 20/30 [6216s]
+    [chi^1] computing bracket 21/30 [6216s]
+    [chi^1] computing bracket 22/30 [6218s]
+    [chi^1] computing bracket 23/30 [6220s]
+    [chi^1] computing bracket 24/30 [6222s]
+    [chi^1] computing bracket 25/30 [6224s]
+    [chi^1] computing bracket 26/30 [6226s]
+    [chi^1] computing bracket 27/30 [6228s]
+    [chi^1] computing bracket 28/30 [6230s]
+    [chi^1] computing bracket 29/30 [6233s]
+    [chi^1] computing bracket 30/30 [6235s]
+    sparse nullspace: density 0.0357%, fill 5.7x, peak 22,977,689 nz, nullity 60 (dense would be 42.0 GB)
+  chi^1 level: 30 of 30 extend  [6892s]
+    [chi^1] reconstructing solution 1/30 [6892s]
+    [chi^1] reconstructing solution 6/30 [6892s]
+    [chi^1] reconstructing solution 11/30 [6893s]
+    [chi^1] reconstructing solution 16/30 [6895s]
+    [chi^1] reconstructing solution 21/30 [6897s]
+    [chi^1] reconstructing solution 26/30 [6902s]
+  chi^1 chains CHECKPOINTED to kt_double_chains_r6_d8_b30x28.pkl (30 chains, depth 2) [6907s]
+    [chi^2] computing bracket 1/30 [6907s]
+    [chi^2] computing bracket 2/30 [6907s]
+    [chi^2] computing bracket 3/30 [6907s]
+    [chi^2] computing bracket 4/30 [6908s]
+    [chi^2] computing bracket 5/30 [6908s]
+    [chi^2] computing bracket 6/30 [6908s]
+    [chi^2] computing bracket 7/30 [6909s]
+    [chi^2] computing bracket 8/30 [6909s]
+    [chi^2] computing bracket 9/30 [6909s]
+    [chi^2] computing bracket 10/30 [6911s]
+    [chi^2] computing bracket 11/30 [6913s]
+    [chi^2] computing bracket 12/30 [6914s]
+    [chi^2] computing bracket 13/30 [6916s]
+    [chi^2] computing bracket 14/30 [6917s]
+    [chi^2] computing bracket 15/30 [6917s]
+    [chi^2] computing bracket 16/30 [6919s]
+    [chi^2] computing bracket 17/30 [6922s]
+    [chi^2] computing bracket 18/30 [6924s]
+    [chi^2] computing bracket 19/30 [6926s]
+    [chi^2] computing bracket 20/30 [6928s]
+    [chi^2] computing bracket 21/30 [6929s]
+    [chi^2] computing bracket 22/30 [6932s]
+    [chi^2] computing bracket 23/30 [6936s]
+    [chi^2] computing bracket 24/30 [6939s]
+    [chi^2] computing bracket 25/30 [6943s]
+    [chi^2] computing bracket 26/30 [6947s]
+    [chi^2] computing bracket 27/30 [6950s]
+    [chi^2] computing bracket 28/30 [6954s]
+    [chi^2] computing bracket 29/30 [6957s]
+    [chi^2] computing bracket 30/30 [6960s]
+    sparse nullspace: density 0.2971%, fill 1.7x, peak 108,861,450 nz, nullity 60 (dense would be 81.9 GB)
+  chi^2 level: 30 of 30 extend  [151094s]
+    [chi^2] reconstructing solution 1/30 [151094s]
+    [chi^2] reconstructing solution 6/30 [151098s]
+    [chi^2] reconstructing solution 11/30 [151101s]
+    [chi^2] reconstructing solution 16/30 [151106s]
+    [chi^2] reconstructing solution 21/30 [151111s]
+    [chi^2] reconstructing solution 26/30 [151227s]
+  chi^2 chains CHECKPOINTED to kt_double_chains_r6_d8_b30x28.pkl (30 chains, depth 3) [151240s]
+
+  Kerr Killing space at rank 6: got 30, expect None
+  count check passed, but a COUNT IS NOT ENOUGH HERE.
+  Schwarzschild and Kerr have the SAME dimension at every rank (5, 8, 14) because
+  Lsq maps one-to-one onto Carter -- so 'the count is preserved' would also pass if
+  the tower did nothing. Identifying the direction is the real test.
+
+  Carter's O(chi^2) piece should be  y^2 (mu^2 - p_t^2)
+    = y**2*(-P_phi**2*(2 - x) - P_t**2*x**3*(1 - y**2) - P_t**2*x**2*(x - 2)*(y**2 - 1) - P_x**2*x*(x - 2)**2*(y**2 - 1) + P_y**2*(x - 2)*(y**2 - 1)**2)/(x**2*(x - 2)*(y**2 - 1))
+  prediction self-check: {H,F} at chi^0 = True, chi^1 = True, chi^2 = True
+
+  {H_Kerr, Lsq} at chi^2 is NONZERO
+  THE COUNT IS DECISIVE: Lsq alone does NOT extend to O(chi^2), so a tower doing nothing would have reported 16 of 30 -- only the directions built from p_t, p_phi and H, which survive trivially. Reporting 30 means it found a nonzero F^(0,2), and the verified prediction above identifies that deformation as Carter's.
+
+  CONTROL PASSED, non-vacuously: the chi-tower deforms Lsq into Carter.
+
+  sGB Hamiltonian pieces built and REPRESENTABLE [151243s]
+  reducible floor (products of p_t, p_phi, H at rank 6): 16 combinatorial, 16 REPRESENTABLE at denpow 8
+    [zeta chi^0] computing bracket 1/30 [154552s]
+    [zeta chi^0] computing bracket 2/30 [154553s]
+    [zeta chi^0] computing bracket 3/30 [154553s]
+    [zeta chi^0] computing bracket 4/30 [154553s]
+    [zeta chi^0] computing bracket 5/30 [154553s]
+    [zeta chi^0] computing bracket 6/30 [154554s]
+    [zeta chi^0] computing bracket 7/30 [154554s]
+    [zeta chi^0] computing bracket 8/30 [154554s]
+    [zeta chi^0] computing bracket 9/30 [154554s]
+    [zeta chi^0] computing bracket 10/30 [154555s]
+    [zeta chi^0] computing bracket 11/30 [154556s]
+    [zeta chi^0] computing bracket 12/30 [154557s]
+    [zeta chi^0] computing bracket 13/30 [154558s]
+    [zeta chi^0] computing bracket 14/30 [154558s]
+    [zeta chi^0] computing bracket 15/30 [154559s]
+    [zeta chi^0] computing bracket 16/30 [154559s]
+    [zeta chi^0] computing bracket 17/30 [154560s]
+    [zeta chi^0] computing bracket 18/30 [154560s]
+    [zeta chi^0] computing bracket 19/30 [154561s]
+    [zeta chi^0] computing bracket 20/30 [154562s]
+    [zeta chi^0] computing bracket 21/30 [154562s]
+    [zeta chi^0] computing bracket 22/30 [154564s]
+    [zeta chi^0] computing bracket 23/30 [154566s]
+    [zeta chi^0] computing bracket 24/30 [154662s]
+    [zeta chi^0] computing bracket 25/30 [154664s]
+    [zeta chi^0] computing bracket 26/30 [154666s]
+    [zeta chi^0] computing bracket 27/30 [154667s]
+    [zeta chi^0] computing bracket 28/30 [154669s]
+    [zeta chi^0] computing bracket 29/30 [154671s]
+    [zeta chi^0] computing bracket 30/30 [154672s]
+    sparse nullspace: density 0.2190%, fill 1.9x, peak 76,046,447 nz, nullity 60 (dense would be 69.2 GB)
+  zeta chi^0 level: 30 of 30 survive  [281899s]
+    [zeta chi^0] reconstructing solution 1/30 [281899s]
+    [zeta chi^0] reconstructing solution 6/30 [281900s]
+    [zeta chi^0] reconstructing solution 11/30 [281903s]
+    [zeta chi^0] reconstructing solution 16/30 [281908s]
+    [zeta chi^0] reconstructing solution 21/30 [281913s]
+    [zeta chi^0] reconstructing solution 26/30 [281929s]
+    level 0 checkpointed (kt_double_z_r6_d8_n0.pkl)
+    [zeta chi^1] computing bracket 1/30 [281945s]
+    [zeta chi^1] computing bracket 2/30 [281945s]
+    [zeta chi^1] computing bracket 3/30 [281946s]
+    [zeta chi^1] computing bracket 4/30 [281946s]
+    [zeta chi^1] computing bracket 5/30 [281947s]
+    [zeta chi^1] computing bracket 6/30 [281947s]
+    [zeta chi^1] computing bracket 7/30 [281947s]
+    [zeta chi^1] computing bracket 8/30 [281947s]
+    [zeta chi^1] computing bracket 9/30 [281947s]
+    [zeta chi^1] computing bracket 10/30 [281949s]
+    [zeta chi^1] computing bracket 11/30 [281951s]
+    [zeta chi^1] computing bracket 12/30 [281952s]
+    [zeta chi^1] computing bracket 13/30 [281954s]
+    [zeta chi^1] computing bracket 14/30 [281955s]
+    [zeta chi^1] computing bracket 15/30 [281955s]
+    [zeta chi^1] computing bracket 16/30 [281956s]
+    [zeta chi^1] computing bracket 17/30 [281958s]
+    [zeta chi^1] computing bracket 18/30 [281959s]
+    [zeta chi^1] computing bracket 19/30 [281961s]
+    [zeta chi^1] computing bracket 20/30 [281962s]
+    [zeta chi^1] computing bracket 21/30 [281962s]
+    [zeta chi^1] computing bracket 22/30 [281966s]
+    [zeta chi^1] computing bracket 23/30 [281970s]
+    [zeta chi^1] computing bracket 24/30 [281975s]
+    [zeta chi^1] computing bracket 25/30 [281980s]
+    [zeta chi^1] computing bracket 26/30 [281985s]
+    [zeta chi^1] computing bracket 27/30 [281988s]
+    [zeta chi^1] computing bracket 28/30 [281994s]
+    [zeta chi^1] computing bracket 29/30 [282000s]
+    [zeta chi^1] computing bracket 30/30 [282004s]
+    sparse nullspace: density 0.2415%, fill 1.8x, peak 85,424,615 nz, nullity 60 (dense would be 72.3 GB)
+  zeta chi^1 level: 30 of 30 survive  [390480s]
+    [zeta chi^1] reconstructing solution 1/30 [390480s]
+    [zeta chi^1] reconstructing solution 6/30 [390482s]
+    [zeta chi^1] reconstructing solution 11/30 [390495s]
+    [zeta chi^1] reconstructing solution 16/30 [390499s]
+    [zeta chi^1] reconstructing solution 21/30 [390505s]
+    [zeta chi^1] reconstructing solution 26/30 [390528s]
+    level 1 checkpointed (kt_double_z_r6_d8_n1.pkl)
+    [zeta chi^2] computing bracket 1/30 [390544s]
+    [zeta chi^2] computing bracket 2/30 [390544s]
+    [zeta chi^2] computing bracket 3/30 [390544s]
+    [zeta chi^2] computing bracket 4/30 [390546s]
+    [zeta chi^2] computing bracket 5/30 [390548s]
+    [zeta chi^2] computing bracket 6/30 [390549s]
+    [zeta chi^2] computing bracket 7/30 [390551s]
+    [zeta chi^2] computing bracket 8/30 [390552s]
+    [zeta chi^2] computing bracket 9/30 [390552s]
+    [zeta chi^2] computing bracket 10/30 [390558s]
+    [zeta chi^2] computing bracket 11/30 [390573s]
+    [zeta chi^2] computing bracket 12/30 [390578s]
+    [zeta chi^2] computing bracket 13/30 [390585s]
+    [zeta chi^2] computing bracket 14/30 [390590s]
+    [zeta chi^2] computing bracket 15/30 [390592s]
+    [zeta chi^2] computing bracket 16/30 [390595s]
+    [zeta chi^2] computing bracket 17/30 [390609s]
+    [zeta chi^2] computing bracket 18/30 [390614s]
+    [zeta chi^2] computing bracket 19/30 [390620s]
+    [zeta chi^2] computing bracket 20/30 [390626s]
+    [zeta chi^2] computing bracket 21/30 [390627s]
+    [zeta chi^2] computing bracket 22/30 [390639s]
+    [zeta chi^2] computing bracket 23/30 [390661s]
+    [zeta chi^2] computing bracket 24/30 [390674s]
+    [zeta chi^2] computing bracket 25/30 [390698s]
+    [zeta chi^2] computing bracket 26/30 [390713s]
+    [zeta chi^2] computing bracket 27/30 [390724s]
+    [zeta chi^2] computing bracket 28/30 [390748s]
+    [zeta chi^2] computing bracket 29/30 [390763s]
+    [zeta chi^2] computing bracket 30/30 [390783s]

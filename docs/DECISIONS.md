@@ -1208,3 +1208,40 @@ particular solution whose normal variational equation is solvable enough to comp
 and Kovacic-type algorithms can become intractable on large rational coefficients. A quick search found
 no application to EdGB/sGB — a narrow negative from a sweep phrased by me, so weak evidence that it is
 untried, **and exactly the kind the rule above warns about.**
+
+## D48 — stop rank 6 and replace the solver, not wait it out (2026-09-19)
+
+**The decision.** Rank 6 was stopped in its final level after 10 days 20 hours, with ζχ⁰ and ζχ¹
+complete and checkpointed. The user's call, and the right one: waiting had become sunk cost. The
+run was thrashing at ~15% CPU with no way to see progress, the estimate to finish was ~two weeks
+with a wide error bar, and a finished run would still have needed a second prime.
+
+**What was actually wrong** — three independent costs, measured, which multiply:
+
+1. **Storage.** `_kt_sparse` holds each nonzero in a Python dict-of-dicts, ~200 bytes. At the ζχ²
+   peak that is ~22 GB; the same numbers as flat int32 arrays are ~0.9 GB.
+2. **Interpretation.** The inner loop is integer arithmetic mod p, and in Python the interpreter
+   overhead is the entire cost.
+3. **Unused structure.** Every Hamiltonian piece (Kerr and sGB, χ⁰–χ²) was verified invariant under
+   equatorial reflection `(y, p_y) -> -` and time reversal `(p_t, p_φ) -> -`, so the bracket never
+   couples sectors of different parity. Rank 6's 75,516 unknowns split into **4 independent blocks
+   of 18–20k**. The old solver used none of this.
+
+Plus one algorithmic waste: it eliminated each pivot from rows already used as pivots — full RREF in
+place — which only adds fill. Forward elimination plus back-substitution gives the identical basis.
+
+**The replacement, and the rule it is held to.** `scripts/_kt_fast.py` (numba) finds the blocks
+itself as connected components of the row/column graph — so correctness never rests on the symmetry
+argument; if it were wrong the blocks would merge and it would only be slower. It stores rows as
+flat arrays and compiles the kernel. A Rust port follows at the user's request, with the numba
+version as its reference.
+
+**Validation is an equality test, not a comparison:** the free-column-indexed nullspace basis is
+unique, so the new solver must reproduce the old one *vector for vector* — on synthetic matrices,
+then on the known answers already on disk (rank 2: 5; rank 4: 9; rank 6 tower and ζχ⁰/ζχ¹: 30).
+Only after that does it touch ζχ².
+
+**Operational requirements set by the user, to be built in:** pause/resume, checkpoints *inside* a
+level rather than only between levels, and a controllable core count — few cores on weekdays while
+the machine is in use, more at weekends. The block structure makes the last one natural: blocks are
+independent, so parallelism is just how many run at once.
