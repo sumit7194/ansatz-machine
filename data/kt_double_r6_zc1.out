@@ -1,0 +1,72 @@
+Schwarzschild background: L = x**2*(x - 2)*(y - 1)*(y + 1)
+  generators ['p_t', 'p_phi', 'H', 'Lsq']; 30 reducible products at rank 6
+  box x<=30 y<=28; den = L^8
+  75516 coefficient unknowns per level
+    operator from templates: 252 SymPy brackets for 75516 columns
+    [operator timing] templates 10.3s (252 SymPy brackets for 75516 columns) | D = 2*x**19*(x - 2)**10*(y - 1)**11*(y + 1)**11
+  operator matrix (149072, 75516) [16s]
+    op rust nullspace: 8 blocks (largest 13640 cols), nnz 4,006,722 -> peak 6,303,684, nullity 30, 4 thread(s), 49.7s
+    operator held as arrays: 4,006,722 nonzeros [1.0s]
+  chi^0 level: Schwarzschild Killing space = 30
+  RESUMED chi-tower from kt_double_chains_r6_d8_b30x28.pkl: 30 chains
+
+  Kerr Killing space at rank 6: got 30, expect None
+  count check passed, but a COUNT IS NOT ENOUGH HERE.
+  Schwarzschild and Kerr have the SAME dimension at every rank (5, 8, 14) because
+  Lsq maps one-to-one onto Carter -- so 'the count is preserved' would also pass if
+  the tower did nothing. Identifying the direction is the real test.
+
+  Carter's O(chi^2) piece should be  y^2 (mu^2 - p_t^2)
+    = y**2*(-P_phi**2*(2 - x) - P_t**2*x**3*(1 - y**2) - P_t**2*x**2*(x - 2)*(y**2 - 1) - P_x**2*x*(x - 2)**2*(y**2 - 1) + P_y**2*(x - 2)*(y**2 - 1)**2)/(x**2*(x - 2)*(y**2 - 1))
+  prediction self-check: {H,F} at chi^0 = True, chi^1 = True, chi^2 = True
+
+  {H_Kerr, Lsq} at chi^2 is NONZERO
+  THE COUNT IS DECISIVE: Lsq alone does NOT extend to O(chi^2), so a tower doing nothing would have reported 16 of 30 -- only the directions built from p_t, p_phi and H, which survive trivially. Reporting 30 means it found a nonzero F^(0,2), and the verified prediction above identifies that deformation as Carter's.
+
+  CONTROL PASSED, non-vacuously: the chi-tower deforms Lsq into Carter.
+
+  sGB Hamiltonian pieces built and REPRESENTABLE [86s]
+  reducible floor (products of p_t, p_phi, H at rank 6): 16 combinatorial, 16 REPRESENTABLE at denpow 8
+  RESUMED zeta-tower from kt_double_z_r6_d8_n0.pkl: level 0 complete (30 directions)
+    [zeta chi^1] computing bracket 1/30 [106s]
+    [zeta chi^1] computing bracket 2/30 [106s]
+    [zeta chi^1] computing bracket 3/30 [106s]
+    [zeta chi^1] computing bracket 4/30 [107s]
+    [zeta chi^1] computing bracket 5/30 [108s]
+    [zeta chi^1] computing bracket 6/30 [108s]
+    [zeta chi^1] computing bracket 7/30 [108s]
+    [zeta chi^1] computing bracket 8/30 [109s]
+    [zeta chi^1] computing bracket 9/30 [109s]
+    [zeta chi^1] computing bracket 10/30 [111s]
+    [zeta chi^1] computing bracket 11/30 [114s]
+    [zeta chi^1] computing bracket 12/30 [116s]
+    [zeta chi^1] computing bracket 13/30 [119s]
+    [zeta chi^1] computing bracket 14/30 [121s]
+    [zeta chi^1] computing bracket 15/30 [122s]
+    [zeta chi^1] computing bracket 16/30 [123s]
+    [zeta chi^1] computing bracket 17/30 [125s]
+    [zeta chi^1] computing bracket 18/30 [127s]
+    [zeta chi^1] computing bracket 19/30 [129s]
+    [zeta chi^1] computing bracket 20/30 [131s]
+    [zeta chi^1] computing bracket 21/30 [132s]
+    [zeta chi^1] computing bracket 22/30 [137s]
+    [zeta chi^1] computing bracket 23/30 [143s]
+    [zeta chi^1] computing bracket 24/30 [148s]
+    [zeta chi^1] computing bracket 25/30 [155s]
+    [zeta chi^1] computing bracket 26/30 [161s]
+    [zeta chi^1] computing bracket 27/30 [165s]
+    [zeta chi^1] computing bracket 28/30 [172s]
+    [zeta chi^1] computing bracket 29/30 [178s]
+    [zeta chi^1] computing bracket 30/30 [182s]
+    [zeta chi^1 timing] lcm+compare 13.8s | clear 26.4s = RESCALED 75516 operator columns as arrays, nnz 4,006,722 -> 46,784,391, by q (78 terms, 7.4s) + cleared 30 sources; new denominator factor 15*(x - 2)**12*(y - 1)**5*(y + 1)**5
+    rust nullspace: 8 blocks (largest 13647 cols), nnz 46,855,172 -> peak 22,554,202, nullity 60, 4 thread(s), 205.7s
+    [zeta chi^1 timing] solve+guard 221.6s
+  zeta chi^1 level: 30 of 30 survive  [445s]
+    [zeta chi^1] reconstructing solution 1/30 [445s]
+    [zeta chi^1] reconstructing solution 6/30 [446s]
+    [zeta chi^1] reconstructing solution 11/30 [449s]
+    [zeta chi^1] reconstructing solution 16/30 [454s]
+    [zeta chi^1] reconstructing solution 21/30 [460s]
+    [zeta chi^1] reconstructing solution 26/30 [475s]
+    level 1 checkpointed (kt_double_z_r6_d8_n1.pkl)
+    [zeta chi^2] computing bracket 1/30 [492s]

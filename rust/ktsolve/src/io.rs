@@ -41,10 +41,8 @@ fn read_u64(r: &mut impl Read) -> io::Result<u64> {
 fn read_u32_vec(r: &mut impl Read, n: usize) -> io::Result<Vec<u32>> {
     let mut bytes = vec![0u8; n * 4];
     r.read_exact(&mut bytes)?;
-    Ok(bytes
-        .chunks_exact(4)
-        .map(|c| u32::from_le_bytes([c[0], c[1], c[2], c[3]]))
-        .collect())
+    // as_chunks::<4> hands out &[u8; 4] arrays, which is exactly what from_le_bytes takes.
+    Ok(bytes.as_chunks::<4>().0.iter().map(|c| u32::from_le_bytes(*c)).collect())
 }
 
 pub fn read_matrix(path: &Path) -> io::Result<Matrix> {

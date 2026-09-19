@@ -51,15 +51,16 @@ fn main() {
         eprintln!("ktsolve: reading {}: {e}", args.input.display());
         exit(1)
     });
-    let (sol, st) = solve::nullspace(&m, args.threads);
-    io::write_result(&args.output, m.ncols, &sol).unwrap_or_else(|e| {
+    let (nrows, ncols) = (m.nrows, m.ncols);
+    let (sol, st) = solve::nullspace(m, args.threads); // the solver takes the matrix and frees it
+    io::write_result(&args.output, ncols, &sol).unwrap_or_else(|e| {
         eprintln!("ktsolve: writing {}: {e}", args.output.display());
         exit(1)
     });
     println!(
         "{{\"nrows\":{},\"ncols\":{},\"nnz_in\":{},\"blocks\":{},\"largest_block_cols\":{},\
          \"peak_nnz_max\":{},\"peak_nnz_sum\":{},\"nullity\":{},\"threads\":{},\"seconds\":{:.3}}}",
-        m.nrows, m.ncols, st.nnz_in, st.blocks, st.largest_block_cols, st.peak_nnz_max,
+        nrows, ncols, st.nnz_in, st.blocks, st.largest_block_cols, st.peak_nnz_max,
         st.peak_nnz_sum, st.nullity, args.threads, st.seconds
     );
 }

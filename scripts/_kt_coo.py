@@ -50,11 +50,11 @@ class Coo:
 
 
 def from_dicts(dicts, codec, p, col0=0):
-    """Cleared column dicts -> Coo, columns numbered from col0."""
+    """Cleared column dicts -> Coo, columns numbered from col0. Stored as uint32 (12 B/entry)."""
     n = sum(len(d) for d in dicts)
-    rc = np.empty(n, np.int64)
-    ci = np.empty(n, np.int64)
-    vi = np.empty(n, np.int64)
+    rc = np.empty(n, np.uint32)
+    ci = np.empty(n, np.uint32)
+    vi = np.empty(n, np.uint32)
     t = 0
     for j, d in enumerate(dicts):
         for (e, (a, b)), v in d.items():
@@ -65,6 +65,13 @@ def from_dicts(dicts, codec, p, col0=0):
                 vi[t] = v
                 t += 1
     return Coo(rc[:t], ci[:t], vi[:t])
+
+
+class Level:
+    """A level's matrix as a list of Coo parts (rescaled operator chunks + sources), never joined."""
+
+    def __init__(self, parts):
+        self.parts = parts
 
 
 def concat(*parts):
@@ -102,7 +109,7 @@ def rescale(op, terms, p, chunk_entries=40_000_000):
     order = np.argsort(op.ci, kind="stable")
     rc, ci, vi = op.rc[order], op.ci[order], op.vi[order]
     per = max(1, chunk_entries // max(T, 1))      # source entries per chunk
-    out_rc, out_ci, out_vi = [], [], []
+    parts = []
     s = 0
     n = rc.shape[0]
     while s < n:
@@ -110,19 +117,84 @@ def rescale(op, terms, p, chunk_entries=40_000_000):
         if e < n:                                  # never split a column across chunks
             while e < n and ci[e] == ci[e - 1]:
                 e += 1
-        crc = (rc[s:e, None] + shift[None, :]).ravel()
-        cci = np.repeat(ci[s:e], T)
-        cvi = ((vi[s:e, None] * coef[None, :]) % p).ravel()
+        crc = (rc[s:e, None].astype(np.int64) + shift[None, :]).ravel()
+        cci = np.repeat(ci[s:e].astype(np.int64), T)
+        cvi = ((vi[s:e, None].astype(np.int64) * coef[None, :]) % p).ravel()
         mrc, mci, mvi = _merge(crc, cci, cvi, p)
-        out_rc.append(mrc); out_ci.append(mci); out_vi.append(mvi)
+        del crc, cci, cvi
+        parts.append(Coo(mrc.astype(np.uint32), mci.astype(np.uint32), mvi.astype(np.uint32)))
         s = e
-    return Coo(np.concatenate(out_rc), np.concatenate(out_ci), np.concatenate(out_vi))
+    return parts
+
+
+def nnz_of(parts):
+    return sum(q.nnz for q in parts)
+
+
+def write_ktm_parts(path, parts, ncols, p):
+    """Write the level matrix straight to a KTM1 file from its parts -- no concatenated copy.
+
+    Rows are renumbered through a DENSE lookup table over (e_id, j, k) sized by the actual maxima
+    (a few hundred thousand cells), not by np.unique over every entry. Returns (nnz, nrows)."""
+    E = J = K = 0
+    for q in parts:
+        if q.nnz:
+            c = q.rc.astype(np.int64)
+            E = max(E, int((c >> 22).max()) + 1)
+            J = max(J, int(((c >> 11) & (W - 1)).max()) + 1)
+            K = max(K, int((c & (W - 1)).max()) + 1)
+
+    def dense(q):
+        c = q.rc.astype(np.int64)
+        return ((c >> 22) * J + ((c >> 11) & (W - 1))) * K + (c & (W - 1))
+
+    used = np.zeros(max(E * J * K, 1), bool)
+    for q in parts:
+        if q.nnz:
+            used[dense(q)] = True
+    remap = (np.cumsum(used) - 1).astype(np.uint32)
+    nrows = int(used.sum())
+    nnz = nnz_of(parts)
+    with open(path, "wb") as fh:
+        fh.write(b"KTM1")
+        fh.write(np.array([nrows, ncols, nnz, p], dtype="<u8").tobytes())
+        for q in parts:
+            remap[dense(q)].astype("<u4").tofile(fh)
+        for q in parts:
+            q.ci.astype("<u4", copy=False).tofile(fh)
+        for q in parts:
+            q.vi.astype("<u4", copy=False).tofile(fh)
+    return nnz, nrows
+
+
+def residual_count_file(path, vecs, p, chunk=20_000_000):
+    """residual_count on a KTM1 file, read through a memory map in chunks: the matrix is never
+    resident in this process, which is the point -- the Rust solver needed that memory."""
+    head = np.fromfile(path, dtype="<u8", count=4, offset=4)
+    nrows, _, nnz, _ = (int(v) for v in head)
+    ri = np.memmap(path, dtype="<u4", mode="r", offset=36, shape=(nnz,))
+    ci = np.memmap(path, dtype="<u4", mode="r", offset=36 + 4 * nnz, shape=(nnz,))
+    vi = np.memmap(path, dtype="<u4", mode="r", offset=36 + 8 * nnz, shape=(nnz,))
+    bad = 0
+    for v in vecs:
+        v = np.asarray(v, dtype=np.int64) % p
+        acc = np.zeros(nrows, np.float64)
+        for s in range(0, nnz, chunk):
+            r = np.asarray(ri[s:s + chunk], dtype=np.int64)
+            x = np.asarray(vi[s:s + chunk], dtype=np.int64)
+            w = v[np.asarray(ci[s:s + chunk], dtype=np.int64)]
+            prod = ((x * (w >> 16)) % p * 65536 + x * (w & 0xFFFF)) % p
+            acc += np.bincount(r, weights=prod.astype(np.float64), minlength=nrows)
+        bad += int(np.count_nonzero(acc.astype(np.int64) % p))
+    del ri, ci, vi
+    return bad
 
 
 def compact(m):
     """(ri, ci, vi, nrows) with rows renumbered 0..nrows-1 -- what the solvers take."""
     codes, ri = np.unique(m.rc, return_inverse=True)
-    return ri.astype(np.int64), m.ci.astype(np.int64), m.vi.astype(np.int64), int(codes.shape[0])
+    return (ri.astype(np.int64).ravel(), m.ci.astype(np.int64), m.vi.astype(np.int64),
+            int(codes.shape[0]))
 
 
 def residual_count(ri, ci, vi, nrows, vecs, p, chunk=20_000_000):
@@ -183,8 +255,9 @@ if __name__ == "__main__":
             t_ref = time.time() - t0
             codec = Codec()
             t0 = time.time()
-            got = rescale(from_dicts(dicts0, codec, p), terms, p, chunk_entries=3_000_000)
+            parts = rescale(from_dicts(dicts0, codec, p), terms, p, chunk_entries=3_000_000)
             t_got = time.time() - t0
+            got = concat(*parts)
             refc = from_dicts(ref, codec, p)
             a = sorted(zip(refc.ci.tolist(), refc.rc.tolist(), refc.vi.tolist()))
             b = sorted(zip(got.ci.tolist(), got.rc.tolist(), got.vi.tolist()))
@@ -195,6 +268,22 @@ if __name__ == "__main__":
             v_got, _ = nullspace_rust_coo(ri, ci, vi, nr, len(ref), p, threads=4)
             same_ns = len(v_ref) == len(v_got) and all(np.array_equal(u % p, w % p)
                                                          for u, w in zip(v_ref, v_got))
+            # the production path: parts -> file -> Rust on the file -> guard via memory map
+            import tempfile
+            from _kt_rust import nullspace_rust_file
+            with tempfile.TemporaryDirectory() as d:
+                path = os.path.join(d, "l.ktm")
+                write_ktm_parts(path, parts, len(ref), p)
+                v_file, _ = nullspace_rust_file(path, threads=4)
+                same_ns &= len(v_file) == len(v_ref) and all(
+                    np.array_equal(u % p, w % p) for u, w in zip(v_ref, v_file))
+                guard_file = residual_count_file(path, v_file, p)
+                bent_f = [v_file[0].copy()] if v_file else []
+                if bent_f:
+                    jf = int(np.nonzero(bent_f[0])[0][0])
+                    bent_f[0][jf] = (bent_f[0][jf] + 1) % p
+                guard_file_bad = residual_count_file(path, bent_f, p) if bent_f else 1
+            same_ns &= guard_file == 0 and guard_file_bad > 0
             guard0 = residual_count(ri, ci, vi, nr, v_got, p)
             # sabotage: a perturbed vector MUST fail the guard
             bent = [v_got[0].copy()] if v_got else []

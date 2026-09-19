@@ -1345,3 +1345,29 @@ right by luck was not measured, and nothing about the wrong formula guaranteed t
 c = 4 (rank 8).
 
 **In the gate:** KT5 (arrays) and KT6 (floor) join KT1–KT4 in `verify.sh`.
+
+**Addendum, same evening — the arrays were still too big, so the layout was tightened.** Rank 6's
+ζχ¹ (46.8M nonzeros) ran at 4.4 GB in Python and 3.1 GB in Rust, which put ζχ² (~130M) back near
+15 GB. Not abandoned — measured, then tightened (and the user's rule applies: a setback is a reason
+to look again, not to fall back):
+
+- **Python** stores `uint32` (12 B/entry, not 24), keeps the rescale as a list of chunk parts that
+  are never concatenated, renumbers rows through a dense `(e, j, k)` lookup table instead of
+  `np.unique`, writes the KTM file straight from the parts, **drops its copy before Rust starts**,
+  and runs the nullspace guard from the file through a memory map.
+- **Rust** takes the matrix by value, builds each block's rows directly (a counting pass sizes every
+  row exactly — no tuple list, no CSR copy), drops the coordinate arrays as soon as rows exist, and
+  hands each block to its worker by value so it is freed when solved. Measured on rank 4's real ζχ²
+  matrix (32.6M nonzeros): **peak 1.62 GB → 1.03 GB (53 → 34 B/nonzero), same speed, identical
+  nullspace**. The two clippy suggestions went in with it (`as_chunks`; no index loop).
+
+Validated at every step: KT1 (random families, 1 and 4 threads), the real-operator array test through
+the file path (guard both ways, via the memory map), and rank 3 end to end — all four checkpoints
+identical to legacy again. **Rank 6's ζχ¹ on this pipeline: 30 of 30, checkpoint identical to legacy
+(12,600 expressions, 21,235,858 bytes) — the level that took ~30 h in the legacy run.**
+
+**Two operational controls the user asked for, now real and tested on a live run:**
+`scripts/kt_pause.sh <pid> stop|cont` (refuses anything that is not this repo's `_kt_double.py`;
+pauses the Rust child too) — tested: state `T`, log frozen for 15 s, resumed, finished, checkpoints
+identical. And the core count is re-read before every solve from `data/KT_THREADS` (or a per-run
+`data/KT_THREADS.<pid>`) — tested: 1 → 4 threads mid-run.

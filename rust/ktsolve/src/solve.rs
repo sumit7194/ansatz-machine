@@ -21,17 +21,16 @@ struct Row {
     vals: Vec<u32>,
 }
 
-/// One independent block, in local indices (0..nr rows, 0..nc columns), rows in CSR form.
+/// One independent block, in local indices (0..nr rows, 0..nc columns), as sparse rows.
+/// Owned by whichever worker solves it, so its memory is freed the moment it is done.
 struct Block {
     gcols: Vec<u32>, // local column -> global column, ascending
-    nr: usize,
-    rptr: Vec<usize>,
-    rcols: Vec<u32>,
-    rvals: Vec<u32>,
+    rows: Vec<Row>,
 }
 
 /// What solving one block produces.
 struct BlockOut {
+    gcols: Vec<u32>,
     free_local: Vec<usize>,
     v: Vec<u64>, // nc x nfree, row-major: v[k * nfree + i]
     peak: usize,
@@ -74,12 +73,15 @@ fn find(parent: &mut [u32], mut x: u32) -> u32 {
 /// Split the matrix into independent blocks = connected components of the bipartite
 /// row/column graph. Columns with no entries at all are returned separately: each is a free
 /// column whose basis vector is simply e_j.
-fn split_blocks(m: &Matrix) -> (Vec<Block>, Vec<usize>) {
-    let (nr, nc) = (m.nrows, m.ncols);
+///
+/// MEMORY: the coordinate arrays are taken BY VALUE and dropped as soon as the rows are built,
+/// and rows are filled directly (a counting pass sizes each one exactly) -- no intermediate
+/// tuple list and no CSR copy. Peak here is ~20 bytes per nonzero, then 8 once the input is gone.
+fn split_blocks(nr: usize, nc: usize, ri: Vec<u32>, ci: Vec<u32>, vi: Vec<u32>) -> (Vec<Block>, Vec<usize>) {
     let mut parent: Vec<u32> = (0..(nr + nc) as u32).collect();
-    for t in 0..m.ri.len() {
-        let a = find(&mut parent, m.ri[t]);
-        let b = find(&mut parent, nr as u32 + m.ci[t]);
+    for (&r, &c) in ri.iter().zip(&ci) {
+        let a = find(&mut parent, r);
+        let b = find(&mut parent, nr as u32 + c);
         if a != b {
             parent[a as usize] = b;
         }
@@ -87,7 +89,7 @@ fn split_blocks(m: &Matrix) -> (Vec<Block>, Vec<usize>) {
 
     // Give each component a dense block number, in order of first appearance among columns.
     let mut has_entry = vec![false; nc];
-    for &c in &m.ci {
+    for &c in &ci {
         has_entry[c as usize] = true;
     }
     let mut block_of_root = vec![u32::MAX; nr + nc];
@@ -108,61 +110,65 @@ fn split_blocks(m: &Matrix) -> (Vec<Block>, Vec<usize>) {
         col_local[c] = gcols[b].len() as u32; // columns arrive ascending, so local order = global order
         gcols[b].push(c as u32);
     }
+    drop(has_entry);
 
-    // Local row numbers, and the block of each entry (via its row's root).
+    // Each non-empty row: its block, its local number, and its length.
     let nb = gcols.len();
-    let mut row_local = vec![u32::MAX; nr];
-    let mut rows_in_block = vec![0usize; nb];
-    let mut entry_block = vec![0u32; m.ri.len()];
-    for t in 0..m.ri.len() {
-        let r = m.ri[t] as usize;
-        let b = block_of_root[find(&mut parent, r as u32) as usize];
-        entry_block[t] = b;
-        if row_local[r] == u32::MAX {
-            row_local[r] = rows_in_block[b as usize] as u32;
-            rows_in_block[b as usize] += 1;
+    let mut row_len = vec![0u32; nr];
+    for &r in &ri {
+        row_len[r as usize] += 1;
+    }
+    let mut row_block = vec![u32::MAX; nr];
+    let mut row_local = vec![0u32; nr];
+    let mut rows: Vec<Vec<Row>> = vec![Vec::new(); nb];
+    for r in 0..nr {
+        if row_len[r] == 0 {
+            continue;
+        }
+        let b = block_of_root[find(&mut parent, r as u32) as usize] as usize;
+        row_block[r] = b as u32;
+        row_local[r] = rows[b].len() as u32;
+        let n = row_len[r] as usize;
+        rows[b].push(Row { cols: Vec::with_capacity(n), vals: Vec::with_capacity(n) });
+    }
+    drop((parent, block_of_root, row_len));
+
+    for ((&r, &c), &v) in ri.iter().zip(&ci).zip(&vi) {
+        let row = &mut rows[row_block[r as usize] as usize][row_local[r as usize] as usize];
+        row.cols.push(col_local[c as usize]);
+        row.vals.push(v);
+    }
+    drop((ri, ci, vi, row_block, row_local, col_local)); // the input is gone from here on
+
+    // The kernel needs strictly ascending columns in every row. Input written by _kt_coo already
+    // is; anything else is sorted here. A repeated (row, column) is malformed input: stop loudly.
+    for row in rows.iter_mut().flatten() {
+        if !row.cols.windows(2).all(|w| w[0] < w[1]) {
+            let mut idx: Vec<usize> = (0..row.cols.len()).collect();
+            idx.sort_unstable_by_key(|&i| row.cols[i]);
+            row.cols = idx.iter().map(|&i| row.cols[i]).collect();
+            row.vals = idx.iter().map(|&i| row.vals[i]).collect();
+            if !row.cols.windows(2).all(|w| w[0] < w[1]) {
+                panic!("duplicate (row, column) entry in the input matrix");
+            }
         }
     }
 
-    // Counting sort of the entries: first by block, then by local row within each block.
-    let mut blocks: Vec<Block> = Vec::with_capacity(nb);
-    let mut per_block_count = vec![0usize; nb];
-    for &b in &entry_block {
-        per_block_count[b as usize] += 1;
-    }
-    let mut entries: Vec<Vec<(u32, u32, u32)>> =
-        per_block_count.iter().map(|&n| Vec::with_capacity(n)).collect();
-    for t in 0..m.ri.len() {
-        let r = m.ri[t] as usize;
-        entries[entry_block[t] as usize].push((row_local[r], col_local[m.ci[t] as usize], m.vi[t]));
-    }
-    for (b, mut ents) in entries.into_iter().enumerate() {
-        ents.sort_unstable_by_key(|&(r, c, _)| (r, c));
-        let nrb = rows_in_block[b];
-        let mut rptr = vec![0usize; nrb + 1];
-        for &(r, _, _) in &ents {
-            rptr[r as usize + 1] += 1;
-        }
-        for i in 0..nrb {
-            rptr[i + 1] += rptr[i];
-        }
-        let rcols = ents.iter().map(|e| e.1).collect();
-        let rvals = ents.iter().map(|e| e.2).collect();
-        blocks.push(Block { gcols: std::mem::take(&mut gcols[b]), nr: nrb, rptr, rcols, rvals });
-    }
+    let blocks = gcols
+        .into_iter()
+        .zip(rows)
+        .map(|(g, r)| Block { gcols: g, rows: r })
+        .collect();
     (blocks, empty)
 }
 
 // ------------------------------------------------------------------ one block
 
-fn eliminate_block(b: &Block, p: u64) -> BlockOut {
+fn eliminate_block(b: Block, p: u64) -> BlockOut {
     let nc = b.gcols.len();
-    let mut rows: Vec<Row> = (0..b.nr)
-        .map(|r| Row {
-            cols: b.rcols[b.rptr[r]..b.rptr[r + 1]].to_vec(),
-            vals: b.rvals[b.rptr[r]..b.rptr[r + 1]].to_vec(),
-        })
-        .collect();
+    let gcols = b.gcols;
+    let mut rows = b.rows; // taken over: the block's only copy
+    let nr = rows.len();
 
     // column -> rows that may contain it. Entries can go stale; they are checked on use.
     let mut cm: Vec<Vec<u32>> = vec![Vec::new(); nc];
@@ -172,9 +178,9 @@ fn eliminate_block(b: &Block, p: u64) -> BlockOut {
         }
     }
 
-    let mut used = vec![false; b.nr];
+    let mut used = vec![false; nr];
     let mut pivrow = vec![u32::MAX; nc];
-    let mut nnz: usize = b.rcols.len();
+    let mut nnz: usize = rows.iter().map(|r| r.cols.len()).sum();
     let mut peak = nnz;
     let mut cand: Vec<u32> = Vec::new();
     // Scratch buffers reused for every row update, so the hot loop does not allocate.
@@ -294,32 +300,38 @@ fn eliminate_block(b: &Block, p: u64) -> BlockOut {
             }
         }
     }
-    BlockOut { free_local, v, peak }
+    BlockOut { gcols, free_local, v, peak }
 }
 
 // ------------------------------------------------------------------ driver
 
-pub fn nullspace(m: &Matrix, threads: usize) -> (Solution, Stats) {
+pub fn nullspace(m: Matrix, threads: usize) -> (Solution, Stats) {
     let t0 = Instant::now();
-    let (blocks, empty) = split_blocks(m);
+    let (nr, ncols, p, nnz_in) = (m.nrows, m.ncols, m.p, m.ri.len());
+    let (blocks, empty) = split_blocks(nr, ncols, m.ri, m.ci, m.vi);
+    let nb = blocks.len();
+    let largest = blocks.iter().map(|b| b.gcols.len()).max().unwrap_or(0);
 
     // Largest blocks first, so the long ones start early and small ones fill the gaps.
-    let mut order: Vec<usize> = (0..blocks.len()).collect();
+    let mut order: Vec<usize> = (0..nb).collect();
     order.sort_by_key(|&b| std::cmp::Reverse(blocks[b].gcols.len()));
 
-    // Worker threads pull the next block number from a shared counter. `thread::scope` lets the
-    // threads borrow `blocks` directly, because the scope guarantees they finish before it ends.
+    // Each block sits in a slot a worker TAKES it from: the worker then owns it, and it is freed
+    // as soon as it is solved. Workers pull the next block number from a shared counter;
+    // `thread::scope` lets them borrow the slots because it guarantees they finish first.
+    let slots: Vec<Mutex<Option<Block>>> = blocks.into_iter().map(|b| Mutex::new(Some(b))).collect();
     let next = AtomicUsize::new(0);
-    let results: Vec<Mutex<Option<BlockOut>>> = (0..blocks.len()).map(|_| Mutex::new(None)).collect();
+    let results: Vec<Mutex<Option<BlockOut>>> = (0..nb).map(|_| Mutex::new(None)).collect();
     thread::scope(|s| {
-        for _ in 0..threads.min(blocks.len()).max(1) {
+        for _ in 0..threads.min(nb).max(1) {
             s.spawn(|| loop {
                 let i = next.fetch_add(1, Ordering::Relaxed);
                 if i >= order.len() {
                     break;
                 }
                 let b = order[i];
-                let out = eliminate_block(&blocks[b], m.p);
+                let block = slots[b].lock().unwrap().take().expect("each block is taken once");
+                let out = eliminate_block(block, p);
                 *results[b].lock().unwrap() = Some(out);
             });
         }
@@ -328,31 +340,30 @@ pub fn nullspace(m: &Matrix, threads: usize) -> (Solution, Stats) {
     // Assemble one dense global vector per free column.
     let mut pairs: Vec<(u64, Vec<u32>)> = Vec::new();
     for &j in &empty {
-        let mut e = vec![0u32; m.ncols];
+        let mut e = vec![0u32; ncols];
         e[j] = 1;
         pairs.push((j as u64, e));
     }
     let (mut peak_max, mut peak_sum) = (0usize, 0usize);
-    for (b, cell) in results.into_iter().enumerate() {
+    for cell in results {
         let out = cell.into_inner().unwrap().expect("every block is solved");
         peak_max = peak_max.max(out.peak);
         peak_sum += out.peak;
         let nf = out.free_local.len();
-        let gcols = &blocks[b].gcols;
         for (i, &fl) in out.free_local.iter().enumerate() {
-            let mut g = vec![0u32; m.ncols];
-            for (k, &gc) in gcols.iter().enumerate() {
+            let mut g = vec![0u32; ncols];
+            for (k, &gc) in out.gcols.iter().enumerate() {
                 g[gc as usize] = out.v[k * nf + i] as u32;
             }
-            pairs.push((gcols[fl] as u64, g));
+            pairs.push((out.gcols[fl] as u64, g));
         }
     }
     pairs.sort_by_key(|pr| pr.0);
 
     let stats = Stats {
-        nnz_in: m.ri.len(),
-        blocks: blocks.len(),
-        largest_block_cols: blocks.iter().map(|b| b.gcols.len()).max().unwrap_or(0),
+        nnz_in,
+        blocks: nb,
+        largest_block_cols: largest,
         peak_nnz_max: peak_max,
         peak_nnz_sum: peak_sum,
         nullity: pairs.len(),

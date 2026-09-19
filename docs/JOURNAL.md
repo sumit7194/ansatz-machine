@@ -57,6 +57,12 @@ built, what broke, what the machine taught us. Numbers live in
   (`_kt_floor`, exact series, every piece, ring arithmetic, 2 s vs 17+ min): **still 16** — right by
   luck, now right by measurement. Rank 6 restarted twice more to pick up arrays and the fixed floor
   (argv + cwd verified each time); the partial logs are kept as `_stopped` / `_stopped2`.
+- **Then the arrays themselves were tightened** (uint32, parts never joined, file written straight
+  from them, Python's copy dropped before Rust, guard via memmap; Rust builds rows directly and frees
+  input and blocks as it goes): 53 → 34 B/nonzero in the solver, same answer. **Rank 6 ζχ¹: 30 of 30,
+  checkpoint identical to legacy** (the ~30 h level, now ~7 min).
+- **Pause and core-count controls, as the user asked on day one:** `scripts/kt_pause.sh` and
+  `data/KT_THREADS`, both tested on a live rank-3 run (frozen 15 s; 1 → 4 threads mid-run; identical).
 
 ---
 

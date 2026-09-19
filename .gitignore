@@ -81,3 +81,4 @@ rust/*/target/
 # validation reruns write their checkpoints here; the renamed legacy checkpoints they are compared against
 data/ckval*/
 data/*.legacy
+data/KT_THREADS*

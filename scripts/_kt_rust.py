@@ -52,6 +52,29 @@ def nullspace_rust(col_dicts, ncols, p=P, threads=1, verbose=False, label="", wo
     return nullspace_rust_coo(ri, ci, vi, nrows, ncols, p, threads, verbose, label, workdir)
 
 
+def nullspace_rust_file(mpath, threads=1, verbose=False, label=""):
+    """Run the solver on a KTM1 file already on disk (scripts/_kt_coo.write_ktm_parts): the caller
+    holds no copy of the matrix while Rust works. Returns (vectors, stats)."""
+    if not os.path.exists(BINARY):
+        raise FileNotFoundError(f"{BINARY} missing -- build it: cargo build --release in rust/ktsolve")
+    spath = mpath + ".kts"
+    try:
+        out = subprocess.run([BINARY, "--input", mpath, "--output", spath, "--threads", str(threads)],
+                             capture_output=True, text=True)
+        if out.returncode != 0:
+            raise RuntimeError(f"ktsolve failed ({out.returncode}): {out.stderr.strip()}")
+        stats = json.loads(out.stdout.strip().splitlines()[-1])
+        _, vecs = read_kts(spath)
+    finally:
+        if os.path.exists(spath):
+            os.remove(spath)
+    if verbose:
+        print(f"    {label}rust nullspace: {stats['blocks']} blocks (largest {stats['largest_block_cols']} "
+              f"cols), nnz {stats['nnz_in']:,} -> peak {stats['peak_nnz_max']:,}, nullity "
+              f"{stats['nullity']}, {threads} thread(s), {stats['seconds']:.1f}s", flush=True)
+    return vecs, stats
+
+
 def nullspace_rust_coo(ri, ci, vi, nrows, ncols, p=P, threads=1, verbose=False, label="",
                        workdir=None):
     """The same, from flat COO arrays (rows 0..nrows-1, values in [0, p)) -- no dicts anywhere,

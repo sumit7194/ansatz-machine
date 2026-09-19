@@ -59,6 +59,19 @@ SPARSE_MAX_DENSITY = float(os.environ.get("KT_SPARSE_MAX_DENSITY", "0.02"))
 # vector for vector. KT_THREADS sets how many blocks are solved at once.
 KT_SOLVER = os.environ.get("KT_SOLVER", "legacy")
 KT_THREADS = int(os.environ.get("KT_THREADS", "1"))
+
+
+def _threads():
+    """Cores for the NEXT solve, re-read every time so it can change mid-run without a restart:
+    `echo 8 > data/KT_THREADS` at a weekend, `echo 2 > data/KT_THREADS` on a Monday morning.
+    A per-run file data/KT_THREADS.<pid> wins over the shared one; the env var is the fallback."""
+    for path in (f"data/KT_THREADS.{os.getpid()}", "data/KT_THREADS"):
+        try:
+            with open(path) as fh:
+                return max(1, int(fh.read().strip()))
+        except (OSError, ValueError):
+            continue
+    return KT_THREADS
 # When a level's sources enlarge the common denominator (D2 = D * q), rescale the already-cleared
 # operator columns by q instead of re-clearing all of them in SymPy (scripts/_kt_prep.py; validated
 # identical, ~400-1000x faster). On by default with the new solvers, off for the legacy path.
@@ -116,23 +129,28 @@ class _OpArrays:
 
 
 def _nullspace_new(dicts, ncols, p, verify, label):
-    from _kt_coo import Coo
-    if isinstance(dicts, Coo):
-        from _kt_coo import compact, residual_count
-        from _kt_rust import nullspace_rust_coo
-        ri, ci, vi, nr = compact(dicts)
-        vecs, _ = nullspace_rust_coo(ri, ci, vi, nr, ncols, p, threads=KT_THREADS, verbose=True,
-                                     label=label, workdir="data")
-        if verify and vecs:
-            bad = residual_count(ri, ci, vi, nr, vecs, p)
-            if bad:
-                raise AssertionError(
-                    f"NULLSPACE GUARD FAILED (rust, arrays): {bad} nonzero residuals over "
-                    f"{len(vecs)} vectors. Every dimension downstream of this is meaningless.")
+    from _kt_coo import Level
+    if isinstance(dicts, Level):
+        # Written straight to disk from its parts; this process then DROPS its copy, so while
+        # Rust works the matrix exists once, in Rust. The guard reads it back via a memory map.
+        import tempfile
+        from _kt_coo import residual_count_file, write_ktm_parts
+        from _kt_rust import nullspace_rust_file
+        with tempfile.TemporaryDirectory(dir="data") as d:
+            path = os.path.join(d, "level.ktm")
+            write_ktm_parts(path, dicts.parts, ncols, p)
+            dicts.parts = None
+            vecs, _ = nullspace_rust_file(path, threads=_threads(), verbose=True, label=label)
+            if verify and vecs:
+                bad = residual_count_file(path, vecs, p)
+                if bad:
+                    raise AssertionError(
+                        f"NULLSPACE GUARD FAILED (rust, arrays): {bad} nonzero residuals over "
+                        f"{len(vecs)} vectors. Every dimension downstream of this is meaningless.")
         return vecs
     if KT_SOLVER == "rust":
         from _kt_rust import nullspace_rust
-        vecs, _ = nullspace_rust(dicts, ncols, p, threads=KT_THREADS, verbose=True, label=label,
+        vecs, _ = nullspace_rust(dicts, ncols, p, threads=_threads(), verbose=True, label=label,
                                  workdir="data")
     else:
         from _kt_fast import nullspace_fast
@@ -160,11 +178,11 @@ def _prep_level(srcs, D, dicts0, raws0, p, tag):
     t = time.time()
     arrays = isinstance(dicts0, _OpArrays)
     if arrays:
-        from _kt_coo import concat, from_dicts
+        from _kt_coo import Level, from_dicts, nnz_of
     if same:
         if arrays:
-            ns_dicts = concat(dicts0.coo, from_dicts([PB.clear(e, D, p) for e in srcs],
-                                                     dicts0.codec, p, col0=len(dicts0)))
+            ns_dicts = Level([dicts0.coo, from_dicts([PB.clear(e, D, p) for e in srcs],
+                                                     dicts0.codec, p, col0=len(dicts0))])
         else:
             ns_dicts = dicts0 + [PB.clear(e, D, p) for e in srcs]
         how = f"sources only ({len(srcs)})"
@@ -174,11 +192,12 @@ def _prep_level(srcs, D, dicts0, raws0, p, tag):
         t_r = time.time()
         if arrays:
             from _kt_coo import rescale as rescale_coo
-            ops = rescale_coo(dicts0.coo, terms, p)
+            parts = rescale_coo(dicts0.coo, terms, p)
             t_r = time.time() - t_r
-            ns_dicts = concat(ops, from_dicts([PB.clear(e, D2, p) for e in srcs], dicts0.codec, p,
-                                              col0=len(dicts0)))
-            size = f"as arrays, nnz {dicts0.coo.nnz:,} -> {ops.nnz:,}, "
+            size = f"as arrays, nnz {dicts0.coo.nnz:,} -> {nnz_of(parts):,}, "
+            ns_dicts = Level(parts + [from_dicts([PB.clear(e, D2, p) for e in srcs], dicts0.codec,
+                                                 p, col0=len(dicts0))])
+            del parts
         else:
             ops = [rescale(d, terms, p) for d in dicts0]
             t_r = time.time() - t_r
