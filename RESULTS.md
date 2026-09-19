@@ -2920,6 +2920,8 @@ rebuilt pipeline (D48–D50) a run takes minutes, so all three are now on `p₁ 
                        p1     8      8      8          8           8          6          6
     rank 4, denpow 7   p0    14     14     14         14          14          9          9
                        p1    14     14     14         14          14          9          9
+    rank 5, denpow 7   p0    20     20     20         20          20         12         12
+                       p1    20     20     20         20          20         12         12   (below)
     rank 6, denpow 8   p0    30     30     30         30          30         16         16
                        p1    30     30     30         30          30         16         16   (§137)
 
@@ -3038,3 +3040,10 @@ violates all three, independently.** That is the intuitive content behind "Carte
 §130. It characterises the sGB pieces, not all conceivable deformations: a general static profile
 (not sGB's) may well have Carter-compatible directions beyond mass shifts and gauge; mapping that
 space is the natural next question.
+
+**Rank 5 (added 2026-09-19, both primes).** denpow 7, box 27×24 (margin 6 — the rank-4 config; D44:
+rank 5's H² direction needs L⁷), floor 12 of 12 representable, ζ levels 20 → 20 → 12 on both primes
+(`data/kt_double_r5_new.out`, `data/kt_double_r5_p1.out`, ~450 s each; the earlier attempt was OOM-killed,
+§132 era). The floor and nothing else. **Not a new rung** (D42): Q² first appeared at rank 4, and rank 5's
+Carter-built directions are Q^q times odd-degree reducibles — the run's own prose now says so correctly.
+The ladder is complete and two-prime from rank 2 through rank 6.

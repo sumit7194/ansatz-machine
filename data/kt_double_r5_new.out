@@ -1,0 +1,178 @@
+Schwarzschild background: L = x**2*(x - 2)*(y - 1)*(y + 1)
+  generators ['p_t', 'p_phi', 'H', 'Lsq']; 20 reducible products at rank 5
+  box x<=27 y<=24; den = L^7
+  39200 coefficient unknowns per level
+    operator from templates: 168 SymPy brackets for 39200 columns
+    [operator timing] templates 5.5s (168 SymPy brackets for 39200 columns) | D = 2*x**17*(x - 2)**9*(y - 1)**10*(y + 1)**10
+  operator matrix (84171, 39200) [8s]
+    op rust nullspace: 8 blocks (largest 7000 cols), nnz 2,023,156 -> peak 542,957, nullity 20, 4 thread(s), 1.5s
+    operator held as arrays: 2,023,156 nonzeros [0.5s]
+  chi^0 level: Schwarzschild Killing space = 20
+    [chi^1] computing bracket 1/20 [15s]
+    [chi^1] computing bracket 2/20 [15s]
+    [chi^1] computing bracket 3/20 [15s]
+    [chi^1] computing bracket 4/20 [15s]
+    [chi^1] computing bracket 5/20 [16s]
+    [chi^1] computing bracket 6/20 [16s]
+    [chi^1] computing bracket 7/20 [16s]
+    [chi^1] computing bracket 8/20 [16s]
+    [chi^1] computing bracket 9/20 [16s]
+    [chi^1] computing bracket 10/20 [17s]
+    [chi^1] computing bracket 11/20 [18s]
+    [chi^1] computing bracket 12/20 [19s]
+    [chi^1] computing bracket 13/20 [19s]
+    [chi^1] computing bracket 14/20 [20s]
+    [chi^1] computing bracket 15/20 [20s]
+    [chi^1] computing bracket 16/20 [21s]
+    [chi^1] computing bracket 17/20 [21s]
+    [chi^1] computing bracket 18/20 [21s]
+    [chi^1] computing bracket 19/20 [22s]
+    [chi^1] computing bracket 20/20 [22s]
+    [chi^1 timing] lcm+compare 0.6s | clear 0.9s = sources only (20)
+    rust nullspace: 8 blocks (largest 7000 cols), nnz 2,027,816 -> peak 478,208, nullity 40, 4 thread(s), 1.3s
+    [chi^1 timing] solve+guard 1.8s
+  chi^1 level: 20 of 20 extend  [25s]
+    [chi^1] reconstructing solution 1/20 [25s]
+    [chi^1] reconstructing solution 6/20 [26s]
+    [chi^1] reconstructing solution 11/20 [26s]
+    [chi^1] reconstructing solution 16/20 [27s]
+  chi^1 chains CHECKPOINTED to kt_double_chains_r5_d7_b27x24.pkl (20 chains, depth 2) [30s]
+    [chi^2] computing bracket 1/20 [30s]
+    [chi^2] computing bracket 2/20 [30s]
+    [chi^2] computing bracket 3/20 [30s]
+    [chi^2] computing bracket 4/20 [31s]
+    [chi^2] computing bracket 5/20 [31s]
+    [chi^2] computing bracket 6/20 [31s]
+    [chi^2] computing bracket 7/20 [32s]
+    [chi^2] computing bracket 8/20 [32s]
+    [chi^2] computing bracket 9/20 [32s]
+    [chi^2] computing bracket 10/20 [33s]
+    [chi^2] computing bracket 11/20 [34s]
+    [chi^2] computing bracket 12/20 [36s]
+    [chi^2] computing bracket 13/20 [37s]
+    [chi^2] computing bracket 14/20 [38s]
+    [chi^2] computing bracket 15/20 [38s]
+    [chi^2] computing bracket 16/20 [39s]
+    [chi^2] computing bracket 17/20 [41s]
+    [chi^2] computing bracket 18/20 [43s]
+    [chi^2] computing bracket 19/20 [45s]
+    [chi^2] computing bracket 20/20 [47s]
+    [chi^2 timing] lcm+compare 11.6s | clear 22.0s = RESCALED 39200 operator columns as arrays, nnz 2,023,156 -> 27,836,912, by q (98 terms, 5.1s) + cleared 20 sources; new denominator factor (x - 2)**13*(y - 1)**6*(y + 1)**6
+    rust nullspace: 8 blocks (largest 7000 cols), nnz 27,948,030 -> peak 6,524,006, nullity 40, 4 thread(s), 28.0s
+    [chi^2 timing] solve+guard 34.9s
+  chi^2 level: 20 of 20 extend  [116s]
+    [chi^2] reconstructing solution 1/20 [116s]
+    [chi^2] reconstructing solution 6/20 [116s]
+    [chi^2] reconstructing solution 11/20 [118s]
+    [chi^2] reconstructing solution 16/20 [121s]
+  chi^2 chains CHECKPOINTED to kt_double_chains_r5_d7_b27x24.pkl (20 chains, depth 3) [125s]
+
+  Kerr Killing space at rank 5: got 20, expect None
+  count check passed, but a COUNT IS NOT ENOUGH HERE.
+  Schwarzschild and Kerr have the SAME dimension at every rank (5, 8, 14) because
+  Lsq maps one-to-one onto Carter -- so 'the count is preserved' would also pass if
+  the tower did nothing. Identifying the direction is the real test.
+
+  Carter's O(chi^2) piece should be  y^2 (mu^2 - p_t^2)
+    = y**2*(-P_phi**2*(2 - x) - P_t**2*x**3*(1 - y**2) - P_t**2*x**2*(x - 2)*(y**2 - 1) - P_x**2*x*(x - 2)**2*(y**2 - 1) + P_y**2*(x - 2)*(y**2 - 1)**2)/(x**2*(x - 2)*(y**2 - 1))
+  prediction self-check: {H,F} at chi^0 = True, chi^1 = True, chi^2 = True
+
+  {H_Kerr, Lsq} at chi^2 is NONZERO
+  THE COUNT IS DECISIVE: Lsq alone does NOT extend to O(chi^2), so a tower doing nothing would have reported 12 of 20 -- only the directions built from p_t, p_phi and H, which survive trivially. Reporting 20 means it found a nonzero F^(0,2), and the verified prediction above identifies that deformation as Carter's.
+
+  CONTROL PASSED, non-vacuously: the chi-tower deforms Lsq into Carter.
+
+  sGB Hamiltonian pieces built and REPRESENTABLE [129s]
+  reducible floor (products of p_t, p_phi, H at rank 5): 12 combinatorial, 12 REPRESENTABLE at denpow 7
+    [zeta chi^0] computing bracket 1/20 [129s]
+    [zeta chi^0] computing bracket 2/20 [129s]
+    [zeta chi^0] computing bracket 3/20 [129s]
+    [zeta chi^0] computing bracket 4/20 [129s]
+    [zeta chi^0] computing bracket 5/20 [130s]
+    [zeta chi^0] computing bracket 6/20 [130s]
+    [zeta chi^0] computing bracket 7/20 [130s]
+    [zeta chi^0] computing bracket 8/20 [130s]
+    [zeta chi^0] computing bracket 9/20 [130s]
+    [zeta chi^0] computing bracket 10/20 [131s]
+    [zeta chi^0] computing bracket 11/20 [131s]
+    [zeta chi^0] computing bracket 12/20 [132s]
+    [zeta chi^0] computing bracket 13/20 [133s]
+    [zeta chi^0] computing bracket 14/20 [133s]
+    [zeta chi^0] computing bracket 15/20 [133s]
+    [zeta chi^0] computing bracket 16/20 [134s]
+    [zeta chi^0] computing bracket 17/20 [134s]
+    [zeta chi^0] computing bracket 18/20 [135s]
+    [zeta chi^0] computing bracket 19/20 [135s]
+    [zeta chi^0] computing bracket 20/20 [135s]
+    [zeta chi^0 timing] lcm+compare 6.1s | clear 10.1s = RESCALED 39200 operator columns as arrays, nnz 2,023,156 -> 16,640,984, by q (50 terms, 2.6s) + cleared 20 sources; new denominator factor 15*(x - 2)**9*(y - 1)**4*(y + 1)**4
+    rust nullspace: 8 blocks (largest 7000 cols), nnz 16,682,614 -> peak 4,679,359, nullity 40, 4 thread(s), 16.9s
+    [zeta chi^0 timing] solve+guard 20.7s
+  zeta chi^0 level: 20 of 20 survive  [172s]
+    [zeta chi^0] reconstructing solution 1/20 [172s]
+    [zeta chi^0] reconstructing solution 6/20 [173s]
+    [zeta chi^0] reconstructing solution 11/20 [176s]
+    [zeta chi^0] reconstructing solution 16/20 [179s]
+    level 0 checkpointed (kt_double_z_r5_d7_n0.pkl)
+    [zeta chi^1] computing bracket 1/20 [185s]
+    [zeta chi^1] computing bracket 2/20 [185s]
+    [zeta chi^1] computing bracket 3/20 [185s]
+    [zeta chi^1] computing bracket 4/20 [185s]
+    [zeta chi^1] computing bracket 5/20 [186s]
+    [zeta chi^1] computing bracket 6/20 [186s]
+    [zeta chi^1] computing bracket 7/20 [186s]
+    [zeta chi^1] computing bracket 8/20 [186s]
+    [zeta chi^1] computing bracket 9/20 [186s]
+    [zeta chi^1] computing bracket 10/20 [188s]
+    [zeta chi^1] computing bracket 11/20 [189s]
+    [zeta chi^1] computing bracket 12/20 [190s]
+    [zeta chi^1] computing bracket 13/20 [192s]
+    [zeta chi^1] computing bracket 14/20 [193s]
+    [zeta chi^1] computing bracket 15/20 [193s]
+    [zeta chi^1] computing bracket 16/20 [194s]
+    [zeta chi^1] computing bracket 17/20 [195s]
+    [zeta chi^1] computing bracket 18/20 [196s]
+    [zeta chi^1] computing bracket 19/20 [198s]
+    [zeta chi^1] computing bracket 20/20 [199s]
+    [zeta chi^1 timing] lcm+compare 5.5s | clear 9.6s = RESCALED 39200 operator columns as arrays, nnz 2,023,156 -> 19,415,248, by q (60 terms, 3.1s) + cleared 20 sources; new denominator factor 15*(x - 2)**11*(y - 1)**4*(y + 1)**4
+    rust nullspace: 8 blocks (largest 7000 cols), nnz 19,440,918 -> peak 5,388,276, nullity 40, 4 thread(s), 20.7s
+    [zeta chi^1 timing] solve+guard 25.3s
+  zeta chi^1 level: 20 of 20 survive  [239s]
+    [zeta chi^1] reconstructing solution 1/20 [239s]
+    [zeta chi^1] reconstructing solution 6/20 [240s]
+    [zeta chi^1] reconstructing solution 11/20 [242s]
+    [zeta chi^1] reconstructing solution 16/20 [245s]
+    level 1 checkpointed (kt_double_z_r5_d7_n1.pkl)
+    [zeta chi^2] computing bracket 1/20 [252s]
+    [zeta chi^2] computing bracket 2/20 [252s]
+    [zeta chi^2] computing bracket 3/20 [252s]
+    [zeta chi^2] computing bracket 4/20 [254s]
+    [zeta chi^2] computing bracket 5/20 [255s]
+    [zeta chi^2] computing bracket 6/20 [256s]
+    [zeta chi^2] computing bracket 7/20 [257s]
+    [zeta chi^2] computing bracket 8/20 [258s]
+    [zeta chi^2] computing bracket 9/20 [258s]
+    [zeta chi^2] computing bracket 10/20 [262s]
+    [zeta chi^2] computing bracket 11/20 [266s]
+    [zeta chi^2] computing bracket 12/20 [269s]
+    [zeta chi^2] computing bracket 13/20 [274s]
+    [zeta chi^2] computing bracket 14/20 [277s]
+    [zeta chi^2] computing bracket 15/20 [278s]
+    [zeta chi^2] computing bracket 16/20 [281s]
+    [zeta chi^2] computing bracket 17/20 [286s]
+    [zeta chi^2] computing bracket 18/20 [290s]
+    [zeta chi^2] computing bracket 19/20 [294s]
+    [zeta chi^2] computing bracket 20/20 [298s]
+    [zeta chi^2 timing] lcm+compare 27.2s | clear 63.5s = RESCALED 39200 operator columns as arrays, nnz 2,023,156 -> 54,482,976, by q (216 terms, 11.9s) + cleared 20 sources; new denominator factor 55125*(x - 2)**23*(y - 1)**8*(y + 1)**8
+    rust nullspace: 8 blocks (largest 7000 cols), nnz 54,714,518 -> peak 12,042,635, nullity 32, 4 thread(s), 47.2s
+    [zeta chi^2 timing] solve+guard 57.1s
+  zeta chi^2 level: 12 of 20 survive  [447s]
+    [zeta chi^2] reconstructing solution 1/12 [447s]
+    [zeta chi^2] reconstructing solution 6/12 [449s]
+    [zeta chi^2] reconstructing solution 11/12 [460s]
+    level 2 checkpointed (kt_double_z_r5_d7_n2.pkl)
+
+  SURVIVING at O(zeta chi^2), rank 5: 12
+  reducible floor: 12
+  => only the reducible floor survives: no irreducible rank-5 Killing tensor at O(zeta chi^2) that is analytic in zeta with a Kerr root.
+     NO PUBLISHED ARGUMENT REACHES THIS RANK -- there is nothing here to agree with. Petrov type I forbids a rank-2 tensor and says nothing above it; Owen-Yunes-Witek searched rank 2. Do not report this as corroborated.
+     NOT A NEW RUNG (D42): the highest power of Carter here is Q^2, which first appeared at rank 4; everything above the floor is Q^q times odd-degree reducibles (q = 1..2). Rank 4's outcome made this the strongly favoured one. Not a corollary -- the extra momentum factor changes the O(zeta) source, as at rank 3 -- but not an independent test either.
