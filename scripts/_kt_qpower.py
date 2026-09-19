@@ -23,7 +23,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import numpy as np  # noqa: E402
 import sympy as sp  # noqa: E402
 
-from _kt_carter_space import (arg, build_space, intersect_np, kernel_np, rank_np,  # noqa: E402
+from _kt_carter_space import (arg, matmul_mod, build_space, intersect_np, kernel_np, rank_np,  # noqa: E402
                               representable_only, rref_np, setup)
 from _kt_rank4_rule import chain_to_products, pair_tower  # noqa: E402
 
@@ -140,7 +140,7 @@ if __name__ == "__main__":
         G = rref_np(ker[:, :Kc], p)[0] if ker.shape[0] else np.zeros((0, Kc), np.int64)
         if G.shape[0] == 0:
             return 0, {}
-        PG = (G @ T) % p
+        PG = matmul_mod(G, T, p)
         r_ge = [rank_np(PG[:, lp >= m], int((lp >= m).sum()), p) if (lp >= m).any() else 0
                 for m in range(qmax + 2)]
         return G.shape[0], {m: r_ge[m] - r_ge[m + 1] for m in range(qmax + 1)}

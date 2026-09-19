@@ -33,7 +33,7 @@ import _kt_double as KD  # noqa: E402
 import _kt_exact as EX  # noqa: E402
 import _kt_perturb as PB  # noqa: E402
 import _kt_search as K  # noqa: E402
-from _kt_carter_space import (arg, build_space, intersect_np, kernel_np, rank_np,  # noqa: E402
+from _kt_carter_space import (arg, matmul_mod, build_space, intersect_np, kernel_np, rank_np,  # noqa: E402
                               representable_only, rref_np, setup)
 
 x, y = sp.symbols("x y", real=True)
@@ -189,7 +189,7 @@ if __name__ == "__main__":
         B = np.concatenate([U, V]).T                           # S x (Kc + dimV)
         ker = kernel_np(B, Kc + V.shape[0], p)
         G = rref_np(ker[:, :Kc], p)[0] if ker.shape[0] else np.zeros((0, Kc), np.int64)
-        prodG = (G @ T) % p if G.shape[0] else G
+        prodG = matmul_mod(G, T, p) if G.shape[0] else G
         hasQ2 = bool(G.shape[0]) and bool(np.any(prodG[:, q2[0]] % p))
         return G.shape[0], hasQ2
 

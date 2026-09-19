@@ -27,7 +27,7 @@ import _kt_double as KD  # noqa: E402
 import _kt_perturb as PB  # noqa: E402
 import _kt_search as K  # noqa: E402
 from _kt_anatomy import chi_pieces, lie_inverse  # noqa: E402
-from _kt_carter_space import (arg, build_space, compatible_space, rank_np, rref_np,  # noqa: E402
+from _kt_carter_space import (arg, matmul_mod, build_space, compatible_space, rank_np, rref_np,  # noqa: E402
                               representable_only, setup, intersect_np)
 
 x, y = sp.symbols("x y", real=True)
@@ -230,7 +230,7 @@ if __name__ == "__main__":
     ns, ng = len(sgis), len(ggis)
     SG = allv[:ns + ng]
     SL = allv[ns + ng:]
-    compat = (Ws @ SL) % p if Ws.shape[0] else np.zeros((0, allv.shape[1]), np.int64)
+    compat = matmul_mod(Ws, SL, p) if Ws.shape[0] else np.zeros((0, allv.shape[1]), np.int64)
     ncols = allv.shape[1]
     r_sg = rank_np(SG, ncols, p)
     r_all = rank_np(np.concatenate([SG, SL]), ncols, p)

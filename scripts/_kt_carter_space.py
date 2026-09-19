@@ -85,6 +85,20 @@ def rref_np(M, p, track=False):
     return (M[:r], piv, T[:r] if track else None)
 
 
+def matmul_mod(A, B, p):
+    """A @ B mod p WITHOUT int64 overflow. Entries are < p < 2^31, so one product is < 2^62 and a sum
+    of just two overflows 2^63 -- numpy then wraps silently. B is split into 16-bit halves: every
+    product is < 2^47 and a sum of up to 2^15 of them stays below 2^63. (2026-09-20: a plain
+    `(G @ T) % p` corrupted the Carter-power breakdowns and could corrupt any weight x vector
+    product; the residual guard fell to the same overflow once before.)"""
+    A = np.asarray(A, dtype=np.int64) % p
+    B = np.asarray(B, dtype=np.int64) % p
+    if A.shape[1] > (1 << 15):
+        raise ValueError("inner dimension too large for the 16-bit split")
+    lo, hi = B & 0xFFFF, B >> 16
+    return ((A @ hi) % p * 65536 + (A @ lo)) % p
+
+
 def rank_np(rows, n, p):
     return 0 if len(rows) == 0 else len(rref_np(np.array(rows).reshape(-1, n), p)[1])
 
@@ -276,7 +290,7 @@ def compatible_space(ctx, names, gis):
         Wn = rref_np(Wn, p)[0] if Wn.shape[0] else Wn
         print(f"  eps chi^{n}: {S} columns, every Kerr direction extends for a {Wn.shape[0]}-dim space "
               f"of the {nb} [{time.time()-t0:.0f}s]", flush=True)
-        newBw = (Wn @ Bw) % p if Wn.shape[0] else np.zeros((0, A), np.int64)
+        newBw = matmul_mod(Wn, Bw, p) if Wn.shape[0] else np.zeros((0, A), np.int64)
         if n == 2 or Wn.shape[0] == 0:
             Bw = newBw
             break

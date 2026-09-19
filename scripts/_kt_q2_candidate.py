@@ -22,7 +22,7 @@ import numpy as np  # noqa: E402
 import sympy as sp  # noqa: E402
 
 import _kt_double as KD  # noqa: E402
-from _kt_carter_space import (arg, build_space, compatible_space, intersect_np, kernel_np,  # noqa: E402
+from _kt_carter_space import (arg, matmul_mod, build_space, compatible_space, intersect_np, kernel_np,  # noqa: E402
                               rank_np, ratrec, rref_np, setup)
 from _kt_rank4_rule import chain_to_products, pair_tower  # noqa: E402
 
@@ -43,7 +43,7 @@ def survivors(V, keys, alive, Kc, T, q2, w, p):
             U[k, col[(k, int(a))]] = w[i]
     ker = kernel_np(np.concatenate([U, V]).T, Kc + V.shape[0], p)
     G = rref_np(ker[:, :Kc], p)[0] if ker.shape[0] else np.zeros((0, Kc), np.int64)
-    prodG = (G @ T) % p if G.shape[0] else G
+    prodG = matmul_mod(G, T, p) if G.shape[0] else G
     return G.shape[0], bool(G.shape[0]) and bool(np.any(prodG[:, q2] % p)), prodG
 
 

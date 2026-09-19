@@ -6,6 +6,21 @@ built, what broke, what the machine taught us. Numbers live in
 
 ---
 
+## 2026-09-20 — rank-6 pole-order test, and a silent-overflow bug (§141)
+
+- `_kt_qpower.py` (rank 6, shape sector, 67 min): all-30 space = Carter-compatible; Carter³ space ⊇ rank
+  4's Carter² space; exactly ONE extra direction d3 (P3), keeping 17 of 30. P1: d1, d2 keep 21 of 30.
+- **But the breakdowns were nonsense** — random shape deformations "lost" p_φ⁶, which is exactly
+  conserved for any axisymmetric metric. Impossible output → bug hunt, not finding. Direct test: the
+  pure p_φ⁶ direction DOES survive. Cause: `(G @ T) % p` in numpy int64 wraps silently (entries ~2^31,
+  products ~2^62). Fixed with `matmul_mod` (16-bit split) in five places, proven against exact ints.
+- **Rechecked everything downstream:** key spaces (safe elimination) unaffected; §139's compatible space
+  recomputed identical (43) and its separability conclusion reproduces (general class: rank rise 0);
+  rank-4 breakdowns recompute as before. **Rank 6 with fixed arithmetic matches the pole-order picture
+  exactly:** d1, d2 → 16 + 4 Carter²·(deg 2) + Carter³ = 21; d3 → 16 + Carter³ only = 17; random → 16.
+- d3 stress test (`_kt_pole_check.py`) running: rank-2 Carter must die (L⁸, both primes), rank-4 Carter²
+  must ALSO die (the new prediction), rank-6 Carter³ must survive on prime 1.
+
 ## 2026-09-19 (late) — does Carter² follow the rule? (§140, D52)
 
 - **Resolved:** the two candidate directions passed every stress test (from scratch, bigger ansatz,
