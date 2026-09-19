@@ -2920,6 +2920,8 @@ rebuilt pipeline (D48–D50) a run takes minutes, so all three are now on `p₁ 
                        p1     8      8      8          8           8          6          6
     rank 4, denpow 7   p0    14     14     14         14          14          9          9
                        p1    14     14     14         14          14          9          9
+    rank 6, denpow 8   p0    30     30     30         30          30         16         16
+                       p1    30     30     30         30          30         16         16   (§137)
 
 **§130, §131 and §133 now meet the two-prime standard, with every level count agreeing** — not only
 the verdict. Rank 4 is the one that matters most: it is the first independent rung (D42, Q² first
@@ -2961,8 +2963,13 @@ Artifacts: `data/kt_double_r{2,3}_p1.out`, `data/kt_double_r4_p1.out`, `data/kt_
 
 **No irreducible rank-6 Killing tensor of the O(ζ)O(χ²) sGB metric at O(ζχ²), analytic in ζ with a
 Kerr root, within `{xᵃyᵇ/L⁸}`, box 30×28, by exact null over GF(p) with the complete 16-direction
-reducible span subtracted — on one prime so far.** The second prime is running (`data/kt_double_r6_p1.out`);
-until it agrees, this is one prime, not the reporting standard.
+reducible span subtracted — on both primes.**
+
+    prime 1 = 2147483629, whole tower from scratch (data/kt_double_r6_p1.out, 2,365 s):
+    chi-tower 30 -> 30 -> 30 (control passed) | floor 16 of 16 | zeta chi^0 30 | zeta chi^1 30 | zeta chi^2 16
+
+Every level count agrees with prime 0 — rank 6 meets the two-prime standard, like ranks 2, 3 and 4
+(§136).
 
 **Why it is a result and not a repetition (D42).** Rank 6's Kerr Killing space is
 16 (floor) + 9 (Q·degree-4 reducibles) + 4 (Q²·degree-2) + 1 (**Q³**). Q³ first exists at rank 6, so its

@@ -1,0 +1,237 @@
+Schwarzschild background: L = x**2*(x - 2)*(y - 1)*(y + 1)
+  generators ['p_t', 'p_phi', 'H', 'Lsq']; 30 reducible products at rank 6
+  box x<=30 y<=28; den = L^8
+  75516 coefficient unknowns per level
+    operator from templates: 252 SymPy brackets for 75516 columns
+    [operator timing] templates 10.0s (252 SymPy brackets for 75516 columns) | D = 2*x**19*(x - 2)**10*(y - 1)**11*(y + 1)**11
+  operator matrix (149072, 75516) [16s]
+    op rust nullspace: 8 blocks (largest 13640 cols), nnz 4,006,722 -> peak 6,303,684, nullity 30, 4 thread(s), 51.3s
+    operator held as arrays: 4,006,722 nonzeros [1.0s]
+  chi^0 level: Schwarzschild Killing space = 30
+    [chi^1] computing bracket 1/30 [82s]
+    [chi^1] computing bracket 2/30 [83s]
+    [chi^1] computing bracket 3/30 [83s]
+    [chi^1] computing bracket 4/30 [83s]
+    [chi^1] computing bracket 5/30 [84s]
+    [chi^1] computing bracket 6/30 [84s]
+    [chi^1] computing bracket 7/30 [84s]
+    [chi^1] computing bracket 8/30 [84s]
+    [chi^1] computing bracket 9/30 [84s]
+    [chi^1] computing bracket 10/30 [85s]
+    [chi^1] computing bracket 11/30 [86s]
+    [chi^1] computing bracket 12/30 [87s]
+    [chi^1] computing bracket 13/30 [88s]
+    [chi^1] computing bracket 14/30 [89s]
+    [chi^1] computing bracket 15/30 [89s]
+    [chi^1] computing bracket 16/30 [90s]
+    [chi^1] computing bracket 17/30 [90s]
+    [chi^1] computing bracket 18/30 [90s]
+    [chi^1] computing bracket 19/30 [91s]
+    [chi^1] computing bracket 20/30 [91s]
+    [chi^1] computing bracket 21/30 [91s]
+    [chi^1] computing bracket 22/30 [93s]
+    [chi^1] computing bracket 23/30 [95s]
+    [chi^1] computing bracket 24/30 [97s]
+    [chi^1] computing bracket 25/30 [99s]
+    [chi^1] computing bracket 26/30 [102s]
+    [chi^1] computing bracket 27/30 [103s]
+    [chi^1] computing bracket 28/30 [106s]
+    [chi^1] computing bracket 29/30 [108s]
+    [chi^1] computing bracket 30/30 [109s]
+    [chi^1 timing] lcm+compare 2.0s | clear 2.6s = sources only (30)
+    rust nullspace: 8 blocks (largest 13647 cols), nnz 4,024,025 -> peak 6,251,434, nullity 60, 4 thread(s), 50.0s
+    [chi^1 timing] solve+guard 51.3s
+  chi^1 level: 30 of 30 extend  [166s]
+    [chi^1] reconstructing solution 1/30 [166s]
+    [chi^1] reconstructing solution 6/30 [166s]
+    [chi^1] reconstructing solution 11/30 [167s]
+    [chi^1] reconstructing solution 16/30 [168s]
+    [chi^1] reconstructing solution 21/30 [171s]
+    [chi^1] reconstructing solution 26/30 [175s]
+  chi^1 chains CHECKPOINTED to kt_double_chains_r6_d8_b30x28_p1.pkl (30 chains, depth 2) [180s]
+    [chi^2] computing bracket 1/30 [180s]
+    [chi^2] computing bracket 2/30 [180s]
+    [chi^2] computing bracket 3/30 [180s]
+    [chi^2] computing bracket 4/30 [181s]
+    [chi^2] computing bracket 5/30 [181s]
+    [chi^2] computing bracket 6/30 [182s]
+    [chi^2] computing bracket 7/30 [182s]
+    [chi^2] computing bracket 8/30 [182s]
+    [chi^2] computing bracket 9/30 [183s]
+    [chi^2] computing bracket 10/30 [184s]
+    [chi^2] computing bracket 11/30 [186s]
+    [chi^2] computing bracket 12/30 [187s]
+    [chi^2] computing bracket 13/30 [189s]
+    [chi^2] computing bracket 14/30 [190s]
+    [chi^2] computing bracket 15/30 [191s]
+    [chi^2] computing bracket 16/30 [192s]
+    [chi^2] computing bracket 17/30 [194s]
+    [chi^2] computing bracket 18/30 [196s]
+    [chi^2] computing bracket 19/30 [199s]
+    [chi^2] computing bracket 20/30 [201s]
+    [chi^2] computing bracket 21/30 [201s]
+    [chi^2] computing bracket 22/30 [205s]
+    [chi^2] computing bracket 23/30 [208s]
+    [chi^2] computing bracket 24/30 [212s]
+    [chi^2] computing bracket 25/30 [216s]
+    [chi^2] computing bracket 26/30 [220s]
+    [chi^2] computing bracket 27/30 [222s]
+    [chi^2] computing bracket 28/30 [226s]
+    [chi^2] computing bracket 29/30 [230s]
+    [chi^2] computing bracket 30/30 [233s]
+    [chi^2 timing] lcm+compare 30.5s | clear 64.2s = RESCALED 75516 operator columns as arrays, nnz 4,006,722 -> 65,005,336, by q (120 terms, 12.9s) + cleared 30 sources; new denominator factor (x - 2)**14*(y - 1)**7*(y + 1)**7
+    rust nullspace: 8 blocks (largest 13659 cols), nnz 65,337,738 -> peak 29,148,971, nullity 60, 4 thread(s), 246.8s
+    [chi^2 timing] solve+guard 268.3s
+  chi^2 level: 30 of 30 extend  [596s]
+    [chi^2] reconstructing solution 1/30 [596s]
+    [chi^2] reconstructing solution 6/30 [597s]
+    [chi^2] reconstructing solution 11/30 [600s]
+    [chi^2] reconstructing solution 16/30 [603s]
+    [chi^2] reconstructing solution 21/30 [608s]
+    [chi^2] reconstructing solution 26/30 [617s]
+  chi^2 chains CHECKPOINTED to kt_double_chains_r6_d8_b30x28_p1.pkl (30 chains, depth 3) [629s]
+
+  Kerr Killing space at rank 6: got 30, expect None
+  count check passed, but a COUNT IS NOT ENOUGH HERE.
+  Schwarzschild and Kerr have the SAME dimension at every rank (5, 8, 14) because
+  Lsq maps one-to-one onto Carter -- so 'the count is preserved' would also pass if
+  the tower did nothing. Identifying the direction is the real test.
+
+  Carter's O(chi^2) piece should be  y^2 (mu^2 - p_t^2)
+    = y**2*(-P_phi**2*(2 - x) - P_t**2*x**3*(1 - y**2) - P_t**2*x**2*(x - 2)*(y**2 - 1) - P_x**2*x*(x - 2)**2*(y**2 - 1) + P_y**2*(x - 2)*(y**2 - 1)**2)/(x**2*(x - 2)*(y**2 - 1))
+  prediction self-check: {H,F} at chi^0 = True, chi^1 = True, chi^2 = True
+
+  {H_Kerr, Lsq} at chi^2 is NONZERO
+  THE COUNT IS DECISIVE: Lsq alone does NOT extend to O(chi^2), so a tower doing nothing would have reported 16 of 30 -- only the directions built from p_t, p_phi and H, which survive trivially. Reporting 30 means it found a nonzero F^(0,2), and the verified prediction above identifies that deformation as Carter's.
+
+  CONTROL PASSED, non-vacuously: the chi-tower deforms Lsq into Carter.
+
+  sGB Hamiltonian pieces built and REPRESENTABLE [633s]
+  reducible floor (products of p_t, p_phi, H at rank 6): 16 combinatorial, 16 REPRESENTABLE at denpow 8
+    [zeta chi^0] computing bracket 1/30 [635s]
+    [zeta chi^0] computing bracket 2/30 [635s]
+    [zeta chi^0] computing bracket 3/30 [635s]
+    [zeta chi^0] computing bracket 4/30 [635s]
+    [zeta chi^0] computing bracket 5/30 [635s]
+    [zeta chi^0] computing bracket 6/30 [636s]
+    [zeta chi^0] computing bracket 7/30 [636s]
+    [zeta chi^0] computing bracket 8/30 [636s]
+    [zeta chi^0] computing bracket 9/30 [636s]
+    [zeta chi^0] computing bracket 10/30 [637s]
+    [zeta chi^0] computing bracket 11/30 [638s]
+    [zeta chi^0] computing bracket 12/30 [638s]
+    [zeta chi^0] computing bracket 13/30 [639s]
+    [zeta chi^0] computing bracket 14/30 [640s]
+    [zeta chi^0] computing bracket 15/30 [640s]
+    [zeta chi^0] computing bracket 16/30 [641s]
+    [zeta chi^0] computing bracket 17/30 [641s]
+    [zeta chi^0] computing bracket 18/30 [642s]
+    [zeta chi^0] computing bracket 19/30 [642s]
+    [zeta chi^0] computing bracket 20/30 [643s]
+    [zeta chi^0] computing bracket 21/30 [643s]
+    [zeta chi^0] computing bracket 22/30 [644s]
+    [zeta chi^0] computing bracket 23/30 [646s]
+    [zeta chi^0] computing bracket 24/30 [648s]
+    [zeta chi^0] computing bracket 25/30 [649s]
+    [zeta chi^0] computing bracket 26/30 [651s]
+    [zeta chi^0] computing bracket 27/30 [652s]
+    [zeta chi^0] computing bracket 28/30 [654s]
+    [zeta chi^0] computing bracket 29/30 [656s]
+    [zeta chi^0] computing bracket 30/30 [657s]
+    [zeta chi^0 timing] lcm+compare 16.0s | clear 29.6s = RESCALED 75516 operator columns as arrays, nnz 4,006,722 -> 40,524,496, by q (66 terms, 7.2s) + cleared 30 sources; new denominator factor 15*(x - 2)**10*(y - 1)**5*(y + 1)**5
+    rust nullspace: 8 blocks (largest 13656 cols), nnz 40,655,937 -> peak 19,855,641, nullity 60, 4 thread(s), 184.6s
+    [zeta chi^0 timing] solve+guard 197.9s
+  zeta chi^0 level: 30 of 30 survive  [901s]
+    [zeta chi^0] reconstructing solution 1/30 [901s]
+    [zeta chi^0] reconstructing solution 6/30 [902s]
+    [zeta chi^0] reconstructing solution 11/30 [905s]
+    [zeta chi^0] reconstructing solution 16/30 [909s]
+    [zeta chi^0] reconstructing solution 21/30 [915s]
+    [zeta chi^0] reconstructing solution 26/30 [928s]
+    level 0 checkpointed (kt_double_z_r6_d8_n0_p1.pkl)
+    [zeta chi^1] computing bracket 1/30 [944s]
+    [zeta chi^1] computing bracket 2/30 [944s]
+    [zeta chi^1] computing bracket 3/30 [944s]
+    [zeta chi^1] computing bracket 4/30 [944s]
+    [zeta chi^1] computing bracket 5/30 [945s]
+    [zeta chi^1] computing bracket 6/30 [945s]
+    [zeta chi^1] computing bracket 7/30 [945s]
+    [zeta chi^1] computing bracket 8/30 [945s]
+    [zeta chi^1] computing bracket 9/30 [945s]
+    [zeta chi^1] computing bracket 10/30 [947s]
+    [zeta chi^1] computing bracket 11/30 [949s]
+    [zeta chi^1] computing bracket 12/30 [950s]
+    [zeta chi^1] computing bracket 13/30 [952s]
+    [zeta chi^1] computing bracket 14/30 [953s]
+    [zeta chi^1] computing bracket 15/30 [953s]
+    [zeta chi^1] computing bracket 16/30 [954s]
+    [zeta chi^1] computing bracket 17/30 [956s]
+    [zeta chi^1] computing bracket 18/30 [957s]
+    [zeta chi^1] computing bracket 19/30 [959s]
+    [zeta chi^1] computing bracket 20/30 [960s]
+    [zeta chi^1] computing bracket 21/30 [960s]
+    [zeta chi^1] computing bracket 22/30 [964s]
+    [zeta chi^1] computing bracket 23/30 [968s]
+    [zeta chi^1] computing bracket 24/30 [972s]
+    [zeta chi^1] computing bracket 25/30 [977s]
+    [zeta chi^1] computing bracket 26/30 [982s]
+    [zeta chi^1] computing bracket 27/30 [985s]
+    [zeta chi^1] computing bracket 28/30 [991s]
+    [zeta chi^1] computing bracket 29/30 [997s]
+    [zeta chi^1] computing bracket 30/30 [1002s]
+    [zeta chi^1 timing] lcm+compare 13.3s | clear 26.5s = RESCALED 75516 operator columns as arrays, nnz 4,006,722 -> 46,784,391, by q (78 terms, 7.5s) + cleared 30 sources; new denominator factor 15*(x - 2)**12*(y - 1)**5*(y + 1)**5
+    rust nullspace: 8 blocks (largest 13647 cols), nnz 46,855,172 -> peak 22,183,132, nullity 60, 4 thread(s), 201.2s
+    [zeta chi^1 timing] solve+guard 216.8s
+  zeta chi^1 level: 30 of 30 survive  [1259s]
+    [zeta chi^1] reconstructing solution 1/30 [1259s]
+    [zeta chi^1] reconstructing solution 6/30 [1260s]
+    [zeta chi^1] reconstructing solution 11/30 [1262s]
+    [zeta chi^1] reconstructing solution 16/30 [1267s]
+    [zeta chi^1] reconstructing solution 21/30 [1273s]
+    [zeta chi^1] reconstructing solution 26/30 [1286s]
+    level 1 checkpointed (kt_double_z_r6_d8_n1_p1.pkl)
+    [zeta chi^2] computing bracket 1/30 [1301s]
+    [zeta chi^2] computing bracket 2/30 [1301s]
+    [zeta chi^2] computing bracket 3/30 [1301s]
+    [zeta chi^2] computing bracket 4/30 [1303s]
+    [zeta chi^2] computing bracket 5/30 [1305s]
+    [zeta chi^2] computing bracket 6/30 [1306s]
+    [zeta chi^2] computing bracket 7/30 [1307s]
+    [zeta chi^2] computing bracket 8/30 [1309s]
+    [zeta chi^2] computing bracket 9/30 [1309s]
+    [zeta chi^2] computing bracket 10/30 [1315s]
+    [zeta chi^2] computing bracket 11/30 [1322s]
+    [zeta chi^2] computing bracket 12/30 [1328s]
+    [zeta chi^2] computing bracket 13/30 [1334s]
+    [zeta chi^2] computing bracket 14/30 [1340s]
+    [zeta chi^2] computing bracket 15/30 [1342s]
+    [zeta chi^2] computing bracket 16/30 [1346s]
+    [zeta chi^2] computing bracket 17/30 [1352s]
+    [zeta chi^2] computing bracket 18/30 [1357s]
+    [zeta chi^2] computing bracket 19/30 [1363s]
+    [zeta chi^2] computing bracket 20/30 [1369s]
+    [zeta chi^2] computing bracket 21/30 [1370s]
+    [zeta chi^2] computing bracket 22/30 [1383s]
+    [zeta chi^2] computing bracket 23/30 [1398s]
+    [zeta chi^2] computing bracket 24/30 [1411s]
+    [zeta chi^2] computing bracket 25/30 [1427s]
+    [zeta chi^2] computing bracket 26/30 [1443s]
+    [zeta chi^2] computing bracket 27/30 [1454s]
+    [zeta chi^2] computing bracket 28/30 [1470s]
+    [zeta chi^2] computing bracket 29/30 [1485s]
+    [zeta chi^2] computing bracket 30/30 [1496s]
+    [zeta chi^2 timing] lcm+compare 75.7s | clear 198.3s = RESCALED 75516 operator columns as arrays, nnz 4,006,722 -> 122,450,823, by q (250 terms, 28.2s) + cleared 30 sources; new denominator factor 55125*(x - 2)**24*(y - 1)**9*(y + 1)**9
+    rust nullspace: 8 blocks (largest 13659 cols), nnz 123,096,337 -> peak 56,257,472, nullity 46, 4 thread(s), 558.6s
+    [zeta chi^2 timing] solve+guard 592.3s
+  zeta chi^2 level: 16 of 30 survive  [2365s]
+    [zeta chi^2] reconstructing solution 1/16 [2365s]
+    [zeta chi^2] reconstructing solution 6/16 [2368s]
+    [zeta chi^2] reconstructing solution 11/16 [2382s]
+    [zeta chi^2] reconstructing solution 16/16 [2421s]
+    level 2 checkpointed (kt_double_z_r6_d8_n2_p1.pkl)
+
+  SURVIVING at O(zeta chi^2), rank 6: 16
+  reducible floor: 16
+  => only the reducible floor survives: no irreducible rank-6 Killing tensor at O(zeta chi^2) that is analytic in zeta with a Kerr root.
+     NO PUBLISHED ARGUMENT REACHES THIS RANK -- there is nothing here to agree with. Petrov type I forbids a rank-2 tensor and says nothing above it; Owen-Yunes-Witek searched rank 2. Do not report this as corroborated.
+     INDEPENDENT RUNG (D42): the rank-6 Kerr Killing space is 16 (floor) + 9 (Q^1) + 4 (Q^2) + 1 (Q^3) = 30. Q^3 FIRST APPEARS AT THIS RANK, so this outcome was NOT forced by the lower ranks -- a Q^3 direction can die or survive independently of Q^1 and Q^2 (times reducibles). The previous independent rung was rank 4 (Q^2); this is the next one.
