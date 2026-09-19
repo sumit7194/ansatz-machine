@@ -1,2 +1,7 @@
 corrections built [4s]
   denpow 8: min box from reducibles 24x22
+    margin 4: box 28x26  cols 65772  floor 16 comb / 16 REPRESENTABLE  COMPLETE
+      dense 36.6 GB | streaming 16.1 GB | sparse ~80 MB (at 50 nz/col, 1.6x fill)
+    margin 6: box 30x28  cols 75516  floor 16 comb / 16 REPRESENTABLE  COMPLETE
+      dense 48.2 GB | streaming 21.2 GB | sparse ~92 MB (at 50 nz/col, 1.6x fill)
+TOTAL 695s

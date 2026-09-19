@@ -1245,3 +1245,62 @@ Only after that does it touch ζχ².
 level rather than only between levels, and a controllable core count — few cores on weekdays while
 the machine is in use, more at weekends. The block structure makes the last one natural: blocks are
 independent, so parallelism is just how many run at once.
+
+## D49 — the solver was never the whole cost: remove SymPy from the per-column path (2026-09-19)
+
+**The measurement came first, at the user's request** ("measure the sympy step first"). With the
+Rust solver in place (D48), rank 2's χ² level still took 2,285 s — and its solve took **0.4 s**.
+Everything else was SymPy preparing the equations, in three places, each removed by an exact
+identity rather than an approximation, and each validated by equality, not agreement:
+
+1. **The operator, one SymPy bracket + clear per column** (75,516 at rank 6; 5,567 s to the
+   operator matrix in the legacy run). A basis column is `m(p)·xᵃyᵇ/den`, and `(a,b)` enter the
+   bracket only through `∂(xᵃyᵇ)`, so every cleared column is
+
+       cleared(m,a,b) = xᵃyᵇ U + a·xᵃ⁻¹yᵇ V + b·xᵃyᵇ⁻¹ W
+
+   with `U, V, W` read off the three columns `(a,b) = (0,0), (1,0), (0,1)`. **3 SymPy brackets per
+   momentum monomial** (252 at rank 6) and integer shifting for the rest
+   (`scripts/_kt_opfast.py`). Rank 6: **5,567 s → 24 s**, same 149,072 × 75,516 matrix.
+2. **Re-clearing every operator column when a level's sources enlarge the denominator.** With
+   `D₂ = D·q`, the cleared columns of `r·D₂` are those of `r·D` convolved with `q`'s coefficients —
+   integer arithmetic mod p, no SymPy (`scripts/_kt_prep.py`; 426–1004× against the expression
+   clear, still 100–218× against the ring clear of point 3).
+3. **Clearing the sources themselves** — the cost left standing after 1 and 2, and measured before
+   it was touched (`scripts/_kt_srcprof.py`): at rank 3 ζχ², **210 s of a 346 s run**, and 97% of it
+   `sp.expand(num·q)` plus the Poly conversion after it — SymPy expanding an expression tree. The
+   same product in a sparse polynomial ring `QQ[x, y, p]` is essentially free: **33 s → 1.0 s** on
+   the largest source. `PB.clear` now does that; the old version stays as `PB.clear_expr`, the
+   reference it is checked against (`scripts/_kt_clearcheck.py`).
+
+**FLINT was not needed for any of it.** It was on the list for "whatever SymPy step is still slow".
+Measuring showed the slow steps were slow *because of expression trees*, and SymPy's own
+polynomial ring removes that; FLINT would speed up the ring further, which is not where the time is.
+Kept on the list, not installed.
+
+**Validation, end to end, against the legacy checkpoints — the strongest test available.** Rank 3
+rerun from scratch on the new pipeline into a separate checkpoint directory (`KT_CKDIR`), then
+every checkpoint compared as stored strings (`scripts/_kt_ckcompare.py`):
+
+    rank 3, prime 0          legacy (Sep 3-4)   1+2 only   1+2+3     checkpoint (both reruns)
+    operator matrix          563 s              4 s        3 s       27146 x 10500, same
+    chi tower complete       6,273 s            65 s       22 s      480/480 identical
+    zeta chi^0               9,405 s            88 s       37 s      640/640 identical
+    zeta chi^1               13,385 s           102 s      49 s      800/800 identical
+    zeta chi^2 (verdict)     30,714 s           346 s      92 s      720/720 identical, 6 = floor
+
+**30,714 s → 92 s, 330×**, byte sizes identical too. Rank 2 likewise (chains 150/150 against legacy; ζχ⁰ 200/200 against the
+Rust-on-legacy-prep run; ζχ¹ and ζχ² counts 5, 4 as in §130), in 183 s.
+
+**Two operational fixes that fell out.** Checkpoint names now carry the prime (`_p1`) — a
+second-prime run would otherwise have *resumed from the first prime's mod-p data* and reported it
+as agreement. And `KT_CKDIR` points validation reruns at their own directory, so they neither
+resume from nor overwrite the checkpoints they are compared against.
+
+**In the gate.** `verify.sh` now runs the four equality tests (KT1 Rust, KT2 rescale, KT3 templates,
+KT4 ring clear; the last two in `--quick` form, ~1 min each), so a regression in any replacement fails
+the gate rather than surfacing as a changed count.
+
+**What it buys, beyond speed:** the reporting standard in CLAUDE.md §3 asks for both primes, and
+§130/§131/§133 each ran on one — at 8.5 h (rank 3) and 35 h (rank 4) per run it was never paid.
+At minutes per run it is now the default.

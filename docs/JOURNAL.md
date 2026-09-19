@@ -22,6 +22,31 @@ built, what broke, what the machine taught us. Numbers live in
 - **Next: a Rust port** at the user's request (they want to learn Rust), validated against the numba
   version, with pause/resume, in-level checkpoints and a controllable core count.
 
+### later the same day — Rust in, then the SymPy costs out (D49)
+
+- **`rust/ktsolve`** (std only, no crates): block split by union-find, Markowitz forward elimination,
+  back-substitution, blocks solved in parallel on `thread::scope`. Identical vectors to the numba
+  reference and the old solver on 7 families, at 1 and 4 threads. Runs as its own process, so it can
+  be paused from outside and its threads chosen per run.
+- **Then measured, as the user asked, before reaching for FLINT.** Rank 2's χ² level: 2,285 s, of
+  which the solve was 0.4 s. The rest was SymPy, in three places, each removed by an exact identity:
+  operator from 3 brackets per momentum monomial (`_kt_opfast`, rank 6 5,567 s → 24 s); rescale
+  instead of re-clear (`_kt_prep`); and clearing in a polynomial ring instead of expanding
+  expression trees (`PB.clear`, 33 s → 1.0 s on the worst source; old one kept as `clear_expr`).
+  **FLINT turned out not to be needed** — the time was in expression trees, not ring arithmetic.
+- **Validated end to end against legacy checkpoints.** Rank 3 from scratch: every checkpoint
+  identical as strings and in byte size, **346 s against 30,714 s** — then **92 s** with the ring
+  clear, identical again. Rank 2: 183 s, identical. All four replacements now in `verify.sh` (KT1-KT4).
+- **The two-prime gap, found while planning the reruns.** §130, §131 and §133 each ran on one
+  prime, though CLAUDE.md §3 asks for two. Also found: checkpoint names did not carry the prime, so
+  a second-prime run would have resumed from the first prime's data and "agreed". Fixed (`_p1`).
+  **Rank 3 on prime 1: 8, 8, 8 / 8, 8, 6 — the floor, as on prime 0. Rank 2 on prime 1: 5, 5, 5 /
+  5, 5, 4 — Carter dies, as on prime 0.**
+- Rank 6 restarted on the template path (the first restart dropped the ~90-min operator build);
+  the old rank-2 run on the legacy prep path stopped as superseded (argv + cwd verified both times).
+- User feedback, kept: on a setback, step back, take notes, try another angle — don't retreat to
+  the fallback at the first failure.
+
 ---
 
 ## 2026-09-13 — Zipoy–Voorhees was closed at all ranks in 2013; rank 6 into its last level

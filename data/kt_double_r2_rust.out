@@ -1,0 +1,83 @@
+Schwarzschild background: L = x**2*(x - 2)*(y - 1)*(y + 1)
+  generators ['p_t', 'p_phi', 'H', 'Lsq']; 5 reducible products at rank 2
+  box x<=24 y<=20; den = L^6
+  5250 coefficient unknowns per level
+    op 200/5250 brackets (1s)
+    op 400/5250 brackets (2s)
+    op 600/5250 brackets (3s)
+    op 800/5250 brackets (5s)
+    op 1000/5250 brackets (7s)
+    op 1200/5250 brackets (8s)
+    op 1400/5250 brackets (9s)
+    op 1600/5250 brackets (10s)
+    op 1800/5250 brackets (12s)
+    op 2000/5250 brackets (13s)
+    op 2200/5250 brackets (14s)
+    op 2400/5250 brackets (16s)
+    op 2600/5250 brackets (17s)
+    op 2800/5250 brackets (19s)
+    op 3000/5250 brackets (20s)
+    op 3200/5250 brackets (22s)
+    op 3400/5250 brackets (24s)
+    op 3600/5250 brackets (25s)
+    op 3800/5250 brackets (26s)
+    op 4000/5250 brackets (28s)
+    op 4200/5250 brackets (29s)
+    op 4400/5250 brackets (30s)
+    op 4600/5250 brackets (32s)
+    op 4800/5250 brackets (33s)
+    op 5000/5250 brackets (34s)
+    op 5200/5250 brackets (35s)
+  operator matrix (15220, 5250) [262s]
+    op rust nullspace: 8 blocks (largest 1350 cols), nnz 228,789 -> peak 59,669, nullity 5, 4 thread(s), 0.0s
+  chi^0 level: Schwarzschild Killing space = 5
+    [chi^1] computing bracket 1/5 [262s]
+    [chi^1] computing bracket 2/5 [262s]
+    [chi^1] computing bracket 3/5 [262s]
+    [chi^1] computing bracket 4/5 [262s]
+    [chi^1] computing bracket 5/5 [263s]
+    rust nullspace: 8 blocks (largest 1350 cols), nnz 228,969 -> peak 59,669, nullity 10, 4 thread(s), 0.0s
+  chi^1 level: 5 of 5 extend  [263s]
+    [chi^1] reconstructing solution 1/5 [263s]
+  chi^1 chains CHECKPOINTED to kt_double_chains_r2_d6_b24x20.pkl (5 chains, depth 2) [263s]
+    [chi^2] computing bracket 1/5 [263s]
+    [chi^2] computing bracket 2/5 [264s]
+    [chi^2] computing bracket 3/5 [264s]
+    [chi^2] computing bracket 4/5 [264s]
+    [chi^2] computing bracket 5/5 [264s]
+    rust nullspace: 8 blocks (largest 1353 cols), nnz 2,223,711 -> peak 578,108, nullity 10, 4 thread(s), 0.4s
+  chi^2 level: 5 of 5 extend  [2549s]
+    [chi^2] reconstructing solution 1/5 [2549s]
+  chi^2 chains CHECKPOINTED to kt_double_chains_r2_d6_b24x20.pkl (5 chains, depth 3) [2549s]
+
+  Kerr Killing space at rank 2: got 5, expect 5
+  count check passed, but a COUNT IS NOT ENOUGH HERE.
+  Schwarzschild and Kerr have the SAME dimension at every rank (5, 8, 14) because
+  Lsq maps one-to-one onto Carter -- so 'the count is preserved' would also pass if
+  the tower did nothing. Identifying the direction is the real test.
+
+  Carter's O(chi^2) piece should be  y^2 (mu^2 - p_t^2)
+    = y**2*(-P_phi**2*(2 - x) - P_t**2*x**3*(1 - y**2) - P_t**2*x**2*(x - 2)*(y**2 - 1) - P_x**2*x*(x - 2)**2*(y**2 - 1) + P_y**2*(x - 2)*(y**2 - 1)**2)/(x**2*(x - 2)*(y**2 - 1))
+  prediction self-check: {H,F} at chi^0 = True, chi^1 = True, chi^2 = True
+
+  {H_Kerr, Lsq} at chi^2 is NONZERO
+  THE COUNT IS DECISIVE: Lsq alone does NOT extend to O(chi^2), so a tower doing nothing would have reported 4 of 5 -- only the directions built from p_t, p_phi and H, which survive trivially. Reporting 5 means it found a nonzero F^(0,2), and the verified prediction above identifies that deformation as Carter's.
+
+  CONTROL PASSED, non-vacuously: the chi-tower deforms Lsq into Carter.
+
+  sGB Hamiltonian pieces built and REPRESENTABLE [2552s]
+  reducible floor (products of p_t, p_phi, H at rank 2): 4 combinatorial, 4 REPRESENTABLE at denpow 6
+    [zeta chi^0] computing bracket 1/5 [2553s]
+    [zeta chi^0] computing bracket 2/5 [2553s]
+    [zeta chi^0] computing bracket 3/5 [2553s]
+    [zeta chi^0] computing bracket 4/5 [2553s]
+    [zeta chi^0] computing bracket 5/5 [2553s]
+    rust nullspace: 8 blocks (largest 1352 cols), nnz 1,466,813 -> peak 383,352, nullity 10, 4 thread(s), 0.2s
+  zeta chi^0 level: 5 of 5 survive  [3903s]
+    [zeta chi^0] reconstructing solution 1/5 [3903s]
+    level 0 checkpointed (kt_double_z_r2_d6_n0.pkl)
+    [zeta chi^1] computing bracket 1/5 [3904s]
+    [zeta chi^1] computing bracket 2/5 [3904s]
+    [zeta chi^1] computing bracket 3/5 [3904s]
+    [zeta chi^1] computing bracket 4/5 [3905s]
+    [zeta chi^1] computing bracket 5/5 [3905s]

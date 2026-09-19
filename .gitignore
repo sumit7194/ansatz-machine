@@ -77,3 +77,7 @@ downloads/
 
 # Rust build output (regenerable, large)
 rust/*/target/
+
+# validation reruns write their checkpoints here; the renamed legacy checkpoints they are compared against
+data/ckval*/
+data/*.legacy

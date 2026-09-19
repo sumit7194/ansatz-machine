@@ -63,6 +63,15 @@ KT_THREADS = int(os.environ.get("KT_THREADS", "1"))
 # operator columns by q instead of re-clearing all of them in SymPy (scripts/_kt_prep.py; validated
 # identical, ~400-1000x faster). On by default with the new solvers, off for the legacy path.
 KT_RESCALE = os.environ.get("KT_RESCALE", "0" if KT_SOLVER == "legacy" else "1") != "0"
+# Build the operator from 3 SymPy brackets per momentum monomial and integer shifts, instead of one
+# SymPy bracket + clear per column (scripts/_kt_opfast.py; validated identical, 168x at rank 2).
+# It keeps no raw SymPy columns, so it needs KT_RESCALE: the legacy re-clear reads them.
+KT_OPFAST = os.environ.get("KT_OPFAST", "1" if KT_RESCALE else "0") != "0"
+if KT_OPFAST and not KT_RESCALE:
+    raise SystemExit("KT_OPFAST=1 needs KT_RESCALE=1: the legacy re-clear needs the raw columns")
+# Where checkpoints are read and written. A validation rerun points this elsewhere so it neither
+# resumes from nor overwrites the production checkpoints it is being compared against.
+KT_CKDIR = os.environ.get("KT_CKDIR", "data")
 # Above this the dense matrix is not built at all; stream instead. Overridable by env so the
 # streaming path can be FORCED on a small known-answer case -- otherwise it is only ever
 # exercised on the big runs, where a bug has nothing cheap to disagree with.
@@ -130,6 +139,8 @@ def _prep_level(srcs, D, dicts0, raws0, p, tag):
         how = (f"RESCALED {len(dicts0)} operator columns by q ({len(terms)} terms, {t_r:.1f}s) "
                f"+ cleared {len(srcs)} sources; new denominator factor {extra}")
     else:
+        if raws0 is None:
+            raise RuntimeError("legacy re-clear needs the raw operator columns (KT_OPFAST is on)")
         ns_dicts = [PB.clear(r, D2, p) for r in raws0 + srcs]
         extra = sp.factor(sp.cancel(D2 / D))
         how = (f"RE-CLEARED ALL {len(raws0)} operator columns + {len(srcs)} sources "
@@ -314,6 +325,9 @@ if __name__ == "__main__":
     denpow = arg("--denpow", 2, int)
     margin = arg("--margin", 4, int)
     p = PRIMES[arg("--prime", 0, int)]
+    # Checkpoints hold mod-p data, so a second-prime run must never resume from the first prime's.
+    # Prime 0 keeps the original names (every existing checkpoint is prime 0); others get a suffix.
+    pfx = "" if p == PRIMES[0] else f"_p{PRIMES.index(p)}"
     K.set_dim((t, x, y, ph), sp.symbols("P_t P_x P_y P_phi", real=True), dep=(1,2))
     t0 = time.time()
 
@@ -337,17 +351,24 @@ if __name__ == "__main__":
 
     # ---- the reusable operator: {H^(0,0), w_j} for every basis function ----
     _ta = time.time()
-    raws0, dens0 = PB.build_columns([(H[0], F) for F in F_cos], mons, True, "op ")
-    _tb = time.time()
-    D = sp.Integer(1)
-    for d_ in dens0:
-        D = sp.lcm(D, d_)
-    _tcl = time.time()
-    dicts0 = [PB.clear(r, D, p) for r in raws0]
-    print(f"    [operator timing] brackets {_tb-_ta:.1f}s | lcm {_tcl-_tb:.1f}s | "
-          f"clear {time.time()-_tcl:.1f}s ({len(raws0)} columns, "
-          f"{1000*(time.time()-_tcl)/max(1,len(raws0)):.1f} ms each) | D = {sp.factor(D)}",
-          flush=True)
+    if KT_OPFAST:
+        from _kt_opfast import operator_from_templates
+        raws0 = None
+        dicts0, D = operator_from_templates(H[0], mons, dx, dy, den, p, verbose=True)
+        print(f"    [operator timing] templates {time.time()-_ta:.1f}s ({3*len(mons)} SymPy "
+              f"brackets for {len(dicts0)} columns) | D = {sp.factor(D)}", flush=True)
+    else:
+        raws0, dens0 = PB.build_columns([(H[0], F) for F in F_cos], mons, True, "op ")
+        _tb = time.time()
+        D = sp.Integer(1)
+        for d_ in dens0:
+            D = sp.lcm(D, d_)
+        _tcl = time.time()
+        dicts0 = [PB.clear(r, D, p) for r in raws0]
+        print(f"    [operator timing] brackets {_tb-_ta:.1f}s | lcm {_tcl-_tb:.1f}s | "
+              f"clear {time.time()-_tcl:.1f}s ({len(raws0)} columns, "
+              f"{1000*(time.time()-_tcl)/max(1,len(raws0)):.1f} ms each) | D = {sp.factor(D)}",
+              flush=True)
     _nr = len(set().union(*dicts0)) if dicts0 else 0
     print(f"  operator matrix ({_nr}, {n_w}) [{time.time()-t0:.0f}s]", flush=True)
     bg = nullspace_dicts(dicts0, n_w, p, label="op ")
@@ -391,7 +412,7 @@ if __name__ == "__main__":
         # expensive computations were lost to missing checkpoints earlier in this session, and the
         # first version of this file wrote the checkpoint without ever reading it back.
         import pathlib, pickle
-        ckf = pathlib.Path(f"data/kt_double_chains_r{rank}_d{denpow}_b{dx}x{dy}.pkl")
+        ckf = pathlib.Path(f"{KT_CKDIR}/kt_double_chains_r{rank}_d{denpow}_b{dx}x{dy}{pfx}.pkl")
         chains = None
         if ckf.exists():
             try:
@@ -564,13 +585,18 @@ if __name__ == "__main__":
                 return HS[2]
             return sp.expand(sum(c * H[i] ** (c - 1) * HS[j]
                                  for i in range(3) for j in range(3) if i + j == 2))
+        # Representability depends on c alone (p_t, p_phi are conserved and carry no correction),
+        # so it is computed once per c -- at rank 6 that is 4 SymPy expansions instead of 16.
+        _rep_c = {}
         nrep = 0
         for a_ in range(rank + 1):
             for b_ in range(rank + 1):
                 for c_ in range(rank // 2 + 1):
                     if a_ + b_ + 2 * c_ != rank:
                         continue
-                    nrep += 1 if PB.representable(_corr(c_), dx, dy, den) else 0
+                    if c_ not in _rep_c:
+                        _rep_c[c_] = PB.representable(_corr(c_), dx, dy, den)
+                    nrep += 1 if _rep_c[c_] else 0
         print(f"  reducible floor (products of p_t, p_phi, H at rank {rank}): "
               f"{nred} combinatorial, {nrep} REPRESENTABLE at denpow {denpow}", flush=True)
         if nrep < nred:
@@ -585,7 +611,7 @@ if __name__ == "__main__":
         alive = list(range(len(chains)))
         start_zn = 0
         for cand_n in (2, 1, 0):
-            cand_ck = pathlib.Path(f"data/kt_double_z_r{rank}_d{denpow}_n{cand_n}.pkl")
+            cand_ck = pathlib.Path(f"{KT_CKDIR}/kt_double_z_r{rank}_d{denpow}_n{cand_n}{pfx}.pkl")
             if cand_ck.exists():
                 try:
                     data = pickle.loads(cand_ck.read_bytes())
@@ -651,7 +677,7 @@ if __name__ == "__main__":
                 newz.append(zc)
             chains, zchains = newch, newz
             zdim = surv
-            zck = pathlib.Path(f"data/kt_double_z_r{rank}_d{denpow}_n{n}.pkl")
+            zck = pathlib.Path(f"{KT_CKDIR}/kt_double_z_r{rank}_d{denpow}_n{n}{pfx}.pkl")
             zck.write_bytes(pickle.dumps({
                 "chains": [[[sp.srepr(e) for e in lvl] for lvl in ch] for ch in chains],
                 "zchains": [[[sp.srepr(e) for e in lvl] for lvl in ch] for ch in zchains],

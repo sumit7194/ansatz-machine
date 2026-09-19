@@ -114,6 +114,12 @@ NAMES+=("04 campaign");           CMDS+=("scripts/04_campaign.py")
 [ -f scripts/121_candidate_B_transcendental.py ] && { NAMES+=("121 G2 candidate B: Galajinsky metric, TRANSCENDENTAL invariant I = p_y/p_x - ln p_x exactly conserved; polynomial invariants of degree <=4 excluded (Killing-tensor dims 0,1,0,1; flat-2D control 3,6,10,15)"); CMDS+=("scripts/121_candidate_B_transcendental.py --quick"); }
 [ -f scripts/122_ck_order2.py ] && { NAMES+=("122 Cartan-Karlhede ORDER 2 (ledger G6): Karlhede-Lindstrom-Aman horizon invariant reproduced at orders 1 and 2 (vanishes at r=2M, tracks M); termination order machine-checked against Collins-d Inverno-Vickers"); CMDS+=("scripts/122_ck_order2.py --quick"); }
 
+# The Killing-tensor solver stack (D48, D49): each replacement must reproduce its reference exactly.
+[ -x rust/ktsolve/target/release/ktsolve ] && { NAMES+=("KT1 Rust nullspace == numba == original solver, 1 and 4 threads"); CMDS+=("scripts/_kt_rust.py"); }
+[ -f scripts/_kt_prep.py ] && { NAMES+=("KT2 rescale == SymPy re-clear (5 integer q + a fractional one by linearity)"); CMDS+=("scripts/_kt_prep.py"); }
+[ -f scripts/_kt_opfast.py ] && { NAMES+=("KT3 operator from 3 brackets per monomial == full SymPy build (same D)"); CMDS+=("scripts/_kt_opfast.py --quick"); }
+[ -f scripts/_kt_clearcheck.py ] && { NAMES+=("KT4 ring clear() == expression clear_expr(), and fails where it fails"); CMDS+=("scripts/_kt_clearcheck.py --quick"); }
+
 fail=0
 GATE="$(dirname "$0")/gate.log"; : > "$GATE"   # also written here so the dashboard (reads ROOT/gate.log) stays current
 for i in "${!NAMES[@]}"; do

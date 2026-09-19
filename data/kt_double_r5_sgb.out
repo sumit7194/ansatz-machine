@@ -198,3 +198,4 @@ Schwarzschild background: L = x**2*(x - 2)*(y - 1)*(y + 1)
     op 38800/39200 brackets (388s)
     op 39000/39200 brackets (390s)
     op 39200/39200 brackets (391s)
+  operator matrix (84171, 39200) [2692s]

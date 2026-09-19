@@ -54,6 +54,8 @@ import time
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import numpy as np
 import sympy as sp
+from sympy.polys.domains import QQ
+from sympy.polys.rings import ring
 import _kt_search as K
 import _kt_metrics as MM
 import _kt_reducible as R
@@ -86,8 +88,46 @@ def bracket_raw_coeffs(F_co, H, mons):
     return tog, sp.denom(tog)
 
 
+_RINGS = {}
+
+
+def _ring():
+    """The sparse polynomial ring QQ[x, y, momenta], built once per momentum set."""
+    key = tuple(K.MOM)
+    if key not in _RINGS:
+        _RINGS[key] = ring([x, y, *K.MOM], QQ)[0]
+    return _RINGS[key]
+
+
 def clear(tog, D, p):
-    """Clear one bracket by the COMMON denominator D and reduce mod p.
+    """Clear one bracket by the COMMON denominator D and reduce mod p -- in a polynomial ring.
+
+    Same result as clear_expr below, dict for dict; only the arithmetic moved. Measured on the rank-3
+    zeta chi^2 sources, 97% of clear_expr's time was sp.expand(num * q) and the Poly conversion
+    after it: SymPy expanding an expression tree. Here num and the cofactor q = D/dd are converted
+    ONCE into a sparse polynomial ring and multiplied there, and the coefficients are read off
+    directly -- 33 s -> 1.0 s on the largest source, identical output (scripts/_kt_clearcheck.py).
+    QQ rather than ZZ so the integrality guard below stays a loud check rather than a coercion error;
+    a symbol outside (x, y, momenta) makes from_expr raise, so nothing is silently dropped."""
+    num, dd = sp.fraction(sp.together(tog))
+    q = sp.cancel(D / dd)
+    if sp.denom(q) != 1:
+        raise ValueError("the common denominator does not clear this bracket")
+    R = _ring()
+    P = R.from_expr(num) * R.from_expr(q)
+    out = {}
+    for m, c in P.items():
+        if c.denominator != 1:
+            raise ValueError(f"non-integer coefficient {c} after clearing: D does not "
+                             f"absorb this term's integer content")
+        r = int(c.numerator) % p
+        if r:
+            out[(m[2:], m[:2])] = r
+    return out
+
+
+def clear_expr(tog, D, p):
+    """Clear one bracket by the COMMON denominator D and reduce mod p.  (Reference implementation.)
 
     NOT sp.cancel(tog * D): that runs a full multivariate gcd on a rational function whose
     numerator and denominator both have degree ~24, once per column, and it took >30 min for 1690
