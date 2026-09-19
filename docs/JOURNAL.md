@@ -46,6 +46,17 @@ built, what broke, what the machine taught us. Numbers live in
   the old rank-2 run on the legacy prep path stopped as superseded (argv + cwd verified both times).
 - User feedback, kept: on a setback, step back, take notes, try another angle — don't retreat to
   the fallback at the first failure.
+- **Rank 4 on prime 1: 14, 14, 14 / 14, 14, 9 — the floor. §130, §131, §133 now all two-prime (§136).**
+- **Caught before it happened: rank 6's ζχ² would have thrashed again.** Rescaling densifies ~30×
+  (rank 4 ζχ²: 1.2M → 32.6M nonzeros, 6.8 GB as dicts); rank 6 extrapolates to ~100M, ~20 GB. The
+  level matrix is now built as flat arrays (`_kt_coo`, D50): rank 3 52 s, rank 4 268 s, checkpoints
+  identical to legacy both times.
+- **A bug in the floor test, found while making it faster.** The correction formula was right for
+  c ≤ 2 and wrong for c = 3 (missing the 2·H0·H1 and 2·H0·H2 cross terms), and only the χ² piece was
+  tested. Rank 6's floor had therefore never been measured on the right object. Corrected
+  (`_kt_floor`, exact series, every piece, ring arithmetic, 2 s vs 17+ min): **still 16** — right by
+  luck, now right by measurement. Rank 6 restarted twice more to pick up arrays and the fixed floor
+  (argv + cwd verified each time); the partial logs are kept as `_stopped` / `_stopped2`.
 
 ---
 

@@ -119,6 +119,8 @@ NAMES+=("04 campaign");           CMDS+=("scripts/04_campaign.py")
 [ -f scripts/_kt_prep.py ] && { NAMES+=("KT2 rescale == SymPy re-clear (5 integer q + a fractional one by linearity)"); CMDS+=("scripts/_kt_prep.py"); }
 [ -f scripts/_kt_opfast.py ] && { NAMES+=("KT3 operator from 3 brackets per monomial == full SymPy build (same D)"); CMDS+=("scripts/_kt_opfast.py --quick"); }
 [ -f scripts/_kt_clearcheck.py ] && { NAMES+=("KT4 ring clear() == expression clear_expr(), and fails where it fails"); CMDS+=("scripts/_kt_clearcheck.py --quick"); }
+[ -f scripts/_kt_coo.py ] && { NAMES+=("KT5 array rescale == dict rescale, same nullspace; guard silent on true vectors, fires on a bent one"); CMDS+=("scripts/_kt_coo.py"); }
+[ -f scripts/_kt_floor.py ] && { NAMES+=("KT6 floor test: series == old formula for c<=2 and differs at c=3; ring == expression test in both verdicts"); CMDS+=("scripts/_kt_floor.py"); }
 
 fail=0
 GATE="$(dirname "$0")/gate.log"; : > "$GATE"   # also written here so the dashboard (reads ROOT/gate.log) stays current

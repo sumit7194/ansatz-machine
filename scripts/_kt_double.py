@@ -69,6 +69,12 @@ KT_RESCALE = os.environ.get("KT_RESCALE", "0" if KT_SOLVER == "legacy" else "1")
 KT_OPFAST = os.environ.get("KT_OPFAST", "1" if KT_RESCALE else "0") != "0"
 if KT_OPFAST and not KT_RESCALE:
     raise SystemExit("KT_OPFAST=1 needs KT_RESCALE=1: the legacy re-clear needs the raw columns")
+# Hold the operator as flat arrays and rescale it there (scripts/_kt_coo.py, D50). Rescaling by q
+# densifies the level matrix ~30x (rank 4 zeta chi^2: 1.2M -> 32.6M nonzeros); as Python dicts that
+# is ~200 B each, which at rank 6 (~100M) is the 20 GB that thrashed the legacy run. Needs Rust.
+KT_COO = os.environ.get("KT_COO", "1" if (KT_SOLVER == "rust" and KT_RESCALE) else "0") != "0"
+if KT_COO and (KT_SOLVER != "rust" or not KT_RESCALE):
+    raise SystemExit("KT_COO=1 needs KT_SOLVER=rust and KT_RESCALE=1")
 # Where checkpoints are read and written. A validation rerun points this elsewhere so it neither
 # resumes from nor overwrites the production checkpoints it is being compared against.
 KT_CKDIR = os.environ.get("KT_CKDIR", "data")
@@ -96,7 +102,34 @@ def _residual_count(dicts, vecs, p):
     return bad
 
 
+class _OpArrays:
+    """The operator as flat arrays (KT_COO) -- what _prep_level rescales in place of dicts."""
+
+    def __init__(self, dicts0, p):
+        from _kt_coo import Codec, from_dicts
+        self.codec = Codec()
+        self.coo = from_dicts(dicts0, self.codec, p)
+        self.n = len(dicts0)
+
+    def __len__(self):
+        return self.n
+
+
 def _nullspace_new(dicts, ncols, p, verify, label):
+    from _kt_coo import Coo
+    if isinstance(dicts, Coo):
+        from _kt_coo import compact, residual_count
+        from _kt_rust import nullspace_rust_coo
+        ri, ci, vi, nr = compact(dicts)
+        vecs, _ = nullspace_rust_coo(ri, ci, vi, nr, ncols, p, threads=KT_THREADS, verbose=True,
+                                     label=label, workdir="data")
+        if verify and vecs:
+            bad = residual_count(ri, ci, vi, nr, vecs, p)
+            if bad:
+                raise AssertionError(
+                    f"NULLSPACE GUARD FAILED (rust, arrays): {bad} nonzero residuals over "
+                    f"{len(vecs)} vectors. Every dimension downstream of this is meaningless.")
+        return vecs
     if KT_SOLVER == "rust":
         from _kt_rust import nullspace_rust
         vecs, _ = nullspace_rust(dicts, ncols, p, threads=KT_THREADS, verbose=True, label=label,
@@ -125,19 +158,35 @@ def _prep_level(srcs, D, dicts0, raws0, p, tag):
     same = sp.simplify(D2 - D) == 0
     t_lcm = time.time() - t
     t = time.time()
+    arrays = isinstance(dicts0, _OpArrays)
+    if arrays:
+        from _kt_coo import concat, from_dicts
     if same:
-        ns_dicts = dicts0 + [PB.clear(e, D, p) for e in srcs]
+        if arrays:
+            ns_dicts = concat(dicts0.coo, from_dicts([PB.clear(e, D, p) for e in srcs],
+                                                     dicts0.codec, p, col0=len(dicts0)))
+        else:
+            ns_dicts = dicts0 + [PB.clear(e, D, p) for e in srcs]
         how = f"sources only ({len(srcs)})"
     elif KT_RESCALE:
         from _kt_prep import q_terms, rescale
         terms = q_terms(D, D2, p)
         t_r = time.time()
-        ops = [rescale(d, terms, p) for d in dicts0]
-        t_r = time.time() - t_r
-        ns_dicts = ops + [PB.clear(e, D2, p) for e in srcs]
+        if arrays:
+            from _kt_coo import rescale as rescale_coo
+            ops = rescale_coo(dicts0.coo, terms, p)
+            t_r = time.time() - t_r
+            ns_dicts = concat(ops, from_dicts([PB.clear(e, D2, p) for e in srcs], dicts0.codec, p,
+                                              col0=len(dicts0)))
+            size = f"as arrays, nnz {dicts0.coo.nnz:,} -> {ops.nnz:,}, "
+        else:
+            ops = [rescale(d, terms, p) for d in dicts0]
+            t_r = time.time() - t_r
+            ns_dicts = ops + [PB.clear(e, D2, p) for e in srcs]
+            size = ""
         extra = sp.factor(sp.cancel(D2 / D))
-        how = (f"RESCALED {len(dicts0)} operator columns by q ({len(terms)} terms, {t_r:.1f}s) "
-               f"+ cleared {len(srcs)} sources; new denominator factor {extra}")
+        how = (f"RESCALED {len(dicts0)} operator columns {size}by q ({len(terms)} terms, "
+               f"{t_r:.1f}s) + cleared {len(srcs)} sources; new denominator factor {extra}")
     else:
         if raws0 is None:
             raise RuntimeError("legacy re-clear needs the raw operator columns (KT_OPFAST is on)")
@@ -372,6 +421,11 @@ if __name__ == "__main__":
     _nr = len(set().union(*dicts0)) if dicts0 else 0
     print(f"  operator matrix ({_nr}, {n_w}) [{time.time()-t0:.0f}s]", flush=True)
     bg = nullspace_dicts(dicts0, n_w, p, label="op ")
+    if KT_COO:
+        _t = time.time()
+        dicts0 = _OpArrays(dicts0, p)       # the dict list is released here (~800 MB at rank 6)
+        print(f"    operator held as arrays: {dicts0.coo.nnz:,} nonzeros [{time.time()-_t:.1f}s]",
+              flush=True)
     # NOTHING TO FREE ANY MORE. This used to hold a materialised M0 and delete it before Mfull
     # allocated beside it. Going through nullspace_dicts, the operator matrix is never built as a
     # dense object at all -- the dicts are the only persistent form and they are ~1.3 MB at rank 4.
@@ -578,15 +632,14 @@ if __name__ == "__main__":
         # denominator does not divide L^6, so it is invisible at denpow 6 and the representable
         # floor is 8, not 9. Reporting the combinatorial 9 made a correct run look condemned.
         # c <= 1 for rank <= 3, which is why ranks 2 and 3 never hit this.
-        def _corr(c):
-            if c == 0:
-                return sp.Integer(0)
-            if c == 1:
-                return HS[2]
-            return sp.expand(sum(c * H[i] ** (c - 1) * HS[j]
-                                 for i in range(3) for j in range(3) if i + j == 2))
-        # Representability depends on c alone (p_t, p_phi are conserved and carry no correction),
-        # so it is computed once per c -- at rank 6 that is 4 SymPy expansions instead of 16.
+        # FIXED 2026-09-19 (scripts/_kt_floor.py): the correction used to be c*sum H_i^(c-1) HS_j,
+        # which is right for c <= 2 and WRONG for c = 3 (rank 6) -- the chi^2 coefficient of
+        # c*H_K^(c-1)*HS needs the cross terms 2 H0 H1 and 2 H0 H2. And only the chi^2 piece was
+        # tested; all three must fit. Now: the exact series, every piece, in the polynomial ring
+        # (seconds, where the expression version took 17+ min at rank 6). Validated against the
+        # expression test in both verdicts; at rank 6 the corrected H^3 is still representable.
+        # Representability depends on c alone (p_t, p_phi are conserved and carry no correction).
+        from _kt_floor import floor_representable
         _rep_c = {}
         nrep = 0
         for a_ in range(rank + 1):
@@ -595,7 +648,7 @@ if __name__ == "__main__":
                     if a_ + b_ + 2 * c_ != rank:
                         continue
                     if c_ not in _rep_c:
-                        _rep_c[c_] = PB.representable(_corr(c_), dx, dy, den)
+                        _rep_c[c_] = floor_representable(c_, H, HS, dx, dy, den)[0]
                     nrep += 1 if _rep_c[c_] else 0
         print(f"  reducible floor (products of p_t, p_phi, H at rank {rank}): "
               f"{nred} combinatorial, {nrep} REPRESENTABLE at denpow {denpow}", flush=True)

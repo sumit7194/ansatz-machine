@@ -2906,3 +2906,42 @@ way), so the bottleneck was the run's own memory, not competition. At that rate 
 roughly two more weeks with a wide error bar, and even a finished run is one prime; the reporting
 standard wants two. **The cause is the solver's storage, not the mathematics** — dict-of-dicts at
 ~200 B/nonzero — which is what the replacement solver addresses (D48).
+
+## §136 — the double-tower closures on both primes; the pipeline rebuilt and revalidated
+
+**Every sGB double-tower result through §133 ran on one prime.** The reporting standard (CLAUDE.md
+§3) asks for two, and at 8.5 h (rank 3) and 35 h (rank 4) per run the second was never paid. With the
+rebuilt pipeline (D48–D50) a run takes minutes, so all three are now on `p₁ = 2147483629` as well:
+
+    counts per level:      chi^0  chi^1  chi^2   zeta chi^0  zeta chi^1  zeta chi^2   floor
+    rank 2, denpow 6   p0     5      5      5          5           5          4          4
+                       p1     5      5      5          5           5          4          4
+    rank 3, denpow 6   p0     8      8      8          8           8          6          6
+                       p1     8      8      8          8           8          6          6
+    rank 4, denpow 7   p0    14     14     14         14          14          9          9
+                       p1    14     14     14         14          14          9          9
+
+**§130, §131 and §133 now meet the two-prime standard, with every level count agreeing** — not only
+the verdict. Rank 4 is the one that matters most: it is the first independent rung (D42, Q² first
+appears there), and its closure is now: *no irreducible rank-4 Killing tensor of the O(ζ)O(χ²) sGB
+metric at O(ζχ²), analytic in ζ with a Kerr root, within `{xᵃyᵇ/L⁷}`, box 27×24, by exact null
+over GF(p) for two primes, with the complete 9-direction reducible span subtracted.* The ceilings of
+CLAUDE.md §3 all still apply, analyticity first.
+
+**The instrument that produced the p₁ rows is not the one that produced p₀, and that was checked
+rather than assumed.** Before any p₁ run, the new pipeline was rerun on p₀ from scratch into a
+separate checkpoint directory and compared, stored expression by stored expression, against the
+legacy checkpoints:
+
+    rank 3:   480 + 640 + 800 + 720 expressions   identical, byte sizes identical   30,714 s -> 52 s
+    rank 4:  1470 + 1960 + 2450 + 1890            identical, byte sizes identical  126,332 s -> 268 s
+
+So the p₀ and p₁ rows above are the same instrument, validated against the old one by equality.
+
+**The rank-6 floor, re-measured on the right object.** §135's "16 REPRESENTABLE" came from a
+correction formula that is wrong for c = 3 (D50). Recomputed with the exact series, every piece:
+the H³ direction's ζ-correction fits `L⁸`, box 30×28, at χ⁰, χ¹ and χ². **The floor is 16** — the
+same number, now actually measured. Rank 6's ζχ¹ and ζχ² are running on the rebuilt pipeline.
+
+Artifacts: `data/kt_double_r{2,3}_p1.out`, `data/kt_double_r4_p1.out`, `data/kt_double_r{3,4}_{new,coo}.out`,
+`data/kt_double_r3_ring.out`; checkpoints `data/kt_double_*_p1.pkl` (gitignored, regenerable).

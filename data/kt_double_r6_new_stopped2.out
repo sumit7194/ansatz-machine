@@ -1,0 +1,27 @@
+Schwarzschild background: L = x**2*(x - 2)*(y - 1)*(y + 1)
+  generators ['p_t', 'p_phi', 'H', 'Lsq']; 30 reducible products at rank 6
+  box x<=30 y<=28; den = L^8
+  75516 coefficient unknowns per level
+    operator from templates: 252 SymPy brackets for 75516 columns
+    [operator timing] templates 10.4s (252 SymPy brackets for 75516 columns) | D = 2*x**19*(x - 2)**10*(y - 1)**11*(y + 1)**11
+  operator matrix (149072, 75516) [16s]
+    op rust nullspace: 8 blocks (largest 13640 cols), nnz 4,006,722 -> peak 6,303,684, nullity 30, 4 thread(s), 52.4s
+  chi^0 level: Schwarzschild Killing space = 30
+  RESUMED chi-tower from kt_double_chains_r6_d8_b30x28.pkl: 30 chains
+
+  Kerr Killing space at rank 6: got 30, expect None
+  count check passed, but a COUNT IS NOT ENOUGH HERE.
+  Schwarzschild and Kerr have the SAME dimension at every rank (5, 8, 14) because
+  Lsq maps one-to-one onto Carter -- so 'the count is preserved' would also pass if
+  the tower did nothing. Identifying the direction is the real test.
+
+  Carter's O(chi^2) piece should be  y^2 (mu^2 - p_t^2)
+    = y**2*(-P_phi**2*(2 - x) - P_t**2*x**3*(1 - y**2) - P_t**2*x**2*(x - 2)*(y**2 - 1) - P_x**2*x*(x - 2)**2*(y**2 - 1) + P_y**2*(x - 2)*(y**2 - 1)**2)/(x**2*(x - 2)*(y**2 - 1))
+  prediction self-check: {H,F} at chi^0 = True, chi^1 = True, chi^2 = True
+
+  {H_Kerr, Lsq} at chi^2 is NONZERO
+  THE COUNT IS DECISIVE: Lsq alone does NOT extend to O(chi^2), so a tower doing nothing would have reported 16 of 30 -- only the directions built from p_t, p_phi and H, which survive trivially. Reporting 30 means it found a nonzero F^(0,2), and the verified prediction above identifies that deformation as Carter's.
+
+  CONTROL PASSED, non-vacuously: the chi-tower deforms Lsq into Carter.
+
+  sGB Hamiltonian pieces built and REPRESENTABLE [87s]

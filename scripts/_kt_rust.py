@@ -48,9 +48,16 @@ def read_kts(path):
 
 def nullspace_rust(col_dicts, ncols, p=P, threads=1, verbose=False, label="", workdir=None):
     """Drop-in replacement for nullspace_fast / nullspace_sparse: returns (vectors, stats)."""
+    ri, ci, vi, nrows = _coo_from_col_dicts(col_dicts, p)
+    return nullspace_rust_coo(ri, ci, vi, nrows, ncols, p, threads, verbose, label, workdir)
+
+
+def nullspace_rust_coo(ri, ci, vi, nrows, ncols, p=P, threads=1, verbose=False, label="",
+                       workdir=None):
+    """The same, from flat COO arrays (rows 0..nrows-1, values in [0, p)) -- no dicts anywhere,
+    which is what lets a 100M-nonzero level matrix be built at all (scripts/_kt_coo.py)."""
     if not os.path.exists(BINARY):
         raise FileNotFoundError(f"{BINARY} missing -- build it: cargo build --release in rust/ktsolve")
-    ri, ci, vi, nrows = _coo_from_col_dicts(col_dicts, p)
     with tempfile.TemporaryDirectory(dir=workdir) as d:
         mpath, spath = os.path.join(d, "m.ktm"), os.path.join(d, "ns.kts")
         write_ktm(mpath, ri, ci, vi, nrows, ncols, p)

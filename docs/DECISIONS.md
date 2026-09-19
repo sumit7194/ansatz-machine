@@ -1304,3 +1304,44 @@ the gate rather than surfacing as a changed count.
 **What it buys, beyond speed:** the reporting standard in CLAUDE.md §3 asks for both primes, and
 §130/§131/§133 each ran on one — at 8.5 h (rank 3) and 35 h (rank 4) per run it was never paid.
 At minutes per run it is now the default.
+
+## D50 — the level matrix as arrays, and a floor test that was testing the wrong thing (2026-09-19)
+
+**The rescale moved the memory wall; it did not remove it.** Rescaling multiplies every operator
+column by the same `q`, and that densifies the level matrix ~30×: rank 4 ζχ² went from 1.2M operator
+nonzeros to 32.6M, a 6.8 GB process at ~200 B per Python dict entry. Rank 6 starts from 4.0M, so its
+ζχ² would be ~100M entries — **~20 GB, the thrashing that stopped the legacy run (D48), rebuilt one
+layer up.** The Rust solver holds the same matrix in ~1 GB. Found by extrapolating rank 4's
+measured numbers *before* rank 6 got there, not by watching it thrash.
+
+**Fix: the product never exists as dicts** (`scripts/_kt_coo.py`). A row key `(e, (j, k))` packs into
+one integer `(e_id·W + j)·W + k`, so multiplying a column by `xᵃyᵇ` is `code + a·W + b`; the rescale
+is vectorised over `q`'s terms and merged by sorting, in column chunks so the T-fold temporary never
+exists for the whole matrix. The nullspace guard runs on the same arrays (bincount, exact below
+2⁵³). Validated: entries identical to the dict rescale on the real rank-2 and rank-3 operators with
+the real 168-term cofactor, nullspace identical, **guard silent on true vectors and firing on a
+deliberately bent one**. End to end, both ranks' checkpoints identical to legacy again:
+
+    rank 3   30,714 s legacy  ->  92 s (dicts)  ->  52 s (arrays)
+    rank 4  126,332 s legacy  ->  418 s (dicts) -> 268 s (arrays)
+
+**And, reading the floor code to speed it up, a bug.** D44's rule is right — a reducible direction
+`p_t^a p_φ^b H^c` counts only if its ζ-correction fits the ansatz — but its implementation used
+`c·Σ_{i+j=2} H_iᶜ⁻¹·HS_j`. That is the O(ζχ²) coefficient **only for c ≤ 2**. For c = 3, which
+first exists at rank 6, the χ² coefficient of `3·H_K²·HS` is
+
+    3 [ H0²·HS2 + 2·H0·H1·HS1 + (H1² + 2·H0·H2)·HS0 ]     not     3 [ H0²·HS2 + H1²·HS1 + H2²·HS0 ]
+
+and only the χ² piece was ever tested, though the χ⁰ and χ¹ pieces must fit too. **So rank 6's
+"16 of 16 REPRESENTABLE" (§135) was never measured on the right object.** `scripts/_kt_floor.py`
+computes the exact series for any c, tests every piece, and does it in the polynomial ring (`Q`
+divides `den·P` with bounded degree — an exact test, no gcd): **2 s where the expression version ran
+17+ minutes at rank 6**. Validated against the expression test in both verdicts, including the D44
+negative (rank 4, denpow 6: H²'s χ² piece does not fit).
+
+**The answer did not change: the corrected H³ correction is representable at denpow 8, box 30×28,
+in all three pieces — the floor is 16.** Recorded anyway, and in full, because a number that was
+right by luck was not measured, and nothing about the wrong formula guaranteed the same luck at
+c = 4 (rank 8).
+
+**In the gate:** KT5 (arrays) and KT6 (floor) join KT1–KT4 in `verify.sh`.
