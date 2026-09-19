@@ -3161,3 +3161,43 @@ the first polynomial power. So the polynomial ladder measures the *pole order* o
 the Carter³ space at rank 6 should contain these two directions and may be strictly larger.
 
 Scope: first order in ε, through O(χ²), within the §139 deformation space, rank 4 at L⁷ box 27×24.
+
+## §141 — the Killing-tensor ladder measures the pole order of a surviving Carter
+
+§140 found deformations where Carter survives only as a rational integral Q + εG, with G = K₁/(2Q), and
+Carter² returns as a polynomial. The identity generalises: if a polynomial tensor Q^(m+1) + εK survives,
+then G = K/((m+1)Q^m) solves Carter's own first-order equation — **a Carter with a pole of order m in Q.**
+So the first polynomial power of Carter that survives should read off the pole order. Predictions for
+rank 6 (Carter³ first appears), tested on the shape sector (l2tt, l2rr, l2ang × r⁻¹…r⁻⁶) where §140's
+directions live (`scripts/_kt_qpower.py`, L⁸, box 30×28, `data/anat/rank6_qpower.out`):
+
+    survivors of 30, by leading power of Q          measured              predicted
+    all-30 space vs Carter-compatible               same (5 dims)         same
+    Carter^3 space contains rank 4's Carter^2 space yes                   yes (P2)
+    d1, d2  (pole order 1, §140)                    16 + 0 + 4 + 1 = 21   16 + Q^2 x (deg 2) + Q^3 = 21 (P1)
+    Carter^3 directions beyond rank 4's             exactly one, d3       possibly some (P3)
+    d3 = l2rr_5 + 100/609 l2ang_3 + 25/203 l2ang_4 + 321/2030 l2ang_5 + 103/174 l2ang_6
+    d3                                              16 + 0 + 0 + 1 = 17   pole order 2: floor + Q^3 only
+    random shape deformations                       16 (floor)            16
+    controls (spin shift, coordinate change)        30                    30
+
+**d3, stress-tested from scratch as one concrete metric** (`scripts/_kt_pole_check.py`,
+`data/anat/pole_check_d3.out`): Carter dies at rank 2 with L⁸, box 34×28, on both primes; **Carter² also
+dies at rank 4, on both primes** — the prediction that could have failed: a single pole would have let
+Carter² through; and Carter³ survives at rank 6 on prime 1 with the same 16 + 1 breakdown.
+
+**What it means.** For deformations of Kerr at this order, "which rank first shows a hidden symmetry" is
+not a separate fact about each rank: it is one number — the order of the pole in Q that the surviving
+Carter carries. Pole order 0 (separable, §139): Carter itself. Order 1: Carter² is the first polynomial
+survivor. Order 2: Carter³. Dynamically nothing new appears on any rung: every survivor is a power of one
+rational Carter, and the D52 check classifies all of them as functionally dependent. The ladder is a
+measuring instrument for the *form* of the one conserved quantity, not a list of independent ones.
+
+**Found on the way, fixed, and rechecked:** a silent int64 overflow in `(G @ T) % p` made the first
+breakdowns claim that p_φ⁶ — exactly conserved for any axisymmetric metric — had died. That impossible
+output triggered the bug hunt. All mod-p products now go through `matmul_mod`; the key subspaces (safe
+elimination) were unaffected, §139's space recomputes identical, and the numbers above are post-fix.
+
+Scope: first order in ε, through O(χ²), shape sector only at rank 6, rank-6 extra directions within
+r⁻¹…r⁻⁶, one prime for the rank-6 map (both for d3's individual checks). Whether higher pole orders
+appear at rank 8 is the obvious next rung, and is not tested.
