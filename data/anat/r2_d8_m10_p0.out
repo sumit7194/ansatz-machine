@@ -1,0 +1,47 @@
+Schwarzschild background: L = x**2*(x - 2)*(y - 1)*(y + 1)
+  generators ['p_t', 'p_phi', 'H', 'Lsq']; 5 reducible products at rank 2
+  box x<=34 y<=28; den = L^8
+  10150 coefficient unknowns per level
+    operator from templates: 30 SymPy brackets for 10150 columns
+    [operator timing] templates 1.5s (30 SymPy brackets for 10150 columns) | D = 2*x**19*(x - 2)**10*(y - 1)**11*(y + 1)**11
+  operator matrix (26752, 10150) [3s]
+    op rust nullspace: 8 blocks (largest 2590 cols), nnz 446,391 -> peak 121,376, nullity 5, 2 thread(s), 0.0s
+    operator held as arrays: 446,391 nonzeros [0.1s]
+  chi^0 level: Schwarzschild Killing space = 5
+    [chi^1] computing bracket 1/5 [4s]
+    [chi^1] computing bracket 2/5 [4s]
+    [chi^1] computing bracket 3/5 [4s]
+    [chi^1] computing bracket 4/5 [4s]
+    [chi^1] computing bracket 5/5 [5s]
+    [chi^1 timing] lcm+compare 0.1s | clear 0.2s = sources only (5)
+    rust nullspace: 8 blocks (largest 2590 cols), nnz 446,655 -> peak 127,477, nullity 10, 2 thread(s), 0.0s
+    [chi^1 timing] solve+guard 0.1s
+  chi^1 level: 5 of 5 extend  [5s]
+    [chi^1] reconstructing solution 1/5 [5s]
+  chi^1 chains CHECKPOINTED to kt_double_chains_r2_d8_b34x28.pkl (5 chains, depth 2) [6s]
+    [chi^2] computing bracket 1/5 [6s]
+    [chi^2] computing bracket 2/5 [6s]
+    [chi^2] computing bracket 3/5 [6s]
+    [chi^2] computing bracket 4/5 [7s]
+    [chi^2] computing bracket 5/5 [7s]
+    [chi^2 timing] lcm+compare 3.2s | clear 3.9s = RESCALED 10150 operator columns as arrays, nnz 446,391 -> 6,065,319, by q (104 terms, 1.2s) + cleared 5 sources; new denominator factor (x - 2)**12*(y - 1)**7*(y + 1)**7
+    rust nullspace: 8 blocks (largest 2593 cols), nnz 6,074,831 -> peak 1,711,104, nullity 10, 2 thread(s), 1.8s
+    [chi^2 timing] solve+guard 2.2s
+  chi^2 level: 5 of 5 extend  [17s]
+    [chi^2] reconstructing solution 1/5 [17s]
+  chi^2 chains CHECKPOINTED to kt_double_chains_r2_d8_b34x28.pkl (5 chains, depth 3) [18s]
+
+  Kerr Killing space at rank 2: got 5, expect 5
+  count check passed, but a COUNT IS NOT ENOUGH HERE.
+  Schwarzschild and Kerr have the SAME dimension at every rank (5, 8, 14) because
+  Lsq maps one-to-one onto Carter -- so 'the count is preserved' would also pass if
+  the tower did nothing. Identifying the direction is the real test.
+
+  Carter's O(chi^2) piece should be  y^2 (mu^2 - p_t^2)
+    = y**2*(-P_phi**2*(2 - x) - P_t**2*x**3*(1 - y**2) - P_t**2*x**2*(x - 2)*(y**2 - 1) - P_x**2*x*(x - 2)**2*(y**2 - 1) + P_y**2*(x - 2)*(y**2 - 1)**2)/(x**2*(x - 2)*(y**2 - 1))
+  prediction self-check: {H,F} at chi^0 = True, chi^1 = True, chi^2 = True
+
+  {H_Kerr, Lsq} at chi^2 is NONZERO
+  THE COUNT IS DECISIVE: Lsq alone does NOT extend to O(chi^2), so a tower doing nothing would have reported 4 of 5 -- only the directions built from p_t, p_phi and H, which survive trivially. Reporting 5 means it found a nonzero F^(0,2), and the verified prediction above identifies that deformation as Carter's.
+
+  CONTROL PASSED, non-vacuously: the chi-tower deforms Lsq into Carter.

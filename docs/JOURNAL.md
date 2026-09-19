@@ -6,7 +6,15 @@ built, what broke, what the machine taught us. Numbers live in
 
 ---
 
-## 2026-09-19 (late) — does Carter² follow the rule? A CANDIDATE, not a result yet
+## 2026-09-19 (late) — does Carter² follow the rule? (§140, D52)
+
+- **Resolved:** the two candidate directions passed every stress test (from scratch, bigger ansatz,
+  both primes) — and are NOT a new symmetry: G = K₁/(2Q) solves Carter's own equation, so Carter
+  survives there as a RATIONAL integral and Carter² is its square. Polynomially irreducible,
+  functionally dependent: CLAUDE.md's named residual, first instance. D52 makes the check a rule.
+- Prediction logged: the Carter³ space at rank 6 should contain these and may be larger (pole order).
+
+### earlier in the same stretch (the candidate, as it stood)
 
 - `_kt_rank4_rule.py` (rank 4, the §139 deformation space + sGB pieces, 14 Kerr chains, 42 min):
   **all 14 survive ⟺ Carter survives** — the slot space where every rank-4 direction extends is exactly

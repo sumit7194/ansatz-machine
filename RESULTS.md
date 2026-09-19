@@ -3114,3 +3114,50 @@ Papadopoulos–Kokkotas (arXiv:1807.08594) and Carson–Yagi (arXiv:2002.01028) 
 by imposing that separability. What this adds is a direct measurement at O(εχ²) that does not assume
 those structural properties, the explicit map of which sectors must move together, and the sGB
 diagnosis (§138) placed inside it.
+
+## §140 — does Carter² follow the same rule? As functions yes; as Killing tensors, not quite
+
+Rank 4 is where Carter² first appears (D42). Kerr's rank-4 Killing space is 14: 9 floor, 4 Carter × (p_t²,
+p_t p_φ, p_φ², H), 1 Carter². Same deformation space as §139 plus the four sGB pieces
+(`scripts/_kt_rank4_rule.py`, rank 4, L⁷, box 27×24; `data/anat/rank4_rule*.out`):
+
+    slot deformations keeping ALL 14 rank-4 directions:   43-dim  = rank 2's Carter-compatible space, exactly
+    slot deformations keeping the pure-Carter^2 chain:     45-dim  -> TWO directions beyond it
+    single pieces, random deformations:                    14/14 (Carter-compatible) or the 9 floor, nothing between
+    full sGB: 9 of 14 (= §133)          l=3 dragging: dies at O(chi) again          controls: 14/14
+
+**The two directions** (`scripts/_kt_q2_candidate.py`, `data/anat/q2_candidate.out`), reduced modulo the
+Carter-compatible space — pure SHAPE deformations at O(χ²), radial and angular parts only:
+
+    d1 = l2rr_3 + l2ang_3 + (3/2) l2ang_4
+    d2 = l2rr_4 - (10/21) l2ang_3 - (5/14) l2ang_4 + (4/7) l2ang_5        (profiles r^-k, slots of §139)
+
+Each keeps 10 of 14: the floor plus a direction carrying Carter². **Stress-tested as single concrete
+metrics, from scratch:** Carter at rank 2 still dies for both with a much larger ansatz (L⁸, box 34×28)
+on both primes; Carter² at rank 4 still survives for both, both primes. Not an ansatz artifact — the
+first suspect (rank 2 mapped at L⁶, rank 4 at L⁷) was also refuted directly: rank 2 at L⁷ gives the
+identical 43-dim subspace.
+
+**What they are — exact, not interpretive.** If K = Q² + εK₁ is conserved to first order then
+{H₀, K₁} = −2Q{δH, Q}; with {H₀, Q} = 0, **G = K₁/(2Q) satisfies {H₀, G} = −{δH, Q}**: it is a
+first-order correction to Carter itself, rational in the momenta with Q in the denominator. So for d1 and
+d2 **Carter survives — as a rational first integral Q + εK₁/(2Q), not as a Killing tensor** — and
+squaring cancels the pole, which is why Carter² comes back polynomial. (The rank-2 test at L⁸ shows K₁ is
+not divisible by Q within any box that would hold it: G is genuinely non-polynomial.) The classical
+oblate-planet (J₂) problem does the same thing: its first-order integrals carry L_z²/L².
+
+**The answer.** As conserved *functions*, Carter² follows the rule exactly — it survives iff Carter does,
+by the identity above. As *Killing tensors*, two directions of this space carry a rank-4 tensor with no
+rank-2 one beneath it: **polynomially irreducible, functionally dependent** — the residual category
+CLAUDE.md §2 names for ZV, now shown to be non-empty right next to Kerr. No new independent symmetry.
+
+**Consequence for the method (D52).** The instrument's "irreducible" subtracts polynomial products only,
+so a tensor like these would be counted as irreducible. None of the sGB verdicts is touched (every one
+came out exactly at the floor). But a surviving rank ≥ 4 direction must now be tested for being a power
+of a rational lower-rank integral before it is called anything.
+
+**A prediction this makes, not yet tested.** If Carter survives as Q + εG with G ∝ 1/Q^m, then Q^(m+1) is
+the first polynomial power. So the polynomial ladder measures the *pole order* of the surviving Carter:
+the Carter³ space at rank 6 should contain these two directions and may be strictly larger.
+
+Scope: first order in ε, through O(χ²), within the §139 deformation space, rank 4 at L⁷ box 27×24.

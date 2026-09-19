@@ -1,0 +1,55 @@
+slot space 60; all-14 43; pure-Q^2 45
+
+1. 2 direction(s) where Q^2 survives and Carter does not (mod the compatible space):
+   1*l2rr_3 + 1*l2ang_3 + 3/2*l2ang_4
+   1*l2rr_4 + -10/21*l2ang_3 + -5/14*l2ang_4 + 4/7*l2ang_5
+
+2. survivors of 14 at rank 4 (saved system, prime 0):
+   10 of 14, Q^2 among them: True
+   10 of 14, Q^2 among them: True
+
+3. from scratch, as single concrete deformations:
+    [eps chi^0 timing] lcm+compare 0.0s | clear 0.2s = sources only (10)
+    rust nullspace: 8 blocks (largest 2590 cols), nnz 446,391 -> peak 127,477, nullity 15, 4 thread(s), 0.0s
+  eps chi^0: 10 columns, every Kerr direction extends for a 2-dim space of the 2 [8s]
+    [eps chi^1 timing] lcm+compare 0.0s | clear 0.2s = sources only (10)
+    rust nullspace: 8 blocks (largest 2590 cols), nnz 446,391 -> peak 127,477, nullity 15, 4 thread(s), 0.0s
+  eps chi^1: 10 columns, every Kerr direction extends for a 2-dim space of the 2 [8s]
+    [eps chi^2 timing] lcm+compare 4.2s | clear 4.4s = RESCALED 10150 operator columns as arrays, nnz 446,391 -> 3,643,785, by q (56 terms, 0.6s) + cleared 10 sources; new denominator factor 21*(x - 2)**6*(y - 1)**7*(y + 1)**7
+    rust nullspace: 8 blocks (largest 2596 cols), nnz 3,656,825 -> peak 1,049,744, nullity 13, 4 thread(s), 0.7s
+  eps chi^2: 10 columns, every Kerr direction extends for a 0-dim space of the 2 [21s]
+   Carter, rank 2, L^8, box 34x28, prime 0: Carter survives for a 0-dim part of the 2 candidates (0 = dies for all)
+    [eps chi^0 timing] lcm+compare 0.0s | clear 0.2s = sources only (10)
+    rust nullspace: 8 blocks (largest 2590 cols), nnz 446,391 -> peak 127,477, nullity 15, 4 thread(s), 0.0s
+  eps chi^0: 10 columns, every Kerr direction extends for a 2-dim space of the 2 [7s]
+    [eps chi^1 timing] lcm+compare 0.0s | clear 0.2s = sources only (10)
+    rust nullspace: 8 blocks (largest 2590 cols), nnz 446,391 -> peak 127,477, nullity 15, 4 thread(s), 0.0s
+  eps chi^1: 10 columns, every Kerr direction extends for a 2-dim space of the 2 [8s]
+    [eps chi^2 timing] lcm+compare 4.1s | clear 4.4s = RESCALED 10150 operator columns as arrays, nnz 446,391 -> 3,643,785, by q (56 terms, 0.6s) + cleared 10 sources; new denominator factor 21*(x - 2)**6*(y - 1)**7*(y + 1)**7
+    rust nullspace: 8 blocks (largest 2596 cols), nnz 3,656,825 -> peak 1,049,744, nullity 13, 4 thread(s), 0.7s
+  eps chi^2: 10 columns, every Kerr direction extends for a 0-dim space of the 2 [20s]
+   Carter, rank 2, L^8, box 34x28, prime 1: Carter survives for a 0-dim part of the 2 candidates (0 = dies for all)
+    [eps chi^0 timing] lcm+compare 0.1s | clear 0.5s = sources only (28)
+    rust nullspace: 8 blocks (largest 4984 cols), nnz 1,219,864 -> peak 464,383, nullity 42, 4 thread(s), 0.9s
+  eps chi^0: 28 columns, 2 deformations with every chain extending [57s]
+    [eps chi^1 timing] lcm+compare 0.0s | clear 0.4s = sources only (28)
+    rust nullspace: 8 blocks (largest 4984 cols), nnz 1,219,864 -> peak 464,383, nullity 42, 4 thread(s), 0.9s
+  eps chi^1: 28 columns, 2 deformations with every chain extending [59s]
+    [eps chi^2 timing] lcm+compare 11.3s | clear 16.3s = RESCALED 24500 operator columns as arrays, nnz 1,219,864 -> 8,282,682, by q (42 terms, 1.3s) + cleared 28 sources; new denominator factor 21*(x - 2)**5*(y - 1)**6*(y + 1)**6
+    rust nullspace: 8 blocks (largest 5002 cols), nnz 8,367,452 -> peak 2,698,745, nullity 35, 4 thread(s), 5.9s
+  eps chi^2: 28 (chain, deformation) columns, dim V = 21 [110s]
+   Q^2, rank 4, L^7, prime 0: candidate_0: 10 of 14 survive, Q^2 among them: True
+   Q^2, rank 4, L^7, prime 0: candidate_1: 10 of 14 survive, Q^2 among them: True
+    [eps chi^0 timing] lcm+compare 0.1s | clear 0.4s = sources only (28)
+    rust nullspace: 8 blocks (largest 4984 cols), nnz 1,219,864 -> peak 464,383, nullity 42, 4 thread(s), 0.9s
+  eps chi^0: 28 columns, 2 deformations with every chain extending [57s]
+    [eps chi^1 timing] lcm+compare 0.0s | clear 0.4s = sources only (28)
+    rust nullspace: 8 blocks (largest 4984 cols), nnz 1,219,864 -> peak 464,383, nullity 42, 4 thread(s), 0.9s
+  eps chi^1: 28 columns, 2 deformations with every chain extending [59s]
+    [eps chi^2 timing] lcm+compare 11.4s | clear 16.5s = RESCALED 24500 operator columns as arrays, nnz 1,219,864 -> 8,282,682, by q (42 terms, 1.3s) + cleared 28 sources; new denominator factor 21*(x - 2)**5*(y - 1)**6*(y + 1)**6
+    rust nullspace: 8 blocks (largest 5002 cols), nnz 8,367,452 -> peak 2,698,745, nullity 35, 4 thread(s), 5.9s
+  eps chi^2: 28 (chain, deformation) columns, dim V = 21 [110s]
+   Q^2, rank 4, L^7, prime 1: candidate_0: 10 of 14 survive, Q^2 among them: True
+   Q^2, rank 4, L^7, prime 1: candidate_1: 10 of 14 survive, Q^2 among them: True
+
+  total 262s

@@ -1428,3 +1428,20 @@ solvable — the positive control, D40's rule that a control must be able to fai
 **Recommendation.** Route 1 first, but framed correctly: as a *tool-building* step with Kerr and ZV as
 controls, whose sGB answer is reported as a statement about the truncated Hamiltonian. Then judge
 route 2 with that tool in hand. Discuss with the user before building (feedback-checkpoint-discuss).
+
+## D52 — a surviving higher-rank direction is not new until it is shown not to be a power of a rational integral (2026-09-19)
+
+**What forced it.** §140 found deformations of Kerr where a rank-4 Killing tensor survives with no rank-2
+one beneath it — which the instrument's bookkeeping would report as an IRREDUCIBLE rank-4 tensor. It is
+not a new symmetry: from K = Q² + εK₁, G = K₁/(2Q) solves Carter's own first-order equation. Carter
+survives as a rational function; Carter² is its square.
+
+**The rule.** "Irreducible" as computed here means *not a polynomial combination of lower-rank Killing
+tensors*. That is weaker than *functionally independent*. Before any surviving direction above the
+floor is called a hidden symmetry: (1) for each lower-rank integral Q whose power it contains, form
+G = K₁/(m Q^(m−1)) and check whether it solves Q's first-order equation — if yes, it is a power of a
+rational Q; (2) only a direction that survives this is a candidate for new structure. This is the ZV
+residual of CLAUDE.md §2 made operational, and its first instance.
+
+**What it does not change.** Every sGB verdict (ranks 2–6) landed exactly on the floor, so nothing
+above the floor was ever claimed. The rule matters for the day something is.
