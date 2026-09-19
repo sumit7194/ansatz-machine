@@ -780,7 +780,17 @@ if __name__ == "__main__":
                 # Carter x momenta, so Carter's death at rank 2 nearly forces it); rank 4 first
                 # contains q=2. Printing the rank-3 sentence at rank 4 said the opposite of D42.
                 qmax = rank // 2
-                if qmax <= 1:
+                # A NEW rung needs an even rank: Q^q first appears at rank 2q. At an odd rank the
+                # top power Q^qmax already appeared one rank below, times one more momentum --
+                # the rank-3 situation one level up. (Rank 5 used to be told "Q^2 FIRST APPEARS".)
+                if qmax >= 2 and rank % 2 == 1:
+                    print(f"     NOT A NEW RUNG (D42): the highest power of Carter here is Q^{qmax}, "
+                          f"which first appeared at rank {2 * qmax}; everything above the floor is "
+                          f"Q^q times odd-degree reducibles (q = 1..{qmax}). Rank {2 * qmax}'s "
+                          f"outcome made this the strongly favoured one. Not a corollary -- the "
+                          f"extra momentum factor changes the O(zeta) source, as at rank 3 -- but "
+                          f"not an independent test either.", flush=True)
+                elif qmax <= 1:
                     print(f"     EXPECTED, NOT INDEPENDENT: the rank-{rank} Kerr Killing space "
                           f"above the floor is spanned by Carter times momenta, so Carter's death "
                           f"at rank 2 made this the strongly favoured outcome. Not a corollary -- "
@@ -793,11 +803,18 @@ if __name__ == "__main__":
                               for c in range((rank-2*q)//2+1) if a+b+2*c == rank-2*q)
                           for q in range(qmax+1)]
                     above = " + ".join(f"{nq[q]} (Q^{q})" for q in range(1, qmax+1))
+                    # Branch the prose on the rung: the rank-4 sentence ("the first rank ...")
+                    # printed at rank 6 would be false -- the stale-prose failure of §131 again.
+                    lower = ("Q x momenta" if qmax == 2 else
+                             " and ".join(f"Q^{q}" for q in range(1, qmax)) + " (times reducibles)")
+                    which = ("This is the first rank whose answer the lower ranks do not imply."
+                             if qmax == 2 else
+                             f"The previous independent rung was rank {2 * qmax - 2} (Q^{qmax - 1}); "
+                             f"this is the next one.")
                     print(f"     INDEPENDENT RUNG (D42): the rank-{rank} Kerr Killing space is "
                           f"{nq[0]} (floor) + {above} = {sum(nq)}. Q^{qmax} FIRST APPEARS AT THIS "
-                          f"RANK, so this outcome was NOT forced by Carter's death at rank 2 -- a "
-                          f"Q^{qmax} direction can die or survive independently of Q x momenta. "
-                          f"This is the first rank whose answer the lower ranks do not imply.",
+                          f"RANK, so this outcome was NOT forced by the lower ranks -- a Q^{qmax} "
+                          f"direction can die or survive independently of {lower}. {which}",
                           flush=True)
         elif zdim > nred:
             if rank == 2:
