@@ -107,6 +107,12 @@ def clear(tog, D, p):
     for e, co in zip(poly.monoms(), poly.coeffs()):
         pp = sp.Poly(sp.expand(co), x, y)
         for jk, c2 in zip(pp.monoms(), pp.coeffs()):
+            # int() on a non-integer Rational TRUNCATES -- 6/7 becomes 0 -- which would silently
+            # corrupt the matrix. The pipeline never produces one (D comes from an lcm over ZZ, so
+            # D/dd has integer coefficients), and this guard makes sure it never does unnoticed.
+            if not c2.is_Integer:
+                raise ValueError(f"non-integer coefficient {c2} after clearing: D does not "
+                                 f"absorb this term's integer content")
             r = int(c2) % p
             if r:
                 out[(e, jk)] = r

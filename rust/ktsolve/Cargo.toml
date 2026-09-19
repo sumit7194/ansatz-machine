@@ -1,0 +1,13 @@
+[package]
+name = "ktsolve"
+version = "0.1.0"
+edition = "2021"
+description = "Nullspace over GF(p) of the sparse Killing-tensor matrices: block decomposition + forward Markowitz elimination"
+
+# No dependencies on purpose: std only, so the whole solver is readable in one sitting.
+
+[profile.release]
+opt-level = 3
+lto = true            # whole-program optimisation across modules
+codegen-units = 1     # slower compile, faster binary
+debug = false

@@ -74,3 +74,6 @@ downloads/
 **/prior_art/**
 !**/prior_art/README.md
 !**/prior_art/SOURCES.md
+
+# Rust build output (regenerable, large)
+rust/*/target/

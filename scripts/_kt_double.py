@@ -54,9 +54,89 @@ INT32_MIN_COLS = 8000
 STREAM_MIN_GB = float(os.environ.get("KT_STREAM_MIN_GB", "4.0"))
 USE_SPARSE = os.environ.get("KT_SPARSE", "1") != "0"
 SPARSE_MAX_DENSITY = float(os.environ.get("KT_SPARSE_MAX_DENSITY", "0.02"))
+# SOLVER CHOICE (D48). "legacy" keeps the old dispatch below, unchanged. "rust" runs rust/ktsolve
+# in its own process; "fast" is its numba reference. Both return the same unique basis, validated
+# vector for vector. KT_THREADS sets how many blocks are solved at once.
+KT_SOLVER = os.environ.get("KT_SOLVER", "legacy")
+KT_THREADS = int(os.environ.get("KT_THREADS", "1"))
+# When a level's sources enlarge the common denominator (D2 = D * q), rescale the already-cleared
+# operator columns by q instead of re-clearing all of them in SymPy (scripts/_kt_prep.py; validated
+# identical, ~400-1000x faster). On by default with the new solvers, off for the legacy path.
+KT_RESCALE = os.environ.get("KT_RESCALE", "0" if KT_SOLVER == "legacy" else "1") != "0"
 # Above this the dense matrix is not built at all; stream instead. Overridable by env so the
 # streaming path can be FORCED on a small known-answer case -- otherwise it is only ever
 # exercised on the big runs, where a bug has nothing cheap to disagree with.
+
+
+def _residual_count(dicts, vecs, p):
+    """How many rows of M v are nonzero mod p, summed over vectors -- vectorised, overflow-safe.
+
+    Replaces the pure-Python guard, which at rank 6 would walk ~27M dict entries per vector. The
+    multiply is split into 16-bit halves so no product exceeds 2^47 and no row sum overflows int64
+    -- the same overflow that once made the old guard fail a correct nullspace."""
+    from _kt_fast import _coo_from_col_dicts
+    ri, ci, vi, nr = _coo_from_col_dicts(dicts, p)
+    bad = 0
+    for v in vecs:
+        w = np.asarray(v, dtype=np.int64)[ci] % p
+        hi = np.zeros(nr, np.int64)
+        lo = np.zeros(nr, np.int64)
+        np.add.at(hi, ri, vi * (w >> 16))
+        np.add.at(lo, ri, vi * (w & 0xFFFF))
+        bad += int(np.count_nonzero(((hi % p) * 65536 + lo) % p))
+    return bad
+
+
+def _nullspace_new(dicts, ncols, p, verify, label):
+    if KT_SOLVER == "rust":
+        from _kt_rust import nullspace_rust
+        vecs, _ = nullspace_rust(dicts, ncols, p, threads=KT_THREADS, verbose=True, label=label,
+                                 workdir="data")
+    else:
+        from _kt_fast import nullspace_fast
+        vecs, _ = nullspace_fast(dicts, ncols, p, verbose=True, label=label)
+    if verify and vecs:
+        bad = _residual_count(dicts, vecs, p)
+        if bad:
+            raise AssertionError(
+                f"NULLSPACE GUARD FAILED ({KT_SOLVER}): {bad} nonzero residuals over {len(vecs)} "
+                f"vectors. Every dimension downstream of this is meaningless.")
+    return vecs
+
+
+def _prep_level(srcs, D, dicts0, raws0, p, tag):
+    """Turn a level's source terms into cleared column dicts, TIMING each part (D48 follow-up).
+
+    Measurement first, per the user: before replacing SymPy with FLINT, find out which part of the
+    equation preparation is actually slow. Behaviour is unchanged; it only reports."""
+    t = time.time()
+    D2 = D
+    for e in srcs:
+        D2 = sp.lcm(D2, sp.denom(sp.together(e)))
+    same = sp.simplify(D2 - D) == 0
+    t_lcm = time.time() - t
+    t = time.time()
+    if same:
+        ns_dicts = dicts0 + [PB.clear(e, D, p) for e in srcs]
+        how = f"sources only ({len(srcs)})"
+    elif KT_RESCALE:
+        from _kt_prep import q_terms, rescale
+        terms = q_terms(D, D2, p)
+        t_r = time.time()
+        ops = [rescale(d, terms, p) for d in dicts0]
+        t_r = time.time() - t_r
+        ns_dicts = ops + [PB.clear(e, D2, p) for e in srcs]
+        extra = sp.factor(sp.cancel(D2 / D))
+        how = (f"RESCALED {len(dicts0)} operator columns by q ({len(terms)} terms, {t_r:.1f}s) "
+               f"+ cleared {len(srcs)} sources; new denominator factor {extra}")
+    else:
+        ns_dicts = [PB.clear(r, D2, p) for r in raws0 + srcs]
+        extra = sp.factor(sp.cancel(D2 / D))
+        how = (f"RE-CLEARED ALL {len(raws0)} operator columns + {len(srcs)} sources "
+               f"(new denominator factor {extra})")
+    t_clear = time.time() - t
+    print(f"    [{tag} timing] lcm+compare {t_lcm:.1f}s | clear {t_clear:.1f}s = {how}", flush=True)
+    return ns_dicts
 
 
 def nullspace_dicts(dicts, ncols, p, verify=True, label=""):
@@ -70,6 +150,8 @@ def nullspace_dicts(dicts, ncols, p, verify=True, label=""):
     The residual guard runs off the DICTS rather than the matrix, so it costs O(nonzeros x nvec)
     and needs no dense object of its own -- the earlier version of that guard allocated one, which
     is the opposite of the point when the whole reason for streaming is that it does not fit."""
+    if KT_SOLVER in ("rust", "fast"):
+        return _nullspace_new(dicts, ncols, p, verify, label)
     nrows = len(set().union(*dicts)) if dicts else 0
     gb = nrows * ncols * 4 / 2**30
     nz = sum(len(d) for d in dicts)
@@ -254,11 +336,18 @@ if __name__ == "__main__":
     H = [hamiltonian(GI[n]) for n in range(3)]
 
     # ---- the reusable operator: {H^(0,0), w_j} for every basis function ----
+    _ta = time.time()
     raws0, dens0 = PB.build_columns([(H[0], F) for F in F_cos], mons, True, "op ")
+    _tb = time.time()
     D = sp.Integer(1)
     for d_ in dens0:
         D = sp.lcm(D, d_)
+    _tcl = time.time()
     dicts0 = [PB.clear(r, D, p) for r in raws0]
+    print(f"    [operator timing] brackets {_tb-_ta:.1f}s | lcm {_tcl-_tb:.1f}s | "
+          f"clear {time.time()-_tcl:.1f}s ({len(raws0)} columns, "
+          f"{1000*(time.time()-_tcl)/max(1,len(raws0)):.1f} ms each) | D = {sp.factor(D)}",
+          flush=True)
     _nr = len(set().union(*dicts0)) if dicts0 else 0
     print(f"  operator matrix ({_nr}, {n_w}) [{time.time()-t0:.0f}s]", flush=True)
     bg = nullspace_dicts(dicts0, n_w, p, label="op ")
@@ -327,15 +416,11 @@ if __name__ == "__main__":
                         tog, _ = PB.bracket_raw_coeffs(ch[n-j], H[j], mons)
                         acc += tog
                 srcs.append(acc)
-            D2 = D
-            for e in srcs:
-                D2 = sp.lcm(D2, sp.denom(sp.together(e)))
-            if sp.simplify(D2 - D) == 0:
-                dS = [PB.clear(e, D, p) for e in srcs]
-                ns_dicts = dicts0 + dS
-            else:
-                ns_dicts = [PB.clear(r, D2, p) for r in raws0 + srcs]
+            _tb = time.time()
+            ns_dicts = _prep_level(srcs, D, dicts0, raws0, p, f"chi^{n}")
+            _tc = time.time()
             ns = nullspace_dicts(ns_dicts, n_w + dim, p)
+            print(f"    [chi^{n} timing] solve+guard {time.time()-_tc:.1f}s", flush=True)
             # Keep only vectors with a nonzero c-block; their F-blocks ARE the level-n solutions
             # for the chain combination their c-block names. Vectors with c = 0 are homogeneous
             # additions and carry no information about survival.
@@ -528,15 +613,11 @@ if __name__ == "__main__":
                         tg, _ = PB.bracket_raw_coeffs(ch[n-j], HS[j], mons)
                         acc += tg
                 srcs.append(acc)
-            D2 = D
-            for e in srcs:
-                D2 = sp.lcm(D2, sp.denom(sp.together(e)))
-            if sp.simplify(D2 - D) == 0:
-                dS = [PB.clear(e, D, p) for e in srcs]
-                ns_dicts = dicts0 + dS
-            else:
-                ns_dicts = [PB.clear(r, D2, p) for r in raws0 + srcs]
+            _tb = time.time()
+            ns_dicts = _prep_level(srcs, D, dicts0, raws0, p, f"zeta chi^{n}")
+            _tc = time.time()
             ns = nullspace_dicts(ns_dicts, n_w + zdim, p)
+            print(f"    [zeta chi^{n} timing] solve+guard {time.time()-_tc:.1f}s", flush=True)
             keep, cbs = [], []
             for v in ns:
                 cb = [int(z) % p for z in v[n_w:]]
