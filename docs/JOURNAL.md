@@ -6,6 +6,18 @@ built, what broke, what the machine taught us. Numbers live in
 
 ---
 
+## 2026-09-19 (night) — rank 6 closes on prime 0
+
+- **ζχ²: 16 of 30 survive = the floor (§137).** The second independent rung (Q³, D42) closes: every
+  Carter-built direction, Q³ included, fails to extend to O(ζχ²). One prime; the second auto-started.
+- 123M nonzeros, solved in 552 s at 4.2 GB — the level the legacy run thrashed in for days at 24 GB.
+- The log carries the stale "first rank the lower ranks do not imply" sentence (code loaded before
+  b852c26); corrected in §137.
+- Rank 6 on prime 1 queued behind prime 0 by a detached waiter, so the machine did not sit idle while
+  the user closed the app; it started on its own at 20:14.
+
+---
+
 ## 2026-09-19 — rank 6 stopped in its last level; replacing the solver
 
 - **Stopped PID 21373** at 10d 20h (user's decision; argv + cwd verified before SIGTERM). ζχ⁰ and ζχ¹

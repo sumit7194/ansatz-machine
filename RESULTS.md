@@ -2945,3 +2945,41 @@ same number, now actually measured. Rank 6's ζχ¹ and ζχ² are running on th
 
 Artifacts: `data/kt_double_r{2,3}_p1.out`, `data/kt_double_r4_p1.out`, `data/kt_double_r{3,4}_{new,coo}.out`,
 `data/kt_double_r3_ring.out`; checkpoints `data/kt_double_*_p1.pkl` (gitignored, regenerable).
+
+## §137 — sGB rank 6: the floor and nothing else. The second independent rung closes (prime 0)
+
+    rank 6, denpow 8, box 30x28, margin 6               prime 0 = 2147483647
+    operator matrix                                     149072 x 75516
+    chi-tower                                           30 -> 30 -> 30   (control passed, non-vacuous)
+    reducible floor                                     16 combinatorial, 16 REPRESENTABLE at denpow 8
+                                                        (re-measured with the corrected series, D50)
+    zeta chi^0 level    30 of 30 survive                (legacy run, Sep 12)
+    zeta chi^1 level    30 of 30 survive                recomputed; checkpoint IDENTICAL to legacy
+    zeta chi^2 level    16 of 30 survive                123,096,337 nonzeros, solved in 552 s
+
+    SURVIVING at O(zeta chi^2), rank 6: 16  =  reducible floor 16
+
+**No irreducible rank-6 Killing tensor of the O(ζ)O(χ²) sGB metric at O(ζχ²), analytic in ζ with a
+Kerr root, within `{xᵃyᵇ/L⁸}`, box 30×28, by exact null over GF(p) with the complete 16-direction
+reducible span subtracted — on one prime so far.** The second prime is running (`data/kt_double_r6_p1.out`);
+until it agrees, this is one prime, not the reporting standard.
+
+**Why it is a result and not a repetition (D42).** Rank 6's Kerr Killing space is
+16 (floor) + 9 (Q·degree-4 reducibles) + 4 (Q²·degree-2) + 1 (**Q³**). Q³ first exists at rank 6, so its
+fate is not implied by Carter dying at rank 2 or Q² dying at rank 4: all fourteen Carter-built directions,
+the new Q³ one included, fail to extend to O(ζχ²). **Rank 4 was the first independent rung; rank 6 is the
+second.** The run's own log says *"This is the first rank whose answer the lower ranks do not imply"* —
+that sentence is stale, rank 4's prose printed at rank 6 by code loaded before the fix (b852c26). Wrong
+in the log, right here. No published argument reaches this rank; nothing corroborates it and nothing is
+contradicted.
+
+**The ceilings stand, in the order CLAUDE.md §3 gives them.** Analyticity first — perturbative, root on
+Kerr, blind to anything non-analytic in ζ. Rank — two independent rungs now (Q², Q³), still a finite
+ladder. Ansatz — `L⁸`, box 30×28, with the representability guard passed on the corrected formula.
+
+**What it cost.** The legacy run reached this level after 6 days and was stopped thrashing at 24 GB after
+10 days 20 hours (§135). Here: resumed at ζχ², the level took 19 min end to end — brackets 3.3 min,
+lcm 76 s, rescale + source clearing 195 s, Rust solve 552 s on 123M nonzeros at 4.2 GB peak, guard 33 s.
+
+Artifacts: `data/kt_double_r6_zc1.out` (ζχ¹, identical to legacy), `data/kt_double_r6_zc2.out` (ζχ²,
+verdict); checkpoint `data/kt_double_z_r6_d8_n2.pkl` (gitignored, regenerable).
