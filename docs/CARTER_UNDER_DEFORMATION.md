@@ -30,7 +30,8 @@ numerical orbit plots. It can be answered exactly.
    invisible to a Killing-tensor search, and squaring cancels the denominator. The rank at which a
    hidden symmetry reappears therefore measures the **pole order** of the surviving Carter:
    order 0 → rank 2, order 1 → rank 4, order 2 → rank 6. In the quadrupolar sector the hierarchy
-   **saturates at order 2**: rank 8 adds nothing.
+   **saturates at order 2**: rank 8 adds nothing, and the same is true at ℓ = 4, so the depth is not set
+   by the angular pattern (§143).
 
 The practical upshot for anyone running such searches: *"irreducible" in a polynomial basis is not
 "independent" as a function*, and the difference is realised by explicit metrics right next to Kerr.
@@ -170,6 +171,12 @@ through); Carter³ survives at rank 6 on both primes.
 deepest pole is 2. Widening the radial profiles from r⁻⁶ to r⁻⁸ grows the compatible spaces but leaves
 the per-order counts (2 at order 1, 1 at order 2) unchanged, so the saturation is not a cutoff effect.
 
+**And it is not a property of the quadrupole either (§143).** Repeating the rank-8 test with ℓ = 4
+angular slots gives the same increments — 2 at order 1, 1 at order 2, none at order 3 — off a
+Carter-compatible base that collapses from 5 to 1. The survivor breakdowns match row for row. So the two
+things separate: **how many deformations keep Carter is an angular question; how deeply Carter can
+degrade before it stops existing is not.**
+
 **Consequence for the method (D52).** "Irreducible" as computed by this instrument means *not a
 polynomial combination of lower-rank Killing tensors*, which is weaker than *functionally independent*.
 Before any surviving direction above the floor is called a hidden symmetry, divide out powers of
@@ -209,8 +216,13 @@ verdicts is affected — every one landed exactly on the floor — but the rule 
 
 ## 8. Open questions
 
-1. **Why does the pole order saturate at 2?** The shape sector is the ℓ = 2 angular pattern; the bound may
-   be set by the angular degree. An ℓ = 4 deformation would test it (rank 8 again for order 3).
+1. **Why does the pole order saturate at 2?** ~~The bound may be set by the angular degree.~~ **Answered
+   at ℓ = 4 (§143): it is not.** Rank 8 with ℓ = 4 slots gives increments of 2, then 1, then 0 — identical
+   to ℓ = 2 — off a Carter-compatible base that collapses from 5 to 1. So *keeping* Carter is an angular
+   question; *how deeply Carter can degrade* is not. The live hypothesis is now that the depth is a
+   property of Kerr's Carter cone: a pole of order m needs the obstruction to vanish to order m on
+   Q = 0, and a quadric imposes the same number of conditions whatever harmonic the deformation carries.
+   Untested predictions: ℓ = 6 and the ℓ = 3 odd sector should also give (2, 1, 0).
 2. **Morales–Ramis for sGB** (D51): an all-rank, all-form non-integrability statement, which would beat
    both the rank and the analyticity ceiling. The ZV recipe transfers structurally; the obstacle is that
    the obstruction first appears at O(ζχ²), so a finite-ζ proof speaks only about the truncation.

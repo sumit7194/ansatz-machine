@@ -3242,3 +3242,50 @@ in ranks 2–8 of this space is a new hidden symmetry.
 saturation may be set by the angular degree — an ℓ = 4 deformation might reach pole order 3 or 4. That
 is testable with the same reduced method (ℓ = 4 slots), and would need rank 8 again to see order 3.
 Scope as before: first order in ε, O(χ²), one prime at rank 8, shape sector, profiles to r⁻⁸.
+
+## §143 — the pole-order ladder is the same at ℓ = 4: saturation is not set by the angular degree
+
+§142 left one question open. The saturation at pole order 2 was measured in the ℓ = 2 shape sector, so
+it might be a property of the quadrupole pattern rather than of the deformation problem. The test is
+the same reduced system with ℓ = 4 angular slots (Y₄ = 35y⁴ − 30y² + 3, radial profiles r⁻¹…r⁻⁶), run
+to rank 8 because that is where pole order 3 would first become visible.
+
+    rank 8, L^7, box 27x28: 133,980 unknowns, 55 products, 1,210 columns, slots l4tt,l4rr,l4ang
+    nullity 941, dim V = 886; Rust solve 2.9 h; whole run 4.3 h    (data/anat/reduced_r8_l4.out)
+
+                                            ℓ = 2 (§142)      ℓ = 4 (here)
+    shape slots in the ansatz                   18                18
+    keep Carter exactly (the base)               5                 1
+    + first appearing at Q^2 (pole order 1)     +2   -> 7         +2   -> 3
+    + first appearing at Q^3 (pole order 2)     +1   -> 8         +1   -> 4
+    + first appearing at Q^4 (pole order 3)     +0   -> 8         +0   -> 4
+
+**The increments are identical; only the base moves.** And the survivor breakdowns are identical too,
+not merely equal in count: a pole-order-1 direction keeps 39 of 55 as {0:25, 1:0, 2:9, 3:4, 4:1}, a
+pole-order-2 direction keeps 30 as {0:25, 1:0, 2:0, 3:4, 4:1} — the same two rows §142 reports for ℓ = 2.
+
+**Both ansatz checks pass, in both directions.** The four O(χ²) coordinate-change controls (ℓ = 2 radial
+and angular gauge, k = 1 and 3) keep all 55, so the system is not killing things generically. Three
+random shape deformations keep exactly 25 — the reducible floor, the 25 products with no Q in them — so
+it is not sparing things generically either. L⁷ is wide enough here.
+
+**What it means, and it separates two things that looked like one.** The *base* — how many deformations
+keep Carter exactly — is an angular question, and it collapses 5 → 1 going from ℓ = 2 to ℓ = 4: a higher
+multipole is far harder to keep separable, which is what §139's Benenti–Francaviglia criterion would
+lead you to expect. The *ladder built on top of it* — how many further deformations each extra pole
+order buys — is 2, then 1, then nothing, and does not care about the angular pattern at all. **Keeping
+Carter is ℓ-dependent; how deeply Carter can degrade before it stops existing is not.**
+
+**A mechanism, offered as a hypothesis and not as a result.** A pole of order m requires the obstruction
+{δH, K} to vanish to order m on the Carter cone Q = 0. That is a condition imposed by a quadric in
+momentum space, and the number of conditions it imposes does not depend on which angular harmonic the
+deformation carries — the harmonic selects which radial profiles participate, not how many times the
+cone has to be touched. If that is the right picture, the increments should be (2, 1, 0) for every
+angular sector, and the saturation depth 2 should be a property of Kerr's Carter cone rather than of
+the deformation. **Testable and not yet tested**: ℓ = 6, or the ℓ = 3 odd-parity sector, should give the
+same (2, 1, 0) off a base of its own.
+
+**Scope.** First order in ε, O(χ²), one prime (2147483647) at rank 8, shape sector, profiles to r⁻⁶.
+§142 checked for ℓ = 2 that widening the profiles to r⁻⁸ grows the base but not the increments; that
+check has **not** been repeated at ℓ = 4, so "the increments are stable under basis widening" is carried
+over from ℓ = 2 rather than measured here.

@@ -3806,3 +3806,16 @@ run can contradict us.**
 rather than after (ZV/Maciejewski was after, and cost a full arc). Reading the abstract is what put
 "dCS rank 6" in D47; reading the method is what turned "run dCS" into a different experiment. The
 abstract tells you whether a thing was done. Only the method tells you what was left undone.
+
+**Rank 8 at ℓ = 4 landed (4 h 19 m, exit 0) and answers open question 1: no.** §143. The pole-order
+increments are (2, 1, 0) at ℓ = 4 exactly as at ℓ = 2, with identical survivor breakdowns; what changes
+is the Carter-compatible base, 5 → 1. The saturation at 2 is therefore not a quadrupole artifact.
+Separating the two — an ℓ-dependent base, an ℓ-independent ladder — is worth more than either number,
+and it hands us a mechanism to test (the depth is set by Kerr's Carter cone, which is angular-blind)
+with two predictions that can fail: ℓ = 6 and the ℓ = 3 odd sector should also give (2, 1, 0).
+
+**A cost discovered by measuring instead of assuming.** The run's last 1.5 h was not the solve — it was
+the residual guard, which streams the whole 585 M-nonzero level matrix once per nullspace vector, 941
+times, ~1.7 h of CPU. Benchmarking the inner loop (11.2 ns/nnz) gave both a correct ETA and the size of
+the problem; my first guess, before measuring, was off by 5×. Every future rank-8 run pays this, which
+is what makes it worth fixing rather than tolerating.
