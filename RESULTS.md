@@ -3201,3 +3201,44 @@ elimination) were unaffected, §139's space recomputes identical, and the number
 Scope: first order in ε, through O(χ²), shape sector only at rank 6, rank-6 extra directions within
 r⁻¹…r⁻⁶, one prime for the rank-6 map (both for d3's individual checks). Whether higher pole orders
 appear at rank 8 is the obvious next rung, and is not tested.
+
+## §142 — rank 8: the pole-order ladder holds, and saturates at 2 in the shape sector
+
+§141 predicted that the first surviving power of Carter reads off the pole order of the surviving
+rational Carter. Rank 8 (Carter⁴ first appears) tests pole order 3.
+
+**The computation, reduced.** A deformation entering only at O(εχ²) has zero sources below χ², so its
+verdict-level source for a Kerr direction is just {δH, K} with K the direction's Schwarzschild part —
+the known products of p_t, p_φ, H₀, L². No Kerr χ-tower, no chain identification: **one linear system**
+(`scripts/_kt_pole_reduced.py`). Validated before use: it reproduces §140 and §141 exactly (rank 4 in
+22 s, rank 6 in 8.5 min against 42 and 67 min), rediscovering d3 with identical coefficients.
+
+    rank 8, L^7, box 27x28: 133,980 unknowns, 55 products, 1,210 (product, deformation) columns
+    level matrix 585,080,858 nonzeros; Rust solve 3.2 h; whole run 4.7 h     (data/anat/reduced_r8.out)
+
+    survivors of 55, by leading power of Q      measured                     predicted
+    d1, d2 (pole order 1)                       25 + 0 + 9 + 4 + 1 = 39      floor + every Q^m, m >= 2
+    d3     (pole order 2)                       25 + 0 + 0 + 4 + 1 = 30      floor + every Q^m, m >= 3
+    random shape deformations                   25 (floor)                   25
+    controls (O(chi^2) coordinate changes)      55                           55
+
+Both ansatz checks pass (controls keep all 55; random keep the whole floor), so L⁷ is wide enough here.
+
+**The ladder saturates.** The nested spaces are 5 ⊂ 7 ⊂ 8 ⊂ 8: **no direction first appears at Carter⁴**.
+Within the ℓ=2 shape sector, Carter never survives with a triple pole — the deepest is double.
+
+**Not a basis artifact.** Widening the radial profiles from r⁻¹…r⁻⁶ to r⁻¹…r⁻⁸ grows the spaces but not
+the counts: rank 4 gives 7 ⊂ 9 (still 2 new at pole order 1); rank 6 gives 7 ⊂ 9 ⊂ 10 (still 2 and 1).
+The number of directions at each pole order is stable; only the Carter-compatible base grows.
+
+**Where this leaves the picture.** Across ranks 2, 4, 6 and 8, every surviving Killing tensor of a
+deformed Kerr in this family is a power of one rational Carter, and the rank at which it first appears
+is that Carter's pole order — now measured to saturate at 2 for quadrupolar deformations. **The ladder
+is a ruler for the form of one conserved quantity, with a finite range, not a list of independent
+symmetries.** D52's check classifies every survivor above the floor as functionally dependent; nothing
+in ranks 2–8 of this space is a new hidden symmetry.
+
+**Open, and the natural next test.** Why 2? The shape sector is the ℓ = 2 angular pattern, so the
+saturation may be set by the angular degree — an ℓ = 4 deformation might reach pole order 3 or 4. That
+is testable with the same reduced method (ℓ = 4 slots), and would need rank 8 again to see order 3.
+Scope as before: first order in ε, O(χ²), one prime at rank 8, shape sector, profiles to r⁻⁸.

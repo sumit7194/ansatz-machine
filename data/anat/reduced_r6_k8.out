@@ -1,0 +1,34 @@
+rank 6, L^8, box 30x28: 75516 unknowns, 30 Schwarzschild products (by Q power {0: 16, 1: 9, 2: 4, 3: 1}), prime 0 [17s]
+  840 sources built [30s]
+    [eps chi^2 timing] lcm+compare 52.9s | clear 112.4s = RESCALED 75516 operator columns as arrays, nnz 4,006,722 -> 45,768,756, by q (81 terms, 7.7s) + cleared 840 sources; new denominator factor (x - 2)**8*(y - 1)**8*(y + 1)**8
+    rust nullspace: 8 blocks (largest 14088 cols), nnz 47,837,617 -> peak 22,669,561, nullity 717, 4 thread(s), 200.2s
+  one system: 840 (product, deformation) columns, dim V = 687 [577s]
+
+  shape-sector deformations keeping ALL 30: dim 7 of 24
+  shape-sector deformations keeping H^2 Q^1 (pole order <= 0): dim 7
+  shape-sector deformations keeping H^1 Q^2 (pole order <= 1): dim 9
+  shape-sector deformations keeping H^0 Q^3 (pole order <= 2): dim 10
+
+  directions first appearing with Q^2 (pole order 1): 2
+    1*l2tt_2 + -192*l2tt_7 + 320*l2tt_8 + 32*l2rr_5 + -880*l2rr_6 + 40/7*l2ang_3 + 44/7*l2ang_4 + 208/35*l2ang_5 + 256/3*l2ang_6 + -320*l2ang_7
+      survivors (21, {0: 16, 1: 0, 2: 4, 3: 1})
+    1*l2tt_3 + -80*l2tt_7 + 128*l2tt_8 + 20*l2rr_5 + -352*l2rr_6 + 15/7*l2ang_3 + 33/14*l2ang_4 + 64/35*l2ang_5 + 112/3*l2ang_6 + -128*l2ang_7
+      survivors (21, {0: 16, 1: 0, 2: 4, 3: 1})
+
+  directions first appearing with Q^3 (pole order 2): 1
+    1*l2tt_2 + -192*l2tt_7 + 320*l2tt_8 + -880*l2rr_6 + 40/87*l2ang_3 + 68/29*l2ang_4 + 128/145*l2ang_5 + 5776/87*l2ang_6 + -320*l2ang_7
+      survivors (17, {0: 16, 1: 0, 2: 0, 3: 1})
+
+  named directions (§140, §141):
+    d1: (21, {0: 16, 1: 0, 2: 4, 3: 1})
+    d2: (21, {0: 16, 1: 0, 2: 4, 3: 1})
+    d3: (17, {0: 16, 1: 0, 2: 0, 3: 1})
+    control gaugeY2r_1: (30, {0: 16, 1: 9, 2: 4, 3: 1})
+    control gaugeY2y_1: (30, {0: 16, 1: 9, 2: 4, 3: 1})
+    control gaugeY2r_3: (30, {0: 16, 1: 9, 2: 4, 3: 1})
+    control gaugeY2y_3: (30, {0: 16, 1: 9, 2: 4, 3: 1})
+    random #0: (16, {0: 16, 1: 0, 2: 0, 3: 0})
+    random #1: (16, {0: 16, 1: 0, 2: 0, 3: 0})
+    random #2: (16, {0: 16, 1: 0, 2: 0, 3: 0})
+
+  total 578s

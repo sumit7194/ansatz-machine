@@ -6,6 +6,16 @@ built, what broke, what the machine taught us. Numbers live in
 
 ---
 
+## 2026-09-20 (overnight) — rank 8 (§142)
+
+- Reduced the pole-order test to ONE linear system for pure O(χ²) deformations (`_kt_pole_reduced.py`);
+  validated by reproducing ranks 4 and 6 exactly (22 s / 8.5 min vs 42 / 67 min), d3 recovered verbatim.
+- **Rank 8** (4.7 h, 585M-nonzero level matrix, 3.2 h in the solver): d1/d2 → 39 of 55, d3 → 30, random →
+  25 floor, controls → 55. Every prediction of the pole-order picture, in advance.
+- **The ladder saturates at pole order 2**: 5 ⊂ 7 ⊂ 8 ⊂ 8, nothing new at Carter⁴. Checked it is not a
+  basis effect — widening profiles to r⁻⁸ leaves the per-order counts (2, 1) unchanged at ranks 4 and 6.
+- Next candidate: is the saturation set by the angular degree? An ℓ=4 deformation would test it.
+
 ## 2026-09-20 — rank-6 pole-order test, and a silent-overflow bug (§141)
 
 - `_kt_qpower.py` (rank 6, shape sector, 67 min): all-30 space = Carter-compatible; Carter³ space ⊇ rank

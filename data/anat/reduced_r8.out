@@ -1,0 +1,37 @@
+rank 8, L^7, box 27x28: 133980 unknowns, 55 Schwarzschild products (by Q power {0: 25, 1: 16, 2: 9, 3: 4, 4: 1}), prime 0 [34s]
+  1210 sources built [63s]
+    [eps chi^2 timing] lcm+compare 458.9s | clear 1664.3s = RESCALED 133980 operator columns as arrays, nnz 7,386,764 -> 567,818,793, by q (728 terms, 136.2s) + cleared 1210 sources; new denominator factor (x - 2)**27*(y - 1)**25*(y + 1)**25
+    rust nullspace: 8 blocks (largest 23200 cols), nnz 585,080,858 -> peak 336,233,743, nullity 1028, 4 thread(s), 11398.9s
+  one system: 1210 (product, deformation) columns, dim V = 973 [16783s]
+
+  shape-sector deformations keeping ALL 55: dim 5 of 18
+  shape-sector deformations keeping H^3 Q^1 (pole order <= 0): dim 5
+  shape-sector deformations keeping H^2 Q^2 (pole order <= 1): dim 7
+  shape-sector deformations keeping H^1 Q^3 (pole order <= 2): dim 8
+  shape-sector deformations keeping H^0 Q^4 (pole order <= 3): dim 8
+
+  directions first appearing with Q^2 (pole order 1): 2
+    1*l2tt_2 + -32*l2tt_5 + 48*l2tt_6 + -40*l2ang_3 + -28*l2ang_4
+      survivors (39, {0: 25, 1: 0, 2: 9, 3: 4, 4: 1})
+    1*l2tt_3 + -12*l2tt_5 + 16*l2tt_6 + -15*l2ang_3 + -21/2*l2ang_4
+      survivors (39, {0: 25, 1: 0, 2: 9, 3: 4, 4: 1})
+
+  directions first appearing with Q^3 (pole order 2): 1
+    1*l2rr_5 + 100/609*l2ang_3 + 25/203*l2ang_4 + 321/2030*l2ang_5 + 103/174*l2ang_6
+      survivors (30, {0: 25, 1: 0, 2: 0, 3: 4, 4: 1})
+
+  directions first appearing with Q^4 (pole order 3): 0
+
+  named directions (§140, §141):
+    d1: (39, {0: 25, 1: 0, 2: 9, 3: 4, 4: 1})
+    d2: (39, {0: 25, 1: 0, 2: 9, 3: 4, 4: 1})
+    d3: (30, {0: 25, 1: 0, 2: 0, 3: 4, 4: 1})
+    control gaugeY2r_1: (55, {0: 25, 1: 16, 2: 9, 3: 4, 4: 1})
+    control gaugeY2y_1: (55, {0: 25, 1: 16, 2: 9, 3: 4, 4: 1})
+    control gaugeY2r_3: (55, {0: 25, 1: 16, 2: 9, 3: 4, 4: 1})
+    control gaugeY2y_3: (55, {0: 25, 1: 16, 2: 9, 3: 4, 4: 1})
+    random #0: (25, {0: 25, 1: 0, 2: 0, 3: 0, 4: 0})
+    random #1: (25, {0: 25, 1: 0, 2: 0, 3: 0, 4: 0})
+    random #2: (25, {0: 25, 1: 0, 2: 0, 3: 0, 4: 0})
+
+  total 16785s
