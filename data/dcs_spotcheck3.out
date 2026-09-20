@@ -1,0 +1,19 @@
+Kerr Pontryagin control, M=1, a=1/3, exact rational arithmetic
+
+  building curvature ...
+  built; evaluating at random points
+
+  r=7/2, cos(th)=1/3:  *RR = 0.0049270605821846643836
+      closed form = 0.0049270605821846643836   rel.diff = 0   ratio: 1.0000000000000000000
+  r=5, cos(th)=-2/5:  *RR = -0.00048826817942336388453
+      closed form = -0.00048826817942336388453   rel.diff = 0   ratio: 1.0000000000000000000
+  r=11/4, cos(th)=3/4:  *RR = 0.056034494698573954720
+      closed form = 0.056034494698573954720   rel.diff = 0   ratio: 1.0000000000000000000
+  r=9/2, cos(th)=-1/7:  *RR = -0.00036663311690214807828
+      closed form = -0.00036663311690214807828   rel.diff = 0   ratio: 1.0000000000000000000
+  r=6, cos(th)=2/3:  *RR = 0.00022571462379730592948
+      closed form = 0.00022571462379730592948   rel.diff = 0   ratio: 1.0000000000000000000
+  r=13/5, cos(th)=-4/9:  *RR = -0.051535638509330659686
+      closed form = -0.051535638509330659686   rel.diff = 0   ratio: 1.0000000000000000000
+
+  PASS: *RR matches the closed form exactly at every point.
