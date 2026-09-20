@@ -18,6 +18,8 @@ EXACTNESS. The same entries as _kt_prep.rescale, only stored differently -- chec
 on real operators below. Rows are renumbered at the end (np.unique), and the nullspace does not
 depend on row order, so the Rust solver returns the same unique basis.
 """
+import os
+
 import numpy as np
 
 W = 1 << 11          # j, k < 2048; codes stay below 2^32 for up to 1024 momentum monomials
@@ -167,6 +169,55 @@ def write_ktm_parts(path, parts, ncols, p):
     return nnz, nrows
 
 
+def guard_vectors(vecs, p, mode=None, seed=0):
+    """The vectors a residual guard actually has to check, plus a label naming the policy.
+
+    ``full`` (the default) checks every nullspace vector, which costs one pass over the matrix each.
+    At rank 8 that is 941 passes over 585M nonzeros -- 1.7 h of CPU, measured, and more than half the
+    wall time of the whole run once the Rust solve is done.
+
+    ``freivalds[:k]`` checks k uniformly random GF(p) combinations instead. Collect the residuals as
+    one matrix R = M V^T, where V's rows are the nullspace vectors; the guard is asking whether
+    R == 0. For a uniformly random z, R z == 0 holds with probability at most 1/p per probe whenever
+    R != 0, so k independent probes miss a broken nullspace with probability at most p^-k. At
+    p ~ 2^31 and k = 4 that bound is below 1e-37, for 4 passes instead of 941.
+
+    **The error is one-sided, which is why this is a guard and not a sample.** M (sum_i z_i v_i) =
+    sum_i z_i (M v_i), so if every M v_i vanishes the probe vanishes exactly. A nonzero probe
+    residual therefore proves a real defect -- there are no false alarms, only a bounded chance of a
+    false pass. Contrast a guard that checked a random SUBSET of the vectors, which would miss any
+    defect outside the subset with probability nowhere near p^-k.
+
+    Exactness of the combination: each term is reduced by the same 16-bit split the residual loops
+    use, so it is below 2^48, and fewer than 2^15 of them are summed -- every accumulator stays
+    below 2^63 and the final reduction is exact.
+    """
+    mode = (mode if mode is not None else os.environ.get("KT_GUARD", "full")).strip().lower()
+    n = len(vecs)
+    if mode in ("", "full", "all"):
+        return list(vecs), f"full, {n} vectors"
+    name, _, ks = mode.partition(":")
+    if name not in ("freivalds", "probe"):
+        raise ValueError(f"KT_GUARD must be 'full' or 'freivalds[:k]', got {mode!r}")
+    k = int(ks) if ks else 4
+    if k < 1:
+        raise ValueError(f"KT_GUARD probe count must be >= 1, got {k}")
+    if k >= n:
+        return list(vecs), f"full, {n} vectors ({k} probes would cost no less)"
+    rng = np.random.default_rng(seed)
+    z = rng.integers(0, p, size=(k, n), dtype=np.int64)   # the whole field, so the 1/p bound
+    #                                                     is exact (Schwartz-Zippel, degree 1)
+    acc = None
+    for i, v in enumerate(vecs):
+        w = np.asarray(v, dtype=np.int64) % p
+        if acc is None:
+            acc = [np.zeros(w.shape[0], np.int64) for _ in range(k)]
+        for j in range(k):
+            b = int(z[j, i])
+            acc[j] += (w * (b >> 16)) % p * 65536 + w * (b & 0xFFFF)
+    return [a % p for a in acc], f"freivalds, {k} probes over {n} vectors, false-pass < p^-{k}"
+
+
 def residual_count_file(path, vecs, p, chunk=20_000_000):
     """residual_count on a KTM1 file, read through a memory map in chunks: the matrix is never
     resident in this process, which is the point -- the Rust solver needed that memory."""
@@ -175,8 +226,10 @@ def residual_count_file(path, vecs, p, chunk=20_000_000):
     ri = np.memmap(path, dtype="<u4", mode="r", offset=36, shape=(nnz,))
     ci = np.memmap(path, dtype="<u4", mode="r", offset=36 + 4 * nnz, shape=(nnz,))
     vi = np.memmap(path, dtype="<u4", mode="r", offset=36 + 8 * nnz, shape=(nnz,))
+    check, policy = guard_vectors(vecs, p)
+    print(f"    residual guard: {policy}", flush=True)
     bad = 0
-    for v in vecs:
+    for v in check:
         v = np.asarray(v, dtype=np.int64) % p
         acc = np.zeros(nrows, np.float64)
         for s in range(0, nnz, chunk):
@@ -205,7 +258,7 @@ def residual_count(ri, ci, vi, nrows, vecs, p, chunk=20_000_000):
     fewer than 2^22 entries, so every partial sum is an exact integer below 2^53."""
     bad = 0
     n = ri.shape[0]
-    for v in vecs:
+    for v in guard_vectors(vecs, p)[0]:
         v = np.asarray(v, dtype=np.int64) % p
         acc = np.zeros(nrows, np.float64)
         for s in range(0, n, chunk):

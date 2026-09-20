@@ -116,10 +116,11 @@ def _residual_count(dicts, vecs, p):
     Replaces the pure-Python guard, which at rank 6 would walk ~27M dict entries per vector. The
     multiply is split into 16-bit halves so no product exceeds 2^47 and no row sum overflows int64
     -- the same overflow that once made the old guard fail a correct nullspace."""
+    from _kt_coo import guard_vectors
     from _kt_fast import _coo_from_col_dicts
     ri, ci, vi, nr = _coo_from_col_dicts(dicts, p)
     bad = 0
-    for v in vecs:
+    for v in guard_vectors(vecs, p)[0]:
         w = np.asarray(v, dtype=np.int64)[ci] % p
         hi = np.zeros(nr, np.int64)
         lo = np.zeros(nr, np.int64)
@@ -276,8 +277,9 @@ def nullspace_dicts(dicts, ncols, p, verify=True, label=""):
         vecs = nullspace_modp32(M, p)
         del M
     if verify and vecs:
+        from _kt_coo import guard_vectors
         bad = 0
-        for v in vecs:
+        for v in guard_vectors(vecs, p)[0]:
             acc = {}
             for j, d in enumerate(dicts):
                 vj = int(v[j]) % p

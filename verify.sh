@@ -121,6 +121,7 @@ NAMES+=("04 campaign");           CMDS+=("scripts/04_campaign.py")
 [ -f scripts/_kt_clearcheck.py ] && { NAMES+=("KT4 ring clear() == expression clear_expr(), and fails where it fails"); CMDS+=("scripts/_kt_clearcheck.py --quick"); }
 [ -f scripts/_kt_coo.py ] && { NAMES+=("KT5 array rescale == dict rescale, same nullspace; guard silent on true vectors, fires on a bent one"); CMDS+=("scripts/_kt_coo.py"); }
 [ -f scripts/_kt_floor.py ] && { NAMES+=("KT6 floor test: series == old formula for c<=2 and differs at c=3; ring == expression test in both verdicts"); CMDS+=("scripts/_kt_floor.py"); }
+[ -f scripts/_kt_guard_test.py ] && { NAMES+=("KT7 Freivalds guard: agrees with the exhaustive check, detects a one-unit corruption, no false alarms"); CMDS+=("scripts/_kt_guard_test.py"); }
 
 fail=0
 GATE="$(dirname "$0")/gate.log"; : > "$GATE"   # also written here so the dashboard (reads ROOT/gate.log) stays current

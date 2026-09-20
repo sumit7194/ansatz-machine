@@ -1487,3 +1487,34 @@ outcomes are results; neither is reproduction.
 **Scope note.** dCS's leading correction is odd-parity and O(χζ), so `_kt_pole_reduced`'s assumption of
 zero sources below χ² does not hold. This needs the general tower (`_kt_double` / `_kt_anatomy`), not
 the reduced single system. Rank-6 scale, which is 552 s of solve, not a week.
+
+## D54 — the residual guard may be probabilistic, because its error is one-sided (2026-09-20)
+
+**What forced it.** The rank-8 ℓ=4 run spent 2.9 h in the Rust nullspace and then **1.7 h of CPU in the
+residual guard** — `residual_count_file` streams the whole 585 M-nonzero level matrix once per
+nullspace vector, 941 times. More than a third of the run, and every future rank-8 run pays it again.
+Found by benchmarking the inner loop (11.2 ns/nnz) rather than by guessing; the guess before measuring
+was 5× too pessimistic, which is its own small lesson about ETAs.
+
+**The replacement.** `_kt_coo.guard_vectors` (KT_GUARD). Collect the residuals as one matrix
+`R = M Vᵀ`; the guard asks whether `R == 0`. Rather than check all 941 columns, check `R z` for k
+uniformly random `z` over GF(p). If `R ≠ 0` then `R z = 0` with probability at most 1/p per probe, so
+k probes give a false pass with probability at most `p^-k` — at p ≈ 2³¹ and k = 4, below 1e-37.
+
+**Why this is a guard and not a sample, which is the whole argument.** `M (Σ zᵢ vᵢ) = Σ zᵢ (M vᵢ)`. If
+every `M vᵢ` vanishes the probe vanishes *exactly*, so a nonzero probe residual **proves** a defect.
+The error is one-sided: no false alarms, and a bounded chance of a false pass. A guard that checked a
+random *subset* of the vectors would have the opposite and unacceptable profile — it would miss any
+defect outside the subset with probability nowhere near `p^-k`. **This distinction is the reason the
+change is allowed at all**, and D40's rule still binds: the control must be able to fail.
+
+**Validated in both directions before use** (`scripts/_kt_guard_test.py`, gate KT7). On exact GF(p)
+data, over 6 random systems: full and Freivalds agree on a correct nullspace; the probe combination is
+itself exactly in the nullspace; and across 150 corruptions of **one unit in one coordinate of one
+vector** — the smallest defect there is, and the one a sampling guard would most likely miss — both
+`freivalds:4` and `freivalds:1` detected every one. End to end, a real rank-4 run under both policies
+produced byte-identical physics output (4 probes against 269 vectors).
+
+**Default unchanged, deliberately.** `KT_GUARD=full` remains the default; the fast path is opt-in via
+`KT_GUARD=freivalds[:k]`. Both policies now **print which one ran**, so a result's log states what
+protected it — the provenance rule of CLAUDE.md §5 applied to the guard itself rather than to the data.

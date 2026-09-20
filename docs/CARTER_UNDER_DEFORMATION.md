@@ -232,16 +232,20 @@ verdicts is affected — every one landed exactly on the floor — but the rule 
 ## 9. Reproducing it
 
 ```bash
-./verify.sh                                   # the gate, including KT1-KT6 (solver-stack equality tests)
+./verify.sh                                   # the gate, including KT1-KT7 (solver-stack equality tests)
 KT_SOLVER=rust KT_THREADS=4 .venv/bin/python scripts/_kt_double.py --rank 6 --denpow 8 --margin 6 --control --sgb
 KT_SOLVER=rust .venv/bin/python scripts/_kt_anatomy.py          # §138, the three obstructions
 KT_SOLVER=rust .venv/bin/python scripts/_kt_carter_space.py     # §139, the compatible space
 KT_SOLVER=rust .venv/bin/python scripts/_kt_separable.py --span-only --general --jmax 2   # §139, separability
 KT_SOLVER=rust .venv/bin/python scripts/_kt_pole_reduced.py --rank 8 --denpow 7 --margin 6  # §142
+KT_SOLVER=rust .venv/bin/python scripts/_kt_pole_reduced.py --rank 8 --denpow 7 --margin 6 \
+    --slots l4tt,l4rr,l4ang                                                                # §143
 ```
 
 Controls: `scripts/kt_pause.sh <pid> stop|cont` pauses a run; `echo N > data/KT_THREADS` changes its core
-count between solves.
+count between solves. `KT_GUARD=freivalds` replaces the exhaustive residual check with 4 random GF(p)
+probes (D54) — same one-sided guarantee, false pass below 1e-37, and it removes ~1.7 h of CPU from a
+rank-8 run. The default stays exhaustive; every run prints which guard protected it.
 
 **Errors found and fixed along the way, recorded because they shaped the results**: the floor-representability
 formula was wrong for c ≥ 3 and had never been measured correctly at rank 6 (D50; the answer, 16, was

@@ -3819,3 +3819,19 @@ the residual guard, which streams the whole 585 M-nonzero level matrix once per 
 times, ~1.7 h of CPU. Benchmarking the inner loop (11.2 ns/nnz) gave both a correct ETA and the size of
 the problem; my first guess, before measuring, was off by 5×. Every future rank-8 run pays this, which
 is what makes it worth fixing rather than tolerating.
+
+**The residual guard is now optionally probabilistic (D54), and the argument matters more than the
+speedup.** 1.7 h of every rank-8 run was the guard checking `M vᵢ = 0` for 941 vectors, one full pass
+over 585 M nonzeros each. Four random GF(p) combinations do the same job with a false-pass probability
+below 1e-37. **The reason this is allowed is one-sidedness**: a nonzero probe residual *proves* a
+defect, because `M(Σ zᵢ vᵢ) = Σ zᵢ(M vᵢ)`. A guard that sampled a random subset of the vectors would
+look similar and be unacceptable. Validated against the smallest defect there is — one unit in one
+coordinate of one vector — 150 times, caught every time, including with a single probe. Gate KT7;
+KT1–KT6 still pass. **And a correction I nearly left standing:** I re-ran KT5 under the new policy
+believing it would exercise the detection path, because KT5 asserts the guard fires on a bent vector.
+It does not — KT5 bends a *single* vector, and with k ≥ n the helper falls back to the exhaustive check
+by design, which the log says plainly (`full, 1 vectors (4 probes would cost no less)`). So KT5 confirms
+only that the agreement path engages Freivalds and still passes. Detection under Freivalds is KT7's job
+and KT7 alone. **Reading the log rather than the exit code is what caught it** — a green gate that
+silently took the old path is exactly the "control that cannot fail" failure this repo keeps paying for.
+Default stays exhaustive.
