@@ -18,7 +18,8 @@ python3 -m venv .venv
 Requires Python ≥ 3.12 and exactly one dependency (SymPy). Everything runs on a
 laptop CPU in minutes; no GPU, no API, no LLM.
 
-**Docs:** [RESULTS.md](RESULTS.md) (lab notebook — measured results, failure→fix
+**Docs:** [docs/CARTER_UNDER_DEFORMATION.md](docs/CARTER_UNDER_DEFORMATION.md) (the write-up: Carter's constant under deformations of Kerr — what survives, why, in what form) ·
+[RESULTS.md](RESULTS.md) (lab notebook — measured results, failure→fix
 tables) · [docs/JOURNAL.md](docs/JOURNAL.md) (dated activity log) ·
 [docs/DECISIONS.md](docs/DECISIONS.md) (design rules and what bought them) ·
 [docs/GLOSSARY.md](docs/GLOSSARY.md) (the vocabulary, CS-framed) ·

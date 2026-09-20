@@ -280,6 +280,7 @@ Python >= 3.12, one dependency (SymPy), laptop CPU. No GPU, no API, no LLM in th
 | `docs/ROADMAP.md` | current direction, in the user's own steer, and what preceded it |
 | `docs/DECISIONS.md` | design rules and what bought them |
 | `docs/EDGB.md` | the beyond-GR thread; field equations validated, corrections derivable |
+| `docs/CARTER_UNDER_DEFORMATION.md` | the §130–§142 write-up: what survives a deformation of Kerr, why, and in what form |
 | `docs/JOURNAL.md` | dated activity log |
 | `docs/GLOSSARY.md` | the vocabulary, CS-framed |
 
