@@ -76,9 +76,10 @@ if __name__ == "__main__":
           f"[{time.time()-t0:.0f}s]", flush=True)
 
     # deformations: the shape sector, plus pure O(chi^2) l=2 coordinate changes (controls)
-    names, gis, roles = build_space(GI, kmax)
-    keep = [i for i, (n, r) in enumerate(zip(names, roles)) if r == "slot" and n.rsplit("_", 1)[0] in
-            ("l2tt", "l2rr", "l2ang")]
+    want = arg("--slots", "l2tt,l2rr,l2ang", str).split(",")
+    from _kt_carter_space import SLOTS, SLOTS_L4
+    names, gis, roles = build_space(GI, kmax, slots=tuple(SLOTS) + tuple(SLOTS_L4))
+    keep = [i for i, (n, r) in enumerate(zip(names, roles)) if r == "slot" and n.rsplit("_", 1)[0] in want]
     names = [names[i] for i in keep]; gis = [gis[i] for i in keep]; roles = ["slot"] * len(keep)
     giK = sum((chi ** n * GI[n] for n in range(3)), sp.zeros(4, 4))
     for k in (1, 3):
@@ -195,6 +196,8 @@ if __name__ == "__main__":
              "d3": {"l2rr_5": 1, "l2ang_3": "100/609", "l2ang_4": "25/203", "l2ang_5": "321/2030",
                     "l2ang_6": "103/174"}}
     for lab, coef in known.items():
+        if any(nm not in names for nm in coef):        # e.g. the l=2 directions in an l=4 run
+            continue
         w = np.zeros(A, dtype=np.int64)
         for nm, c in coef.items():
             q = sp.Rational(c); w[names.index(nm)] = int(q.p) % p * pow(int(q.q) % p, p - 2, p) % p

@@ -150,6 +150,10 @@ def ratrec(a, p):
 # ---------------------------------------------------------------- the deformation space
 
 SLOTS = ("tt", "rr", "ang", "drag1", "drag3", "l0tt", "l0rr", "l0ang", "l2tt", "l2rr", "l2ang")
+# l = 4 shape slots, off by default: they are not part of a slow-rotation metric at O(chi^2), and
+# adding them to SLOTS would shift every saved name list. §143 asks whether the pole order that a
+# deformation can reach is set by its angular degree, so it needs them as a separate family.
+SLOTS_L4 = ("l4tt", "l4rr", "l4ang")
 
 
 def slot_h(slot, R):
@@ -179,12 +183,20 @@ def slot_h(slot, R):
         h[1, 1] = chi ** 2 * R * Y2
     elif slot == "l2ang":
         h[2, 2], h[3, 3] = ang(chi ** 2 * R * Y2)
+    elif slot in ("l4tt", "l4rr", "l4ang"):
+        Y4 = 35 * y ** 4 - 30 * y ** 2 + 3
+        if slot == "l4tt":
+            h[0, 0] = chi ** 2 * R * Y4
+        elif slot == "l4rr":
+            h[1, 1] = chi ** 2 * R * Y4
+        else:
+            h[2, 2], h[3, 3] = ang(chi ** 2 * R * Y4)
     return h
 
 
-def build_space(GI, kmax):
+def build_space(GI, kmax, slots=None):
     names, gis, roles = [], [], []
-    for slot in SLOTS:
+    for slot in (SLOTS if slots is None else slots):
         for k in range(1, kmax + 1):
             names.append(f"{slot}_{k}")
             gis.append(KD.ginv_perturbation(GI, slot_h(slot, x ** -k)))

@@ -1,0 +1,27 @@
+rank 6, L^8, box 30x28: 75516 unknowns, 30 Schwarzschild products (by Q power {0: 16, 1: 9, 2: 4, 3: 1}), prime 0 [17s]
+  660 sources built [28s]
+    [eps chi^2 timing] lcm+compare 42.3s | clear 94.7s = RESCALED 75516 operator columns as arrays, nnz 4,006,722 -> 45,768,756, by q (81 terms, 7.6s) + cleared 660 sources; new denominator factor (x - 2)**8*(y - 1)**8*(y + 1)**8
+    rust nullspace: 8 blocks (largest 13992 cols), nnz 47,495,818 -> peak 22,669,561, nullity 520, 4 thread(s), 199.0s
+  one system: 660 (product, deformation) columns, dim V = 490 [495s]
+
+  shape-sector deformations keeping ALL 30: dim 1 of 18
+  shape-sector deformations keeping H^2 Q^1 (pole order <= 0): dim 1
+  shape-sector deformations keeping H^1 Q^2 (pole order <= 1): dim 3
+  shape-sector deformations keeping H^0 Q^3 (pole order <= 2): dim 4
+
+  directions first appearing with Q^2 (pole order 1): 2
+    1*l4tt_2 + -12*l4tt_4 + 16*l4tt_5 + -14*l4rr_3 + 95/2*l4ang_1 + 95/2*l4ang_2 + 6*l4ang_3 + -7*l4ang_4
+      survivors (21, {0: 16, 1: 0, 2: 4, 3: 1})
+    1*l4rr_2 + 5*l4ang_1 + 6*l4ang_2 + 4/3*l4ang_3
+      survivors (21, {0: 16, 1: 0, 2: 4, 3: 1})
+
+  directions first appearing with Q^3 (pole order 2): 1
+    1*l4tt_2 + -32*l4tt_5 + 48*l4tt_6 + -179*l4rr_3 + -147*l4rr_4 + 545/2*l4ang_1 + 545/2*l4ang_2 + -149*l4ang_3 + -244*l4ang_4 + -84*l4ang_5
+      survivors (17, {0: 16, 1: 0, 2: 0, 3: 1})
+
+  named directions (§140, §141):
+Traceback (most recent call last):
+  File "/Users/sumit/Github/conjecture_machine/scripts/_kt_pole_reduced.py", line 201, in <module>
+    q = sp.Rational(c); w[names.index(nm)] = int(q.p) % p * pow(int(q.q) % p, p - 2, p) % p
+                          ~~~~~~~~~~~^^^^
+ValueError: list.index(x): x not in list
