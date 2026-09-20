@@ -3786,3 +3786,23 @@ reasoning from the source term.
 proved the solver sound and localised the fault; it also exposed two boundary conditions I had
 documented and never implemented. Order matters: *validate the instrument on a known answer before
 adjusting the hypothesis three times.*
+
+## 2026-09-20
+
+**Rank 8 with ℓ=4 shape slots launched** (PID 49176) to answer open question 1 of
+`CARTER_UNDER_DEFORMATION.md`: is the pole-order saturation at 2 a property of the ℓ=2 sector, or
+general? Rank 6 at ℓ=4 already gave the same per-order counts (2 then 1) off a much smaller
+compatible base (1 of 18, against 5 for ℓ=2), which points at "general" — rank 8 decides.
+
+**Literature re-read at method level before queuing dCS, and it changed the plan.** D53. The repo had
+"dCS closed through rank 6" recorded since D47, but the *pitch* I made for running dCS had lost it.
+Pulling Owen–Yunes–Witek in full confirmed the record and supplied the methodology: arbitrary
+functions of (r,θ), CAS order-by-order, inconsistent system at O(χ²ζ). So a dCS rank ladder is
+reproduction and is off the table; the rational-integral question (D52) applied to dCS is not, and it
+has the property that makes a run worth doing — **our framework predicts their published null, so the
+run can contradict us.**
+
+**The pattern worth naming.** This is the third time a lit check has redirected work *before* compute
+rather than after (ZV/Maciejewski was after, and cost a full arc). Reading the abstract is what put
+"dCS rank 6" in D47; reading the method is what turned "run dCS" into a different experiment. The
+abstract tells you whether a thing was done. Only the method tells you what was left undone.

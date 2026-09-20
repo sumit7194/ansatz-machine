@@ -1445,3 +1445,45 @@ residual of CLAUDE.md §2 made operational, and its first instance.
 
 **What it does not change.** Every sGB verdict (ranks 2–6) landed exactly on the floor, so nothing
 above the floor was ever claimed. The rule matters for the day something is.
+
+## D53 — dCS is not a fresh ladder; the open question there is the rational class (2026-09-20)
+
+**Why re-read a paper already cited.** Queuing "dCS next" needed the published result read at method
+level, not abstract level. Owen, Yunes & Witek (PRD 103, 124057; arXiv:2103.15891v4) was pulled and
+read in full. It confirms what D47 already recorded and adds three details that change what is worth
+running.
+
+**What they actually did.** Ansatz Eq. (38): `K = K^(0,0) + χ'K^(1,0) + χ'^2 K^(2,0) + ζ'χ'K^(1,1) +
+ζ'χ'^2 K^(2,1)`, each `K^(m,n)` a completely symmetric tensor field of **arbitrary functions of
+(r,θ)**. Solved order by order, "verified by hand, in Maple and in Mathematica". Through O(χζ) the
+general solution is exactly the reducible span — products of `t^α`, `φ^α`, `g_αβ` and the dCS-corrected
+Carter tensor `ξ^CS`. At O(χ²ζ) the system is **inconsistent**: 20 functions against 35 equations, with
+a subset forcing a functional form another subset forbids. Ranks 3–6 repeat the pattern.
+
+**Three consequences.**
+1. **Ranks 2–6 in dCS are closed, at our exact truncation.** Running them here is reproduction. Ranks
+   7–8 would be new but near-worthless: D42 says even ranks re-measure a Q-power rung already seen.
+2. **Their ansatz is stronger than ours in one respect and weaker in another.** Arbitrary functions of
+   (r,θ) beats our polynomial box (ceiling 3 of CLAUDE.md §3 does not bind them). Order-by-order CAS
+   PDE solving is weaker than an exact GF(p) nullspace with the reducible span subtracted and two
+   primes agreeing. Neither dominates; do not describe our instrument as simply better.
+3. **dCS and sGB have the same shape.** Carter survives at O(χζ) and dies at O(χ²ζ) in both. That is
+   the precondition for the §138–§142 anatomy to apply.
+
+**The question nobody has asked of dCS.** D52: a Carter that dies as a polynomial can survive as a
+*rational* integral `Q + ζ·K₁/(2Q)`, invisible to every polynomial Killing search including theirs,
+and its powers `Q^(m+1)` reappear as polynomial tensors at rank `2(m+1)`. The dCS literature holds two
+contradictory conjectures — OYW/Deich (no fourth constant, from Killing tensors and from chaos) versus
+Cárdenas-Avendaño (a fourth constant, from chaos *shrinking* with spin order). **A rational Carter
+reconciles them exactly**: no polynomial Killing tensor and no chaos, simultaneously.
+
+**And it is falsifiable against a published number, which is why it is worth running.** §142 measured
+pole-order saturation at 2 in the ℓ=2 shape sector. Pole order m predicts a surviving direction at rank
+2(m+1). So if the dCS O(χ²ζ) obstruction sat at pole order ≤ 2, a rank-6 direction would exist — and
+OYW report none. Our framework therefore *predicts* their null, and the run either confirms the
+framework on a substrate it was not built from, or produces a conflict that has to be resolved. Both
+outcomes are results; neither is reproduction.
+
+**Scope note.** dCS's leading correction is odd-parity and O(χζ), so `_kt_pole_reduced`'s assumption of
+zero sources below χ² does not hold. This needs the general tower (`_kt_double` / `_kt_anatomy`), not
+the reduced single system. Rank-6 scale, which is 552 s of solve, not a week.
