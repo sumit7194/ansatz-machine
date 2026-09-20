@@ -3835,3 +3835,15 @@ only that the agreement path engages Freivalds and still passes. Detection under
 and KT7 alone. **Reading the log rather than the exit code is what caught it** — a green gate that
 silently took the old path is exactly the "control that cannot fail" failure this repo keeps paying for.
 Default stays exhaustive.
+
+**Rank 8 reproduces on the second prime (§144), coefficients included.** 4 h 33 m; a line-by-line diff
+against the prime-0 log, ignoring timings and the prime label, is empty — same matrix (585,080,858
+nonzeros), same nullity 1028, same dim V 973, same ladder 5 ⊂ 7 ⊂ 8 ⊂ 8, same controls. **The
+coefficients are the part that carries weight**: d3's denominators 609, 203, 2030 and 174 are
+reconstructed independently from residues mod two different primes, and agreeing on all four is not
+something a modular accident produces. The ℓ = 2 arc (ranks 2–8) is now two-prime throughout; ℓ = 4
+(§143) is still one prime and is labelled as such everywhere it appears.
+
+Item 1 of the queue is therefore done. Item 2 is dCS, reframed by D53: not a rank ladder (Owen–Yunes–
+Witek closed ranks 2–6 at this truncation) but the rational-class question, which no one has asked of
+dCS and which our own §142 saturation makes falsifiable against their published rank-6 null.

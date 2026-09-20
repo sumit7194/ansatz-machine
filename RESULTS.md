@@ -3241,7 +3241,8 @@ in ranks 2–8 of this space is a new hidden symmetry.
 **Open, and the natural next test.** Why 2? The shape sector is the ℓ = 2 angular pattern, so the
 saturation may be set by the angular degree — an ℓ = 4 deformation might reach pole order 3 or 4. That
 is testable with the same reduced method (ℓ = 4 slots), and would need rank 8 again to see order 3.
-Scope as before: first order in ε, O(χ²), one prime at rank 8, shape sector, profiles to r⁻⁸.
+Scope as before: first order in ε, O(χ²), shape sector, profiles to r⁻⁸. **Rank 8 was one prime when
+this was written; §144 reproduces every number of it on the second prime.**
 
 ## §143 — the pole-order ladder is the same at ℓ = 4: saturation is not set by the angular degree
 
@@ -3289,3 +3290,37 @@ same (2, 1, 0) off a base of its own.
 §142 checked for ℓ = 2 that widening the profiles to r⁻⁸ grows the base but not the increments; that
 check has **not** been repeated at ℓ = 4, so "the increments are stable under basis widening" is carried
 over from ℓ = 2 rather than measured here.
+
+## §144 — rank 8 on the second prime: every number, including the coefficients, reproduces
+
+§142's rank-8 map ran on one prime, which left the arc's top rung below the repo's own two-prime
+standard. Repeated on p = 2147483629 with every other parameter identical (`--rank 8 --denpow 7
+--margin 6 --prime 1`, 4 h 33 m, `data/anat/reduced_r8_p1.out`).
+
+    prime 0  2147483647      prime 1  2147483629
+    nnz 585,080,858          nnz 585,080,858          matrix identical
+    peak 336,233,743         peak 336,233,743
+    nullity 1028             nullity 1028
+    dim V = 973              dim V = 973
+    5 ⊂ 7 ⊂ 8 ⊂ 8            5 ⊂ 7 ⊂ 8 ⊂ 8            pole-order ladder identical
+    controls 55/55           controls 55/55
+    random 25 (floor)        random 25 (floor)
+
+A line-by-line diff of the two logs, ignoring only timings and the prime label, is **empty**.
+
+**The strongest part is the coefficients, not the counts.** Two primes agreeing on a *dimension* is a
+check on one integer. Here the rationally reconstructed directions come out character for character
+the same, d3 included:
+
+    d3 = l2rr_5 + (100/609) l2ang_3 + (25/203) l2ang_4 + (321/2030) l2ang_5 + (103/174) l2ang_6
+
+Those denominators — 609, 203, 2030, 174 — are reconstructed independently from residues modulo two
+different primes. Agreement on all four is not something a modular accident produces; it is the
+rational-reconstruction check doing the work it exists for.
+
+**What it closes.** Ranks 2, 4, 6 and 8 of the pole-order arc (§140–§142) now stand on both primes, so
+the ℓ = 2 column of §143's table is two-prime throughout. The **ℓ = 4 column (§143) remains one prime**,
+and nothing here changes that; the same is true of the rank-6 map's one-prime scope noted in §141.
+
+**What it does not close.** Two primes rule out modular accident. They say nothing about the three
+ceilings of CLAUDE.md §3 — analyticity, rank, and ansatz — which are unmoved.

@@ -211,8 +211,9 @@ verdicts is affected — every one landed exactly on the floor — but the rule 
 - **Not a statement about observed orbits.** "No Killing tensor in this ansatz" is not "EMRI orbits are
   chaotic". That step needs a different instrument.
 - **Rank-bounded.** Ranks 2–8 here; no finite ladder implies a statement about all ranks.
-- **Basis-bounded** in §139–§142: 11 slots, profiles to r⁻⁸, the stated comparison families, one prime
-  for the rank-8 map (both primes for the individual d3 checks).
+- **Basis-bounded** in §139–§143: 11 slots (18 in the pole-order runs), profiles to r⁻⁸, the stated
+  comparison families. Ranks 2–8 of the ℓ = 2 arc are on **both** primes (§144, every number and every
+  reconstructed coefficient reproducing); the **ℓ = 4 rank-8 run of §143 is one prime**.
 
 ## 8. Open questions
 
