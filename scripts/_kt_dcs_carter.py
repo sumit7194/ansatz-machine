@@ -140,3 +140,11 @@ if __name__ == "__main__":
     print(f"\n  Owen-Yunes-Witek report no rank-2 Killing tensor at O(chi^2 zeta).", flush=True)
     print(f"  Independent agreement: {W.shape[0] == 0}", flush=True)
     print(f"\n  total {time.time()-t0:.0f}s")
+
+
+def breakdown_at(rank_, denpow, margin, prime, h):
+    """Survivors by leading power of Carter at a given rank, for one deformation."""
+    from _kt_pole_check import breakdown_single
+    ctx = setup(rank_, denpow, margin, prime)
+    gi = KD.ginv_perturbation(ctx["GI"], h)
+    return ctx, breakdown_single(ctx, gi)
