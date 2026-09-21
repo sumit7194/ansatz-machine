@@ -1,0 +1,8 @@
+loaded LHS, components [(0, 0), (1, 1), (1, 2), (2, 2), (3, 3)]
+181 equations, 109 unknowns, 26 free (gauge) parameters
+c2 = -5/16
+  gauge trial 0 (seed 3/7): ALL FIVE RESIDUALS ZERO
+  gauge trial 1 (seed -5/4): ALL FIVE RESIDUALS ZERO
+  gauge trial 2 (seed 11/2): ALL FIVE RESIDUALS ZERO
+
+total 85s
