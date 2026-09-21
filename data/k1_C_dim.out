@@ -1,0 +1,12 @@
+    [eps chi^0 timing] lcm+compare 0.0s | clear 0.2s = sources only (5)
+    rust nullspace: 8 blocks (largest 2590 cols), nnz 446,391 -> peak 127,477, nullity 10, 4 thread(s), 0.1s
+    residual guard: full, 10 vectors
+  eps chi^0: 5 of 5 Kerr directions extend (as a SPACE)
+    [eps chi^1 timing] lcm+compare 0.0s | clear 0.1s = sources only (5)
+    rust nullspace: 8 blocks (largest 2590 cols), nnz 446,391 -> peak 127,477, nullity 10, 4 thread(s), 0.1s
+    residual guard: full, 10 vectors
+  eps chi^1: 5 of 5 Kerr directions extend (as a SPACE)
+    [eps chi^2 timing] lcm+compare 3.5s | clear 5.4s = RESCALED 10150 operator columns as arrays, nnz 446,391 -> 5,259,417, by q (88 terms, 2.1s) + cleared 5 sources; new denominator factor (x - 2)**10*(y - 1)**7*(y + 1)**7
+    rust nullspace: 8 blocks (largest 2593 cols), nnz 5,269,614 -> peak 1,516,967, nullity 9, 4 thread(s), 1.7s
+    residual guard: full, 9 vectors
+  eps chi^2: 4 of 5 Kerr directions extend (as a SPACE)

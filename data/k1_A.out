@@ -1,0 +1,37 @@
+object A, rank 2, prime 0 [10s]
+
+
+  --- prime 0 ---
+    [eps chi^0 timing] lcm+compare 0.0s | clear 0.1s = sources only (5)
+    rust nullspace: 8 blocks (largest 2590 cols), nnz 446,391 -> peak 127,477, nullity 10, 4 thread(s), 0.0s
+    residual guard: full, 10 vectors
+  eps chi^0: chains extending = [0, 1, 2, 3, 4]
+    [eps chi^1 timing] lcm+compare 0.0s | clear 0.1s = sources only (5)
+    rust nullspace: 8 blocks (largest 2590 cols), nnz 446,391 -> peak 127,477, nullity 10, 4 thread(s), 0.0s
+    residual guard: full, 10 vectors
+  eps chi^1: chains extending = [0, 1, 2, 3, 4]
+    [eps chi^2 timing] lcm+compare 3.1s | clear 3.3s = RESCALED 10150 operator columns as arrays, nnz 446,391 -> 3,643,785, by q (56 terms, 0.7s) + cleared 5 sources; new denominator factor (x - 2)**6*(y - 1)**7*(y + 1)**7
+    rust nullspace: 8 blocks (largest 2593 cols), nnz 3,651,805 -> peak 1,049,744, nullity 10, 4 thread(s), 1.0s
+    residual guard: full, 10 vectors
+  eps chi^2: chains extending = [0, 1, 2, 3, 4]
+
+  --- prime 1 ---
+    [eps chi^0 timing] lcm+compare 0.0s | clear 0.1s = sources only (5)
+    rust nullspace: 8 blocks (largest 2590 cols), nnz 446,391 -> peak 127,477, nullity 10, 4 thread(s), 0.1s
+    residual guard: full, 10 vectors
+  eps chi^0: chains extending = [0, 1, 2, 3, 4]
+    [eps chi^1 timing] lcm+compare 0.0s | clear 0.1s = sources only (5)
+    rust nullspace: 8 blocks (largest 2590 cols), nnz 446,391 -> peak 127,477, nullity 10, 4 thread(s), 0.1s
+    residual guard: full, 10 vectors
+  eps chi^1: chains extending = [0, 1, 2, 3, 4]
+    [eps chi^2 timing] lcm+compare 2.5s | clear 2.9s = RESCALED 10150 operator columns as arrays, nnz 446,391 -> 3,643,785, by q (56 terms, 0.8s) + cleared 5 sources; new denominator factor (x - 2)**6*(y - 1)**7*(y + 1)**7
+    rust nullspace: 8 blocks (largest 2593 cols), nnz 3,651,805 -> peak 1,049,744, nullity 10, 4 thread(s), 1.0s
+    residual guard: full, 10 vectors
+  eps chi^2: chains extending = [0, 1, 2, 3, 4]
+
+  Carter chain (4) extends at every order: True
+
+  K1 assembled, 5 terms [42s]
+  wrote data/triple/K1_A.txt (646 bytes)
+
+  total 42s

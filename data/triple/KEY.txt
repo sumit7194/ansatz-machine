@@ -156,3 +156,35 @@ TWO LEDGERS, OPPOSITE DIRECTIONS: the scope omission is unchanged and real; its 
 from "outside the valid range" to "comfortably inside it". Less culpable, weaker physics. Being told
 one took too much blame does not license taking less for the omission, and does not rescue the
 explanation the blame was invoked to support.
+
+=== K1 EXTRACTED (2026-09-22 04:20) ===
+A: polynomial K1 EXISTS. All five Kerr chains extend at every order in chi. K1 is in
+   data/triple/K1_A.txt, coefficients rational-reconstructed from TWO primes via CRT and required to
+   re-reduce mod both -- single-prime reconstruction FAILED (coefficient 149632 against a bound of
+   32767) and accepting the residue as a literal integer would have been unjustifiable.
+   K1 carries an overall chi^2, as it must: at zero spin the deformation is a static l=2 reshaping
+   and Carter reduces to L^2, which these slots do not disturb at O(eps).
+
+C: NO polynomial K1. Extending dimension by order: 5, 5, 4 of 5 -- at chi^2 exactly the reducible
+   floor survives and the Carter direction dies. Both primes agree. Expected: C's survivor is
+   rational, so a polynomial correction should not exist. THIS ASYMMETRY IS THE DELIVERABLE, and it
+   gives the C/B discriminator the triple lacked at rank 2: both fail a polynomial search, only C
+   should be findable by a rational one.
+
+NEAR-MISS WORTH RECORDING. The extractor first reported three of five chains extending at chi^2,
+which is BELOW the floor of four and would mean the Hamiltonian is not conserved -- impossible. Held
+the report and checked. Cause: "does chain k extend individually" is BASIS-DEPENDENT. If one basis
+chain is H+Q and another is Q, both fail on the Q part while their difference (pure H) extends. The
+count of individually-extending chains is not the dimension of the extending space; measured
+directly it is 4. Only the impossibility prompted the check -- had the floor been 3, a basis artefact
+would have shipped as a physics claim.
+
+CORRECTIONS ACCEPTED FROM THE RELAY:
+  - the margin is QUADRATIC in the residual (slope 2.082 +/- 0.054), so every pre-registered exponent
+    doubles: A d2_poly 2->4, B all rungs 1->2, C d2_poly 1->2, C d2_rat 2->4.
+  - "the drift is choice-independent" holds for the ABSOLUTE drift only. Adding p_phi^2, p_t^2 or H
+    changes |Q + eps*K1| without changing its drift, so any normalised drift moves with the choice.
+    And eps*K1/Q reaches 11 at chi=0.9, so Q + eps*K1 is NOT a small perturbation of Q there.
+    Third scope statement of the night that did not survive contact: the eps range, the
+    non-uniqueness, and this. The artefact keeps being right and the sentence around it keeps
+    being wrong.
