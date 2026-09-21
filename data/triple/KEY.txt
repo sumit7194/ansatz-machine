@@ -1,14 +1,8 @@
 SEALED KEY -- do not transmit.
-emitted 2026-09-22 01:21:09, permutation seed 20260922
+emitted 2026-09-22 01:33:25, permutation seed 20260922
 label mapping (emitted -> truth): {'A': 'A', 'B': 'B', 'C': 'C'}
 truth A = keeps Carter exactly (rank-2 compatible), coefficients {'l2tt_2': 1, 'l2tt_5': -32, 'l2tt_6': 48, 'l2rr_3': 4, 'l2rr_4': -84, 'l2ang_3': 4, 'l2ang_4': 8, 'l2ang_5': -48}
 truth B = does NOT keep Carter, coefficients {'l2tt_2': 1, 'l2tt_5': -32, 'l2tt_6': 48, 'l2rr_3': 4, 'l2rr_4': -251/3, 'l2ang_3': 4, 'l2ang_4': 8, 'l2ang_5': -48}
 truth C = keeps Carter only rationally, pole order 1, coefficients {'l2rr_3': 1, 'l2ang_3': 1, 'l2ang_4': 3/2}
+truth C additionally carries a PURE GAUGE piece (Lie derivative along [0, chi^2 (3y^2-1)/x, 0, 0]) so that its g_tt is deformed like A and B. Verified gauge: C+gauge gives rank-2 dead and rank-4 (10, {0:9,1:0,2:1}), identical to C without it.
 re-verified on the emitted objects: {'A': 1, 'B': 0, 'C': 0}
-
-RANK-4 DIFFERENTIATION, measured on the EMITTED objects (not their ancestors):
-  truth A : survivors (14, {0:9, 1:4, 2:1})  -> 5 above the floor of 9
-  truth B : survivors ( 9, {0:9, 1:0, 2:0})  -> 0 above the floor
-  truth C : survivors (10, {0:9, 1:0, 2:1})  -> 1 above the floor, at Q^2 exactly
-C's signature {1:0, 2:1} is the pole-order-1 rational Carter: Q itself dead, Q^2 alive.
-Without this check B and C were both "dies at rank 2" and nothing verified that they differ.

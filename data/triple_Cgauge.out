@@ -1,0 +1,28 @@
+C + gauge built [6s]
+    [eps chi^0 timing] lcm+compare 0.0s | clear 0.1s = sources only (5)
+    rust nullspace: 8 blocks (largest 2590 cols), nnz 446,391 -> peak 127,477, nullity 10, 2 thread(s), 0.0s
+    residual guard: full, 10 vectors
+  eps chi^0: 5 columns, every Kerr direction extends for a 1-dim space of the 1 [7s]
+    [eps chi^1 timing] lcm+compare 0.0s | clear 0.1s = sources only (5)
+    rust nullspace: 8 blocks (largest 2590 cols), nnz 446,391 -> peak 127,477, nullity 10, 2 thread(s), 0.0s
+    residual guard: full, 10 vectors
+  eps chi^1: 5 columns, every Kerr direction extends for a 1-dim space of the 1 [7s]
+    [eps chi^2 timing] lcm+compare 3.3s | clear 5.2s = RESCALED 10150 operator columns as arrays, nnz 446,391 -> 5,259,417, by q (88 terms, 2.1s) + cleared 5 sources; new denominator factor (x - 2)**10*(y - 1)**7*(y + 1)**7
+    rust nullspace: 8 blocks (largest 2593 cols), nnz 5,269,614 -> peak 1,516,967, nullity 9, 2 thread(s), 2.2s
+    residual guard: full, 9 vectors
+  eps chi^2: 5 columns, every Kerr direction extends for a 0-dim space of the 1 [21s]
+  rank 2: Carter survives = False  (must be False, as C)
+    [eps chi^0 timing] lcm+compare 0.1s | clear 0.4s = sources only (14)
+    rust nullspace: 8 blocks (largest 4984 cols), nnz 1,219,864 -> peak 464,383, nullity 28, 2 thread(s), 1.4s
+    residual guard: full, 28 vectors
+  eps chi^0: 14 columns, 1 deformations with every chain extending [22s]
+    [eps chi^1 timing] lcm+compare 0.0s | clear 0.3s = sources only (14)
+    rust nullspace: 8 blocks (largest 4984 cols), nnz 1,219,864 -> peak 464,383, nullity 28, 2 thread(s), 1.4s
+    residual guard: full, 28 vectors
+  eps chi^1: 14 columns, 1 deformations with every chain extending [24s]
+    [eps chi^2 timing] lcm+compare 10.7s | clear 22.6s = RESCALED 24500 operator columns as arrays, nnz 1,219,864 -> 12,456,898, by q (70 terms, 5.8s) + cleared 14 sources; new denominator factor (x - 2)**9*(y - 1)**6*(y + 1)**6
+    rust nullspace: 8 blocks (largest 4993 cols), nnz 12,517,633 -> peak 3,696,079, nullity 24, 2 thread(s), 18.5s
+    residual guard: full, 24 vectors
+  eps chi^2: 14 (chain, deformation) columns, dim V = 10 [97s]
+  rank 4: survivors (10, {0: 9, 1: 0, 2: 1})   (must be (10, {0:9,1:0,2:1}), as C)
+total 118s

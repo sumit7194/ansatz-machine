@@ -79,20 +79,32 @@ if __name__ == "__main__":
     bump = sorted(B_coef)[len(B_coef) // 2]
     B_coef[bump] = sp.nsimplify(B_coef[bump] + sp.Rational(1, 3))
     C_coef = {k: sp.Rational(v) for k, v in D1.items()}
+    # C carries NO l2tt support, so its g_tt would be pure Kerr while A and B both deform it --
+    # a structural giveaway a screen could separate on, with nothing to do with Carter. Fixed by
+    # adding a PURE GAUGE piece (a Lie derivative along a radial field with the l=2 pattern), which
+    # deforms g_tt while changing no invariant. Verified: C+gauge reproduces C's verdicts exactly,
+    # rank 2 dead and rank 4 (10, {0:9, 1:0, 2:1}).
+    USE_C_GAUGE = True
 
     print(f"\n  A (keeps Carter)        : {A_coef}", flush=True)
     print(f"  B (A with {bump} bumped) : {B_coef}", flush=True)
     print(f"  C (rational, pole 1)    : {C_coef}", flush=True)
 
-    idx = {nm: i for i, nm in enumerate(names)}
-    def build(coef):
+    from _kt_anatomy import chi_pieces, lie_inverse
+    giK = sum((chi ** n * ctx["GI"][n] for n in range(3)), sp.zeros(4, 4))
+    GAUGE = chi_pieces(lie_inverse(giK, [0, chi**2 * (3 * y**2 - 1) / x, 0, 0]))
+
+    def build(coef, gauge=False):
         w = [sp.Rational(coef.get(nm, 0)) for nm in names]
-        return combine(gis, w)
+        g_ = combine(gis, w)
+        if gauge:
+            g_ = [sp.Matrix(g_[k]) + sp.Matrix(GAUGE[k]) for k in range(3)]
+        return g_
 
     print("\n  RE-VERIFYING each on the exact object emitted:", flush=True)
     verdict = {}
     for lab, coef in (("A", A_coef), ("B", B_coef), ("C", C_coef)):
-        Wl = compatible_space(ctx, [lab], [build(coef)])
+        Wl = compatible_space(ctx, [lab], [build(coef, gauge=(lab == "C" and USE_C_GAUGE))])
         verdict[lab] = int(Wl.shape[0])
         print(f"    {lab}: Carter survives at rank 2 = {Wl.shape[0] == 1}", flush=True)
     ok = verdict["A"] == 1 and verdict["B"] == 0 and verdict["C"] == 0
@@ -103,12 +115,39 @@ if __name__ == "__main__":
     # ---- emit the metrics, labels permuted ----
     t_, r_, th_, ph_ = sp.symbols("t r theta phi", real=True)
     eps, a_ = sp.symbols("epsilon a", real=True)
-    def metric_text(coef):
+    def metric_text(coef, gauge=False):
         from _kt_carter_space import slot_h
         h = sp.zeros(4, 4)
         for nm, c in coef.items():
             slot, k = nm.rsplit("_", 1)
             h += sp.Rational(c) * slot_h(slot, x ** -int(k))
+        if gauge:
+            # Lie derivative of the LOWER Kerr metric, built directly. An earlier version inverted
+            # the symbolic Kerr inverse with .inv(), which produced an expression with chi in the
+            # denominators that the chi-truncation could not classify at all -- it crashed rather
+            # than silently misreporting, which was luck. Nothing here needs a matrix inverse.
+            xi = [0, chi**2 * (3 * y**2 - 1) / x, 0, 0]
+            Sg = x**2 + chi**2 * y**2
+            Dl_ = x**2 - 2 * x + chi**2
+            gL = sp.zeros(4, 4)
+            gL[0, 0] = -(1 - 2 * x / Sg)
+            gL[0, 3] = gL[3, 0] = -2 * chi * x * (1 - y**2) / Sg
+            gL[1, 1] = Sg / Dl_
+            gL[2, 2] = Sg / (1 - y**2)
+            gL[3, 3] = (x**2 + chi**2 + 2 * chi**2 * x * (1 - y**2) / Sg) * (1 - y**2)
+            trc = lambda e: sp.Add(*[v for v in sp.Add.make_args(sp.expand(e))
+                                     if sp.degree(v, chi) <= 2])
+            gL = sp.Matrix(4, 4, lambda i_, j_: trc(sp.expand(
+                sp.series(sp.together(gL[i_, j_]), chi, 0, 3).removeO())) if gL[i_, j_] != 0
+                else sp.S.Zero)
+            XC = [sp.Symbol("t"), x, y, sp.Symbol("phi")]
+            lie = sp.zeros(4, 4)
+            for i_ in range(4):
+                for j_ in range(4):
+                    lie[i_, j_] = (sum(xi[k_] * sp.diff(gL[i_, j_], XC[k_]) for k_ in range(4))
+                                   + sum(gL[k_, j_] * sp.diff(xi[k_], XC[i_]) for k_ in range(4))
+                                   + sum(gL[i_, k_] * sp.diff(xi[k_], XC[j_]) for k_ in range(4)))
+            h = h + sp.Matrix(4, 4, lambda i_, j_: sp.cancel(sp.together(trc(lie[i_, j_]))))
         Sig = r_**2 + a_**2 * sp.cos(th_)**2
         Dl = r_**2 - 2 * r_ + a_**2
         g = sp.zeros(4, 4)
@@ -130,7 +169,8 @@ if __name__ == "__main__":
     rng.shuffle(perm)
     payload = {}
     for out_lab, src in zip(("A", "B", "C"), perm):
-        payload[out_lab] = metric_text({"A": A_coef, "B": B_coef, "C": C_coef}[src])
+        payload[out_lab] = metric_text({"A": A_coef, "B": B_coef, "C": C_coef}[src],
+                                       gauge=(src == "C" and USE_C_GAUGE))
     os.makedirs("data/triple", exist_ok=True)
     with open("data/triple/objects.txt", "w") as fh:
         fh.write("Three stationary axisymmetric metrics, coordinates (t, r, theta, phi),\n"
@@ -145,6 +185,10 @@ if __name__ == "__main__":
         fh.write(f"truth A = keeps Carter exactly (rank-2 compatible), coefficients {A_coef}\n")
         fh.write(f"truth B = does NOT keep Carter, coefficients {B_coef}\n")
         fh.write(f"truth C = keeps Carter only rationally, pole order 1, coefficients {C_coef}\n")
+        fh.write("truth C additionally carries a PURE GAUGE piece (Lie derivative along "
+                 "[0, chi^2 (3y^2-1)/x, 0, 0]) so that its g_tt is deformed like A and B. "
+                 "Verified gauge: C+gauge gives rank-2 dead and rank-4 (10, {0:9,1:0,2:1}), "
+                 "identical to C without it.\n")
         fh.write(f"re-verified on the emitted objects: {verdict}\n")
     print(f"\n  wrote data/triple/objects.txt and data/triple/KEY.txt", flush=True)
     print(f"  total {time.time()-t0:.0f}s")
