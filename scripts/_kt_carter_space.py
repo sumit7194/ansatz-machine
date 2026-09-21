@@ -263,6 +263,12 @@ def reducible_floor(rank):
     that is not (r+1)^2 on a stationary axisymmetric substrate is a BUG, not a discovery, and it is
     now spottable from the printed number without reading the pipeline.
 
+    SECOND CLAUSE, and it guards a different failure: the formula assumes p_t, p_phi and H are the
+    ONLY exactly-conserved generators, which is a statement about a DEFORMED substrate whose Killing
+    tensor is dead. It is FALSE on undeformed Kerr, where Carter survives, products containing it are
+    reducible too, and the true floor is larger. Calling this on a substrate that still has its
+    Killing tensor UNDER-reports the floor and inflates every excess measured against it.
+
     THE HINGE, and it is a real restriction: this assumes the deformation preserves BOTH symmetries.
     Break stationarity or axisymmetry and p_t or p_phi stops being conserved, the floor drops below
     (r+1)^2, and the containment argument that identifies the surviving space with the reducible one

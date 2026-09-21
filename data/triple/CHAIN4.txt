@@ -1,7 +1,18 @@
 The Kerr rank-2 Killing tensor that K1_A corrects. NOT the textbook Carter constant:
 at chi^0 it is -8*L^2 + P_phi^2. Coordinates x=r, y=cos(theta); chi = spin a; M=1.
-The conserved object is CHAIN4 + eps*K1, so in terms of Carter Q (= L^2 at chi^0),
-and since P_phi^2 is exactly conserved for any axisymmetric metric, that is Q - eps*K1/8.
+CORRECTED LABEL (2026-09-22): Carter at a = 0 is Q = L^2 - P_phi^2, NOT L^2. So
+    chain4|chi^0 = -8*L_total^2 + P_phi^2 = -8*Q - 7*P_phi^2
+The earlier header said "-8Q + P_phi^2", which used L^2 where Carter belongs -- the same
+support-read-as-identity error one level further out. It changes no conservation statement
+(P_phi^2 is exactly conserved either way); it changes the LABEL, which is what has gone wrong
+repeatedly here.
+
+SCOPE, which was also missing: CHAIN4 IS TRUNCATED AT chi^2. The Kerr inverse metric is not
+polynomial in a -- Sigma = r^2 + a^2 cos^2(th) sits in denominators -- so H_Kerr carries genuine
+chi^4 structure that this object does not. {H_Kerr, chain4} = 0 at chi^0, chi^1, chi^2 and NOT at
+chi^4. Evaluated numerically against the EXACT metric at chi = 0.6, where chi^4 = 0.13, chain4 will
+drift, and that is expected rather than a defect. It is usable in a chi-expansion to O(chi^2), not
+in a finite-chi drift test.
 
 CHAIN4 =
 (-8*chi**2*(y**2 - 1)*(P_phi**2*x*y**2 + 7*P_phi**2*x - 2*P_phi**2*y**2 - 14*P_phi**2 + 2*P_t**2*x**2*y**4 + 12*P_t**2*x**2*y**2 - 14*P_t**2*x**2 - P_x**2*x**3*y**4 - 6*P_x**2*x**3*y**2 + 7*P_x**2*x**3 + 4*P_x**2*x**2*y**4 + 24*P_x**2*x**2*y**2 - 28*P_x**2*x**2 - 4*P_x**2*x*y**4 - 24*P_x**2*x*y**2 + 28*P_x**2*x + P_y**2*x*y**6 + 5*P_y**2*x*y**4 - 13*P_y**2*x*y**2 + 7*P_y**2*x - 2*P_y**2*y**6 - 10*P_y**2*y**4 + 26*P_y**2*y**2 - 14*P_y**2) + x**2*(x*y**2 - x - 2*y**2 + 2)*(P_phi**2*y**2 + 7*P_phi**2 + 8*P_y**2*y**4 - 16*P_y**2*y**2 + 8*P_y**2))/(x**2*(y**2 - 1)*(x*y**2 - x - 2*y**2 + 2))
