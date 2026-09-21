@@ -96,3 +96,20 @@ CONCLUSION. Arriving at one's own fault feels like rigour rather than bias, and 
 TERMINATING MOVE -- it ends the inquiry socially while leaving it open logically. That is why the
 checking stopped. It predicts the recurrence: whenever an explanation is both available and costly to
 me, the cost will read as evidence.
+
+=== SHARPEST FORM OF THE TEST (bridge's ratio, 2026-09-22) ===
+d2_poly/d2_rat holds momentum degree FIXED and varies only polynomial-vs-rational, so it isolates
+"Q dies, the rational Q survives". Our earlier d2p/d4p confounded that with degree 2 vs degree 4 and
+separated C at only 2.71x against 4.79x.
+
+Under the per-rung exponents this ratio has a predicted eps-dependence, and it is normalisation-free:
+
+    eps        A d2p/d2r    B d2p/d2r    C d2p/d2r
+    0.05          4.163        4.166        19.94    <- observed
+    0.005         4.163        4.166       199.4
+    0.0005        4.163        4.166      1994
+
+A and B CONSTANT (uniform exponents), C GROWING AS 1/eps (exponent 1 over exponent 2). The test is
+whether one dimensionless ratio internal to ONE object grows 10x per decade while the others do not
+move -- immune to cross-object normalisation, shared terms, and anything unstated about the eps range.
+Fails cleanly two ways: C flat kills the explanation; A or B moving kills the per-rung picture.
