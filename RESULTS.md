@@ -3324,3 +3324,54 @@ and nothing here changes that; the same is true of the rank-6 map's one-prime sc
 
 **What it does not close.** Two primes rule out modular accident. They say nothing about the three
 ceilings of CLAUDE.md §3 — analyticity, rank, and ansatz — which are unmoved.
+
+## §145 — dCS keeps no Carter constant, rationally either: the question nobody had asked, answered
+
+Owen, Yunes & Witek closed dCS ranks 2–6 at O(ζχ²) in 2021, so a rank ladder here would be
+reproduction (D53). The open question was whether Carter survives as a **rational** first integral
+Q + ε·K₁/(2Q^m) — invisible to every polynomial Killing search including theirs, and the one object
+that would reconcile their null with Cárdenas-Avendaño's opposite chaos-based conjecture. The answer
+is **no**, and our own framework predicted it before the run.
+
+**The metric is ours, not transcribed.** Derived from the dCS field equations in five validated
+steps (`scripts/_kt_dcs*.py`), each checked against something that could fail:
+
+    *RR                Kerr closed form, ratio exactly 1 at six random points, exact arithmetic
+    C-tensor           traceless; and grad_a C^ab = k (grad^b th)(*RR) with k = -1/8 MEASURED
+    scalar dipole      reproduces Yunes-Pretorius (1 + 2M/r + 18M^2/5r^2)
+    O(zeta chi) metric reproduces Yunes-Pretorius (1 + 12M/7r + 27M^2/10r^2)/r^4
+    O(zeta chi^2)      181 equations in 109 unknowns, consistent, c2 = -5/16 uniquely determined;
+                       back-substituted to zero under THREE random gauge choices
+
+**The three verdicts.**
+
+    rank 2   Carter extends at eps chi^0 and eps chi^1 (1-dim each), DIES at eps chi^2
+    rank 4   survivors (9,  {0:9,  1:0, 2:0})        floor 9,  above the floor: 0
+    rank 6   survivors (16, {0:16, 1:0, 2:0, 3:0})   floor 16, above the floor: 0
+
+Rank 2 is not merely OYW's verdict but **their anatomy** — survival at O(ζχ), death at O(ζχ²) —
+reached with a derived metric and an exact GF(p) nullspace instead of CAS solving over arbitrary
+functions of (r, θ). Ranks 4 and 6 are the new question: by §141's dictionary a rational Carter of
+pole order m reappears as a polynomial tensor at rank 2(m+1), so pole order 1 would show at rank 4
+and pole order 2 at rank 6. Neither does. **dCS keeps no Carter, polynomially or rationally, to the
+depth this framework reaches.**
+
+**Our framework predicted two published nulls it was never fitted to.** §142 measured the pole order
+saturating at 2 in deformations of Kerr; that saturation, applied to dCS, says there can be nothing
+at rank 4 or rank 6 — which is exactly what OYW report. The prediction was recorded in D53 before
+these runs. That is corroboration of the pole-order picture on a substrate it was not built from,
+and it is worth more than the dCS null itself.
+
+**What it does NOT settle, and this is the honest limit.** The dCS literature holds two contradictory
+conjectures: OYW and Deich (no fourth constant) against Cárdenas-Avendaño (chaos shrinking with spin
+order, so a fourth constant). We have **eliminated one candidate reconciliation** — it is not a
+rational Carter of low pole order — and eliminated it cleanly. We have not resolved the disagreement.
+Whatever explains it must be non-perturbative, or of pole order beyond our saturation, or the chaos
+result is a numerical artifact. Those remain open and this instrument cannot separate them.
+
+**Scope.** First order in ζ, O(χ²), the derived metric in a fixed gauge (26 free coefficients set to
+zero; the choice is verified irrelevant — three random alternatives satisfy the field equations
+identically). One prime (2147483647) at every rank. Ranks 2, 4, 6 only, in boxes L⁸/L⁷/L⁸ with the
+reducible floor subtracted. Pole orders 0, 1, 2 — the saturation depth of §142, and a rational Carter
+of pole order ≥ 3 would be invisible here exactly as a non-analytic one would. The three ceilings of
+CLAUDE.md §3 are untouched.
