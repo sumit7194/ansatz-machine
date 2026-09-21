@@ -3939,3 +3939,50 @@ multiple-angle terms). That guard cost one line and paid for itself three times.
 rather than the design: B and C were not verified to differ (rank 4 separated them, 0 vs 1 above the
 floor); C's g_tt was undeformed where A's and B's were not (fixed with a verified-gauge piece); and
 the gauge emit crashed on a symbolic matrix inverse. None of the three were visible on paper.
+
+## 2026-09-22 (overnight, continued) — the triple, and one clean result out of it
+
+The A/B/C triple for the bridge's leg 6 did not produce its intended answer (the screen calibration
+is still open), but the exchange around it produced one result and a great many corrections.
+
+**THE RESULT. The Q-grading reads the pole order off a SINGLE RUN.** If a survivor is rational with
+pole order m, F = Q + εK/(2Q^m), then F^n is polynomial iff n ≥ m+1 — so the lowest occupied grade is
+exactly m+1 and every grade below it is empty. Predicted for C at rank 6, four numbers,
+pre-registered on both sides:
+
+    predicted  (21, {0:16, 1:0, 2:4, 3:1})
+    measured   (21, {0:16, 1:0, 2:4, 3:1})
+
+§142 inferred the pole order by scanning ranks and watching where new directions first appear; this
+reads it from one object's grade profile. **The ladder becomes a convenience rather than the
+instrument.** Scope kept attached: C was constructed as d1 so m = 1 was the label it was built with —
+the content is that `breakdown_single` agrees with it from the nullspace alone, which validates the
+DICTIONARY, not C. And it is two readings of one pipeline, not two witnesses.
+
+The route matters: it came from an ANOMALY IN A TABLE NOBODY HAD REMARKED ON — grade 1 empty while
+grade 2 was occupied, sitting in the rank-4 output for hours while both of us read past it.
+
+**FOUR THINGS THE EXCHANGE FOUND THAT ARE NOW IN THE CODE, not in a lesson file:**
+
+    chain4 is -8L^2 + P_phi^2, NOT Carter      support read as identity; K1 was correct all along
+                                               and the DELIVERY named the wrong object
+    hamiltonian() carries a factor 1/2         so the 56 coefficient is 112 in code units
+    first uncontrolled order is chi^3, not 4   Kerr's H is not parity-definite: g^{t phi} ~ a makes
+                                               H_chi^1 odd, so {H1,B2} survives for an even object.
+                                               Now in _kt_metrics.py -- it applies to every
+                                               chi-truncated object on any spinning background
+    reducible_floor(rank) = (r+1)^2            derived EXTERNALLY from the isometries, matching all
+                                               four published floors. A floor that is not (r+1)^2 is
+                                               now a bug spottable from the printed number
+
+**AND THE PROCESS FINDING, which is the durable one.** Five scope statements failed to ship with one
+object in one night — the ε range, the non-uniqueness, absolute-vs-relative drift, the H convention,
+the χ truncation. Every one was true and known to me. **The pattern is not getting scope wrong; it is
+not writing it down, and it is invisible at exactly the moment the object feels finished.** Scope is
+invisible from both ends: ambient to the sender, and absent-without-signature to the receiver — a
+truncated object and an exact one are the same characters on the page. Hence `data/triple/
+SCOPE_MANIFEST.md`: seven mandatory fields, adopted from the bridge, with a retrospective manifest
+for K1_A whose every field corresponds to something that went wrong.
+
+Roughly a dozen striking observations were withdrawn across the night, by all three parties, every
+one for not discriminating. **The withdrawals were the leg's output, not its cost.**
