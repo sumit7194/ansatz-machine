@@ -19,6 +19,7 @@ times rather than once.
 | **CONVENTIONS** | H halved? Q Carter or total? coordinates, signature, mass normalisation |
 | **UNIQUE?** | unique object, or one representative of a family — and what the freedom is |
 | **NOT CHECKED** | stated **positively**; absence of a claim is not a claim of absence |
+| **DOMAIN** | the set on which the claim holds — and whether it is the set being measured on. A correct theorem about the wrong set is the one failure no correctness check catches |
 
 `VALID RANGE` carries a **positive instruction**, not just a caution: **state which parameter is
 EXACT, because that is the one to push, not the one to shrink.** An object exact in ε and truncated
@@ -56,6 +57,17 @@ receiver cannot reconstruct from the object itself.
   **the first-order expansion has a shrinking radius of validity in the SPATIAL coordinate, not only
   in ε: it is uniform only for ε ≪ (r − 2M).** Every test run so far used orbits at r ∈ [5.1, 9.1],
   well outside, so nothing measured is affected.
+
+  **QUALIFICATION (2026-09-22, and the half that does NOT survive):** the pole makes K₁ exactly
+  non-representable in a basis of functions analytic at r = 2M — true on the whole manifold, at any
+  degree. It does **NOT** follow that a screen fitting on a compact set *excluding* the pole cannot
+  reproduce it: on r ∈ [5.107, 9.147] the function 1/(r−2) is analytic and, fitted against
+  {1, r, r², 1/r, 1/r²} over exactly that interval, has a **relative rms residual of 4.2e-05**.
+  Confirmed operationally — adding 1/(r−2) columns made the collaborating screen's margins ~2×
+  WORSE, which is the conditioning cost of redundant features, not a failure of the proof.
+  **EXACT NON-REPRESENTABILITY DOES NOT IMPLY NUMERICAL NON-REPRESENTABILITY AWAY FROM THE
+  SINGULARITY.** The screen's CERTIFY remains relative-to-basis for reasons now UNKNOWN rather than
+  characterised.
 - **CONVENTIONS** — `hamiltonian()` **carries a factor 1/2**. The 56 coefficient is in *unhalved* H;
   in code units it is 112χ²H_code + 56χ²P_t². Coordinates x = r, y = cos θ; M = 1; χ = a.
 - **UNIQUE?** — **No.** Defined up to adding any Killing tensor of the undeformed background. The
