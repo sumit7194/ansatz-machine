@@ -114,3 +114,115 @@ if __name__ == "__main__":
           flush=True)
     if "--control-only" in sys.argv:
         raise SystemExit(0)
+
+
+# ---------------------------------------------------------------- the solve
+NZ = 1                                      # keep to O(zeta^NZ)
+
+
+def tr2(e):
+    """Truncate in BOTH zeta (<= NZ) and chi (<= 2). The LHS needs both: the O(zeta chi^2) part of G
+    contains cross terms between the O(zeta chi) correction and the O(chi) background, and those are
+    only visible if zeta and chi are carried together and cut together."""
+    e = sp.expand(e)
+    out = []
+    for q in sp.Add.make_args(e):
+        try:
+            if sp.degree(q, chi) <= 2 and sp.degree(q, zeta) <= NZ:
+                out.append(q)
+        except (sp.PolynomialError, TypeError, NotImplementedError):
+            tr2.fallbacks += 1
+            out.append(sp.expand(sp.series(sp.series(q, chi, 0, 3).removeO(), zeta, 0, NZ + 1).removeO()))
+    return sp.Add(*out)
+
+
+tr2.fallbacks = 0
+
+
+def even_ansatz():
+    """The unknown O(zeta chi^2) even-parity correction, as generic functions of r.
+
+    l = 0 and l = 2 in every even slot, INCLUDING r-theta: the O(zeta chi^2) source has a nonzero
+    r-theta component (step 4a), so a gauge that sets h_rth = 0 is not obviously available and
+    imposing it would be an unstated assumption. Gauge freedom, if present, will appear as free
+    parameters in the solution rather than being assumed away."""
+    fs = {n: sp.Function(n)(r) for n in ("a0", "a2", "b0", "b2", "c0", "c2", "d0", "d2", "e2")}
+    h = sp.zeros(4, 4)
+    h[0, 0] = fs["a0"] + fs["a2"] * P2
+    h[1, 1] = fs["b0"] + fs["b2"] * P2
+    h[2, 2] = fs["c0"] + fs["c2"] * P2
+    h[3, 3] = (fs["d0"] + fs["d2"] * P2) * s2
+    h[1, 2] = h[2, 1] = fs["e2"] * sp.sin(th) * sp.cos(th)
+    return h, fs
+
+
+def build_lhs(verbose=True):
+    """The O(zeta chi^2) part of G_ab for  g = Kerr(chi^2) + zeta[ chi*h1 + chi^2*h2 ].
+
+    h1 is step 3's derived O(zeta chi) correction, carried EXPLICITLY rather than dropped: its cross
+    terms with the O(chi) Lense-Thirring background are even and land at exactly this order."""
+    g0 = sp.diag(-f, 1 / f, r**2, r**2 * s2)
+    gi0 = sp.diag(-1 / f, f, 1 / r**2, 1 / (r**2 * s2))
+    H1 = -M / r**4 * (1 + sp.Rational(12, 7) * M / r + sp.Rational(27, 10) * M**2 / r**2)
+    h2, fs = even_ansatz()
+    g = kerr_chi2()
+    g[0, 3] = g[3, 0] = g[0, 3] + zeta * chi * H1 * s2
+    for i in range(4):
+        for j in range(4):
+            if h2[i, j] != 0:
+                g[i, j] = g[i, j] + zeta * chi**2 * h2[i, j]
+    g = sp.Matrix(4, 4, lambda i, j: tr2(g[i, j]))
+    if verbose:
+        print("  metric assembled (Kerr chi^2 + zeta chi h1 + zeta chi^2 h2)", flush=True)
+
+    dg = sp.Matrix(4, 4, lambda i, j: sp.expand(g[i, j] - g0[i, j]))
+    A = gi0 * dg
+    gi = gi0
+    term = sp.eye(4)
+    for _ in range(4):
+        term = -A * term
+        gi = gi + term * gi0
+    gi = sp.Matrix(4, 4, lambda i, j: tr2(sp.expand(gi[i, j])))
+    chk = sp.Matrix(4, 4, lambda i, j: tr2(sp.expand(sum(gi[i, k] * g[k, j] for k in range(4)))))
+    for i in range(4):
+        for j in range(4):
+            if sp.simplify(chk[i, j] - (1 if i == j else 0)) != 0:
+                raise ValueError(f"perturbative inverse wrong at ({i},{j})")
+    if verbose:
+        print("  perturbative inverse verified to O(zeta chi^2)", flush=True)
+
+    Gam = [[[tr2(sp.expand(sum(gi[a_, d] * (sp.diff(g[d, c], X[b_]) + sp.diff(g[d, b_], X[c])
+                                            - sp.diff(g[b_, c], X[d])) for d in range(4)) / 2))
+             for c in range(4)] for b_ in range(4)] for a_ in range(4)]
+    if verbose:
+        print("  christoffel done", flush=True)
+
+    def ric(b_, d):
+        e = sum(sp.diff(Gam[a_][b_][d], X[a_]) - sp.diff(Gam[a_][b_][a_], X[d]) for a_ in range(4))
+        e += sum(Gam[a_][a_][c] * Gam[c][b_][d] - Gam[a_][d][c] * Gam[c][b_][a_]
+                 for a_ in range(4) for c in range(4))
+        return tr2(sp.expand(e))
+
+    Ric = sp.Matrix(4, 4, lambda i, j: ric(i, j) if i <= j else 0)
+    Ric = sp.Matrix(4, 4, lambda i, j: Ric[i, j] if i <= j else Ric[j, i])
+    if verbose:
+        print("  ricci done", flush=True)
+    Rs = tr2(sp.expand(sum(gi[a_, b_] * Ric[a_, b_] for a_ in range(4) for b_ in range(4))))
+    G = sp.Matrix(4, 4, lambda i, j: tr2(sp.expand(Ric[i, j] - g[i, j] * Rs / 2)))
+    if verbose:
+        print("  G assembled", flush=True)
+    out = sp.Matrix(4, 4, lambda i, j: sp.cancel(sp.together(
+        sp.diff(sp.expand(G[i, j]), zeta, chi, chi).subs({zeta: 0, chi: 0}) / 2)))
+    return out, fs
+
+
+if __name__ == "__main__" and "--control-only" not in sys.argv:
+    t1 = time.time()
+    print("\nLHS: the O(zeta chi^2) Einstein tensor with generic even-parity unknowns\n", flush=True)
+    L, fs = build_lhs()
+    print(f"\n  built [{time.time()-t1:.0f}s]; nonzero components:", flush=True)
+    for i in range(4):
+        for j in range(i, 4):
+            if L[i, j] != 0:
+                print(f"    ({i},{j})  {len(sp.Add.make_args(sp.expand(L[i, j])))} terms", flush=True)
+    print(f"\n  truncation fallbacks: {tr2.fallbacks}")

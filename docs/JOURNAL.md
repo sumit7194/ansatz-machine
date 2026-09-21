@@ -3847,3 +3847,63 @@ something a modular accident produces. The ℓ = 2 arc (ranks 2–8) is now two-
 Item 1 of the queue is therefore done. Item 2 is dCS, reframed by D53: not a rank ladder (Owen–Yunes–
 Witek closed ranks 2–6 at this truncation) but the rational-class question, which no one has asked of
 dCS and which our own §142 saturation makes falsifiable against their published rank-6 null.
+
+## 2026-09-21 — the dCS build: machinery validated, the order that matters still open
+
+Four steps of five are done and every one of them reproduces something already in print. That is the
+design (D53): an instrument that recovers three independent published results is one whose *novel*
+answer at step 5 means something. Nothing here is a result yet.
+
+    step 1   Pontryagin *RR + C-tensor    validated: Kerr closed form (ratio exactly 1 at six
+                                          random points); grad_a C^ab = k (grad^b th)(*RR) with
+                                          k = -1/8 MEASURED, not assumed, spread exactly 0
+    step 2   scalar dipole                reproduces Yunes-Pretorius (1 + 2M/r + 18M^2/5r^2)
+    step 3   O(zeta chi) metric           reproduces Yunes-Pretorius (1 + 12M/7r + 27M^2/10r^2)/r^4
+    step 4a  O(zeta chi^2) source         parity + angular controls pass, 11 s
+    step 4b  the operator                 Kerr at chi^2 gives G = 0 at chi^0, chi^1, chi^2
+    step 4b  the solve                    RUNNING
+    step 5   the rational-Carter question NOT STARTED
+
+**The structural fact worth carrying.** *RR vanishes on any parity-even metric, so Schwarzschild
+sources no scalar and dCS has NO static correction at all — unlike sGB, where the dilaton has hair at
+zeroth order in spin. The dCS tower starts one rung higher, which is why the odd-parity O(zeta chi)
+sector is cheap and the even-parity O(zeta chi^2) sector is where Carter dies.
+
+**Seven bugs today. NONE of them were physics, and the two worst produced confident verdicts rather
+than crashes.** In order of how badly they would have misled:
+
+  1. A guard that PASSED on H == 0 — the shape check asked "is the ratio to the published profile
+     constant in r", and 0/shape is constant. A green PASS on a result of zero.
+  2. NO SOLUTION reported for a system that solves in one line: the quotient by sin^2(th) still
+     carried tan(th), so Poly swept angular factors into the coefficients. Had I reported it, it
+     would have read as "the C-tensor cannot source the known dCS correction".
+  3. The (cd) pair contracted DOWN against DOWN in *RR — a sum over coordinate components, not a
+     tensor contraction. Passed the Schwarzschild-is-zero check, as any wrong formula would.
+  4. The dual taken on the first pair instead of the last, plus the Levi-Civita free index in the
+     wrong slot. Caught by tracelessness.
+  5. sqrt(-det g) built exactly, putting chi under a radical where the truncation could not classify
+     it. Crashed, which was luck; a slightly different expression would have been silently dropped.
+  6. My own spot-check called nsimplify(rational=True) on values containing sin(th) = sqrt(1-c^2),
+     rationalising irrationals and manufacturing a physics-shaped failure.
+  7. A parity control that listed g_rth as ODD and duly failed a correct source. T_rth = d_r(th)
+     d_v(th) is manifestly nonzero for a dipole, so the control was demanding something false.
+     **A control can be wrong by FIRING, not only by staying silent.**
+
+**The lesson under all of them: a control whose expected answer is ZERO certifies almost nothing.**
+Schwarzschild-gives-zero passed while the contraction was wrong; C-vanishes-for-constant-theta passed
+while the dual was wrong. Both were caught only by controls with a specific nonzero right answer —
+the Kerr closed form, and k = -1/8. The rule is not new (D40) but this is the sharpest instance of it
+the repo has.
+
+**Two performance walls, same cause both times, and the sGB template already held the answer.**
+Exact-then-expand: a 10 h hang series-expanding the raw Pontryagin sum, and a 4 h hang linearising
+with seven symbolic coefficients inside the Ricci computation. Both fixed by the technique
+_kt_chi2_stage12.py has carried since September — truncate at EVERY step, and linearise once with a
+GENERIC function rather than with a series of unknowns. 11 s and seconds respectively. Profiling then
+found a third: sp.simplify in the zero-test was 97% of the vacuum control (136 s of curvature, then
+8+ minutes of simplify), answering a question nobody asked. A simplified *form* was never needed,
+only the verdict, so it is now high-precision evaluation at random exact rational points.
+
+**Process note, from the user and paid for in wall-clock.** A job the harness backgrounds at its
+timeout dies with the session; only `nohup ... &` survives. ~20 min of symbolic work was lost to that
+before the rule was written down ([[feedback-detach-long-jobs]]).
