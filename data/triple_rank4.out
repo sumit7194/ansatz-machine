@@ -1,0 +1,41 @@
+rank 4 check of the EMITTED objects [13s]
+    [eps chi^0 timing] lcm+compare 0.0s | clear 0.3s = sources only (14)
+    rust nullspace: 8 blocks (largest 4984 cols), nnz 1,219,864 -> peak 464,383, nullity 28, 2 thread(s), 1.1s
+    residual guard: full, 28 vectors
+  eps chi^0: 14 columns, 1 deformations with every chain extending [19s]
+    [eps chi^1 timing] lcm+compare 0.0s | clear 0.2s = sources only (14)
+    rust nullspace: 8 blocks (largest 4984 cols), nnz 1,219,864 -> peak 464,383, nullity 28, 2 thread(s), 1.2s
+    residual guard: full, 28 vectors
+  eps chi^1: 14 columns, 1 deformations with every chain extending [21s]
+    [eps chi^2 timing] lcm+compare 8.6s | clear 13.9s = RESCALED 24500 operator columns as arrays, nnz 1,219,864 -> 8,282,682, by q (42 terms, 2.6s) + cleared 14 sources; new denominator factor (x - 2)**5*(y - 1)**6*(y + 1)**6
+    rust nullspace: 8 blocks (largest 4993 cols), nnz 8,332,453 -> peak 2,698,745, nullity 28, 2 thread(s), 10.9s
+    residual guard: full, 28 vectors
+  eps chi^2: 14 (chain, deformation) columns, dim V = 14 [72s]
+  A: survivors (14, {0: 9, 1: 4, 2: 1})   above floor(9): 5
+    [eps chi^0 timing] lcm+compare 0.0s | clear 0.3s = sources only (14)
+    rust nullspace: 8 blocks (largest 4984 cols), nnz 1,219,864 -> peak 464,383, nullity 28, 2 thread(s), 1.4s
+    residual guard: full, 28 vectors
+  eps chi^0: 14 columns, 1 deformations with every chain extending [77s]
+    [eps chi^1 timing] lcm+compare 0.0s | clear 0.3s = sources only (14)
+    rust nullspace: 8 blocks (largest 4984 cols), nnz 1,219,864 -> peak 464,383, nullity 28, 2 thread(s), 1.3s
+    residual guard: full, 28 vectors
+  eps chi^1: 14 columns, 1 deformations with every chain extending [79s]
+    [eps chi^2 timing] lcm+compare 7.4s | clear 12.1s = RESCALED 24500 operator columns as arrays, nnz 1,219,864 -> 8,282,682, by q (42 terms, 2.4s) + cleared 14 sources; new denominator factor 35184372088832*(x - 2)**5*(y - 1)**6*(y + 1)**6
+    rust nullspace: 8 blocks (largest 4993 cols), nnz 8,332,453 -> peak 2,698,745, nullity 23, 2 thread(s), 9.0s
+    residual guard: full, 23 vectors
+  eps chi^2: 14 (chain, deformation) columns, dim V = 9 [118s]
+  B: survivors (9, {0: 9, 1: 0, 2: 0})   above floor(9): 0
+    [eps chi^0 timing] lcm+compare 0.0s | clear 0.3s = sources only (14)
+    rust nullspace: 8 blocks (largest 4984 cols), nnz 1,219,864 -> peak 464,383, nullity 28, 2 thread(s), 1.1s
+    residual guard: full, 28 vectors
+  eps chi^0: 14 columns, 1 deformations with every chain extending [123s]
+    [eps chi^1 timing] lcm+compare 0.0s | clear 0.2s = sources only (14)
+    rust nullspace: 8 blocks (largest 4984 cols), nnz 1,219,864 -> peak 464,383, nullity 28, 2 thread(s), 1.1s
+    residual guard: full, 28 vectors
+  eps chi^1: 14 columns, 1 deformations with every chain extending [125s]
+    [eps chi^2 timing] lcm+compare 7.3s | clear 11.5s = RESCALED 24500 operator columns as arrays, nnz 1,219,864 -> 8,282,682, by q (42 terms, 2.4s) + cleared 14 sources; new denominator factor (x - 2)**5*(y - 1)**6*(y + 1)**6
+    rust nullspace: 8 blocks (largest 4993 cols), nnz 8,324,387 -> peak 2,698,745, nullity 24, 2 thread(s), 9.0s
+    residual guard: full, 24 vectors
+  eps chi^2: 14 (chain, deformation) columns, dim V = 10 [161s]
+  C: survivors (10, {0: 9, 1: 0, 2: 1})   above floor(9): 1
+total 161s
