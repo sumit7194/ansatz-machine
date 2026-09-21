@@ -1,0 +1,23 @@
+background Schwarzschild + Lense-Thirring, M=1, a=1/5; dipole theta
+
+  C-tensor ...
+  divergence ...
+  *RR ...
+  built; measuring the ratio
+
+  r=7/2 c=1/3 b=0: both ~0
+  r=7/2 c=1/3 b=1:  k = -0.12500000000000000000
+  r=7/2 c=1/3 b=2:  k = -0.12500000000000000000
+  r=7/2 c=1/3 b=3: both ~0
+  r=5 c=-2/5 b=0: both ~0
+  r=5 c=-2/5 b=1:  k = -0.12500000000000000000
+  r=5 c=-2/5 b=2:  k = -0.12500000000000000000
+  r=5 c=-2/5 b=3: both ~0
+  r=11/4 c=3/4 b=0: both ~0
+  r=11/4 c=3/4 b=1:  k = -0.12500000000000000000
+  r=11/4 c=3/4 b=2:  k = -0.12500000000000000000
+  r=11/4 c=3/4 b=3: both ~0
+
+  6 measurements, spread 0
+  PASS: grad_a C^ab = k (grad^b theta)(*RR) with a single constant k = -0.12500000000000000000
+        (nearest simple rational: -1/8)

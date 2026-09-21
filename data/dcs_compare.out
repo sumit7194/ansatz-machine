@@ -1,0 +1,21 @@
+building pieces ...
+built; evaluating the four variants at one point
+
+  built mid/right
+  built mid/left
+  built last/right
+  built last/left
+
+  C^{tt}, C^{tphi}, C^{rr} for each:
+    mid /right: -0.00046040174  -0.00089804390  0.0000064740069
+    mid /left : -0.00046040174  -0.00089804390  0.0000064740069
+    last/right: -0.00046040174  -0.00089804390  0.0000064740069
+    last/left : -0.00046040174  -0.00089804390  0.0000064740069
+
+  pairwise max |difference| and max |sum| (sum small => they differ only by sign):
+    mid /right vs mid /left : maxdiff 0  maxsum 0.00179609   -> IDENTICAL
+    mid /right vs last/right: maxdiff 0  maxsum 0.00179609   -> IDENTICAL
+    mid /right vs last/left : maxdiff 0  maxsum 0.00179609   -> IDENTICAL
+    mid /left  vs last/right: maxdiff 0  maxsum 0.00179609   -> IDENTICAL
+    mid /left  vs last/left : maxdiff 0  maxsum 0.00179609   -> IDENTICAL
+    last/right vs last/left : maxdiff 0  maxsum 0.00179609   -> IDENTICAL

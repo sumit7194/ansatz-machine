@@ -143,3 +143,129 @@ if __name__ == "__main__":
     ratio = sp.simplify(pK / known) if known != 0 else None
     print(f"  Kerr           ratio to that closed form = {ratio}", flush=True)
     print(f"  Kerr a->0      *RR = {sp.simplify(pK.subs(a, 0))}      (must be 0)", flush=True)
+
+
+def dual_riemann_uuuu(geom, E=None):
+    """*R^{abcd} = (1/2) eps^{abef} R_{ef}^{cd}, dual taken on the FIRST pair.
+
+    Index care, after the contraction bug this file already paid for: R_{ef}^{cd} = R^{cd}_{ef} by
+    the pair symmetry, so the factor wanted is Ruudd[c][d][e][f], raised on (ab) by eps^{abef}."""
+    E = levi_civita_up(geom) if E is None else E
+    Ruudd = riemann_uudd(geom)
+    gi = geom.ginv
+    # R^{cd}_{ef} -> R^{cdef}
+    Ruuuu = [[[[sp.S.Zero] * 4 for _ in range(4)] for _ in range(4)] for _ in range(4)]
+    for c in range(4):
+        for d in range(4):
+            for e in range(4):
+                for f in range(4):
+                    Ruuuu[c][d][e][f] = sp.cancel(sp.together(
+                        sum(gi[e, k] * sum(gi[f, l] * Ruudd[c][d][k][l] for l in range(4))
+                            for k in range(4))))
+    out = [[[[sp.S.Zero] * 4 for _ in range(4)] for _ in range(4)] for _ in range(4)]
+    for a in range(4):
+        for b in range(4):
+            for c in range(4):
+                for d in range(4):
+                    tot = sp.S.Zero
+                    for (A, B, e, f), s in EPS4.items():
+                        if A != a or B != b:
+                            continue
+                        tot += E[a][b][e][f] * Ruuuu[c][d][e][f]
+                    out[a][b][c][d] = sp.cancel(sp.together(tot / 2))
+    return out
+
+
+def ricci_ud(geom):
+    """R^a_b = g^{ac} R_cb."""
+    gi, Ric = geom.ginv, geom.ricci
+    return [[sp.cancel(sp.together(sum(gi[A, c] * Ric[c, B] for c in range(4))))
+             for B in range(4)] for A in range(4)]
+
+
+def cov_deriv_ricci_ud(geom):
+    """grad_e R^b_d = d_e R^b_d + Gam^b_{ek} R^k_d - Gam^k_{ed} R^b_k.  Returned as [e][b][d]."""
+    x, Gam, R = geom.coords, geom.christoffel, ricci_ud(geom)
+    out = [[[sp.S.Zero] * 4 for _ in range(4)] for _ in range(4)]
+    for e in range(4):
+        for b in range(4):
+            for d in range(4):
+                out[e][b][d] = sp.cancel(sp.together(
+                    sp.diff(R[b][d], x[e])
+                    + sum(Gam[b][e][k] * R[k][d] for k in range(4))
+                    - sum(Gam[k][e][d] * R[b][k] for k in range(4))))
+    return out
+
+
+def hessian_scalar(geom, s):
+    """grad_c grad_d s = d_c d_d s - Gam^k_{cd} d_k s."""
+    x, Gam = geom.coords, geom.christoffel
+    return [[sp.cancel(sp.together(
+        sp.diff(s, x[c], x[d]) - sum(Gam[k][c][d] * sp.diff(s, x[k]) for k in range(4))))
+        for d in range(4)] for c in range(4)]
+
+
+def c_tensor(geom, theta):
+    """C^{mu nu} = grad_s theta eps^{s mu al be} grad_al R^nu_be + grad_s grad_ta theta *R^{ta mu s nu},
+    symmetrised on (mu nu).  Alexander & Yunes, Phys. Rept. 480 (2009), Eqs. (6) and (16); the dual
+    is on the LAST pair, *R^{ta mu s nu} = (1/2) eps^{s nu al be} R^{ta mu}_{al be}.
+
+    HISTORY, because it cost two controls. The first coding of this put the Levi-Civita free index in
+    the last slot and took the dual on the FIRST pair, and it FAILED tracelessness (g_ab C^ab ~ 1e-5
+    instead of 0) -- while passing the weak "C = 0 for constant theta" check, exactly as *RR's wrong
+    contraction passed "Schwarzschild = 0". A scan then showed all four slot/dual combinations of the
+    correct form are the SAME tensor (_kt_dcs_variants, _kt_dcs_compare: maxdiff exactly 0), so the
+    convention is cosmetic and the original was simply wrong.
+
+    Controls: tracelessness (necessary, and it rejected the bug) and the divergence identity
+    grad_a C^{ab} = const * (grad^b theta) *RR, which also fixes the normalisation.
+    """
+    x = geom.coords
+    E = levi_civita_up(geom)
+    dR = cov_deriv_ricci_ud(geom)                  # dR[al][nu][be] = grad_al R^nu_be
+    H = hessian_scalar(geom, theta)                # H[s][ta]        = grad_s grad_ta theta
+    Dr = dual_riemann_right(geom, E)               # Dr[ta][mu][s][nu]
+    dth = [sp.diff(theta, xi) for xi in x]
+    C = sp.zeros(4, 4)
+    for mu in range(4):
+        for nu in range(mu, 4):
+            tot = sp.S.Zero
+            for m_, n_ in ((mu, nu), (nu, mu)):    # the (mu nu) symmetrisation
+                for s in range(4):
+                    if dth[s] == 0:
+                        continue
+                    for al in range(4):
+                        for be in range(4):
+                            e = E[s][m_][al][be]
+                            if e != 0:
+                                tot += dth[s] * e * dR[al][n_][be]
+                for s in range(4):
+                    for ta in range(4):
+                        if H[s][ta] != 0:
+                            tot += H[s][ta] * Dr[ta][m_][s][n_]
+            v = sp.cancel(sp.together(tot / 2))
+            C[mu, nu] = C[nu, mu] = v
+    return C
+
+
+def dual_riemann_right(geom, E=None):
+    """*R^{ab cd} = (1/2) eps^{cdef} R^{ab}_{ef} -- dual on the LAST pair (Alexander-Yunes Eq. 6)."""
+    E = levi_civita_up(geom) if E is None else E
+    Ruudd = riemann_uudd(geom)
+    out = [[[[sp.S.Zero] * 4 for _ in range(4)] for _ in range(4)] for _ in range(4)]
+    for a in range(4):
+        for b in range(4):
+            for c in range(4):
+                for d in range(4):
+                    out[a][b][c][d] = sp.cancel(sp.together(
+                        sum(E[c][d][e][f] * Ruudd[a][b][e][f]
+                            for e in range(4) for f in range(4)) / 2))
+    return out
+
+
+def stress_theta(geom, theta):
+    """T_ab = grad_a theta grad_b theta - (1/2) g_ab (grad theta)^2."""
+    x, g, gi = geom.coords, geom.g, geom.ginv
+    d = [sp.diff(theta, xi) for xi in x]
+    sq = sum(gi[A, B] * d[A] * d[B] for A in range(4) for B in range(4))
+    return sp.Matrix(4, 4, lambda A, B: sp.cancel(sp.together(d[A] * d[B] - g[A, B] * sq / 2)))
