@@ -1,0 +1,28 @@
+dCS rational-Carter test at rank 4
+
+  solution re-derived: 181 equations, 26 gauge parameters set to 0
+  c2 = -5/16
+  rank 4, L^7, box 27x24, prime 0, 14 Kerr directions [30s]
+    [eps chi^0 timing] lcm+compare 0.0s | clear 0.4s = sources only (14)
+    rust nullspace: 8 blocks (largest 4984 cols), nnz 1,219,864 -> peak 464,383, nullity 28, 4 thread(s), 1.2s
+    residual guard: full, 28 vectors
+  eps chi^0: 14 columns, 1 deformations with every chain extending [16s]
+    [eps chi^1 timing] lcm+compare 0.0s | clear 0.2s = sources only (14)
+    rust nullspace: 8 blocks (largest 4984 cols), nnz 1,219,864 -> peak 464,383, nullity 28, 4 thread(s), 1.2s
+    residual guard: full, 28 vectors
+  eps chi^1: 14 columns, 1 deformations with every chain extending [17s]
+    [eps chi^2 timing] lcm+compare 8.1s | clear 15.1s = RESCALED 24500 operator columns as arrays, nnz 1,219,864 -> 12,456,898, by q (70 terms, 2.9s) + cleared 14 sources; new denominator factor 94080*(x - 2)**9*(y - 1)**6*(y + 1)**6
+    rust nullspace: 8 blocks (largest 4993 cols), nnz 12,526,366 -> peak 3,702,992, nullity 23, 4 thread(s), 12.5s
+    residual guard: full, 23 vectors
+  eps chi^2: 14 (chain, deformation) columns, dim V = 9 [69s]
+
+  survivors, by leading power of Carter: (9, {0: 9, 1: 0, 2: 0})
+
+  reducible floor at rank 4: 9
+  total survivors: 9   ABOVE THE FLOOR: 0
+
+  => the floor and nothing else. NO rational Carter of pole order 1 for dCS.
+     Consistent with Owen-Yunes-Witek's rank-4 null, and with our own
+     §142 prediction that it would be.
+
+  total 89s
