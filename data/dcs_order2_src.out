@@ -1,0 +1,35 @@
+dCS O(zeta chi^2) source
+
+  perturbative inverse verified
+  truncated curvature built
+  C-tensor pieces built
+  built [5s]
+
+  chi^2 part of each component (C and T):
+    tt   : C nonzero   T nonzero
+    rr   : C nonzero   T nonzero
+    thth : C nonzero   T nonzero
+    phph : C nonzero   T nonzero
+    rth  : C nonzero   T nonzero
+    tphi : C 0   T 0
+    tr   : C 0   T 0
+    tth  : C 0   T 0
+    rphi : C 0   T 0
+    thphi: C 0   T 0
+
+  parity control (only even components at O(chi^2)): PASS
+
+  angular content of the even components (must be l = 0 and l = 2 only):
+    tt    C: l=0 yes  l=2 yes  higher-l residue: none
+    tt    T: l=0 yes  l=2 yes  higher-l residue: none
+    rr    C: l=0 yes  l=2 yes  higher-l residue: none
+    rr    T: l=0 yes  l=2 yes  higher-l residue: none
+    thth  C: l=0 yes  l=2 yes  higher-l residue: none
+    thth  T: l=0 yes  l=2 yes  higher-l residue: none
+    phph  C: l=0 yes  l=2 yes  higher-l residue: none
+    phph  T: l=0 yes  l=2 yes  higher-l residue: none
+
+  angular control: PASS
+
+  truncation fallbacks (non-polynomial in chi): 0
+  total 11s
