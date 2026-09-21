@@ -49,6 +49,13 @@ receiver cannot reconstruct from the object itself.
 - **VALID RANGE** — χ: first neglected term is O(**χ³**); χ³ = 0.216 at χ = 0.6, χ³ = 4.2e-4 at
   χ = 0.075. A finite-χ drift test at 0.6 is dominated by truncation. ε: valid while ε·|h| ≪ 1 pointwise on the
   sampled region; at r ∈ [5.1, 9.1] that is 0.06–0.6% for ε = 0.05.
+- **VALID RANGE, in r** — **K₁ has a GENUINE SIMPLE POLE AT THE HORIZON, r = 2M.** Verified:
+  at x = 2 every (x−2) factor drops and the numerator leaves 1024·χ²·P_t²·y²(y²−1) ≠ 0, against the
+  simple zero in x⁴(x−2)(y²−1); **residue 64·χ²·P_t²·y²**. Not a chart artefact — (y²−1) appears in
+  numerator and denominator and the axis is regular, while r = 2M is physically distinguished. So
+  **the first-order expansion has a shrinking radius of validity in the SPATIAL coordinate, not only
+  in ε: it is uniform only for ε ≪ (r − 2M).** Every test run so far used orbits at r ∈ [5.1, 9.1],
+  well outside, so nothing measured is affected.
 - **CONVENTIONS** — `hamiltonian()` **carries a factor 1/2**. The 56 coefficient is in *unhalved* H;
   in code units it is 112χ²H_code + 56χ²P_t². Coordinates x = r, y = cos θ; M = 1; χ = a.
 - **UNIQUE?** — **No.** Defined up to adding any Killing tensor of the undeformed background. The
