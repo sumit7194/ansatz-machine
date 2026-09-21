@@ -1,0 +1,18 @@
+dCS scalar dipole, derived
+
+  source  *RR|_O(a) = 288*M**2*a*cos(theta)/r**7
+  ansatz  theta = (cos th / r^2) * sum_k c_k (M/r)^k,  k = 0..4
+
+  radial-operator check vs the full 4-D box: ['0', '0', '0']
+  separated operator verified
+
+  5 independent powers of r against 5 unknowns -- overdetermined
+  solution: {c0: -5*K*a/(2*M), c1: -5*K*a/M, c2: -9*K*a/M, c3: 0, c4: 0}
+
+  theta = -K*a*(18*M**2 + 10*M*r + 5*r**2)*cos(theta)/(2*M*r**4)
+
+  published shape (Yunes-Pretorius): (1 + 2M/r + 18M^2/5r^2) cos(th)/r^2
+  ratio to it = -5*K*a/(2*M)
+  -> SAME SHAPE (ratio independent of r): True
+
+  PASS: the derived profile reproduces the published one up to normalisation.
