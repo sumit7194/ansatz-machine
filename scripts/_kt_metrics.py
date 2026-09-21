@@ -1,3 +1,18 @@
+"""
+PARITY AND TRUNCATION ORDER, for anything built as a chi-series on a spinning background.
+
+VERIFYING A BRACKET THROUGH chi^n DOES NOT MEAN THE ERROR IS O(chi^(n+2)), EVEN FOR AN EVEN OBJECT.
+Kerr's Hamiltonian is not of definite parity in a: g^{t phi} ~ a makes H_chi^1 nonzero and ODD, and
+every spinning body has that term. So for an object B with only even parts (B0, B2, ...):
+
+    chi^3:  {H3, B0} + {H1, B2}     <- nonzero generically, and it is the FIRST uncontrolled order
+
+THE FIRST UNCONTROLLED ORDER IS n+1, NOT n+2, whenever the background carries a term of the opposite
+parity to the object. Found the expensive way: an object verified exactly through chi^2 was shipped
+with "first neglected term is O(chi^4)", and a collaborator's measured truncation exponent came in at
+3.17, 3.13, 3.08 -- marching toward 3 from above. Their refusal to round it to 4 is what caught it.
+"""
+
 #!/usr/bin/env python3
 """Metric registry for the Killing-tensor pipeline -- one place that knows what a substrate is.
 

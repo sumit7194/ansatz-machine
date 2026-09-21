@@ -32,10 +32,14 @@ receiver cannot reconstruct from the object itself.
   nullspace. **NOT the correction to Carter.** chain4 = −8·L² + P_φ² + 56χ²(H + P_t²), H unhalved;
   equivalently −8Q − 7P_φ² + 56χ²(H + P_t²) with Q = Carter = L² − P_φ².
 - **EXACT IN** — ε at first order: {H_def, chain4 + εK₁} = 0 at O(ε) exactly, verified symbolically.
-- **TRUNCATED IN** — **χ, at order 2.** The Kerr inverse metric is non-polynomial in a (Σ in
-  denominators), so H_Kerr carries genuine χ⁴ structure this object does not.
-- **VALID RANGE** — χ: first neglected term is O(χ⁴); **χ⁴ = 0.13 at χ = 0.6**, so a finite-χ drift
-  test there sees ~13% error from truncation alone. ε: valid while ε·|h| ≪ 1 pointwise on the
+- **TRUNCATED IN** — **χ, at order 2**, verified exactly through χ². **CORRECTED 2026-09-22: the
+  first uncontrolled order is χ³, NOT χ⁴.** chain4 is even in χ, but Kerr's Hamiltonian is not of
+  definite parity — g^{tφ} ~ a makes H_χ¹ nonzero and odd (verified: it is the only level carrying a
+  P_t·P_φ cross term). So the χ³ bracket is {H₃,B₀} + {H₁,B₂}, generically nonzero. Both the bridge
+  and I said χ⁴; a collaborator's measured truncation exponent came in at 3.17 / 3.13 / 3.08 and
+  their refusal to round it to 4 is what caught it.
+- **VALID RANGE** — χ: first neglected term is O(**χ³**); χ³ = 0.216 at χ = 0.6, χ³ = 4.2e-4 at
+  χ = 0.075. A finite-χ drift test at 0.6 is dominated by truncation. ε: valid while ε·|h| ≪ 1 pointwise on the
   sampled region; at r ∈ [5.1, 9.1] that is 0.06–0.6% for ε = 0.05.
 - **CONVENTIONS** — `hamiltonian()` **carries a factor 1/2**. The 56 coefficient is in *unhalved* H;
   in code units it is 112χ²H_code + 56χ²P_t². Coordinates x = r, y = cos θ; M = 1; χ = a.
