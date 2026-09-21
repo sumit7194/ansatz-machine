@@ -1,0 +1,9 @@
+  loaded [6s]
+  chain4 and K1 both rational; chi-levels nonzero: ch4 [0, 2], K1 [2]
+  O(eps^1) residual by chi order:
+    chi^0: residual zero (VACUOUS -- every term was 0)
+    chi^1: residual zero (VACUOUS -- every term was 0)
+    chi^2: residual zero (INFORMATIVE)
+
+  PASS: K1 is correct at source (1 informative level(s))
+  total 7s

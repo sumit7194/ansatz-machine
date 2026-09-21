@@ -249,6 +249,30 @@ def representable_only(ctx, names, gis, roles):
     return [names[i] for i in keep], [gis[i] for i in keep], [roles[i] for i in keep]
 
 
+def reducible_floor(rank):
+    """The reducible floor at rank 2r is (r+1)^2, FIXED BY THE ISOMETRIES and independent of any
+    nullspace computation.
+
+    On a stationary axisymmetric deformation the exactly-conserved generators are p_t, p_phi and H,
+    so the reducible space at rank 2r is everything they generate at that degree:
+        sum_k  H^k x (degree 2(r-k) monomials in p_t, p_phi),  and #(degree d in 2 vars) = d+1
+        => (2r-1) + (2r-3) + ... + 1 = (r+1)^2 ... = 4, 9, 16, 25 at ranks 2, 4, 6, 8.
+
+    WHY IT IS HERE. A collaborator derived this from the symmetries alone, without our code, which
+    makes it an EXTERNAL check on a quantity every null in this repo is measured against: a floor
+    that is not (r+1)^2 on a stationary axisymmetric substrate is a BUG, not a discovery, and it is
+    now spottable from the printed number without reading the pipeline.
+
+    THE HINGE, and it is a real restriction: this assumes the deformation preserves BOTH symmetries.
+    Break stationarity or axisymmetry and p_t or p_phi stops being conserved, the floor drops below
+    (r+1)^2, and the containment argument that identifies the surviving space with the reducible one
+    fails at its first step. Any future non-stationary or non-axisymmetric substrate needs both
+    redone from scratch."""
+    if rank % 2:
+        raise ValueError(f"the floor formula is for even rank; got {rank}")
+    return (rank // 2 + 1) ** 2
+
+
 def compatible_space(ctx, names, gis):
     """RREF basis (rows, over the given deformations) of those keeping EVERY Kerr direction alive."""
     p, t0, mons, cols, den, n_w = ctx["p"], ctx["t0"], ctx["mons"], ctx["cols"], ctx["den"], ctx["n_w"]

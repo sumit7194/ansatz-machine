@@ -188,3 +188,32 @@ CORRECTIONS ACCEPTED FROM THE RELAY:
     Third scope statement of the night that did not survive contact: the eps range, the
     non-uniqueness, and this. The artefact keeps being right and the sentence around it keeps
     being wrong.
+
+=== K1 VERIFIED AT SOURCE (2026-09-22 04:45) ===
+{H_deformed, chain4 + eps*K1} = 0 at O(eps), exactly, in exact rational arithmetic.
+chi^2 is the only INFORMATIVE level (A's deformation is pure chi^2 and K1 carries chi^2, so chi^0
+and chi^1 compare 0 to 0 and certify nothing -- the script labels them VACUOUS and refuses to
+return PASS unless some level was informative).
+
+SO: K1 IS CORRECT AT SOURCE. The whole failure was the DELIVERY -- naming the wrong zeroth-order
+object. chain4 is -8*Q + P_phi^2 + 56*chi^2*(H_unhalved + P_t^2), not Carter.
+
+Three attempts at this check, three different bugs, none in the physics:
+  1. mod-p chain coefficients bracketed against a rational K1 -- meaningless arithmetic, FAILED.
+  2. bracket_raw_coeffs returns (expr, denom), a SCALAR, not a coefficient list -- crashed at the
+     first level where anything was nonzero. The two levels before it had reported PASS VACUOUSLY.
+  3. sp.sympify on saved text creates FRESH symbols named P_t, P_x, ... which are not the solver's
+     momenta (real=True) -- both objects silently parsed to ZERO and every level went vacuous.
+     Symbol identity, not symbol name.
+
+Only (2) announced itself. (1) gave a confident FAIL and (3) gave three green-looking zeros; the
+VACUOUS/INFORMATIVE guard, added after (2), is what caught (3).
+
+=== THE FLOOR IS (r+1)^2, FIXED BY THE ISOMETRIES ===
+On a stationary axisymmetric deformation the conserved generators are p_t, p_phi, H, so the
+reducible space at rank 2r is (2r-1)+(2r-3)+...+1 = (r+1)^2: 4, 9, 16, 25 at ranks 2, 4, 6, 8.
+Every floor this repo has published matches. Derived externally from the symmetries, so it is an
+independent check on a quantity every null is measured against -- a floor that is not (r+1)^2 on
+such a substrate is a BUG, spottable from the printed number alone. Now in
+_kt_carter_space.reducible_floor(), with the caveat that breaking either symmetry invalidates both
+the formula and the containment argument.
