@@ -113,3 +113,19 @@ A and B CONSTANT (uniform exponents), C GROWING AS 1/eps (exponent 1 over expone
 whether one dimensionless ratio internal to ONE object grows 10x per decade while the others do not
 move -- immune to cross-object normalisation, shared terms, and anything unstated about the eps range.
 Fails cleanly two ways: C flat kills the explanation; A or B moving kills the per-rung picture.
+
+=== ANALYSIS PLAN, FINAL (supersedes the ratio-only version) ===
+HAZARD: d2r floors at the integrator drift precisely because the hypothesis says it falls fastest.
+A floored denominator makes d2p/d2r stop growing -- which is the stated kill condition. Artefact and
+refutation are the same measurement. Verified: at eps=5e-6, C d2r true 7.698e-16 vs drift 1.3e-14,
+ratio reads 11808 against 199402 predicted.
+
+PRIMARY   per-rung log-log slope d(log margin)/d(log eps) with uncertainty, fitted separately.
+          d2_poly never approaches the floor under either hypothesis, so C d2p slope 1 versus
+          C d4p slope 2 confirms the pole-order dictionary WITHOUT dividing by a small number.
+DERIVED   the d2p/d2r ratio, reported only where both terms are uncensored.
+CENSORING a rung is censored at any eps where its value is below 20x drift; censored points are
+          upper bounds, excluded from the fit. Fewer than three uncensored points -> NO SLOPE.
+RANGE     C stops at eps = 1e-4 (d2r/drift = 24). Below that a null on C is uninterpretable.
+          A and B are clean throughout; their ratio is predicted constant, so a floor effect would
+          show up as a ratio that STARTS moving -- the opposite signature from C's.
