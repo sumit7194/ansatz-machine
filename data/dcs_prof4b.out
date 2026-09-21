@@ -1,0 +1,6 @@
+  pinv: 2.0s
+  christoffel: 1.1s
+  riemann: 46.1s
+  ricci: 5.6s
+  ricci scalar: 29.2s
+  G assembly: 52.1s

@@ -1,0 +1,5 @@
+CONTROL: Kerr truncated at O(chi^2) must be vacuum to that order
+
+  PASS: every component of G vanishes at chi^0, chi^1 and chi^2 [201s]
+        (truncated curvature, perturbative inverse and order extraction all validated)
+
