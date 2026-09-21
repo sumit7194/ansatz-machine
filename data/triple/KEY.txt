@@ -129,3 +129,30 @@ CENSORING a rung is censored at any eps where its value is below 20x drift; cens
 RANGE     C stops at eps = 1e-4 (d2r/drift = 24). Below that a null on C is uninterpretable.
           A and B are clean throughout; their ratio is predicted constant, so a floor effect would
           show up as a ratio that STARTS moving -- the opposite signature from C's.
+
+=== THE VALIDITY ESTIMATE WAS COMPUTED AT THE WRONG RADIUS (2026-09-22) ===
+We estimated the perturbation at r = 2.5 and got ~10%, concluding the run was "outside the valid
+range by construction". THEIR ORBITS LIVE AT r IN [5.107, 9.147], which we never asked about:
+
+    r = 2.500  (our estimate)   eps*84/r^4 = 0.1075
+    r = 5.107  their r_min                   0.0062
+    r = 6.998  their median                  0.0018
+    r = 9.147  their r_max                   0.0006
+
+17x to 179x smaller. We picked the radius where the perturbation is LARGEST without knowing where the
+test lived -- the predicted bias (rule 82) firing two messages after we wrote it down.
+
+AND THE CORRECTION HURTS OUR HYPOTHESIS MORE THAN IT HELPS OUR CONDUCT:
+
+    expected A/B under finite-eps   ~ eps*|h| ~ 0.0018     (A second order, B first order)
+    observed A/B                      0.988
+    implied coefficient ratio         ~550   (and ~3e5 if margin goes as residual^2)
+
+At 10% the rescue needed a/b ~ 20 and was "possible, not evidence". At 0.18% it needs ~550. WE NO
+LONGER BELIEVE THE FINITE-EPS EXPLANATION and would bet on A and B sharing an exponent, i.e. the
+margin at eps=0.05 is dominated by something unrelated to Carter in both.
+
+TWO LEDGERS, OPPOSITE DIRECTIONS: the scope omission is unchanged and real; its CONSEQUENCE shrank
+from "outside the valid range" to "comfortably inside it". Less culpable, weaker physics. Being told
+one took too much blame does not license taking less for the omission, and does not rescue the
+explanation the blame was invoked to support.
