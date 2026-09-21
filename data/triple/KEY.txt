@@ -61,3 +61,38 @@ gives three to four usable decades.
 SHAPE, twice in one night: the artefact was hardened and the frame around it was not. Four revisions
 on the objects, then a near-leak in the covering sentence and a scope failure in the covering
 statement. The frame is what travels.
+
+=== C's EXPONENT CORRECTED (bridge caught it again), and the prediction got SHARPER ===
+C's exponent is not one number -- it differs BY RUNG, and the pattern is a direct read-out of §141's
+pole-order dictionary:
+
+    Q itself            dies at first order      -> degree-2 POLYNOMIAL fit is O(eps^1)
+    rational Q + eK1/2Q survives at first order  -> degree-2 RATIONAL  fit is O(eps^2)
+    Q^2                 survives at first order  -> degree-4 POLYNOMIAL fit is O(eps^2)
+
+Q^2 surviving is MEASURED, not assumed: C's rank-4 breakdown is (10, {0:9, 1:0, 2:1}) and that "1"
+sits at Q^2. Q^2 is a degree-4 polynomial, so C's d4_poly rung should behave like A's.
+
+PREDICTED EXPONENTS PER RUNG:
+              d2_poly   d2_rat   d4_poly   d4_rat
+    A            2         2         2        2
+    B            1         1         1        1
+    C            1         2         2        2
+
+SIGNATURE: at small eps, C's d2_poly is the ONLY rung of C that should fail to fall quadratically.
+If C's four rungs keep their ratio as eps shrinks, the pole-order dictionary is not visible in their
+measure at all.
+
+ALREADY IN THEIR eps=0.05 DATA and we missed it: C's d4_poly (1.636e-07) is ~9x smaller than its
+d2_poly (1.535e-06), while A and B keep those two rungs within ~3.5x. A degree-4 fit capturing what a
+degree-2 fit cannot, for C alone, is exactly "Q dies, Q^2 survives". Weak -- one ratio, no error bars
+-- but it points the right way and it predates the scan.
+
+DRIFT: C's quadratic rungs hit ~8e-12 at eps=0.0005 (~600x above the 1.3e-14 floor) and ~8e-14 at
+eps=0.00005, i.e. ON the floor. C bottoms out one decade earlier than A.
+
+AND THE BIAS THIS EXPOSED, filed as the bridge framed it: MOTIVATED REASONING TOWARD THE UNFLATTERING
+CONCLUSION. Arriving at one's own fault feels like rigour rather than bias, and TAKING THE BLAME IS A
+TERMINATING MOVE -- it ends the inquiry socially while leaving it open logically. That is why the
+checking stopped. It predicts the recurrence: whenever an explanation is both available and costly to
+me, the cost will read as evidence.
