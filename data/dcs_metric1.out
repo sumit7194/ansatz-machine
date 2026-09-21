@@ -1,0 +1,21 @@
+dCS O(zeta chi) metric correction, derived
+
+  C-tensor on Schwarzschild with the dipole ...
+  C^(t phi) = -3*M*(18*M**2 + 8*M*r + 3*r**2)/r**10
+
+  linearising the Einstein tensor in a generic H(r) ...
+  linearised operator: M*Derivative(H(r), (r, 2))/r - 2*M*H(r)/r**3 - Derivative(H(r), (r, 2))/2 + H(r)/r**2
+
+  ansatz h_(t phi) = sin^2(th) * sum_k d_k M^k / r^(k+2),  k = 0..6
+  both sides separated cleanly (no angular dependence left)
+  8 independent powers of r against 7 unknowns + the normalisation c1
+  solution: {d0: 0, d1: 0, d2: -1/M, d3: -12/(7*M), d4: -27/(10*M), d5: 0, d6: 0}
+
+  h_(t phi) / sin^2(th) = M*(-189*M**2 - 120*M*r - 70*r**2)/(70*r**6)
+
+  published (Yunes-Pretorius): (1 + 12M/7r + 27M^2/10r^2)/r^4
+  ratio = -M
+  -> SAME SHAPE: True
+  (nonzero: True -- required, since 0/shape is also constant in r)
+
+  PASS: the derived O(zeta chi) correction reproduces the published profile.
