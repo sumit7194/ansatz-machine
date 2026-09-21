@@ -227,8 +227,18 @@ verdicts is affected — every one landed exactly on the floor — but the rule 
 2. **Morales–Ramis for sGB** (D51): an all-rank, all-form non-integrability statement, which would beat
    both the rank and the analyticity ceiling. The ZV recipe transfers structurally; the obstacle is that
    the obstruction first appears at O(ζχ²), so a finite-ζ proof speaks only about the truncation.
-3. **dCS**, where the literature holds two contradictory numerical conjectures, is directly in range of
-   this instrument.
+3. ~~**dCS**, where the literature holds two contradictory numerical conjectures, is directly in range
+   of this instrument.~~ **Answered (§145): dCS keeps no Carter, rationally either.** The metric was
+   derived from the dCS field equations rather than transcribed (five validated steps, the C-tensor
+   certified by `∇_a C^{ab} = −⅛(∇^b θ)·*RR` with the coefficient *measured*), and the ladder gives
+   rank 2 dead, rank 4 and rank 6 at the floor exactly. So the rational class does **not** reconcile
+   Owen–Yunes–Witek with Cárdenas-Avendaño; one candidate explanation is eliminated and the
+   disagreement stands. **The transferable part is that §142's saturation predicted both published
+   nulls before the runs** (recorded in D53, dated) — corroboration of the pole-order picture on a
+   substrate it was not built from.
+4. **Why the pole order saturates at 2** remains open, and §145 makes it sharper rather than softer:
+   the saturation now has predictive content on a second theory, so the mechanism behind it is worth
+   more than when it was one family's curiosity.
 
 ## 9. Reproducing it
 

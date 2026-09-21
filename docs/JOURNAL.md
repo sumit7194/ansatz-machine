@@ -3907,3 +3907,35 @@ only the verdict, so it is now high-precision evaluation at random exact rationa
 **Process note, from the user and paid for in wall-clock.** A job the harness backgrounds at its
 timeout dies with the session; only `nohup ... &` survives. ~20 min of symbolic work was lost to that
 before the rule was written down ([[feedback-detach-long-jobs]]).
+
+## 2026-09-22 (overnight) — the dCS thread closes, and the prediction held
+
+Five steps built and validated, three verdicts, one null, and one thing worth more than the null.
+
+**The build.** *RR against the Kerr closed form (ratio exactly 1, six random points); the C-tensor
+certified by the divergence identity with k = −1/8 **measured** rather than assumed; the scalar
+dipole and the O(ζχ) metric both reproducing Yunes–Pretorius; the O(ζχ²) even-parity metric solved
+from 181 equations in 109 unknowns with c2 = −5/16 uniquely determined and back-substituted to zero
+under three random gauge choices.
+
+**The verdicts.** Rank 2 dies (with OYW's anatomy, not just their verdict). Ranks 4 and 6 sit exactly
+on the floor, so no rational Carter at pole order 1 or 2.
+
+**The part that matters: §142's saturation predicted both published nulls before the runs** (D53,
+D55). A picture built from deformations of Kerr in the sGB programme constrained a different theory
+and was right. It could have failed loudly — a survivor would have contradicted a published null.
+
+**And the limit, stated because it is the easy thing to blur:** the OYW / Cárdenas-Avendaño
+disagreement is NOT resolved. One candidate reconciliation is eliminated. Three remain and this
+instrument cannot separate them.
+
+**Cost of the night, honestly.** Seven scaffolding bugs on 09-21 and roughly five more overnight —
+none in the physics, and the dangerous ones were always the ones that produced a confident verdict
+rather than a crash: a PASS on a result of zero, a NO SOLUTION for a system solvable in one line, and
+three separate failures of one angular-split guard (leftover tan θ, unreduced odd powers of sin,
+multiple-angle terms). That guard cost one line and paid for itself three times.
+
+**The A/B/C triple went through four revisions**, every one forced by measuring the emitted objects
+rather than the design: B and C were not verified to differ (rank 4 separated them, 0 vs 1 above the
+floor); C's g_tt was undeformed where A's and B's were not (fixed with a verified-gauge piece); and
+the gauge emit crashed on a symbolic matrix inverse. None of the three were visible on paper.

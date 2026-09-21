@@ -1518,3 +1518,28 @@ produced byte-identical physics output (4 probes against 269 vectors).
 **Default unchanged, deliberately.** `KT_GUARD=full` remains the default; the fast path is opt-in via
 `KT_GUARD=freivalds[:k]`. Both policies now **print which one ran**, so a result's log states what
 protected it — the provenance rule of CLAUDE.md §5 applied to the guard itself rather than to the data.
+
+## D55 — the pole-order saturation predicted two published nulls, and that is the result (2026-09-22)
+
+**What happened.** D53 reframed dCS: not a rank ladder (Owen–Yunes–Witek closed ranks 2–6 at our own
+truncation) but the rational-class question. It also recorded a *prediction*: §142 measured the pole
+order saturating at 2, and by §141's dictionary a rational Carter of pole order m reappears at rank
+2(m+1), so **if the framework is right there can be nothing at rank 4 or rank 6 for dCS** — which is
+exactly what OYW report. §145 ran it. Rank 4: floor 9, zero above. Rank 6: floor 16, zero above.
+
+**Why this is worth a decision entry rather than a results line.** The dCS null itself is a
+confirmation of published work. What is new is that a picture built entirely from deformations of
+Kerr in the sGB programme made a *falsifiable, dated, pre-registered* claim about a different theory
+and it held. The prediction could have failed in the most visible way available — a survivor above
+the floor would have contradicted a published null and forced one of us to be wrong.
+
+**The rule this sets.** A framework earns its keep when it constrains a substrate it was not fitted
+to. Before the next structural claim from the pole-order picture, ask what it forbids elsewhere and
+whether anyone has already looked. That is cheaper than a new run and it is the only way this kind
+of picture can be tested at all — its own family will always agree with it.
+
+**What it does NOT license.** The OYW / Cárdenas-Avendaño disagreement is not resolved. We eliminated
+one candidate reconciliation — a low-pole-order rational Carter — and eliminated it cleanly. The
+remaining candidates (non-perturbative structure, pole order beyond our saturation, or the chaos
+result being numerical artifact) are not separable by this instrument, and saying otherwise would be
+the §1 overreach the repo is built to avoid.
