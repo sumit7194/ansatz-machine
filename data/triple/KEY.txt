@@ -6,3 +6,26 @@ truth B = does NOT keep Carter, coefficients {'l2tt_2': 1, 'l2tt_5': -32, 'l2tt_
 truth C = keeps Carter only rationally, pole order 1, coefficients {'l2rr_3': 1, 'l2ang_3': 1, 'l2ang_4': 3/2}
 truth C additionally carries a PURE GAUGE piece (Lie derivative along [0, chi^2 (3y^2-1)/x, 0, 0]) so that its g_tt is deformed like A and B. Verified gauge: C+gauge gives rank-2 dead and rank-4 (10, {0:9,1:0,2:1}), identical to C without it.
 re-verified on the emitted objects: {'A': 1, 'B': 0, 'C': 0}
+
+=== UNSEALED 2026-09-22, and the test was flawed in a way that is OURS ===
+tabula's ladders at eps = 0.05 (min margin, all three CERTIFY):
+    A (keeps Carter)      4.474e-07
+    B (destroys Carter)   4.527e-07     <- 1.2% apart; identical to 4 s.f. at d2_poly
+    C (rational only)     7.698e-08
+Their controls passed both ways beforehand (positive 3.73e-17 EMIT, negative 4.97e-06 CERTIFY).
+
+THE FLAW, and it is in what we did NOT say rather than in the objects. "A keeps Carter" is a
+FIRST-ORDER-IN-EPSILON statement -- the whole §139 compatible-space machinery is O(eps). They tested
+at eps = 0.05, where a first-order invariant leaves an O(eps^2) residual. So A's Carter is not an
+exact invariant of the object we actually sent, and their engine could not have emitted on it.
+
+Evidence this is the cause rather than a basis limitation: A and B agree to FOUR FIGURES, and the
+only thing that differs between them is the property. A residual dominated by the property would
+differ; one dominated by the shared 99.6% of the deformation would not.
+
+Discriminating rerun proposed: eps = 0.005 then 0.0005. Explanation (i) finite-eps predicts margins
+falling ~100x per step, with A emitting and B not at small eps. Explanation (ii) basis predicts they
+barely move.
+
+LESSON: four revisions spent matching the OBJECTS, and the flaw was in the COVERING SCOPE. We
+verified what the objects were and never stated the order in eps to which the property held.
