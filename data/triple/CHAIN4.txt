@@ -1,0 +1,7 @@
+The Kerr rank-2 Killing tensor that K1_A corrects. NOT the textbook Carter constant:
+at chi^0 it is -8*L^2 + P_phi^2. Coordinates x=r, y=cos(theta); chi = spin a; M=1.
+The conserved object is CHAIN4 + eps*K1, so in terms of Carter Q (= L^2 at chi^0),
+and since P_phi^2 is exactly conserved for any axisymmetric metric, that is Q - eps*K1/8.
+
+CHAIN4 =
+(-8*chi**2*(y**2 - 1)*(P_phi**2*x*y**2 + 7*P_phi**2*x - 2*P_phi**2*y**2 - 14*P_phi**2 + 2*P_t**2*x**2*y**4 + 12*P_t**2*x**2*y**2 - 14*P_t**2*x**2 - P_x**2*x**3*y**4 - 6*P_x**2*x**3*y**2 + 7*P_x**2*x**3 + 4*P_x**2*x**2*y**4 + 24*P_x**2*x**2*y**2 - 28*P_x**2*x**2 - 4*P_x**2*x*y**4 - 24*P_x**2*x*y**2 + 28*P_x**2*x + P_y**2*x*y**6 + 5*P_y**2*x*y**4 - 13*P_y**2*x*y**2 + 7*P_y**2*x - 2*P_y**2*y**6 - 10*P_y**2*y**4 + 26*P_y**2*y**2 - 14*P_y**2) + x**2*(x*y**2 - x - 2*y**2 + 2)*(P_phi**2*y**2 + 7*P_phi**2 + 8*P_y**2*y**4 - 16*P_y**2*y**2 + 8*P_y**2))/(x**2*(y**2 - 1)*(x*y**2 - x - 2*y**2 + 2))
