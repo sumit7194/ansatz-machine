@@ -20,6 +20,14 @@ times rather than once.
 | **UNIQUE?** | unique object, or one representative of a family — and what the freedom is |
 | **NOT CHECKED** | stated **positively**; absence of a claim is not a claim of absence |
 
+`VALID RANGE` carries a **positive instruction**, not just a caution: **state which parameter is
+EXACT, because that is the one to push, not the one to shrink.** An object exact in ε and truncated
+in χ gets *better* as ε rises (the truncation floor is fixed while the signal grows quadratically)
+and only linearly better as χ falls. Three rounds of this leg swept ε *downward*, deeper into the
+floor-dominated half, because everyone was shrinking the parameter they were worried about. The
+crossover sat above every grid point used. This is the same fact as "the truncated parameter was held
+fixed while the exact one was swept to zero", now saying which way to go.
+
 `VALID RANGE` is deliberately not "state the range": "χ ≤ 1" is true and useless, while
 "χ⁴ = 0.13 at χ = 0.6" is the number that stops a sweep. `NOT CHECKED` is the only field a careful
 receiver cannot reconstruct from the object itself.
