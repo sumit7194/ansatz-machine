@@ -1,0 +1,23 @@
+  rank 6, L^8, box 30x28, 30 Kerr directions [38s]
+    [eps chi^0 timing] lcm+compare 0.1s | clear 0.6s = sources only (30)
+    rust nullspace: 8 blocks (largest 13640 cols), nnz 4,006,722 -> peak 6,035,931, nullity 60, 4 thread(s), 61.2s
+    residual guard: full, 60 vectors
+  eps chi^0: 30 columns, 1 deformations with every chain extending [118s]
+    [eps chi^1 timing] lcm+compare 0.1s | clear 0.9s = sources only (30)
+    rust nullspace: 8 blocks (largest 13640 cols), nnz 4,006,722 -> peak 6,035,931, nullity 60, 4 thread(s), 64.9s
+    residual guard: full, 60 vectors
+  eps chi^1: 30 columns, 1 deformations with every chain extending [186s]
+    [eps chi^2 timing] lcm+compare 35.3s | clear 80.1s = RESCALED 75516 operator columns as arrays, nnz 4,006,722 -> 49,675,736, by q (88 terms, 11.4s) + cleared 30 sources; new denominator factor (x - 2)**10*(y - 1)**7*(y + 1)**7
+    rust nullspace: 8 blocks (largest 13659 cols), nnz 49,988,355 -> peak 23,660,140, nullity 51, 4 thread(s), 284.0s
+    residual guard: full, 51 vectors
+  eps chi^2: 30 (chain, deformation) columns, dim V = 21 [678s]
+
+  C at rank 6: survivors (21, {0: 16, 1: 0, 2: 4, 3: 1})
+  floor (grade 0) = 16; above floor = 5
+  occupied grades: {0: 16, 2: 4, 3: 1}
+
+  PREDICTION (simple pole m=1): grade1 EMPTY, grades 2 and 3 BOTH occupied
+  grade1=0  grade2=4  grade3=1
+  => CONFIRMS m = 1
+
+  total 678s

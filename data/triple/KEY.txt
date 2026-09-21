@@ -217,3 +217,29 @@ independent check on a quantity every null is measured against -- a floor that i
 such a substrate is a BUG, spottable from the printed number alone. Now in
 _kt_carter_space.reducible_floor(), with the caveat that breaking either symmetry invalidates both
 the formula and the containment argument.
+
+=== C AT RANK 6: FOUR-NUMBER PREDICTION CONFIRMED EXACTLY (2026-09-22 05:01) ===
+    predicted (pre-registered both sides before the run):  (21, {0:16, 1:0, 2:4, 3:1})
+    measured:                                              (21, {0:16, 1:0, 2:4, 3:1})
+
+THE PREDICTION'S BASIS. If the survivor is rational with a simple pole, F = Q + eps*K/(2Q), then F^n
+is polynomial iff n >= m+1 = 2. So C's grading is A's COMPLETE product algebra with grade 1 DELETED --
+grade 1 is the only grade needing a single power of F:
+
+    rank 4   A {0:9,  1:4, 2:1}       tot 14    C {0:9,  1:0, 2:1}       tot 10
+    rank 6   A {0:16, 1:9, 2:4, 3:1}  tot 30    C {0:16, 1:0, 2:4, 3:1}  tot 21
+
+WHAT IT ESTABLISHES, and what it does not:
+  ESTABLISHED  The lowest occupied grade is m+1, so THE GRADING READS THE POLE ORDER OFF A SINGLE
+               RUN. §142 inferred saturation by scanning ranks and watching where new directions
+               first appear; this reads m off the first nonempty row. The ladder becomes a
+               convenience rather than the instrument.
+  NOT A NEW    C was CONSTRUCTED as d1, §140's pole-order-1 direction, so m = 1 is the label it was
+  DISCOVERY    built with. The content is that breakdown_single, computing the grading from the
+               nullspace with no knowledge of the construction, AGREES with the label. That
+               validates the DICTIONARY, not C.
+  NOT THREE    Our algebra and the grading are two readings of ONE computation on ONE object from
+  WITNESSES    ONE pipeline. Only tabula's measurement is external. Two legs, not three.
+  STILL OPEN   Whether the grade-2 survivor is literally the SQUARE of anything is invisible to the
+               grading (D52's divide-out check, not run on C). If it is not a square, the F^n story
+               is wrong while this table stays exactly as measured.
