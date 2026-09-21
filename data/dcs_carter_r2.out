@@ -1,0 +1,27 @@
+dCS step 5: does Carter survive the derived O(zeta chi^2) dCS metric?
+
+  solution re-derived: 181 equations, 26 gauge parameters set to 0
+  c2 = -5/16
+  h_ab nonzero at [(0, 0), (1, 1), (2, 2), (3, 3)]  (r-theta absent by gauge)
+
+  rank 2, L^8, box 34x28, prime 0, 5 Kerr directions [24s]
+    [eps chi^0 timing] lcm+compare 0.0s | clear 0.2s = sources only (5)
+    rust nullspace: 8 blocks (largest 2590 cols), nnz 446,391 -> peak 127,477, nullity 10, 4 thread(s), 0.1s
+    residual guard: full, 10 vectors
+  eps chi^0: 5 columns, every Kerr direction extends for a 1-dim space of the 1 [5s]
+    [eps chi^1 timing] lcm+compare 0.0s | clear 0.1s = sources only (5)
+    rust nullspace: 8 blocks (largest 2590 cols), nnz 446,391 -> peak 127,477, nullity 10, 4 thread(s), 0.0s
+    residual guard: full, 10 vectors
+  eps chi^1: 5 columns, every Kerr direction extends for a 1-dim space of the 1 [6s]
+    [eps chi^2 timing] lcm+compare 3.5s | clear 4.9s = RESCALED 10150 operator columns as arrays, nnz 446,391 -> 5,259,417, by q (88 terms, 1.5s) + cleared 5 sources; new denominator factor 94080*(x - 2)**10*(y - 1)**7*(y + 1)**7
+    rust nullspace: 8 blocks (largest 2593 cols), nnz 5,270,441 -> peak 1,516,967, nullity 9, 4 thread(s), 1.6s
+    residual guard: full, 9 vectors
+  eps chi^2: 5 columns, every Kerr direction extends for a 0-dim space of the 1 [19s]
+
+  CARTER SURVIVES AT RANK 2: False
+  (compatible space dimension 0 of 1 deformation)
+
+  Owen-Yunes-Witek report no rank-2 Killing tensor at O(chi^2 zeta).
+  Independent agreement: True
+
+  total 39s
