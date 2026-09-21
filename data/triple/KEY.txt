@@ -29,3 +29,35 @@ barely move.
 
 LESSON: four revisions spent matching the OBJECTS, and the flaw was in the COVERING SCOPE. We
 verified what the objects were and never stated the order in eps to which the property held.
+
+=== CORRECTION TO THE CORRECTION, 2026-09-22 (bridge caught it) ===
+The evidence offered above for the finite-eps explanation ARGUES FOR THE ALTERNATIVE instead.
+
+If A's Carter is first-order-exact then A ~ a*eps^2, but B DESTROYS Carter at first order so
+B ~ b*eps. DIFFERENT EXPONENTS. Two power laws coinciding at eps = 0.05 requires a/b ~ 20 -- a
+coincidence the hypothesis must absorb, not support for it. And "A and B agree to four figures, so a
+common term dominates" means NEITHER object is showing its Carter-related part, which is the
+competing explanation.
+
+PRE-REGISTERED, coefficients fixed by the eps = 0.05 point (a = 1.79e-4, b = 9.05e-6):
+
+    eps        A (expect ^2)   B (expect ^1)   C (expect ^1)   B/A
+    0.05       4.474e-07       4.527e-07       7.698e-08        1.0   observed
+    0.005      4.47e-09        4.53e-08        7.70e-09        10.1
+    0.0005     4.47e-11        4.53e-09        7.70e-10       101
+    0.00005    4.47e-13        4.53e-10        7.70e-11      1013
+
+FIT EACH EXPONENT SEPARATELY. A -> 2 and B -> 1 confirms the finite-eps reading and shows their
+screen DOES detect the property. Both -> the same exponent means the margin measures something
+unnamed and no eps will rescue the leg. A -> 1 means our own "A keeps Carter" fails on contact and
+the fault is upstream of them entirely.
+
+Validity range we should have supplied with the objects: the first-order construction is trustworthy
+while eps*|h| << 1 pointwise. A's largest coefficient is 84 on a 1/r^4 profile, so near r ~ 2.5 the
+perturbation is ~2.2*eps -- eps = 0.05 is ALREADY a ~10% perturbation and second-order effects are
+~10% of first-order. eps <= 0.005 comfortable, 0.0005 unambiguous. Their integrator drift ~1e-14
+gives three to four usable decades.
+
+SHAPE, twice in one night: the artefact was hardened and the frame around it was not. Four revisions
+on the objects, then a near-leak in the covering sentence and a scope failure in the covering
+statement. The frame is what travels.
