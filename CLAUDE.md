@@ -82,8 +82,12 @@ not integrable, which is an assumption the EMRI waveform programme is built on.
 > Horizon-derived quantities converge far more slowly (κ⁽¹⁾ 23%, Ω⁽¹⁾ 85% at a = 0.69), which is
 > consistent with a 1/√(1−a²) branch point at extremality and R = 1. Two cautions travel with it: those
 > horizon figures are not our substrate's error, since we never use Ω or κ, **but** κ⁽¹⁾ is built from
-> the metric functions *at r₊*, so near the horizon our substrate may be much worse than 1–6%. That
-> number has been requested and is not in hand. The 6%/19% QNM figures are retired. **And the replacement is not a single number: the supplement's coefficients
+> the metric functions *at r₊*, and the near-horizon number has now been measured (post-hoc, relayed):
+> **"a few percent" holds only beyond ~1.5 r₊.** At a = 0.69 the cleanest metric function (H4) is off
+> by 6% at 1.5 r₊, 17% at 2.2M, 26% at 1.2 r₊ and 88% at r₊ itself; the others that cross zero there
+> are comparable in absolute error. Our Killing tensor is global, so **near the horizon our O(χ²)
+> substrate is a poor approximation already at a = 0.69**, never mind 0.9. The 6%/19% QNM figures
+> are retired. **And the replacement is not a single number: the supplement's coefficients
 > are functions of BOTH r and θ**, so the radius of convergence may depend on where you stand — *R at
 > a stated (r, θ)* is the honest form of the question, and whether it varies over the angle is a
 > second question nobody has asked. The spin variable is `a`, at even powers to 40, so the series is

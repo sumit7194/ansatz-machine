@@ -1760,3 +1760,22 @@ misprint (or a different definition).
 at extremality produces. The Kerr background term vanishes like √(1−a²) there while the O(ζ)
 correction diverges like 1/√(1−a²), so if this holds the small-coupling expansion is non-uniform
 near extremality. At a = 0.9 the factor is 2.3: something to watch, not yet a breakdown.
+
+**D58, the near-horizon number (2026-09-22, night; post-hoc, relayed — `38_sgb_supplement.json` @
+cadfed9, block M1_posthoc).** Asked for because κ⁽¹⁾'s slow convergence implicated the metric functions
+at r₊. At a = 0.69 (r₊ = 1.724M), O(a²) truncation of the metric functions:
+
+    H4 (never near zero, the clean trend):  1.5 r+ 6.0%   2.2M 17%   1.2 r+ 26%   1.05 r+ 64%   r+ 88%
+    H3:                                     0.2-5% everywhere
+    H1, H2:  cross ZERO near the horizon, so relative errors (up to 1245%) are artifacts; their
+             ABSOLUTE errors, 0.04-0.18, are comparable to H4's there
+
+**"A few percent" describes our substrate only beyond ~1.5 r₊.** Inside ~2.2M it is off by tens of
+percent already at a = 0.69. Our Killing tensor is a global object, so §1 now says the O(χ²) substrate
+is a poor approximation near the horizon even at moderate spin. The supplier caught the zero-crossing
+artifact themselves (H2's non-monotone r-dependence) before sending, and now prints absolute error beside
+any entry whose value is under 20% of the largest |Hᵢ| — the right column for a global object.
+
+At a = 0.90, with a conservative monotone tail bound on the reference (last · a²/(1−a²)): κ⁽¹⁾ 93.8 ±
+2.4%, Ω⁽¹⁾ 166.2 ± 3.0%, scalar 30.5–32.4 ± 0.07%. The scalar's small bar is because its coefficients
+decay faster; its exponent is not the horizon quantities' −½.
