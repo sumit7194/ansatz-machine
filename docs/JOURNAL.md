@@ -3986,3 +3986,39 @@ for K1_A whose every field corresponds to something that went wrong.
 
 Roughly a dozen striking observations were withdrawn across the night, by all three parties, every
 one for not discriminating. **The withdrawals were the leg's output, not its cost.**
+
+## 2026-09-22 — a supplier retracted two of three facts before anything rested on them
+
+Yesterday's §1/D58 edit adopted three structural facts about the sGB supplement, supplied by a peer
+session. Within hours the supplier withdrew two of them **at source** — their diagnosis, their
+message, before any measurement of ours used them.
+
+**Struck:** "α appears only at power 2 ⇒ the supplement is O(α²), first order in ζ." Their census
+matched `SuperscriptBox["α", n]` and therefore could not see a bare α at all: 2,233 of those against
+924 superscripted. **Struck:** "the expansion variable is u = χ², so R_χ = √R_u." The evenness holds;
+the attribution does not — χ and `a` both appear only at even powers 2–40, one term carries χ²·α·a²,
+and which symbol is the spin was taken from the title.
+
+**Survives, and it was always the load-bearing one:** the coefficients are rational functions of r
+(powers 2–66), so R may depend on r and the question is under-specified as asked. Independent of
+which symbol is the spin, and true whether or not the parse ever completes.
+
+The α claim was the expensive one to have kept. "Bounds the χ half of our double truncation and is
+silent on the ζ half" is exactly the shape of thing that becomes a scope caveat, and a wrong scope
+caveat is worse than none because it reads as diligence. The χ/a claim is the one **I** should have
+caught: I accepted a variable attribution with no measurement behind it, from a supplier who had just
+told me the method was regex.
+
+Their third near-miss is the one that should worry us: a census returning **zeros** from an
+over-escaped pattern — failure-as-a-value, logged from the bridge two days before being reproduced.
+Third repo this month. A zero does not feel like a failure when you read it, which is why the fix has
+to be a positive control on the instrument itself, run *before* the zero.
+
+Corrected in `CLAUDE.md` §1 and `docs/DECISIONS.md` D58 (struck, not deleted — the mechanism is the
+durable part). Memory rules 104–106 added, and rule 103 itself corrected: it had repeated both
+withdrawn claims, and memory is the copy that silently reasserts a retracted fact in a session that
+never saw the retraction. Swept repo and memory for surviving copies; clean.
+
+Endorsed their slower plan: symbol definitions from the paper before any further structural claim, no
+radius until a golden test reproduces a published coefficient, and — my one addition — send the
+reproduced and published coefficients side by side, not a PASS. Nothing of ours is waiting on it.
