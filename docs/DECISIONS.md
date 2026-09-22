@@ -1626,3 +1626,26 @@ decelerating and free of sign flips. A clean-looking sequence is therefore not e
 dominant singularity — and with a coupling and a deformation both in play, sGB is *more* exposed to
 this than vacuum Kerr, not less. We asked for the same-sign control run on this series specifically
 rather than cited from an earlier calibration.
+
+### D58, addendum — the question was under-specified, and that is itself the finding (2026-09-22)
+
+Three structural facts about the supplement, reported before any parse, each changing the test:
+
+    1. THE SERIES IS EVEN IN chi. Powers 2, 4, ... 40, zero odd terms across 2,800 occurrences. The
+       real variable is u = chi^2, so "40 orders" is 20 orders in u and R_chi = sqrt(R_u). A stock
+       ratio test DIVIDES BY ZERO here -- the 1/(1+x^2) case -- and may be misread as "too few
+       coefficients".
+    2. ALPHA APPEARS ONLY AT POWER 2. The whole supplement is O(alpha^2), i.e. FIRST ORDER IN ZETA.
+       **So it bounds one half of our double truncation and says nothing about the other.** Even a
+       perfect answer leaves the O(zeta) truncation untouched.
+    3. THE COEFFICIENTS ARE RATIONAL FUNCTIONS OF r (powers r^2 to r^66), not numbers. **So the
+       radius may depend on r, and "what is R for the sGB metric spin series" is UNDER-SPECIFIED as
+       asked.** The honest form is *R at a stated r*, and whether it varies with r is itself a result.
+
+**§1 CANNOT NECESSARILY CARRY A SCALAR CAVEAT AT ALL**, and that conclusion holds whether or not the
+parse is ever finished. Recorded now so it does not wait on a number.
+
+Gate agreed before the run: reconstruct the paper's own published O(chi^2) coefficient from the parse
+and check it against their second-order result. A parser that mis-nests a FractionBox produces
+confident wrong coefficients silently, which is this month's recurring species. If the golden test
+fails, or if R depends strongly on r, that is reported instead of a number.
