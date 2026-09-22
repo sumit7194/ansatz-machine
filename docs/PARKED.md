@@ -75,7 +75,20 @@ with P_φ², P_t² exactly conserved and H_def conserved:
 
     dK = -(K1 - 56*chi^2*dH)/8        to O(chi^2),  dH = the deformation's Hamiltonian contribution
 
-**EXACT IN χ IT IS NOT PRODUCIBLE HERE** — same ceiling as the original P1. So the test above would
-run against a χ²-accurate δK, and a partial collapse of A's exponent would be ambiguous between
-"δK is the missing span" and "δK is only partly right at this χ". Worth stating before the run, not
-after.
+**EXACT IN χ IT IS NOT PRODUCIBLE HERE** — same ceiling as the original P1. So the test runs against
+a χ²-accurate δK.
+
+**AND THE CEILING IS DESIGNED AROUND RATHER THAN LIVED WITH — run at χ = 0.075, not χ = 0.6.** By the
+parity result the first uncontrolled order is χ³ (measured at 3.032):
+
+    chi = 0.6     chi^3 = 0.216    22%     ambiguous: is the shortfall dK or our truncation?
+    chi = 0.15    chi^3 = 3.4e-3   0.34%   negligible
+    chi = 0.075   chi^3 = 4.2e-4   0.04%   dK is effectively exact
+
+At χ = 0.075 the reading "our χ² truncation is the shortfall" is excluded by construction and the
+three-way ambiguity collapses to two. The collaborating session already runs there — the drift study,
+the floor calibration and the c-measurement were all at χ = 0.075 — so this is one parameter, not a
+new experiment.
+
+**Worth noting how this went:** the ceiling was stated BEFORE the run, which is what allowed it to be
+designed around. Stated after, the run would have been spent and the result uninterpretable.
