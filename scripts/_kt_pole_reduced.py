@@ -99,7 +99,10 @@ if __name__ == "__main__":
     # solution box is wide enough to express the F that an ODD-parity deformation needs.  A null in
     # the axial family is worth nothing without a positive control inside that family (D40), and a
     # drag along phi is exactly it -- pure gauge, so it MUST keep every product.
-    for k in (1, 3):
+    # --axial-controls 0 reproduces the pre-§146 configuration exactly (four polar gauge controls):
+    # a second-prime rerun of §142/§143 must match its first prime column for column, and extra
+    # control columns would change dim V and the nullity even though no slot-sector number moves.
+    for k in ((1, 3) if arg("--axial-controls", 1) else ()):
         for wn, W in (("1", sp.Integer(1)), ("y2", y ** 2)):
             nm = f"gaugeAx{wn}_{k}"
             names.append(nm); gis.append(chi_pieces(lie_inverse(giK, [0, 0, 0, chi ** 2 * W * x ** -k])))
