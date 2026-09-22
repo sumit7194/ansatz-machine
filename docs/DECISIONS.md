@@ -1543,3 +1543,50 @@ one candidate reconciliation — a low-pole-order rational Carter — and elimin
 remaining candidates (non-perturbative structure, pole order beyond our saturation, or the chaos
 result being numerical artifact) are not separable by this instrument, and saying otherwise would be
 the §1 overreach the repo is built to avoid.
+
+## D56 — independence is a property of INPUTS, not of repositories (2026-09-22)
+
+**What happened.** The bridge audited its own founding claim — *"the repos are kept ignorant of each
+other, so agreement is evidence and not an echo"* — and killed it. The claim appears three times in
+their repo, each time as a statement of policy or a defence of it, and **had never once been
+measured**. Not "confirmed too easily" — there were no observations of any kind attached to it.
+
+**The rule that replaces it, in their words:** *independence is a property of inputs, not of
+repositories. Two repos agreeing about an object one of them supplied is one measurement.*
+
+**What this repo contributed, and what it cost us.** Asked for our side, we found and reported:
+
+  - **Unlogged channels exist.** Three siblings have messaged this session directly on their own
+    sockets, never through the bridge. Their census could not see any of it. We also flagged that our
+    own "no echo happened there" is a SELF-REPORT, not a measurement — a census asking each repo what
+    it received is answered by the same recognition whose failure produces unlogged transfers.
+  - **One entry against ourselves.** 28bee32: we verified the residue (ours to check) and accepted an
+    operational bridge (not ours), then committed the whole as a result. It was wrong. No agreement
+    was counted, so not an echo by their definition, but it is unverified cross-repo content becoming
+    a committed claim here — the failure the policy exists to prevent. Logged as their edge 9.
+  - **One refusal that is the strongest evidence the discipline is real**, and it had to be applied to
+    the bridge: when they framed our algebra, our grading and tabula's measurement as three
+    independent legs, we cut it to two — *two readings of ONE computation on ONE object from ONE
+    pipeline*. Inflating an evidence count is the same error whoever does it.
+
+**RELAYED AND NOT VERIFIED HERE** (handled like CLAUDE.md §1's external numbers): they report that
+BlackHole is a fission product of SpaceTime, split 2026-06-13, with three docs byte-identical today,
+verified by md5 and git log on their side. **We have not checked this.** If true it bears on the
+premise of CLAUDE.md §0 — that the siblings are mutually ignorant — and that is the user's call to
+make, not ours to edit into the operating contract on a peer's say-so.
+
+## D57 — SEALED-CONSTRUCT / BLIND-SCORE, named as the standing repair
+
+The audit found exactly one mechanism in the fleet that restores independence **by construction**
+rather than by policy, and it is ours, built for §120 and never described as a fix:
+
+    1. The supplying repo CONSTRUCTS the object and commits a SEALED verdict before transmission
+       (data/bridge_round8/G2_candidate_A.json alongside G2_candidate_A_SEALED.json).
+    2. The receiving instrument SCORES IT BLIND -- metric only, no labels, no motivation.
+    3. Only then is the seal opened and the two compared.
+
+We called it "designed adversaries" and filed the lesson under catalog homogeneity, so the repair went
+unnamed and unreused for months. **It is now the standing protocol for any object leaving this repo
+for measurement elsewhere**, and it composes with the eight-field scope manifest: the manifest makes
+the object's claims legible, the seal makes the comparison independent. The A/B/C triple of
+2026-09-22 was this protocol's second use.
