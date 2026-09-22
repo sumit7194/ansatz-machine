@@ -17,8 +17,9 @@
 #     at once is how a weekend ends in swap.
 #  4. Resumable: a job whose .out already ends in "total ...s" is skipped, so a restart re-runs only
 #     what did not finish.
-#  5. Every PID it launches is written to data/anat/weekend/PIDS with its argv, so our processes can
-#     be identified exactly -- never by pattern -- and nobody else's are touched.
+#  5. Every PID it launches (the subshell AND the Python found by walking the parent chain) is written
+#     to data/anat/weekend/PIDS with its argv, so our processes can be identified exactly -- never by
+#     pattern -- and nobody else's are touched.
 #  6. Each job is scored automatically by scripts/_kt_weekend_check.py and the verdict is appended to
 #     STATUS.md along with wall time and peak RSS. Nothing is committed: results are reviewed first.
 #
@@ -76,7 +77,16 @@ print((j or {}).get('out','-'), (j or {}).get('cmd','-'))")
   t0=$(date +%s)
   { KT_SOLVER=rust KT_THREADS=$THREADS /usr/bin/time -l $PY -u scripts/_kt_pole_reduced.py $cmd > "$out" 2>&1; } 2> "$out.time" &
   pid=$!
-  echo "$pid $job $(date '+%F %T') KT_SOLVER=rust KT_THREADS=$THREADS scripts/_kt_pole_reduced.py $cmd" >> "$W/PIDS"
+  # $! is the wrapping subshell, not Python; the live throttle file KT_THREADS.<pid> is keyed on
+  # Python's own getpid().  Walk the PARENT CHAIN from $pid to find it -- never match by pattern.
+  desc() { local k; for k in $(pgrep -P "$1"); do echo "$k"; desc "$k"; done; }
+  pypid=""; for _ in 1 2 3 4 5 6; do
+    sleep 5
+    pypid=$(for k in $(desc "$pid"); do ps -o pid=,comm= -p "$k"; done | awk 'tolower($2) ~ /python/ {print $1; exit}')
+    [ -n "$pypid" ] && break
+  done
+  echo "$pid ${pypid:-?} $job $(date '+%F %T') KT_SOLVER=rust KT_THREADS=$THREADS scripts/_kt_pole_reduced.py $cmd" >> "$W/PIDS"
+  log "  $job: subshell $pid, python ${pypid:-NOT FOUND}  (throttle live: echo 2 > data/KT_THREADS.${pypid:-<pid>})"
   wait $pid; rc=$?
   mins=$(( ($(date +%s) - t0) / 60 ))
   rss=$(awk '/maximum resident set size/{printf "%.1f GB", $1/1073741824}' "$out.time" 2>/dev/null)
