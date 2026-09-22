@@ -1,0 +1,66 @@
+chains: 14 from data/kt_double_chains_r4_d7_b27x24.pkl (held FIXED across box widths)
+slots ['drag3', 'drag1'], solution-box margins [6, 8, 10], prime 2147483647
+
+    [eps chi^0 timing] lcm+compare 0.2s | clear 2.7s = sources only (168)
+    rust nullspace: 8 blocks (largest 4984 cols), nnz 1,219,864 -> peak 464,383, nullity 182, 1 thread(s), 2.0s
+    residual guard: full, 182 vectors
+    [eps chi^1 timing] lcm+compare 6.3s | clear 10.0s = sources only (168)
+    rust nullspace: 8 blocks (largest 5014 cols), nnz 1,272,466 -> peak 464,383, nullity 156, 1 thread(s), 2.1s
+    residual guard: full, 156 vectors
+  margin  6  box 27x24  24500 unknowns  [59s]
+      drag1_1    every chain extends at eps chi^0 and eps chi^1
+      drag1_2    every chain extends at eps chi^0 and eps chi^1
+      drag1_3    every chain extends at eps chi^0 and eps chi^1
+      drag1_4    every chain extends at eps chi^0 and eps chi^1
+      drag1_5    every chain extends at eps chi^0 and eps chi^1
+      drag1_6    every chain extends at eps chi^0 and eps chi^1
+      drag3_1    eps chi^1: chains [3, 4, 6, 7, 9, 10, 11, 12, 13] DO NOT EXTEND
+      drag3_2    eps chi^1: chains [3, 4, 6, 7, 9, 10, 11, 12, 13] DO NOT EXTEND
+      drag3_3    eps chi^1: chains [3, 4, 6, 7, 9, 10, 11, 12, 13] DO NOT EXTEND
+      drag3_4    eps chi^1: chains [3, 4, 6, 7, 9, 10, 11, 12, 13] DO NOT EXTEND
+      drag3_5    eps chi^1: chains [3, 4, 6, 7, 9, 10, 11, 12, 13] DO NOT EXTEND
+      drag3_6    eps chi^1: chains [3, 4, 6, 7, 9, 10, 11, 12, 13] DO NOT EXTEND
+
+    [eps chi^0 timing] lcm+compare 0.2s | clear 3.1s = sources only (168)
+    rust nullspace: 8 blocks (largest 5760 cols), nnz 1,412,838 -> peak 617,675, nullity 182, 1 thread(s), 3.1s
+    residual guard: full, 182 vectors
+    [eps chi^1 timing] lcm+compare 6.0s | clear 10.1s = sources only (168)
+    rust nullspace: 8 blocks (largest 5790 cols), nnz 1,465,440 -> peak 617,675, nullity 156, 1 thread(s), 2.8s
+    residual guard: full, 156 vectors
+  margin  8  box 29x26  28350 unknowns  [114s]
+      drag1_1    every chain extends at eps chi^0 and eps chi^1
+      drag1_2    every chain extends at eps chi^0 and eps chi^1
+      drag1_3    every chain extends at eps chi^0 and eps chi^1
+      drag1_4    every chain extends at eps chi^0 and eps chi^1
+      drag1_5    every chain extends at eps chi^0 and eps chi^1
+      drag1_6    every chain extends at eps chi^0 and eps chi^1
+      drag3_1    eps chi^1: chains [3, 4, 6, 7, 9, 10, 11, 12, 13] DO NOT EXTEND
+      drag3_2    eps chi^1: chains [3, 4, 6, 7, 9, 10, 11, 12, 13] DO NOT EXTEND
+      drag3_3    eps chi^1: chains [3, 4, 6, 7, 9, 10, 11, 12, 13] DO NOT EXTEND
+      drag3_4    eps chi^1: chains [3, 4, 6, 7, 9, 10, 11, 12, 13] DO NOT EXTEND
+      drag3_5    eps chi^1: chains [3, 4, 6, 7, 9, 10, 11, 12, 13] DO NOT EXTEND
+      drag3_6    eps chi^1: chains [3, 4, 6, 7, 9, 10, 11, 12, 13] DO NOT EXTEND
+
+    [eps chi^0 timing] lcm+compare 0.2s | clear 2.9s = sources only (168)
+    rust nullspace: 8 blocks (largest 6592 cols), nnz 1,619,932 -> peak 805,977, nullity 182, 1 thread(s), 4.1s
+    residual guard: full, 182 vectors
+    [eps chi^1 timing] lcm+compare 5.9s | clear 9.9s = sources only (168)
+    rust nullspace: 8 blocks (largest 6622 cols), nnz 1,672,534 -> peak 805,977, nullity 156, 1 thread(s), 4.2s
+    residual guard: full, 156 vectors
+  margin 10  box 31x28  32480 unknowns  [171s]
+      drag1_1    every chain extends at eps chi^0 and eps chi^1
+      drag1_2    every chain extends at eps chi^0 and eps chi^1
+      drag1_3    every chain extends at eps chi^0 and eps chi^1
+      drag1_4    every chain extends at eps chi^0 and eps chi^1
+      drag1_5    every chain extends at eps chi^0 and eps chi^1
+      drag1_6    every chain extends at eps chi^0 and eps chi^1
+      drag3_1    eps chi^1: chains [3, 4, 6, 7, 9, 10, 11, 12, 13] DO NOT EXTEND
+      drag3_2    eps chi^1: chains [3, 4, 6, 7, 9, 10, 11, 12, 13] DO NOT EXTEND
+      drag3_3    eps chi^1: chains [3, 4, 6, 7, 9, 10, 11, 12, 13] DO NOT EXTEND
+      drag3_4    eps chi^1: chains [3, 4, 6, 7, 9, 10, 11, 12, 13] DO NOT EXTEND
+      drag3_5    eps chi^1: chains [3, 4, 6, 7, 9, 10, 11, 12, 13] DO NOT EXTEND
+      drag3_6    eps chi^1: chains [3, 4, 6, 7, 9, 10, 11, 12, 13] DO NOT EXTEND
+
+VERDICT
+  total failing (slot, chain) pairs by margin: {6: 54, 8: 54, 10: 54}
+  UNCHANGED as the box grows -> the obstruction is REAL, not an ansatz artifact

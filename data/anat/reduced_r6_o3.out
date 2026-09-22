@@ -1,0 +1,32 @@
+rank 6, L^8, box 28x26: 65772 unknowns, 30 Schwarzschild products (by Q power {0: 16, 1: 9, 2: 4, 3: 1}), prime 0 [21s]
+  780 sources built [40s]
+    [eps chi^2 timing] lcm+compare 66.3s | clear 160.3s = RESCALED 65772 operator columns as arrays, nnz 3,486,846 -> 39,852,356, by q (81 terms, 17.2s) + cleared 780 sources; new denominator factor 2*(x - 2)**8*(y - 1)**8*(y + 1)**8
+    rust nullspace: 8 blocks (largest 11996 cols), nnz 41,716,751 -> peak 18,804,218, nullity 596, 1 thread(s), 395.8s
+    residual guard: full, 596 vectors
+  one system: 780 (product, deformation) columns, dim V = 566 [856s]
+
+  shape-sector deformations keeping ALL 30: dim 0 of 18
+  shape-sector deformations keeping H^2 Q^1 (pole order <= 0): dim 0
+  shape-sector deformations keeping H^1 Q^2 (pole order <= 1): dim 1
+  shape-sector deformations keeping H^0 Q^3 (pole order <= 2): dim 1
+
+  directions first appearing with Q^2 (pole order 1): 1
+    1*o3tphi_1 + -1*o3tphi_2 + -2*o3tphi_3
+      survivors (21, {0: 16, 1: 0, 2: 4, 3: 1})
+
+  directions first appearing with Q^3 (pole order 2): 0
+
+  named directions (§140, §141):
+    control gaugeY2r_1: (30, {0: 16, 1: 9, 2: 4, 3: 1})
+    control gaugeY2y_1: (30, {0: 16, 1: 9, 2: 4, 3: 1})
+    control gaugeY2r_3: (30, {0: 16, 1: 9, 2: 4, 3: 1})
+    control gaugeY2y_3: (30, {0: 16, 1: 9, 2: 4, 3: 1})
+    control gaugeAx1_1: (30, {0: 16, 1: 9, 2: 4, 3: 1})
+    control gaugeAxy2_1: (30, {0: 16, 1: 9, 2: 4, 3: 1})
+    control gaugeAx1_3: (30, {0: 16, 1: 9, 2: 4, 3: 1})
+    control gaugeAxy2_3: (30, {0: 16, 1: 9, 2: 4, 3: 1})
+    random #0: (16, {0: 16, 1: 0, 2: 0, 3: 0})
+    random #1: (16, {0: 16, 1: 0, 2: 0, 3: 0})
+    random #2: (16, {0: 16, 1: 0, 2: 0, 3: 0})
+
+  total 857s

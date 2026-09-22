@@ -1,0 +1,27 @@
+rank 4, L^7, box 25x22: 20930 unknowns, 14 Schwarzschild products (by Q power {0: 9, 1: 4, 2: 1}), prime 1 [6s]
+  364 sources built [18s]
+    [eps chi^2 timing] lcm+compare 3.0s | clear 9.5s = RESCALED 20930 operator columns as arrays, nnz 1,041,010 -> 1,041,010, by q (1 terms, 0.0s) + cleared 364 sources; new denominator factor 4
+    rust nullspace: 8 blocks (largest 4304 cols), nnz 1,187,369 -> peak 454,163, nullity 288, 1 thread(s), 1.6s
+    residual guard: full, 288 vectors
+  one system: 364 (product, deformation) columns, dim V = 274 [35s]
+
+  shape-sector deformations keeping ALL 14: dim 0 of 18
+  shape-sector deformations keeping H^1 Q^1 (pole order <= 0): dim 0
+  shape-sector deformations keeping H^0 Q^2 (pole order <= 1): dim 0
+
+  directions first appearing with Q^2 (pole order 1): 0
+
+  named directions (§140, §141):
+    control gaugeY2r_1: (14, {0: 9, 1: 4, 2: 1})
+    control gaugeY2y_1: (14, {0: 9, 1: 4, 2: 1})
+    control gaugeY2r_3: (14, {0: 9, 1: 4, 2: 1})
+    control gaugeY2y_3: (14, {0: 9, 1: 4, 2: 1})
+    control gaugeAx1_1: (14, {0: 9, 1: 4, 2: 1})
+    control gaugeAxy2_1: (14, {0: 9, 1: 4, 2: 1})
+    control gaugeAx1_3: (14, {0: 9, 1: 4, 2: 1})
+    control gaugeAxy2_3: (14, {0: 9, 1: 4, 2: 1})
+    random #0: (9, {0: 9, 1: 0, 2: 0})
+    random #1: (9, {0: 9, 1: 0, 2: 0})
+    random #2: (9, {0: 9, 1: 0, 2: 0})
+
+  total 36s

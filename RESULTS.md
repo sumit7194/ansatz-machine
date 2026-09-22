@@ -3450,8 +3450,11 @@ that reaches it is not.** The single ℓ = 3 axial direction that reaches pole o
 which is **exactly** the polar pole-order-1 signature — the same 21 that §140 predicts and
 `_kt_qpower` hardcodes, and the same shape as §143's rank-8 ℓ = 4 row {0:25, 1:0, 2:9, 3:4, 4:1}: keep
 the whole Q⁰ floor, drop **all** of Q¹, keep **all** of Q² and above. So a direction of pole order m
-looks identical whichever sector it comes from; parity decides how many of them there are, not what
-they are. §143's cone picture was right about the anatomy and wrong about the counting.
+looks the same in every case measured so far — polar ℓ = 2, polar ℓ = 4, axial ℓ = 3, and on the
+axial side only at pole order 1, because that is the only order an axial direction reached. What varies
+is how many there are. *(As first written this said "parity decides how many" — the same over-reach as
+§143's, made by me a few lines after diagnosing it. Within the axial block the count also moves with
+degree: see the addendum.)* §143's cone picture was right about the anatomy and wrong about the counting.
 
 ### The trap this walked past, which is worth more than the result
 
@@ -3469,3 +3472,49 @@ subtracted, in-sector positive control passed. Rank 4 on both primes; **rank 6 o
 Pole order 3 is not probed here — that needs rank 8, and it is not yet run for either axial family.
 The axial slots are **probes at O(χ²), not slow-rotation metric terms**; the physical odd sector lives
 at O(χ¹) and is reported separately.
+
+
+### §146 addendum (same day) — the axial count moves with degree too; the drag3 obstruction is real
+
+**Second prime at rank 6: identical.** Both axial families reproduce exactly on 2147483629 (o1: 12,
++0, +0; o3: 0, +1, +0; controls identical). §146 now stands on both primes at ranks 4 and 6.
+(`data/anat/reduced_r6_o{1,3}_p1.out`)
+
+**Axial ℓ = 5, and a correction to my own sentence above.**
+
+    axial      base   increment at pole order 1       robust to
+    l = 1       12            +0
+    l = 3        0            +1        margin 8; profiles to r^-10 at L^9 and L^11
+    l = 5        0            +0        margin 8; profiles to r^-10 at L^9 and L^11; both primes
+
+So within the axial block the increment **moves with degree**, and the one pole-order-1 direction is
+peculiar to **ℓ = 3** rather than the start of a pattern. "Parity decides the count" was wrong: parity is
+*one* axis that moves the count, and degree is another, at least in the axial block. The honest
+statement is narrower and less tidy — **the polar ladder is (2, 1, 0) at ℓ = 2 and ℓ = 4; the axial
+ladder is (0, 0), (1, 0), (0, ·) at ℓ = 1, 3, 5.** ℓ = 1 is plausibly the usual low-multipole
+degeneracy (its base is 12 of 18: an axial ℓ = 1 perturbation is mostly a change of J), but that is a
+reading, not a measurement. **Why ℓ = 3 alone is open.** The direction is pure h_tφ,
+`o3tphi_1 − o3tphi_2 − 2·o3tphi_3`, i.e. profile (1/r − 1/r² − 2/r³)·A₃(y).
+
+**A run that had to be discarded, and the control that said so.** kmax 10 at L⁷ gave the same
+increments — but its random control kept **8** products, one *below* the reducible floor of 9, which is
+fixed by the isometries and cannot be undercut by physics. So the box could not represent the r⁻⁷…r⁻¹⁰
+profiles, and a run that violates its own floor is not agreement, however well its headline matches.
+Rerun at L⁹ and L¹¹: floor restored, same answer. **The random control is two-sided: above the floor
+it flags a vacuous run, below the floor it flags a box too narrow.** (`reduced_r4_o{3,5}_k10.out`
+kept as the discarded exhibit; `…_k10_d{9,11}.out` are the valid ones.)
+
+**The physical odd sector: drag3's obstruction is real.** `scripts/_kt_drag_boxcheck.py` holds the 14
+Kerr chains fixed (the complete rank-4 set) and widens only the space the particular solution is
+sought in:
+
+    solution-box margin        6 (27x24)    8 (29x26)    10 (31x28)
+    drag1, 6 profiles          all extend   all extend   all extend
+    drag3, 6 profiles          chains [3,4,6,7,9,10,11,12,13] do not extend at eps chi^1 -- identical
+    failing (slot, chain) pairs    54           54            54
+
+Unchanged across three widths, while drag1 — same χ order, same profiles, same boxes — extends
+everything, which shows the box can extend chains for an axial χ¹ deformation. So the **physical odd
+ℓ = 3 deformation cannot extend 9 of Kerr's 14 rank-4 chains even at first order in ε and χ**: the
+tower breaks one χ order *below* where the pole-order test looks. Prime 0 only; which 9 chains, and
+why those, is not yet understood. (`data/anat/drag_boxcheck.out`, `qpower_r4_drag{1,3}.out`)

@@ -1,0 +1,42 @@
+rank 4, box 27x24: 8 deformations (['drag3'] x^-1..x^-6 + controls), 14 Kerr chains [13s]
+  14 products; by power of Q: {0: 9, 1: 4, 2: 1}; pure Q^2 = product [0]
+    [eps chi^0 timing] lcm+compare 7.9s | clear 19.4s = RESCALED 24500 operator columns as arrays, nnz 1,219,864 -> 12,456,898, by q (70 terms, 2.8s) + cleared 112 sources; new denominator factor (x - 2)**9*(y - 1)**6*(y + 1)**6
+    rust nullspace: 8 blocks (largest 4991 cols), nnz 12,479,343 -> peak 3,683,939, nullity 126, 1 thread(s), 24.8s
+    residual guard: full, 126 vectors
+  eps chi^0: 112 columns, 8 deformations with every chain extending [95s]
+    [eps chi^1 timing] lcm+compare 12.6s | clear 24.5s = RESCALED 24500 operator columns as arrays, nnz 1,219,864 -> 14,526,006, by q (84 terms, 3.9s) + cleared 112 sources; new denominator factor (x - 2)**11*(y - 1)**6*(y + 1)**6
+    rust nullspace: 8 blocks (largest 5006 cols), nnz 14,657,776 -> peak 4,403,204, nullity 100, 1 thread(s), 31.8s
+    residual guard: full, 100 vectors
+  eps chi^1: drag3_1 -- chains [3, 4, 6, 7, 9, 10, 11, 12, 13] do not extend; deformation set aside
+  eps chi^1: drag3_2 -- chains [3, 4, 6, 7, 9, 10, 11, 12, 13] do not extend; deformation set aside
+  eps chi^1: drag3_3 -- chains [3, 4, 6, 7, 9, 10, 11, 12, 13] do not extend; deformation set aside
+  eps chi^1: drag3_4 -- chains [3, 4, 6, 7, 9, 10, 11, 12, 13] do not extend; deformation set aside
+  eps chi^1: drag3_5 -- chains [3, 4, 6, 7, 9, 10, 11, 12, 13] do not extend; deformation set aside
+  eps chi^1: drag3_6 -- chains [3, 4, 6, 7, 9, 10, 11, 12, 13] do not extend; deformation set aside
+  eps chi^1: 112 columns, 2 deformations with every chain extending [193s]
+    [eps chi^2 timing] lcm+compare 35.2s | clear 73.2s = RESCALED 24500 operator columns as arrays, nnz 1,219,864 -> 37,859,934, by q (264 terms, 10.5s) + cleared 28 sources; new denominator factor (x - 2)**23*(y - 1)**10*(y + 1)**10
+    rust nullspace: 8 blocks (largest 5002 cols), nnz 38,093,990 -> peak 9,530,698, nullity 42, 1 thread(s), 80.0s
+    residual guard: full, 42 vectors
+  eps chi^2: 28 (chain, deformation) columns, dim V = 28 [435s]
+
+  shape-sector deformations keeping ALL 14: dim 0 of 0
+  shape-sector deformations keeping pure Q^2:  dim 0 of 0
+  NOTE: no deformation survived to this stage -- every one was set aside earlier, so the tower breaks at a LOWER chi order than the pole-order test probes
+  vs rank 2 Carter-compatible (dim 0 here): contained in pure-Q^2 space: True
+  vs rank 4 pure-Q^2 (dim 0 here): contained in pure-Q^2 space: True
+  all-14 space == rank 2 Carter-compatible: True
+
+  pure-Q^2 directions BEYOND rank 4's pure-Q^2 space: 0
+
+  P1: the two rank-4 directions (§140)
+    skipped: these are l=2 polar directions and no l=2 slot is alive in this run
+
+  controls and random shape deformations
+    spin     (14, {0: 9, 1: 4, 2: 1})
+    gauge_r  (14, {0: 9, 1: 4, 2: 1})
+    random #0: (14, {0: 9, 1: 4, 2: 1})
+    random #1: (14, {0: 9, 1: 4, 2: 1})
+    random #2: (14, {0: 9, 1: 4, 2: 1})
+    random #3: (14, {0: 9, 1: 4, 2: 1})
+
+  total 440s

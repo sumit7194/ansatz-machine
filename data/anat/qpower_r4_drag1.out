@@ -1,0 +1,35 @@
+rank 4, box 27x24: 8 deformations (['drag1'] x^-1..x^-6 + controls), 14 Kerr chains [13s]
+  14 products; by power of Q: {0: 9, 1: 4, 2: 1}; pure Q^2 = product [0]
+    [eps chi^0 timing] lcm+compare 7.8s | clear 19.0s = RESCALED 24500 operator columns as arrays, nnz 1,219,864 -> 12,456,898, by q (70 terms, 2.6s) + cleared 112 sources; new denominator factor (x - 2)**9*(y - 1)**6*(y + 1)**6
+    rust nullspace: 8 blocks (largest 4991 cols), nnz 12,479,343 -> peak 3,683,939, nullity 126, 1 thread(s), 24.8s
+    residual guard: full, 126 vectors
+  eps chi^0: 112 columns, 8 deformations with every chain extending [95s]
+    [eps chi^1 timing] lcm+compare 9.6s | clear 19.9s = RESCALED 24500 operator columns as arrays, nnz 1,219,864 -> 14,526,006, by q (84 terms, 3.1s) + cleared 112 sources; new denominator factor (x - 2)**11*(y - 1)**6*(y + 1)**6
+    rust nullspace: 8 blocks (largest 5000 cols), nnz 14,590,636 -> peak 4,403,204, nullity 126, 1 thread(s), 30.8s
+    residual guard: full, 126 vectors
+  eps chi^1: 112 columns, 8 deformations with every chain extending [188s]
+    [eps chi^2 timing] lcm+compare 49.7s | clear 108.7s = RESCALED 24500 operator columns as arrays, nnz 1,219,864 -> 37,859,934, by q (264 terms, 10.8s) + cleared 112 sources; new denominator factor (x - 2)**23*(y - 1)**10*(y + 1)**10
+    rust nullspace: 8 blocks (largest 5056 cols), nnz 38,381,594 -> peak 9,551,971, nullity 97, 1 thread(s), 75.0s
+    residual guard: full, 97 vectors
+  eps chi^2: 112 (chain, deformation) columns, dim V = 83 [500s]
+
+  shape-sector deformations keeping ALL 14: dim 0 of 6
+  shape-sector deformations keeping pure Q^2:  dim 0 of 6
+  vs rank 2 Carter-compatible (dim 0 here): contained in pure-Q^2 space: True
+  vs rank 4 pure-Q^2 (dim 0 here): contained in pure-Q^2 space: True
+  all-14 space == rank 2 Carter-compatible: True
+
+  pure-Q^2 directions BEYOND rank 4's pure-Q^2 space: 0
+
+  P1: the two rank-4 directions (§140)
+    skipped: these are l=2 polar directions and no l=2 slot is alive in this run
+
+  controls and random shape deformations
+    spin     (14, {0: 9, 1: 4, 2: 1})
+    gauge_r  (14, {0: 9, 1: 4, 2: 1})
+    random #0: (9, {0: 9, 1: 0, 2: 0})
+    random #1: (9, {0: 9, 1: 0, 2: 0})
+    random #2: (9, {0: 9, 1: 0, 2: 0})
+    random #3: (9, {0: 9, 1: 0, 2: 0})
+
+  total 504s
