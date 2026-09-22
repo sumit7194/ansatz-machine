@@ -77,12 +77,15 @@ not integrable, which is an assumption the EMRI waveform programme is built on.
 > provenance tag is not a relevance tag**. A measurement on the right object is in hand: arXiv:
 > 2406.11986's supplement tabulates the sGB metric's spin series to 40 orders, unresummed, and a
 > ratio test on it is being run (D58). Treat the 6%/19% figures as illustrative of the *kind* of
-> error until that lands. **And the replacement may not be a single number: the supplement's
-> coefficients are rational functions of r** (powers 2–66), so the radius of convergence may itself
-> depend on radius — *R at a stated r* is the honest form of the question, and whether it varies is
-> itself the result. *(Two further claims briefly recorded here on 2026-09-22 — that the supplement is
-> O(α²) only, and that the expansion variable is u = χ² — were WITHDRAWN AT SOURCE the same day and
-> are struck; see D58. The r-dependence is the part that survived.)* **The computation is exact; whether the object is the right one is a
+> error until that lands. **And the replacement is not a single number: the supplement's coefficients
+> are functions of BOTH r and θ**, so the radius of convergence may depend on where you stand — *R at
+> a stated (r, θ)* is the honest form of the question, and whether it varies over the angle is a
+> second question nobody has asked. The spin variable is `a`, at even powers to 40, so the series is
+> in u = a² with 20 ratios and R_a = √R_u. *(Recorded 2026-09-22: two claims here were withdrawn at
+> source the same day — one attributed the spin to the symbol χ, which the source paper defines as
+> cos θ, and one bounded the α-order from a census that could not see α¹. See D58. The order in the
+> coupling is NOT established and no claim about which half of our double truncation is bounded
+> should be read here.)* **The computation is exact; whether the object is the right one is a
 > separate question, and only the first is protected by working over a finite field.**
 >
 > *Which way the gap cuts is worth stating, because it is not symmetric.* Finding a Killing tensor

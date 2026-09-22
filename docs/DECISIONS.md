@@ -1659,3 +1659,32 @@ that session two days earlier and then reproduced.
 **Gate status:** the parser's evaluation gate has caught three distinct faults in sequence and failed
 loudly each time rather than emitting a number. **No radius until a golden test reproduces something
 the paper published.**
+
+**Resolution, same day.** The supplier read the paper's own symbol definitions instead of inferring
+them, and re-ran every census behind a positive control (each pattern first made to return 3 planted
+matches before any count was believed). **χ is cos θ**, defined in one line of the paper; `a` is the
+dimensionless spin. So the expansion is in `a` at even powers to 40 — u = a², 20 ratios, R_a = √R_u —
+the angular dependence rides on χ = cos θ, and α sits at powers **1 and 2**, so the withdrawn α-order
+claim stays withdrawn and is not replaced by a different one.
+
+**The surviving fact got broader, not narrower.** The coefficients are functions of **r and θ**. The
+honest form of the question is *R at a stated (r, θ)*; whether R varies over the angle is a second
+question nobody has asked. §1's "under-specified as asked" holds more strongly than either of us
+first wrote it.
+
+**The root cause was upstream of the regex.** Their account: the title said "40th order in
+dimensionless spin", a symbol was found with powers to 40, and *the title assigned the variable* — `a`
+sat in the same expressions with an identical signature and was never asked about. The census method
+was downstream of an attribution already made. Our matching half: we adopted a variable attribution
+with no measurement behind it, from a supplier who had just said the method was regex. **Neither side
+needed new information to catch this; the paper defines χ in one line and neither read it.**
+
+**The positive control paid for itself on its first run** — its own probe construction was broken for
+the escaped symbols, so it reported CONTROL FAILED for exactly the two patterns whose numbers had
+already been sent. The two ABSENT rows in the corrected census are now *measurements* rather than
+silence, because the pattern is demonstrated to count.
+
+**One number still to watch, flagged back:** the corrected census reports `a` with **1 bare
+occurrence** against 2,349 superscripted. One is not zero, and rule 104 is precisely that a count of
+one in the column that would falsify "even powers only" deserves to be looked at rather than rounded
+down.
