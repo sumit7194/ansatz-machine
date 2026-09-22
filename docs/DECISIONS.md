@@ -1590,3 +1590,39 @@ unnamed and unreused for months. **It is now the standing protocol for any objec
 for measurement elsewhere**, and it composes with the eight-field scope manifest: the manifest makes
 the object's claims legible, the seal makes the comparison independent. The A/B/C triple of
 2026-09-22 was this protocol's second use.
+
+## D58 — our own substrate caveat cited the wrong object (2026-09-22)
+
+**Found by a sibling pointing at a paper, not by us.** CLAUDE.md §1 has quantified our double
+truncation since it was written by quoting *"the O(χ²) spin-truncation error of the Kerr 220 mode at
+~6% at χ=0.69 and ~19% at χ=0.90"*. **The Kerr 220 mode is a QNM frequency. Our substrate is the sGB
+metric.** Different theory, different function, different series, potentially a different radius of
+convergence. The number is correct about something else.
+
+**The tag did not help.** It was marked "(relayed, not verified here)", which guarded its VALUE and
+said nothing about its REFERENT. **A provenance tag is not a relevance tag** — and this one sat in the
+operating contract, the file loaded at the start of every session, as the quantitative statement of
+our substrate's limitation.
+
+**The right measurement is now available.** arXiv:2406.11986 (PRD 110 064019) supplements the sGB
+metric's spin series to **40 orders, raw and unresummed** — read from the body, since the abstract
+quotes only the second-order frequency fit, one of three separate expansions in that paper.
+DeepStrain is running the ratio test with their validated estimator.
+
+**PRE-REGISTERED, so the interpretation is fixed before the number exists:**
+
+    changes NO verdict     ranks 2-8 closed on the truncated metric remain exactly that. An exact
+                           statement about a truncated object does not change when you learn how
+                           good the truncation is.
+    changes the CAVEAT     §1's limitation goes from a relayed number about the wrong object to a
+                           measured one about ours.
+    SHARPENS it a lot IF   R < ~0.9: at EMRI spins the O(χ²) truncation would then be outside the
+    the radius is small    domain of convergence rather than merely inaccurate, and §1's "whether
+                           the object is the right one" stops being a matter of degree.
+
+**Hazard attached to the measurement, from their estimator work:** a SAME-SIGN competing singularity
+biases a Domb–Sykes radius upward by up to +12% while leaving the ratio sequence monotone, smoothly
+decelerating and free of sign flips. A clean-looking sequence is therefore not evidence of a single
+dominant singularity — and with a coupling and a deformation both in play, sGB is *more* exposed to
+this than vacuum Kerr, not less. We asked for the same-sign control run on this series specifically
+rather than cited from an earlier calibration.

@@ -70,7 +70,14 @@ not integrable, which is an assumption the EMRI waveform programme is built on.
 > The gap between them is the substrate: our sGB metric is a **double truncation, at O(ζ) and
 > O(χ²)**, and an external measurement (relayed, not verified here) puts the O(χ²) spin-truncation
 > error of the Kerr 220 mode at ~6% at χ=0.69 and ~19% at χ=0.90 — and χ~0.9 is where EMRI central
-> objects actually sit. **The computation is exact; whether the object is the right one is a
+> objects actually sit. **⚠ FLAGGED 2026-09-22: THAT NUMBER IS ABOUT THE WRONG OBJECT.** It is the
+> truncation error of a *Kerr QNM frequency*; our substrate is the *sGB metric*. Different theory,
+> different function, different series, possibly a different radius of convergence. The tag "relayed,
+> not verified here" protected us from trusting its VALUE and did nothing about its REFERENT — **a
+> provenance tag is not a relevance tag**. A measurement on the right object is in hand: arXiv:
+> 2406.11986's supplement tabulates the sGB metric's spin series to 40 orders, unresummed, and a
+> ratio test on it is being run (D58). Treat the 6%/19% figures as illustrative of the *kind* of
+> error until that lands. **The computation is exact; whether the object is the right one is a
 > separate question, and only the first is protected by working over a finite field.**
 >
 > *Which way the gap cuts is worth stating, because it is not symmetric.* Finding a Killing tensor
