@@ -4054,5 +4054,30 @@ Three process notes, two of them near-misses:
   would have tested the polar block under an axial label.
 
 Written up as §146, D59, and gate batteries KT8/KT8b (with the sabotage direction). The physical odd
-sector at O(χ¹) is running through the slower exact path; early read is that drag3 breaks 9 of 14
+sector at O(χ¹) is running through the slower exact path; early read is that drag3 breaks 9 of 14 [CORRECTED same day: inverted and basis-dependent — 9 SURVIVE (exactly the floor), the 5 L²-carrying directions die; and it reproduces §140, see the later entry]
 chains at O(εχ¹), before the pole-order question is reached.
+
+
+## 2026-09-22 (night) — two corrections to my own day's work, and the weekend queue
+
+**Axial ℓ = 5 gives 0**, so the axial count moves with degree as well as parity (ℓ = 1, 3, 5 → 0, 1, 0).
+My §146 sentence "parity decides how many there are" was §143's over-reach again, made by me a few
+lines after diagnosing it. Narrowed in place, with the original wording kept visible.
+
+**drag3: "9 of 14 fail" was inverted and basis-dependent.** Asking *why those 9* meant expressing each
+chain in Schwarzschild products, and the "failing" set contained products like p_φ²H that must extend
+on physical grounds. The solver's per-basis-chain report is not the invariant; the extending subspace
+is. It is **9-dimensional and is exactly the floor**; the 5 L²-carrying directions die. The wrong
+statement survived a first look because 9 failing basis chains coincided with a 9-dim floor. **And none
+of this is new** — §140 has had "ℓ=3 dragging: dies at O(chi) again" since before today. I presented a
+reproduction of my own notebook as a finding. What survives is the box-width control and the explicit
+identification of the survivors as the floor.
+
+**Weekend.** `scripts/weekend_rank8.sh` + sealed `data/anat/weekend/PREDICTIONS.json` (committed
+before any run): axial ℓ = 3 rank 8 with the bet that its direction keeps exactly 39 =
+{0:25,1:0,2:9,3:4,4:1}; §143's ℓ = 4 rank 8 on the owed second prime (`--axial-controls 0` restores its
+exact columns); o3 rank 8 on prime 1. One job at a time behind a free-memory gate, PIDs recorded by
+parent-chain walk, scored automatically by a checker calibrated both ways.
+
+**D58 landed** (relayed): our substrate's spin truncation is 1–6% at a = 0.69 away from the horizon,
+unresolved at 0.9; near-horizon metric error requested. §1 updated; the Kerr-QNM figures retired.

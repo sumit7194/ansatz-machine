@@ -3504,17 +3504,32 @@ Rerun at L⁹ and L¹¹: floor restored, same answer. **The random control is tw
 it flags a vacuous run, below the floor it flags a box too narrow.** (`reduced_r4_o{3,5}_k10.out`
 kept as the discarded exhibit; `…_k10_d{9,11}.out` are the valid ones.)
 
-**The physical odd sector: drag3's obstruction is real.** `scripts/_kt_drag_boxcheck.py` holds the 14
-Kerr chains fixed (the complete rank-4 set) and widens only the space the particular solution is
-sought in:
+**The physical odd sector: drag3 kills exactly Carter at O(εχ¹) — and this REPRODUCES §140; it is not
+new.** §140 already records "ℓ=3 dragging: dies at O(chi) again" and that single deformations keep
+"14/14 or the 9 floor, nothing between". What this adds is a box-width control and a basis-independent
+statement of *what* survives. `scripts/_kt_drag_boxcheck.py` holds the 14 Kerr chains fixed (the
+complete rank-4 set) and widens only the space the particular solution is sought in:
 
-    solution-box margin        6 (27x24)    8 (29x26)    10 (31x28)
-    drag1, 6 profiles          all extend   all extend   all extend
-    drag3, 6 profiles          chains [3,4,6,7,9,10,11,12,13] do not extend at eps chi^1 -- identical
-    failing (slot, chain) pairs    54           54            54
+    solution-box margin                 6 (27x24)    8 (29x26)    10 (31x28)
+    drag1, 6 profiles, extending dim    14 of 14     (all extend at every width)
+    drag3, 6 profiles, extending dim     9 of 14     failing pattern identical at every width
 
-Unchanged across three widths, while drag1 — same χ order, same profiles, same boxes — extends
-everything, which shows the box can extend chains for an axial χ¹ deformation. So the **physical odd
-ℓ = 3 deformation cannot extend 9 of Kerr's 14 rank-4 chains even at first order in ε and χ**: the
-tower breaks one χ order *below* where the pole-order test looks. Prime 0 only; which 9 chains, and
-why those, is not yet understood. (`data/anat/drag_boxcheck.out`, `qpower_r4_drag{1,3}.out`)
+and the drag3 extending subspace, in product coordinates, is **exactly the reducible floor**:
+
+    H^2, p_phi^2 H, p_phi^4, p_t p_phi H, p_t p_phi^3, p_t^2 H, p_t^2 p_phi^2, p_t^3 p_phi, p_t^4
+    -- every product of p_t, p_phi and H; the five L^2-carrying directions (L^4, H L^2, p_phi^2 L^2,
+       p_t p_phi L^2, p_t^2 L^2) are exactly what dies
+
+That lands on the lower bound the isometries force (p_t, p_φ and the deformed H are conserved exactly,
+so the floor must extend), which is a consistency check on the method. It also fixes rank 2: if Carter
+extended there, p_t²·Carter would extend at rank 4, and it does not.
+
+**A correction, and the way it nearly stood.** As first written this said drag3 "cannot extend **9** of
+Kerr's 14 chains". That was **inverted: 5 die, 9 survive.** The solver reports failure per *basis
+chain*, and a combination of failing chains can still extend — several "failing" chains contained floor
+products that must survive on physical grounds. The invariant is the dimension of the extending
+subspace. The error survived a first look because the number of failing basis chains (9) happened to
+equal the dimension of the floor (9). **The per-chain "set aside" logic is still correct for what it is
+used for** — deciding whether *all* 14 survive — so §139–§141 are unaffected; only a *count* of failing
+basis chains is basis-dependent. (`data/anat/drag_span.out`, `drag_boxcheck.out`, `qpower_r4_drag{1,3}.out`;
+prime 0.)

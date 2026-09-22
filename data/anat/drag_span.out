@@ -1,0 +1,106 @@
+chains: 14 from data/kt_double_chains_r4_d7_b27x24.pkl (held FIXED across box widths)
+slots ['drag3', 'drag1'], solution-box margins [6], prime 2147483647
+
+    [eps chi^0 timing] lcm+compare 0.3s | clear 3.8s = sources only (168)
+    rust nullspace: 8 blocks (largest 4984 cols), nnz 1,219,864 -> peak 464,383, nullity 182, 1 thread(s), 2.2s
+    residual guard: full, 182 vectors
+    [eps chi^1 timing] lcm+compare 7.0s | clear 11.6s = sources only (168)
+    rust nullspace: 8 blocks (largest 5014 cols), nnz 1,272,466 -> peak 464,383, nullity 156, 1 thread(s), 2.3s
+    residual guard: full, 156 vectors
+      drag1_1    EXTENDING SUBSPACE at eps chi^1: dim 14 of 14  (basis-independent; per-chain report above is basis-dependent)
+          Lsq^2
+          H Lsq
+          H^2
+          p_phi^2 Lsq
+          p_phi^2 H
+          p_phi^4
+          p_t p_phi Lsq
+          p_t p_phi H
+          p_t p_phi^3
+          p_t^2 Lsq
+          p_t^2 H
+          p_t^2 p_phi^2
+          p_t^3 p_phi
+          p_t^4
+      drag1_2    EXTENDING SUBSPACE at eps chi^1: dim 14 of 14  (basis-independent; per-chain report above is basis-dependent)
+      drag1_3    EXTENDING SUBSPACE at eps chi^1: dim 14 of 14  (basis-independent; per-chain report above is basis-dependent)
+      drag1_4    EXTENDING SUBSPACE at eps chi^1: dim 14 of 14  (basis-independent; per-chain report above is basis-dependent)
+      drag1_5    EXTENDING SUBSPACE at eps chi^1: dim 14 of 14  (basis-independent; per-chain report above is basis-dependent)
+      drag1_6    EXTENDING SUBSPACE at eps chi^1: dim 14 of 14  (basis-independent; per-chain report above is basis-dependent)
+      drag3_1    EXTENDING SUBSPACE at eps chi^1: dim 9 of 14  (basis-independent; per-chain report above is basis-dependent)
+          H^2
+          p_phi^2 H
+          p_phi^4
+          p_t p_phi H
+          p_t p_phi^3
+          p_t^2 H
+          p_t^2 p_phi^2
+          p_t^3 p_phi
+          p_t^4
+      drag3_2    EXTENDING SUBSPACE at eps chi^1: dim 9 of 14  (basis-independent; per-chain report above is basis-dependent)
+          H^2
+          p_phi^2 H
+          p_phi^4
+          p_t p_phi H
+          p_t p_phi^3
+          p_t^2 H
+          p_t^2 p_phi^2
+          p_t^3 p_phi
+          p_t^4
+      drag3_3    EXTENDING SUBSPACE at eps chi^1: dim 9 of 14  (basis-independent; per-chain report above is basis-dependent)
+          H^2
+          p_phi^2 H
+          p_phi^4
+          p_t p_phi H
+          p_t p_phi^3
+          p_t^2 H
+          p_t^2 p_phi^2
+          p_t^3 p_phi
+          p_t^4
+      drag3_4    EXTENDING SUBSPACE at eps chi^1: dim 9 of 14  (basis-independent; per-chain report above is basis-dependent)
+          H^2
+          p_phi^2 H
+          p_phi^4
+          p_t p_phi H
+          p_t p_phi^3
+          p_t^2 H
+          p_t^2 p_phi^2
+          p_t^3 p_phi
+          p_t^4
+      drag3_5    EXTENDING SUBSPACE at eps chi^1: dim 9 of 14  (basis-independent; per-chain report above is basis-dependent)
+          H^2
+          p_phi^2 H
+          p_phi^4
+          p_t p_phi H
+          p_t p_phi^3
+          p_t^2 H
+          p_t^2 p_phi^2
+          p_t^3 p_phi
+          p_t^4
+      drag3_6    EXTENDING SUBSPACE at eps chi^1: dim 9 of 14  (basis-independent; per-chain report above is basis-dependent)
+          H^2
+          p_phi^2 H
+          p_phi^4
+          p_t p_phi H
+          p_t p_phi^3
+          p_t^2 H
+          p_t^2 p_phi^2
+          p_t^3 p_phi
+          p_t^4
+  margin  6  box 27x24  24500 unknowns  [82s]
+      drag1_1    every chain extends at eps chi^0 and eps chi^1
+      drag1_2    every chain extends at eps chi^0 and eps chi^1
+      drag1_3    every chain extends at eps chi^0 and eps chi^1
+      drag1_4    every chain extends at eps chi^0 and eps chi^1
+      drag1_5    every chain extends at eps chi^0 and eps chi^1
+      drag1_6    every chain extends at eps chi^0 and eps chi^1
+      drag3_1    eps chi^1: chains [3, 4, 6, 7, 9, 10, 11, 12, 13] DO NOT EXTEND
+      drag3_2    eps chi^1: chains [3, 4, 6, 7, 9, 10, 11, 12, 13] DO NOT EXTEND
+      drag3_3    eps chi^1: chains [3, 4, 6, 7, 9, 10, 11, 12, 13] DO NOT EXTEND
+      drag3_4    eps chi^1: chains [3, 4, 6, 7, 9, 10, 11, 12, 13] DO NOT EXTEND
+      drag3_5    eps chi^1: chains [3, 4, 6, 7, 9, 10, 11, 12, 13] DO NOT EXTEND
+      drag3_6    eps chi^1: chains [3, 4, 6, 7, 9, 10, 11, 12, 13] DO NOT EXTEND
+
+VERDICT
+  total failing (slot, chain) pairs by margin: {6: 54}
+  UNCHANGED as the box grows -> the obstruction is REAL, not an ansatz artifact

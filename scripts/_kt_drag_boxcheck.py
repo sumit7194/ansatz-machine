@@ -19,9 +19,14 @@ the complete rank-4 set ({0:9, 1:4, 2:1} = 14), so none is missing.  So the hone
 to hold the chains fixed and widen ONLY the space the particular solution is sought in.
 
 READING IT.  If the failing chains start extending as the box grows, the original finding was an
-ansatz artifact and must be withdrawn.  If they still fail at every width, the obstruction is real:
-the odd l = 3 deformation cannot extend those Kerr chains at first order in eps and chi, and the
-tower breaks one chi order BELOW where the pole-order test looks.
+ansatz artifact and must be withdrawn.  If they still fail at every width, the obstruction is real.
+
+BASIS-DEPENDENCE -- the per-chain lines are NOT the result.  "chain k does not extend" is tested per
+basis chain, and a combination of failing chains can still extend.  The invariant printed as
+"EXTENDING SUBSPACE" is the dimension (and, in product coordinates, the identity) of the chain-
+combinations that DO extend.  For drag3 it is 9-dim and exactly the reducible floor: the 5 L^2-carrying
+directions die, 9 survive -- the reverse of what "chains [3,4,6,...] do not extend" (nine of them)
+suggests at a glance.  This reproduces §140 ("l=3 dragging: dies at O(chi)"); it is not a new result.
 
 Usage: _kt_drag_boxcheck.py [--slots drag3] [--margins 6,8,10] [--rank 4] [--denpow 7] [--chainmargin 6]
 """
@@ -37,10 +42,12 @@ import _kt_exact as EX  # noqa: E402
 import _kt_metrics as MM  # noqa: E402
 import _kt_perturb as PB  # noqa: E402
 import _kt_search as K  # noqa: E402
-from _kt_carter_space import arg, build_space, load  # noqa: E402
+import numpy as np  # noqa: E402
+from _kt_carter_space import arg, build_space, kernel_np, load, rank_np, rref_np  # noqa: E402
 from _kt_opfast import operator_from_templates  # noqa: E402
 
 x, y = sp.symbols("x y", real=True)
+SPANS = {}   # slot -> rows spanning the chain-combinations that DO extend at eps chi^1 (last run)
 
 
 def run(rank_, denpow, margin, chains, slots, kmax, p):
@@ -88,6 +95,7 @@ def run(rank_, denpow, margin, chains, slots, kmax, p):
         return PB.bracket_raw_coeffs(F, Hh, mons)[0]
 
     F1, failing = {}, {}
+    SPANS.clear()
     alive = list(range(A))
     for n in (0, 1):
         srcs, keys = [], []
@@ -102,6 +110,24 @@ def run(rank_, denpow, margin, chains, slots, kmax, p):
                 keys.append((k, a))
         lev = KD._prep_level(srcs, D, op, None, p, f"eps chi^{n}")
         ns = KD.nullspace_dicts(lev, n_w + len(srcs), p)
+        if n == 1:
+            # BASIS-INDEPENDENT count.  "chain k does not extend" is a statement about one basis vector;
+            # a combination of failing chains can still extend.  What is invariant is the subspace of
+            # chain-combinations whose source lies in the image: V1 = source-parts of the nullspace.
+            # Restrict it to each deformation's own columns to get that deformation's extending span.
+            S = len(srcs)
+            C = np.array([[int(z) % p for z in v[n_w:]] for v in ns], dtype=np.int64).reshape(-1, S)
+            V1 = rref_np(C, p)[0] if C.shape[0] else np.zeros((0, S), np.int64)
+            for a in alive:
+                Ja = [j for j, key in enumerate(keys) if key[1] == a]
+                out_ = [j for j in range(S) if j not in Ja]
+                if V1.shape[0] == 0:
+                    ext = np.zeros((0, len(Ja)), np.int64)
+                else:
+                    w = kernel_np(V1[:, out_].T, V1.shape[0], p) if out_ else np.eye(V1.shape[0], dtype=np.int64)
+                    ext = (w @ V1 % p)[:, Ja] % p if len(w) else np.zeros((0, len(Ja)), np.int64)
+                    ext = rref_np(ext, p)[0] if ext.shape[0] else ext
+                SPANS[names[a]] = ext                     # rows: extending chain-combinations
         part = {}
         for v in ns:
             cb = [int(z) % p for z in v[n_w:]]
@@ -142,9 +168,27 @@ if __name__ == "__main__":
     print(f"chains: {len(chains)} from {ckf} (held FIXED across box widths)", flush=True)
     print(f"slots {slots}, solution-box margins {margins}, prime {p}\n", flush=True)
 
+    # chain -> Schwarzschild-product coordinates, so an extending subspace can be NAMED, not just counted
+    from _kt_carter_space import setup as _setup
+    from _kt_qpower import chain_to_products_fast
+    ctx0 = _setup(rank_, denpow, chainmargin, arg("--prime", 0))
+    T, pnames = chain_to_products_fast(ctx0, chains, p)
+    T = np.array(T, dtype=np.int64) % p
+    pn = [str(q).strip() for q in pnames]
+    sg = lambda c: int(c) if c < p // 2 else int(c) - p
+
     table = {}
     for m in margins:
         dx, dy, n_w, fail = run(rank_, denpow, m, chains, slots, kmax, p)
+        for nm in sorted(SPANS):
+            E = SPANS[nm]
+            P = rref_np(E @ T % p, p)[0] if E.shape[0] else E
+            print(f"      {nm:10s} EXTENDING SUBSPACE at eps chi^1: dim {E.shape[0]} of {len(chains)}"
+                  f"  (basis-independent; per-chain report above is basis-dependent)")
+            if nm.endswith("_1") or E.shape[0] < len(chains):
+                for r in P:
+                    print("          " + ", ".join(q if sg(c) == 1 else f"{sg(c)}*{q}"
+                                                  for q, c in zip(pn, r) if c % p))
         table[m] = fail
         print(f"  margin {m:2d}  box {dx}x{dy}  {n_w} unknowns  [{time.time()-t0:.0f}s]", flush=True)
         for nm in sorted(fail):
