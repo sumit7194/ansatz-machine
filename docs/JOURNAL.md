@@ -4022,3 +4022,37 @@ never saw the retraction. Swept repo and memory for surviving copies; clean.
 Endorsed their slower plan: symbol definitions from the paper before any further structural claim, no
 radius until a golden test reproduces a published coefficient, and — my one addition — send the
 reproduced and published coefficients side by side, not a PASS. Nothing of ours is waiting on it.
+
+## 2026-09-22 (later) — §143's prediction is false, and the reason is a variable it never varied
+
+§143 predicted the pole-order increments (2, 1, 0) hold in every angular sector. Tested it on the
+axial side, which changes parity rather than just degree: **ℓ = 1 axial gives (0, 0), ℓ = 3 axial
+gives (1, 0)**, against (2, 1) for both polar families. Rank 4 on both primes, rank 6 on one.
+
+The reason is exact and takes one line to state. On a stationary axisymmetric background t and φ are
+cyclic, so the Poisson bracket keeps only its x and y terms, and none of those changes the degree in
+p_φ — so **parity in p_φ is an exact grading**: parity({A,B}) = parity(A) + parity(B). Polar δH is
+even and poses its source in the same parity block as the Carter product; axial δH is odd and poses
+it in the opposite block. Different block, different linear system, no reason for the counts to
+agree. §143 was not careless — it made the widest claim its data allowed, and every case in that data
+was polar, so parity was pinned throughout and invisible.
+
+**What survives is the better half.** The one axial direction reaching pole order 1 keeps
+(21, {0:16, 1:0, 2:4, 3:1}) — *exactly* the polar signature §140 predicts and `_kt_qpower` hardcodes.
+So the **anatomy** of a pole-order-m direction is sector-independent; only the **count** is not.
+§143's cone picture was right about what these objects look like and wrong about how many there are.
+
+Three process notes, two of them near-misses:
+
+- The first axial run **printed a clean null from an empty question**: `--slots` matched nothing, so
+  the run had zero deformations, every product survived trivially and it exited 0 with "dim 0 of 0".
+  The *random* control is what caught it — it kept everything instead of dropping to the floor.
+  Reading only the increments would have banked a result. Now refused outright.
+- The positive control was a **polar** coordinate change and so could not license an **odd**-sector
+  null. Added φ-drag controls; they keep all 30, so D40 has now actually passed here.
+- `drag1`/`drag3` look like the obvious odd slots, but their O(χ²) slice is p_φ-**even**. Using them
+  would have tested the polar block under an axial label.
+
+Written up as §146, D59, and gate batteries KT8/KT8b (with the sabotage direction). The physical odd
+sector at O(χ¹) is running through the slower exact path; early read is that drag3 breaks 9 of 14
+chains at O(εχ¹), before the pole-order question is reached.

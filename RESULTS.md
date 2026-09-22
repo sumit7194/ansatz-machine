@@ -3375,3 +3375,83 @@ identically). One prime (2147483647) at every rank. Ranks 2, 4, 6 only, in boxes
 reducible floor subtracted. Pole orders 0, 1, 2 — the saturation depth of §142, and a rational Carter
 of pole order ≥ 3 would be invisible here exactly as a non-analytic one would. The three ceilings of
 CLAUDE.md §3 are untouched.
+
+## §146 — the pole-order ladder is NOT ℓ-independent: p_φ parity is an exact grading, and §143 held it fixed
+
+§143 predicted that the pole-order increments **(2, 1, 0)** are a property of Kerr's Carter cone rather
+than of the deformation, and offered two tests: a higher even harmonic, or the ℓ = 3 **odd** sector.
+The odd one is the sharper test — it changes the parity class rather than just the degree — and it
+**falsifies the prediction**.
+
+### The measurement
+
+Axial probe slots carry the standard axial angular function A_ℓ(y) = (1 − y²) P_ℓ′(y) at O(χ²), the
+same probe licence `SLOTS_L4` already takes. Holding the χ order fixed is the point: it varies parity
+and harmonic **only**, where using the physical drag slots would vary parity, harmonic and χ order at
+once. A₁ = (1 − y²) and A₃ = (1 − y²)(5y² − 1) reproduce `drag1`'s and `drag3`'s angular shapes.
+
+    increments at pole order        1     2     3        base    controls
+    ℓ = 2 polar   (§142)           +2    +1    +0          5     pass
+    ℓ = 4 polar   (§143)           +2    +1    +0          1     pass
+    ℓ = 1 axial   (here)           +0    +0     -         12     pass
+    ℓ = 3 axial   (here)           +1    +0     -          0     pass
+
+    ranks 4 and 6, L^7/L^8, 18 slots x^-1..x^-6; rank 4 on BOTH primes, rank 6 on prime 0
+    (data/anat/reduced_r4_o{1,3}.out, reduced_r4_o{1,3}_p1.out, reduced_r6_o{1,3}.out)
+
+**Both ansatz checks pass, in both directions, and one of them is new.** The eight coordinate-change
+controls keep all 30; three random shape deformations keep exactly 16, the reducible floor. The new
+one matters: §142/§143's gauge controls drag along r and θ, so they live in the **polar** sector and
+cannot show the box is wide enough for an **odd** deformation — a null in the axial family would have
+been worth nothing without an in-family positive control (D40). Added φ-drag controls (`gaugeAx*`);
+they keep all 30, so the guard **passed** rather than merely not firing.
+
+### Why — and it is exact, not a story
+
+`scripts/_kt_parity_check.py` (gate batteries KT8/KT8b, sabotage included). On any **stationary,
+axisymmetric** background, t and φ are cyclic, so the Poisson bracket reduces to its x and y terms and
+none of ∂/∂x, ∂/∂y, ∂/∂p_x, ∂/∂p_y changes the degree in p_φ. Therefore
+
+    parity({A, B}) = parity(A) + parity(B)   (mod 2),    parity := degree in p_phi, mod 2
+
+H₀ and L² are p_φ-even, so a Schwarzschild product `p_t^a p_φ^b H₀^c (L²)^e` has parity **b**. Then in
+`{H₀, F} = −{δH, K}`:
+
+    POLAR  δH is p_phi-EVEN  ->  source parity = b      ->  F in the SAME parity block as K
+    AXIAL  δH is p_phi-ODD   ->  source parity = b + 1  ->  F in the OPPOSITE block
+
+**The axial sector is a different block of the linear problem, not a harder instance of the same one.**
+§143 varied the angular degree and found the increments unchanged — correctly. But every case it
+tested was polar, so parity was constant across its entire evidence base and could not appear as a
+variable. The generalisation was not careless; it was the widest claim consistent with the data, which
+is exactly the shape of claim that fails.
+
+### What survives of §143, and it is the more interesting half
+
+**The COUNT of directions reaching a given pole order is sector-dependent. The ANATOMY of a direction
+that reaches it is not.** The single ℓ = 3 axial direction that reaches pole order 1 keeps
+
+    (21, {0: 16, 1: 0, 2: 4, 3: 1})        rank 6, axial l = 3
+
+which is **exactly** the polar pole-order-1 signature — the same 21 that §140 predicts and
+`_kt_qpower` hardcodes, and the same shape as §143's rank-8 ℓ = 4 row {0:25, 1:0, 2:9, 3:4, 4:1}: keep
+the whole Q⁰ floor, drop **all** of Q¹, keep **all** of Q² and above. So a direction of pole order m
+looks identical whichever sector it comes from; parity decides how many of them there are, not what
+they are. §143's cone picture was right about the anatomy and wrong about the counting.
+
+### The trap this walked past, which is worth more than the result
+
+`drag1`/`drag3` are the *physical* odd-parity slots and it is obvious from the names that they are
+"the odd sector". They enter at **O(χ¹)**, and the O(χ²) **slice** the §142 reduction consumes is the
+χ¹ deformation beaten against Kerr's own χ¹ frame dragging — which is p_φ-**EVEN** (measured, KT8 step
+5). Handing that slice to the reduced solver would have tested the **polar** block while every label
+in the output read *axial*. A slot's name describes its angular pattern, not which block its truncated
+slice lands in.
+
+### Scope
+
+First order in ε, O(χ²), shape sector, profiles r⁻¹…r⁻⁶, box L⁷ (rank 4) / L⁸ (rank 6), reducible span
+subtracted, in-sector positive control passed. Rank 4 on both primes; **rank 6 on one prime only**.
+Pole order 3 is not probed here — that needs rank 8, and it is not yet run for either axial family.
+The axial slots are **probes at O(χ²), not slow-rotation metric terms**; the physical odd sector lives
+at O(χ¹) and is reported separately.

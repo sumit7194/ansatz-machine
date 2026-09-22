@@ -184,6 +184,12 @@ if __name__ == "__main__":
     Walls, Wtops = on_slots(Wall), on_slots(Wtop)
     print(f"\n  shape-sector deformations keeping ALL {Kc}: dim {Walls.shape[0]} of {ns}")
     print(f"  shape-sector deformations keeping pure Q^{qmax}:  dim {Wtops.shape[0]} of {ns}", flush=True)
+    if ns == 0:
+        # NOT the same as an empty --slots: every deformation was SET ASIDE at a lower chi order
+        # because its chains stop extending there.  That is a result, and a stronger one than a
+        # pole-order count -- the tower breaks before the pole-order question is reached.
+        print("  NOTE: no deformation survived to this stage -- every one was set aside earlier, "
+              "so the tower breaks at a LOWER chi order than the pole-order test probes", flush=True)
 
     all66 = [n for n, r in zip(*build_space(ctx["GI"], kmax)[::2]) if r == "slot"]
     W2 = load_on(all66, np.load(f"data/anat/compat_slots_r2_k{kmax}.npy"))
@@ -224,6 +230,12 @@ if __name__ == "__main__":
     d = {"d1": {"l2rr_3": 1, "l2ang_3": 1, "l2ang_4": sp.Rational(3, 2)},
          "d2": {"l2rr_4": 1, "l2ang_3": sp.Rational(-10, 21), "l2ang_4": sp.Rational(-5, 14),
                 "l2ang_5": sp.Rational(4, 7)}}
+    # These two are written in the l=2 POLAR basis.  A run over any other slot family does not
+    # contain them, and asking for them by name raised ValueError from list.index -- after the
+    # physics had already been computed and printed, which is the worst place to lose a run.
+    d = {lab: c for lab, c in d.items() if all(nm in nm_alive for nm in c)}
+    if not d:
+        print("    skipped: these are l=2 polar directions and no l=2 slot is alive in this run")
     for lab, coef in d.items():
         w = np.zeros(A, dtype=np.int64)
         for nm, c in coef.items():

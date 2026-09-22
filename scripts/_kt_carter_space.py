@@ -118,6 +118,8 @@ def kernel_np(rows, n, p):
 
 
 def intersect_np(A, B, n, p):
+    if n == 0:                                            # no ambient space: the intersection is {0}
+        return np.zeros((0, 0), dtype=np.int64)
     A = np.array(A, dtype=np.int64).reshape(-1, n)
     B = np.array(B, dtype=np.int64).reshape(-1, n)
     if A.shape[0] == 0 or B.shape[0] == 0:

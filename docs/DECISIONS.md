@@ -1698,3 +1698,30 @@ rather than on a one with an explanation attached, and the supplier has adopted 
 parser check — a parsed Ω coming back even, or a parsed H odd, condemns the parse regardless of the
 golden test. Worth recording because it is the first thing in the exchange that **could have come out
 wrong and did not**; everything before it was a check that fired or a claim that was withdrawn.
+
+### D59 — before generalising from a sweep, write down what it held CONSTANT
+
+§143 swept the angular degree (ℓ = 2 → ℓ = 4), found the pole-order increments (2, 1, 0) unchanged,
+and concluded they hold "for every angular sector". Both cases were **polar**. p_φ-parity — which
+turns out to be an exact grading of the whole problem — was constant across the entire evidence base
+and therefore could not show up as a variable. The axial sector gives (0, 0) and (1, 0) instead.
+
+**The rule.** A sweep licenses a claim about the axis it moved, and says nothing whatever about the
+axes it pinned. Report *"the increments do not depend on the angular DEGREE, over ℓ = 2 and ℓ = 4,
+both polar"* — which is true, useful, and was what was measured. The failure mode is not sloppiness:
+the over-general claim is the **widest one consistent with the data**, which is precisely why it is
+attractive and why it is wrong. So the discipline cannot be "be careful"; it has to be mechanical —
+**list the held-fixed variables next to the varied one, in the write-up, every time.**
+
+**Two corollaries, both bought here.**
+
+*A positive control must live in the sector under test.* §142/§143's gauge controls drag along r and
+θ and therefore sit in the polar sector; they show the system is not killing things generically but
+cannot show the solution box is wide enough for an **odd** deformation. A null in a new sector needs
+a known-keeps-everything object **in that sector** (D40) — a φ-drag here. Added, and it passes.
+
+*A slot's name describes its angular pattern, not the block its truncated slice lands in.* `drag3` is
+the physical odd ℓ = 3 slot, but it enters at O(χ¹) and the O(χ²) slice a reduction consumes is
+p_φ-**even** — the χ¹ deformation beaten against the background's own χ¹ dragging. Feeding it to the
+reduced solver tests the polar block under an axial label. Checked with one `Poly.monoms()` call per
+slot, now battery KT8.
