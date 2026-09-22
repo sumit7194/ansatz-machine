@@ -75,9 +75,15 @@ not integrable, which is an assumption the EMRI waveform programme is built on.
 > different function, different series, possibly a different radius of convergence. The tag "relayed,
 > not verified here" protected us from trusting its VALUE and did nothing about its REFERENT — **a
 > provenance tag is not a relevance tag**. A measurement on the right object is in hand: arXiv:
-> 2406.11986's supplement tabulates the sGB metric's spin series to 40 orders, unresummed, and a
-> ratio test on it is being run (D58). Treat the 6%/19% figures as illustrative of the *kind* of
-> error until that lands. **And the replacement is not a single number: the supplement's coefficients
+> 2406.11986's supplement tabulates the sGB metric's spin series to 40 orders, unresummed, and **it
+> has now been measured (relayed, not verified here; D58, 2026-09-22)**. For the **metric functions**
+> — the object our Killing-tensor search consumes — the O(a²) truncation error is **1–6% at a = 0.69**
+> (r = 3M and 6M), and at **a = 0.9 it is unresolved**: even a 40-order series has not converged there.
+> Horizon-derived quantities converge far more slowly (κ⁽¹⁾ 23%, Ω⁽¹⁾ 85% at a = 0.69), which is
+> consistent with a 1/√(1−a²) branch point at extremality and R = 1. Two cautions travel with it: those
+> horizon figures are not our substrate's error, since we never use Ω or κ, **but** κ⁽¹⁾ is built from
+> the metric functions *at r₊*, so near the horizon our substrate may be much worse than 1–6%. That
+> number has been requested and is not in hand. The 6%/19% QNM figures are retired. **And the replacement is not a single number: the supplement's coefficients
 > are functions of BOTH r and θ**, so the radius of convergence may depend on where you stand — *R at
 > a stated (r, θ)* is the honest form of the question, and whether it varies over the angle is a
 > second question nobody has asked. The spin variable is `a`, at even powers to 40, so the series is

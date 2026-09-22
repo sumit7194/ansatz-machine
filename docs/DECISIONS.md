@@ -1725,3 +1725,38 @@ the physical odd ℓ = 3 slot, but it enters at O(χ¹) and the O(χ²) slice a 
 p_φ-**even** — the χ¹ deformation beaten against the background's own χ¹ dragging. Feeding it to the
 reduced solver tests the polar block under an axial label. Checked with one `Poly.monoms()` call per
 slot, now battery KT8.
+
+**D58, the measurement lands (2026-09-22, late).** The supplier sent the golden test side by side, as
+asked: Yunes & Stein 2011 Eq. 8 static scalar, 1/rᵖ coefficients relative to 1/r, reproduced 1 and 4/3
+against published 1 and 4/3, other powers ≤ 5e-44. Three internal gates tie the other cells together
+(parity from the parsed expressions; horizon rigidity Ω⁽¹⁾ = Ω⁽⁰⁾(H2−H4) at r₊ to 6e-41; κ⁽¹⁾
+re-derived from H1–H4 to 1e-29). Pre-registered, then measured, the O(a²) truncation error against the
+a⁴⁰ series:
+
+    a = 0.69 / 0.90       H1-H4 (r=3M, 6M)    1.1-6.1% / UNRESOLVED (reference not converged)
+                          scalar              ~4.8%   / ~31%
+                          kappa(1)            22.6%   / 93.8%
+                          Omega(1)            84.6%   / 166%
+    radius, Domb-Sykes in u = a^2:   Omega(1) R = 1 in every window;  kappa(1) in band in 2 of 3
+    exploratory exponent at a = 1:   Kerr control +0.495 (true 0.5); kappa(1) -0.48; Omega(1) -0.54
+
+Artifact: `ringdown_spectroscopy/results/38_sgb_supplement.json` @ 6ba9cea. **Relayed, not verified
+here.**
+
+**Which of these numbers is ours.** Our Killing-tensor search consumes the **metric functions**, not
+Ω or κ, so our substrate's spin-truncation error is the H-row: **1–6% at a = 0.69 away from the
+horizon, unresolved at 0.9**. Quoting the 166% as "our error" would be the Kerr-220 mistake inverted:
+right source, wrong referent. **But** κ⁽¹⁾ is built from H1–H4 *evaluated at r₊*, so its slow
+convergence is indirect evidence that the metric functions converge slowly **at the horizon**. Our
+Killing tensor is global, so that matters. The near-horizon H truncation has been requested and is not
+in hand. §1 says so.
+
+**Verified here, not relayed:** the supplier flagged main.tex's printed Ω⁽⁰⁾ = a/(2Mb) as disagreeing
+with the paper's own metric, a/(2M(1+b)). The textbook Kerr value is Ω_H = a/(r₊² + a²) = a/(2Mr₊) with
+r₊ = M(1+b), so a/(2M(1+b)): the metric and the notebook are right, and the printed formula is the
+misprint (or a different definition).
+
+**Read as physics, labelled exploratory:** R = 1 with exponent −½ is what a branch point in b = √(1−a²)
+at extremality produces. The Kerr background term vanishes like √(1−a²) there while the O(ζ)
+correction diverges like 1/√(1−a²), so if this holds the small-coupling expansion is non-uniform
+near extremality. At a = 0.9 the factor is 2.3: something to watch, not yet a breakdown.
