@@ -154,6 +154,24 @@ SLOTS = ("tt", "rr", "ang", "drag1", "drag3", "l0tt", "l0rr", "l0ang", "l2tt", "
 # adding them to SLOTS would shift every saved name list. §143 asks whether the pole order that a
 # deformation can reach is set by its angular degree, so it needs them as a separate family.
 SLOTS_L4 = ("l4tt", "l4rr", "l4ang")
+# ODD-PARITY (axial) probe families, also off by default.  §143 predicted that the pole-order ladder
+# increments (2, 1, 0) do not depend on the angular pattern, and offered two tests: a higher even
+# harmonic, or the l = 3 ODD sector.  The odd one is the sharper test -- it changes the parity class,
+# not just the degree -- but the physical odd slots (drag1, drag3) enter at O(chi^1), where the §142
+# reduction does not apply.  So these carry the AXIAL angular functions at O(chi^2) instead, which is
+# the same licence SLOTS_L4 already takes: a probe deformation that isolates one variable, not a term
+# of a slow-rotation metric.  Holding the chi order fixed is the point -- it changes parity and
+# harmonic ONLY, where using drag3 would change parity, harmonic and chi order at once.
+# Angular function A_l(y) = (1 - y^2) P_l'(y), the standard axial pattern: A_1 = (1 - y^2) reproduces
+# drag1's angular shape and A_3 = (1 - y^2)(5y^2 - 1) reproduces drag3's, both up to normalisation.
+SLOTS_O1 = ("o1tphi", "o1rphi", "o1yphi")
+SLOTS_O3 = ("o3tphi", "o3rphi", "o3yphi")
+
+
+def axial_angular(ell):
+    """A_l(y) = (1 - y^2) P_l'(y), normalised to integer coefficients."""
+    P = sp.legendre(ell, y)
+    return sp.simplify(sp.cancel((1 - y ** 2) * sp.diff(P, y) / sp.Rational(ell * (ell + 1), 2)))
 
 
 def slot_h(slot, R):
@@ -183,6 +201,10 @@ def slot_h(slot, R):
         h[1, 1] = chi ** 2 * R * Y2
     elif slot == "l2ang":
         h[2, 2], h[3, 3] = ang(chi ** 2 * R * Y2)
+    elif slot[:2] in ("o1", "o3") and slot[2:] in ("tphi", "rphi", "yphi"):
+        A = axial_angular(int(slot[1]))
+        i = {"tphi": 0, "rphi": 1, "yphi": 2}[slot[2:]]
+        h[i, 3] = h[3, i] = chi ** 2 * R * A
     elif slot in ("l4tt", "l4rr", "l4ang"):
         Y4 = 35 * y ** 4 - 30 * y ** 2 + 3
         if slot == "l4tt":

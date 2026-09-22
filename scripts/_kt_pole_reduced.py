@@ -77,15 +77,33 @@ if __name__ == "__main__":
 
     # deformations: the shape sector, plus pure O(chi^2) l=2 coordinate changes (controls)
     want = arg("--slots", "l2tt,l2rr,l2ang", str).split(",")
-    from _kt_carter_space import SLOTS, SLOTS_L4
-    names, gis, roles = build_space(GI, kmax, slots=tuple(SLOTS) + tuple(SLOTS_L4))
+    from _kt_carter_space import SLOTS, SLOTS_L4, SLOTS_O1, SLOTS_O3
+    all_slots = tuple(SLOTS) + tuple(SLOTS_L4) + tuple(SLOTS_O1) + tuple(SLOTS_O3)
+    unknown = [w for w in want if w not in all_slots]
+    if unknown:
+        sys.exit(f"--slots names nothing: {unknown}\n  known: {' '.join(all_slots)}")
+    names, gis, roles = build_space(GI, kmax, slots=all_slots)
     keep = [i for i, (n, r) in enumerate(zip(names, roles)) if r == "slot" and n.rsplit("_", 1)[0] in want]
+    # A run with zero deformations is not a null, it is an empty question: every product survives
+    # trivially and the random control cannot fire.  It printed "dim 0 of 0" and exited 0 once.
+    if not keep:
+        sys.exit("no deformation slots selected -- refusing to report a vacuous null")
     names = [names[i] for i in keep]; gis = [gis[i] for i in keep]; roles = ["slot"] * len(keep)
     giK = sum((chi ** n * GI[n] for n in range(3)), sp.zeros(4, 4))
     for k in (1, 3):
         for nm, xi in ((f"gaugeY2r_{k}", [0, chi ** 2 * (3 * y ** 2 - 1) * x ** -k, 0, 0]),
                        (f"gaugeY2y_{k}", [0, 0, chi ** 2 * y * (1 - y ** 2) * x ** -k, 0])):
             names.append(nm); gis.append(chi_pieces(lie_inverse(giK, xi))); roles.append("control")
+    # AXIAL gauge controls.  The two above drag along r and theta, so they land in the POLAR sector:
+    # they show the system is not killing things generically, but they say nothing about whether the
+    # solution box is wide enough to express the F that an ODD-parity deformation needs.  A null in
+    # the axial family is worth nothing without a positive control inside that family (D40), and a
+    # drag along phi is exactly it -- pure gauge, so it MUST keep every product.
+    for k in (1, 3):
+        for wn, W in (("1", sp.Integer(1)), ("y2", y ** 2)):
+            nm = f"gaugeAx{wn}_{k}"
+            names.append(nm); gis.append(chi_pieces(lie_inverse(giK, [0, 0, 0, chi ** 2 * W * x ** -k])))
+            roles.append("control")
     for nm, g in zip(names, gis):
         if g[0] != sp.zeros(4, 4) or g[1] != sp.zeros(4, 4):
             sys.exit(f"{nm} is not a pure O(chi^2) deformation -- the reduction does not apply")
