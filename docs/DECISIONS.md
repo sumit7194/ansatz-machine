@@ -1627,25 +1627,35 @@ dominant singularity — and with a coupling and a deformation both in play, sGB
 this than vacuum Kerr, not less. We asked for the same-sign control run on this series specifically
 rather than cited from an earlier calibration.
 
-### D58, addendum — the question was under-specified, and that is itself the finding (2026-09-22)
+### D58, addendum — one structural fact survives; two were withdrawn at source (2026-09-22)
 
-Three structural facts about the supplement, reported before any parse, each changing the test:
+Three structural facts about the supplement were supplied, recorded here, and then **two of the three
+were withdrawn by the supplier within hours** — before any measurement rested on them. Struck rather
+than deleted, because the mechanism is the useful part.
 
-    1. THE SERIES IS EVEN IN chi. Powers 2, 4, ... 40, zero odd terms across 2,800 occurrences. The
-       real variable is u = chi^2, so "40 orders" is 20 orders in u and R_chi = sqrt(R_u). A stock
-       ratio test DIVIDES BY ZERO here -- the 1/(1+x^2) case -- and may be misread as "too few
-       coefficients".
-    2. ALPHA APPEARS ONLY AT POWER 2. The whole supplement is O(alpha^2), i.e. FIRST ORDER IN ZETA.
-       **So it bounds one half of our double truncation and says nothing about the other.** Even a
-       perfect answer leaves the O(zeta) truncation untouched.
-    3. THE COEFFICIENTS ARE RATIONAL FUNCTIONS OF r (powers r^2 to r^66), not numbers. **So the
-       radius may depend on r, and "what is R for the sGB metric spin series" is UNDER-SPECIFIED as
-       asked.** The honest form is *R at a stated r*, and whether it varies with r is itself a result.
+**SURVIVES.** The coefficients are **rational functions of r** (powers 2–66), not numbers. **So the
+radius may depend on r, and "what is R for the sGB metric spin series" is UNDER-SPECIFIED as asked.**
+The honest form is *R at a stated r*; whether it varies is itself a result, and §1 may not be able to
+carry a scalar caveat at all. This holds whether or not the parse ever finishes, and is independent
+of which symbol turns out to be the spin.
 
-**§1 CANNOT NECESSARILY CARRY A SCALAR CAVEAT AT ALL**, and that conclusion holds whether or not the
-parse is ever finished. Recorded now so it does not wait on a number.
+**WITHDRAWN — "α appears only at power 2, so the supplement is O(α²), first order in ζ".** The census
+counted `SuperscriptBox["α", n]` and so **could not see power-1 occurrences at all**; there are 2,233
+bare α against 924 superscripted. The order in α is unknown. **The inference that this bounds the χ
+half of our double truncation and leaves the ζ half untouched does not follow from anything measured.**
 
-Gate agreed before the run: reconstruct the paper's own published O(chi^2) coefficient from the parse
-and check it against their second-order result. A parser that mis-nests a FractionBox produces
-confident wrong coefficients silently, which is this month's recurring species. If the golden test
-fails, or if R depends strongly on r, that is reported instead of a number.
+**WITHDRAWN — "the expansion variable is u = χ², so R_χ = √R_u".** The *evenness* holds, but two
+symbols, χ and a, both appear only at even powers 2–40, and a single term carries χ²·α·a² together.
+Which is the spin was assumed from the title, never checked against the paper's own definitions.
+
+**THE MECHANISM, which is this month's species in a new costume.** Both bad facts came from regex
+censuses that **answered a narrower question than the one asked of them**: a pattern requiring an
+explicit exponent reports "α is always squared" when it means "among α's carrying a visible exponent,
+all are 2." *A count that cannot see power 1 will never report power 1.* And a further census of
+theirs returned **zeros for both symbols** from an over-escaped pattern — zero being exactly what a
+working census returns when there is nothing there, which is rule 86's failure-as-a-value, logged by
+that session two days earlier and then reproduced.
+
+**Gate status:** the parser's evaluation gate has caught three distinct faults in sequence and failed
+loudly each time rather than emitting a number. **No radius until a golden test reproduces something
+the paper published.**
