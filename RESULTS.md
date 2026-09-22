@@ -3420,6 +3420,20 @@ H₀ and L² are p_φ-even, so a Schwarzschild product `p_t^a p_φ^b H₀^c (L²
     POLAR  δH is p_phi-EVEN  ->  source parity = b      ->  F in the SAME parity block as K
     AXIAL  δH is p_phi-ODD   ->  source parity = b + 1  ->  F in the OPPOSITE block
 
+**One precision, because it is easy to read this as more than it is.** The bracket law above is
+universal — it needs only the two Killing vectors. But *p_φ parity alone* grades the problem here
+because the reduced solver's operator is the **Schwarzschild** H₀, which is p_φ-even. **Full Kerr is
+not.** Its `g^tφ p_t p_φ` term is p_φ-ODD, so H_Kerr carries both parities and p_φ parity does not
+grade the unreduced Kerr Killing-tensor problem at all. What survives there is the **combined
+(deg_t + deg_φ) parity**: H_Kerr's monomials are (even,even) and (odd,odd), both combined-even
+(measured, `_kt_parity_check.py` step 6). So:
+
+    perturbative problem, operator H0 (Schwarzschild)   ->  p_phi parity grades        (this is §146)
+    full Kerr Killing-tensor problem, operator H_Kerr   ->  only COMBINED t+phi parity grades
+
+§146's grading is a property of the operator the §142 reduction hands us, not of Kerr. It is exactly
+as strong as stated and no stronger, and quoting it as "p_φ parity grades Kerr" would be wrong.
+
 **The axial sector is a different block of the linear problem, not a harder instance of the same one.**
 §143 varied the angular degree and found the increments unchanged — correctly. But every case it
 tested was polar, so parity was constant across its entire evidence base and could not appear as a

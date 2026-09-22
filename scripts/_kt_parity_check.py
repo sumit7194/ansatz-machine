@@ -120,6 +120,28 @@ def main(sabotage=False):
         dH = KD.hamiltonian(KD.ginv_perturbation(GI, CS.slot_h(s, x ** -2))[2])
         check(f"dH[{s}] chi^2 slice", parities(dH), 0)
 
+    print("\n6. p_phi parity grades the PERTURBATIVE operator H0, NOT full Kerr")
+    # H_Kerr carries g^tphi p_t p_phi, which is p_phi-ODD, so H_Kerr is not p_phi-homogeneous and
+    # p_phi parity does not grade the unreduced problem.  What survives there is the COMBINED
+    # (deg_t + deg_phi) parity.  Stated because "p_phi parity grades Kerr" would be a false reading
+    # of §146, and the grading is a property of the operator the §142 reduction hands us.
+    mom = list(K.MOM)
+    def par2(e):
+        num, _ = sp.fraction(sp.together(sp.expand(e)))
+        return set() if num == 0 else {(m[0] % 2, m[3] % 2)
+                                       for m in sp.Poly(sp.expand(num), *mom).monoms()}
+    Hk = sum(KD.chi ** n * KD.hamiltonian(GI[n]) for n in range(3))
+    d0, dk = par2(H0), par2(Hk)
+    for nm, d, want_phi, want_comb in (("H0   ", d0, True, True), ("H_Kerr", dk, False, True)):
+        got_phi = len({b for _, b in d}) == 1
+        got_comb = len({(a + b) % 2 for a, b in d}) == 1
+        for what, got, want in (("p_phi parity homogeneous", got_phi, want_phi),
+                                ("combined t+phi homogeneous", got_comb, want_comb)):
+            ok = got == want
+            print(f"  {'ok  ' if ok else 'FAIL'}  {nm} {what:<30s} {got}  expect {want}")
+            if not ok:
+                fails.append(f"{nm} {what}")
+
     if sabotage:
         good = len(fails) == len(axial)
         print(f"\n{'PASS' if good else 'FAIL'} -- sabotage inverted {len(axial)} axial expectations "

@@ -245,6 +245,12 @@ if __name__ == "__main__":
         print(f"    {lab}: survivors {tot} of {Kc}, by leading Q power {br}   "
               f"(predicted 21: {{0: 16, 2: 4, 3: 1}})", flush=True)
     print("\n  controls and random shape deformations")
+    if ns == 0:
+        # With no live slot, a "random shape deformation" is drawn from an empty set and comes back
+        # keeping EVERY product -- which reads on the page as "random deformations keep Carter".  It
+        # is not physics, it is the same vacuous signature an empty --slots run produces.  Say so on
+        # the line itself; a reader scanning the control block will not have the ns above in view.
+        print("    (ns = 0: the random rows below are VACUOUS -- no slot survived to be randomised)")
     for i, a in enumerate(alive):
         if role_alive[i] == "control":
             w = np.zeros(A, dtype=np.int64); w[i] = 1
