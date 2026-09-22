@@ -3482,13 +3482,15 @@ at O(χ¹) and is reported separately.
 
 **Axial ℓ = 5, and a correction to my own sentence above.**
 
-    axial      base   increment at pole order 1       robust to
-    l = 1       12            +0
-    l = 3        0            +1        margin 8; profiles to r^-10 at L^9 and L^11
-    l = 5        0            +0        margin 8; profiles to r^-10 at L^9 and L^11; both primes
+    axial      base   increments at pole order 1, 2     robust to
+    l = 1       12            +0, +0
+    l = 3        0            +1, +0        margin 8; profiles to r^-10 at L^9 and L^11
+    l = 5        0            +0, +0        margin 8; profiles to r^-10 at L^9 and L^11; rank 6 both primes
 
 So within the axial block the increment **moves with degree**, and the one pole-order-1 direction is
-peculiar to **ℓ = 3** rather than the start of a pattern. "Parity decides the count" was wrong: parity is
+peculiar to **ℓ = 3** rather than the start of a pattern. ℓ = 5 at rank 6 (both primes) also shows no
+*delayed* direction at pole order 2, so it is not a later-arriving copy of ℓ = 3's.
+(`data/anat/reduced_r6_o5_p{0,1}.out`) "Parity decides the count" was wrong: parity is
 *one* axis that moves the count, and degree is another, at least in the axial block. The honest
 statement is narrower and less tidy — **the polar ladder is (2, 1, 0) at ℓ = 2 and ℓ = 4; the axial
 ladder is (0, 0), (1, 0), (0, ·) at ℓ = 1, 3, 5.** ℓ = 1 is plausibly the usual low-multipole
