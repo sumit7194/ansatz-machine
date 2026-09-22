@@ -1688,3 +1688,13 @@ silence, because the pattern is demonstrated to count.
 occurrence** against 2,349 superscripted. One is not zero, and rule 104 is precisely that a count of
 one in the column that would falsify "even powers only" deserves to be looked at rather than rounded
 down.
+
+**The flagged `a` resolved, and it turned into the exercise's first passed check.** The single bare
+`a` is not in the metric functions at all: it is the overall factor in **Ω**, the frame-dragging
+angular velocity, which *must* be odd in spin because it reverses when the hole spins the other way.
+Per-cell counts: φ, H₁–H₄, κ all show bare 0 (even); Ω alone shows bare 1 (a × even = odd). **So the
+parity split is the physics**, the evenness underpinning u = a² now rests on a control-validated zero
+rather than on a one with an explanation attached, and the supplier has adopted parity as a standing
+parser check — a parsed Ω coming back even, or a parsed H odd, condemns the parse regardless of the
+golden test. Worth recording because it is the first thing in the exchange that **could have come out
+wrong and did not**; everything before it was a check that fired or a claim that was withdrawn.
