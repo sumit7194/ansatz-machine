@@ -47,3 +47,29 @@ y = z̄ the Euclidean potential is harmonic **iff g = f̄**. So every Drach syst
 is a harmonic real potential by construction, and the only question is superintegrability. Drach systems
 written in complex coordinates may not appear in real Cartesian tables like MT's in recognisable form. Step 3
 would be: go through Drach's list, find the entries with a Euclidean real form, and test rule (c) on each.
+
+## Step 3: Drach's ten systems (`scripts/_k2_drach.py` → `step3.out`)
+
+Read CG 2015 §2–3 first, at source: additivity U_xy = 0 on the (1,1) base **is** Euclidean harmonicity under
+x = z, y = z̄. CG report only two additive Drach systems, both superintegrable by their own footnotes. Drach's
+list is taken from Tsiganov nlin/0001053, eqs (a)–(l), read from the LaTeX source.
+
+**Additivity**, as a linear condition on the couplings (α, β, γ): null space of U_xy sampled at 50-digit
+precision. The gap is clean: zero singular values print as 0.0, the others are ≥ 3e-5. (a) was handled
+analytically (complex exponents): not additive.
+
+- **The literal count, 6 entries (d, e, f, g, k, l), did NOT match the pre-registered "exactly two".** The fault
+  is my criterion, which counted degenerate members. (d) and (f) become additive only by collapsing to a
+  function of x alone; (g) only by becoming affine; and (k) is (l) under x ↔ y, up to an affine term.
+  **Reduced count: (e) and (k)≡(l), which are CG's two**, reproduced under that equivalence and not under my
+  literal test. Recorded as a flaw in how I pre-registered, not glossed.
+- **Real Euclidean forms** (need U = f(z) + f̄(z̄), non-affine): one-variable members have no conjugate pair;
+  (g) is affine; (k)'s pair (γx, αy^(−1/2)) can't be conjugate; (l) forces β = 0, so affine; **only (e)**
+  survives, and its real form is exactly the §147 potential, SW-IV σ = 0, **superintegrable → EXCLUDED**.
+  These real-form steps are **argued, not computed** (the script labels them so), except (e)'s
+  superintegrability, which was computed in §147.
+
+**HITS: none.** Across MT 2023 Table I and Drach's list, no published planar potential is harmonic and
+integrable only through a cubic integral. K1 stays open, now with the two obvious reservoirs checked.
+Blind spot, as pre-registered: systems that become additive only after a coordinate change plus a time
+reparametrisation (Stäckel transform) are not covered.
