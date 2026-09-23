@@ -1,0 +1,9 @@
+0. the Ernst potentials satisfy the Ernst equation (exact, at random rational points)
+  ok    delta = 1: Ernst operator vanishes   [[0, 0, 0, 0]]
+  ok    delta = 2: Ernst operator vanishes   [[0, 0, 0, 0]]
+
+1. CONTROL: Kerr (delta = 1) through the SAME pipeline must be vacuum
+  ok    twist equations solved exactly for omega   [sign s = 1]
+  ok    Kerr: R_ab = 0 exactly at 4 random rational points   [max |R_ab| = 0]
+
+2. Tomimatsu-Sato delta = 2

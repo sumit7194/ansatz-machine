@@ -41,8 +41,12 @@ def check(label, ok, detail=""):
         FAILS.append(label)
 
 
+T_FIXED = None          # --t 1/2 fixes the spin parameter at a rational value (p = 3/5, q = 4/5 for t = 1/2)
+
+
 def pq():
-    return (1 - t ** 2) / (1 + t ** 2), 2 * t / (1 + t ** 2)
+    tt = t if T_FIXED is None else T_FIXED
+    return (1 - tt ** 2) / (1 + tt ** 2), 2 * tt / (1 + tt ** 2)
 
 
 def ernst(delta):
@@ -214,16 +218,22 @@ def main():
     rat = all(sp.cancel(c).is_rational_function(x, y, t, sig) for c in comps)
     check("every metric component is a rational function of (x, y, t, sigma)", rat)
 
-    with open("data/sealed/TS2_for_quantum/ts2_metric_components.txt", "w") as fh:
+    tag = "" if T_FIXED is None else f"_t{str(T_FIXED).replace('/', 'o')}"
+    with open(f"data/sealed/TS2_for_quantum/ts2_metric_components{tag}.txt", "w") as fh:
         fh.write("# Tomimatsu-Sato delta=2, coordinates (T, x, y, phi); p=(1-t^2)/(1+t^2), q=2t/(1+t^2); srepr per component\n")
         for nm, c in (("g_TT", g2[0, 0]), ("g_Tphi", g2[0, 3]), ("g_phiphi", g2[3, 3]), ("g_xx", g2[1, 1]), ("g_yy", g2[2, 2])):
             fh.write(f"{nm} = {sp.srepr(sp.cancel(c))}\n")
         fh.write(f"omega = {sp.srepr(info2['omega'])}\n")
         fh.write(f"A = {sp.srepr(info2['A'])}\nB = {sp.srepr(info2['B'])}\n")
-    print("\n  components written to data/sealed/TS2_for_quantum/ts2_metric_components.txt")
+    print(f"\n  components written to data/sealed/TS2_for_quantum/ts2_metric_components{tag}.txt")
     print("\n" + ("PASS -- all checks" if not FAILS else f"FAIL ({len(FAILS)}): {FAILS}"))
     return 1 if FAILS else 0
 
 
 if __name__ == "__main__":
+    # The exact-in-t solve is correct but slow (a 45-unknown linear system over Q(t)); a rational t makes it
+    # pure rational arithmetic.  Every metric component stays rational in (x, y), which is what Kovacic needs.
+    if "--t" in sys.argv:
+        T_FIXED = sp.Rational(sys.argv[sys.argv.index("--t") + 1])
+        print(f"spin parameter FIXED: t = {T_FIXED}  ->  p, q = {pq()}", flush=True)
     sys.exit(main())
