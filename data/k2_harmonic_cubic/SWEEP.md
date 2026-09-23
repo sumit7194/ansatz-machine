@@ -73,3 +73,25 @@ analytically (complex exponents): not additive.
 integrable only through a cubic integral. K1 stays open, now with the two obvious reservoirs checked.
 Blind spot, as pre-registered: systems that become additive only after a coordinate change plus a time
 reparametrisation (Stäckel transform) are not covered.
+
+## Step 3b: real forms COMPUTED (`scripts/_k2_drach_realforms.py` → `step3b.out`)
+Necessary condition for a real Euclidean form of additive U = F(x) + G(y): F″ ≡ 0 ⇔ G″ ≡ 0, and non-affinity
+needs F″ ≠ 0. Every additive member except (e) has one side affine for all couplings, so V is forced affine.
+Only (e) is flagged, as the control requires. The earlier "argued" steps are now computed.
+
+## Step 4: bounded Stäckel (CCM) screen (`scripts/_k2_stackel.py` → `step4.out`)
+One CCM on a freely-coupled term with harmonic log (so the target is flat), with E = 0 forced. Eligibility and the
+harmonic sub-family of the output were both computed.
+- Controls: **C5 reproduces SW-IV σ = 0** (oscillator plus linear, CCM on |z|², gives Re(1/z)); **C6**: the
+  constant's output (1/r², Kepler in w) is not harmonic. (The trivial CCM on a constant term has an affine
+  harmonic output, excluded by non-affinity.)
+- Table I: the eligible terms are the Toda exponentials (V2), 1/r² and e^{±√3θ}/r³ (V6) and the Kepler 1/r (V7).
+  **Every output's only harmonic member is U = 0.** V3, V4, V5 and V7's other terms have non-harmonic logs
+  (curved target, out of scope); V1 reduces to V2; V8 has no free coupling.
+- **HITS: none.**
+
+## Overall (steps 2–4)
+No planar potential in MT 2023 Table I, in Drach's list, or reachable from Table I by one flat-target Stäckel
+transform, is harmonic **and** integrable only through a cubic integral. K1 stays open. What was NOT screened,
+stated positively: multi-step CCMs, curved-target transforms, fixed-energy integrals, cubic integrals of types
+other than MT's J^(3,2)_0, and systems outside these published lists.

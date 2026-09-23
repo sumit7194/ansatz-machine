@@ -1,0 +1,46 @@
+CONTROLS
+
+  C5/C6: oscillator + linear (+ constant)  [must reproduce SW-IV sigma=0; constant must spoil harmonicity]
+    CCM on c1 (x^2+y^2)           eligible; output U = sum_(j!=i) alpha_j V_j / V_i : HARMONIC sub-family dim 1: [['1.0', '0.0']]   sv ['0.0384', '0.0']
+    CCM on c2 x                   log V_i not harmonic -> target curved -> OUT OF SCOPE
+    CCM on c0 (constant)          eligible; output U = sum_(j!=i) alpha_j V_j / V_i : HARMONIC sub-family dim 1: [['0.0', '1.0']]   sv ['9.8', '0.0']
+  ok    C5: CCM on c1|z|^2 gives a 1-dim harmonic family, the c2 x direction only
+  ok    C5: that output is x/r^2 = Re(1/z), i.e. SW-IV sigma=0 in w = z^2/2 (superintegrable, dim 3 in §147)
+  ok    C6: the constant's output 1/r^2 is NOT harmonic (the Kepler term in w)
+
+TABLE I (MT 2023) -- eligible terms and CCM outputs
+
+  V2 Toda
+    CCM on c+ e^{k(y+sqrt3 x)}    eligible; output U = sum_(j!=i) alpha_j V_j / V_i : no harmonic output except U = 0   sv ['0.0193', '0.00892']
+    CCM on c- e^{k(y-sqrt3 x)}    eligible; output U = sum_(j!=i) alpha_j V_j / V_i : no harmonic output except U = 0   sv ['4.08e+7', '37.7']
+    CCM on c0 e^{-2ky}            eligible; output U = sum_(j!=i) alpha_j V_j / V_i : no harmonic output except U = 0   sv ['1.02e+7', '11.9']
+
+  V6 (k1, k2, k3 free)
+    CCM on k1/r^2                 eligible; output U = sum_(j!=i) alpha_j V_j / V_i : no harmonic output except U = 0   sv ['0.355', '0.0269']
+    CCM on k2 e^{sqrt3 th}/r^3    eligible; output U = sum_(j!=i) alpha_j V_j / V_i : no harmonic output except U = 0   sv ['1.01', '0.0897']
+    CCM on k3 e^{-sqrt3 th}/r^3   eligible; output U = sum_(j!=i) alpha_j V_j / V_i : no harmonic output except U = 0   sv ['11.3', '1.57']
+
+  V7 (a2=1, a5=0 by rotation; k1, k2, k3 free)
+    CCM on k1/y^2                 log V_i not harmonic -> target curved -> OUT OF SCOPE
+    CCM on k2/r                   eligible; output U = sum_(j!=i) alpha_j V_j / V_i : no harmonic output except U = 0   sv ['13.8', '0.0156']
+    CCM on k3 x/(r y^2)           log V_i not harmonic -> target curved -> OUT OF SCOPE
+
+  V3 Holt type (c2, c3 free; c1 ties two pieces into one term)
+    CCM on c1 (4/3 x^2 y^-2/3 + y^4/3) log V_i not harmonic -> target curved -> OUT OF SCOPE
+    CCM on c2 x y^-2/3            log V_i not harmonic -> target curved -> OUT OF SCOPE
+    CCM on c3 y^-2/3              log V_i not harmonic -> target curved -> OUT OF SCOPE
+
+  V4 (single term)
+    CCM on k (xy)^-2/3            log V_i not harmonic -> target curved -> OUT OF SCOPE
+
+  V5 (single term)
+    CCM on k (x^2-y^2)^-2/3       log V_i not harmonic -> target curved -> OUT OF SCOPE
+
+  V1: terms F_i(w_i) along linear forms; log F_i harmonic <=> (log F_i)'' = 0 <=> F_i exponential -> reduces to V2
+  V8: couplings k, F2, F3 are tied by the entry's side conditions -> no free coupling -> OUT OF SCOPE (as pre-registered)
+
+VERDICT
+  CCM outputs with a nonzero harmonic sub-family: none
+  HITS: none
+
+PASS -- controls behaved
