@@ -54,3 +54,38 @@ we can't reproduce), which must not be over-read.
 ## Stop condition
 Report to The Bridge after step 2 (symbolic ΔU plus rules (b)/(c) on every listed potential), before
 anything further.
+
+---
+
+# STEP 3 (pre-registered 2026-09-24, before reading Tsiganov's list): Drach's cubic-integrable systems
+
+**What CG 2015 already did (read at source first, §2–3):** Drach systems have H = p_x p_y + U(x, y) on a (1,1)
+base. The Eisenhart lift is Ricci-flat iff **U_xy = 0 (additivity, U = f(x) + g(y))**, and CG state that
+"only two" of Drach's models satisfy it. Both are superintegrable by CG's own footnotes: the first carries
+p_y² + 2αx; the second's extra quadratic is the one the workspace's EXP-003 recovered, and its real form is the
+§147 pp-wave (SW-IV σ = 0). **Under x = z, y = z̄, Euclidean harmonicity is exactly additivity**, so step 3 is
+an *independent check of CG's inspection*, not new ground.
+
+**Rule, per Drach entry:**
+1. **Additive?** U_xy ≡ 0 symbolically, as the entry is written. **Prediction to test: exactly two entries
+   (CG's claim).**
+2. **Real Euclidean form?** For additive entries, whether constants and allowed maps make g = f̄, so that
+   V(z, z̄) = f(z) + f̄(z̄) is real, harmonic and non-affine.
+3. **Real Lorentzian lift (the Bridge's condition):** the lifted metric is real with signature (1,3). A metric
+   that is real only in signature (2,2) is one of CG's own metrics in disguise, and does NOT count.
+4. **Rule (c):** the Euclidean real form has a 1-dimensional quadratic-integral family (integrable only).
+   HIT iff 1–4 all pass.
+
+**Controls:** C4 = CG's first additive system, U = α(y − βx) + γ/√x: it must yield no non-affine real
+harmonic form (f and g can't be conjugate unless γ = 0). C1′ = CG's second, U = α/√x + β/√y: with α = β its
+real form must be SW-IV σ = 0 (up to √2) and be EXCLUDED (dim 3).
+
+**Scope caveats, recorded now:** (i) the list is Drach's as presented by Tsiganov (nlin/0001053); Drach 1935
+itself is not re-read. (ii) Additivity is tested in the coordinates each entry is written in; a system that
+becomes additive only after a coordinate change plus time reparametrisation (Stäckel / coupling-constant
+metamorphosis, possible for fixed-energy integrals) would be missed. That is a known blind spot, stated
+positively. (iii) Integrals that exist only at fixed energy do not lift to Killing tensors of the full metric
+and are excluded.
+
+**Expectation:** no HIT, and CG's "only two additive" reproduced. Confidence: high for "no HIT", moderate
+for "exactly two" (it depends on how Tsiganov writes each entry).
