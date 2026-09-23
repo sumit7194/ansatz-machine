@@ -1,0 +1,186 @@
+# Moonshots and backlog — ranked by impact × improbability (2026-09-23)
+
+*Assembled at the user's request: everything the docs planned and never did, plus new candidates, each
+checked against the literature before being listed. **Ranked with the long shots first** — highest impact,
+lowest chance, highest complexity at the top — because that is the steer: "I would prefer [trying new
+things] even if it continues to fail."*
+
+Scales: **impact** 1–5 (5 = would change what the field believes); **chance** = rough odds of a clean,
+defensible result; **complexity** 1–5. **Source** says whether it was already in our docs (and where) or
+is new. "Not found" in the literature column means not found by today's sweep (roughly 20 searches and
+reading the key papers), which is not the same as "not done" — the ZV lesson (D47).
+
+---
+
+## Tier 1 — moonshots (impact 5, chance ≲ 15%)
+
+### 1. A Lorentzian **vacuum** spacetime with an irreducible Killing tensor of rank ≥ 3 — or a no-go theorem
+- **Source:** new, but it is the gap CLAUDE.md §1 already names ("no Lorentzian Ricci-flat spacetime with
+  an irreducible Killing tensor of rank ≥ 3 is known in any dimension").
+- **Why it's live:** Cariglia–Galajinsky (arXiv:1503.02162) spell out the route: an Eisenhart lift is
+  Ricci-flat iff the potential is **harmonic**, and it turns a degree-k integral into a rank-k Killing tensor.
+  **No known potential with a cubic-or-higher integral is harmonic**, which is why their examples had to go
+  ultrahyperbolic. Galajinsky–Lechtenfeld (arXiv:1306.5238) reduce 2-D cubic/quartic-integrable models to a
+  single "prepotential" PDE. A 2025 paper (arXiv:2504.18287) builds towers of irreducible higher-rank tensors
+  in Lorentzian signature by lifting lower-dimensional symmetries — but, from its abstract, only in
+  **non-vacuum** examples (full text not yet read).
+- **What we'd do:** in 2-D a harmonic potential is V = Re f(z). Impose "cubic (quartic) integral exists" and
+  ΔV = 0 together. That's an overdetermined PDE system: attack it by **differential elimination**
+  (Thomas/Rosenfeld–Gröbner) for a proof, and by our propose→verify loop (GP proposes f, the exact GF(p) prover
+  checks the integral) for examples.
+- **Why it's worth it even if it fails:** the failure mode is also a result. An overdetermined system that
+  eliminates to inconsistency is a **no-go theorem for the Eisenhart route**.
+- **Impact 5 · chance ~5% (example) / ~15% (no-go) · complexity 5.**
+
+### 2. An exact closed form for the EdGB / sGB black hole
+- **Source:** `docs/EDGB.md` ("lottery ticket").
+- **Literature (2026):** still none. The best are analytic *approximations*: Kokkotas–Konoplya–Zhidenko
+  (arXiv:1706.07460, a continued fraction) and Lam–Chung–Yunes (arXiv:2510.05208, PRD 113, 024030 (2026):
+  spectral, any spin, machine precision to a ≤ 0.9). No symbolic-regression attempt was found.
+- **Honest read:** most likely there is no closed form. A search with GP plus the exact field-equation verifier
+  is cheap to run, but the odds are poor.
+- **Impact 5 · chance ~1–2% · complexity 4.**
+
+### 3. Morales–Ramis, route 2: an all-rank non-integrability proof for sGB at the order where Carter fails
+- **Source:** D51 (planned, recommended, never built) and CARTER_UNDER_DEFORMATION §8.2.
+- **Literature:** no differential-Galois analysis of **any** modified-gravity black hole found (D51 plus
+  today's sweep). The tools are maturing: higher-order variational equations (Morales-Ruiz–Ramis–Simó 2007),
+  now formalised as one infinite linear system (arXiv:2309.04449). **A Kovacic solver already exists for
+  SymPy** (`sympy-extras`, `dsolve_kovacic`) plus a documented full implementation (arXiv:2211.00804) — D51
+  assumed we'd have to write one from scratch.
+- **The obstacle (unchanged):** the obstruction first appears at O(ζχ²), so first-order variational equations
+  see nothing. The monodromy has to be carried to that order, organised in the same (ζ, χ) double expansion
+  as our tower.
+- **Impact 5** (the first all-rank statement for any beyond-GR black hole; it breaks ceiling 2 outright and
+  partly ceiling 1) **· chance ~10% · complexity 5.** Depends on #7.
+
+### 4. Settle the dCS contradiction: is the dCS black hole integrable?
+- **Source:** new framing. D53/§145 eliminated one explanation (the rational class).
+- **Literature:** still open in 2026. Cárdenas-Avendaño et al. (arXiv:1804.04002) conjecture integrable;
+  Owen–Yunes–Witek (arXiv:2103.15891) and Deich et al. (arXiv:2203.00524) point the other way.
+- **What we'd do:** combine #5 (an all-spin dCS substrate) with #3 or #7 (an all-rank method).
+- **Impact 4–5 · chance ~10–20% · complexity 5.** It's a destination, not a first step.
+
+---
+
+## Tier 2 — ambitious (impact 4, chance 20–50%)
+
+### 5. The Carter test at EMRI spins: an O(ζ), exact-in-spin substrate
+- **Source:** new. It follows from D58: our O(χ²) substrate is off by **tens of percent near the horizon**
+  already at a = 0.69 and unresolved at 0.9, and the real targets sit at a ~ 0.9.
+- **Literature:** Lam–Chung–Yunes (arXiv:2510.05208) give sGB, dCS and axi-dilaton metrics at leading order
+  in the coupling, for **any spin**. Also relevant: arXiv:2509.07061 (spectral spinning BHs) and
+  arXiv:2305.15341 (accuracy of the slow-rotation approximation).
+- **The real difficulty, stated up front:** their coefficients are floating point. Over GF(p) a 1e-16 metric
+  error is an exact nonzero obstruction, so it **would read as a null for the wrong reason**. There are two
+  honest options: (a) redo their spectral linear solve in **exact rational arithmetic** at a rational spin
+  (a = 9/10), which gives an exact result for a basis-truncated metric, with convergence in basis size as the
+  control; or (b) accept a numerical rank-gap screen and say so. Either way, verify the field equations first
+  (CLAUDE.md §5).
+- **Impact 4–5** (closes the largest gap in CLAUDE.md §1) **· chance ~35% · complexity 4–5.**
+
+### 6. Why the pole order saturates — a theorem, via Kruglikov's relative Killing tensors
+- **Source:** CARTER §8.1/§8.4 and §142–§146. It's the longest-standing open "why" of the arc. §146 changed
+  what needs explaining: the counts depend on parity and, in the axial block, on degree.
+- **Literature:** Kruglikov (arXiv:2412.04151, rev. Jan 2026) proves a rational integral F = P/Q forces P and Q
+  to be **relative Killing tensors** ({H,P} = L·P, {H,Q} = L·Q with a common cofactor L linear in momenta),
+  and gives **sharp dimension bounds**. Our rational Carter, F = (2Q^{m+1} + εK)/(2Q^m), has exactly this
+  shape at O(ε). Those bounds are the first external handle on why m cannot grow. Related:
+  arXiv:2412.04907 (fractional-linear integrals) and Kruglikov–Matveev (arXiv:1510.01493, generic
+  non-existence).
+- **Impact 4 · chance ~20–25% · complexity 4.**
+
+### 7. A rational-integral search engine (non-perturbative in ε)
+- **Source:** new. It generalises D52 from "check whether a survivor is a power" to "search for rational
+  integrals directly".
+- **Idea:** Kruglikov's relative-Killing-tensor equations are **linear in (P, Q) for a fixed cofactor L**, which
+  is exactly the kind of system our GF(p) machinery solves. That allows an exact search for rational integrals
+  of stated degrees on a *fixed* metric at finite deformation, with no perturbative root and no ceiling 1.
+  L is unknown but only linear in momenta; parameterise it and iterate, or eliminate it.
+- **Impact 4** (closes D52's loophole at finite coupling) **· chance ~25% · complexity 4.**
+
+### 8. Does "A" keep Carter at O(ε²)? The second-order tower
+- **Source:** PARKED P1.1 ("open, and out of reach of this instrument").
+- **Literature:** VYS 2011 (arXiv:1102.3706) and everything downstream work at first order. Nothing found at
+  O(ε²) for a Carter-type tensor.
+- **Why it matters:** every "keeps Carter" in §139–§146 is first order. A deformation can keep Carter at O(ε)
+  and lose it at O(ε²). If the rational Carter dies at second order, the whole pole-order picture becomes a
+  first-order artefact.
+- **Impact 4 · chance ~50% (of a clean answer either way) · complexity 4.**
+
+### 9. An exact rotating vacuum: Tomimatsu–Sato δ = 2, ranks 2–6, exact, no analyticity ceiling
+- **Source:** new. It's the rotating sibling of our ZV control.
+- **Literature:** TS δ = 2 is Petrov type I, so there's no Carter-type rank-2 tensor (arXiv:2607.01910 and
+  others). "Spacetime encodings II" (Brink, PRD 78, 102002) is numerical. **No exact higher-rank analysis and
+  no Morales–Ramis proof found** — MPS 2013 did static ZV only.
+- **Why:** an exact finite-deformation null on a genuine rotating vacuum removes ceiling 1 for that spacetime.
+  The system size is the first question (CLAUDE.md §4 step 1): TS is rational but high-degree.
+- **Impact 4 · chance ~40% · complexity 4.**
+
+### 10. An observable fingerprint of the pole order
+- **Source:** new.
+- **Idea:** a rational Carter with its pole on Q = 0 is singular exactly for near-equatorial (low-Q) orbits.
+  Prediction: under a deformation that keeps only a rational Carter, resonances and chaotic layers appear
+  first near Q = 0. Test with our Poincaré/SALI tools (§84, §97) and compare with the EMRI resonance
+  literature (arXiv:2306.06576; "Cumulative effect of orbital resonances in EMRIs", 2025).
+- **Impact 4** (the first bridge from the algebra to dynamics) **· chance ~25% · complexity 3.**
+
+---
+
+## Tier 3 — solid (impact 2–3, chance > 50%)
+
+### 11. Wave-equation separability on our compatible spaces
+- **Source:** new. Papadopoulos–Kokkotas (arXiv:2007.12125) give a **necessary and sufficient** criterion for
+  a separable Klein–Gordon equation within the Carter-admitting family.
+- **Question:** which of §139's Carter-compatible deformations, and which of §146's axial directions, keep
+  geodesic Carter but lose wave separability?
+- **Impact 3 · chance ~60% · complexity 3.**
+
+### 12. The den² sector at every rank
+- **Source:** project-state v8 "OPEN" (our prover is blind there; ceiling 3 with a number on it).
+- **Impact 3 · chance ~70% (probably the floor again) · complexity 3–4** (memory).
+
+### 13. Why only axial ℓ = 3 reaches pole order 1
+- **Source:** the §146 addendum.
+- **A concrete hypothesis to test first:** Carter's angular operator carries cos²θ, which couples ℓ → ℓ ± 2.
+  cos²θ · A₁ has an ℓ = 3 component, so the ℓ = 3 axial direction may be compensating Kerr's *own* ℓ = 1 frame
+  dragging at O(χ²) rather than being a free deformation. Check: project the direction on (gauge ⊕ spin
+  change ⊕ cos²θ·drag1) and see whether it lies in that span.
+- **Impact 3 · chance ~70% · complexity 2.**
+
+### 14. Third-party-checkable certificates for our nulls
+- **Source:** new. "A negative result is a THEOREM" should be checkable by someone who doesn't trust our code.
+- **Idea:** export the GF(p) kernel, the rational reconstruction and the reducible-span subtraction as a
+  certificate that a tiny independent checker (or Lean) verifies.
+- **Impact 3 · chance ~85% · complexity 3.**
+
+### 15. The δK library test with the collaborating screen
+- **Source:** PARKED P1 ("the remaining test, which now has opposite predicted signs").
+- A bridge leg: produce δK = −(K₁ − 56χ²δH)/8 to O(χ²), **only if asked**, run at χ = 0.075. Prediction: A's
+  exponent collapses from 2 towards 0, and B's doesn't move.
+- **Impact 3 · chance ~80% · complexity 2.**
+
+### 16. ℓ = 6 polar at rank 8
+- **Source:** §143's remaining untested prediction. Mostly superseded now that parity has been found to be
+  the axis that matters, so it's a weekend-CPU filler.
+- **Impact 1–2 · chance ~95% · complexity 1.**
+
+---
+
+## How these depend on each other
+
+    #13, #14, #16         independent, cheap
+    #7 (rational engine)  -> feeds #6 (theorem) and #4 (dCS)
+    #3 route 1 (Kovacic tool, validated on ZV and Kerr) -> route 2 -> #4
+    #5 (all-spin substrate) -> #4 and a stronger CLAUDE.md §1
+    #1, #2                independent long shots
+
+## Sources consulted for this list
+Cariglia–Galajinsky arXiv:1503.02162 · Galajinsky–Lechtenfeld arXiv:1306.5238 · arXiv:2504.18287 ·
+Kruglikov arXiv:2412.04151 · Kruglikov–Matveev arXiv:1510.01493 · arXiv:2412.04907 · Lam–Chung–Yunes
+arXiv:2510.05208 · arXiv:2509.07061 · arXiv:2305.15341 · arXiv:2406.11986 · Kokkotas–Konoplya–Zhidenko
+arXiv:1706.07460 · Morales-Ruiz–Ramis–Simó (2007) · arXiv:2309.04449 · sympy-extras (Kovacic) ·
+arXiv:2211.00804 · Owen–Yunes–Witek arXiv:2103.15891 · Deich et al. arXiv:2203.00524 · Cárdenas-Avendaño
+et al. arXiv:1804.04002 · Vigeland–Yunes–Stein arXiv:1102.3706 · Papadopoulos–Kokkotas arXiv:2007.12125 ·
+Frolov–Krtouš–Kubizňák arXiv:1712.08070 · arXiv:2607.01910 · Brink PRD 78, 102002 · arXiv:2306.06576 ·
+Maciejewski–Przybylska–Stachowiak arXiv:1302.4234.

@@ -220,10 +220,13 @@ verdicts is affected — every one landed exactly on the floor — but the rule 
 1. **Why does the pole order saturate at 2?** ~~The bound may be set by the angular degree.~~ **Answered
    at ℓ = 4 (§143): it is not.** Rank 8 with ℓ = 4 slots gives increments of 2, then 1, then 0 — identical
    to ℓ = 2 — off a Carter-compatible base that collapses from 5 to 1. So *keeping* Carter is an angular
-   question; *how deeply Carter can degrade* is not. The live hypothesis is now that the depth is a
-   property of Kerr's Carter cone: a pole of order m needs the obstruction to vanish to order m on
-   Q = 0, and a quadric imposes the same number of conditions whatever harmonic the deformation carries.
-   Untested predictions: ℓ = 6 and the ℓ = 3 odd sector should also give (2, 1, 0).
+   question; *how deeply Carter can degrade* is not. ~~The live hypothesis is now that the depth is a
+   property of Kerr's Carter cone … ℓ = 6 and the ℓ = 3 odd sector should also give (2, 1, 0).~~
+   **Falsified by §146 (2026-09-22):** the axial sector gives (0, 0), (1, 0), (0, 0) at ℓ = 1, 3, 5.
+   p_φ-parity is an exact grading of the perturbative problem, polar and axial deformations pose their
+   sources in opposite blocks, and within the axial block the count moves with degree too. What survives
+   is the *anatomy*: every pole-order-1 direction seen so far keeps the same product signature. The next
+   handle on "why" is Kruglikov's relative-Killing-tensor bounds (docs/MOONSHOTS.md #6).
 2. **Morales–Ramis for sGB** (D51): an all-rank, all-form non-integrability statement, which would beat
    both the rank and the analyticity ceiling. The ZV recipe transfers structurally; the obstacle is that
    the obstruction first appears at O(ζχ²), so a finite-ζ proof speaks only about the truncation.
