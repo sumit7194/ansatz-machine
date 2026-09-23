@@ -4081,3 +4081,25 @@ parent-chain walk, scored automatically by a checker calibrated both ways.
 
 **D58 landed** (relayed): our substrate's spin truncation is 1–6% at a = 0.69 away from the horizon,
 unresolved at 0.9; near-horizon metric error requested. §1 updated; the Kerr-QNM figures retired.
+
+## 2026-09-23 — first rank-8 job: the bet matched, and the run did not count
+
+`o3_r8_p0` (axial ℓ=3, rank 8, margin 4) finished after 179 min. Scored against the prediction sealed
+before any rank-8 output existed, **every physics field matched, including the bet**: the same radial
+combination as ranks 4 and 6, survivors exactly (39, {0:25, 1:0, 2:9, 3:4, 4:1}), nothing new at pole
+orders 2 and 3. **But random kept 24, one below the isometry floor of 25**, so the margin-4 box is too
+narrow at rank 8 (§142/§143 used margin 6 there, and now we know why that mattered). By the rule written
+the day before — a run that violates its own floor is not agreement — the match is not evidence.
+Rerunning at margin 6 with the expect block copied verbatim. The automatic scorer earned its keep: I
+was watching the survivors line, and it was the random line that decided.
+
+The driver failed around the job in four ways, all mine, all fixed and tested:
+1. **No stdin guard.** macOS `nohup` keeps the terminal's stdin; when that terminal closed, fd 0
+   vanished and every Python the driver started afterwards died in `init_sys_streams` (EBADF). The job
+   survived only because it was already running. Now `exec < /dev/null`; tested with stdin closed.
+2. **An empty job lookup was "launched"** (only a literal `-` was refused), twice, and logged as two
+   FAILED jobs that never existed. Now it stops the queue.
+3. **A crashed scorer exits 1 — the old MISMATCH code** — so the first logged verdict was a crash
+   wearing a verdict. MISMATCH is now 10 and the verdict comes from the printed `VERDICT:` line.
+4. **`time`'s report shared Python's stderr** and landed in the `.out`; peak memory went unparsed.
+   It was **11.0 GB RSS, 17.0 GB footprint** at margin 4 — so one rank-8 job at a time is right.
