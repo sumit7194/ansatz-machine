@@ -1,0 +1,34 @@
+CONTROLS
+  ok    C1 SW-IV sigma=0 is harmonic
+       (C1's cubic integral and 3-dim quadratic family were measured exactly in §147 / _pp_wave_verify.py)
+  ok    C2 SW-IV + Kepler term is NOT harmonic   [Delta = (eta**2 + xi**2)**(-3)]
+    C3 = V3 (Holt type), c1=3/4, c2=0, c3=1      Delta V != 0 | {H,J} = 0: True | quadratic family dim 1  ->  NOT-HARMONIC
+  ok    C3: published cubic reproduced
+  ok    C3: quadratic family is 1-dim (test (c) CAN say 'integrable only')   [dim 1]
+
+TABLE I (Mitsopoulos-Tsamparlis 2023) -- harmonicity of each entry, over its parameters
+    V1 (general F_i): harmonic  <=>  F_i'' = const, sum 0  ->  V = harmonic quadratic + affine:
+    V1 harmonic sub-case  C1(x^2-y^2) + C2 xy    Delta V == 0 | quadratic family dim 2  ->  EXCLUDED (superintegrable)
+    V2 Toda: Delta V = 4*k**2*(exp(3*k*y)*exp(2*sqrt(3)*k*x) + exp(3*k*y) + exp(sqrt(3)*k*x))*exp(-2*k*y)*exp(-sqrt(3)*k*x)  ->  != 0 for real k != 0 (each term: 4k^2 e^(...))
+    V3 Holt: Delta V * y^(8/3) = 40*C1*x**2/27 + 28*C1*y**2/9 + 10*C2*x/9 + 10*C3/9;  zero only for [{C1: 0, C2: 0, C3: 0}]  (trivial)
+    V4 (xy)^(-2/3): Delta V = 10*(x**2 + y**2)/(9*x**(8/3)*y**(8/3))  ->  != 0
+    V5 (x^2-y^2)^(-2/3): Delta V = 40*(x**2 + y**2)/(9*(x - y)**(8/3)*(x + y)**(8/3))  ->  != 0
+    V6: k1/r^2 -> 4*k1 r^-4;  (k2 e^(sqrt3 th)+k3 e^(-sqrt3 th))/r^3 -> 12*(k2*exp(2*sqrt(3)*theta) + k3)*exp(-sqrt(3)*theta) r^-5  ->  zero only if k1=k2=k3=0
+    V7 (a2=1, a5=0 by rotation): harmonic only for [{k1: 0, k2: 0, k3: 0}]  (trivial)
+  ok    V8: N_p solves N'' + N = 3 F3'
+    V8 harmonic sub-family: side condition 3 N F3 = N' F3' has sin6/cos6 Fourier coefficients 27*(Cc - D)*(Cc + D)/4, -27*Cc*D/2
+       which vanish (over the reals) only for [{Cc: 0, D: 0}]  ->  F3 = 0; then k = 0 and F2' = 0 force F2 = 0: trivial
+
+VERDICT (Table I, type J^(3,2)_0)
+    V1: EXCLUDED (superintegrable)
+    V2: NOT-HARMONIC
+    V3: NOT-HARMONIC
+    V4: NOT-HARMONIC
+    V5: NOT-HARMONIC
+    V6: NOT-HARMONIC
+    V7: NOT-HARMONIC
+    V8: NOT-HARMONIC (harmonic sub-family is trivial)
+
+  HITS: none
+
+PASS -- controls behaved; results above
