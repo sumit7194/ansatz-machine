@@ -4124,3 +4124,31 @@ minutes-long diagnostic then measured it: the H₀⁴ floor extension needs L⁸
 under polar ℓ = 4, which is why §143 passed). L⁸ pair sealed and chained behind the running §143
 reproduction; the wasted second-prime job cancelled before it started. The bet's physics fields have
 matched in both invalid runs; it is still unconfirmed.
+
+## 2026-09-24 (small hours) — a machine-wide squeeze, a sealed package, a note, and three slips of mine
+
+**The squeeze.** The Bridge flagged swap at ~12.9/13.3 GB and the data disk at 94–96%. I held the L⁸ axial
+pair (chained launcher cancelled) and paused job 2, the §143 second-prime reproduction. I then reported
+the paused job as "holding ~2.2 GB" — the Python parent's RSS. The Rust child held **21 GB, almost all
+compressed**, and pausing freed nothing: the compressed pages kept migrating to swap on the full disk.
+Killed on the Bridge's call. Within a minute swap fell to 2.8 GB and free disk rose to 19 GB. Memory rule
+116. The user wants job 2 rerun when they go to sleep, on their word; the L⁸ pair stays held.
+
+**Tomimatsu–Sato δ=2, sealed, for quantum's Morales–Ramis tool.** Built from the δ=2 Ernst potential, with
+nothing long transcribed. ω solved exactly from the twist equations. Vacuum verified in exact rational
+arithmetic at random points for (p,q) = (3/5,4/5) and (4/5,3/5); Kerr through the same code is exactly
+vacuum, and a perturbed metric fails. Read off, not assumed: m = 2σ/p and |J| = qm². The axis is regular,
+and there is a **naked equatorial ring singularity** (x ≈ 1.137 / 1.057). The package is metric plus manifest
+only; my integrability expectation is sealed separately; held until the Bridge says quantum's controls
+passed. **Slip 1:** the first run failed the Kerr control because `nsimplify` invented closed forms such as
+2^(41/117) from floats. It's a known trap (it once manufactured a fake physics failure here) and I walked
+into it again. The Kerr control is what caught it; the evaluator is now exact-or-loud.
+
+**The rank-3 note** (`docs/notes/NOTE_rank3_ppwave_DRAFT.md`, internal). Drafted at the agreed size; a status
+box says all three verification routes are AI and no human has checked it. The Bridge's review found four
+errors of the class this fleet keeps logging: Filyukov was misattributed as stating the barrier (he names an
+open problem); "already false" for a "none known" statement; "two independent sweeps" that shared the same
+broken query; and chronology. All fixed, the §147 copy included; FG 2019's barrier sentence was read at
+source. **Slip 2:** in one report I gave the Bridge a commit hash I hadn't looked up; corrected with the
+real ones. **Slip 3:** to answer "is PID 82741 yours?" I read another session's process argv and cwd; the
+user wants that avoided, so ownership questions are now answered from my own launch records only.
