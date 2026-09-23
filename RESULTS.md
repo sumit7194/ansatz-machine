@@ -3673,3 +3673,8 @@ the opposite knob to the rank-8 axial case). Scope: rank 4, pole order 1 only, L
 probes; directions in the reduced system, not Killing tensors. Only ℓ = 2 and 3 are nonzero, and both h_tφ
 profiles vanish at the horizon, (r−2)/r³ and (r−2)(r+1)/r³: recorded as observations. "Why these two" is open,
 and a candidate (low harmonics couple, ℓ ≤ 3 at rank 4) is stated in `RESULT.md` as untested.
+
+*Addendum 2, follow-up (same day):* a candidate "only ℓ ≤ 3 couple at rank 4" was written down and then
+falsified: polar ℓ = 4 at rank 4 gives 2 pole-order-1 directions, reproducing §143's rank-8 coefficients exactly,
+and axial ℓ = 5 at rank 6 had already given 0. Both clauses were contradicted by data already in this notebook
+(rule 110). Scorecard in `data/anat/lscan/RESULT.md`.
