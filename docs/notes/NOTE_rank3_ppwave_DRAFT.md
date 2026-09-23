@@ -16,7 +16,11 @@ first construction. Sources and checks are in RESULTS §147 and `workspaces/high
 
 Cariglia and Galajinsky (2015) asked whether vacuum solutions admit higher-rank Killing tensors, noting that
 none of the Lorentzian spacetimes previously built by the Eisenhart lift solves the vacuum equations, and
-constructed ultrahyperbolic examples. Filyukov (2017) named a harmonic planar potential with an integral of
+constructed ultrahyperbolic examples; their conclusion poses as "an important problem" whether an
+integrable system with a cubic (or higher) integral can be governed by a harmonic potential, in which case
+Lorentzian Ricci-flat spacetimes with higher-rank Killing tensors could be built by the Eisenhart lift (as
+printed, "signature (1, q) and d > 4" — strict, checked on the typeset PDF, where the preceding sentence
+prints d ≥ 4; a two-degree-of-freedom system lifts to d = 4). Filyukov (2017) named a harmonic planar potential with an integral of
 third or higher order as the main open problem. Fordy and Galajinsky (2019) wrote that no vacuum solution
 admitting higher-rank Killing tensors is presently known, and called the rank-2 barrier puzzling. We point out
 that an example was already in print, unrecognised. The four-dimensional vacuum pp-wave that Filyukov (2017)

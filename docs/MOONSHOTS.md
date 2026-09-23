@@ -147,10 +147,14 @@ reading the key papers), which is not the same as "not done" — the ZV lesson (
 
 ### 13. Why only axial ℓ = 3 reaches pole order 1
 - **Source:** the §146 addendum.
-- **A concrete hypothesis to test first:** Carter's angular operator carries cos²θ, which couples ℓ → ℓ ± 2.
-  cos²θ · A₁ has an ℓ = 3 component, so the ℓ = 3 axial direction may be compensating Kerr's *own* ℓ = 1 frame
-  dragging at O(χ²) rather than being a free deformation. Check: project the direction on (gauge ⊕ spin
-  change ⊕ cos²θ·drag1) and see whether it lies in that span.
+- ~~Hypothesis: Carter's cos²θ couples Kerr's own ℓ = 1 frame dragging into ℓ = 3.~~ **Ill-founded
+  (2026-09-24):** the §142 reduction uses only the *Schwarzschild* operator (a pure-O(χ²) deformation has no
+  lower-order sources), so Kerr's spin structure never enters the problem that produced these counts.
+- ~~Hypothesis: the direction is a stationary axial vacuum perturbation.~~ **Tested and false:** its profile
+  (1/r − 1/r² − 2/r³) = (r − 2)(r + 1)/r³ vanishes at the horizon but does *not* solve the stationary
+  odd-parity equation (1 − 2M/r)h₀″ − [12/r² − 4M/r³]h₀ = 0 (residual −2(r−2)(5r²+7r+10)/r⁶; the same
+  equation is solved exactly by both ℓ = 1 solutions, r² and 1/r, as a control).
+- **Still open.** Whatever singles out ℓ = 3 is a property of Schwarzschild plus the axial ℓ = 3 pattern.
 - **Impact 3 · chance ~70% · complexity 2.**
 
 ### 14. Third-party-checkable certificates for our nulls
