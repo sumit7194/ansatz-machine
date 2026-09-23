@@ -14,9 +14,12 @@ first construction. Sources and checks are in RESULTS §147 and `workspaces/high
 
 ## Abstract (draft)
 
-Cariglia and Galajinsky (2015), and later Fordy and Galajinsky (2019) and Filyukov (2017), stated that no
-Ricci-flat spacetime of **Lorentzian** signature carrying an irreducible Killing tensor of rank ≥ 3 was known.
-We point out that one was already in print. The four-dimensional vacuum pp-wave that Filyukov (2017)
+Cariglia and Galajinsky (2015) asked whether vacuum solutions admit higher-rank Killing tensors, noting that
+none of the Lorentzian spacetimes previously built by the Eisenhart lift solves the vacuum equations, and
+constructed ultrahyperbolic examples. Filyukov (2017) named a harmonic planar potential with an integral of
+third or higher order as the main open problem. Fordy and Galajinsky (2019) wrote that no vacuum solution
+admitting higher-rank Killing tensors is presently known, and called the rank-2 barrier puzzling. We point out
+that an example was already in print, unrecognised. The four-dimensional vacuum pp-wave that Filyukov (2017)
 constructed from the harmonic σ = 0 member of the Smorodinsky–Winternitz potential V⁽⁴⁾ carries a rank-3
 Killing tensor that is **irreducible in the polynomial sense** used in those statements. It is the Poisson
 bracket of the spacetime's two quadratic Killing tensors. Like the published ultrahyperbolic examples, it is
@@ -68,8 +71,9 @@ generic for non-plane vacuum pp-waves, because a bounded harmonic function on th
 ## 3. Why this answers the stated barrier, and in which sense
 
 Read literally, and in the polynomial sense in which the published (2,2) examples are called irreducible,
-the statement "no Lorentzian vacuum example is known" was already false in 2017, on the authors' own group's
-spacetime, one Poisson bracket away. The published (2,2) examples stand on exactly the same footing:
+an example was already in print in 2017, unrecognised, one Poisson bracket away, on a spacetime from the
+same group. (A statement that no example is *known* is not made false by an example nobody had recognised;
+what changes is that the example now is known.) The published (2,2) examples stand on exactly the same footing:
 Cariglia–Galajinsky's cubic is −½{Q_a, Q_b} in their own variables, with
 I² = −H Q_a Q_b − β² Q_a − α² Q_b (workspace EXP-003, not re-derived in this draft), so it too is
 functionally dependent. The object's new content is the **signature**.
@@ -89,10 +93,12 @@ form, by an anti-self-duality argument in workspace EXP-003 §6, which this draf
   pp-waves all degree-3/4 Killing tensors are reducible. The object here is type N, not conformally flat.
   (Per the workspace's EXP-001 / §7 sweep and The Bridge's V6; the papers other than Filyukov's record and
   eq. (33) were not re-read for this draft.)
-- **Not found in print:** F, its bracket origin on this spacetime, and its polynomial irreducibility. Two
-  independent sweeps looked: the workspace's, and the Bridge's V6, which ran a controlled INSPIRE
-  citer query (the correct query returns 18 citers of Cariglia–Galajinsky, Filyukov among them). **A negative
-  sweep is never complete.** Not searched: elibrary.ru directly, and theses.
+- **Not found in print:** F, its bracket origin on this spacetime, and its polynomial irreducibility. The
+  search that counts is The Bridge's V6: a controlled INSPIRE citer query (`refersto:recid:1351199`, with a
+  positive control and a count bound), which returns 18 citers of Cariglia–Galajinsky, Filyukov among them.
+  **The earlier sweeps were not independent of each other:** the workspace's sweep and V6's own first pass
+  used the same malformed query (`refersto:arxiv:1503.02162`, 25,061 records, count unchecked), and that is how
+  Filyukov was missed. **A negative sweep is never complete.** Not searched: elibrary.ru directly, and theses.
 
 ## 5. How it was verified — three independent routes, all by AI sessions
 

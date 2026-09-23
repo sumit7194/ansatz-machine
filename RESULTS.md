@@ -3578,9 +3578,11 @@ prime 0.)
 > σ = 0 Smorodinsky–Winternitz potential already carries a polynomially irreducible rank-3 Killing tensor —
 > the Poisson bracket of its two quadratic integrals* (one displayed there, the second implied by
 > "superintegrable"). In print: the spacetime and one quadratic tensor. Not found in print (the V6 sweep; not repeated here): F = −4{Q1, Q2} and its irreducibility.
-> What is new is that the "rank-2 barrier" stated by one group in three papers (Cariglia–Galajinsky 2015,
-> Filyukov 2017, Fordy–Galajinsky 2019) is already broken on that group's own published object, one bracket
-> away. **A short note, not a first construction.** The heading below is left as first written; this box
+> What is new: the barrier stated by Cariglia–Galajinsky 2015 (introduction) and Fordy–Galajinsky 2019 —
+> and the open problem Filyukov 2017 named in his conclusion (a harmonic planar potential with a third-order
+> integral) — are met by a spacetime already in print from the same group, unrecognised, one Poisson bracket
+> away. *(Corrected 2026-09-24: this box first said all three papers "stated the barrier"; Filyukov's
+> conclusion names an open problem, it does not state that none is known.)* **A short note, not a first construction.** The heading below is left as first written; this box
 > supersedes its implied novelty.
 
 **Provenance.** Constructed in the `high_rank_killing` workspace — a session folder of this project,
