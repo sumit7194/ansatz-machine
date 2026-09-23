@@ -77,8 +77,8 @@ if __name__ == "__main__":
 
     # deformations: the shape sector, plus pure O(chi^2) l=2 coordinate changes (controls)
     want = arg("--slots", "l2tt,l2rr,l2ang", str).split(",")
-    from _kt_carter_space import SLOTS, SLOTS_L4, SLOTS_O1, SLOTS_O3, SLOTS_O5
-    all_slots = tuple(SLOTS) + tuple(SLOTS_L4) + tuple(SLOTS_O1) + tuple(SLOTS_O3) + tuple(SLOTS_O5)
+    from _kt_carter_space import SLOTS, SLOTS_L4, SLOTS_AXIAL
+    all_slots = tuple(SLOTS) + tuple(SLOTS_L4) + tuple(sl for ell in sorted(SLOTS_AXIAL) for sl in SLOTS_AXIAL[ell])
     unknown = [w for w in want if w not in all_slots]
     if unknown:
         sys.exit(f"--slots names nothing: {unknown}\n  known: {' '.join(all_slots)}")

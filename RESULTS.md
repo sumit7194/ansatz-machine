@@ -3660,3 +3660,16 @@ UNIQUE? one member of a family (a 5D companion with signature (1,4) is in the wo
 **not verified here**). NOT CHECKED here: the 5D companion; the Kaluza–Klein reduction (EXP-004); the
 rank-4 no-go argument; **the prior-art sweep of the object** (the workspace reports it not found; I have
 not repeated it — and it has to be done before any outside specialist reads this). DOMAIN the complement of the singular line.
+
+
+### §146 addendum 2 (2026-09-24) — axial ℓ-scan at rank 4: ℓ = 2 (equatorially odd) also carries directions
+
+Pre-registered and approved before running (`data/anat/lscan/`). Regression held (ℓ = 1, 3, 5 unchanged after
+generalising the slot family). **Axial ℓ = 1…7 at rank 4 → 0, 2, 1, 0, 0, 0, 0 pole-order-1 directions.** The
+ℓ = 2 pair (o2tphi_2 − 2·o2tphi_3; o2rphi_1) survives margin 8 and the second prime with the same survivor
+anatomy as ℓ = 3, so the "anatomy is universal" observation extends to an equatorially odd pattern. My sealed
+prediction for ℓ = 2 (0) was wrong. ℓ = 6, 7 needed margin 8 (margin 4 violated the floor; L⁹ did not fix it,
+the opposite knob to the rank-8 axial case). Scope: rank 4, pole order 1 only, L⁷, first order in ε, O(χ²) axial
+probes; directions in the reduced system, not Killing tensors. Only ℓ = 2 and 3 are nonzero, and both h_tφ
+profiles vanish at the horizon, (r−2)/r³ and (r−2)(r+1)/r³: recorded as observations. "Why these two" is open,
+and a candidate (low harmonics couple, ℓ ≤ 3 at rank 4) is stated in `RESULT.md` as untested.

@@ -166,9 +166,10 @@ SLOTS_L4 = ("l4tt", "l4rr", "l4ang")
 # harmonic ONLY, where using drag3 would change parity, harmonic and chi order at once.
 # Angular function A_l(y) = (1 - y^2) P_l'(y), the standard axial pattern: A_1 = (1 - y^2) reproduces
 # drag1's angular shape and A_3 = (1 - y^2)(5y^2 - 1) reproduces drag3's, both up to normalisation.
-SLOTS_O1 = ("o1tphi", "o1rphi", "o1yphi")
-SLOTS_O3 = ("o3tphi", "o3rphi", "o3yphi")
-SLOTS_O5 = ("o5tphi", "o5rphi", "o5yphi")   # tests whether the axial ladder stabilises for l >= 3
+# Generalised 2026-09-24 (axial l-scan): an axial family for every l = 1..9.  Even l gives an equatorially ODD
+# pattern (P_l' is odd in y), a class the original o1/o3/o5 families never covered.  The old names stay as aliases.
+SLOTS_AXIAL = {ell: (f"o{ell}tphi", f"o{ell}rphi", f"o{ell}yphi") for ell in range(1, 10)}
+SLOTS_O1, SLOTS_O3, SLOTS_O5 = SLOTS_AXIAL[1], SLOTS_AXIAL[3], SLOTS_AXIAL[5]
 
 
 def axial_angular(ell):
@@ -204,7 +205,7 @@ def slot_h(slot, R):
         h[1, 1] = chi ** 2 * R * Y2
     elif slot == "l2ang":
         h[2, 2], h[3, 3] = ang(chi ** 2 * R * Y2)
-    elif slot[:2] in ("o1", "o3", "o5") and slot[2:] in ("tphi", "rphi", "yphi"):
+    elif len(slot) == 6 and slot[0] == "o" and slot[1].isdigit() and slot[1] != "0" and slot[2:] in ("tphi", "rphi", "yphi"):
         A = axial_angular(int(slot[1]))
         i = {"tphi": 0, "rphi": 1, "yphi": 2}[slot[2:]]
         h[i, 3] = h[3, i] = chi ** 2 * R * A
