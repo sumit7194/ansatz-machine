@@ -17,7 +17,9 @@ printing its survivors must not score as "nothing contradicted the prediction".
 
 Usage: _kt_weekend_check.py <job-name>            (reads PREDICTIONS.json and the job's .out)
        _kt_weekend_check.py --file OUT --job NAME  (score an arbitrary file against a job's entry)
-Exit 0 = every field matched; 1 = at least one mismatch; 2 = could not score.
+Exit 0 = every field matched; 10 = at least one mismatch; 2 = could not score.
+MISMATCH is 10, not 1, because a Python that crashes on startup exits 1: a crash must never be
+readable as a failed prediction (it once was).
 """
 import json
 import os
@@ -136,7 +138,7 @@ def main():
             print(f"          got      {g}")
             print(f"          expected {w}")
     print(f"\n  VERDICT: {'MATCH -- every field as predicted' if ok else 'MISMATCH -- the prediction failed somewhere above'}")
-    return 0 if ok else 1
+    return 0 if ok else 10
 
 
 if __name__ == "__main__":

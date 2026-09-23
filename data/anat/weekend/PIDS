@@ -1,0 +1,4 @@
+96778 96781 o3_r8_p0 2026-09-23 12:44:46 KT_SOLVER=rust KT_THREADS=4 scripts/_kt_pole_reduced.py --rank 8 --denpow 7 --margin 4 --prime 0 --slots o3tphi,o3rphi,o3yphi
+7446 7449 o3_r8_p0 2026-09-23 14:56:26 KT_SOLVER=rust KT_THREADS=4 scripts/_kt_pole_reduced.py --rank 8 --denpow 7 --margin 4 --prime 0 --slots o3tphi,o3rphi,o3yphi
+20703 ? l4_r8_p1 2026-09-23 17:56:37 KT_SOLVER=rust KT_THREADS=4 scripts/_kt_pole_reduced.py 
+20802 ? o3_r8_p1 2026-09-23 17:57:07 KT_SOLVER=rust KT_THREADS=4 scripts/_kt_pole_reduced.py 

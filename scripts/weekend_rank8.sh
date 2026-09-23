@@ -26,8 +26,13 @@
 # Live throttle for a single running job:   echo 2 > data/KT_THREADS.<pid>
 set -u
 cd "$(dirname "$0")/.." || exit 2
+# Children must never inherit the launching terminal's stdin.  On macOS nohup does NOT redirect it,
+# so when that terminal closed, fd 0 vanished and every Python started afterwards died in
+# init_sys_streams (EBADF) -- the scorer, the job lookup, the jobs.  Job 1 survived only because it
+# was already running.  (2026-09-23)
+exec < /dev/null
 
-QUEUE="${QUEUE:-o3_r8_p0 l4_r8_p1 o3_r8_p1}"
+QUEUE="${QUEUE:-o3_r8_p0_m6 l4_r8_p1 o3_r8_p1_m6}"
 THREADS="${THREADS:-4}"
 MIN_GB="${MIN_GB:-8}"
 DRY=0; [ "${1:-}" = "--dry-run" ] && DRY=1
@@ -53,7 +58,8 @@ log "predictions sealed at commit $(git log -1 --format=%h -- "$PRED")"
 # 2. calibrate the scorer in both directions
 $PY scripts/_kt_weekend_check.py calib_repro_must_match > "$W/calib_match.txt" 2>&1; a=$?
 $PY scripts/_kt_weekend_check.py calib_sabotage_must_miss > "$W/calib_miss.txt" 2>&1; b=$?
-if [ $a -ne 0 ] || [ $b -ne 1 ]; then log "REFUSE: checker calibration failed (match exit $a want 0; sabotage exit $b want 1)"; exit 4; fi
+if [ $a -ne 0 ] || [ $b -ne 10 ] || ! grep -q "VERDICT: MATCH" "$W/calib_match.txt" || ! grep -q "VERDICT: MISMATCH" "$W/calib_miss.txt"; then
+  log "REFUSE: checker calibration failed (match exit $a want 0; sabotage exit $b want 10; verdict lines required)"; exit 4; fi
 log "checker calibrated: MATCH on the known reproduction, MISMATCH on the planted error"
 
 for job in $QUEUE; do
@@ -61,6 +67,9 @@ for job in $QUEUE; do
   read -r out cmd < <($PY -c "
 import json,sys; j={x['name']:x for x in json.load(open('$PRED'))['jobs']}.get('$job')
 print((j or {}).get('out','-'), (j or {}).get('cmd','-'))")
+  # An EMPTY value means the lookup itself crashed, not that the job is missing: stop, do not "launch"
+  # an empty command (it once did, twice, and logged them as FAILED jobs).
+  if [ -z "${out:-}" ] || [ -z "${cmd:-}" ]; then log "FATAL: job lookup for $job returned nothing -- stopping the queue"; exit 5; fi
   if [ "$cmd" = "-" ]; then log "SKIP $job: no such job (or no cmd) in $PRED"; continue; fi
   if [ -f "$out" ] && grep -q "^  total [0-9]*s" "$out"; then log "SKIP $job: already complete ($out)"; continue; fi
 
@@ -75,7 +84,9 @@ print((j or {}).get('out','-'), (j or {}).get('cmd','-'))")
 
   log "LAUNCH $job: $cmd  [${g}GB free]"
   t0=$(date +%s)
-  { KT_SOLVER=rust KT_THREADS=$THREADS /usr/bin/time -l $PY -u scripts/_kt_pole_reduced.py $cmd > "$out" 2>&1; } 2> "$out.time" &
+  # time's report must not share Python's stderr: wrap Python in bash -c + exec, so its streams go to
+  # $out and time's own stderr (the peak-memory report) goes to $out.time.  It once landed in $out.
+  KT_SOLVER=rust KT_THREADS=$THREADS /usr/bin/time -l bash -c "exec $PY -u scripts/_kt_pole_reduced.py $cmd > '$out' 2>&1" 2> "$out.time" &
   pid=$!
   # $! is the wrapping subshell, not Python; the live throttle file KT_THREADS.<pid> is keyed on
   # Python's own getpid().  Walk the PARENT CHAIN from $pid to find it -- never match by pattern.
@@ -95,7 +106,11 @@ print((j or {}).get('out','-'), (j or {}).get('cmd','-'))")
     continue
   fi
   $PY scripts/_kt_weekend_check.py "$job" > "$out.check" 2>&1; v=$?
-  verdict=$([ $v -eq 0 ] && echo MATCH || ([ $v -eq 1 ] && echo MISMATCH || echo UNSCORABLE))
+  # The verdict is what the scorer PRINTED, cross-checked against its exit code.  A crashed scorer once
+  # exited 1 -- the old MISMATCH code -- and a crash was logged as a failed prediction.
+  if   [ $v -eq 0 ]  && grep -q "VERDICT: MATCH"    "$out.check"; then verdict=MATCH
+  elif [ $v -eq 10 ] && grep -q "VERDICT: MISMATCH" "$out.check"; then verdict=MISMATCH
+  else verdict="UNSCORABLE (scorer exit $v, no matching VERDICT line)"; fi
   log "DONE $job: ${mins} min, peak ${rss:-?}, verdict $verdict  (details: $out.check)"
 done
 log "=== queue finished"

@@ -1,0 +1,53 @@
+rank 8, L^7, box 25x26: 115830 unknowns, 55 Schwarzschild products (by Q power {0: 25, 1: 16, 2: 9, 3: 4, 4: 1}), prime 0 [33s]
+  1430 sources built [69s]
+    [eps chi^2 timing] lcm+compare 512.1s | clear 1838.8s = RESCALED 115830 operator columns as arrays, nnz 6,380,904 -> 490,844,709, by q (728 terms, 105.4s) + cleared 1430 sources; new denominator factor 2*x*(x - 2)**27*(y - 1)**25*(y + 1)**25
+    rust nullspace: 8 blocks (largest 19716 cols), nnz 510,139,758 -> peak 275,625,437, nullity 1054, 4 thread(s), 5423.8s
+    residual guard: full, 1054 vectors
+  one system: 1430 (product, deformation) columns, dim V = 999 [10776s]
+
+  shape-sector deformations keeping ALL 55: dim 0 of 18
+  shape-sector deformations keeping H^3 Q^1 (pole order <= 0): dim 0
+  shape-sector deformations keeping H^2 Q^2 (pole order <= 1): dim 1
+  shape-sector deformations keeping H^1 Q^3 (pole order <= 2): dim 1
+  shape-sector deformations keeping H^0 Q^4 (pole order <= 3): dim 1
+
+  directions first appearing with Q^2 (pole order 1): 1
+    1*o3tphi_1 + -1*o3tphi_2 + -2*o3tphi_3
+      survivors (39, {0: 25, 1: 0, 2: 9, 3: 4, 4: 1})
+
+  directions first appearing with Q^3 (pole order 2): 0
+
+  directions first appearing with Q^4 (pole order 3): 0
+
+  named directions (§140, §141):
+    control gaugeY2r_1: (55, {0: 25, 1: 16, 2: 9, 3: 4, 4: 1})
+    control gaugeY2y_1: (55, {0: 25, 1: 16, 2: 9, 3: 4, 4: 1})
+    control gaugeY2r_3: (55, {0: 25, 1: 16, 2: 9, 3: 4, 4: 1})
+    control gaugeY2y_3: (55, {0: 25, 1: 16, 2: 9, 3: 4, 4: 1})
+    control gaugeAx1_1: (55, {0: 25, 1: 16, 2: 9, 3: 4, 4: 1})
+    control gaugeAxy2_1: (55, {0: 25, 1: 16, 2: 9, 3: 4, 4: 1})
+    control gaugeAx1_3: (55, {0: 25, 1: 16, 2: 9, 3: 4, 4: 1})
+    control gaugeAxy2_3: (55, {0: 25, 1: 16, 2: 9, 3: 4, 4: 1})
+    random #0: (24, {0: 24, 1: 0, 2: 0, 3: 0, 4: 0})
+    random #1: (24, {0: 24, 1: 0, 2: 0, 3: 0, 4: 0})
+    random #2: (24, {0: 24, 1: 0, 2: 0, 3: 0, 4: 0})
+
+  total 10778s
+    10785.60 real     17600.13 user      2428.15 sys
+         11005919232  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+           638965808  page reclaims
+              765287  page faults
+                   0  swaps
+                   0  block input operations
+                  11  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+              684781  voluntary context switches
+            46992663  involuntary context switches
+     105265506771436  instructions retired
+      21469823370812  cycles elapsed
+         16997544992  peak memory footprint
