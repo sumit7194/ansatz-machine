@@ -32,3 +32,17 @@ anatomy as ℓ = 3. **It is not a Killing tensor, not exact, not a physical metr
 odd in y). A hypothesis worth a separate, pre-registered test, NOT claimed: at rank 4 only low harmonics
 (ℓ ≤ 3) can couple to the Carter-power structure at pole order 1. That would predict polar ℓ = 4 at rank 4 also
 has no new direction there, and that axial ℓ = 4, 5 might first appear at rank 6.
+
+---
+
+## Frozen predictions for the candidate "at rank 4 only low harmonics (ℓ ≤ 3) couple at pole order 1"
+*Committed 2026-09-24 BEFORE the runs, at The Bridge's request.*
+
+1. **Polar ℓ = 4 at rank 4 → 0 new directions at pole order 1.** (Run: `_kt_pole_reduced.py --rank 4 --denpow 7
+   --margin 4 --slots l4tt,l4rr,l4ang`, same controls; floor 9 must hold, and if it fails, margin 8.)
+2. **Axial ℓ = 4 at rank 6:** the candidate predicts a direction may appear at pole order 1 or 2. Frozen
+   operationally as "nonzero at pole order ≤ 2" = candidate supported; "0" = candidate weakened.
+3. **Axial ℓ = 5 at rank 6 was ALREADY MEASURED earlier tonight** (`data/anat/reduced_r6_o5_p{0,1}.out`, 0 at pole
+   orders 1 and 2, both primes, floor 16 valid). The candidate's "ℓ = 5 might first appear at rank 6" is already
+   **contradicted by data I had in hand**. It should have been checked against my own notebook before the
+   candidate was written (rule 110). It is scored as a miss here and not re-run as if it were fresh.
