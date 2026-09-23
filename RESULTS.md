@@ -3614,9 +3614,23 @@ Ricci-flat lift ⇒ Lorentzian vacuum.
   Singular profiles are generic for non-plane vacuum pp-waves (a bounded harmonic function on the plane
   is constant), so this is the price of the class rather than a defect of the example.
 
+**A second, independently written route agrees (relayed, not re-run here).** The Bridge's V5
+(`TheBridge/falsification/V5_rank3_vacuum_independent/`: a frozen pre-registration, plain SymPy, importing
+nothing from any sibling) checked the same object from scratch: signature (1,3), Ricci-flat (a non-harmonic
+g_tt poison fails), {H,F} = 0 (a sign-flip poison fails), a nonzero pure part, and the same ideal argument.
+Its **first-order Killing count also returned an upper bound of 6** (at (a, ξ, η) = (3, 2, 1)), and 2 at
+second order. The same intermediate number from two separately written codes cross-checks the jet
+machinery itself, not only the final 2. Their pre-registration had frozen "a count above 2 kills the
+argument", which confused a non-tight bound with a false claim; the first-order check was left recorded
+as FAILED, and the second-order check was registered as new before it ran — correct handling, and
+the opposite of quietly re-reading the rule. Where the routes differ: this one also checked
+stabilisation at k = 2, the functional status and the bracket/F² relations, and used Schwarzschild (→ 4)
+rather than flat space (→ 10) as the control, which shows the machinery is not stuck at 2. Two inputs,
+both from the object alone, so by D56 this counts as two measurements.
+
 **Scope manifest.** OBJECT the metric and F above. EXACT IN everything: no truncation. VALID RANGE
 ρ > 0, a ≠ 0 (|a| is a gauge). CONVENTIONS H = ½g^{ab}p_ap_b; "irreducible" = polynomial sense.
 UNIQUE? one member of a family (a 5D companion with signature (1,4) is in the workspace's EXP-003,
 **not verified here**). NOT CHECKED here: the 5D companion; the Kaluza–Klein reduction (EXP-004); the
-rank-4 no-go argument; the prior-art sweep of the object (the workspace reports it not found; I have
-not repeated it). DOMAIN the complement of the singular line.
+rank-4 no-go argument; **the prior-art sweep of the object** (the workspace reports it not found; I have
+not repeated it — and it has to be done before any outside specialist reads this). DOMAIN the complement of the singular line.
