@@ -126,8 +126,10 @@ so finding a rank-4 tensor there still proves the prover is not a null-machine. 
 what our nulls *mean*. **CORRECTED 2026-09-23 (RESULTS §147):** this paragraph used to say no
 Lorentzian Ricci-flat spacetime with an irreducible Killing tensor of rank ≥ 3 is known in any
 dimension. **One is now in hand and verified here** — a 4D vacuum pp-wave, signature (1,3), with a
-rank-3 tensor irreducible in the *polynomial* sense (built in this project's `high_rank_killing`
-workspace). It is **functionally dependent** (the Poisson bracket of two quadratic Killing tensors),
+rank-3 tensor irreducible in the *polynomial* sense. **The spacetime itself was published by
+Filyukov (2017, in Russian, off arXiv); the rank-3 tensor on it — the Poisson bracket of its two
+published quadratic Killing tensors — is what this project's `high_rank_killing` workspace found, and
+it was not found in print (§147).** It is **functionally dependent** (the Poisson bracket of two quadratic Killing tensors),
 as the published (2,2) examples also are, and it is a singular pp-wave, not a stationary black-hole-like
 spacetime. So what remains unbroken is narrower: **no functionally independent irreducible rank ≥ 3
 tensor, and nothing at rank 4, is known in Lorentzian vacuum** — and nothing at all on a stationary,

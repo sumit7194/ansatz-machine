@@ -3559,6 +3559,27 @@ prime 0.)
 
 ## §147 — a Lorentzian vacuum pp-wave with a polynomially irreducible rank-3 Killing tensor (verified here)
 
+> **PRIOR ART — READ FIRST (2026-09-23, late).** **The spacetime is not new: it was published in 2017.**
+> S. A. Filyukov, *Скрытые симметрии Риччи-плоских пространств и интегрируемые системы с гармоническим
+> потенциалом* ("Hidden symmetries of Ricci-flat spaces and integrable systems with harmonic potential"),
+> Sci. Tech. Educ. 1(5) (2017) 13–20, Tomsk State University; in Russian, not on arXiv; INSPIRE 1620354,
+> which lists it among Cariglia–Galajinsky's citers. **Checked here:** the record exists as described, and
+> its eq. (33) potential α√(r+x)/r is exactly √2 × this object's profile ξ/ρ² (symbolic ratio √2, confirmed
+> numerically at random points). So it is the same spacetime up to a constant and coordinates. **Relayed
+> from The Bridge's reading of the full text (V6, `TheBridge/falsification/V6_rank3_prior_art/`),
+> not read here:** the paper writes out the two quadratic Killing tensors ("all these systems are
+> superintegrable"), sets up but never solves a cubic ansatz for this potential, computes no Poisson
+> bracket, and **names a cubic integral for a harmonic potential as the open problem in its conclusion.**
+>
+> **So the result, correctly sized:** *the Lorentzian vacuum pp-wave Filyukov (2017) built from the harmonic
+> σ = 0 Smorodinsky–Winternitz potential already carries a polynomially irreducible rank-3 Killing tensor —
+> the Poisson bracket of its two published quadratic integrals.* In print: the spacetime and its quadratic
+> tensors. Not found in print (the V6 sweep; not repeated here): F = −4{Q1, Q2} and its irreducibility.
+> What is new is that the "rank-2 barrier" stated by one group in three papers (Cariglia–Galajinsky 2015,
+> Filyukov 2017, Fordy–Galajinsky 2019) is already broken on that group's own published object, one bracket
+> away. **A short note, not a first construction.** The heading below is left as first written; this box
+> supersedes its implied novelty.
+
 **Provenance.** Constructed in the `high_rank_killing` workspace — a session folder of this project,
 now absorbed as `workspaces/high_rank_killing/` (see its `PROVENANCE.md`) — as EXP-002 (`9384d7f`),
 EXP-003 (`6a5b66c`, WRITEUP.md) and EXP-004 (`b2ebbef`). **The verification below was run here from

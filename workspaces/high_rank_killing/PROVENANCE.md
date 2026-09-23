@@ -6,6 +6,12 @@
 - **The result:** EXP-002 (`9384d7f`), EXP-003 (`6a5b66c`, WRITEUP.md added), EXP-004 (`b2ebbef`, WRITEUP amended).
 - **Independent verification in this repo:** `scripts/_pp_wave_verify.py` → `data/pp_wave_verify.out`, RESULTS §147. It was run from the object alone BEFORE any of these files were read.
 
+## ERRATUM — WRITEUP.md §7 is out of date (2026-09-23, late)
+WRITEUP.md §7 says nothing was found containing the σ = 0 vacuum member. **It was published**: Filyukov,
+Sci. Tech. Educ. 1(5) (2017) 13–20 (in Russian, off arXiv; INSPIRE 1620354), with its two quadratic Killing
+tensors. The rank-3 tensor F = −4{Q1,Q2} was not found there. See RESULTS §147. WRITEUP.md is left
+unedited as the historical record of what was believed on 2026-09-05.
+
 ## Deliberately NOT copied
 - `prior_art/*.pdf`, `prior_art/*.txt` — copyrighted papers, untracked at source on purpose (commit `4397306`). Only `prior_art/README.md` (the reading list) is copied.
 - `Plans/` — the sister sessions' own coordination documents; not part of EXP-002–004.
