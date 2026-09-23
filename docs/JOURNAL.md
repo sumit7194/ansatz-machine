@@ -4152,3 +4152,32 @@ broken query; and chronology. All fixed, the §147 copy included; FG 2019's barr
 source. **Slip 2:** in one report I gave the Bridge a commit hash I hadn't looked up; corrected with the
 real ones. **Slip 3:** to answer "is PID 82741 yours?" I read another session's process argv and cwd; the
 user wants that avoided, so ownership questions are now answered from my own launch records only.
+
+## 2026-09-24 (early morning) — K1 bounded out of the tables, an ℓ-scan, a falsified candidate, job 2 staged
+
+**K2 → K1 (Bridge-assigned, all pre-registered with controls).** Is any published planar potential harmonic AND
+integrable only through a cubic integral? Its Eisenhart lift would carry a *functionally independent*
+irreducible rank-3 Killing tensor in Lorentzian vacuum. Screened: MT 2023 Table I (step 2), Drach's ten systems
+via Tsiganov (step 3, with the real-form claims then *computed* in 3b), and one flat-target Stäckel
+transform of Table I (step 4, whose control reproduced SW-IV σ = 0 from oscillator plus linear). **No hit
+anywhere.** Flaws of mine, logged: a mis-chosen positive control, two guessed arXiv IDs that pointed at unrelated
+papers, a literal pre-registered test ("exactly two additive") too coarse to match CG's reduced count, two
+hard-coded-True "checks" (removed), and a solver's empty answer briefly offered as evidence (replaced by
+explicit Fourier coefficients). K1 stays open, recorded as "search or no-go".
+
+**Axial ℓ-scan at rank 4 (Bridge-approved).** Axial ℓ = 1…7 → 0, **2**, 1, 0, 0, 0, 0 pole-order-1 directions. ℓ = 2
+(equatorially odd) was new, survived margin 8 and the second prime, and has the same anatomy as ℓ = 3; my sealed
+prediction of 0 was wrong. ℓ = 6, 7 needed margin 8, not L⁹: the opposite knob to the rank-8 case, measured
+rather than guessed. **A follow-up candidate ("only ℓ ≤ 3 couple") was falsified on both clauses by data already
+in this notebook** (§143's polar ℓ = 4; tonight's axial ℓ = 5 at rank 6). The fresh polar run reproduced §143's
+rank-8 coefficients exactly. Memory rule 117: check a candidate hypothesis against in-house data before
+stating it.
+
+**Tomimatsu–Sato δ = 2** handed to tabula-geometrica (metric plus manifest, both caveats; the sealed prediction
+withheld). Tabula's independent loader check reproduced the manifest's formulas exactly at 20 points. Quantum's
+copy waits on its controls.
+
+**Job 2 (§143 second prime) staged, not launched:** the user wants it to start only after everything else
+finishes; the Bridge will send "go job 2". THREADS = 2 (same result, lower peak); an 8 GB memory gate; a
+whole-tree-footprint watchdog that kills the tree below 5 GB of free disk, its kill path proven on a dummy tree
+(after my first check of that test proved invalid under zsh word-splitting).
