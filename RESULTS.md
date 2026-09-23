@@ -3468,7 +3468,11 @@ slice lands in.
 ### Scope
 
 First order in ε, O(χ²), shape sector, profiles r⁻¹…r⁻⁶, box L⁷ (rank 4) / L⁸ (rank 6), reducible span
-subtracted, in-sector positive control passed. Rank 4 on both primes; **rank 6 on one prime only**.
+subtracted, in-sector positive control passed. **Box margin 4, where §142/§143 used margin 6** (noticed
+later from the box sizes, 25×22 vs 27×24 at rank 4). Adequacy was shown within §146 rather than
+inherited: the in-sector gauge controls keep everything, random deformations sit exactly on the floor,
+and the rank-4 axial results are unchanged at margin 8. Cross-section comparisons of *counts* are
+therefore box-converged, but raw nullities and dim V are not comparable between §146 and §142/§143. Rank 4 on both primes; **rank 6 on one prime only**.
 Pole order 3 is not probed here — that needs rank 8, and it is not yet run for either axial family.
 The axial slots are **probes at O(χ²), not slow-rotation metric terms**; the physical odd sector lives
 at O(χ¹) and is reported separately.

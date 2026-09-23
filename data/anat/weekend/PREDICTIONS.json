@@ -64,10 +64,11 @@
     },
     {
       "name": "l4_r8_p1",
-      "cmd": "--rank 8 --denpow 7 --margin 4 --prime 1 --axial-controls 0 --slots l4tt,l4rr,l4ang",
+      "cmd": "--rank 8 --denpow 7 --margin 6 --prime 1 --axial-controls 0 --slots l4tt,l4rr,l4ang",
       "out": "data/anat/weekend/reduced_r8_l4_p1.out",
       "same_as": "data/anat/reduced_r8_l4.out",
-      "_bets": "owed guard on §143 (published on one prime). Every number INCLUDING the reconstructed rational coefficients must reproduce, as §144 did for l=2. --axial-controls 0 restores §143's exact column set."
+      "_bets": "owed guard on §143 (published on one prime). Every number INCLUDING the reconstructed rational coefficients must reproduce, as §144 did for l=2. --axial-controls 0 restores §143's exact column set.",
+      "_amended": "2026-09-23 12:50, BEFORE this job began (job 1 was running): --margin 4 -> 6. The reference run data/anat/reduced_r8_l4.out used box 27x28 = margin 6; margin 4 gives 25x26, a different nullity and dim V, and the reproduction would have scored MISMATCH for a configuration reason. The EXPECTED OUTCOME (same_as the reference) is unchanged; only the command was made to match the run it must reproduce."
     },
     {
       "name": "o3_r8_p1",
