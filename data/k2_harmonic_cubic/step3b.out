@@ -1,0 +1,15 @@
+  (d  [gamma]) couplings [gamma]: F''==0 always: False; G''==0 always: True  ->  one side always affine -> conjugacy forces F'' = 0 -> V affine -> NO NON-AFFINE REAL FORM
+  (e  [beta,gamma]  CONTROL) couplings [beta, gamma]: F''==0 always: False; G''==0 always: False  ->  both F'' and G'' can be nonzero -> FLAGGED: needs explicit conjugacy
+  (f  [gamma]) couplings [gamma]: F''==0 always: False; G''==0 always: True  ->  one side always affine -> conjugacy forces F'' = 0 -> V affine -> NO NON-AFFINE REAL FORM
+  (g  [beta]) couplings [beta]: F''==0 always: True; G''==0 always: True  ->  V AFFINE for all couplings -> no non-affine real form
+  (k  [alpha,gamma]) couplings [alpha, gamma]: F''==0 always: True; G''==0 always: False  ->  one side always affine -> conjugacy forces G'' = 0 -> V affine -> NO NON-AFFINE REAL FORM
+  (l  [alpha,beta]) couplings [alpha, beta]: F''==0 always: False; G''==0 always: True  ->  one side always affine -> conjugacy forces F'' = 0 -> V affine -> NO NON-AFFINE REAL FORM
+  (b  mu=0 [beta]) couplings [beta]: F''==0 always: True; G''==0 always: False  ->  one side always affine -> conjugacy forces G'' = 0 -> V affine -> NO NON-AFFINE REAL FORM
+  (c  a=0 [beta,gamma]) couplings [beta, gamma]: F''==0 always: True; G''==0 always: False  ->  one side always affine -> conjugacy forces G'' = 0 -> V affine -> NO NON-AFFINE REAL FORM
+  (g  m=0 [alpha,beta,gamma]) couplings [alpha, beta, gamma]: F''==0 always: True; G''==0 always: False  ->  one side always affine -> conjugacy forces G'' = 0 -> V affine -> NO NON-AFFINE REAL FORM
+  (h  m=0 [alpha,beta,gamma]) couplings [alpha, beta, gamma]: F''==0 always: True; G''==0 always: False  ->  one side always affine -> conjugacy forces G'' = 0 -> V affine -> NO NON-AFFINE REAL FORM
+  (l  rho=0 [alpha,beta]) couplings [alpha, beta]: F''==0 always: False; G''==0 always: True  ->  one side always affine -> conjugacy forces F'' = 0 -> V affine -> NO NON-AFFINE REAL FORM
+
+  FLAGGED for explicit conjugacy: ['e  [beta,gamma]  CONTROL']
+  control: only (e) flagged -> ok
+  (e) explicit conjugacy: gamma = conj(beta) gives V = 2 Re(beta z^(-1/2)) -- the section-147 SW-IV potential
