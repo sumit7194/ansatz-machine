@@ -89,3 +89,40 @@ and are excluded.
 
 **Expectation:** no HIT, and CG's "only two additive" reproduced. Confidence: high for "no HIT", moderate
 for "exactly two" (it depends on how Tsiganov writes each entry).
+
+---
+
+# STEP 4 (pre-registered 2026-09-24, before computing): a bounded Stäckel-transform screen
+
+**Transforms in scope (and only these):** coupling-constant metamorphosis (CCM, the Stäckel transform; Hietarinta
+et al. 1984, Boyer–Kalnins–Miller 1986, Post 2010) on **one** independently-coupled term α_i V_i of an input
+system H = ½|p|² + Σ α_j V_j whose cubic integral holds at arbitrary energy **for all values of α_i**.
+- New system: H' = ½|p|²/V_i + (Σ_{j≠i} α_j V_j − E)/V_i on the metric V_i |dz|².
+- **The Eisenhart lift needs a flat base**, so the target metric must be flat: V_i = |F'(z)|², i.e. **log V_i
+  harmonic**. Terms without a harmonic log are out of scope (the target is curved).
+- **The output must be harmonic for a vacuum lift.** Since harmonicity is conformally invariant in 2-D, test
+  U(z) = (Σ_{j≠i} α_j V_j − E)/V_i in z. −E/V_i = −E|1/F'|² is harmonic only for constant F', so **E = 0** is
+  forced; recorded as a derived restriction, not a choice.
+- Out of scope, stated positively: two or more successive CCMs; CCMs whose target is flat only after a further
+  coordinate change not of this form; inputs with complex (Drach, (1,1)) coefficients; integrals that exist only
+  at fixed energy.
+
+**Input set (finite):** MT 2023 Table I (the 8 integrable-only entries); a term is CCM-eligible iff its
+coupling is free (not tied by the entry's side conditions) and its log is harmonic.
+
+**Rule per output:** (a) U harmonic and non-affine; (c) not superintegrable (quadratic family dim 1), tested in
+the flat w = F(z) coordinates; plus a real signature-(1,3) lift (V real). CCM carries a polynomial integral that
+holds for all couplings to one of the same degree, so (b) is inherited; it is re-verified explicitly for any
+output that passes (a) and (c).
+
+**Controls:** C5 must reproduce SW-IV σ = 0: input V = c₁|z|² + c₂ x (oscillator plus linear; superintegrable),
+CCM on the c₁|z|² term (F = z²/2) → U = c₂ x/|z|² = c₂ Re(1/z) → in w: SW-IV σ = 0, then EXCLUDED as
+superintegrable. C6 must be NOT-HARMONIC: the same input plus a constant c₀, giving U = (c₂x + c₀)/|z|²,
+where c₀/|z|² is the Kepler term in w.
+
+**Expectation:** no HIT. The eligible terms in Table I are few (the Toda exponentials, 1/r², e^{±√3θ}/r³, the
+Kepler 1/r), and dividing by them tends to produce exponentials or radial powers with nonzero Laplacian.
+Confidence: moderate-high.
+
+**Boundedness:** finite input set × finite eligible terms × one transform each. If anything turns up that
+needs multi-step or curved-target transforms, it is parked, not chased.
