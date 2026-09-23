@@ -1,0 +1,15 @@
+o3_r8_p0_m6: /Users/sumit/Github/conjecture_machine/data/anat/weekend/reduced_r8_o3_p0_m6.out
+  scored against the sealed prediction
+
+  ok    products
+  ok    slots
+  ok    keeping_all
+  ok    pole_le
+  ok    first_appearing
+  ok    directions
+  ok    controls_all_keep
+  MISS  random_all_keep
+          got      3 random, keeping ['24']
+          expected 25
+
+  VERDICT: MISMATCH -- the prediction failed somewhere above

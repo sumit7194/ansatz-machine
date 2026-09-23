@@ -112,14 +112,17 @@
         "controls_all_keep": 55,
         "random_all_keep": 25
       },
-      "_why": "Rerun of o3_r8_p0 at margin 6 (box 27x28, as §142/§143 used at rank 8). The 'expect' block is copied VERBATIM from o3_r8_p0, which was sealed before any rank-8 output existed; nothing seen in the margin-4 output was used to write it. random_all_keep 25 is now the field that decides whether the run counts at all."
+      "_why": "Rerun of o3_r8_p0 at margin 6 (box 27x28, as §142/§143 used at rank 8). The 'expect' block is copied VERBATIM from o3_r8_p0, which was sealed before any rank-8 output existed; nothing seen in the margin-4 output was used to write it. random_all_keep 25 is now the field that decides whether the run counts at all.",
+      "_outcome": "RAN 17:59-23:02, margin 6. Every physics field matched the sealed prediction AGAIN (bet included), but random kept 24 < floor 25 AGAIN. So margin was NOT the cause (margin 4 and 6 fail identically); the diagnosis 'margin too narrow' is withdrawn. Leading suspect: the DENOMINATOR power (L^7) -- the knob margin never touches; cf. rank-4 kmax-10, fixed by L^9."
     },
     {
       "name": "o3_r8_p1_m6",
-      "cmd": "--rank 8 --denpow 7 --margin 6 --prime 1 --slots o3tphi,o3rphi,o3yphi",
+      "cmd": "-",
       "out": "data/anat/weekend/reduced_r8_o3_p1_m6.out",
       "same_as": "data/anat/weekend/reduced_r8_o3_p0_m6.out",
-      "_why": "second prime for o3_r8_p0_m6, whatever it shows."
+      "_why": "second prime for o3_r8_p0_m6, whatever it shows.",
+      "_cancelled": "2026-09-23 23:05, BEFORE it began: it is the second prime of a configuration shown invalid by its own floor control (o3_r8_p0_m6). cmd set to '-' so the running driver SKIPs it. Superseded by a denpow-corrected pair once the needed denominator is measured.",
+      "cmd_original": "--rank 8 --denpow 7 --margin 6 --prime 1 --slots o3tphi,o3rphi,o3yphi"
     }
   ],
   "calibration_note": "sabotage calibration now requires exit 10 plus a printed 'VERDICT: MISMATCH' (was exit 1, which a crashed Python also returns)."

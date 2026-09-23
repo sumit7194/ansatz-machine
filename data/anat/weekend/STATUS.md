@@ -26,3 +26,19 @@
 [Wed 17:57:07]   o3_r8_p1: subshell 20802, python NOT FOUND  (throttle live: echo 2 > data/KT_THREADS.<pid>)
 [Wed 17:57:07] FAILED o3_r8_p1: exit 1 after 0 min, peak ?; last lines:
 [Wed 17:57:07] === queue finished
+[Wed 17:58:41] === weekend_rank8 start (dry-run=1) queue: o3_r8_p0_m6 l4_r8_p1 o3_r8_p1_m6  threads=4  min_free=8GB  driver pid 21041
+[Wed 17:58:41] predictions sealed at commit a3821dc
+[Wed 17:58:41] checker calibrated: MATCH on the known reproduction, MISMATCH on the planted error
+[Wed 17:58:41] (dry-run) would launch o3_r8_p0_m6: --rank 8 --denpow 7 --margin 6 --prime 0 --slots o3tphi,o3rphi,o3yphi -> data/anat/weekend/reduced_r8_o3_p0_m6.out  [10GB free]
+[Wed 17:58:41] (dry-run) would launch l4_r8_p1: --rank 8 --denpow 7 --margin 6 --prime 1 --axial-controls 0 --slots l4tt,l4rr,l4ang -> data/anat/weekend/reduced_r8_l4_p1.out  [10GB free]
+[Wed 17:58:41] (dry-run) would launch o3_r8_p1_m6: --rank 8 --denpow 7 --margin 6 --prime 1 --slots o3tphi,o3rphi,o3yphi -> data/anat/weekend/reduced_r8_o3_p1_m6.out  [10GB free]
+[Wed 17:58:41] === queue finished
+[Wed 17:59:37] === weekend_rank8 start (dry-run=0) queue: o3_r8_p0_m6 l4_r8_p1 o3_r8_p1_m6  threads=4  min_free=8GB  driver pid 21187
+[Wed 17:59:37] predictions sealed at commit a3821dc
+[Wed 17:59:37] checker calibrated: MATCH on the known reproduction, MISMATCH on the planted error
+[Wed 17:59:37] LAUNCH o3_r8_p0_m6: --rank 8 --denpow 7 --margin 6 --prime 0 --slots o3tphi,o3rphi,o3yphi  [10GB free]
+[Wed 17:59:42]   o3_r8_p0_m6: subshell 21218, python 21220  (throttle live: echo 2 > data/KT_THREADS.21220)
+[Wed 23:02:57] DONE o3_r8_p0_m6: 303 min, peak 9.4 GB, verdict MISMATCH  (details: data/anat/weekend/reduced_r8_o3_p0_m6.out.check)
+[Wed 23:02:57] LAUNCH l4_r8_p1: --rank 8 --denpow 7 --margin 6 --prime 1 --axial-controls 0 --slots l4tt,l4rr,l4ang  [8GB free]
+[Wed 23:03:02]   l4_r8_p1: subshell 55296, python 55298  (throttle live: echo 2 > data/KT_THREADS.55298)
+[Wed 23:03:16] ANNOTATION (manual, ansatz-machine): the 17:56:07 line 'DONE o3_r8_p0 ... verdict MISMATCH' was logged from a CRASHED scorer (Python died in init_sys_streams, EBADF: the driver had lost stdin), whose exit 1 collided with the old MISMATCH code -- that line is NOT a verdict. Scored properly afterwards, the run is ALSO a MISMATCH for a real reason: random kept 24 < floor 25 (margin-4 box too narrow at rank 8), so it is invalid; every physics field incl. the bet matched. Superseded by o3_r8_p0_m6. Crash-vs-verdict path fixed in a3821dc (MISMATCH exit 10 + VERDICT-line check).
