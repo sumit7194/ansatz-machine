@@ -3539,3 +3539,20 @@ equal the dimension of the floor (9). **The per-chain "set aside" logic is still
 used for** — deciding whether *all* 14 survive — so §139–§141 are unaffected; only a *count* of failing
 basis chains is basis-dependent. (`data/anat/drag_span.out`, `drag_boxcheck.out`, `qpower_r4_drag{1,3}.out`;
 prime 0.)
+
+**Literature check for §146 (2026-09-23), done before calling any of it new.**
+
+- *drag1 keeps Carter, drag3 kills it* — **prior art twice over.** Our own §140 ("ℓ=3 dragging: dies at
+  O(chi)"), and Vigeland, Yunes & Stein, PRD 83, 104027 (arXiv:1102.3706): in their family of Kerr
+  deformations admitting an O(ε) Carter-type Killing tensor, the frame-dragging-only member at small
+  spin is h_tφ = −f r² sin²θ γ₃(r) + C — **sin²θ is exactly the ℓ = 1 axial pattern**, with a free radial
+  function. Their "only if" is inside a stated Killing-tensor ansatz (ξ = Δ k₍ₐlᵦ₎ + r²g) at rank 2;
+  §139/§140 measured without assuming that form. Consistent, not independent evidence of novelty.
+- *Their "parity" is not ours.* VYS require δξ to share the parity of ξ̄ under **equatorial reflection
+  θ → π − θ**. §146's grading is by **degree in p_φ**, a different statement.
+- *Not found*, in three searches including the neighbouring vocabulary the brief warns about (first
+  integral, rational/meromorphic, Morales–Ramis, Liouville): the p_φ-parity grading of the
+  higher-rank perturbative problem, a polar-vs-axial difference in how many Killing-tensor directions
+  survive at each pole order, or the pole-order ladder itself. **That is "not found", not "new".** The
+  grading is one line of algebra and is very likely folklore; the sector-resolved counts are the
+  part with a chance of being unpublished.
