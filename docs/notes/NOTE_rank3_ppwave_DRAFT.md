@@ -5,6 +5,11 @@
 *Draft short note, 2026-09-24. Sized as agreed with The Bridge: a corollary on a published spacetime, not a
 first construction. Sources and checks are in RESULTS §147 and `workspaces/high_rank_killing/`.*
 
+> **STATUS OF VERIFICATION — READ FIRST.** Every check below was carried out by **AI sessions** (Claude):
+> the construction, and two independent re-verifications. They share no code, but **no human has checked
+> any of it**: not the construction, not the proofs, not the prior-art search. Anyone reading this should
+> treat it as an AI-verified claim awaiting human review, not as an established result.
+
 ---
 
 ## Abstract (draft)
@@ -89,7 +94,11 @@ form, by an anti-self-duality argument in workspace EXP-003 §6, which this draf
   citer query (the correct query returns 18 citers of Cariglia–Galajinsky, Filyukov among them). **A negative
   sweep is never complete.** Not searched: elibrary.ru directly, and theses.
 
-## 5. How it was verified — three independent routes
+## 5. How it was verified — three independent routes, all by AI sessions
+
+All three routes below were run by AI sessions (Claude), independently of one another. **No human has
+reproduced or reviewed any of them.** Independence here means different code and different derivation
+paths, not different kinds of reviewer.
 
 | route | written by | what it checked |
 |---|---|---|
