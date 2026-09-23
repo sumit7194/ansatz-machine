@@ -123,9 +123,15 @@ so the objects exist, and they are the positive control. **Their signature is (2
 ultrahyperbolic, not Lorentzian** (verified here: `scripts/_kt_cg5d.py` prints it, eigenvalue signs
 −2 +3 at every point tested). The control is unaffected — the Killing equation is signature-blind,
 so finding a rank-4 tensor there still proves the prover is not a null-machine. What it changes is
-what our nulls *mean*: no Lorentzian Ricci-flat spacetime with an irreducible Killing tensor of
-rank ≥ 3 is known in any dimension, so a Lorentzian null is one more datum in an unbroken pattern
-rather than a quirk of the substrate. **Read "the objects exist" as "in signature (2,3)".**
+what our nulls *mean*. **CORRECTED 2026-09-23 (RESULTS §147):** this paragraph used to say no
+Lorentzian Ricci-flat spacetime with an irreducible Killing tensor of rank ≥ 3 is known in any
+dimension. **One is now in hand and verified here** — a 4D vacuum pp-wave, signature (1,3), with a
+rank-3 tensor irreducible in the *polynomial* sense (built in this project's `high_rank_killing`
+workspace). It is **functionally dependent** (the Poisson bracket of two quadratic Killing tensors),
+as the published (2,2) examples also are, and it is a singular pp-wave, not a stationary black-hole-like
+spacetime. So what remains unbroken is narrower: **no functionally independent irreducible rank ≥ 3
+tensor, and nothing at rank 4, is known in Lorentzian vacuum** — and nothing at all on a stationary,
+asymptotically flat one, which is where our deformed-Kerr nulls live.
 
 ---
 

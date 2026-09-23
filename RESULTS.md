@@ -3556,3 +3556,67 @@ prime 0.)
   survive at each pole order, or the pole-order ladder itself. **That is "not found", not "new".** The
   grading is one line of algebra and is very likely folklore; the sector-resolved counts are the
   part with a chance of being unpublished.
+
+## §147 — a Lorentzian vacuum pp-wave with a polynomially irreducible rank-3 Killing tensor (verified here)
+
+**Provenance.** Constructed in the `high_rank_killing` workspace — a session folder of this project,
+now absorbed as `workspaces/high_rank_killing/` (see its `PROVENANCE.md`) — as EXP-002 (`9384d7f`),
+EXP-003 (`6a5b66c`, WRITEUP.md) and EXP-004 (`b2ebbef`). **The verification below was run here from
+the object alone, before any of that workspace's files were read**, with a standalone script that
+imports nothing from this repo (`scripts/_pp_wave_verify.py`, `data/pp_wave_verify.out`). The author's
+own count had used this repo's `solve_kt_modp`; re-running it would have been the same instrument.
+
+**The object.** Signature (1,3), coordinates (t, s, ξ, η), ρ² = ξ² + η², a ≠ 0:
+
+    ds² = −(4aξ/ρ²) dt² + 2 dt ds + 8ρ² (dξ² + dη²)
+    F   = (η p_ξ − ξ p_η)(p_ξ² + p_η²)/(32ρ²) + (a p_s²/ρ²)[ξη p_ξ + ½(η² − ξ²) p_η]
+
+**What was checked here, and how.**
+
+    Ricci-flat                       exact, a symbolic; Riemann != 0 (a genuine wave)
+    signature (1,3)                  (t,s) block det -1, transverse block 8 rho^2 I
+    transverse plane flat            8 rho^2 |dz|^2 = 2 |d(z^2)|^2: (xi,eta) are parabolic coordinates of w = z^2
+    profile harmonic                 xi/rho^2 = Re(1/z), harmonic in (xi,eta)
+    {H, F} = 0                       exact, own bracket; a perturbed F fails (the check can fail)
+    dim K1 = 2                       integrability conditions L_X nabla^k R = 0 at a rational point:
+                                       bound 6 at k=0 (NOT tight, as warned), 2 at k=1 and k=2
+                                       -> with d_t, d_s known, exactly 2.  Control: Schwarzschild -> 4.
+    polynomially irreducible         reducible rank-3 = K1 (x) K2 + K1^3 lies in the ideal (p_t, p_s);
+                                       F's pure (p_xi,p_eta) part is nonzero -> not reducible. No ansatz.
+    functional status (measured)     F independent of {p_t,p_s,H,Q1}: Jacobian rank 5 at a rational point.
+                                       Quadratic integrals: a 3-dim family (H + two parabolic Q's), so a
+                                       SECOND quadratic Q2 exists and F is dependent on the full set.
+    relations (checked after reading) F = -4{Q1,Q2};  F^2 = 4[(H - p_t p_s)(Q1^2 + Q2^2) - a^2 Q1 p_s^4]
+
+**Agreement with the source, point by point** — including the one I first recorded as a FAIL: my
+script had encoded "functionally dependent" without saying *dependent on what*, and measured
+independence from {p_t, p_s, H, Q1}. The write-up already states both: dependent on (…, Q1, Q2),
+independent of the set without Q2. My separated integral K2 turned out to be exactly their Q1.
+
+**What it is, in plain words.** The Eisenhart lift of a two-dimensional system with a **harmonic**
+potential — the σ = 0 member of the 1965 Smorodinsky–Winternitz potential V⁽⁴⁾, √(r+x)/r — which is
+second-order superintegrable (two quadratic integrals from two parabolic separations). Its cubic
+integral is their Poisson bracket, which lifts to a rank-3 Killing tensor. Harmonic potential ⇒
+Ricci-flat lift ⇒ Lorentzian vacuum.
+
+**What it settles and what it does not.**
+- **Settles:** the statement (Cariglia–Galajinsky 2015, repeated by Fordy–Galajinsky 2019, and by this
+  repo's CLAUDE.md §1 and my own shared plan) that *no Lorentzian vacuum spacetime with an irreducible
+  Killing tensor of rank ≥ 3 is known*, **in the polynomial sense those authors use**. Their own (2,2)
+  examples are also brackets of quadratics and also functionally dependent, so this object stands on
+  exactly their footing; its new content is the signature.
+- **Does not settle:** (a) a **functionally independent** irreducible rank ≥ 3 tensor in Lorentzian
+  vacuum — no example provides one, including the (2,2) ones; (b) **rank 4** in Lorentzian vacuum —
+  the rank-4 (2,2) metrics have no Lorentzian real form (anti-self-dual, per the write-up's §6
+  argument, not re-derived here); (c) anything about stationary, black-hole-like spacetimes: this is a
+  pp-wave, all scalar invariants vanish, and it is **singular at ρ = 0** — the (ξ,η) plane double-covers
+  the punctured flat plane, a 4π conical excess, and the profile ~1/ρ. Not geodesically complete.
+  Singular profiles are generic for non-plane vacuum pp-waves (a bounded harmonic function on the plane
+  is constant), so this is the price of the class rather than a defect of the example.
+
+**Scope manifest.** OBJECT the metric and F above. EXACT IN everything: no truncation. VALID RANGE
+ρ > 0, a ≠ 0 (|a| is a gauge). CONVENTIONS H = ½g^{ab}p_ap_b; "irreducible" = polynomial sense.
+UNIQUE? one member of a family (a 5D companion with signature (1,4) is in the workspace's EXP-003,
+**not verified here**). NOT CHECKED here: the 5D companion; the Kaluza–Klein reduction (EXP-004); the
+rank-4 no-go argument; the prior-art sweep of the object (the workspace reports it not found; I have
+not repeated it). DOMAIN the complement of the singular line.

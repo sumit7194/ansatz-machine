@@ -1,0 +1,37 @@
+1. the metric: Lorentzian, and vacuum (Ricci-flat) -- symbolic a
+  ok    det g < 0 for rho > 0   [det = -64*(eta**2 + xi**2)**2]
+  ok    (t,s) block has det -1 => one timelike + one spacelike; transverse block positive -> (1,3)
+  ok    Ricci tensor vanishes identically
+  ok    Riemann is NOT zero (a genuine wave, not flat space)
+  ok    transverse metric = 2|dw|^2 with w = (xi + i eta)^2  (flat; parabolic coordinates)
+  ok    profile 4a xi/rho^2 = 4a Re(1/z) is harmonic in (xi, eta)
+
+2. F is a first integral: {H, F} = 0 -- own bracket, symbolic a
+  ok    {H, F} = 0 identically
+  ok    {p_t, F} = {p_s, F} = 0 (no t or s dependence)
+  ok    CONTROL: a perturbed F is NOT conserved (the bracket can fail)
+
+3. dim K1 by integrability conditions (upper bounds per order K)
+   pp-wave at a = 3/7, point (xi, eta) = (2/3, 5/4):
+      K = 0: stacked rank 4 of 10  ->  dim K1 <= 6
+      K = 1: stacked rank 8 of 10  ->  dim K1 <= 2
+      K = 2: stacked rank 8 of 10  ->  dim K1 <= 2
+  ok    the bound reaches 2 at some order (with d_t, d_s known: dim K1 = 2 EXACTLY)   [bounds per K = [6, 2, 2]]
+  ok    first-order (K=0) bound is NOT tight here, as warned   [K=0 bound 6]
+   CONTROL -- Schwarzschild (x = cos theta), must give exactly 4:
+      K = 0: stacked rank 5 of 10  ->  dim K1 <= 5
+      K = 1: stacked rank 6 of 10  ->  dim K1 <= 4
+  ok    Schwarzschild bound = 4 (the method can say something other than 2)   [bounds [5, 4]]
+
+4. irreducibility (polynomial sense) from (i) dim K1 = 2 and (ii) the pure transverse part
+  ok    F restricted to p_t = p_s = 0 is nonzero   [(p_eta**2 + p_xi**2)*(eta*p_xi - p_eta*xi)/(32*(eta**2 + xi**2))]
+  ok    => F is not in the ideal (p_t, p_s): polynomially IRREDUCIBLE
+
+5. functional (in)dependence -- the author disclosed 'functionally dependent'; measured here
+  ok    the two separated forms of K2 agree identically
+  ok    a quadratic (rank-2) Killing tensor K2 exists (parabolic separation): {H, K2} = 0
+      Jacobian ranks at a random point: (p_t,p_s,H)=3  +F=4  (p_t,p_s,H,K2)=4  +F=5
+  ok    F is independent of {p_t, p_s, H} alone
+  FAIL  F is FUNCTIONALLY DEPENDENT on {p_t, p_s, H, K2}   [the author's disclosure, reproduced]
+
+FAIL (1): ['F is FUNCTIONALLY DEPENDENT on {p_t, p_s, H, K2}']
