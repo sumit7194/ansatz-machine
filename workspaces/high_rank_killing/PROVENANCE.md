@@ -8,8 +8,8 @@
 
 ## ERRATUM — WRITEUP.md §7 is out of date (2026-09-23, late)
 WRITEUP.md §7 says nothing was found containing the σ = 0 vacuum member. **It was published**: Filyukov,
-Sci. Tech. Educ. 1(5) (2017) 13–20 (in Russian, off arXiv; INSPIRE 1620354), with its two quadratic Killing
-tensors. The rank-3 tensor F = −4{Q1,Q2} was not found there. See RESULTS §147. WRITEUP.md is left
+Sci. Tech. Educ. 1(5) (2017) 13–20 (in Russian, off arXiv; INSPIRE 1620354), displaying one quadratic Killing
+tensor (the second implied by "superintegrable"). The rank-3 tensor F = −4{Q1,Q2} was not found there. See RESULTS §147. WRITEUP.md is left
 unedited as the historical record of what was believed on 2026-09-05.
 
 ## Deliberately NOT copied
