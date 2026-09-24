@@ -4195,3 +4195,10 @@ child's max RSS; `time -l` reports a 19.3 GB peak footprint; the watchdog's whol
 24.15 GB (~21:30, during the Rust nullspace). **Budget this job at ~24 GB, not 10.** The driver's
 STATUS line should read the footprint, not RSS — fix before the L⁸ pair is launched. The run got through the
 peak because the machine was otherwise idle (swap stayed at 2 GB; disk never below 30 GB free).
+
+## 2026-09-25 00:14 — the held L⁸ axial job launched (user's go: Mac free overnight)
+
+`o3_r8_p0_d8` (rank 8, L⁸, margin 6, prime 0, axial ℓ = 3), via the new `scripts/launch_job.sh` (driver + disk
+watchdog + caffeinate, all detached). Box 30×30, 158,565 unknowns (+18% over job 2). The deciding field is the
+random control: it must reach the 25 floor, where both L⁷ attempts stopped at 24. The driver now reports peak
+footprint rather than RSS. Second prime not queued: one run per night.
