@@ -1,0 +1,7 @@
+[Thu 18:37:41] === weekend_rank8 start (dry-run=0) queue: l4_r8_p1  threads=2  min_free=8GB  driver pid 756
+[Thu 18:37:41] predictions sealed at commit 801f2df
+[Thu 18:37:41] checker calibrated: MATCH on the known reproduction, MISMATCH on the planted error
+[Thu 18:37:41] LAUNCH l4_r8_p1: --rank 8 --denpow 7 --margin 6 --prime 1 --axial-controls 0 --slots l4tt,l4rr,l4ang  [8GB free]
+[Thu 18:37:46]   l4_r8_p1: subshell 821, python 823  (throttle live: echo 2 > data/KT_THREADS.823)
+[Thu 23:33:00] DONE l4_r8_p1: 295 min, peak 10.0 GB, verdict MATCH  (details: data/anat/weekend/reduced_r8_l4_p1.out.check)
+[Thu 23:33:00] === queue finished
