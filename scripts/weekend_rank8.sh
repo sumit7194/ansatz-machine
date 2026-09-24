@@ -21,7 +21,7 @@
 #     to data/anat/weekend/PIDS with its argv, so our processes can be identified exactly -- never by
 #     pattern -- and nobody else's are touched.
 #  6. Each job is scored automatically by scripts/_kt_weekend_check.py and the verdict is appended to
-#     STATUS.md along with wall time and peak RSS. Nothing is committed: results are reviewed first.
+#     STATUS.md along with wall time and peak footprint. Nothing is committed: results are reviewed first.
 #
 # Live throttle for a single running job:   echo 2 > data/KT_THREADS.<pid>
 set -u
@@ -100,7 +100,10 @@ print((j or {}).get('out','-'), (j or {}).get('cmd','-'))")
   log "  $job: subshell $pid, python ${pypid:-NOT FOUND}  (throttle live: echo 2 > data/KT_THREADS.${pypid:-<pid>})"
   wait $pid; rc=$?
   mins=$(( ($(date +%s) - t0) / 60 ))
-  rss=$(awk '/maximum resident set size/{printf "%.1f GB", $1/1073741824}' "$out.time" 2>/dev/null)
+  # Report the peak FOOTPRINT (includes compressed memory), not max RSS: job 2 logged "peak 10.0 GB" from RSS
+  # while its footprint was 19.3 GB and the whole tree 24 GB (2026-09-24, memory rule 116).
+  rss=$(awk '/maximum resident set size/{r=$1} /peak memory footprint/{f=$1}
+             END{if (r!="") printf "footprint %.1f GB (RSS %.1f GB)", f/1073741824, r/1073741824}' "$out.time" 2>/dev/null)
   if [ $rc -ne 0 ] || ! grep -q "^  total [0-9]*s" "$out"; then
     log "FAILED $job: exit $rc after ${mins} min, peak ${rss:-?}; last lines:"; tail -5 "$out" | tee -a "$W/STATUS.md"
     continue

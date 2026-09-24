@@ -62,3 +62,8 @@ rank 8, L^7, box 27x28: 133980 unknowns, 55 Schwarzschild products (by Q power {
 [Thu 18:37:46]   l4_r8_p1: subshell 821, python 823  (throttle live: echo 2 > data/KT_THREADS.823)
 [Thu 23:33:00] DONE l4_r8_p1: 295 min, peak 10.0 GB, verdict MATCH  (details: data/anat/weekend/reduced_r8_l4_p1.out.check)
 [Thu 23:33:00] === queue finished
+[Fri 00:14:45] === weekend_rank8 start (dry-run=1) queue: o3_r8_p0_d8  threads=2  min_free=8GB  driver pid 20930
+[Fri 00:14:45] predictions sealed at commit 801f2df
+[Fri 00:14:45] checker calibrated: MATCH on the known reproduction, MISMATCH on the planted error
+[Fri 00:14:45] (dry-run) would launch o3_r8_p0_d8: --rank 8 --denpow 8 --margin 6 --prime 0 --slots o3tphi,o3rphi,o3yphi -> data/anat/weekend/reduced_r8_o3_p0_d8.out  [9GB free]
+[Fri 00:14:45] === queue finished
