@@ -4181,3 +4181,17 @@ copy waits on its controls.
 finishes; the Bridge will send "go job 2". THREADS = 2 (same result, lower peak); an 8 GB memory gate; a
 whole-tree-footprint watchdog that kills the tree below 5 GB of free disk, its kill path proven on a dummy tree
 (after my first check of that test proved invalid under zsh word-splitting).
+
+## 2026-09-24 (evening) — job 2 done: §143's rank-8 polar ℓ = 4 result reproduced on the second prime
+
+Launched by the user from a terminal at 18:37 (`scripts/launch_job2.sh`), finished 23:33, 295 min at 2 threads.
+**Scorer verdict MATCH on all ten sealed fields** (`data/anat/weekend/reduced_r8_l4_p1.out.check`): 2 directions
+first appearing at pole order 1, 1 at pole order 2, 0 at pole order 3; the four gauge controls keep all 55
+products; the three random deformations sit exactly at the (4+1)² = 25 floor. The prime-1 coefficients are the
+prime-0 ones. §143's rank-8 count is now two-prime.
+
+Memory, measured three ways — they disagree, and the reason is rule 116: the driver's "peak 10.0 GB" is the
+child's max RSS; `time -l` reports a 19.3 GB peak footprint; the watchdog's whole-tree MEM sum peaked at
+24.15 GB (~21:30, during the Rust nullspace). **Budget this job at ~24 GB, not 10.** The driver's
+STATUS line should read the footprint, not RSS — fix before the L⁸ pair is launched. The run got through the
+peak because the machine was otherwise idle (swap stayed at 2 GB; disk never below 30 GB free).

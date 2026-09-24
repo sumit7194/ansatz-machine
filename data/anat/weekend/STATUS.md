@@ -49,3 +49,16 @@ rank 8, L^7, box 27x28: 133980 unknowns, 55 Schwarzschild products (by Q power {
 [Thu 00:25:59] SKIP o3_r8_p1_m6: no such job (or no cmd) in data/anat/weekend/PREDICTIONS.json
 [Thu 00:25:59] === queue finished
 [Thu 00:26:46] ANNOTATION (manual): l4_r8_p1 was KILLED at 00:26 on a fleet memory/disk hold (whole-tree footprint ~23 GB, 21 GB of it compressed in the ktsolve child; swap 12.9/13.3 GB, data disk 95-96%). Not a physics failure; rerun later. L^8 pair held.
+[Thu 03:55:47] === weekend_rank8 start (dry-run=1) queue: l4_r8_p1  threads=2  min_free=8GB  driver pid 62788
+[Thu 03:55:47] predictions sealed at commit 801f2df
+[Thu 03:55:47] checker calibrated: MATCH on the known reproduction, MISMATCH on the planted error
+[Thu 03:55:47] (dry-run) l4_r8_p1 would WAIT: 6GB free < 8GB
+[Thu 03:55:47] (dry-run) would launch l4_r8_p1: --rank 8 --denpow 7 --margin 6 --prime 1 --axial-controls 0 --slots l4tt,l4rr,l4ang -> data/anat/weekend/reduced_r8_l4_p1.out  [6GB free]
+[Thu 03:55:47] === queue finished
+[Thu 18:37:41] === weekend_rank8 start (dry-run=0) queue: l4_r8_p1  threads=2  min_free=8GB  driver pid 756
+[Thu 18:37:41] predictions sealed at commit 801f2df
+[Thu 18:37:41] checker calibrated: MATCH on the known reproduction, MISMATCH on the planted error
+[Thu 18:37:41] LAUNCH l4_r8_p1: --rank 8 --denpow 7 --margin 6 --prime 1 --axial-controls 0 --slots l4tt,l4rr,l4ang  [8GB free]
+[Thu 18:37:46]   l4_r8_p1: subshell 821, python 823  (throttle live: echo 2 > data/KT_THREADS.823)
+[Thu 23:33:00] DONE l4_r8_p1: 295 min, peak 10.0 GB, verdict MATCH  (details: data/anat/weekend/reduced_r8_l4_p1.out.check)
+[Thu 23:33:00] === queue finished
