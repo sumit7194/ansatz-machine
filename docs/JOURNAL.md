@@ -4235,3 +4235,10 @@ it would have resumed at a stale byte offset in the new file. I restored the fil
 version the driver started with (checked with cmp against HEAD; the driver was blocked in `wait` inside the
 already-parsed loop, so it had read nothing new). The setting now lives in the launcher. Full `./verify.sh`
 has not been run yet: it waits for the machine to be free.
+
+## 2026-09-26 03:09 — L⁸ axial job, second prime: MATCH
+
+`o3_r8_p1_d8` finished in 334 min. MATCH on all ten fields against prime 0 (dim V, nullity, direction coefficients,
+controls, random at 25). Axial ℓ = 3 at rank 8 is now two-prime; RESULTS §146 addendum 3's scope line updated.
+Peak 27.6 GB whole tree again. This run used the old serial prep (it started before the parallel code landed):
+lcm 532 s + clear 1963 s, the baseline the next rank-8 run's parallel prep will be measured against.

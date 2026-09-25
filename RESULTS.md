@@ -3703,6 +3703,6 @@ anatomy as §143's polar pole-order-1 directions. So for axial ℓ = 3 **the lad
 nothing new appears at pole order 2 or 3 at rank 8, where polar ℓ = 4 (§143/§144) gains a pole-order-2 direction.
 One more way the two parities differ, on top of §146's count.
 
-**Scope.** Prime 0 only; the second prime (`o3_r8_p1_d8`, sealed) is not yet run. Within the stated box and
+**Scope.** Both primes. The second prime (`o3_r8_p1_d8`, 2026-09-26, 334 min) scored MATCH on all ten fields against prime 0, including dim V and the nullity, with the same coefficients and the random controls at 25. Within the stated box and
 denominator, pure-O(χ²) axial ℓ = 3 deformation of the §142 reduced operator, exact over GF(p). No claim
 beyond rank 8, and the ℓ-scan at rank 8 covers only ℓ = 3 (axial) and ℓ = 4 (polar).

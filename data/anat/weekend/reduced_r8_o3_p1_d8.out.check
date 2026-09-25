@@ -1,0 +1,15 @@
+o3_r8_p1_d8: /Users/sumit/Github/conjecture_machine/data/anat/weekend/reduced_r8_o3_p1_d8.out
+  scored against the reproduction of data/anat/weekend/reduced_r8_o3_p0_d8.out
+
+  ok    dim_V
+  ok    nullity
+  ok    products
+  ok    keeping_all
+  ok    slots
+  ok    pole_le
+  ok    first_appearing
+  ok    directions
+  ok    controls
+  ok    random
+
+  VERDICT: MATCH -- every field as predicted
