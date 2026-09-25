@@ -4242,3 +4242,13 @@ has not been run yet: it waits for the machine to be free.
 controls, random at 25). Axial ℓ = 3 at rank 8 is now two-prime; RESULTS §146 addendum 3's scope line updated.
 Peak 27.6 GB whole tree again. This run used the old serial prep (it started before the parallel code landed):
 lcm 532 s + clear 1963 s, the baseline the next rank-8 run's parallel prep will be measured against.
+
+## 2026-09-26 early morning — verify.sh all green; the note's borrowed statements re-derived
+
+`./verify.sh` (the gate owed since the parallel-prep change): **ALL GREEN, 118/118**, including the new KT9/KT9b.
+The Bridge asked for an independent re-derivation of the two EXP-003 statements the rank-3 note borrows, before
+anything goes outside (`data/cg_recheck/`). (a) CG's cubic = −½{Q_a,Q_b} with I² = −H Q_a Q_b − β² Q_a − α² Q_b:
+**CONFIRMED**, with the relation derived by an exhaustive fit, unique, and sabotage caught. (b) "rank-4 (2,2)
+metrics have no Lorentzian real form": **CORRECTED**. CG has no rank-4 (2,2) metric. The ASD argument covers the
+4D rank-3 first-system metric, the 5D rank-4 metric only on slices with real ∂_w, and the 6D one not at all
+(its KK base is flat). Note §3 updated. The Bridge's outreach one-pager uses only (a), so it stands.
