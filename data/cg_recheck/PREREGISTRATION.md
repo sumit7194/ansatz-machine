@@ -33,3 +33,16 @@ as worded is expected to need correction, and the question becomes what the ASD 
 - B4: 6D eq. 30, the same decomposition over the two fibres. If its base is flat, the ASD argument does not
   transfer at all.
 Label (b): CONFIRMED only if the statement holds as worded. Expected: CORRECTED, narrowed to what B1–B4 cover.
+
+## RESULT (2026-09-26, `data/cg_recheck/recheck.out`)
+- **(a) CONFIRMED.** A1–A4 all hold. The relation was derived, not only checked: the unique fit at three generic
+  (α,β) is exactly −H Q_a Q_b − β² Q_a − α² Q_b, and the symbolic identity holds for all α, β. The sabotage turns
+  all three tests red.
+- **(b) CORRECTED**, as predicted. There are no rank-4 (2,2) metrics in CG. B1 holds: the 4D first-system
+  metric is non-flat, Ricci-flat, ASD and not SD, so it has no Lorentzian real form (B2: ** = +1 in (2,2) and −1
+  in (1,3), computed; the rest is textbook). B3: the 5D metric is h + (dw + αx dt)² over an ASD, non-flat,
+  Kretschmann-0 base, so it is excluded on real slices with real ∂_w only. B4: the 6D base is flat
+  (U_base = αy), so there is no transfer.
+- Process note: the first run used a symbolic-parameter solve and SymPy `Matrix.rank`, and stalled for over
+  20 min. It was replaced by exact QQ row reduction at fixed rational parameters plus the symbolic identity,
+  with the same content (the change is stated in the fit's docstring).
