@@ -3678,3 +3678,31 @@ and a candidate (low harmonics couple, ℓ ≤ 3 at rank 4) is stated in `RESULT
 falsified: polar ℓ = 4 at rank 4 gives 2 pole-order-1 directions, reproducing §143's rank-8 coefficients exactly,
 and axial ℓ = 5 at rank 6 had already given 0. Both clauses were contradicted by data already in this notebook
 (rule 110). Scorecard in `data/anat/lscan/RESULT.md`.
+
+### §146 addendum 3 (2026-09-25) — axial ℓ = 3 at rank 8, valid at last: one direction, the same one, at every rank
+
+The two rank-8 axial ℓ = 3 runs at L⁷ (margins 4 and 6) were invalid by their own floor control: random
+deformations kept 24 products, one short of the (4+1)² = 25 floor. The shortfall was measured as a denominator
+one (the H₀⁴ floor extension under `o3rphi`/`o3yphi` needs L⁸), and a pair was sealed at L⁸ (801f2df), its
+expectation copied verbatim from the original rank-8 prediction, written before any rank-8 output existed.
+
+Prime 0 ran overnight (`data/anat/weekend/reduced_r8_o3_p0_d8.out`; rank 8, L⁸, box 30×30, 158,565 unknowns,
+344 min at 2 threads; peak footprint 15.7 GB for the process, 27.6 GB for the whole tree including the Rust
+solver). **Scorer: MATCH on all eight sealed fields**, and this time the run counts: **random controls at
+exactly 25**, all eight gauge controls (four polar, four axial) keeping 55/55, and the residual guard run over
+all 1,057 null vectors.
+
+    axial ℓ = 3      pole order 1   pole order 2   pole order 3   survivors of the one direction
+    rank 4                1              0              —         {0: 9, 1: 0, 2: 1}
+    rank 6                1              0              —         {0:16, 1: 0, 2: 4, 3: 1}           (21)
+    rank 8                1              0              0         {0:25, 1: 0, 2: 9, 3: 4, 4: 1}     (39)
+
+The direction is `o3tphi_1 − o3tphi_2 − 2·o3tphi_3` at all three ranks, with identical coefficients. It uses only
+the t–φ slot. It kills exactly the Q¹ sector of the Carter-power grading and keeps everything else, the same
+anatomy as §143's polar pole-order-1 directions. So for axial ℓ = 3 **the ladder does not climb with rank**:
+nothing new appears at pole order 2 or 3 at rank 8, where polar ℓ = 4 (§143/§144) gains a pole-order-2 direction.
+One more way the two parities differ, on top of §146's count.
+
+**Scope.** Prime 0 only; the second prime (`o3_r8_p1_d8`, sealed) is not yet run. Within the stated box and
+denominator, pure-O(χ²) axial ℓ = 3 deformation of the §142 reduced operator, exact over GF(p). No claim
+beyond rank 8, and the ℓ-scan at rank 8 covers only ℓ = 3 (axial) and ℓ = 4 (polar).

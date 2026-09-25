@@ -4202,3 +4202,11 @@ peak because the machine was otherwise idle (swap stayed at 2 GB; disk never bel
 watchdog + caffeinate, all detached). Box 30×30, 158,565 unknowns (+18% over job 2). The deciding field is the
 random control: it must reach the 25 floor, where both L⁷ attempts stopped at 24. The driver now reports peak
 footprint rather than RSS. Second prime not queued: one run per night.
+
+## 2026-09-25 morning — L⁸ axial job: MATCH, and valid
+
+Finished 05:59 (344 min). All eight sealed fields matched; random controls at exactly 25, the field that decides
+whether the run counts. Axial ℓ = 3 has one pole-order-1 direction at ranks 4, 6 and 8, with identical
+coefficients, and nothing at pole order 2 or 3 at rank 8. RESULTS §146 addendum 3. Peak: 15.7 GB footprint
+(process), 27.6 GB whole tree (watchdog), close to the 28–30 GB estimate. Next: the second prime `o3_r8_p1_d8`
+on a free night.
