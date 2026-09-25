@@ -124,6 +124,8 @@ NAMES+=("04 campaign");           CMDS+=("scripts/04_campaign.py")
 [ -f scripts/_kt_guard_test.py ] && { NAMES+=("KT7 Freivalds guard: agrees with the exhaustive check, detects a one-unit corruption, no false alarms"); CMDS+=("scripts/_kt_guard_test.py"); }
 [ -f scripts/_kt_parity_check.py ] && { NAMES+=("KT8 p_phi parity grades the bracket; polar even vs axial odd; drag chi^2 slice is even; sabotage rejected"); CMDS+=("scripts/_kt_parity_check.py"); }
 [ -f scripts/_kt_parity_check.py ] && { NAMES+=("KT8b parity checker SABOTAGE: inverting the axial expectations must turn it red"); CMDS+=("scripts/_kt_parity_check.py --sabotage"); }
+[ -f scripts/_kt_prep_parallel_check.py ] && { NAMES+=("KT9 parallel source prep builds the byte-identical level matrix (rank 4, 4 workers)"); CMDS+=("scripts/_kt_prep_parallel_check.py 4 -- --rank 4 --denpow 7 --margin 4 --slots o3tphi,o3rphi,o3yphi"); }
+[ -f scripts/_kt_prep_parallel_check.py ] && { NAMES+=("KT9b prep check SABOTAGE: one flipped matrix value must turn it red"); CMDS+=("scripts/_kt_prep_parallel_check.py --sabotage 4 -- --rank 4 --denpow 7 --margin 4 --slots o3tphi,o3rphi,o3yphi"); }
 
 fail=0
 GATE="$(dirname "$0")/gate.log"; : > "$GATE"   # also written here so the dashboard (reads ROOT/gate.log) stays current

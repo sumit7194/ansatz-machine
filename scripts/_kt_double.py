@@ -179,13 +179,64 @@ def _nullspace_new(dicts, ncols, p, verify, label):
     return vecs
 
 
-def _stream_sources(srcs, Dc, codec, p, col0):
+# PARALLEL PREP (2026-09-25). Clearing the sources was the single-core stretch of every big run: at rank 8
+# L^8, 1430 independent SymPy clears (~30 min) plus 1430 independent together() calls for the lcm (~9 min),
+# with 9 of 10 cores idle. Each source is independent, so workers compute them; the MAIN process still does
+# everything order-sensitive -- the lcm fold and the row-code assignment (Codec) -- in the original order,
+# so the matrix is identical entry for entry (scripts/_kt_prep_parallel_check.py). 1 = the old serial path.
+KT_PREP_WORKERS = int(os.environ.get("KT_PREP_WORKERS", "1"))
+_PAR_SRCS = None          # set before the pool forks; workers read it copy-on-write, nothing is pickled
+
+
+def _par_denom(i):
+    return sp.denom(sp.together(_PAR_SRCS[i]))
+
+
+def _par_clear(args):
+    i, Dc, p = args
+    return PB.clear(_PAR_SRCS[i], Dc, p)
+
+
+def _src_pool(srcs):
+    """A fork pool over srcs, or None for the serial path. Fork, not spawn: the sources are large SymPy
+    trees and pickling them to each worker would cost more than it saves."""
+    global _PAR_SRCS
+    if KT_PREP_WORKERS <= 1 or len(srcs) < 2:
+        return None
+    import multiprocessing as mp
+    from concurrent.futures import ProcessPoolExecutor
+    _PAR_SRCS = srcs
+    # gc.freeze: keep the collector from walking (and so copy-on-write-duplicating) the parent's objects
+    # in every worker. Measured: at rank 6 each worker still grew to ~780 MB (SymPy caches + its share of
+    # sources), so workers cost memory -- keep the count modest on a 16 GB machine (driver default 4).
+    import gc
+    gc.freeze()
+    return ProcessPoolExecutor(max_workers=KT_PREP_WORKERS, mp_context=mp.get_context("fork"))
+
+
+def _ordered(pool, fn, args, window):
+    """pool.map, but results come back IN ORDER with at most `window` in flight: a bounded window keeps
+    the cleared dicts from piling up in memory (all of them at once was ~3 GB at rank 6)."""
+    from collections import deque
+    pend = deque()
+    for a in args:
+        pend.append(pool.submit(fn, a))
+        if len(pend) >= window:
+            yield pend.popleft().result()
+    while pend:
+        yield pend.popleft().result()
+
+
+def _stream_sources(srcs, Dc, codec, p, col0, pool=None):
     """Clear each source and convert it to arrays at once, so only ONE source dict is ever alive.
-    Materialising all of them first cost ~3 GB for the ~600 sources of the rank-6 anatomy runs."""
+    Materialising all of them first cost ~3 GB for the ~600 sources of the rank-6 anatomy runs.
+    With a pool the clears run in workers, a bounded window ahead; conversion stays here, in order."""
     from _kt_coo import concat, from_dicts
+    cleared = ((PB.clear(e, Dc, p) for e in srcs) if pool is None else
+               _ordered(pool, _par_clear, ((i, Dc, p) for i in range(len(srcs))), 4 * KT_PREP_WORKERS))
     parts = []
-    for j, e in enumerate(srcs):
-        parts.append(from_dicts([PB.clear(e, Dc, p)], codec, p, col0=col0 + j))
+    for j, d in enumerate(cleared):
+        parts.append(from_dicts([d], codec, p, col0=col0 + j))
     return concat(*parts) if parts else from_dicts([], codec, p, col0=col0)
 
 
@@ -195,9 +246,30 @@ def _prep_level(srcs, D, dicts0, raws0, p, tag):
     Measurement first, per the user: before replacing SymPy with FLINT, find out which part of the
     equation preparation is actually slow. Behaviour is unchanged; it only reports."""
     t = time.time()
+    # forked HERE, before the rescale allocates the big arrays, so workers do not inherit them
+    pool = _src_pool(srcs) if isinstance(dicts0, _OpArrays) else None
+    try:
+        return _prep_level_body(srcs, D, dicts0, raws0, p, tag, t, pool)
+    finally:
+        if pool is not None:
+            pool.shutdown()          # workers exit HERE, before the solver's memory peak
+            import gc
+            gc.unfreeze()
+
+
+def _prep_level_body(srcs, D, dicts0, raws0, p, tag, t, pool):
+    dens = ((sp.denom(sp.together(e)) for e in srcs) if pool is None else
+            _ordered(pool, _par_denom, range(len(srcs)), 8 * KT_PREP_WORKERS))
+    # The fold stays serial and in the original order, but skips a denominator already folded in: the
+    # lcm is unchanged by a repeat, and the result was checked identical by srepr (rank 6: 181 distinct of
+    # 780, fold 43.6 s -> 6.5 s). The FIRST denominator is always folded, so D2 is always an lcm output.
     D2 = D
-    for e in srcs:
-        D2 = sp.lcm(D2, sp.denom(sp.together(e)))
+    seen = set()
+    for dd in dens:
+        if dd in seen:
+            continue
+        seen.add(dd)
+        D2 = sp.lcm(D2, dd)
     same = sp.simplify(D2 - D) == 0
     t_lcm = time.time() - t
     t = time.time()
@@ -206,7 +278,7 @@ def _prep_level(srcs, D, dicts0, raws0, p, tag):
         from _kt_coo import Level, from_dicts, nnz_of
     if same:
         if arrays:
-            ns_dicts = Level([dicts0.coo, _stream_sources(srcs, D, dicts0.codec, p, len(dicts0))])
+            ns_dicts = Level([dicts0.coo, _stream_sources(srcs, D, dicts0.codec, p, len(dicts0), pool)])
         else:
             ns_dicts = dicts0 + [PB.clear(e, D, p) for e in srcs]
         how = f"sources only ({len(srcs)})"
@@ -219,7 +291,7 @@ def _prep_level(srcs, D, dicts0, raws0, p, tag):
             parts = rescale_coo(dicts0.coo, terms, p)
             t_r = time.time() - t_r
             size = f"as arrays, nnz {dicts0.coo.nnz:,} -> {nnz_of(parts):,}, "
-            ns_dicts = Level(parts + [_stream_sources(srcs, D2, dicts0.codec, p, len(dicts0))])
+            ns_dicts = Level(parts + [_stream_sources(srcs, D2, dicts0.codec, p, len(dicts0), pool)])
             del parts
         else:
             ops = [rescale(d, terms, p) for d in dicts0]
@@ -237,7 +309,8 @@ def _prep_level(srcs, D, dicts0, raws0, p, tag):
         how = (f"RE-CLEARED ALL {len(raws0)} operator columns + {len(srcs)} sources "
                f"(new denominator factor {extra})")
     t_clear = time.time() - t
-    print(f"    [{tag} timing] lcm+compare {t_lcm:.1f}s | clear {t_clear:.1f}s = {how}", flush=True)
+    par = f" [{KT_PREP_WORKERS} prep workers]" if pool is not None else ""
+    print(f"    [{tag} timing] lcm+compare {t_lcm:.1f}s | clear {t_clear:.1f}s{par} = {how}", flush=True)
     return ns_dicts
 
 

@@ -4210,3 +4210,28 @@ whether the run counts. Axial ℓ = 3 has one pole-order-1 direction at ranks 4,
 coefficients, and nothing at pole order 2 or 3 at rank 8. RESULTS §146 addendum 3. Peak: 15.7 GB footprint
 (process), 27.6 GB whole tree (watchdog), close to the 28–30 GB estimate. Next: the second prime `o3_r8_p1_d8`
 on a free night.
+
+## 2026-09-25 evening — parallel source prep (user's "option 1"), verified byte-identical
+
+The ~40 min single-core prep stage of each big run is now split across worker processes (`KT_PREP_WORKERS`,
+default 1 in code, 4 via `scripts/launch_job.sh`). Workers do the independent per-source work (together(),
+the SymPy clears); the main process keeps everything order-sensitive (the lcm fold, row-code assignment) in
+the original order. A second, separate win: the lcm fold now skips repeated denominators (rank 6: 181 distinct
+of 780), with the result checked identical by srepr.
+
+**Verification.** `scripts/_kt_prep_parallel_check.py` runs the real pipeline serial and parallel, stops after
+prep, and compares the level matrix byte for byte (SHA-256 of every part's rows, columns and values).
+IDENTICAL at rank 4 (364 sources) and rank 6 (780 sources, 81-term rescale). Sabotage mode (one flipped value)
+is caught. A rank-4 end-to-end run matches the committed `data/anat/lscan/r4_o3.out` line for line, timings
+stripped. verify.sh gains KT9/KT9b. Rank 6: lcm+compare 51 → 15.5 s, clear 110 → 42 s (6 workers). At rank 8
+I expect about 40 → 15–20 min of prep. That is an estimate, not a measurement, until the next rank-8 run.
+
+**Cost, measured:** each worker grew to ~780 MB at rank 6 (screenshot from the user). Workers live only during
+prep and exit before the Rust peak. The default is 4, not 6, for a 16 GB machine.
+
+**A mistake of mine, caught and reverted within minutes:** I edited `weekend_rank8.sh` while a driver (PID 808,
+tonight's o3_r8_p1_d8) was running from it. Bash reads a script from disk as it goes; after its current loop
+it would have resumed at a stale byte offset in the new file. I restored the file byte-for-byte to the
+version the driver started with (checked with cmp against HEAD; the driver was blocked in `wait` inside the
+already-parsed loop, so it had read nothing new). The setting now lives in the launcher. Full `./verify.sh`
+has not been run yet: it waits for the machine to be free.
