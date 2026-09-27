@@ -84,3 +84,6 @@ data/*.legacy
 data/KT_THREADS*
 data/anat/*.pkl
 data/anat/*.npy
+
+# solver scratch dirs (tempfile.TemporaryDirectory under data/); left behind only by killed runs, multi-GB
+data/tmp*/
