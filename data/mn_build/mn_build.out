@@ -1,0 +1,47 @@
+MANKO-NOVIKOV package build
+
+[p1] M = 5, a = 3 (chi = 3/5), beta = 1/5 -> q = beta k^3/M^3 = 64/625; k = 4, alpha = -1/3
+     MN: max|R_ab| per point = ['0', '0', '0']
+  ok    [p1] R_ab = 0 exactly at 3 random rational points (formal test, sound)
+     perturbed: max|R_ab| per point = [0.1482]
+  ok    [p1] CONTROL: e^{2 gamma} * (1 + y^2/30) gives R_ab != 0
+     psi-mismatch: max|R_ab| per point = [0.8482]
+  ok    [p1] CONTROL: f * e^{psi/25} (exponent mismatched) gives R_ab != 0
+  ok    [p1] e^{2 gamma} = 1 on the axis y = 1 (no conical singularity)   [1]
+  ok    [p1] e^{2 gamma} = 1 on the axis y = -1 (no conical singularity)   [1]
+  ok    [p1] e^{2 gamma} -> 1 at infinity (x = 1e8, y = 0.3)   [1.0]
+  ok    [p1] e^{2 gamma} -> 1 at infinity (x = 1e8, y = -0.7)   [1.0]
+     asymptotics (numeric, x = 1e7): mass = 5.0, J = 15.0, J/M^2 = 0.6
+  ok    [p1] asymptotic mass = M and J = a M (numeric, 1e-5)
+
+[p2] M = 13, a = 5 (chi = 5/13), beta = -1/3 -> q = beta k^3/M^3 = -576/2197; k = 12, alpha = -1/5
+     MN: max|R_ab| per point = ['0', '0', '0']
+  ok    [p2] R_ab = 0 exactly at 3 random rational points (formal test, sound)
+     perturbed: max|R_ab| per point = [0.1482]
+  ok    [p2] CONTROL: e^{2 gamma} * (1 + y^2/30) gives R_ab != 0
+     psi-mismatch: max|R_ab| per point = [2.551e+4]
+  ok    [p2] CONTROL: f * e^{psi/25} (exponent mismatched) gives R_ab != 0
+  ok    [p2] e^{2 gamma} = 1 on the axis y = 1 (no conical singularity)   [1]
+  ok    [p2] e^{2 gamma} = 1 on the axis y = -1 (no conical singularity)   [1]
+  ok    [p2] e^{2 gamma} -> 1 at infinity (x = 1e8, y = 0.3)   [1.0]
+  ok    [p2] e^{2 gamma} -> 1 at infinity (x = 1e8, y = -0.7)   [1.0]
+     asymptotics (numeric, x = 1e7): mass = 13.0, J = 65.0, J/M^2 = 0.3846153846
+  ok    [p2] asymptotic mass = M and J = a M (numeric, 1e-5)
+
+KERR LIMIT (beta = 0) through the same code
+  ok    beta = 0, M = 5, a = 3: metric == exact Kerr (Boyer-Lindquist -> prolate), all components
+  ok    beta = 0, M = 5, a = 3: every exponent vanishes identically
+  ok    beta = 0, M = 13, a = 5: metric == exact Kerr (Boyer-Lindquist -> prolate), all components
+  ok    beta = 0, M = 13, a = 5: every exponent vanishes identically
+
+RATIONALITY in (x, y)
+     exponent of E_A: (-2*R**5 + 2*R**4*(x - y) + 2*R**2*x*y*(x - y) - (R**2 - 3*x**2*y**2)*(x - y))/(5*R**5)
+     exponent of E_B: (2*R**5 - 2*R**4*(x + y) + 2*R**2*x*y*(x + y) + (R**2 - 3*x**2*y**2)*(x + y))/(5*R**5)
+     exponent of E_P: (-R**2 + 3*x**2*y**2)/(5*R**5)
+     exponent of E_Q: 3*(-R**6 + 15*R**4*x**2*y**2 - 39*R**2*x**4*y**4 + 25*x**6*y**6)/(100*R**12)
+     on the axis y = 1:   2 psi = 2/(5*x**3)     -> e^{2psi} = exp(2/(5*x**3)): essential singularity at x = 0
+     on the equator y = 0: 2 psi = -1/(5*(x**2 - 1)**(3/2))  -> not rational (and not algebraic) in x
+  ok    MN components are NOT rational in (x, y) for beta != 0: e^{2 psi} with non-constant exponent
+
+PASS
+exit 0
