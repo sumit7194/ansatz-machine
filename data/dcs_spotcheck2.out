@@ -1,0 +1,19 @@
+Kerr Pontryagin control, M=1, a=1/3, exact rational arithmetic
+
+  building curvature ...
+  built; evaluating at random points
+
+  r=7/2, cos(th)=1/3:  *RR = -0.11341842048790585257
+      closed form = 0.0049270605821846643836   rel.diff = 24.0195   ratio: -23.019489733494608914
+  r=5, cos(th)=-2/5:  *RR = 0.043403389802790074389
+      closed form = -0.00048826817942336388453   rel.diff = 89.8925   ratio: -88.892521839225142373
+  r=11/4, cos(th)=3/4:  *RR = -0.29547356776088598088
+      closed form = 0.056034494698573954720   rel.diff = 6.27307   ratio: -5.2730656241360843615
+  r=9/2, cos(th)=-1/7:  *RR = 0.025072937465566485347
+      closed form = -0.00036663311690214807828   rel.diff = 69.3870   ratio: -68.386995908660057890
+  r=6, cos(th)=2/3:  *RR = -0.027326563812357446486
+      closed form = 0.00022571462379730592948   rel.diff = 122.067   ratio: -121.06687352653314960
+  r=13/5, cos(th)=-4/9:  *RR = 0.38254574776998640196
+      closed form = -0.051535638509330659686   rel.diff = 8.42294   ratio: -7.4229360270897878178
+
+  FAIL: ratio is not constant (6 distinct values) -- the contraction is wrong.

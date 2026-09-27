@@ -1,0 +1,10 @@
+calib_sabotage_must_miss: /Users/sumit/Github/conjecture_machine/data/anat/reduced_r6_o3.out
+  scored against the sealed prediction
+
+  ok    keeping_all
+  ok    pole_le
+  MISS  first_appearing
+          got      {"1": 1, "2": 0}
+          expected {"1": 1, "2": 1}
+
+  VERDICT: MISMATCH -- the prediction failed somewhere above

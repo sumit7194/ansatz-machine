@@ -1,0 +1,22 @@
+CONTROL: Kerr truncated at O(chi^2) must be vacuum to that order
+
+  PASS: every component of G vanishes at chi^0, chi^1 and chi^2 [204s]
+        (truncated curvature, perturbative inverse and order extraction all validated)
+
+
+LHS: the O(zeta chi^2) Einstein tensor with generic even-parity unknowns
+
+  metric assembled (Kerr chi^2 + zeta chi h1 + zeta chi^2 h2)
+  perturbative inverse verified to O(zeta chi^2)
+  christoffel done
+  ricci done
+  G assembled
+
+  built [6973s]; nonzero components:
+    (0,0)  97 terms
+    (1,1)  69 terms
+    (1,2)  57 terms
+    (2,2)  104 terms
+    (3,3)  117 terms
+
+  truncation fallbacks: 0
