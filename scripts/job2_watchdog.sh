@@ -18,9 +18,14 @@ while kill -0 "$root" 2>/dev/null; do
   done
   free=$(df -g /System/Volumes/Data | awk 'NR==2{print $4}')
   sw=$(sysctl -n vm.swapusage | awk '{print $3}')
+  # LOGGED, never a trigger. quantum's watchdog killed three healthy runs on "free swap < 512 MB" while 77-87% of
+  # memory was free: macOS grows swap on demand (2026-10, quantum 955b4c0). Ours never triggered on swap; it also
+  # does not kill on memory pressure, because our rank-8 runs lean on compression by design (28 GB tree on 16 GB,
+  # finished cleanly). The only kill trigger here is the disk floor.
+  mp=$(memory_pressure -Q 2>/dev/null | awk -F': ' '/free percentage/{print $2}')
   peak=$(echo "if ($tot > $peak) $tot else $peak" | bc -l)
-  printf "[%s] tree %.2f GB (peak %.2f)  free disk %s GB  swap used %s |%s\n" "$(date '+%H:%M:%S')" \
-    "$(echo "$tot/1024" | bc -l)" "$(echo "$peak/1024" | bc -l)" "$free" "$sw" "$line"
+  printf "[%s] tree %.2f GB (peak %.2f)  free disk %s GB  swap used %s  mem free %s |%s\n" "$(date '+%H:%M:%S')" \
+    "$(echo "$tot/1024" | bc -l)" "$(echo "$peak/1024" | bc -l)" "$free" "$sw" "${mp:-?}" "$line"
   if [ "$free" -lt "$min" ]; then
     echo "[$(date '+%a %H:%M:%S')] WATCHDOG FIRED: free disk ${free} GB < ${min} GB -- killing tree of $root"
     for p in $(tree "$root" | tail -r); do kill -KILL "$p" 2>/dev/null; done
