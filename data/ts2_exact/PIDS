@@ -11,3 +11,5 @@
 50715 ts_r3 p0 2026-10-04 02:34:22 exec .venv/bin/python -u scripts/_kt_exact_op.py --metric ts2:4/5 --rank 3 --denpow 1 --prime 0 > 'data/ts2_exact/ts_r3_p0.out' 2>&1
 52750 ts_r3 p1 2026-10-04 02:39:15 exec .venv/bin/python -u scripts/_kt_exact_op.py --metric ts2:4/5 --rank 3 --denpow 1 --prime 1 > 'data/ts2_exact/ts_r3_p1.out' 2>&1
 54916 ts_r4 p0 2026-10-04 02:44:13 exec .venv/bin/python -u scripts/_kt_exact_op.py --metric ts2:4/5 --rank 4 --denpow 2 --prime 0 > 'data/ts2_exact/ts_r4_p0.out' 2>&1
+63262 ts_r4 p0 2026-10-04 03:05:59 exec .venv/bin/python -u scripts/_kt_exact_op.py --metric ts2:4/5 --rank 4 --denpow 2 --prime 0 > 'data/ts2_exact/ts_r4_p0.out' 2>&1
+76814 ts_r4 p1 2026-10-04 03:26:45 exec .venv/bin/python -u scripts/_kt_exact_op.py --metric ts2:4/5 --rank 4 --denpow 2 --prime 1 > 'data/ts2_exact/ts_r4_p1.out' 2>&1

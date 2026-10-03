@@ -20,3 +20,29 @@
 [Sun 02:44:13] G2 ts_r3: exact/reducible/irreducible = (6, 6, 0) (both primes), predicted (6, 6, 0) -> MATCH
 [Sun 02:44:13] --- gate G2 PASSED
 [Sun 02:48:20] STOPPED by me at G3 start: rank-4 operator projected ~125M nnz = ~30+ GB as Python dicts (cap 30 GB). Rebuilding the operator as streamed COO arrays; G1/G2 results stand.
+[Sun 03:05:59] === ts2_exact_queue start, driver pid 63246, threads 2; predictions sealed at 788dcc9
+[Sun 03:05:59]   kerr_r2 p0: already complete, reusing data/ts2_exact/kerr_r2_p0.out
+[Sun 03:05:59]   kerr_r2 p1: already complete, reusing data/ts2_exact/kerr_r2_p1.out
+[Sun 03:05:59] G1 kerr_r2: exact/reducible/irreducible = (5, 4, 1) (both primes), predicted (5, 4, 1) -> MATCH
+[Sun 03:05:59]   kerr_r3 p0: already complete, reusing data/ts2_exact/kerr_r3_p0.out
+[Sun 03:05:59]   kerr_r3 p1: already complete, reusing data/ts2_exact/kerr_r3_p1.out
+[Sun 03:05:59] G1 kerr_r3: exact/reducible/irreducible = (8, 6, 2) (both primes), predicted (8, 6, 2) -> MATCH
+[Sun 03:05:59]   kerr_r4 p0: already complete, reusing data/ts2_exact/kerr_r4_p0.out
+[Sun 03:05:59]   kerr_r4 p1: already complete, reusing data/ts2_exact/kerr_r4_p1.out
+[Sun 03:05:59] G1 kerr_r4: exact/reducible/irreducible = (14, 9, 5) (both primes), predicted (14, 9, 5) -> MATCH
+[Sun 03:05:59]   zv2_r4 p0: already complete, reusing data/ts2_exact/zv2_r4_p0.out
+[Sun 03:05:59]   zv2_r4 p1: already complete, reusing data/ts2_exact/zv2_r4_p1.out
+[Sun 03:05:59] G1 zv2_r4: exact/reducible/irreducible = (9, 9, 0) (both primes), predicted (9, 9, 0) -> MATCH
+[Sun 03:05:59] --- gate G1 PASSED
+[Sun 03:05:59]   ts_r2 p0: already complete, reusing data/ts2_exact/ts_r2_p0.out
+[Sun 03:05:59]   ts_r2 p1: already complete, reusing data/ts2_exact/ts_r2_p1.out
+[Sun 03:05:59] G2 ts_r2: exact/reducible/irreducible = (4, 4, 0) (both primes), predicted (4, 4, 0) -> MATCH
+[Sun 03:05:59]   ts_r3 p0: already complete, reusing data/ts2_exact/ts_r3_p0.out
+[Sun 03:05:59]   ts_r3 p1: already complete, reusing data/ts2_exact/ts_r3_p1.out
+[Sun 03:05:59] G2 ts_r3: exact/reducible/irreducible = (6, 6, 0) (both primes), predicted (6, 6, 0) -> MATCH
+[Sun 03:05:59] --- gate G2 PASSED
+[Sun 03:26:45]   ts_r4 p0: exit 0, 20.8 min, peak footprint 3.24 GB
+[Sun 03:46:53]   ts_r4 p1: exit 0, 20.1 min, peak footprint 3.24 GB
+[Sun 03:46:53] G3 ts_r4: exact/reducible/irreducible = (9, 9, 0) (both primes), predicted (9, 9, 0) -> MATCH
+[Sun 03:46:53] --- gate G3 PASSED
+[Sun 03:46:53] === queue finished: all predictions matched

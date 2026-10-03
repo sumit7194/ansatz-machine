@@ -1,0 +1,11 @@
+Tomimatsu-Sato delta=2 p=4/5: rank 4, den L^2 (L degrees 10,10; g^ab numerators 10,10), reducible box 20x20 + margin 4 -> box 24x24, 35 monomials, 21875 unknowns, prime 2147483629
+  generators ['p_t', 'p_phi', 'H']; 9 products: H^2, p_phi^2 H, p_phi^4, p_t p_phi H, p_t p_phi^3, p_t^2 H, p_t^2 p_phi^2, p_t^3 p_phi, p_t^4
+  operator built (arrays): 21875 columns, 138,665,775 nonzeros [586s]
+    rust nullspace: 4 blocks (largest 6050 cols), nnz 138,665,775 -> peak 62,628,235, nullity 9, 2 thread(s), 606.9s
+    residual guard: full, 9 vectors
+  EXACT solution dimension (operator nullity, guarded): 9 [1205s]
+  nullspace basis sha256[:16] = f15da42c9261a6c9   (the free-column-indexed basis is unique: equal paths give equal hashes)
+  reducible span: 9; inside the solution space: True (rank of solutions + reducibles = 9)
+
+  VERDICT Tomimatsu-Sato delta=2 p=4/5 rank 4 den^2 box 24x24 prime 1: exact 9, reducible 9, IRREDUCIBLE 0
+  total 1208s

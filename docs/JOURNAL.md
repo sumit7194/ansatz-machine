@@ -4269,3 +4269,13 @@ tensors to valence 7. My sealed prediction (non-integrable) agrees. TS can now b
 **Process:** the Bridge's inbox folder is the sisters' drop box. I don't read other sessions' notes there, and I
 ask the Bridge instead. Standing by while the user picks the next moonshot (K1, or a computer-assisted chaos proof
 that would need this repo as metric supplier). No new runs until then.
+
+## 2026-10-04 overnight — TS δ=2 at p = 4/5: ranks 2–4 exact null, two primes (§148)
+
+Bridge-assigned and user-approved; the Mac was given to us for 12 h. New `scripts/_kt_exact_op.py` (template
+operator + Rust, no sampling), validated by reproducing §127 Kerr and the §124 ZV rows. Predictions sealed at
+788dcc9. G1 controls (Kerr in the TS chart: Carter, Q·p, Q²; ZV r4: 0) and G2/G3 (TS r2, r3, r4: irreducible 0) all
+matched on both primes. Rank 4 needed the operator streamed into COO arrays, verified byte-identical to the dict
+path. Rank 6 cut for the caps; design note `docs/notes/TS2_rank6_design.md` (parity-sector builds + NumPy column
+build). My waiter once matched my own "STOPPED" note as the queue's "STOP"; harmless, since the driver was fine,
+but the stop pattern is now anchored (`] STOP:`).

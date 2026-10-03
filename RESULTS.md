@@ -3706,3 +3706,54 @@ One more way the two parities differ, on top of §146's count.
 **Scope.** Both primes. The second prime (`o3_r8_p1_d8`, 2026-09-26, 334 min) scored MATCH on all ten fields against prime 0, including dim V and the nullity, with the same coefficients and the random controls at 25. Within the stated box and
 denominator, pure-O(χ²) axial ℓ = 3 deformation of the §142 reduced operator, exact over GF(p). No claim
 beyond rank 8, and the ℓ-scan at rank 8 covers only ℓ = 3 (axial) and ℓ = 4 (polar).
+
+## §148 — Tomimatsu–Sato δ = 2 at p = 4/5: no irreducible Killing tensor at ranks 2, 3, 4, exactly, on two primes
+
+**The question, and why this point.** Vollmer 2016 (arXiv:1602.08968) proved TS δ=2 has no Killing tensor up to
+valence 7 **at p = 3/5**. At **p = 4/5 (q = 3/5)** nothing was in print that we know of. This asks the exact
+question there, within a stated ansatz. Bridge-assigned, user-approved, run overnight 2026-10-04. Pre-registered,
+with predictions sealed at 788dcc9 (`data/ts2_exact/PREREGISTRATION.md`) before any TS run.
+
+**Instrument.** `scripts/_kt_exact_op.py` builds the template operator (_kt_opfast, D49) as an exact GF(p) system
+{H, F} = 0. The Rust nullspace (D48) is residual-guarded, and its nullity is the exact dimension, with no
+sampling. The reducible span ⟨p_t, p_φ, H⟩ is measured in the same basis and checked to lie inside the solution
+space. Ansatz: K(x, y) = polynomial / L^d. L is the measured lcm of the g^ab denominators: degree (10, 10) for TS,
+containing the degree-8 ring-singularity factor. d is the smallest power holding the **complete** reducible
+algebra (1, 1, 2 for ranks 2, 3, 4), and the box is the reducible box + 4. The metric is the TS2 package at
+p = 4/5, exact in (x, y) and vacuum-verified in its build.
+
+**Validation by reproduction, before the target (G0).** Kerr BL r2 = 5 / 4 / **1** (§127 exactly, box 8×8).
+ZV δ=2 den¹: r2 = 4, r3 = 6, all reducible (the §124 rows exactly).
+
+    gate  run (both primes agree on every count)        exact  reducible  IRREDUCIBLE  predicted
+    G1    Kerr, TS2 pipeline, same chart, J/M^2=3/5  r2    5      4          1          5/4/1   (Carter)
+    G1                                               r3    8      6          2          8/6/2   (Q p_t, Q p_phi)
+    G1                                               r4   14      9          5         14/9/5   (Q x deg-2, Q^2)
+    G1    ZV delta=2, den^2                          r4    9      9          0          9/9/0   (MPS 2013, §126)
+    G2    TS delta=2, p=4/5, den^1, box 14x14        r2    4      4          0          4/4/0
+    G2                                               r3    6      6          0          6/6/0
+    G3    TS delta=2, p=4/5, den^2, box 24x24        r4    9      9          0          9/9/0
+          (r4: 21,875 unknowns, 138,665,775 nonzeros, 4 Rust blocks found, ~20 min per prime, 7.2 GB tree peak)
+
+**No irreducible Killing tensor of valence 2, 3 or 4 on Tomimatsu–Sato δ = 2 at p = 4/5 (q = 3/5), within
+{x^a y^b / L^d} with the boxes above, exact over GF(p) on two primes, with the complete reducible span
+subtracted.** Every count matched its sealed prediction. The Kerr control, in the same chart and pipeline,
+recovers Carter and its powers exactly where they should be. So the ansatz can hold a hidden symmetry of this type
+in this chart, and the null is not an artifact of the box.
+
+**What it adds, stated narrowly.** It complements Vollmer at a parameter point he did not treat, by a different
+method (exact operator nullity, not his approach), but only to valence 4 against his 7. It agrees with the fleet's
+TS integrability obstruction (closed 2026-10-03), which is a stronger, different kind of statement. Ranks 2–3
+are not independent of rank 4 in spirit; rank 4 is the substantive rung.
+
+**Ceilings.** *Rank:* 2–4 only. Rank 6 was CUT for tonight's caps. The measured 52 B per nonzero for the whole
+tree projects ~800M nonzeros to ~42 GB and a ~9.6 GB matrix file, so it needs the sector-by-sector build in
+`docs/notes/TS2_rank6_design.md`. *Ansatz:* polynomial / L^d with the stated boxes; a tensor needing a higher
+denominator power or a larger box is invisible here. Exact, not perturbative, so the analyticity ceiling does
+not apply.
+
+**Engineering, found on the way.** Rank 4 was stopped at launch: the dict-based operator build projected
+~125M+ nonzeros at ~250 B each. The operator is now streamed into uint32 COO arrays. The nullspace-basis SHA-256
+is identical to the dict path on Kerr r4 and TS r2, with 3.5× less memory; the opfast self-test was rerun after
+the refactor. Artifacts: `data/ts2_exact/` (all .out/.time, STATUS.md, results.json, the stopped log,
+eqcheck_*).
