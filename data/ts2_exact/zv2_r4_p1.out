@@ -1,0 +1,9 @@
+ZV delta=2: rank 4, den L^2 (L degrees 8,2; g^ab numerators 8,10), reducible box 16x20 + margin 4 -> box 20x24, 35 monomials, 18375 unknowns, prime 2147483629
+  generators ['p_t', 'p_phi', 'H']; 9 products: H^2, p_phi^2 H, p_phi^4, p_t p_phi H, p_t p_phi^3, p_t^2 H, p_t^2 p_phi^2, p_t^3 p_phi, p_t^4
+  operator built: 18375 columns, 18,955,520 nonzeros [27s]
+    rust nullspace: 8 blocks (largest 3738 cols), nnz 18,955,520 -> peak 7,164,846, nullity 9, 2 thread(s), 27.6s
+  EXACT solution dimension (operator nullity, guarded): 9 [63s]
+  reducible span: 9; inside the solution space: True (rank of solutions + reducibles = 9)
+
+  VERDICT ZV delta=2 rank 4 den^2 box 20x24 prime 1: exact 9, reducible 9, IRREDUCIBLE 0
+  total 63s

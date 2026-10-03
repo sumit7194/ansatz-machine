@@ -1,0 +1,13 @@
+45890 kerr_r2 p0 2026-10-04 02:23:12 exec .venv/bin/python -u scripts/_kt_exact_op.py --metric ts2kerr:4/5 --rank 2 --denpow 1 --prime 0 > 'data/ts2_exact/kerr_r2_p0.out' 2>&1
+45968 kerr_r2 p1 2026-10-04 02:23:20 exec .venv/bin/python -u scripts/_kt_exact_op.py --metric ts2kerr:4/5 --rank 2 --denpow 1 --prime 1 > 'data/ts2_exact/kerr_r2_p1.out' 2>&1
+46036 kerr_r3 p0 2026-10-04 02:23:28 exec .venv/bin/python -u scripts/_kt_exact_op.py --metric ts2kerr:4/5 --rank 3 --denpow 1 --prime 0 > 'data/ts2_exact/kerr_r3_p0.out' 2>&1
+46141 kerr_r3 p1 2026-10-04 02:23:40 exec .venv/bin/python -u scripts/_kt_exact_op.py --metric ts2kerr:4/5 --rank 3 --denpow 1 --prime 1 > 'data/ts2_exact/kerr_r3_p1.out' 2>&1
+46228 kerr_r4 p0 2026-10-04 02:23:53 exec .venv/bin/python -u scripts/_kt_exact_op.py --metric ts2kerr:4/5 --rank 4 --denpow 2 --prime 0 > 'data/ts2_exact/kerr_r4_p0.out' 2>&1
+46542 kerr_r4 p1 2026-10-04 02:24:30 exec .venv/bin/python -u scripts/_kt_exact_op.py --metric ts2kerr:4/5 --rank 4 --denpow 2 --prime 1 > 'data/ts2_exact/kerr_r4_p1.out' 2>&1
+46767 zv2_r4 p0 2026-10-04 02:25:07 exec .venv/bin/python -u scripts/_kt_exact_op.py --metric zv:2 --rank 4 --denpow 2 --prime 0 > 'data/ts2_exact/zv2_r4_p0.out' 2>&1
+47205 zv2_r4 p1 2026-10-04 02:26:11 exec .venv/bin/python -u scripts/_kt_exact_op.py --metric zv:2 --rank 4 --denpow 2 --prime 1 > 'data/ts2_exact/zv2_r4_p1.out' 2>&1
+47700 ts_r2 p0 2026-10-04 02:27:14 exec .venv/bin/python -u scripts/_kt_exact_op.py --metric ts2:4/5 --rank 2 --denpow 1 --prime 0 > 'data/ts2_exact/ts_r2_p0.out' 2>&1
+49190 ts_r2 p1 2026-10-04 02:30:46 exec .venv/bin/python -u scripts/_kt_exact_op.py --metric ts2:4/5 --rank 2 --denpow 1 --prime 1 > 'data/ts2_exact/ts_r2_p1.out' 2>&1
+50715 ts_r3 p0 2026-10-04 02:34:22 exec .venv/bin/python -u scripts/_kt_exact_op.py --metric ts2:4/5 --rank 3 --denpow 1 --prime 0 > 'data/ts2_exact/ts_r3_p0.out' 2>&1
+52750 ts_r3 p1 2026-10-04 02:39:15 exec .venv/bin/python -u scripts/_kt_exact_op.py --metric ts2:4/5 --rank 3 --denpow 1 --prime 1 > 'data/ts2_exact/ts_r3_p1.out' 2>&1
+54916 ts_r4 p0 2026-10-04 02:44:13 exec .venv/bin/python -u scripts/_kt_exact_op.py --metric ts2:4/5 --rank 4 --denpow 2 --prime 0 > 'data/ts2_exact/ts_r4_p0.out' 2>&1

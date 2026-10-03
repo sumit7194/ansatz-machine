@@ -34,7 +34,7 @@ import _kt_metrics as MM  # noqa: E402
 import _kt_reducible as R  # noqa: E402
 import _kt_search as K  # noqa: E402
 from _kt_carter_space import rank_np  # noqa: E402
-from _kt_opfast import operator_from_templates  # noqa: E402
+from _kt_opfast import operator_columns, operator_from_templates  # noqa: E402
 
 x, y = MM.x, MM.y
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -96,12 +96,30 @@ def main():
     print(f"  generators {gnames}; {len(prods)} products: {', '.join(pnames)}", flush=True)
 
     H = KD.hamiltonian(ginv)
-    dicts, D = operator_from_templates(H, mons, dx, dy, den, p)
-    nnz = sum(len(d) for d in dicts)
-    print(f"  operator built: {len(dicts)} columns, {nnz:,} nonzeros [{time.time()-t0:.0f}s]", flush=True)
+    if "--dicts" in sys.argv:            # the original path: every column dict held at once (~250 B / nonzero)
+        dicts, D = operator_from_templates(H, mons, dx, dy, den, p)
+        nnz = sum(len(d) for d in dicts)
+        print(f"  operator built (dicts): {len(dicts)} columns, {nnz:,} nonzeros [{time.time()-t0:.0f}s]", flush=True)
+    else:                                # STREAMED into flat uint32 arrays, one monomial block at a time (12 B / nonzero)
+        from _kt_coo import Codec, Level, from_dicts
+        D, cols = operator_columns(H, mons, dx, dy, den, p)
+        codec, parts, block, col0, nnz = Codec(), [], [], 0, 0
+        per = (dx + 1) * (dy + 1)
+        for c in cols:
+            block.append(c)
+            if len(block) == per:
+                q = from_dicts(block, codec, p, col0=col0)
+                parts.append(q); nnz += len(q.vi); col0 += len(block); block = []
+        assert not block and col0 == n_w, f"column count {col0} != {n_w}"
+        dicts = Level(parts)
+        print(f"  operator built (arrays): {n_w} columns, {nnz:,} nonzeros [{time.time()-t0:.0f}s]", flush=True)
     ns = KD.nullspace_dicts(dicts, n_w, p)
     dim = len(ns)
+    import hashlib
+    hv = hashlib.sha256(np.array([[int(z) % p for z in v] for v in ns], dtype=np.int64).tobytes()).hexdigest()[:16]
     print(f"  EXACT solution dimension (operator nullity, guarded): {dim} [{time.time()-t0:.0f}s]", flush=True)
+    print(f"  nullspace basis sha256[:16] = {hv}   (the free-column-indexed basis is unique: equal paths give equal hashes)",
+          flush=True)
 
     # reducible products in the SAME coefficient basis (monomial-major, then a, then b -- _kt_opfast's order)
     mkey = {tuple(m): n for n, m in enumerate(mons)}

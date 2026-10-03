@@ -1,0 +1,9 @@
+Kerr (TS2 pipeline, delta=1) p=4/5: rank 3, den L^1 (L degrees 4,4; g^ab numerators 4,4), reducible box 4x4 + margin 4 -> box 8x8, 20 monomials, 1620 unknowns, prime 2147483647
+  generators ['p_t', 'p_phi', 'H']; 6 products: p_phi H, p_phi^3, p_t H, p_t p_phi^2, p_t^2 p_phi, p_t^3
+  operator built: 1620 columns, 1,458,180 nonzeros [11s]
+    rust nullspace: 4 blocks (largest 432 cols), nnz 1,458,180 -> peak 411,057, nullity 8, 2 thread(s), 0.2s
+  EXACT solution dimension (operator nullity, guarded): 8 [12s]
+  reducible span: 6; inside the solution space: True (rank of solutions + reducibles = 8)
+
+  VERDICT Kerr (TS2 pipeline, delta=1) p=4/5 rank 3 den^1 box 8x8 prime 0: exact 8, reducible 6, IRREDUCIBLE 2
+  total 12s

@@ -1,0 +1,9 @@
+Tomimatsu-Sato delta=2 p=4/5: rank 3, den L^1 (L degrees 10,10; g^ab numerators 10,10), reducible box 10x10 + margin 4 -> box 14x14, 20 monomials, 4500 unknowns, prime 2147483629
+  generators ['p_t', 'p_phi', 'H']; 6 products: p_phi H, p_phi^3, p_t H, p_t p_phi^2, p_t^2 p_phi, p_t^3
+  operator built: 4500 columns, 26,097,390 nonzeros [273s]
+    rust nullspace: 4 blocks (largest 1170 cols), nnz 26,097,390 -> peak 8,079,346, nullity 6, 2 thread(s), 13.2s
+  EXACT solution dimension (operator nullity, guarded): 6 [296s]
+  reducible span: 6; inside the solution space: True (rank of solutions + reducibles = 6)
+
+  VERDICT Tomimatsu-Sato delta=2 p=4/5 rank 3 den^1 box 14x14 prime 1: exact 6, reducible 6, IRREDUCIBLE 0
+  total 297s

@@ -39,8 +39,10 @@ def _axpy(out, d, scale, a, b, p):
         out[key] = (out.get(key, 0) + scale * v) % p
 
 
-def operator_from_templates(H0, mons, dx, dy, den, p, verbose=False):
-    """Return (dicts0, D) in coefficient_basis order: for each monomial, a in 0..dx, b in 0..dy."""
+def operator_columns(H0, mons, dx, dy, den, p):
+    """(D, iterator over cleared column dicts) in coefficient_basis order: for each monomial, a in 0..dx, b in 0..dy.
+    Streaming form, so a caller can turn columns into flat arrays as they appear instead of holding every dict at
+    once (~250 B per nonzero; 125M nonzeros at TS rank 4 would be ~30 GB). operator_from_templates is list() of it."""
     specs = []
     for mi in range(len(mons)):
         for (a, b) in ((0, 0), (1, 0), (0, 1)):
@@ -52,23 +54,31 @@ def operator_from_templates(H0, mons, dx, dy, den, p, verbose=False):
     for d_ in dens:
         D = sp.lcm(D, d_)
     cl = [PB.clear(r, D, p) for r in raws]
-    dicts0 = []
-    for mi in range(len(mons)):
-        U = cl[3 * mi]
-        V = dict(cl[3 * mi + 1])
-        _axpy(V, U, p - 1, 1, 0, p)          # V = cleared(1,0) - x U
-        W = dict(cl[3 * mi + 2])
-        _axpy(W, U, p - 1, 0, 1, p)          # W = cleared(0,1) - y U
-        V = {k: v for k, v in V.items() if v}
-        W = {k: v for k, v in W.items() if v}
-        for a in range(dx + 1):
-            for b in range(dy + 1):
-                out = _shift(U, a, b)
-                if a:
-                    _axpy(out, V, a % p, a - 1, b, p)
-                if b:
-                    _axpy(out, W, b % p, a, b - 1, p)
-                dicts0.append({k: v for k, v in out.items() if v})
+
+    def gen():
+        for mi in range(len(mons)):
+            U = cl[3 * mi]
+            V = dict(cl[3 * mi + 1])
+            _axpy(V, U, p - 1, 1, 0, p)          # V = cleared(1,0) - x U
+            W = dict(cl[3 * mi + 2])
+            _axpy(W, U, p - 1, 0, 1, p)          # W = cleared(0,1) - y U
+            V = {k: v for k, v in V.items() if v}
+            W = {k: v for k, v in W.items() if v}
+            for a in range(dx + 1):
+                for b in range(dy + 1):
+                    out = _shift(U, a, b)
+                    if a:
+                        _axpy(out, V, a % p, a - 1, b, p)
+                    if b:
+                        _axpy(out, W, b % p, a, b - 1, p)
+                    yield {k: v for k, v in out.items() if v}
+    return D, gen()
+
+
+def operator_from_templates(H0, mons, dx, dy, den, p, verbose=False):
+    """Return (dicts0, D) in coefficient_basis order: for each monomial, a in 0..dx, b in 0..dy."""
+    D, cols = operator_columns(H0, mons, dx, dy, den, p)
+    dicts0 = list(cols)
     if verbose:
         print(f"    operator from templates: {3 * len(mons)} SymPy brackets for "
               f"{len(dicts0)} columns", flush=True)
