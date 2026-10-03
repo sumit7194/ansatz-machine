@@ -1,0 +1,9 @@
+Kerr M=1 a=1/2: rank 2, den L^1 (L degrees 4,4; g^ab numerators 4,4), reducible box 4x4 + margin 4 -> box 8x8, 10 monomials, 810 unknowns, prime 2147483647
+  generators ['p_t', 'p_phi', 'H']; 4 products: H, p_phi^2, p_t p_phi, p_t^2
+  operator built: 810 columns, 454,995 nonzeros [5s]
+    rust nullspace: 4 blocks (largest 261 cols), nnz 454,995 -> peak 129,631, nullity 5, 2 thread(s), 0.0s
+  EXACT solution dimension (operator nullity, guarded): 5 [6s]
+  reducible span: 4; inside the solution space: True (rank of solutions + reducibles = 5)
+
+  VERDICT Kerr M=1 a=1/2 rank 2 den^1 box 8x8 prime 0: exact 5, reducible 4, IRREDUCIBLE 1
+  total 6s

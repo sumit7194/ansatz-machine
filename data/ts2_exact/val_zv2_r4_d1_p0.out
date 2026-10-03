@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "/Users/sumit/Github/conjecture_machine/scripts/_kt_exact_op.py", line 138, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "/Users/sumit/Github/conjecture_machine/scripts/_kt_exact_op.py", line 88, in main
+    bx, by = EX.reducible_box(prods, den)
+             ~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "/Users/sumit/Github/conjecture_machine/scripts/_kt_exact.py", line 102, in reducible_box
+    raise ValueError("a reducible needs a larger denominator power than requested; "
+                     "--denpow is too small for this substrate and rank")
+ValueError: a reducible needs a larger denominator power than requested; --denpow is too small for this substrate and rank
