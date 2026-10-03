@@ -1,0 +1,20 @@
+Kerr (TS2 pipeline, delta=1) p=4/5: rank 3, den L^1, box 8x8, 20 monomials, 1620 unknowns, prime 2147483647; sectors [0, 1, 2, 3]; parity structure checked (even in y, no cross terms)
+  templates: 60 cleared columns, D even in y [12s]
+  sector 0 (sy=0, sT=0): 405 columns, 411,057 nonzeros built [0s]
+  SECTOR-OPHASH 0: cols 405, nnz 411,057, canonical-COO hash 28da6113d1d629a1
+  sector 1 (sy=1, sT=0): 405 columns, 408,951 nonzeros built [0s]
+  SECTOR-OPHASH 1: cols 405, nnz 408,951, canonical-COO hash 7e9d1c43e32133c2
+  sector 2 (sy=0, sT=1): 432 columns, 327,470 nonzeros built [0s]
+  SECTOR-OPHASH 2: cols 432, nnz 327,470, canonical-COO hash 4633188c48b9a243
+  sector 3 (sy=1, sT=1): 378 columns, 310,702 nonzeros built [0s]
+  SECTOR-OPHASH 3: cols 378, nnz 310,702, canonical-COO hash 64d3ff3a17911e62
+Traceback (most recent call last):
+  File "/Users/sumit/Github/conjecture_machine/scripts/_kt_exact_sector.py", line 218, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "/Users/sumit/Github/conjecture_machine/scripts/_kt_exact_sector.py", line 208, in main
+    z = np.load(os.path.join(outdir, f"{tag}_s{s}.npz"))
+  File "/Users/sumit/Github/conjecture_machine/.venv/lib/python3.14/site-packages/numpy/lib/_npyio_impl.py", line 454, in load
+    fid = stack.enter_context(open(os.fspath(file), "rb"))
+                              ~~~~^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'data/ts2_exact/opcheck/ts2kerr4o5_r3_d1_b8x8_p0_s0.npz'

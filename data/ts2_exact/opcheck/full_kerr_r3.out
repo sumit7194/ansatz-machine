@@ -1,0 +1,7 @@
+Kerr (TS2 pipeline, delta=1) p=4/5 rank 3 den^1 box 8x8 prime 0: FULL operator (dict path) 1620 columns, 1,458,180 nonzeros [13s]
+  union-find: 4 blocks containing nonzero columns (empty columns: 0)
+  BLOCK: cols 405, nnz 411,057, canonical-COO hash 28da6113d1d629a1
+  BLOCK: cols 405, nnz 408,951, canonical-COO hash 7e9d1c43e32133c2
+  BLOCK: cols 378, nnz 310,702, canonical-COO hash 64d3ff3a17911e62
+  BLOCK: cols 432, nnz 327,470, canonical-COO hash 4633188c48b9a243
+  total 13s

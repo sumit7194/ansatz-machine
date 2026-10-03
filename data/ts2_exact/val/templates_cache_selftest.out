@@ -1,0 +1,5 @@
+  Kerr (TS2 pipeline, delta=1) p=4/5 r3 prime 0: cached == _kt_opfast.templates: True (60 templates) [18s]
+  Kerr (TS2 pipeline, delta=1) p=4/5 r3 prime 1: cached == _kt_opfast.templates: True (60 templates) [26s]
+  Tomimatsu-Sato delta=2 p=4/5 r2 prime 0: cached == _kt_opfast.templates: True (30 templates) [146s]
+  Tomimatsu-Sato delta=2 p=4/5 r2 prime 1: cached == _kt_opfast.templates: True (30 templates) [209s]
+SELFTEST PASS
