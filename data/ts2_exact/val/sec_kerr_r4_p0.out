@@ -1,0 +1,18 @@
+Kerr (TS2 pipeline, delta=1) p=4/5: rank 4, den L^2, box 12x12, 35 monomials, 5915 unknowns, prime 2147483647; sectors [0, 1, 2, 3]; parity structure checked (even in y, no cross terms)
+  templates: 105 cleared columns, D even in y [28s]
+  sector 0 (sy=0, sT=0): 1664 columns, 1,513,818 nonzeros built [0s]
+    rust nullspace: 1 blocks (largest 1664 cols), nnz 1,513,818 -> peak 3,018,164, nullity 14, 2 thread(s), 4.4s
+    residual guard: full, 14 vectors
+  SECTOR 0: nullity 14, reducible 9, IRREDUCIBLE 5, reducibles inside True, set-hash 14908432ed8adc35 [5s]
+  sector 1 (sy=1, sT=0): 1547 columns, 1,477,209 nonzeros built [0s]
+    rust nullspace: 1 blocks (largest 1547 cols), nnz 1,477,209 -> peak 1,994,116, nullity 0, 2 thread(s), 2.1s
+  SECTOR 1: nullity 0, reducible 0, IRREDUCIBLE 0, reducibles inside True, set-hash e3b0c44298fc1c14 [2s]
+  sector 2 (sy=0, sT=1): 1352 columns, 1,411,592 nonzeros built [0s]
+    rust nullspace: 1 blocks (largest 1352 cols), nnz 1,411,592 -> peak 1,516,138, nullity 0, 2 thread(s), 1.0s
+  SECTOR 2: nullity 0, reducible 0, IRREDUCIBLE 0, reducibles inside True, set-hash e3b0c44298fc1c14 [1s]
+  sector 3 (sy=1, sT=1): 1352 columns, 1,406,808 nonzeros built [0s]
+    rust nullspace: 1 blocks (largest 1352 cols), nnz 1,406,808 -> peak 1,594,519, nullity 0, 2 thread(s), 1.2s
+  SECTOR 3: nullity 0, reducible 0, IRREDUCIBLE 0, reducibles inside True, set-hash e3b0c44298fc1c14 [1s]
+
+  VERDICT Kerr (TS2 pipeline, delta=1) p=4/5 rank 4 den^2 box 12x12 prime 0 (4 sectors): exact 14, reducible 9, IRREDUCIBLE 5; global set-hash 14908432ed8adc35
+  total 38s

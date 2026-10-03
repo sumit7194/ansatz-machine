@@ -39,10 +39,9 @@ def _axpy(out, d, scale, a, b, p):
         out[key] = (out.get(key, 0) + scale * v) % p
 
 
-def operator_columns(H0, mons, dx, dy, den, p):
-    """(D, iterator over cleared column dicts) in coefficient_basis order: for each monomial, a in 0..dx, b in 0..dy.
-    Streaming form, so a caller can turn columns into flat arrays as they appear instead of holding every dict at
-    once (~250 B per nonzero; 125M nonzeros at TS rank 4 would be ~30 GB). operator_from_templates is list() of it."""
+def templates(H0, mons, den, p):
+    """(D, cl): the common denominator and the three cleared template columns per monomial, in the order
+    [(m0; 0,0), (m0; 1,0), (m0; 0,1), (m1; 0,0), ...]. Every operator column is built from these (D49)."""
     specs = []
     for mi in range(len(mons)):
         for (a, b) in ((0, 0), (1, 0), (0, 1)):
@@ -53,7 +52,14 @@ def operator_columns(H0, mons, dx, dy, den, p):
     D = sp.Integer(1)
     for d_ in dens:
         D = sp.lcm(D, d_)
-    cl = [PB.clear(r, D, p) for r in raws]
+    return D, [PB.clear(r, D, p) for r in raws]
+
+
+def operator_columns(H0, mons, dx, dy, den, p):
+    """(D, iterator over cleared column dicts) in coefficient_basis order: for each monomial, a in 0..dx, b in 0..dy.
+    Streaming form, so a caller can turn columns into flat arrays as they appear instead of holding every dict at
+    once (~250 B per nonzero; 125M nonzeros at TS rank 4 would be ~30 GB). operator_from_templates is list() of it."""
+    D, cl = templates(H0, mons, den, p)
 
     def gen():
         for mi in range(len(mons)):

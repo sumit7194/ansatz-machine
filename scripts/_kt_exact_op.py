@@ -120,6 +120,8 @@ def main():
     print(f"  EXACT solution dimension (operator nullity, guarded): {dim} [{time.time()-t0:.0f}s]", flush=True)
     print(f"  nullspace basis sha256[:16] = {hv}   (the free-column-indexed basis is unique: equal paths give equal hashes)",
           flush=True)
+    sh = hashlib.sha256(b"".join(sorted(np.array([int(z) % p for z in v], dtype=np.int64).tobytes() for v in ns))).hexdigest()[:16]
+    print(f"  nullspace set-hash (sorted vectors) = {sh}", flush=True)
 
     # reducible products in the SAME coefficient basis (monomial-major, then a, then b -- _kt_opfast's order)
     mkey = {tuple(m): n for n, m in enumerate(mons)}
