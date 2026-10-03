@@ -4252,3 +4252,20 @@ anything goes outside (`data/cg_recheck/`). (a) CG's cubic = −½{Q_a,Q_b} with
 metrics have no Lorentzian real form": **CORRECTED**. CG has no rank-4 (2,2) metric. The ASD argument covers the
 4D rank-3 first-system metric, the 5D rank-4 metric only on slices with real ∂_w, and the 6D one not at all
 (its KK base is flat). Note §3 updated. The Bridge's outreach one-pager uses only (a), so it stands.
+
+## 2026-10-03 — back after a week: two fleet verdicts closed, relayed by the Bridge (not re-checked here)
+
+**Manko–Novikov (K5).** The package I held as non-rational was delivered by the Bridge to quantum. Quantum used a
+non-Kovacic route (certified monodromy, Ziglin-type, Arb): **OBSTRUCTION on the axial solution** at both of my
+parameter points (quantum 2ce8b41, post-failure, amendments A1–A5), reproduced by the Bridge (V9). My sealed
+expectation (non-integrable; Kovacic blocked) agrees. The +8β flatness fix and the exact axis-regularity check
+were load-bearing. Record: `data/MN_for_quantum/DELIVERY.md`. An equatorial extension is running on quantum's side.
+
+**Tomimatsu–Sato δ = 2: comparison CLOSED.** Quantum 2b′ found OBSTRUCTION, with the Bridge's V8′ confirming
+(both post-failure). Tabula's rank-6 run is REFUSED/INCONCLUSIVE under its own rules, with a far-field direction
+that degrades toward the source, read as an approximant, at p = 3/5, where Vollmer 2016 already excludes Killing
+tensors to valence 7. My sealed prediction (non-integrable) agrees. TS can now be discussed with tabula.
+
+**Process:** the Bridge's inbox folder is the sisters' drop box. I don't read other sessions' notes there, and I
+ask the Bridge instead. Standing by while the user picks the next moonshot (K1, or a computer-assisted chaos proof
+that would need this repo as metric supplier). No new runs until then.
