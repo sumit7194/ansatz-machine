@@ -1,0 +1,7 @@
+Tomimatsu-Sato delta=2 p=4/5 rank 4 den^2 box 24x24 prime 0: FULL operator (dict path) 21875 columns, 138,665,775 nonzeros [621s]
+  union-find: 4 blocks containing nonzero columns (empty columns: 0)
+  BLOCK: cols 5000, nnz 33,716,936, canonical-COO hash 14d81dae15923d0f
+  BLOCK: cols 5000, nnz 33,698,814, canonical-COO hash 52e94a39c22054c0
+  BLOCK: cols 5825, nnz 35,402,355, canonical-COO hash 140df3ff7fcedce3
+  BLOCK: cols 6050, nnz 35,847,670, canonical-COO hash 6658d2a4fc719faa
+  total 666s

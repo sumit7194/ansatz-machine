@@ -80,7 +80,18 @@ def main():
           f"sectors {want}; parity structure checked (even in y, no cross terms)", flush=True)
 
     H = KD.hamiltonian(ginv)
-    D, cl = templates(H, mons, den, p)
+    cache = arg("--templates-cache")
+    if cache:   # exact templates computed once (_kt_templates_cache.py; selftest == _kt_opfast.templates), mod this prime
+        import _kt_templates_cache as TC
+        meta = json.load(open(f"{cache}_meta.json"))
+        if (meta["metric"], meta["rank"], meta["denpow"]) != (spec, rank, denpow):
+            sys.exit(f"REFUSE: template cache is for {meta}, not ({spec}, {rank}, {denpow})")
+        D, cl = TC.load(cache, prime)
+        if len(cl) != 3 * len(mons):
+            sys.exit(f"REFUSE: template cache has {len(cl)} templates, need {3 * len(mons)}")
+        print(f"  templates loaded from cache {cache}_p{prime}.npz", flush=True)
+    else:
+        D, cl = templates(H, mons, den, p)
     if sp.cancel(D - D.subs(y, -y)) != 0:
         sys.exit("REFUSE: the common denominator D is not even in y; the y-parity sectors would not be exact")
     print(f"  templates: {len(cl)} cleared columns, D even in y [{time.time()-t0:.0f}s]", flush=True)

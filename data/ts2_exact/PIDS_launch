@@ -2,3 +2,5 @@
 63246 63247 63248 2026-10-04 03:05:59 ts2_exact_queue relaunch (arrays path) threads=2
 89000 89001 89002 2026-10-04 03:53:39 run_validation.sh
 94001 2026-10-04 04:09:29 templates r6 build
+1749 1750 2026-10-04 16:02:58 opcheck TS r4 (full | sector)
+1800 2026-10-04 16:03:15 cachecheck TS r3

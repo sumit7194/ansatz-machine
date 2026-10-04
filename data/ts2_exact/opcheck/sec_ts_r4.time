@@ -1,0 +1,29 @@
+Traceback (most recent call last):
+  File "/Users/sumit/Github/conjecture_machine/scripts/_kt_exact_sector.py", line 218, in <module>
+    for s in want:
+         ^^^^^^
+  File "/Users/sumit/Github/conjecture_machine/scripts/_kt_exact_sector.py", line 208, in main
+    f"{inside}, set-hash {h} [{time.time()-ts:.0f}s]", flush=True)
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sumit/Github/conjecture_machine/.venv/lib/python3.14/site-packages/numpy/lib/_npyio_impl.py", line 454, in load
+    fid = stack.enter_context(open(os.fspath(file), "rb"))
+                              ~~~~^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'data/ts2_exact/opcheck/ts24o5_r4_d2_b24x24_p0_s0.npz'
+      577.36 real       572.76 user         2.39 sys
+          5448400896  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+             1014248  page reclaims
+                 365  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+                 911  voluntary context switches
+              168230  involuntary context switches
+       9313738176162  instructions retired
+       2028080198326  cycles elapsed
+          5530161640  peak memory footprint

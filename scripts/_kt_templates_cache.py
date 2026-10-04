@@ -127,6 +127,8 @@ def main():
     D, cli = templates_exact(H, mons, den)
     os.makedirs(os.path.dirname(out), exist_ok=True)
     save(out, D, cli, KD.PRIMES)
+    import json
+    json.dump({"metric": spec, "rank": rank, "denpow": denpow, "templates": len(cli)}, open(f"{out}_meta.json", "w"))
     print(f"{name} rank {rank} den^{denpow}: {len(cli)} exact templates, {sum(len(d) for d in cli):,} terms, cached "
           f"mod both primes at {out}_p{{0,1}}.npz [{time.time()-t0:.0f}s]", flush=True)
     return 0
