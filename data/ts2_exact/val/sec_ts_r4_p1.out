@@ -1,0 +1,18 @@
+Tomimatsu-Sato delta=2 p=4/5: rank 4, den L^2, box 24x24, 35 monomials, 21875 unknowns, prime 2147483629; sectors [0, 1, 2, 3]; parity structure checked (even in y, no cross terms)
+  templates: 105 cleared columns, D even in y [500s]
+  sector 0 (sy=0, sT=0): 6050 columns, 35,847,670 nonzeros built [2s]
+    rust nullspace: 1 blocks (largest 6050 cols), nnz 35,847,670 -> peak 62,450,189, nullity 9, 2 thread(s), 378.1s
+    residual guard: full, 9 vectors
+  SECTOR 0: nullity 9, reducible 9, IRREDUCIBLE 0, reducibles inside True, set-hash 5474368a7a56ec5e [384s]
+  sector 1 (sy=1, sT=0): 5825 columns, 35,402,355 nonzeros built [2s]
+    rust nullspace: 1 blocks (largest 5825 cols), nnz 35,402,355 -> peak 61,988,450, nullity 0, 2 thread(s), 367.2s
+  SECTOR 1: nullity 0, reducible 0, IRREDUCIBLE 0, reducibles inside True, set-hash e3b0c44298fc1c14 [370s]
+  sector 2 (sy=0, sT=1): 5000 columns, 33,716,936 nonzeros built [2s]
+    rust nullspace: 1 blocks (largest 5000 cols), nnz 33,716,936 -> peak 47,177,815, nullity 0, 2 thread(s), 205.3s
+  SECTOR 2: nullity 0, reducible 0, IRREDUCIBLE 0, reducibles inside True, set-hash e3b0c44298fc1c14 [208s]
+  sector 3 (sy=1, sT=1): 5000 columns, 33,698,814 nonzeros built [2s]
+    rust nullspace: 1 blocks (largest 5000 cols), nnz 33,698,814 -> peak 44,544,302, nullity 0, 2 thread(s), 205.8s
+  SECTOR 3: nullity 0, reducible 0, IRREDUCIBLE 0, reducibles inside True, set-hash e3b0c44298fc1c14 [208s]
+
+  VERDICT Tomimatsu-Sato delta=2 p=4/5 rank 4 den^2 box 24x24 prime 1 (4 sectors): exact 9, reducible 9, IRREDUCIBLE 0; global set-hash 5474368a7a56ec5e
+  total 1672s

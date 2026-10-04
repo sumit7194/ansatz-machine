@@ -1,0 +1,12 @@
+Kerr (TS2 pipeline, delta=1) p=4/5: rank 4, den L^2 (L degrees 4,4; g^ab numerators 4,4), reducible box 8x8 + margin 4 -> box 12x12, 35 monomials, 5915 unknowns, prime 2147483629
+  generators ['p_t', 'p_phi', 'H']; 9 products: H^2, p_phi^2 H, p_phi^4, p_t p_phi H, p_t p_phi^3, p_t^2 H, p_t^2 p_phi^2, p_t^3 p_phi, p_t^4
+  operator built (arrays): 5915 columns, 5,809,427 nonzeros [33s]
+    rust nullspace: 4 blocks (largest 1664 cols), nnz 5,809,427 -> peak 2,970,994, nullity 14, 2 thread(s), 5.3s
+    residual guard: full, 14 vectors
+  EXACT solution dimension (operator nullity, guarded): 14 [39s]
+  nullspace basis sha256[:16] = 7cb6991f99b8837f   (the free-column-indexed basis is unique: equal paths give equal hashes)
+  nullspace set-hash (sorted vectors) = b7920bdf133c7b58
+  reducible span: 9; inside the solution space: True (rank of solutions + reducibles = 14)
+
+  VERDICT Kerr (TS2 pipeline, delta=1) p=4/5 rank 4 den^2 box 12x12 prime 1: exact 14, reducible 9, IRREDUCIBLE 5
+  total 39s

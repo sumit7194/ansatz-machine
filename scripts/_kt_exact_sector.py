@@ -161,6 +161,20 @@ def main():
             nnz += len(vis)
             del rc, ci, vi, rcs, cis, vis
         print(f"  sector {s} (sy={sy}, sT={sT}): {n_s} columns, {nnz:,} nonzeros built [{time.time()-ts:.0f}s]", flush=True)
+        if "--ophash" in sys.argv:
+            # canonical entry list for the operator-equality check: (GLOBAL column, row code, value), sorted. Row codes
+            # use the sorted-momentum ids, so they are canonical; _kt_sector_opcheck.py builds the same from the FULL
+            # dict-path operator and its union-find blocks.
+            gc_ = np.array(gcols, np.int64)
+            gcol = np.concatenate([gc_[q.ci.astype(np.int64)] for q in parts]) if parts else np.zeros(0, np.int64)
+            code = np.concatenate([q.rc.astype(np.int64) for q in parts]) if parts else np.zeros(0, np.int64)
+            val = np.concatenate([q.vi.astype(np.int64) for q in parts]) if parts else np.zeros(0, np.int64)
+            o = np.lexsort((code, gcol))
+            hh = hashlib.sha256(np.stack([gcol[o], code[o], val[o]]).tobytes()).hexdigest()[:16]
+            print(f"  SECTOR-OPHASH {s}: cols {n_s}, nnz {len(val):,}, canonical-COO hash {hh}", flush=True)
+            del gcol, code, val, o
+            if "--no-solve" in sys.argv:
+                continue
         ns = KD.nullspace_dicts(Level(parts), n_s, p)      # writes its own file in a temp dir, guards, deletes it
         del parts
         dim_s = len(ns)
