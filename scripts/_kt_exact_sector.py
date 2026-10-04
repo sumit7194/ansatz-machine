@@ -58,6 +58,12 @@ def main():
     margin, prime = arg("--margin", EX.MARGIN, int), arg("--prime", 0, int)
     want = [int(s) for s in arg("--sectors", "0,1,2,3").split(",")]
     outdir = arg("--outdir", "data/ts2_exact/sectors")
+    # LEAN LAUNCH (2026-10-05): --phase write builds each sector's matrix to <outdir>/<tag>_s<k>.ktm and EXITS, so the
+    # Rust solver (run separately on that file) gets this process's ~3 GB of templates/SymPy back; --phase finish reads
+    # the solver's .kts, runs the residual guard against the .ktm, measures the reducible span, hashes, then deletes
+    # both files. Default "all" = the original single-process path, unchanged.
+    phase = arg("--phase", "all")
+    assert phase in ("all", "write", "finish"), phase
     os.makedirs(outdir, exist_ok=True)
     p = KD.PRIMES[prime]
     t_, ph = sp.symbols("t phi", real=True)
@@ -79,46 +85,47 @@ def main():
     print(f"{name}: rank {rank}, den L^{denpow}, box {dx}x{dy}, {len(mons)} monomials, {n_w} unknowns, prime {p}; "
           f"sectors {want}; parity structure checked (even in y, no cross terms)", flush=True)
 
-    H = KD.hamiltonian(ginv)
-    cache = arg("--templates-cache")
-    if cache:   # exact templates computed once (_kt_templates_cache.py; selftest == _kt_opfast.templates), mod this prime
-        import _kt_templates_cache as TC
-        meta = json.load(open(f"{cache}_meta.json"))
-        if (meta["metric"], meta["rank"], meta["denpow"]) != (spec, rank, denpow):
-            sys.exit(f"REFUSE: template cache is for {meta}, not ({spec}, {rank}, {denpow})")
-        D, cl = TC.load(cache, prime)
-        if len(cl) != 3 * len(mons):
-            sys.exit(f"REFUSE: template cache has {len(cl)} templates, need {3 * len(mons)}")
-        print(f"  templates loaded from cache {cache}_p{prime}.npz", flush=True)
-    else:
-        D, cl = templates(H, mons, den, p)
-    if sp.cancel(D - D.subs(y, -y)) != 0:
-        sys.exit("REFUSE: the common denominator D is not even in y; the y-parity sectors would not be exact")
-    print(f"  templates: {len(cl)} cleared columns, D even in y [{time.time()-t0:.0f}s]", flush=True)
-    # deterministic momentum ids (sorted exponent tuples), so codes do not depend on discovery order
-    eids = sorted({e for d in cl for (e, _) in d})
-    eid = {e: i for i, e in enumerate(eids)}
-    if len(eids) >= 1024:
-        sys.exit("too many momentum monomials for the 32-bit code packing")
+    if phase != "finish":
+        H = KD.hamiltonian(ginv)
+        cache = arg("--templates-cache")
+        if cache:   # exact templates computed once (_kt_templates_cache.py; selftest == _kt_opfast.templates), mod this prime
+            import _kt_templates_cache as TC
+            meta = json.load(open(f"{cache}_meta.json"))
+            if (meta["metric"], meta["rank"], meta["denpow"]) != (spec, rank, denpow):
+                sys.exit(f"REFUSE: template cache is for {meta}, not ({spec}, {rank}, {denpow})")
+            D, cl = TC.load(cache, prime)
+            if len(cl) != 3 * len(mons):
+                sys.exit(f"REFUSE: template cache has {len(cl)} templates, need {3 * len(mons)}")
+            print(f"  templates loaded from cache {cache}_p{prime}.npz", flush=True)
+        else:
+            D, cl = templates(H, mons, den, p)
+        if sp.cancel(D - D.subs(y, -y)) != 0:
+            sys.exit("REFUSE: the common denominator D is not even in y; the y-parity sectors would not be exact")
+        print(f"  templates: {len(cl)} cleared columns, D even in y [{time.time()-t0:.0f}s]", flush=True)
+        # deterministic momentum ids (sorted exponent tuples), so codes do not depend on discovery order
+        eids = sorted({e for d in cl for (e, _) in d})
+        eid = {e: i for i, e in enumerate(eids)}
+        if len(eids) >= 1024:
+            sys.exit("too many momentum monomials for the 32-bit code packing")
 
-    def arr(d):
-        if not d:
-            return np.zeros(0, np.int64), np.zeros(0, np.int64)
-        c = np.array([(eid[e] * WPACK + j) * WPACK + k for (e, (j, k)) in d], np.int64)
-        v = np.array([v for v in d.values()], np.int64) % p
-        return c, v
+        def arr(d):
+            if not d:
+                return np.zeros(0, np.int64), np.zeros(0, np.int64)
+            c = np.array([(eid[e] * WPACK + j) * WPACK + k for (e, (j, k)) in d], np.int64)
+            v = np.array([v for v in d.values()], np.int64) % p
+            return c, v
 
-    def vw(mi):   # U, V = cleared(1,0) - x U, W = cleared(0,1) - y U, as dicts then arrays (once per monomial)
-        U = cl[3 * mi]
-        V = dict(cl[3 * mi + 1])
-        for (e, (j, k)), v in U.items():
-            key = (e, (j + 1, k)); V[key] = (V.get(key, 0) - v) % p
-        Wd = dict(cl[3 * mi + 2])
-        for (e, (j, k)), v in U.items():
-            key = (e, (j, k + 1)); Wd[key] = (Wd.get(key, 0) - v) % p
-        return arr(U), arr({k: v for k, v in V.items() if v}), arr({k: v for k, v in Wd.items() if v})
+        def vw(mi):   # U, V = cleared(1,0) - x U, W = cleared(0,1) - y U, as dicts then arrays (once per monomial)
+            U = cl[3 * mi]
+            V = dict(cl[3 * mi + 1])
+            for (e, (j, k)), v in U.items():
+                key = (e, (j + 1, k)); V[key] = (V.get(key, 0) - v) % p
+            Wd = dict(cl[3 * mi + 2])
+            for (e, (j, k)), v in U.items():
+                key = (e, (j, k + 1)); Wd[key] = (Wd.get(key, 0) - v) % p
+            return arr(U), arr({k: v for k, v in V.items() if v}), arr({k: v for k, v in Wd.items() if v})
 
-    tpl = [vw(mi) for mi in range(len(mons))]
+        tpl = [vw(mi) for mi in range(len(mons))]
     idx = lambda mi, a, b: (mi * (dx + 1) + a) * (dy + 1) + b
 
     # reducible products, global basis
@@ -145,49 +152,72 @@ def main():
                  for a in range(dx + 1) for b in range(dy + 1) if (b + m[2]) % 2 == sy]
         loc = {g: n for n, g in enumerate(gcols)}
         n_s = len(gcols)
-        parts, nnz = [], 0
-        for mi, m in enumerate(mons):
-            if (m[0] + m[3]) % 2 != sT:
-                continue
-            bs = np.array([b for b in range(dy + 1) if (b + m[2]) % 2 == sy], np.int64)
-            A = np.repeat(np.arange(dx + 1, dtype=np.int64), len(bs))
-            B = np.tile(bs, dx + 1)
-            col = np.array([loc[idx(mi, a, b)] for a, b in zip(A, B)], np.int64)
-            (Uc, Uv), (Vc, Vv), (Wc, Wv) = tpl[mi]
-            rc = [(Uc[None, :] + (A * WPACK + B)[:, None]).ravel()]
-            ci = [np.repeat(col, len(Uc))]
-            vi = [np.tile(Uv, len(A))]
-            ma = A > 0
-            if ma.any() and len(Vc):
-                rc.append((Vc[None, :] + ((A[ma] - 1) * WPACK + B[ma])[:, None]).ravel())
-                ci.append(np.repeat(col[ma], len(Vc)))
-                vi.append((Vv[None, :] * A[ma][:, None] % p).ravel())
-            mb = B > 0
-            if mb.any() and len(Wc):
-                rc.append((Wc[None, :] + (A[mb] * WPACK + (B[mb] - 1))[:, None]).ravel())
-                ci.append(np.repeat(col[mb], len(Wc)))
-                vi.append((Wv[None, :] * B[mb][:, None] % p).ravel())
-            rcs, cis, vis = _merge(np.concatenate(rc), np.concatenate(ci), np.concatenate(vi), p)
-            parts.append(Coo(rcs.astype(np.uint32), cis.astype(np.uint32), vis.astype(np.uint32)))
-            nnz += len(vis)
-            del rc, ci, vi, rcs, cis, vis
-        print(f"  sector {s} (sy={sy}, sT={sT}): {n_s} columns, {nnz:,} nonzeros built [{time.time()-ts:.0f}s]", flush=True)
-        if "--ophash" in sys.argv:
-            # canonical entry list for the operator-equality check: (GLOBAL column, row code, value), sorted. Row codes
-            # use the sorted-momentum ids, so they are canonical; _kt_sector_opcheck.py builds the same from the FULL
-            # dict-path operator and its union-find blocks.
-            gc_ = np.array(gcols, np.int64)
-            gcol = np.concatenate([gc_[q.ci.astype(np.int64)] for q in parts]) if parts else np.zeros(0, np.int64)
-            code = np.concatenate([q.rc.astype(np.int64) for q in parts]) if parts else np.zeros(0, np.int64)
-            val = np.concatenate([q.vi.astype(np.int64) for q in parts]) if parts else np.zeros(0, np.int64)
-            o = np.lexsort((code, gcol))
-            hh = hashlib.sha256(np.stack([gcol[o], code[o], val[o]]).tobytes()).hexdigest()[:16]
-            print(f"  SECTOR-OPHASH {s}: cols {n_s}, nnz {len(val):,}, canonical-COO hash {hh}", flush=True)
-            del gcol, code, val, o
-            if "--no-solve" in sys.argv:
-                continue
-        ns = KD.nullspace_dicts(Level(parts), n_s, p)      # writes its own file in a temp dir, guards, deletes it
-        del parts
+        if phase != "finish":
+            parts, nnz = [], 0
+            for mi, m in enumerate(mons):
+                if (m[0] + m[3]) % 2 != sT:
+                    continue
+                bs = np.array([b for b in range(dy + 1) if (b + m[2]) % 2 == sy], np.int64)
+                A = np.repeat(np.arange(dx + 1, dtype=np.int64), len(bs))
+                B = np.tile(bs, dx + 1)
+                col = np.array([loc[idx(mi, a, b)] for a, b in zip(A, B)], np.int64)
+                (Uc, Uv), (Vc, Vv), (Wc, Wv) = tpl[mi]
+                rc = [(Uc[None, :] + (A * WPACK + B)[:, None]).ravel()]
+                ci = [np.repeat(col, len(Uc))]
+                vi = [np.tile(Uv, len(A))]
+                ma = A > 0
+                if ma.any() and len(Vc):
+                    rc.append((Vc[None, :] + ((A[ma] - 1) * WPACK + B[ma])[:, None]).ravel())
+                    ci.append(np.repeat(col[ma], len(Vc)))
+                    vi.append((Vv[None, :] * A[ma][:, None] % p).ravel())
+                mb = B > 0
+                if mb.any() and len(Wc):
+                    rc.append((Wc[None, :] + (A[mb] * WPACK + (B[mb] - 1))[:, None]).ravel())
+                    ci.append(np.repeat(col[mb], len(Wc)))
+                    vi.append((Wv[None, :] * B[mb][:, None] % p).ravel())
+                rcs, cis, vis = _merge(np.concatenate(rc), np.concatenate(ci), np.concatenate(vi), p)
+                parts.append(Coo(rcs.astype(np.uint32), cis.astype(np.uint32), vis.astype(np.uint32)))
+                nnz += len(vis)
+                del rc, ci, vi, rcs, cis, vis
+            print(f"  sector {s} (sy={sy}, sT={sT}): {n_s} columns, {nnz:,} nonzeros built [{time.time()-ts:.0f}s]", flush=True)
+            if "--ophash" in sys.argv:
+                # canonical entry list for the operator-equality check: (GLOBAL column, row code, value), sorted. Row codes
+                # use the sorted-momentum ids, so they are canonical; _kt_sector_opcheck.py builds the same from the FULL
+                # dict-path operator and its union-find blocks.
+                gc_ = np.array(gcols, np.int64)
+                gcol = np.concatenate([gc_[q.ci.astype(np.int64)] for q in parts]) if parts else np.zeros(0, np.int64)
+                code = np.concatenate([q.rc.astype(np.int64) for q in parts]) if parts else np.zeros(0, np.int64)
+                val = np.concatenate([q.vi.astype(np.int64) for q in parts]) if parts else np.zeros(0, np.int64)
+                o = np.lexsort((code, gcol))
+                hh = hashlib.sha256(np.stack([gcol[o], code[o], val[o]]).tobytes()).hexdigest()[:16]
+                print(f"  SECTOR-OPHASH {s}: cols {n_s}, nnz {len(val):,}, canonical-COO hash {hh}", flush=True)
+                del gcol, code, val, o
+                if "--no-solve" in sys.argv:
+                    continue
+        kpath = os.path.join(outdir, f"{tag}_s{s}.ktm")
+        if phase == "write":
+            from _kt_coo import write_ktm_parts
+            write_ktm_parts(kpath, parts, n_s, p)
+            del parts
+            json.dump({"cols": n_s, "nnz": nnz}, open(kpath + ".meta", "w"))
+            print(f"  WROTE sector {s} matrix: {kpath} ({n_s} cols, {nnz:,} nonzeros) [{time.time()-ts:.0f}s]", flush=True)
+            continue
+        if phase == "finish":
+            from _kt_coo import residual_count_file
+            from _kt_rust import read_kts
+            _, ns = read_kts(kpath + ".kts")
+            st = json.loads(open(kpath + ".stats").read().strip().splitlines()[-1])
+            nnz = json.load(open(kpath + ".meta"))["nnz"]
+            print(f"    rust nullspace (lean, separate process): {st['blocks']} blocks (largest {st['largest_block_cols']} "
+                  f"cols), nnz {st['nnz_in']:,} -> peak {st['peak_nnz_max']:,}, nullity {st['nullity']}, "
+                  f"{st['seconds']:.1f}s", flush=True)
+            bad = residual_count_file(kpath, ns, p) if ns else 0
+            if bad:
+                sys.exit(f"NULLSPACE GUARD FAILED (lean): {bad} nonzero residuals over {len(ns)} vectors")
+            print(f"    residual guard: full, {len(ns)} vectors", flush=True)
+        else:
+            ns = KD.nullspace_dicts(Level(parts), n_s, p)      # writes its own file in a temp dir, guards, deletes it
+            del parts
         dim_s = len(ns)
         G = np.zeros((dim_s, n_w), np.int64)
         gc = np.array(gcols, np.int64)
@@ -208,6 +238,10 @@ def main():
               f"{inside}, set-hash {h} [{time.time()-ts:.0f}s]", flush=True)
         with open(os.path.join(outdir, f"{tag}_s{s}.json"), "w") as fh:
             json.dump(summary[s], fh)
+        if phase == "finish":
+            for f_ in (kpath, kpath + ".kts", kpath + ".meta", kpath + ".stats"):
+                if os.path.exists(f_):
+                    os.remove(f_)
         if not inside:
             print("  CONDEMNED: a reducible product is not in this sector's solution space", flush=True)
             return 3

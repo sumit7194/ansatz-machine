@@ -1,0 +1,13 @@
+Kerr (TS2 pipeline, delta=1) p=4/5: rank 3, den L^1, box 8x8, 20 monomials, 1620 unknowns, prime 2147483629; sectors [2]; parity structure checked (even in y, no cross terms)
+  templates: 60 cleared columns, D even in y [11s]
+  sector 2 (sy=0, sT=1): 432 columns, 327,470 nonzeros built [0s]
+  WROTE sector 2 matrix: data/ts2_exact/leanval/ts2kerr4o5_r3_d1_b8x8_p1_s2.ktm (432 cols, 327,470 nonzeros) [0s]
+  total 11s
+  [lean] ktsolve alone on data/ts2_exact/leanval/ts2kerr4o5_r3_d1_b8x8_p1_s2.ktm (3.8M) -- 01:54:55
+  [lean] ktsolve done -- 01:54:55
+Kerr (TS2 pipeline, delta=1) p=4/5: rank 3, den L^1, box 8x8, 20 monomials, 1620 unknowns, prime 2147483629; sectors [2]; parity structure checked (even in y, no cross terms)
+    rust nullspace (lean, separate process): 1 blocks (largest 432 cols), nnz 327,470 -> peak 335,736, nullity 8, 0.1s
+    residual guard: full, 8 vectors
+    residual guard: full, 8 vectors
+  SECTOR 2: nullity 8, reducible 6, IRREDUCIBLE 2, reducibles inside True, set-hash 1a692d53be3a613c [0s]
+  total 3s
