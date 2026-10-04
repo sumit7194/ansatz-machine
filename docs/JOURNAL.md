@@ -4290,3 +4290,7 @@ unfinished.** The caps did their job. The leftover 2.1 GB matrix file was moved 
 What it says: one rank-6 sector (27,230 columns, 184.6M nonzeros) needs more than 14 GB with this solver. The levers,
 none tried yet: drop Python's 3 GB before the solve (launch Rust from a lean step); reduce Rust's fill (ordering /
 out-of-core); a smaller margin as a complementary ansatz. These are design work for a later night, not a retry.
+- **03:25 — second attempt, lean launch, also capped.** With Python gone, ktsolve ran alone on the 2.1 GB sector-0 matrix
+  and reached the 15 GB cap after 65 min of solving. So the Python parent was not the problem: **ktsolve's own fill-in
+  on one 27,230-column block exceeds ~15 GB.** Sector 0 is unfinished, with no rank-6 result. Stopped for the night per the
+  Bridge's rule. The next lever is (b): reduce fill (ordering) or go out-of-core. That's design work, not a retry.

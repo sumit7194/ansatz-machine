@@ -6,3 +6,5 @@
 1800 2026-10-04 16:03:15 cachecheck TS r3
 69758 69759 69760 2026-10-05 00:58:15 ts2_r6_queue STOP_AT=2026-10-05 09:30
 72830 72831 72832 2026-10-05 01:06:32 ts2_r6_queue_v3 WAIT_PID=69794 (handover; old driver 69758/timer/watchdog stopped)
+91741 91742 91743 2026-10-05 02:13:01 lean r6 sector 0 prime 0
+92041 92042 2026-10-05 02:13:53 r6 lean continuation (waits for 91741)
