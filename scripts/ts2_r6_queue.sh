@@ -6,7 +6,7 @@
 #            (2-slot scheduler), else one at a time. Then prime 1 the same way.
 # Each sector's matrix file is a temp file the prover deletes after its nullspace + guard; results saved per sector.
 # Any sector irreducible > 0 -> stop the other running sector, run that sector's second prime, STOP.
-# HARD STOP at $STOP_AT (13:30): the whole tree is killed; finished sectors stand, unfinished are labelled.
+# HARD STOP at $STOP_AT (give it explicitly: STOP_AT="2026-10-05 07:30"): the whole tree is killed; finished sectors stand, unfinished are labelled.
 cd "${0:A:h}/.." || exit 2
 exec < /dev/null
 O=data/ts2_exact/r6; mkdir -p $O
@@ -16,7 +16,13 @@ git diff --quiet HEAD -- data/ts2_exact/R6_PREDICTION.md && git ls-files --error
   || { log "REFUSE: R6_PREDICTION.md not committed (sealed)"; exit 4; }
 [ -f ${TPL}_p0.npz ] && [ -f ${TPL}_p1.npz ] || { log "REFUSE: template cache missing"; exit 4; }
 log "=== r6 queue start, driver $$; prediction sealed at $(git log -1 --format=%h -- data/ts2_exact/R6_PREDICTION.md); hard stop $STOP_AT; parallel only if sector-0 peak <= ${PAR_MAX_GB} GB"
-DEADLINE=$(date -j -f '%H:%M:%S' "$STOP_AT:00" +%s); [ $DEADLINE -le $(date +%s) ] && DEADLINE=$((DEADLINE + 86400))   # NEXT $STOP_AT
+# STOP_AT: explicit "YYYY-mm-dd HH:MM" (preferred, per the Bridge) -- refused if already past; or bare "HH:MM" = its NEXT occurrence
+if [[ "$STOP_AT" == *-*" "* ]]; then
+  DEADLINE=$(date -j -f '%Y-%m-%d %H:%M:%S' "$STOP_AT:00" +%s) || { log "REFUSE: cannot parse STOP_AT=$STOP_AT"; exit 4; }
+  [ $DEADLINE -le $(date +%s) ] && { log "REFUSE: STOP_AT $STOP_AT is in the past"; exit 4; }
+else
+  DEADLINE=$(date -j -f '%H:%M:%S' "$STOP_AT:00" +%s); [ $DEADLINE -le $(date +%s) ] && DEADLINE=$((DEADLINE + 86400))
+fi
 log "  hard-stop deadline: $(date -r $DEADLINE '+%a %F %T')"
 ( deadline=$DEADLINE; while [ $(date +%s) -lt $deadline ]; do sleep 30; kill -0 $$ 2>/dev/null || exit 0; done
   me=$(cat $O/timer.pid 2>/dev/null)
