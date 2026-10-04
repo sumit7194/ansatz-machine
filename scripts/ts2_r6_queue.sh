@@ -16,7 +16,9 @@ git diff --quiet HEAD -- data/ts2_exact/R6_PREDICTION.md && git ls-files --error
   || { log "REFUSE: R6_PREDICTION.md not committed (sealed)"; exit 4; }
 [ -f ${TPL}_p0.npz ] && [ -f ${TPL}_p1.npz ] || { log "REFUSE: template cache missing"; exit 4; }
 log "=== r6 queue start, driver $$; prediction sealed at $(git log -1 --format=%h -- data/ts2_exact/R6_PREDICTION.md); hard stop $STOP_AT; parallel only if sector-0 peak <= ${PAR_MAX_GB} GB"
-( deadline=$(date -j -f '%H:%M' "$STOP_AT" +%s); while [ $(date +%s) -lt $deadline ]; do sleep 30; kill -0 $$ 2>/dev/null || exit 0; done
+DEADLINE=$(date -j -f '%H:%M:%S' "$STOP_AT:00" +%s); [ $DEADLINE -le $(date +%s) ] && DEADLINE=$((DEADLINE + 86400))   # NEXT $STOP_AT
+log "  hard-stop deadline: $(date -r $DEADLINE '+%a %F %T')"
+( deadline=$DEADLINE; while [ $(date +%s) -lt $deadline ]; do sleep 30; kill -0 $$ 2>/dev/null || exit 0; done
   me=$(cat $O/timer.pid 2>/dev/null)
   echo "[$(date '+%a %H:%M:%S')] HARD STOP $STOP_AT reached -- killing the r6 tree; unfinished sectors are labelled" >> $O/STATUS.md
   tree() { echo $1; for k in $(pgrep -P $1); do tree $k; done; }
