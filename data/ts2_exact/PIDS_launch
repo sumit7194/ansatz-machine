@@ -4,3 +4,5 @@
 94001 2026-10-04 04:09:29 templates r6 build
 1749 1750 2026-10-04 16:02:58 opcheck TS r4 (full | sector)
 1800 2026-10-04 16:03:15 cachecheck TS r3
+69758 69759 69760 2026-10-05 00:58:15 ts2_r6_queue STOP_AT=2026-10-05 09:30
+72830 72831 72832 2026-10-05 01:06:32 ts2_r6_queue_v3 WAIT_PID=69794 (handover; old driver 69758/timer/watchdog stopped)

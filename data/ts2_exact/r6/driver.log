@@ -1,0 +1,3 @@
+[Mon 00:58:15] === r6 queue start, driver 69758; prediction sealed at 34d14b6; hard stop 2026-10-05 09:30; parallel only if sector-0 peak <= 14 GB
+[Mon 00:58:15]   hard-stop deadline: Mon 2026-10-05 09:30:00
+[Mon 00:58:15]   launch prime 0 sector 0

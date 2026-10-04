@@ -4279,3 +4279,14 @@ matched on both primes. Rank 4 needed the operator streamed into COO arrays, ver
 path. Rank 6 cut for the caps; design note `docs/notes/TS2_rank6_design.md` (parity-sector builds + NumPy column
 build). My waiter once matched my own "STOPPED" note as the queue's "STOP"; harmless, since the driver was fine,
 but the stop pattern is now anchored (`] STOP:`).
+
+## 2026-10-05 night — TS rank 6: sector 0 does not fit the 16 GiB box as built (stopped by the watchdog, no result)
+
+Launched 00:58 (prediction sealed at 34d14b6). After the Bridge's 16 GiB correction and the user's "no deadline", I
+switched to driver v3 at 01:06 by a clean handover: one process at a time, watchdog at 14 GB / 8% memory free / 5 GB
+disk. **At 01:50 the watchdog killed sector 0 at a 14.98 GB tree**, 45 min into its Rust solve. ktsolve was at
+12 GB and still growing; the Python parent was holding 3.0 GB; 6 GB of swap was in use. **No rank-6 result; sector 0 is
+unfinished.** The caps did their job. The leftover 2.1 GB matrix file was moved to the Trash.
+What it says: one rank-6 sector (27,230 columns, 184.6M nonzeros) needs more than 14 GB with this solver. The levers,
+none tried yet: drop Python's 3 GB before the solve (launch Rust from a lean step); reduce Rust's fill (ordering /
+out-of-core); a smaller margin as a complementary ansatz. These are design work for a later night, not a retry.
