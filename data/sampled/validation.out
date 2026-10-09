@@ -1,0 +1,79 @@
+Kerr (TS2 pipeline, delta=1) p=4/5: rank 3, den L^1, box 8x8, sector 0 (sy=0, sT=0): 405 columns, 469 sampled rows, prime 2147483647; reducible products in this sector: 0
+  generated 469x405 in 5s (skipped 0 bad points); rust rank 405 in 0.05s
+VERDICT Kerr (TS2 pipeline, delta=1) p=4/5 rank 3 den^1 box 8x8 sector 0 prime 0: sampled nullity 0 (upper bound), expected floor 0 -> NULL PROVED (bound = reducible)
+Kerr (TS2 pipeline, delta=1) p=4/5: rank 3, den L^1, box 8x8, sector 1 (sy=1, sT=0): 405 columns, 469 sampled rows, prime 2147483647; reducible products in this sector: 0
+  generated 469x405 in 5s (skipped 0 bad points); rust rank 405 in 0.04s
+VERDICT Kerr (TS2 pipeline, delta=1) p=4/5 rank 3 den^1 box 8x8 sector 1 prime 0: sampled nullity 0 (upper bound), expected floor 0 -> NULL PROVED (bound = reducible)
+Kerr (TS2 pipeline, delta=1) p=4/5: rank 3, den L^1, box 8x8, sector 2 (sy=0, sT=1): 432 columns, 496 sampled rows, prime 2147483647; reducible products in this sector: 6
+  generated 496x432 in 4s (skipped 0 bad points); rust rank 424 in 0.07s
+VERDICT Kerr (TS2 pipeline, delta=1) p=4/5 rank 3 den^1 box 8x8 sector 2 prime 0: sampled nullity 8 (upper bound), expected floor 6 -> bound exceeds reducible by 2 (INCONCLUSIVE until resolved)
+Kerr (TS2 pipeline, delta=1) p=4/5: rank 3, den L^1, box 8x8, sector 3 (sy=1, sT=1): 378 columns, 442 sampled rows, prime 2147483647; reducible products in this sector: 0
+  generated 442x378 in 3s (skipped 0 bad points); rust rank 378 in 0.03s
+VERDICT Kerr (TS2 pipeline, delta=1) p=4/5 rank 3 den^1 box 8x8 sector 3 prime 0: sampled nullity 0 (upper bound), expected floor 0 -> NULL PROVED (bound = reducible)
+Kerr (TS2 pipeline, delta=1) p=4/5: rank 2, den L^1, box 8x8, sector 0 (sy=0, sT=0): 261 columns, 325 sampled rows, prime 2147483647; reducible products in this sector: 4
+  generated 325x261 in 3s (skipped 0 bad points); rust rank 256 in 0.05s
+VERDICT Kerr (TS2 pipeline, delta=1) p=4/5 rank 2 den^1 box 8x8 sector 0 prime 0: sampled nullity 5 (upper bound), expected floor 4 -> bound exceeds reducible by 1 (INCONCLUSIVE until resolved)
+Kerr (TS2 pipeline, delta=1) p=4/5: rank 4, den L^2, box 12x12, sector 0 (sy=0, sT=0): 1664 columns, 1728 sampled rows, prime 2147483647; reducible products in this sector: 9
+  generated 1728x1664 in 6s (skipped 0 bad points); rust rank 1650 in 0.72s
+VERDICT Kerr (TS2 pipeline, delta=1) p=4/5 rank 4 den^2 box 12x12 sector 0 prime 0: sampled nullity 14 (upper bound), expected floor 9 -> bound exceeds reducible by 5 (INCONCLUSIVE until resolved)
+Kerr (TS2 pipeline, delta=1) p=4/5: rank 4, den L^2, box 12x12, sector 1 (sy=1, sT=0): 1547 columns, 1611 sampled rows, prime 2147483647; reducible products in this sector: 0
+  generated 1611x1547 in 5s (skipped 0 bad points); rust rank 1547 in 0.41s
+VERDICT Kerr (TS2 pipeline, delta=1) p=4/5 rank 4 den^2 box 12x12 sector 1 prime 0: sampled nullity 0 (upper bound), expected floor 0 -> NULL PROVED (bound = reducible)
+Kerr (TS2 pipeline, delta=1) p=4/5: rank 4, den L^2, box 12x12, sector 2 (sy=0, sT=1): 1352 columns, 1416 sampled rows, prime 2147483647; reducible products in this sector: 0
+  generated 1416x1352 in 6s (skipped 0 bad points); rust rank 1352 in 0.43s
+VERDICT Kerr (TS2 pipeline, delta=1) p=4/5 rank 4 den^2 box 12x12 sector 2 prime 0: sampled nullity 0 (upper bound), expected floor 0 -> NULL PROVED (bound = reducible)
+Kerr (TS2 pipeline, delta=1) p=4/5: rank 4, den L^2, box 12x12, sector 3 (sy=1, sT=1): 1352 columns, 1416 sampled rows, prime 2147483647; reducible products in this sector: 0
+  generated 1416x1352 in 7s (skipped 0 bad points); rust rank 1352 in 0.32s
+VERDICT Kerr (TS2 pipeline, delta=1) p=4/5 rank 4 den^2 box 12x12 sector 3 prime 0: sampled nullity 0 (upper bound), expected floor 0 -> NULL PROVED (bound = reducible)
+Tomimatsu-Sato delta=2 p=4/5: rank 2, den L^1, box 14x14, sector 0 (sy=0, sT=0): 705 columns, 769 sampled rows, prime 2147483647; reducible products in this sector: 4
+  generated 769x705 in 183s (skipped 0 bad points); rust rank 701 in 0.09s
+VERDICT Tomimatsu-Sato delta=2 p=4/5 rank 2 den^1 box 14x14 sector 0 prime 0: sampled nullity 4 (upper bound), expected floor 4 -> NULL PROVED (bound = reducible)
+Tomimatsu-Sato delta=2 p=4/5: rank 2, den L^1, box 14x14, sector 1 (sy=1, sT=0): 645 columns, 709 sampled rows, prime 2147483647; reducible products in this sector: 0
+  generated 709x645 in 171s (skipped 0 bad points); rust rank 645 in 0.05s
+VERDICT Tomimatsu-Sato delta=2 p=4/5 rank 2 den^1 box 14x14 sector 1 prime 0: sampled nullity 0 (upper bound), expected floor 0 -> NULL PROVED (bound = reducible)
+Tomimatsu-Sato delta=2 p=4/5: rank 2, den L^1, box 14x14, sector 2 (sy=0, sT=1): 450 columns, 514 sampled rows, prime 2147483647; reducible products in this sector: 0
+  generated 514x450 in 194s (skipped 0 bad points); rust rank 450 in 0.05s
+VERDICT Tomimatsu-Sato delta=2 p=4/5 rank 2 den^1 box 14x14 sector 2 prime 0: sampled nullity 0 (upper bound), expected floor 0 -> NULL PROVED (bound = reducible)
+Tomimatsu-Sato delta=2 p=4/5: rank 2, den L^1, box 14x14, sector 3 (sy=1, sT=1): 450 columns, 514 sampled rows, prime 2147483647; reducible products in this sector: 0
+  generated 514x450 in 184s (skipped 0 bad points); rust rank 450 in 0.03s
+VERDICT Tomimatsu-Sato delta=2 p=4/5 rank 2 den^1 box 14x14 sector 3 prime 0: sampled nullity 0 (upper bound), expected floor 0 -> NULL PROVED (bound = reducible)
+Tomimatsu-Sato delta=2 p=4/5: rank 3, den L^1, box 14x14, sector 0 (sy=0, sT=0): 1125 columns, 1189 sampled rows, prime 2147483647; reducible products in this sector: 0
+  generated 1189x1125 in 188s (skipped 0 bad points); rust rank 1125 in 0.12s
+VERDICT Tomimatsu-Sato delta=2 p=4/5 rank 3 den^1 box 14x14 sector 0 prime 0: sampled nullity 0 (upper bound), expected floor 0 -> NULL PROVED (bound = reducible)
+Tomimatsu-Sato delta=2 p=4/5: rank 3, den L^1, box 14x14, sector 1 (sy=1, sT=0): 1125 columns, 1189 sampled rows, prime 2147483647; reducible products in this sector: 0
+  generated 1189x1125 in 136s (skipped 0 bad points); rust rank 1125 in 0.12s
+VERDICT Tomimatsu-Sato delta=2 p=4/5 rank 3 den^1 box 14x14 sector 1 prime 0: sampled nullity 0 (upper bound), expected floor 0 -> NULL PROVED (bound = reducible)
+Tomimatsu-Sato delta=2 p=4/5: rank 3, den L^1, box 14x14, sector 2 (sy=0, sT=1): 1170 columns, 1234 sampled rows, prime 2147483647; reducible products in this sector: 6
+  generated 1234x1170 in 134s (skipped 0 bad points); rust rank 1164 in 0.16s
+VERDICT Tomimatsu-Sato delta=2 p=4/5 rank 3 den^1 box 14x14 sector 2 prime 0: sampled nullity 6 (upper bound), expected floor 6 -> NULL PROVED (bound = reducible)
+Tomimatsu-Sato delta=2 p=4/5: rank 3, den L^1, box 14x14, sector 3 (sy=1, sT=1): 1080 columns, 1144 sampled rows, prime 2147483647; reducible products in this sector: 0
+  generated 1144x1080 in 139s (skipped 0 bad points); rust rank 1080 in 0.14s
+VERDICT Tomimatsu-Sato delta=2 p=4/5 rank 3 den^1 box 14x14 sector 3 prime 0: sampled nullity 0 (upper bound), expected floor 0 -> NULL PROVED (bound = reducible)
+Tomimatsu-Sato delta=2 p=4/5: rank 4, den L^2, box 24x24, sector 0 (sy=0, sT=0): 6050 columns, 6114 sampled rows, prime 2147483647; reducible products in this sector: 9
+  generated 6114x6050 in 156s (skipped 0 bad points); rust rank 6041 in 9.75s
+VERDICT Tomimatsu-Sato delta=2 p=4/5 rank 4 den^2 box 24x24 sector 0 prime 0: sampled nullity 9 (upper bound), expected floor 9 -> NULL PROVED (bound = reducible)
+Tomimatsu-Sato delta=2 p=4/5: rank 4, den L^2, box 24x24, sector 1 (sy=1, sT=0): 5825 columns, 5889 sampled rows, prime 2147483647; reducible products in this sector: 0
+  generated 5889x5825 in 162s (skipped 0 bad points); rust rank 5825 in 10.49s
+VERDICT Tomimatsu-Sato delta=2 p=4/5 rank 4 den^2 box 24x24 sector 1 prime 0: sampled nullity 0 (upper bound), expected floor 0 -> NULL PROVED (bound = reducible)
+Tomimatsu-Sato delta=2 p=4/5: rank 4, den L^2, box 24x24, sector 2 (sy=0, sT=1): 5000 columns, 5064 sampled rows, prime 2147483647; reducible products in this sector: 0
+  generated 5064x5000 in 161s (skipped 0 bad points); rust rank 5000 in 6.62s
+VERDICT Tomimatsu-Sato delta=2 p=4/5 rank 4 den^2 box 24x24 sector 2 prime 0: sampled nullity 0 (upper bound), expected floor 0 -> NULL PROVED (bound = reducible)
+Tomimatsu-Sato delta=2 p=4/5: rank 4, den L^2, box 24x24, sector 3 (sy=1, sT=1): 5000 columns, 5064 sampled rows, prime 2147483647; reducible products in this sector: 0
+  generated 5064x5000 in 163s (skipped 0 bad points); rust rank 5000 in 6.42s
+VERDICT Tomimatsu-Sato delta=2 p=4/5 rank 4 den^2 box 24x24 sector 3 prime 0: sampled nullity 0 (upper bound), expected floor 0 -> NULL PROVED (bound = reducible)
+ZV delta=2: rank 4, den L^2, box 20x24, sector 0 (sy=0, sT=0): 5082 columns, 5146 sampled rows, prime 2147483647; reducible products in this sector: 9
+  generated 5146x5082 in 9s (skipped 0 bad points); rust rank 5073 in 6.74s
+VERDICT ZV delta=2 rank 4 den^2 box 20x24 sector 0 prime 0: sampled nullity 9 (upper bound), expected floor 9 -> NULL PROVED (bound = reducible)
+Tomimatsu-Sato delta=2 p=4/5: rank 4, den L^2, box 24x24, sector 0 (sy=0, sT=0): 6050 columns, 6114 sampled rows, prime 2147483647; reducible products in this sector: 9
+  generated 6114x6051 in 162s (skipped 0 bad points); rust rank 6041 in 11.11s
+VERDICT Tomimatsu-Sato delta=2 p=4/5 rank 4 den^2 box 24x24 sector 0 prime 0 [PLANTED duplicate column]: sampled nullity 10 (upper bound), expected floor 10 -> NULL PROVED (bound = reducible)
+Tomimatsu-Sato delta=2 p=4/5: rank 4, den L^2, box 24x24, sector 1 (sy=1, sT=0): 5825 columns, 5889 sampled rows, prime 2147483647; reducible products in this sector: 0
+  generated 5889x5826 in 164s (skipped 0 bad points); rust rank 5825 in 9.95s
+VERDICT Tomimatsu-Sato delta=2 p=4/5 rank 4 den^2 box 24x24 sector 1 prime 0 [PLANTED duplicate column]: sampled nullity 1 (upper bound), expected floor 1 -> NULL PROVED (bound = reducible)
+Tomimatsu-Sato delta=2 p=4/5: rank 4, den L^2, box 24x24, sector 0 (sy=0, sT=0): 6050 columns, 6114 sampled rows, prime 2147483647; reducible products in this sector: 9
+  generated 6114x6050 in 160s (skipped 0 bad points); flint rank 6041 in 6.16s
+VERDICT Tomimatsu-Sato delta=2 p=4/5 rank 4 den^2 box 24x24 sector 0 prime 0: sampled nullity 9 (upper bound), expected floor 9 -> NULL PROVED (bound = reducible)
+Tomimatsu-Sato delta=2 p=4/5: rank 4, den L^2, box 24x24, sector 0 (sy=0, sT=0): 6050 columns, 6114 sampled rows, prime 2147483629; reducible products in this sector: 9
+  generated 6114x6050 in 167s (skipped 0 bad points); rust rank 6041 in 11.49s
+VERDICT Tomimatsu-Sato delta=2 p=4/5 rank 4 den^2 box 24x24 sector 0 prime 1: sampled nullity 9 (upper bound), expected floor 9 -> NULL PROVED (bound = reducible)
+ALL DONE Sat Oct 10 02:20:39 IST 2026
