@@ -91,3 +91,5 @@ data/tmp*/
 # rank-6 template cache: regenerable in ~19 min by scripts/_kt_templates_cache.py (build log is tracked)
 data/ts2_exact/r6/templates_p*.npz
 data/ts2_exact/cachecheck/*.npz
+native/flint_rank
+rust/ktdense/target/
