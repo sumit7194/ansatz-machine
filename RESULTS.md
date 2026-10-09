@@ -3757,3 +3757,68 @@ not apply.
 is identical to the dict path on Kerr r4 and TS r2, with 3.5× less memory; the opfast self-test was rerun after
 the refactor. Artifacts: `data/ts2_exact/` (all .out/.time, STATUS.md, results.json, the stopped log,
 eqcheck_*).
+
+## §149 — Tomimatsu–Sato δ = 2 has no extra invariant Killing tensor through valence 10, at p = 4/5 and at p = 3/5: ansatz-free, at a point
+
+**The question, sharpened.** §148 closed TS δ = 2 at p = 4/5 to rank 4 inside a polynomial / L^d box. Rank 6 in
+that box hit the 16 GiB wall twice (2026-10-05). On re-thinking the problem (2026-10-10), the literature check
+(Vollmer arXiv:1602.08968, after Kruglikov–Matveev arXiv:1111.4690) gave a better instrument. It needs no box, and
+the matrices are tiny.
+
+**The instrument** (`scripts/_kt_jet.py`; Cartan–Kähler prolongation at one point).
+- Write I = Σ_m m(p) K_m(x, y), over the momentum monomials m of degree d, with the coefficients K_m any smooth
+  functions. That is exactly the tensors invariant under ∂_t and ∂_φ, which is the class Liouville integrability
+  needs: a fourth integral must Poisson-commute with p_t and p_φ.
+- Expand each K_m in Taylor series at a regular point P. The Taylor coefficients of {H, I} up to total order M are
+  the M-th prolongation evaluated at P, and they are linear in the jets.
+- A valence-d Killing tensor is fixed by its d-jet (its (d+1)-th derivatives are determined by the lower ones). So
+  for M ≥ d, true tensors embed in the kernel, and #columns − rank is an **upper bound**. The bound can never fall
+  below the trivial count (products p_t^a p_φ^b H^c), so bound = trivial is **exact**.
+- Arithmetic is over GF(p), with p = 2^31 − 1; rank mod p ≤ rank over Q, so the bound stays valid. The prime is
+  refused if it divides any denominator. Ranks come from FLINT (`native/flint_rank`) and from the in-house Rust dense
+  engine (`rust/ktdense`), which agree.
+
+**Validation, all by exact reproduction** (`data/jet/validation.out`):
+- Kerr ranks 1–4 give 2, 5, 8, 14, with Carter found.
+- ZV δ = 2 rank 6 gives a 1680 × 1584 matrix of rank 1568, bound 16: Kruglikov–Matveev's printed matrix and Vollmer's
+  count.
+- TS p = 3/5 rank 7 gives 2880 × 2700 with bound 20 (and 3060 × 2700 with bound 0): Vollmer's Theorem 1, in 2.5 s
+  where he reports 45 h.
+- A non-separable sabotage of Kerr kills Carter. A separable one keeps it, as §139 predicts.
+
+**Result** (sealed predictions f3a1d3b, all matched; `data/jet/targets.out`, `robustness.out`):
+
+    TS delta=2, p = 4/5 (q = 3/5):  valence 1..10 -> bound = trivial = 2,4,6,9,12,16,20,25,30,36
+    TS delta=2, p = 3/5 (q = 4/5):  valence 8..10 -> bound = trivial = 25,30,36       (Vollmer stopped at 7)
+    four points: (1/2,2) [Vollmer's, outside x>1], (3,1/3), (5/4,1/2), (2,1/5) [inside]; identical at every point
+    M = d+1 at r4, r6, r8: unchanged.  Prime 2^31 - 19 at r6, r8, r10: unchanged.  Largest: r10, 12012 x 11388, 40 s.
+
+**There is no Killing tensor of valence ≤ 10 on TS δ = 2, invariant under ∂_t and ∂_φ, at p = 4/5 or (beyond
+Vollmer's 7) at p = 3/5, other than polynomials in p_t, p_φ, H.** This holds locally near each of the four points,
+with smooth coefficients of any form. It is strictly stronger than §148, which was box-bounded, and it reaches 2.5×
+§148's rank.
+
+**Independent confirmation.** The Bridge's V10 (its own metric loader, series arithmetic, bracket jets, numpy
+elimination and points, sharing no code with `_kt_jet.py`) reproduced the controls (flat, Kerr, ZV, Vollmer). It
+confirms TS p = 4/5 at valence 1–7, at (3/2, 1/3) and (7/4, −2/5). Valence 8–10 is single-implementation unless V10's
+run (in progress) or B1 reaches it.
+
+**A third, global check at rank 6 (B1, `scripts/_kt_sampled.py`).** This is the §148 box ansatz (den L³, box 34),
+sampled densely: exact evaluations of {H, basis} mod p at random points. The sampled nullity is an upper bound on the
+box nullity. Validated (`data/sampled/validation.out`): Kerr 5 / 8 / 14 with Carter in the right sectors; TS r2–r4
+per sector; ZV r4; a planted duplicate column gives exactly +1; FLINT == Rust; the second prime agrees. Rank 6:
+*in progress* (addendum 94e04ba; seal 34d14b6 unchanged).
+
+**Prior art** (sweep 2026-10-10, INSPIRE recid queries). The only TS Killing-tensor computation found is Vollmer's, at
+p = 3/5 and d ≤ 7; his 4 citers do not extend it. **Not found in this sweep:** p = 4/5 at any valence, or p = 3/5
+above 7. Vollmer's thesis (Jena 2016) was not read; a snippet says its §3.4 has the same result up to degree 7. **To
+be addressed, not omitted:** Dubeibe–Pachón–Sanabria-Gómez 2007 (gr-qc/0701065) report regular Poincaré sections
+and call TS δ = 2 "completely integrable", numerically, with the parameters unstated. Regular-looking sections are
+what near-integrable systems show, with chaos confined to thin resonant layers. A null on polynomial integrals says
+nothing about how much phase space is chaotic. The decisive follow-up is numerical: a high-resolution Lyapunov or
+frequency-map search near a resonance or separatrix at these p, with a Kerr control.
+
+**Ceilings.** *Rank:* 10, one rung at a time, with no all-ranks argument. *Class:* invariant tensors only.
+Non-invariant ones, of the form e^{λt+imφ} or Jordan chains under the Killing vectors, are not excluded; that is
+Kruglikov–Steneker's full-4D route, which is much larger. *Locality:* near the points; carrying it globally rests on
+analytic continuation (the metric is rational and the system is of finite type), which is not written out here.
