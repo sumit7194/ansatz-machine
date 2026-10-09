@@ -1,0 +1,75 @@
+[Sat 02:20:54] watchdog up: root 67572 (b1r6), kill if free disk < 5 GB or tree > 12 GB (0=off), every 60s
+[02:20:55] tree 0.06 GB (peak 0.06)  free disk 18 GB  swap used 1024.00M  mem free 81% | 67572:1440K/0B 67578:848K/0B 67582:63M/0B
+[02:21:56] tree 0.14 GB (peak 0.14)  free disk 18 GB  swap used 1024.00M  mem free 82% | 67572:1440K/0B 67578:848K/0B 67582:139M/0B
+[02:22:57] tree 0.23 GB (peak 0.23)  free disk 18 GB  swap used 1024.00M  mem free 82% | 67572:1440K/0B 67578:848K/0B 67582:230M/0B
+[02:23:57] tree 0.23 GB (peak 0.23)  free disk 18 GB  swap used 1024.00M  mem free 82% | 67572:1440K/0B 67578:848K/0B 67582:229M/0B
+[02:24:58] tree 0.23 GB (peak 0.23)  free disk 18 GB  swap used 1024.00M  mem free 82% | 67572:1440K/0B 67578:848K/0B 67582:229M/0B
+[02:25:59] tree 0.23 GB (peak 0.23)  free disk 18 GB  swap used 1024.00M  mem free 82% | 67572:1440K/0B 67578:848K/0B 67582:237M/0B
+[02:27:01] tree 3.44 GB (peak 3.44)  free disk 15 GB  swap used 1024.00M  mem free 76% | 67572:1440K/1088K 67578:848K/640K 67582:687M/478M 68457:2838M/224K
+[02:28:02] tree 3.44 GB (peak 3.44)  free disk 15 GB  swap used 1024.00M  mem free 76% | 67572:1408K/1056K 67578:848K/640K 67582:687M/478M 68457:2838M/224K
+[02:29:04] tree 3.44 GB (peak 3.44)  free disk 15 GB  swap used 1024.00M  mem free 75% | 67572:1408K/1056K 67578:848K/640K 67582:687M/478M 68457:2838M/224K
+[02:30:06] tree 3.44 GB (peak 3.44)  free disk 15 GB  swap used 1024.00M  mem free 75% | 67572:1408K/1056K 67578:848K/640K 67582:687M/478M 68457:2838M/224K
+[02:31:07] tree 3.44 GB (peak 3.44)  free disk 15 GB  swap used 1024.00M  mem free 75% | 67572:1408K/1056K 67578:848K/640K 67582:687M/478M 68457:2838M/224K
+[02:32:09] tree 3.20 GB (peak 3.44)  free disk 15 GB  swap used 1024.00M  mem free 76% | 67572:1408K/1056K 67578:848K/640K 67582:438M/303M 68457:2838M/224K
+[02:33:10] tree 3.20 GB (peak 3.44)  free disk 15 GB  swap used 1024.00M  mem free 75% | 67572:1408K/1056K 67578:848K/640K 67582:438M/303M 68457:2838M/224K
+[02:34:12] tree 3.20 GB (peak 3.44)  free disk 15 GB  swap used 1024.00M  mem free 75% | 67572:1408K/1056K 67578:848K/640K 67582:438M/303M 68457:2838M/224K
+[02:35:14] tree 3.20 GB (peak 3.44)  free disk 15 GB  swap used 1024.00M  mem free 74% | 67572:1408K/1056K 67578:848K/640K 67582:438M/303M 68457:2838M/224K
+[02:36:15] tree 3.20 GB (peak 3.44)  free disk 15 GB  swap used 1024.00M  mem free 75% | 67572:1408K/1056K 67578:848K/640K 67582:438M/303M 68457:2838M/240K
+[02:37:17] tree 3.20 GB (peak 3.44)  free disk 15 GB  swap used 1024.00M  mem free 75% | 67572:1408K/1056K 67578:848K/640K 67582:438M/303M 68457:2838M/240K
+[02:38:18] tree 3.20 GB (peak 3.44)  free disk 15 GB  swap used 1024.00M  mem free 75% | 67572:1408K/1056K 67578:848K/640K 67582:438M/303M 68457:2838M/240K
+[02:39:20] tree 3.20 GB (peak 3.44)  free disk 15 GB  swap used 1024.00M  mem free 75% | 67572:1408K/1056K 67578:848K/640K 67582:438M/303M 68457:2838M/240K
+[02:40:21] tree 3.20 GB (peak 3.44)  free disk 15 GB  swap used 1024.00M  mem free 74% | 67572:1408K/1072K 67578:848K/640K 67582:438M/437M 68457:2838M/2400K
+[02:41:22] tree 0.43 GB (peak 3.44)  free disk 18 GB  swap used 1024.00M  mem free 74% | 67572:1408K/1072K 67578:848K/640K 67582:438M/313M
+[02:42:23] tree 0.13 GB (peak 3.44)  free disk 18 GB  swap used 1024.00M  mem free 75% | 67572:1408K/336K 70507:848K/0B 70508:133M/0B
+[02:43:23] tree 0.21 GB (peak 3.44)  free disk 18 GB  swap used 1024.00M  mem free 76% | 67572:1408K/336K 70507:848K/0B 70508:214M/0B
+[02:44:24] tree 0.23 GB (peak 3.44)  free disk 18 GB  swap used 1024.00M  mem free 76% | 67572:1408K/336K 70507:848K/0B 70508:229M/0B
+[02:45:25] tree 0.23 GB (peak 3.44)  free disk 18 GB  swap used 1024.00M  mem free 76% | 67572:1408K/336K 70507:848K/0B 70508:229M/0B
+[02:46:25] tree 0.23 GB (peak 3.44)  free disk 18 GB  swap used 1024.00M  mem free 76% | 67572:1408K/336K 70507:848K/0B 70508:234M/0B
+[02:47:26] tree 0.65 GB (peak 3.44)  free disk 16 GB  swap used 1024.00M  mem free 76% | 67572:1408K/336K 70507:848K/0B 70508:659M/0B
+[02:48:28] tree 3.29 GB (peak 3.44)  free disk 15 GB  swap used 1024.00M  mem free 74% | 67572:1408K/336K 70507:848K/0B 70508:643M/362M 71446:2722M/224K
+[02:49:29] tree 3.29 GB (peak 3.44)  free disk 15 GB  swap used 1024.00M  mem free 74% | 67572:1408K/336K 70507:848K/0B 70508:643M/362M 71446:2723M/224K
+[02:50:31] tree 2.96 GB (peak 3.44)  free disk 15 GB  swap used 1024.00M  mem free 75% | 67572:1408K/336K 70507:848K/0B 70508:308M/100M 71446:2722M/224K
+[02:51:32] tree 2.97 GB (peak 3.44)  free disk 15 GB  swap used 1024.00M  mem free 75% | 67572:1408K/336K 70507:848K/0B 70508:313M/152M 71446:2723M/224K
+[02:52:34] tree 2.97 GB (peak 3.44)  free disk 15 GB  swap used 1024.00M  mem free 74% | 67572:1408K/480K 70507:832K/624K 70508:318M/245M 71446:2722M/224K
+[02:53:36] tree 2.97 GB (peak 3.44)  free disk 15 GB  swap used 1024.00M  mem free 74% | 67572:1408K/480K 70507:832K/624K 70508:318M/245M 71446:2723M/224K
+[02:54:37] tree 2.97 GB (peak 3.44)  free disk 15 GB  swap used 1024.00M  mem free 75% | 67572:1408K/480K 70507:832K/624K 70508:318M/245M 71446:2722M/224K
+[02:55:39] tree 2.97 GB (peak 3.44)  free disk 15 GB  swap used 1024.00M  mem free 75% | 67572:1408K/480K 70507:832K/624K 70508:318M/245M 71446:2723M/224K
+[02:56:40] tree 2.97 GB (peak 3.44)  free disk 15 GB  swap used 1024.00M  mem free 75% | 67572:1408K/480K 70507:832K/624K 70508:318M/245M 71446:2723M/224K
+[02:57:42] tree 2.97 GB (peak 3.44)  free disk 15 GB  swap used 1024.00M  mem free 74% | 67572:1408K/480K 70507:832K/624K 70508:318M/245M 71446:2723M/256K
+[02:58:43] tree 2.97 GB (peak 3.44)  free disk 15 GB  swap used 1024.00M  mem free 74% | 67572:1408K/480K 70507:832K/624K 70508:318M/245M 71446:2723M/336K
+[02:59:44] tree 2.97 GB (peak 3.44)  free disk 15 GB  swap used 1024.00M  mem free 74% | 67572:1408K/480K 70507:832K/624K 70508:318M/245M 71446:2723M/336K
+[03:00:45] tree 2.97 GB (peak 3.44)  free disk 15 GB  swap used 1024.00M  mem free 74% | 67572:1408K/480K 70507:832K/624K 70508:318M/245M 71446:2723M/336K
+[03:01:46] tree 0.10 GB (peak 3.44)  free disk 18 GB  swap used 1024.00M  mem free 75% | 67572:1408K/336K 73316:848K/0B 73317:99M/0B
+[03:02:47] tree 0.18 GB (peak 3.44)  free disk 18 GB  swap used 1024.00M  mem free 75% | 67572:1408K/336K 73316:848K/0B 73317:187M/0B
+[03:03:48] tree 0.48 GB (peak 3.44)  free disk 18 GB  swap used 1024.00M  mem free 75% | 67572:1408K/336K 73316:848K/0B 73317:487M/0B
+[03:04:48] tree 0.23 GB (peak 3.44)  free disk 18 GB  swap used 1024.00M  mem free 75% | 67572:1408K/336K 73316:848K/0B 73317:229M/0B
+[03:05:49] tree 0.23 GB (peak 3.44)  free disk 18 GB  swap used 1024.00M  mem free 75% | 67572:1408K/336K 73316:848K/0B 73317:229M/0B
+[03:06:50] tree 0.23 GB (peak 3.44)  free disk 18 GB  swap used 1024.00M  mem free 75% | 67572:1408K/336K 73316:848K/0B 73317:238M/0B
+[03:07:51] tree 2.85 GB (peak 3.44)  free disk 15 GB  swap used 1024.00M  mem free 75% | 67572:1408K/336K 73316:848K/0B 73317:622M/0B 74411:2298M/0B
+[03:08:53] tree 2.86 GB (peak 3.44)  free disk 15 GB  swap used 1024.00M  mem free 75% | 67572:1408K/336K 73316:848K/0B 73317:624M/560K 74411:2298M/0B
+[03:09:55] tree 2.86 GB (peak 3.44)  free disk 15 GB  swap used 1024.00M  mem free 75% | 67572:1408K/336K 73316:848K/0B 73317:624M/560K 74411:2298M/0B
+[03:10:56] tree 2.86 GB (peak 3.44)  free disk 15 GB  swap used 1024.00M  mem free 75% | 67572:1408K/336K 73316:848K/0B 73317:624M/560K 74411:2298M/0B
+[03:11:58] tree 2.86 GB (peak 3.44)  free disk 15 GB  swap used 1024.00M  mem free 75% | 67572:1408K/336K 73316:848K/0B 73317:624M/560K 74411:2298M/0B
+[03:12:59] tree 2.86 GB (peak 3.44)  free disk 15 GB  swap used 1024.00M  mem free 75% | 67572:1408K/336K 73316:848K/0B 73317:624M/560K 74411:2298M/0B
+[03:14:01] tree 2.86 GB (peak 3.44)  free disk 15 GB  swap used 1024.00M  mem free 75% | 67572:1408K/336K 73316:848K/0B 73317:624M/560K 74411:2298M/0B
+[03:15:02] tree 2.86 GB (peak 3.44)  free disk 15 GB  swap used 1024.00M  mem free 75% | 67572:1408K/336K 73316:848K/0B 73317:624M/560K 74411:2298M/0B
+[03:16:04] tree 2.86 GB (peak 3.44)  free disk 15 GB  swap used 1024.00M  mem free 75% | 67572:1408K/336K 73316:848K/0B 73317:624M/560K 74411:2298M/0B
+[03:17:05] tree 2.86 GB (peak 3.44)  free disk 15 GB  swap used 1024.00M  mem free 75% | 67572:1408K/336K 73316:848K/0B 73317:624M/560K 74411:2298M/0B
+[03:18:06] tree 0.07 GB (peak 3.44)  free disk 18 GB  swap used 1024.00M  mem free 75% | 67572:1408K/336K 75825:848K/0B 75826:70M/0B
+[03:19:07] tree 0.14 GB (peak 3.44)  free disk 18 GB  swap used 1024.00M  mem free 75% | 67572:1408K/336K 75825:848K/0B 75826:143M/0B
+[03:20:07] tree 0.23 GB (peak 3.44)  free disk 18 GB  swap used 1024.00M  mem free 76% | 67572:1408K/336K 75825:848K/0B 75826:230M/0B
+[03:21:08] tree 0.23 GB (peak 3.44)  free disk 18 GB  swap used 1024.00M  mem free 76% | 67572:1408K/336K 75825:848K/0B 75826:230M/0B
+[03:22:09] tree 0.23 GB (peak 3.44)  free disk 18 GB  swap used 1024.00M  mem free 76% | 67572:1408K/336K 75825:848K/0B 75826:230M/0B
+[03:23:09] tree 0.23 GB (peak 3.44)  free disk 18 GB  swap used 1024.00M  mem free 76% | 67572:1408K/336K 75825:848K/0B 75826:237M/0B
+[03:24:11] tree 2.85 GB (peak 3.44)  free disk 15 GB  swap used 1024.00M  mem free 77% | 67572:1408K/336K 75825:848K/0B 75826:623M/0B 76609:2298M/0B
+[03:25:13] tree 2.86 GB (peak 3.44)  free disk 15 GB  swap used 1024.00M  mem free 77% | 67572:1408K/336K 75825:848K/0B 75826:624M/528K 76609:2298M/0B
+[03:26:14] tree 2.86 GB (peak 3.44)  free disk 15 GB  swap used 1024.00M  mem free 77% | 67572:1408K/336K 75825:848K/0B 75826:624M/528K 76609:2298M/0B
+[03:27:16] tree 2.87 GB (peak 3.44)  free disk 15 GB  swap used 1024.00M  mem free 77% | 67572:1408K/480K 75825:848K/640K 75826:638M/11M 76609:2298M/0B
+[03:28:18] tree 2.77 GB (peak 3.44)  free disk 15 GB  swap used 1024.00M  mem free 77% | 67572:1408K/480K 75825:848K/640K 75826:539M/4480K 76609:2298M/0B
+[03:29:19] tree 2.65 GB (peak 3.44)  free disk 15 GB  swap used 1024.00M  mem free 77% | 67572:1408K/480K 75825:848K/640K 75826:417M/4480K 76609:2298M/0B
+[03:30:21] tree 2.65 GB (peak 3.44)  free disk 15 GB  swap used 1024.00M  mem free 77% | 67572:1408K/480K 75825:848K/640K 75826:417M/4480K 76609:2298M/0B
+[03:31:22] tree 2.65 GB (peak 3.44)  free disk 15 GB  swap used 1024.00M  mem free 77% | 67572:1408K/480K 75825:848K/640K 75826:417M/4480K 76609:2298M/0B
+[03:32:24] tree 2.65 GB (peak 3.44)  free disk 15 GB  swap used 1024.00M  mem free 77% | 67572:1408K/480K 75825:848K/640K 75826:417M/4480K 76609:2298M/0B
+[03:33:25] tree 2.65 GB (peak 3.44)  free disk 15 GB  swap used 1024.00M  mem free 77% | 67572:1408K/480K 75825:848K/640K 75826:417M/4480K 76609:2298M/0B
+[03:34:27] tree 2.65 GB (peak 3.44)  free disk 15 GB  swap used 1024.00M  mem free 77% | 67572:1408K/480K 75825:848K/640K 75826:417M/20M 76609:2298M/0B
+[Sat 03:35:27] root 67572 exited; watchdog done. peak tree footprint 3.44 GB

@@ -1,0 +1,13 @@
+Tomimatsu-Sato delta=2 p=4/5: rank 6, den L^3, box 34x34, sector 0 (sy=0, sT=0): 27230 columns, 27294 sampled rows, prime 2147483647; reducible products in this sector: 16
+  generated 27294x27230 in 353s (skipped 0 bad points); rust rank 27214 in 871.24s
+VERDICT Tomimatsu-Sato delta=2 p=4/5 rank 6 den^3 box 34x34 sector 0 prime 0: sampled nullity 16 (upper bound), expected floor 16 -> NULL PROVED (bound = reducible)
+Tomimatsu-Sato delta=2 p=4/5: rank 6, den L^3, box 34x34, sector 1 (sy=1, sT=0): 26670 columns, 26734 sampled rows, prime 2147483647; reducible products in this sector: 0
+  generated 26734x26670 in 369s (skipped 0 bad points); rust rank 26670 in 821.61s
+VERDICT Tomimatsu-Sato delta=2 p=4/5 rank 6 den^3 box 34x34 sector 1 prime 0: sampled nullity 0 (upper bound), expected floor 0 -> NULL PROVED (bound = reducible)
+Tomimatsu-Sato delta=2 p=4/5: rank 6, den L^3, box 34x34, sector 2 (sy=0, sT=1): 24500 columns, 24564 sampled rows, prime 2147483647; reducible products in this sector: 0
+  generated 24564x24500 in 357s (skipped 0 bad points); rust rank 24500 in 649.59s
+VERDICT Tomimatsu-Sato delta=2 p=4/5 rank 6 den^3 box 34x34 sector 2 prime 0: sampled nullity 0 (upper bound), expected floor 0 -> NULL PROVED (bound = reducible)
+Tomimatsu-Sato delta=2 p=4/5: rank 6, den L^3, box 34x34, sector 3 (sy=1, sT=1): 24500 columns, 24564 sampled rows, prime 2147483647; reducible products in this sector: 0
+  generated 24564x24500 in 356s (skipped 0 bad points); rust rank 24500 in 649.34s
+VERDICT Tomimatsu-Sato delta=2 p=4/5 rank 6 den^3 box 34x34 sector 3 prime 0: sampled nullity 0 (upper bound), expected floor 0 -> NULL PROVED (bound = reducible)
+ALL DONE Sat Oct 10 03:34:50 IST 2026
