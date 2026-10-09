@@ -3798,16 +3798,36 @@ Vollmer's 7) at p = 3/5, other than polynomials in p_t, p_φ, H.** This holds lo
 with smooth coefficients of any form. It is strictly stronger than §148, which was box-bounded, and it reaches 2.5×
 §148's rank.
 
-**Independent confirmation.** The Bridge's V10 (its own metric loader, series arithmetic, bracket jets, numpy
-elimination and points, sharing no code with `_kt_jet.py`) reproduced the controls (flat, Kerr, ZV, Vollmer). It
-confirms TS p = 4/5 at valence 1–7, at (3/2, 1/3) and (7/4, −2/5). Valence 8–10 is single-implementation unless V10's
-run (in progress) or B1 reaches it.
+**Independent confirmation.** The Bridge's V10 shares no code with `_kt_jet.py`: it has its own metric loader,
+series arithmetic, bracket jets, numpy int32 elimination (no FLINT) and points. It reproduced the controls (flat r1 = 3;
+Kerr 2/5/8/14; ZV r6 16; Vollmer's TS p = 3/5 r7 20). It then **confirms TS p = 4/5 at every valence 1–10** at
+(3/2, 1/3) and (7/4, −2/5), with matrices up to 24024 × 22308. The memory-fixed solver was first re-validated on all
+21 earlier ranks. **So valence 1–10 at p = 4/5 is two-implementation.** p = 3/5 r8–10: V10 addendum 3 is in progress;
+until it lands, that half is single-implementation.
 
-**A third, global check at rank 6 (B1, `scripts/_kt_sampled.py`).** This is the §148 box ansatz (den L³, box 34),
-sampled densely: exact evaluations of {H, basis} mod p at random points. The sampled nullity is an upper bound on the
-box nullity. Validated (`data/sampled/validation.out`): Kerr 5 / 8 / 14 with Carter in the right sectors; TS r2–r4
-per sector; ZV r4; a planted duplicate column gives exactly +1; FLINT == Rust; the second prime agrees. Rank 6:
-*in progress* (addendum 94e04ba; seal 34d14b6 unchanged).
+**A third, global check at rank 6 (B1, `scripts/_kt_sampled.py`).** This is the §148 box ansatz (den L³, box 34 × 34,
+the four parity sectors), sampled densely: exact evaluations of {H, basis} mod p at ncols + 64 random points. The rank
+comes from the in-house Rust dense engine (u32, in place). The sampled nullity is an upper bound on the box nullity, so
+equality with the floor proves the null. Method change pre-registered (94e04ba); prediction unchanged (34d14b6).
+
+    sector   columns   sampled rows   rank     nullity   floor   solve
+    s0       27,230    27,294         27,214   16        16      871 s
+    s1       26,670    26,734         26,670    0         0      822 s
+    s2       24,500    24,564         24,500    0         0      650 s
+    s3       24,500    24,564         24,500    0         0      649 s      whole-tree peak 3.44 GB (the sparse solver: >15 GB)
+
+**Null proved in the box as well: no irreducible Killing tensor of rank 6 on TS δ = 2, p = 4/5, within {x^a y^b / L³},
+box 34 × 34, on prime 2³¹ − 1** (one prime suffices for a null, since rank mod p ≤ rank over Q). Guards that ran:
+- validation by reproduction: Kerr 5 / 8 / 14 with Carter in the right sectors; TS r2–r4 per sector; ZV r4;
+- the second prime agrees at r4;
+- the engine cross-checked against FLINT on real sampled matrices (r4) and on synthetic matrices with a planted
+  16-deficit, which both engines report exactly (FLINT checked to 18k);
+- **planted extra kernel vector:** +1 at r4 (s0, s1) and **at full size, r6 s0 + one duplicate column → 17**
+  (`data/sampled/r6_plant.out`).
+
+**Not implemented:** Freivalds certificates. ktdense is rank-only and keeps no factors; the planted run and the two
+independent jet implementations are what guard against a rank-overstating engine bug. Three methods sharing no linear
+algebra now agree at rank 6: B1 (global, box-bounded) and two jet bounds (local, ansatz-free).
 
 **Prior art** (sweep 2026-10-10, INSPIRE recid queries). The only TS Killing-tensor computation found is Vollmer's, at
 p = 3/5 and d ≤ 7; his 4 citers do not extend it. **Not found in this sweep:** p = 4/5 at any valence, or p = 3/5

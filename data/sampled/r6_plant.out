@@ -1,0 +1,4 @@
+Tomimatsu-Sato delta=2 p=4/5: rank 6, den L^3, box 34x34, sector 0 (sy=0, sT=0): 27230 columns, 27294 sampled rows, prime 2147483647; reducible products in this sector: 16
+  generated 27294x27231 in 359s (skipped 0 bad points); rust rank 27214 in 877.44s
+VERDICT Tomimatsu-Sato delta=2 p=4/5 rank 6 den^3 box 34x34 sector 0 prime 0 [PLANTED duplicate column]: sampled nullity 17 (upper bound), expected floor 17 -> NULL PROVED (bound = reducible)
+ALL DONE Sat Oct 10 03:55:48 IST 2026
