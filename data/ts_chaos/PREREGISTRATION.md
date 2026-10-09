@@ -69,3 +69,22 @@ neighbourhood of Γ. So if P4 fails, the wording is:
 The hypothesis H (and P4) is a STRUCTURAL GUESS, from where the certifying loops sit. It is not a consequence of the
 theorem. A genuine tension with the obstruction would need a numerically conserved fourth quantity shown to be
 meromorphic, or a proof of integrability. Regular-looking orbits are not enough.
+
+## Amendment 2 (2026-10-10 ~04:55): detector calibration on CONTROLS ONLY, frozen before any TS orbit is integrated
+Two findings from the ZV δ=2 control (E = 0.95, L = 3; §106's orbits x0 = 7.545 layer, 7.557 island, 7.62 torus):
+
+1. **The shadow-orbit FTLE was unreliable.** It gave a near-flat slope even on the regular torus and island, because
+   the integrator's own truncation noise and phase effects entered the separation. Replaced by the **tangent-vector**
+   method: v' = J v, with J v from a central difference of the vector field. Regular orbits now give slopes −0.86 to
+   −0.90, consistent with −1 + 1/ln t at t ≈ 3·10⁵, and identical at tolerances 1e-11 and 1e-13.
+2. **The pre-registered slope rule (≳ −0.3 = chaotic) FAILS on the known layer orbit.** It is sticky and plunges after
+   ~230 crossings (t ≈ 3·10⁴), giving a slope of −0.41 to −0.46 while the frequency drift fires (0.058 / 0.039).
+   - The rule is replaced by the **excess stretching** S_ex = Σ ln|v| − ln t at the end of the orbit: the stretching
+     beyond what linear shear produces.
+   - Controls: regular orbits S_ex ≈ −4 (2.8·10⁵ time units); the layer orbit S_ex ≈ +31.
+   - **New FTLE criterion: S_ex ≥ 10** (e^10 of excess stretching).
+   - The Kerr control must show S_ex < 10 everywhere searched; if it does not, the criterion is void and the study
+     reports frequency drift only.
+   - Rule 5 is otherwise unchanged: a detection needs frequency drift > 0.0115 AND S_ex ≥ 10, at both tolerances.
+   - Finite lifetime (plunge or escape) is recorded as supporting evidence only.
+This amendment is calibrated on ZV only. It is committed before any TS orbit and before the Kerr control is run.
