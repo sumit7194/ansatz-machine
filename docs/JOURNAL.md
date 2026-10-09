@@ -4294,3 +4294,34 @@ out-of-core); a smaller margin as a complementary ansatz. These are design work 
   and reached the 15 GB cap after 65 min of solving. So the Python parent was not the problem: **ktsolve's own fill-in
   on one 27,230-column block exceeds ~15 GB.** Sector 0 is unfinished, with no rank-6 result. Stopped for the night per the
   Bridge's rule. The next lever is (b): reduce fill (ordering) or go out-of-core. That's design work, not a retry.
+
+## 2026-10-10 night — the rank-6 wall, re-thought: three methods, and TS closed to valence 10 (§149)
+
+The user asked to re-think the problem instead of retrying it. Diagnosis:
+- at r4 the sparse solver's peak (62.6M nonzeros) already exceeded the dense block (36.6M), so sparse was the wrong
+  container;
+- a null needs only an upper bound on nullity, so one prime suffices;
+- sampling gives exactly such a bound.
+
+What was built:
+- (A1) `rust/ktdense`, a u32 in-place dense rank engine, == FLINT;
+- (B1) `_kt_sampled.py`, sampled dense rank;
+- (D1) `_kt_jet.py`, Vollmer / Kruglikov–Matveev prolongation at a point, found by a literature subagent. It is
+  ansatz-free and tiny (rank 6 is 1680 × 1584).
+
+Results:
+- D1 reproduced Kerr, KM's ZV matrix and Vollmer's Theorem 1 exactly. It then gave TS p = 4/5 valence 1–10 = trivial,
+  and p = 3/5 valence 8–10 = trivial, at four points, two primes and depth d+1.
+- The Bridge's independent V10 confirms p = 4/5 valence 1–10.
+- B1 at rank 6: 16/0/0/0 = the seal, peak 3.4 GB; a planted column at full size gives 17.
+- The prior-art sweep found neither result in print. Dubeibe 2007's numerical "integrable" claim is to be addressed
+  with a chaos search.
+
+Skipped deliberately: C1 (staircase, superseded), A2/A3 (ordering / out-of-core: weak for a filling problem), A4,
+E1/E2.
+
+Lessons:
+- Read the method papers before building the brute-force instrument. Vollmer's 2016 approach made our 27k-column
+  matrix unnecessary.
+- A sabotage must break the right thing. A separable deformation keeps Carter (§139), so the first sabotage "failed"
+  correctly.
