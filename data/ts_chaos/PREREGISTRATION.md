@@ -56,3 +56,16 @@ For each system and a grid of bound (E, L):
 
 At least one level is chosen near Quantum's (E = 1, L ∈ {0, 1}) if a bound region exists there; otherwise the
 nearest bound level, stated explicitly.
+
+## Addendum (still before any orbit is integrated): the correct meaning of an empty near-ring search (Quantum's correction)
+The Morales–Ramis obstruction implies NO lower bound on the size of chaotic regions and NO location for them. It is
+compatible with (i) layers thinner than any resolution reached, (ii) chaos only at energies or regions not sampled,
+and (iii) a real-analytic integral on the physical domain that does not continue meromorphically into the complex
+neighbourhood of Γ. So if P4 fails, the wording is:
+
+> "near-ring hypothesis not supported at resolution X; consistent with the obstruction (thin, or elsewhere) and with
+> Dubeibe's sections. Does not distinguish."
+
+The hypothesis H (and P4) is a STRUCTURAL GUESS, from where the certifying loops sit. It is not a consequence of the
+theorem. A genuine tension with the obstruction would need a numerically conserved fourth quantity shown to be
+meromorphic, or a proof of integrability. Regular-looking orbits are not enough.
