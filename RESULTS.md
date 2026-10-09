@@ -3802,8 +3802,8 @@ with smooth coefficients of any form. It is strictly stronger than §148, which 
 series arithmetic, bracket jets, numpy int32 elimination (no FLINT) and points. It reproduced the controls (flat r1 = 3;
 Kerr 2/5/8/14; ZV r6 16; Vollmer's TS p = 3/5 r7 20). It then **confirms TS p = 4/5 at every valence 1–10** at
 (3/2, 1/3) and (7/4, −2/5), with matrices up to 24024 × 22308. The memory-fixed solver was first re-validated on all
-21 earlier ranks. **So valence 1–10 at p = 4/5 is two-implementation.** p = 3/5 r8–10: V10 addendum 3 is in progress;
-until it lands, that half is single-implementation.
+21 earlier ranks. **So valence 1–10 at p = 4/5 is two-implementation.** V10 addendum 3 then gave TS p = 3/5 r8 / r9 / r10 = 25 / 30 / 36
+at both its points (at N = r+1). **So "beyond Vollmer" (valence 8–10 at p = 3/5) is two-implementation too.**
 
 **A third, global check at rank 6 (B1, `scripts/_kt_sampled.py`).** This is the §148 box ansatz (den L³, box 34 × 34,
 the four parity sectors), sampled densely: exact evaluations of {H, basis} mod p at ncols + 64 random points. The rank
