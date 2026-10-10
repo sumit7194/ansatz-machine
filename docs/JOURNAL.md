@@ -4325,3 +4325,26 @@ Lessons:
   matrix unnecessary.
 - A sabotage must break the right thing. A separable deformation keeps Carter (§139), so the first sabotage "failed"
   correctly.
+
+## 2026-10-10 morning — TS chaos study: the 2007 "integrable" claim investigated (§150 draft)
+
+The user asked not to explain the Dubeibe 2007 claim away. Reproduced their Fig. 1 (their source was plausibly our
+p = 4/5 point; the far field is regular). Built a numba chaos engine. Pre-registered, then caught and logged my own
+errors one by one:
+- a shadow-orbit FTLE that faked chaos;
+- a slope rule that failed the ZV control;
+- a VACUOUS search design that failed the ZV control (its null was withdrawn);
+- plunge-leg scoring (the Bridge V11);
+- step-capped "confirmations" (a Kerr false positive);
+- harmonic-flip fd values.
+
+Also a multiprocessing launch without a `__main__` guard, which caused a respawn loop. It was stopped by PID (mine
+only), and orphaned workers were cleaned up; Quantum's processes were left alone.
+
+Final, matched against Kerr: TS 53 / 32 confirmed chaotic orbits against Kerr 0 / 0, in thin sticky layers at the
+plunge boundary. Quantum's obstruction holds at the same levels. Pending: the Bridge's V11 replay.
+
+Lessons:
+- a search design needs its own positive control, not just the detector;
+- finite-time stretching is unspecific near hyperbolic orbits;
+- every scorer edge case (capped, plunged, flipped) hides a false positive.

@@ -3842,3 +3842,66 @@ frequency-map search near a resonance or separatrix at these p, with a Kerr cont
 Non-invariant ones, of the form e^{λt+imφ} or Jordan chains under the Killing vectors, are not excluded; that is
 Kruglikov–Steneker's full-4D route, which is much larger. *Locality:* near the points; carrying it globally rests on
 analytic continuation (the metric is rational and the system is of finite type), which is not written out here.
+
+## §150 — Tomimatsu–Sato δ = 2 geodesics ARE chaotic, in thin sticky layers at the plunge boundary; the far field Dubeibe et al. sampled is regular. DRAFT, pending the Bridge's independent V11 replay
+
+**Why this was done.** §149 excluded polynomial integrals up to degree 10. Quantum's Morales–Ramis / Ziglin result
+excludes meromorphic integrals near the equatorial orbit (later run at the exact levels of this search: 8 of 8
+OBSTRUCTION, Quantum 1b8c3f5). Dubeibe–Pachón–Sanabria-Gómez 2007 (gr-qc/0701065) nevertheless report regular
+Poincaré sections and call TS δ = 2 "completely integrable". The user asked for this to be investigated, not explained
+away. Pre-registration: `data/ts_chaos/PREREGISTRATION.md` (0557f73) with addendum and amendments 2–6, each committed
+before the data it governs, except A6, which is post hoc and can only remove detections.
+
+**Dubeibe reproduced.** Their Fig. 1 level (E = 0.94, L = −3.12 in m = 1 units) gives a closed equatorial pocket
+x ∈ [9.96, 21.9] only for q ≈ 0.6, i.e. our p = 4/5 point. That matches their x ≈ 8–20; Quantum found the same
+independently. All orbits there are regular in our detectors. **Their observation is right, and their region is the
+near-Kerr far field.**
+
+**Engine** (`scripts/_ts_chaos.py`):
+- exact rational metric → CSE → numba;
+- adaptive Dormand–Prince 5(4);
+- a tangent vector carried in the same step;
+- Poincaré section y = 0.
+
+**Detectors:**
+- frequency drift fd (> 0.0115);
+- excess stretching S_ex = Σ ln‖v‖ − ln t, scored at the last section crossing (≥ 10);
+- both required, at tol 1e-11 and again at 1e-13 with an uncapped step budget;
+- fd in (0.55, 0.80) is excluded as a possible harmonic flip.
+
+**Search design v2** (`_ts_chaos_scan.boundary_scan`): coarse survive/plunge classification, then 200-point dense
+seeding across every survive/plunge transition, on E ∈ {0.95, 0.97}, L/m ∈ {1.0, …, 3.55}, both senses.
+
+**Controls, and what they caught:**
+- ZV δ = 2 (§106's layer) re-found: 5 CONFIRMED at 3 of 5 levels.
+- Design v1 FAILED this control (0 detections on ZV), so its TS null was withdrawn.
+- The Kerr control exposed:
+  - shadow-orbit FTLE artifacts;
+  - step-capped "confirmations";
+  - the unspecificity of S_ex near the hyperbolic unstable circular orbit (regular Kerr orbits reach S_ex 11–62 while
+    fd stays ≤ 0.0013), which is why the AND rule matters.
+
+**Result** (≈ 18,000 boundary orbits per system, identical design):
+
+    system            candidates   A5-confirmed   after A6 (harmonic-flip filter)
+    Kerr q=3/5             9             0               0
+    Kerr q=4/5             8             0               0
+    TS p=4/5             134            62              53   (38 sticky: chaotic then plunge; 15 full-window)
+    TS p=3/5              79            40              32   (20 sticky; 12 full-window)
+
+Matched on E and on separatrix distance ε = (|L| − L_sep)/L_sep, TS has confirmed chaos in every bin and Kerr has none.
+The confirmed fd values (0.012–0.11) match the ZV layer's (0.016–0.064). The layers sit at the survive/plunge boundary
+of open levels (x0 ≈ 4.7–7 at p = 4/5, larger at p = 3/5) and are thin: found only with dense seeding.
+
+**Reading (DRAFT).** TS δ = 2 geodesic motion is chaotic, in thin, sticky layers near the plunge boundary, at both
+parameter points. This is consistent with Quantum's non-integrability theorem at these very levels, and with
+Dubeibe's regular far-field sections. "Completely integrable" does not hold. Quantum's structural near-RING hint is
+neither supported nor tested: the layers found are at x ≈ 5–17, far from the ring at 1.06–1.14, because bound and
+sticky orbits at these energies do not approach it.
+
+**Pending, before this section is final:**
+1. The Bridge's V11 independent replay of orbits a)–g), with a geometric section-roughness diagnostic calibrated on
+   controls. Note: V11 found the AND rule conservative, since its realisations of the ZV layer read regular, so
+   "V11 does not confirm" alone will not refute.
+2. Section figures.
+3. A complex-signal frequency estimator as a third check.
