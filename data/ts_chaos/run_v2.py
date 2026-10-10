@@ -1,4 +1,6 @@
 import os, sys
+for _v in ("OMP_NUM_THREADS", "OPENBLAS_NUM_THREADS", "VECLIB_MAXIMUM_THREADS", "NUMBA_NUM_THREADS"):
+    os.environ.setdefault(_v, "1")      # one thread per worker: no BLAS/OpenMP oversubscription (the Bridge, load 21 on 10 cores)
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "scripts"))
 import numpy as np
 from _ts_chaos_scan import boundary_scan
