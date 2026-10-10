@@ -4008,6 +4008,15 @@ Kerr L_sep matches the BPT retrograde unstable circular orbit to 4e−10. The p 
 the α levels L1/L2 (p = 4/5) are retrograde and L3 (p = 3/5) is prograde: the fractal-vs-smooth contrast holds in
 BOTH senses. V12's exact L_sep agrees with our grid L_sep to within one grid step (0.01 m) at all 4 levels.
 
+**Ergosurface precision (checked at the Bridge's request).** A metric built from (f, ω) can lose float precision at the
+ergosurface f = 0, because singular terms cancel there (the Bridge found O(1) error at 1e−8 in its own chart).
+`scripts/_ts_chaos_ergocheck.py` compares our engine's compiled RHS (all 9 components, at the α levels' E and L) with
+50-digit evaluation, at x_e ± 1e−2 … 1e−12, at y = 0 and y = 0.5, for kerr35, ts35, ts45 and kerr45. Equatorial x_e:
+1.6667, 3.0766, 2.1026 and 1.25.
+- Worst relative error: **7.5e−15** (`data/ts_chaos/ergocheck.out`).
+- The engine uses the exact, cancelled inverse metric, never f and ω separately, so the precision loss does not
+  occur anywhere in §150's integrations.
+
 **Pending, before this section is final:**
 1. DONE, see "Independent replay" above. Earlier status kept for the record. (Status 2026-10-11, relayed: V11's first ensemble run was ALL INCONCLUSIVE because of a V11-side bug, plunge
    checked only at chunk ends. It is fixed as V11 addendum 6, labelled post-failure with controls unchanged; the rerun
