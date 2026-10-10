@@ -3945,3 +3945,70 @@ zoom-whirl).
    - ZV torus and island: 0. ZV layer: 0.021 and 0.0001 (realisation-sensitive, as V11 also saw).
    - **TS confirmed: 83 of 85 fire (median 0.029).**
    - The 17 harmonic-flip suspects: 10 fire (A6 was conservative).
+
+
+## §151 — Manko–Novikov has NO Killing tensor of valence 1–10 beyond the trivial ones (ansatz-free, both parameter points); against Brink's 4th-order suggestion for MN
+
+**Ask and why.** This was the Bridge's option A for the overnight machine.
+- Brink, *Spacetime Encodings IV* (arXiv:0911.1595), suggested from numerics (his own and Gair–Li–Mandel 2008) that
+  many stationary axisymmetric vacua may possess a FOURTH-order Killing tensor, a generalised Carter constant. MN is
+  the standard test case.
+- Quantum's Morales–Ramis result covers meromorphic integrals near a particular solution. It does not cover polynomial
+  ones at a regular point.
+- Today's literature sweep found no Killing-tensor nonexistence result for MN at any rank.
+
+Pre-registration: `data/jet/MN_PREREGISTRATION.md` (11bb066), committed before any MN run, with the Bridge's soundness
+review folded in.
+
+**Method.** The §149 prolongation bound (`_kt_jet.py`), extended to non-rational metrics in `scripts/_kt_jet_mn.py`.
+MN contains R = √(x² + y² − 1) and exponentials of rational functions of (x, y, R).
+- At a jet point with R0 rational, R is expanded by its binomial series and each exponential as
+  exp(Z(P)) · exp(Z − Z(P)).
+- The constants exp(Z_i(P)) are the only transcendental input. With N the lcm of the denominators of the rational
+  values Z_i(P), every constant equals T^{n_i} with T = e^{1/N}, so all entries lie in Q[T, 1/T].
+- T is transcendental (Lindemann), so the true rank equals the rank over Q(T). The substitution T ↦ t ∈ GF(p)* can
+  only lower the rank, so the bound stays an upper bound.
+- Independent random exponential values would NOT be sound here: the true constants are multiplicatively dependent,
+  and a generic rank can exceed the true one.
+
+Each verdict is the minimum over 2 independent (prime, t) draws.
+
+**Controls, all passing** (`data/jet/mn_controls.out`):
+1. g^ab assembled from (f, ω, e^{2γ}) equals SymPy's exact inverse of `_mn_build.metric`.
+2. The Ricci tensor computed FROM THE SERIES vanishes through order 10 (every series order rank 10 uses) for p1 and p2,
+   at both points, on both draws. An exponent-mismatch sabotage breaks it at order 0. This tests sqrt, exp and the
+   T-specialisation together.
+3. The Kerr limit (β = 0) through the same code gives ranks 1–4 bounds 2, 5, 8, 14: Carter recovered, the raise
+   direction.
+4. The non-separable sabotage g^xx·(1 + x·y/7) kills Carter (rank-2 bound 4), the lower direction.
+
+**Result** (`data/jet/mn_targets.out`). Bound = trivial at EVERY rank, for both MN points, at both jet points, on both
+draws (40 verdicts, every draw pair agreeing):
+
+    valence d       1   2   3   4   5   6   7   8   9   10
+    MN p1 (q=64/625)    2   4   6   9  12  16  20  25  30  36
+    MN p2 (q=−576/2197) 2   4   6   9  12  16  20  25  30  36
+    trivial         2   4   6   9  12  16  20  25  30  36
+
+Matrix sizes equal the TS/Vollmer ones (rank 7: 2880×2700 → rank 2680), as they must, since they depend only on d.
+The predictions (~88% per target, ~85% for d = 4) held.
+
+**Reading.**
+- At these two parameter points, of opposite sign of the anomalous quadrupole, MN has no Killing tensor of valence
+  1–10 invariant under ∂t, ∂φ beyond products of p_t, p_φ and H. This holds locally near either point, with smooth
+  coefficients of ANY form: no basis box, no denominator.
+- In particular there is **no fourth-order generalised Carter constant**. Brink's suggestion does not hold for MN at
+  these points. Brink framed it as possible for "many" SAV spacetimes, not for MN specifically, so this answers the
+  MN instance, not his general question.
+- This complements Quantum's Morales–Ramis obstruction (non-meromorphic integrals near Γ) with a polynomial-integral
+  statement, as §149 did for TS.
+
+**Scope.**
+- Invariant tensors only. Non-invariant ones (Kruglikov–Steneker) are not covered.
+- Local near the jet points. No analytic-continuation or global claim.
+- Two parameter points, not the family.
+- Rank-bounded at 10 (CLAUDE.md §3, ceiling 2).
+- MN is exact, so ceiling 1 (analyticity in a coupling) does not apply. It is also not a truncation, so the §1
+  substrate gap does not apply either.
+
+**Pending.** The Bridge's independent reproduction (offered: V10-style, after its V11 ensembles).

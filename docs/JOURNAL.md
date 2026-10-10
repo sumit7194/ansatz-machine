@@ -4365,3 +4365,14 @@ comparator now self-tests both directions. Also corrected a swapped Kerr row pai
 in the draft).
 
 Lesson: I launched a comparator I had never seen say "IDENTICAL". A checker tested in neither direction is not a checker.
+
+## 2026-10-10 late morning — MN jet bound (§151), Bridge option A, user asleep
+
+The Bridge offered A (MN jet bound) or B (fractal basin exponent for §150). I took A: Brink's 4th-order-KT suggestion
+makes it pointed, and the lit sweep found nothing on MN. Soundness trap, raised before building and confirmed by the
+Bridge: exponentials evaluated at a rational point are multiplicatively dependent (powers of T = e^{1/N}), so
+independent random exponential values could overstate the rank and understate the bound. The fix was a
+one-parameter T ↦ t specialisation.
+
+The new control, Ricci from the series, passed to order 10. Kerr and the sabotage controls passed. Then MN p1/p2 at
+valence 1–10, 2 points × 2 draws: all trivial. Total ~50 min on 2 threads.
