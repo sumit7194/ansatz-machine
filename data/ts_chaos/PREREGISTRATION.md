@@ -113,3 +113,15 @@ detected, so 200 is required.)
 signs. Predictions are unchanged (P1 Kerr: no confirmed chaos; P4 TS inner region: detected, ~65%). If P4 is not
 detected, the wording is the Addendum's: not supported at this resolution, consistent with the obstruction, which is
 now known to hold at the exact levels probed (Quantum 1b8c3f5).
+
+## Amendment 4 (2026-10-10 ~06:00): S_ex and the shell drift truncated at the LAST SECTION CROSSING (the Bridge, V11)
+The Bridge's independent checker (V11: symbolic Jacobian, DOP853, its own transcription) reproduced the ZV
+classifications. It flagged that on plunging orbits the final dive into the strong-field core is badly conditioned:
+it found H drift ~1e8 there at rtol 1e-11, and its divergence inflates S_ex without being layer chaos. S_ex and the
+shell drift are therefore now computed at the last section crossing.
+
+Re-validated on the ZV gate (`zv_control_v2_trunc.out`): 13 candidates, **5 CONFIRMED at 3 of 5 levels**, all on the
+§106 layer (x0 = 7.563–7.598). The gate still passes.
+
+The partial v2 run (kerr45, 52 of 68 levels, 0 candidates, old scorer) was STOPPED so that every system is scored
+with the same rule. All four systems are rerun from scratch with the truncated scorer.

@@ -111,6 +111,7 @@ def make_integrator(f):
         t = 0.0
         h = 1e-3
         secx = np.empty(nsec); secpx = np.empty(nsec); sect = np.empty(nsec)
+        seclsum = np.empty(nsec); secdrift = np.empty(nsec)   # stretching and shell drift AT each crossing
         ns = 0
         nft = int(tmax / dt_ren) + 2
         ft_t = np.empty(nft); ft_v = np.empty(nft)
@@ -164,6 +165,8 @@ def make_integrator(f):
                     secx[ns] = h00 * S[0] + h10 * h * k1[0] + h01 * Sn[0] + h11 * h * k7[0]
                     secpx[ns] = h00 * S[2] + h10 * h * k1[2] + h01 * Sn[2] + h11 * h * k7[2]
                     sect[ns] = t + u * h
+                    seclsum[ns] = lsum + math.log(math.sqrt((Sn[4:] ** 2).sum()))   # accumulated + since last renorm
+                    secdrift[ns] = maxdrift
                     ns += 1
                 S = Sn
                 t += h
@@ -191,7 +194,7 @@ def make_integrator(f):
                     t_next_ren += dt_ren
             fac = 0.9 * err ** (-0.2) if err > 0 else 5.0
             h *= min(5.0, max(0.2, fac))
-        return secx[:ns], secpx[:ns], sect[:ns], ft_t[:nf], ft_v[:nf], status, maxdrift, nsteps
+        return secx[:ns], secpx[:ns], sect[:ns], ft_t[:nf], ft_v[:nf], status, maxdrift, nsteps, seclsum[:ns], secdrift[:ns]
 
     return run, shell
 
@@ -231,9 +234,13 @@ class Engine:
         if py0 is None:
             return None
         s0 = np.array([x0, 0.0, px0, py0])
-        sx, spx, st, ft, fv, status, drift, nst = self.run(s0, E, L, tol, nsec, tmax, xmin, xmax, d0, dt_ren, ymax, maxsteps)
+        sx, spx, st, ft, fv, status, drift, nst, sls, sdr = self.run(s0, E, L, tol, nsec, tmax, xmin, xmax, d0, dt_ren,
+                                                                      ymax, maxsteps)
         fd = frequency_drift(list(sx)) if len(sx) >= 100 else float("nan")
         return dict(x0=x0, E=E, L=L, n=len(sx), secx=sx, secpx=spx, status=int(status), drift=float(drift),
                     fd=float(fd), slope=ftle_slope(ft, fv), ftle_final=float(fv[-1]) if len(fv) else float("nan"),
-                    sex=float(fv[-1] * ft[-1] - math.log(ft[-1])) if len(fv) else float("nan"),
+                    # S_ex and the shell drift are taken at the LAST SECTION CROSSING (the Bridge, V11): a plunge leg into
+                    # the strong-field core is badly conditioned and its divergence is not layer chaos; it must not score.
+                    sex=float(sls[-1] - math.log(st[-1])) if len(sls) and st[-1] > 1 else float("nan"),
+                    drift_window=float(sdr[-1]) if len(sdr) else float("nan"),
                     steps=int(nst), t_end=float(st[-1]) if len(st) else 0.0)

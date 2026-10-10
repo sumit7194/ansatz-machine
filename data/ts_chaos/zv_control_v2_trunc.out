@@ -1,0 +1,16 @@
+  [ZV delta=2] rhs module rhs_817148920e4dc069.py [0s]
+  [ZV delta=2] rhs module rhs_817148920e4dc069.py [0s]
+  [ZV delta=2] rhs module rhs_817148920e4dc069.py [0s]
+  [ZV delta=2] rhs module rhs_817148920e4dc069.py [0s]
+  [ZV delta=2] rhs module rhs_817148920e4dc069.py [0s]
+    level E=0.95 L=3.1000: ridge None, plunge cut 1.500; region [1.000, 36.696] inner-open=True, 2 windows, 400 boundary orbits, 1 candidates, 0 step-capped
+    level E=0.95 L=2.9000: ridge None, plunge cut 1.500; region [1.000, 36.990] inner-open=True, 2 windows, 400 boundary orbits, 3 candidates, 0 step-capped
+    level E=0.95 L=2.8000: ridge None, plunge cut 1.500; region [1.000, 37.138] inner-open=True, 2 windows, 400 boundary orbits, 3 candidates, 0 step-capped
+    level E=0.95 L=3.0000: ridge None, plunge cut 1.500; region [1.000, 36.843] inner-open=True, 2 windows, 400 boundary orbits, 4 candidates, 0 step-capped
+    level E=0.95 L=3.2000: ridge None, plunge cut 1.500; region [1.000, 36.550] inner-open=True, 2 windows, 400 boundary orbits, 2 candidates, 0 step-capped
+VERDICT-v2 [zv2_control_d200_trunc] 5 levels, 10 survive/plunge windows, 2000 boundary orbits: candidates 13, CONFIRMED at tol 1e-13 5  [106s]
+  CHAOS E=0.95 L=2.9000 x0=7.56263: fd 0.0205/0.0637 S_ex 19.8/31.0 n 205/214 status 1/1
+  CHAOS E=0.95 L=2.9000 x0=7.56631: fd 0.0556/0.0571 S_ex 12.5/18.6 n 130/146 status 1/1
+  CHAOS E=0.95 L=3.0000 x0=7.56356: fd 0.0575/0.0157 S_ex 13.1/17.4 n 300/183 status 0/1
+  CHAOS E=0.95 L=3.0000 x0=7.57274: fd 0.0444/0.0313 S_ex 23.2/22.7 n 127/274 status 1/1
+  CHAOS E=0.95 L=3.2000 x0=7.59808: fd 0.0271/0.0237 S_ex 31.3/10.5 n 300/300 status 0/0

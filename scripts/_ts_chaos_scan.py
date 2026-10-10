@@ -190,10 +190,10 @@ def _level_job(args):
                 continue
             cand = (r["fd"] == r["fd"]) and r["fd"] > FD_THR and r["sex"] >= SEX_THR
             rec = dict(x0=float(x0), n=r["n"], status=r["status"], fd=r["fd"], sex=r["sex"], drift=r["drift"],
-                       t_end=r["t_end"], cand=bool(cand))
+                       drift_window=r["drift_window"], t_end=r["t_end"], cand=bool(cand))
             if cand:
                 r2 = eng.orbit(float(x0), E, L, nsec=nsec, tmax=5e6, xmin=x_pl, xmax=2000.0, tol=1e-13)
-                rec.update(fd2=r2["fd"], sex2=r2["sex"], n2=r2["n"], status2=r2["status"],
+                rec.update(fd2=r2["fd"], sex2=r2["sex"], n2=r2["n"], status2=r2["status"], drift_window2=r2["drift_window"],
                            confirmed=bool((r2["fd"] == r2["fd"]) and r2["fd"] > FD_THR and r2["sex"] >= SEX_THR))
             out.append(rec)
     print(f"    level E={E} L={L:.4f}: ridge {x_ridge}, plunge cut {x_pl:.3f}; region [{a:.3f}, {b:.3f}] inner-open={ti}, {len(windows)} windows, "
