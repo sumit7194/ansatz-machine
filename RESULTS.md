@@ -4091,3 +4091,42 @@ at valence 1–10, with all 40 rows exactly trivial: MN p1 (5, 3, 1/5) and p2 (1
 
 It is independent of ours in the metric transcription (its V9), the exp/√ evaluator, the points and the draw. §151
 therefore rests on **two implementations**.
+
+
+## §152 — The §149 null is not special to p = 3/5, 4/5: TS δ = 2 has no invariant Killing tensor of valence 1–8 beyond the trivial ones at 8 more parameter points (p from 0.28 to 0.96)
+
+**Ask.** The Bridge, on behalf of the user (every sister contributing to TS/MN). Pre-registration
+`data/jet/PSWEEP_PREREGISTRATION.md` (13fe05e), committed before any metric was built.
+
+**Metrics.** Eight new rational-t points, p = (1 − t²)/(1 + t²), forming four q-swap pairs: p = 5/13 | 12/13, 8/17 | 15/17,
+20/29 | 21/29, 7/25 | 24/25. Each was built by `_ts2_build.py --t` and passed its full battery
+(`data/jet/psweep_build.out`, per-point logs in `data/sealed/TS2_for_quantum/`):
+- the Ernst equation holds exactly;
+- R_ab = 0 exactly at 4 random rational points;
+- a perturbed metric is NOT vacuum;
+- Kerr through the same pipeline is vacuum;
+- m = 2σ/p and |J| = q m² are read off.
+
+Kerr control files at the same (p, q) are vacuum-verified before writing (8/8).
+
+**Runs.** The §149 jet bound (`_kt_jet.py`, unchanged apart from a `--threads` flag), valence 1–8, M = d, prime 0, at
+two physical points PA = (3, 1/3) and PB = (17/10, 3/5). Output in `data/jet/psweep.out`, 160/160 verdicts.
+
+    Kerr control at every p (PA, d = 1..4):   2  5  8  14      = trivial + Carter, at all 8 p
+    TS at every p, both points (d = 1..8):    2  4  6  9  12  16  20  25   = trivial, at all 8 p x 2 points
+
+There are no anomalies, and the prediction (~92%) held.
+
+**Reading.**
+- Together with §149 (p = 3/5, 4/5 to valence 10), the TS δ = 2 null now holds at 10 parameter points spanning
+  p = 0.28 to 0.96, including both members of four q-swap pairs.
+- The absence of an invariant Killing tensor beyond p_t, p_φ, H products is generic across the family, not a feature
+  of the two points first tested.
+- At every point the same pipeline finds Carter on Kerr, so the instrument can say "something" there.
+
+**Scope.** Invariant tensors, locally near the points, valence ≤ 8, ten parameter points. This is evidence across the
+family, NOT a proof for all p.
+
+**A failure along the way, reported.** The first launch ran NO jets. zsh does not word-split an unquoted `$J`, so every
+line failed with "no such file". The log is kept as `psweep_run1_FAILED_zsh_wordsplit.out`. The driver now counts
+verdicts against the expected 160 and flags INCOMPLETE otherwise.

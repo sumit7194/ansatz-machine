@@ -4393,3 +4393,10 @@ This is a third, outcome-only line of evidence for §150, independent of the fd/
 
 Lesson: a scale rule must be a RATIO to the window, not tuned on the first case. The hazard was flagged before the
 first result, but it was not guarded, and it bit on the narrowest window.
+
+## 2026-10-11 early — §152 TS p-sweep (Bridge ask)
+
+Built 8 new TS δ = 2 metrics (rational t, 4 q-swap pairs); all vacuum batteries passed in 4 minutes. The jets were
+load- and memory-gated, per the Bridge. The first launch ran nothing (the zsh `$J` word-split trap again); it was
+fixed, a verdict count was added, and the run relaunched. 160/160: Kerr finds Carter at every p, and TS is trivial at
+every p × 2 points to valence 8. The §149 null is generic across the family.
