@@ -4348,3 +4348,20 @@ Lessons:
 - a search design needs its own positive control, not just the detector;
 - finite-time stretching is unspecific near hyperbolic orbits;
 - every scorer edge case (capped, plunged, flipped) hides a false positive.
+
+## 2026-10-10 morning (cont.) — §150 provenance: the engine-cache bug shown harmless; one checker bug of my own
+
+check3 (complex-signal drift) is report-only: 83/85 TS confirmed fire, Kerr 0/17. While building it I found an
+engine-cache bug: one Engine per process, regardless of metric. The Bridge asked for evidence that the stored numbers
+were untouched, not an argument. Four checks, all PASS, are recorded in §150:
+- logs: 7 builds per pool, each the right metric;
+- check3 reproduces 119/119 confirmations bit-identically;
+- `_ts_chaos_cachecheck.py` re-runs 8 whole levels through a mixed-metric pool, 8/8 identical;
+- the matched table is byte-identical on a re-run.
+
+The cachecheck's FIRST run read 0/8. The cause was my comparator: dict `==` with NaN fields, which passes only when
+the NaNs are the same object (json shares one) and so could never pass across a process boundary. Fixed, and the
+comparator now self-tests both directions. Also corrected a swapped Kerr row pair in the §150 table (9/8, labelled q
+in the draft).
+
+Lesson: I launched a comparator I had never seen say "IDENTICAL". A checker tested in neither direction is not a checker.

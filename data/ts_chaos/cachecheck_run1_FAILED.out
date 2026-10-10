@@ -1,0 +1,24 @@
+  [Kerr (TS2 pipeline, delta=1) p=4/5] rhs module rhs_f234d03df20c467e.py [0s]
+  [Kerr (TS2 pipeline, delta=1) p=3/5] rhs module rhs_71d54c11241a01a4.py [0s]
+  [Tomimatsu-Sato delta=2 p=3/5] rhs module rhs_e3d9c088caea4fd8.py [0s]
+  [Tomimatsu-Sato delta=2 p=4/5] rhs module rhs_093919abe726c361.py [0s]
+    level E=0.95 L=-1.2500: ridge None, plunge cut 1.500; region [1.000, 23.718] inner-open=True, 2 windows, 400 boundary orbits, 1 candidates, 0 step-capped
+  [Tomimatsu-Sato delta=2 p=4/5] rhs module rhs_093919abe726c361.py [0s]
+    level E=0.95 L=1.6667: ridge None, plunge cut 1.500; region [1.000, 31.876] inner-open=True, 2 windows, 400 boundary orbits, 1 candidates, 0 step-capped
+  [Kerr (TS2 pipeline, delta=1) p=4/5] rhs module rhs_f234d03df20c467e.py [0s]
+    level E=0.95 L=-5.3333: ridge None, plunge cut 1.500; region [1.147, 60.467] inner-open=True, 2 windows, 400 boundary orbits, 5 candidates, 0 step-capped
+    level E=0.97 L=5.1250: ridge None, plunge cut 1.500; region [1.067, 76.992] inner-open=True, 2 windows, 400 boundary orbits, 8 candidates, 0 step-capped
+  [Kerr (TS2 pipeline, delta=1) p=3/5] rhs module rhs_71d54c11241a01a4.py [0s]
+    level E=0.95 L=-7.0000: ridge None, plunge cut 1.500; region [1.067, 36.992] inner-open=True, 2 windows, 400 boundary orbits, 0 candidates, 0 step-capped
+    level E=0.97 L=1.9167: ridge None, plunge cut 1.500; region [1.000, 53.740] inner-open=True, 2 windows, 400 boundary orbits, 0 candidates, 0 step-capped
+    level E=0.97 L=2.1875: ridge None, plunge cut 1.500; region [1.000, 39.235] inner-open=True, 2 windows, 400 boundary orbits, 0 candidates, 0 step-capped
+    level E=0.95 L=4.8333: ridge None, plunge cut 1.500; region [1.147, 62.082] inner-open=True, 2 windows, 400 boundary orbits, 0 candidates, 0 step-capped
+  ts45    level  50 E=0.97 L=+5.1250: 400 orbits, 8 candidates -> DIFFERS
+  kerr45  level   1 E=0.95 L=-1.2500: 400 orbits, 1 candidates -> DIFFERS
+  ts35    level   9 E=0.95 L=-5.3333: 400 orbits, 5 candidates -> DIFFERS
+  kerr35  level   0 E=0.95 L=+1.6667: 400 orbits, 1 candidates -> DIFFERS
+  ts45    level  25 E=0.95 L=-7.0000: 400 orbits, 0 candidates -> DIFFERS
+  kerr45  level  46 E=0.97 L=+2.1875: 400 orbits, 0 candidates -> DIFFERS
+  ts35    level   6 E=0.95 L=+4.8333: 400 orbits, 0 candidates -> DIFFERS
+  kerr35  level  38 E=0.97 L=+1.9167: 400 orbits, 0 candidates -> DIFFERS
+VERDICT cachecheck: 0/8 levels bit-identical to the stored v2 scan (FAIL)

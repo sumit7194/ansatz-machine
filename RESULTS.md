@@ -3881,11 +3881,12 @@ seeding across every survive/plunge transition, on E ∈ {0.95, 0.97}, L/m ∈ {
   - the unspecificity of S_ex near the hyperbolic unstable circular orbit (regular Kerr orbits reach S_ex 11–62 while
     fd stays ≤ 0.0013), which is why the AND rule matters.
 
-**Result** (≈ 18,000 boundary orbits per system, identical design):
+**Result** (≈ 18,000 boundary orbits per system, identical design; the Kerr rows were swapped and labelled q in the first
+draft (aaa80ef), corrected against `scans_v2.out` / `confirm_A5.out`):
 
     system            candidates   A5-confirmed   after A6 (harmonic-flip filter)
-    Kerr q=3/5             9             0               0
-    Kerr q=4/5             8             0               0
+    Kerr p=4/5             9             0               0
+    Kerr p=3/5             8             0               0
     TS p=4/5             134            62              53   (38 sticky: chaotic then plunge; 15 full-window)
     TS p=3/5              79            40              32   (20 sticky; 12 full-window)
 
@@ -3898,6 +3899,31 @@ parameter points. This is consistent with Quantum's non-integrability theorem at
 Dubeibe's regular far-field sections. "Completely integrable" does not hold. Quantum's structural near-RING hint is
 neither supported nor tested: the layers found are at x ≈ 5–17, far from the ring at 1.06–1.14, because bound and
 sticky orbits at these energies do not approach it.
+
+**Engine-cache bug: shown, not argued, that no stored number was touched** (the Bridge asked for evidence). Until
+04bb688, `_ts_chaos_scan._engine` cached ONE Engine per process whatever metric it was asked for. A process serving two
+systems would therefore have integrated the second system on the first one's metric, silently. Every consumer of that
+cache has been checked:
+1. **Logs.** Every engine build prints its metric and rhs-module hash. In `scans_v2.out` and in `confirm_A5.out`,
+   every pool built exactly 7 engines (one per worker), all naming that pool's own metric, with four distinct hashes.
+   The pools use `spawn` workers and are closed before the next system starts. Neither main process calls `_engine`.
+   A stale hit needs a worker that already built another metric, and none existed.
+2. **Confirmations.** check3 (fixed cache, systems mixed in one pool) re-integrated all 119 A5 orbits with identical
+   parameters. Result: **119/119 bit-identical** in n, status, fd and S_ex.
+3. **Scans.** `scripts/_ts_chaos_cachecheck.py` re-ran 8 whole scan levels: per system, the level with the most
+   candidates plus one seeded quiet level. They went through ONE pool with the systems interleaved. 7 engine builds
+   across 4 workers means at least 3 workers served two metrics, the exact situation the bug corrupts. Result:
+   **8/8 bit-identical** to `bscan_*_v2.json` as canonical JSON (`cachecheck.out`, levels in `cachecheck.json`).
+   **Its first run FAILED 0/8, and the cause was the comparator, not the data:**
+   - a plunged orbit stores fd = NaN, and `nan == nan` is false unless both are the same object;
+   - `json.loads` shares one NaN object, so stored-vs-stored passes;
+   - levels returned from a worker carry fresh NaN objects, so dict `==` could never pass.
+
+   The comparator now self-tests in both directions before use: a fresh-NaN copy must read IDENTICAL, and a
+   one-ulp change must read DIFFERS. The run-1 rule is shown failing its own identical-copy test. The run-1 log is
+   kept as `cachecheck_run1_FAILED.out`.
+4. **Matched table.** `_ts_chaos_matched.py` built all four engines in ONE process and relied on a manual
+   `S._ENG = None` reset between systems. Re-run under the fixed cache, `matched_table.json` is **byte-identical**.
 
 **Pending, before this section is final:**
 1. The Bridge's V11 independent replay of orbits a)–g), with a geometric section-roughness diagnostic calibrated on
