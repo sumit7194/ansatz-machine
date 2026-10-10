@@ -1,0 +1,63 @@
+  [Kerr (TS2 pipeline, delta=1) p=4/5] rhs module rhs_f234d03df20c467e.py [0s]
+  [Kerr (TS2 pipeline, delta=1) p=4/5] rhs module rhs_f234d03df20c467e.py [0s]
+  [Kerr (TS2 pipeline, delta=1) p=4/5] rhs module rhs_f234d03df20c467e.py [0s]
+  [Kerr (TS2 pipeline, delta=1) p=4/5] rhs module rhs_f234d03df20c467e.py [0s]
+  [Kerr (TS2 pipeline, delta=1) p=4/5] rhs module rhs_f234d03df20c467e.py [0s]
+  [Kerr (TS2 pipeline, delta=1) p=4/5] rhs module rhs_f234d03df20c467e.py [0s]
+  [Kerr (TS2 pipeline, delta=1) p=4/5] rhs module rhs_f234d03df20c467e.py [0s]
+    level E=0.95 L=1.8125: ridge None, plunge cut 1.500; region [1.000, 23.249] inner-open=True, 2 windows, 400 boundary orbits, 0 candidates, 0 step-capped
+    level E=0.95 L=1.6250: ridge None, plunge cut 1.500; region [1.000, 23.483] inner-open=True, 2 windows, 400 boundary orbits, 1 candidates, 0 step-capped
+    level E=0.95 L=-1.8125: ridge None, plunge cut 1.500; region [1.000, 23.018] inner-open=True, 2 windows, 400 boundary orbits, 0 candidates, 0 step-capped
+    level E=0.95 L=-1.4375: ridge None, plunge cut 1.500; region [1.000, 23.530] inner-open=True, 2 windows, 400 boundary orbits, 0 candidates, 0 step-capped
+    level E=0.95 L=-1.2500: ridge None, plunge cut 1.500; region [1.000, 23.718] inner-open=True, 2 windows, 400 boundary orbits, 1 candidates, 0 step-capped
+    level E=0.95 L=1.4375: ridge None, plunge cut 1.500; region [1.000, 23.695] inner-open=True, 2 windows, 400 boundary orbits, 0 candidates, 0 step-capped
+    level E=0.95 L=2.3750: ridge None, plunge cut 1.500; region [1.000, 22.339] inner-open=True, 0 windows, 0 boundary orbits, 0 candidates, 0 step-capped
+    level E=0.95 L=-1.6250: ridge None, plunge cut 1.500; region [1.000, 23.296] inner-open=True, 2 windows, 400 boundary orbits, 0 candidates, 0 step-capped
+    level E=0.95 L=2.5625: ridge None, plunge cut 1.500; region [1.000, 21.963] inner-open=True, 0 windows, 0 boundary orbits, 0 candidates, 0 step-capped
+    level E=0.95 L=-2.5625: ridge None, plunge cut 1.500; region [1.000, 21.572] inner-open=True, 2 windows, 400 boundary orbits, 0 candidates, 0 step-capped
+    level E=0.95 L=2.7500: ridge None, plunge cut 1.500; region [1.000, 21.550] inner-open=True, 0 windows, 0 boundary orbits, 0 candidates, 0 step-capped
+    level E=0.95 L=2.0000: ridge None, plunge cut 1.500; region [1.000, 22.995] inner-open=True, 2 windows, 400 boundary orbits, 0 candidates, 0 step-capped
+    level E=0.95 L=2.9375: ridge None, plunge cut 1.500; region [1.000, 21.082] inner-open=True, 0 windows, 0 boundary orbits, 0 candidates, 0 step-capped
+    level E=0.95 L=2.1875: ridge None, plunge cut 1.500; region [1.000, 22.676] inner-open=True, 2 windows, 400 boundary orbits, 0 candidates, 0 step-capped
+    level E=0.95 L=3.1250: ridge None, plunge cut 1.500; region [1.000, 20.562] inner-open=True, 0 windows, 0 boundary orbits, 0 candidates, 0 step-capped
+    level E=0.95 L=-2.3750: ridge None, plunge cut 1.500; region [1.000, 22.007] inner-open=True, 2 windows, 400 boundary orbits, 0 candidates, 0 step-capped
+    level E=0.95 L=3.3125: ridge None, plunge cut 1.500; region [1.000, 19.975] inner-open=True, 0 windows, 0 boundary orbits, 0 candidates, 0 step-capped
+    level E=0.95 L=-2.0000: ridge None, plunge cut 1.500; region [1.000, 22.721] inner-open=True, 2 windows, 400 boundary orbits, 0 candidates, 0 step-capped
+    level E=0.95 L=3.5000: ridge None, plunge cut 1.500; region [1.000, 19.327] inner-open=True, 0 windows, 0 boundary orbits, 0 candidates, 0 step-capped
+    level E=0.95 L=1.2500: ridge None, plunge cut 1.500; region [1.000, 23.885] inner-open=True, 2 windows, 400 boundary orbits, 0 candidates, 0 step-capped
+    level E=0.95 L=3.6875: ridge None, plunge cut 1.500; region [1.000, 18.589] inner-open=True, 0 windows, 0 boundary orbits, 0 candidates, 0 step-capped
+    level E=0.95 L=-2.1875: ridge None, plunge cut 1.500; region [1.000, 22.384] inner-open=True, 2 windows, 400 boundary orbits, 0 candidates, 0 step-capped
+    level E=0.95 L=3.8750: ridge None, plunge cut 1.500; region [1.000, 17.737] inner-open=True, 0 windows, 0 boundary orbits, 0 candidates, 0 step-capped
+    level E=0.95 L=-2.7500: ridge None, plunge cut 1.500; region [1.000, 21.103] inner-open=True, 2 windows, 400 boundary orbits, 0 candidates, 0 step-capped
+    level E=0.95 L=4.0625: ridge None, plunge cut 1.500; region [1.000, 16.755] inner-open=True, 0 windows, 0 boundary orbits, 0 candidates, 0 step-capped
+    level E=0.95 L=-3.8750: ridge 2.0846210808333963, plunge cut 1.500; region [3.765, 16.490] inner-open=False, 0 windows, 0 boundary orbits, 0 candidates, 0 step-capped
+    level E=0.95 L=4.2500: ridge None, plunge cut 1.500; region [1.000, 15.577] inner-open=True, 0 windows, 0 boundary orbits, 0 candidates, 0 step-capped
+    level E=0.95 L=-3.3125: ridge None, plunge cut 1.500; region [1.000, 19.289] inner-open=True, 2 windows, 400 boundary orbits, 0 candidates, 0 step-capped
+    level E=0.95 L=4.4375: ridge None, plunge cut 1.500; region [1.000, 14.055] inner-open=True, 0 windows, 0 boundary orbits, 0 candidates, 0 step-capped
+    level E=0.95 L=-4.4375: ridge 1.5475804371026753, plunge cut 1.238; region [1.000, 1.187] inner-open=True, 0 windows, 0 boundary orbits, 0 candidates, 0 step-capped
+    level E=0.95 L=-4.0625: ridge 1.8323547692088007, plunge cut 1.466; region [5.448, 15.057] inner-open=False, 0 windows, 0 boundary orbits, 0 candidates, 0 step-capped
+    level E=0.95 L=-3.6875: ridge 2.5819340528892236, plunge cut 1.500; region [1.000, 17.596] inner-open=True, 2 windows, 400 boundary orbits, 0 candidates, 0 step-capped
+    level E=0.95 L=-4.2500: ridge 1.6676613003615766, plunge cut 1.334; region [7.867, 12.757] inner-open=False, 0 windows, 0 boundary orbits, 0 candidates, 0 step-capped
+    level E=0.95 L=-3.5000: ridge None, plunge cut 1.500; region [1.000, 18.515] inner-open=True, 2 windows, 400 boundary orbits, 0 candidates, 0 step-capped
+    level E=0.95 L=-2.9375: ridge None, plunge cut 1.500; region [1.000, 20.562] inner-open=True, 2 windows, 400 boundary orbits, 0 candidates, 0 step-capped
+    level E=0.95 L=-3.1250: ridge None, plunge cut 1.500; region [1.000, 19.975] inner-open=True, 2 windows, 400 boundary orbits, 0 candidates, 0 step-capped
+    level E=0.97 L=-1.4375: ridge None, plunge cut 1.500; region [1.000, 40.187] inner-open=True, 2 windows, 400 boundary orbits, 0 candidates, 0 step-capped
+    level E=0.97 L=-1.2500: ridge None, plunge cut 1.500; region [1.000, 40.388] inner-open=True, 2 windows, 400 boundary orbits, 0 candidates, 0 step-capped
+    level E=0.97 L=1.8125: ridge None, plunge cut 1.500; region [1.000, 39.828] inner-open=True, 2 windows, 400 boundary orbits, 0 candidates, 0 step-capped
+    level E=0.97 L=-1.6250: ridge None, plunge cut 1.500; region [1.000, 39.947] inner-open=True, 2 windows, 400 boundary orbits, 0 candidates, 0 step-capped
+    level E=0.97 L=1.6250: ridge None, plunge cut 1.500; region [1.000, 40.067] inner-open=True, 2 windows, 400 boundary orbits, 1 candidates, 0 step-capped
+    level E=0.97 L=1.2500: ridge None, plunge cut 1.500; region [1.000, 40.469] inner-open=True, 2 windows, 400 boundary orbits, 1 candidates, 0 step-capped
+    level E=0.97 L=-1.8125: ridge None, plunge cut 1.500; region [1.000, 39.708] inner-open=True, 2 windows, 400 boundary orbits, 0 candidates, 0 step-capped
+    level E=0.97 L=-2.0000: ridge None, plunge cut 1.500; region [1.000, 39.392] inner-open=True, 2 windows, 400 boundary orbits, 0 candidates, 0 step-capped
+    level E=0.97 L=1.4375: ridge None, plunge cut 1.500; region [1.000, 40.308] inner-open=True, 2 windows, 400 boundary orbits, 1 candidates, 0 step-capped
+    level E=0.97 L=-2.1875: ridge None, plunge cut 1.500; region [1.000, 39.079] inner-open=True, 2 windows, 400 boundary orbits, 1 candidates, 0 step-capped
+    level E=0.97 L=2.3750: ridge None, plunge cut 1.500; region [1.000, 38.884] inner-open=True, 2 windows, 400 boundary orbits, 0 candidates, 0 step-capped
+    level E=0.97 L=2.7500: ridge None, plunge cut 1.500; region [1.000, 38.115] inner-open=True, 2 windows, 400 boundary orbits, 0 candidates, 0 step-capped
+    level E=0.97 L=2.1875: ridge None, plunge cut 1.500; region [1.000, 39.235] inner-open=True, 2 windows, 400 boundary orbits, 0 candidates, 0 step-capped
+    level E=0.97 L=2.0000: ridge None, plunge cut 1.500; region [1.000, 39.550] inner-open=True, 2 windows, 400 boundary orbits, 0 candidates, 0 step-capped
+    level E=0.97 L=-2.3750: ridge None, plunge cut 1.500; region [1.000, 38.691] inner-open=True, 2 windows, 400 boundary orbits, 0 candidates, 0 step-capped
+    level E=0.97 L=-2.5625: ridge None, plunge cut 1.500; region [1.000, 38.306] inner-open=True, 2 windows, 400 boundary orbits, 0 candidates, 0 step-capped
+    level E=0.97 L=-2.7500: ridge None, plunge cut 1.500; region [1.000, 37.850] inner-open=True, 2 windows, 400 boundary orbits, 0 candidates, 0 step-capped
+    level E=0.97 L=2.5625: ridge None, plunge cut 1.500; region [1.000, 38.498] inner-open=True, 2 windows, 400 boundary orbits, 0 candidates, 0 step-capped
+/opt/homebrew/Cellar/python@3.14/3.14.5/Frameworks/Python.framework/Versions/3.14/lib/python3.14/multiprocessing/resource_tracker.py:475: UserWarning: resource_tracker: There appear to be 6 leaked semaphore objects to clean up at shutdown: {'/mp-hhv4l_w3', '/mp-f5tdv8ys', '/mp-1rw45st8', '/mp-6ifsrcnm', '/mp-5055gd9f', '/mp-z34f4lle'}
+  warnings.warn(
