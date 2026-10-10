@@ -4003,6 +4003,11 @@ unchanged.
 - Net: an independent confirmation of the TS-vs-Kerr contrast at 3 of 4 p = 4/5 candidates, with no contradiction
   anywhere. The p = 3/5 side is covered here by α (a'), which is ε_sep-matched.
 
+**Orbit sense (relayed from the Bridge's V12 gates, not verified here).** Chart L > 0 is **retrograde** at p = 4/5: the
+Kerr L_sep matches the BPT retrograde unstable circular orbit to 4e−10. The p = 3/5 level (L < 0) is **prograde**. So
+the α levels L1/L2 (p = 4/5) are retrograde and L3 (p = 3/5) is prograde: the fractal-vs-smooth contrast holds in
+BOTH senses. V12's exact L_sep agrees with our grid L_sep to within one grid step (0.01 m) at all 4 levels.
+
 **Pending, before this section is final:**
 1. DONE, see "Independent replay" above. Earlier status kept for the record. (Status 2026-10-11, relayed: V11's first ensemble run was ALL INCONCLUSIVE because of a V11-side bug, plunge
    checked only at chunk ends. It is fixed as V11 addendum 6, labelled post-failure with controls unchanged; the rerun
