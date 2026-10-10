@@ -1,0 +1,55 @@
+  [Kerr (TS2 pipeline, delta=1) p=4/5] rhs module rhs_f234d03df20c467e.py [0s]
+  E=0.93 sign=+1: no closed pocket found
+  E=0.94 sign=+1: no closed pocket found
+  E=0.95 sign=+1: no closed pocket found
+[kerr45] ts2kerr:4/5: 40 (E, L) levels, 1200 orbits; workers 7 [setup 62s]
+  [Kerr (TS2 pipeline, delta=1) p=4/5] rhs module rhs_f234d03df20c467e.py [0s]
+  [Kerr (TS2 pipeline, delta=1) p=4/5] rhs module rhs_f234d03df20c467e.py [0s]
+  [Kerr (TS2 pipeline, delta=1) p=4/5] rhs module rhs_f234d03df20c467e.py [0s]
+  [Kerr (TS2 pipeline, delta=1) p=4/5] rhs module rhs_f234d03df20c467e.py [0s]
+  [Kerr (TS2 pipeline, delta=1) p=4/5] rhs module rhs_f234d03df20c467e.py [0s]
+  [Kerr (TS2 pipeline, delta=1) p=4/5] rhs module rhs_f234d03df20c467e.py [0s]
+  [Kerr (TS2 pipeline, delta=1) p=4/5] rhs module rhs_f234d03df20c467e.py [0s]
+VERDICT [kerr45] orbits 1200: candidates (fd>0.0115 & S_ex>=10.0) 0, CONFIRMED at tol 1e-13 0; plunged 0; max |2H+1| 7.1e-10  [135s]
+  [Tomimatsu-Sato delta=2 p=4/5] rhs module rhs_093919abe726c361.py [0s]
+  E=0.93 sign=+1: no closed pocket found
+  E=0.94 sign=+1: no closed pocket found
+  E=0.95 sign=+1: no closed pocket found
+[ts45] ts2:4/5: 38 (E, L) levels, 1140 orbits; workers 7 [setup 314s]
+  [Tomimatsu-Sato delta=2 p=4/5] rhs module rhs_093919abe726c361.py [0s]
+  [Tomimatsu-Sato delta=2 p=4/5] rhs module rhs_093919abe726c361.py [0s]
+  [Tomimatsu-Sato delta=2 p=4/5] rhs module rhs_093919abe726c361.py [0s]
+  [Tomimatsu-Sato delta=2 p=4/5] rhs module rhs_093919abe726c361.py [0s]
+  [Tomimatsu-Sato delta=2 p=4/5] rhs module rhs_093919abe726c361.py [0s]
+  [Tomimatsu-Sato delta=2 p=4/5] rhs module rhs_093919abe726c361.py [0s]
+  [Tomimatsu-Sato delta=2 p=4/5] rhs module rhs_093919abe726c361.py [0s]
+VERDICT [ts45] orbits 1140: candidates (fd>0.0115 & S_ex>=10.0) 0, CONFIRMED at tol 1e-13 0; plunged 0; max |2H+1| 5.3e-10  [447s]
+  [Tomimatsu-Sato delta=2 p=3/5] rhs module rhs_e3d9c088caea4fd8.py [0s]
+  E=0.93 sign=+1: no closed pocket found
+  E=0.94 sign=+1: no closed pocket found
+  E=0.95 sign=+1: no closed pocket found
+  E=0.96 sign=+1: no closed pocket found
+[ts35] ts2:3/5: 39 (E, L) levels, 1170 orbits; workers 7 [setup 341s]
+  [Tomimatsu-Sato delta=2 p=3/5] rhs module rhs_e3d9c088caea4fd8.py [0s]
+  [Tomimatsu-Sato delta=2 p=3/5] rhs module rhs_e3d9c088caea4fd8.py [0s]
+  [Tomimatsu-Sato delta=2 p=3/5] rhs module rhs_e3d9c088caea4fd8.py [0s]
+  [Tomimatsu-Sato delta=2 p=3/5] rhs module rhs_e3d9c088caea4fd8.py [0s]
+  [Tomimatsu-Sato delta=2 p=3/5] rhs module rhs_e3d9c088caea4fd8.py [0s]
+  [Tomimatsu-Sato delta=2 p=3/5] rhs module rhs_e3d9c088caea4fd8.py [0s]
+  [Tomimatsu-Sato delta=2 p=3/5] rhs module rhs_e3d9c088caea4fd8.py [0s]
+VERDICT [ts35] orbits 1170: candidates (fd>0.0115 & S_ex>=10.0) 0, CONFIRMED at tol 1e-13 0; plunged 0; max |2H+1| 6.6e-10  [510s]
+  [Kerr (TS2 pipeline, delta=1) p=3/5] rhs module rhs_71d54c11241a01a4.py [0s]
+  E=0.93 sign=+1: no closed pocket found
+  E=0.94 sign=+1: no closed pocket found
+  E=0.95 sign=+1: no closed pocket found
+  E=0.96 sign=+1: no closed pocket found
+[kerr35] ts2kerr:3/5: 40 (E, L) levels, 1200 orbits; workers 7 [setup 66s]
+  [Kerr (TS2 pipeline, delta=1) p=3/5] rhs module rhs_71d54c11241a01a4.py [0s]
+  [Kerr (TS2 pipeline, delta=1) p=3/5] rhs module rhs_71d54c11241a01a4.py [0s]
+  [Kerr (TS2 pipeline, delta=1) p=3/5] rhs module rhs_71d54c11241a01a4.py [0s]
+  [Kerr (TS2 pipeline, delta=1) p=3/5] rhs module rhs_71d54c11241a01a4.py [0s]
+  [Kerr (TS2 pipeline, delta=1) p=3/5] rhs module rhs_71d54c11241a01a4.py [0s]
+  [Kerr (TS2 pipeline, delta=1) p=3/5] rhs module rhs_71d54c11241a01a4.py [0s]
+  [Kerr (TS2 pipeline, delta=1) p=3/5] rhs module rhs_71d54c11241a01a4.py [0s]
+VERDICT [kerr35] orbits 1200: candidates (fd>0.0115 & S_ex>=10.0) 0, CONFIRMED at tol 1e-13 0; plunged 0; max |2H+1| 9.6e-10  [155s]
+ALL DONE Sat Oct 10 04:35:58 IST 2026

@@ -100,8 +100,9 @@ def make_integrator(f):
     e1, e3, e4, e5, e6, e7 = 71 / 57600, -71 / 16695, 71 / 1920, -17253 / 339200, 22 / 525, -1 / 40
 
     @numba.njit
-    def run(s0, E, L, tol, nsec, tmax, xmin, xmax, d0, dt_ren, ymax):
-        """status 0 = reached nsec or tmax, 1 = plunge (x < xmin), 2 = escape (x > xmax or |y| > ymax), 3 = step failure."""
+    def run(s0, E, L, tol, nsec, tmax, xmin, xmax, d0, dt_ren, ymax, maxsteps):
+        """status 0 = reached nsec or tmax, 1 = plunge (x < xmin), 2 = escape (x > xmax or |y| > ymax),
+        3 = step failure or step cap (maxsteps) -- reported, never silently counted as regular."""
         S = np.empty(8)
         S[:4] = s0
         pert = np.array([1.0, 0.7, -0.4, 0.3])
@@ -121,7 +122,7 @@ def make_integrator(f):
         nsteps = 0
         k1 = rhs8(S, E, L)
         while ns < nsec and t < tmax:
-            if nsteps > 400_000_000:
+            if nsteps > maxsteps:
                 status = 3
                 break
             k2 = rhs8(S + h * (a21 * k1), E, L)
@@ -224,13 +225,13 @@ class Engine:
         return math.sqrt(val) if val > 0 else None
 
     def orbit(self, x0, E, L, px0=0.0, tol=1e-11, nsec=400, tmax=2e6, xmin=1.0, xmax=1e3, d0=1e-9, dt_ren=10.0,
-              ymax=0.999999):
+              ymax=0.999999, maxsteps=3_000_000):
         from poincare import frequency_drift
         py0 = self.py_on_shell(x0, px0, E, L)
         if py0 is None:
             return None
         s0 = np.array([x0, 0.0, px0, py0])
-        sx, spx, st, ft, fv, status, drift, nst = self.run(s0, E, L, tol, nsec, tmax, xmin, xmax, d0, dt_ren, ymax)
+        sx, spx, st, ft, fv, status, drift, nst = self.run(s0, E, L, tol, nsec, tmax, xmin, xmax, d0, dt_ren, ymax, maxsteps)
         fd = frequency_drift(list(sx)) if len(sx) >= 100 else float("nan")
         return dict(x0=x0, E=E, L=L, n=len(sx), secx=sx, secpx=spx, status=int(status), drift=float(drift),
                     fd=float(fd), slope=ftle_slope(ft, fv), ftle_final=float(fv[-1]) if len(fv) else float("nan"),

@@ -1,0 +1,12 @@
+  [ZV delta=2] rhs module rhs_817148920e4dc069.py [0s]
+  [ZV delta=2] rhs module rhs_817148920e4dc069.py [0s]
+  [ZV delta=2] rhs module rhs_817148920e4dc069.py [0s]
+  [ZV delta=2] rhs module rhs_817148920e4dc069.py [0s]
+  [ZV delta=2] rhs module rhs_817148920e4dc069.py [0s]
+/opt/homebrew/Cellar/python@3.14/3.14.5/Frameworks/Python.framework/Versions/3.14/lib/python3.14/multiprocessing/resource_tracker.py:475: UserWarning: resource_tracker: There appear to be 6 leaked semaphore objects to clean up at shutdown: {'/mp-vu2uuza2', '/mp-igabxt4n', '/mp-p3225tx2', '/mp-dcq_w7wv', '/mp-gbqg1n12', '/mp-dhuu2vo8'}
+  warnings.warn(
+ndidates, 0 step-capped
+    level E=0.95 L=2.8000: region [1.000, 37.138] inner-open=True, 2 windows, 80 boundary orbits, 0 candidates, 0 step-capped
+    level E=0.95 L=3.2000: region [1.000, 36.550] inner-open=True, 2 windows, 80 boundary orbits, 1 candidates, 0 step-capped
+VERDICT-v2 [zv2_control] 5 levels, 10 survive/plunge windows, 400 boundary orbits: candidates 1, CONFIRMED at tol 1e-13 1  [44s]
+  CHAOS E=0.95 L=3.2000 x0=7.59887: fd 0.0338/0.0242 S_ex 24.9/12.9 n 300/300 status 0/0

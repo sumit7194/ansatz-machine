@@ -31,6 +31,7 @@ SYSTEMS = {   # spec, mass m (sigma = 1), inner boundary x_in (ring for TS, hori
     "kerr35": ("ts2kerr:3/5", 1 / 0.6, 1.0005),
     "ts45": ("ts2:4/5", 2 / 0.8, 1.057417014479 + 0.01),
     "ts35": ("ts2:3/5", 2 / 0.6, 1.136801654533 + 0.01),
+    "zv2": ("zv:2", 2.0, 1.0005),        # POSITIVE CONTROL for the search DESIGN (known thin layer, section 106)
 }
 FD_THR, SEX_THR = 0.0115, 10.0
 _ENG = None
@@ -144,3 +145,79 @@ def main():
 
 if __name__ == "__main__":
     sys.exit(main())
+
+
+# ------------------------------------------------------------------------------------------------------------------
+# DESIGN v2 ("boundary"), amendment 3. The v1 design (closed equatorial pockets, uniform seeds) FAILED its search-design
+# control: 0 detections on ZV delta=2, where a layer is known (section 106). That layer sits at the trapped/plunge
+# boundary of an OPEN level. v2 hunts that boundary: a coarse x0 scan classifies survive vs plunge, then dense
+# seeding around every transition.
+PLUNGE_X = 1.5          # orbits diving below x = 1.5 are plunging; integrating into the singular core only burns steps
+def _level_job(args):
+    spec, E, L, x_in, ncoarse, ndense, nsec = args
+    eng = _engine(spec)
+    # The plunge cut must sit INSIDE the potential barrier (the Bridge): find the equatorial ridge, the local max of
+    # W(x, 0) (the unstable circular orbit for this L), and keep the cut below 0.8 of it. Orbits that dip deep and
+    # come back (the sticky behaviour hunted here) must never be misfiled as plunges.
+    xs_r = np.geomspace(x_in * 1.0001, 60.0, 4000)
+    Wv = np.array([eng.W(xx, 0.0, E, L) for xx in xs_r])
+    imax = [i for i in range(1, len(Wv) - 1) if Wv[i] > Wv[i - 1] and Wv[i] >= Wv[i + 1]]
+    x_ridge = float(xs_r[imax[0]]) if imax else None
+    x_pl = max(x_in, PLUNGE_X if x_ridge is None else min(PLUNGE_X, 0.8 * x_ridge))
+    if x_ridge is not None and not (x_pl < x_ridge * 0.95):
+        raise RuntimeError(f"plunge cut {x_pl} not safely inside the ridge {x_ridge} at E={E} L={L}")
+    P = pockets(eng, E, L, x_in)
+    if not P:
+        return dict(E=E, L=L, orbits=[], note="no allowed region")
+    a, b, ti, tf = max(P, key=lambda r: r[1] - r[0])
+    if tf:
+        return dict(E=E, L=L, orbits=[], note="allowed region open to infinity")
+    lo = max(a, 2.0) if ti else a
+    xs = np.geomspace(lo * 1.0005, b * 0.9995, ncoarse)
+    coarse = []
+    for x0 in xs:
+        r = eng.orbit(float(x0), E, L, nsec=nsec, tmax=5e6, xmin=x_pl, xmax=2000.0, tol=1e-11)
+        coarse.append((float(x0), None if r is None else r["status"]))
+    windows = []
+    for (x1, s1), (x2, s2) in zip(coarse, coarse[1:]):
+        if s1 is not None and s2 is not None and s1 != s2:
+            windows.append((x1, x2))
+    out = []
+    for x1, x2 in windows:
+        for x0 in np.linspace(x1, x2, ndense):
+            r = eng.orbit(float(x0), E, L, nsec=nsec, tmax=5e6, xmin=x_pl, xmax=2000.0, tol=1e-11)
+            if r is None:
+                continue
+            cand = (r["fd"] == r["fd"]) and r["fd"] > FD_THR and r["sex"] >= SEX_THR
+            rec = dict(x0=float(x0), n=r["n"], status=r["status"], fd=r["fd"], sex=r["sex"], drift=r["drift"],
+                       t_end=r["t_end"], cand=bool(cand))
+            if cand:
+                r2 = eng.orbit(float(x0), E, L, nsec=nsec, tmax=5e6, xmin=x_pl, xmax=2000.0, tol=1e-13)
+                rec.update(fd2=r2["fd"], sex2=r2["sex"], n2=r2["n"], status2=r2["status"],
+                           confirmed=bool((r2["fd"] == r2["fd"]) and r2["fd"] > FD_THR and r2["sex"] >= SEX_THR))
+            out.append(rec)
+    print(f"    level E={E} L={L:.4f}: ridge {x_ridge}, plunge cut {x_pl:.3f}; region [{a:.3f}, {b:.3f}] inner-open={ti}, {len(windows)} windows, "
+          f"{len(out)} boundary orbits, {sum(o['cand'] for o in out)} candidates, "
+          f"{sum(o['status'] == 3 for o in out)} step-capped", flush=True)
+    return dict(E=E, L=L, region=[a, b, ti, tf], n_coarse=len(coarse),
+                n_survive=sum(1 for _, s in coarse if s == 0), windows=windows, orbits=out)
+
+
+def boundary_scan(sysname, Es, Lms, signs=(+1, -1), ncoarse=60, ndense=40, nsec=300, workers=7, tag=""):
+    spec, m, x_in = SYSTEMS[sysname]
+    t0 = time.time()
+    jobs = [(spec, E, s * lm * m, x_in, ncoarse, ndense, nsec) for E in Es for lm in Lms for s in signs]
+    with Pool(workers) as pool:
+        levels = pool.map(_level_job, jobs, chunksize=1)
+    orbits = [dict(o, E=lv["E"], L=lv["L"]) for lv in levels for o in lv["orbits"]]
+    ncand = sum(o["cand"] for o in orbits)
+    conf = [o for o in orbits if o.get("confirmed")]
+    with open(os.path.join(OUT, f"bscan_{sysname}{tag}.json"), "w") as fh:
+        json.dump(dict(system=sysname, Es=Es, Lms=list(map(float, Lms)), levels=levels), fh)
+    print(f"VERDICT-v2 [{sysname}{tag}] {len(jobs)} levels, {sum(len(lv.get('windows', [])) for lv in levels)} survive/plunge "
+          f"windows, {len(orbits)} boundary orbits: candidates {ncand}, CONFIRMED at tol 1e-13 {len(conf)}  "
+          f"[{time.time()-t0:.0f}s]", flush=True)
+    for o in conf[:12]:
+        print(f"  CHAOS E={o['E']} L={o['L']:.4f} x0={o['x0']:.5f}: fd {o['fd']:.4f}/{o['fd2']:.4f} S_ex {o['sex']:.1f}/"
+              f"{o['sex2']:.1f} n {o['n']}/{o['n2']} status {o['status']}/{o['status2']}", flush=True)
+    return conf

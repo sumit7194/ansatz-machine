@@ -88,3 +88,28 @@ Two findings from the ZV δ=2 control (E = 0.95, L = 3; §106's orbits x0 = 7.54
    - Rule 5 is otherwise unchanged: a detection needs frequency drift > 0.0115 AND S_ex ≥ 10, at both tolerances.
    - Finite lifetime (plunge or escape) is recorded as supporting evidence only.
 This amendment is calibrated on ZV only. It is committed before any TS orbit and before the Kerr control is run.
+
+## Amendment 3 (2026-10-10 ~05:40): SEARCH DESIGN v2, validated on ZV, frozen before any v2 run on TS or Kerr
+**Why.** Design v1 (closed equatorial pockets, 30 uniform seeds) gave 0 candidates on TS and Kerr. It also gave 0 on
+**ZV δ=2, where a layer is known**, so the v1 null was VACUOUS and is withdrawn as evidence. The ZV layer
+(E = 0.95, L = 3) lives on an OPEN level, with no closed equatorial pocket: it sits at the trapped/plunge boundary.
+
+**Design v2** (`_ts_chaos_scan.boundary_scan`):
+- per (E, L), a coarse geometric x0 scan (60 seeds, y = 0, p_x = 0) over the allowed equatorial region, starting at
+  x = 2, classifying survive (300 crossings) versus plunge;
+- dense seeding, **200 points**, across every survive/plunge transition window;
+- detection as amendment 2 (fd > 0.0115 AND S_ex ≥ 10, re-run at tol 1e-13). Sticky orbits that plunge after
+  ≥ 100 crossings are scored;
+- plunge cut at x = 1.5 (orbits deeper are plunging), with a per-level assert that it sits below 0.8 × the equatorial
+  ridge radius when a ridge exists (the Bridge); a 3M-step cap per orbit, reported as status 3, never "regular";
+- the escape time T(x0) is recorded on the dense grids (the Bridge's fractal-escape signature, to be analysed).
+
+**Acceptance gate PASSED** (`data/ts_chaos/zv_control_v2_d200.out`): ZV δ=2, E = 0.95, L ∈ {2.8, …, 3.2}. There are
+candidates at 5 of 5 levels, and **7 CONFIRMED at both tolerances at 3 of 5 levels**, all at x0 = 7.559–7.598, which
+is the §106 layer. They are sticky: 130–300 crossings, then plunge. (At ndense = 40 only 1 of 5 levels was
+detected, so 200 is required.)
+
+**Run plan (frozen):** systems kerr45, kerr35, ts45, ts35. E ∈ {0.95, 0.97}; L/m ∈ {1.0, 1.15, …, 3.55}; both
+signs. Predictions are unchanged (P1 Kerr: no confirmed chaos; P4 TS inner region: detected, ~65%). If P4 is not
+detected, the wording is the Addendum's: not supported at this resolution, consistent with the obstruction, which is
+now known to hold at the exact levels probed (Quantum 1b8c3f5).
