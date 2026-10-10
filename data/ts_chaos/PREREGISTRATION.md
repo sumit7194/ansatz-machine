@@ -150,3 +150,17 @@ orbit, as the Bridge's separatrix-hyperbolicity hypothesis predicts. The frequen
 1e-13; ZV layer 0.016–0.064). So the existing AND-rule (fd > 0.0115 AND S_ex ≥ 10) is what provides specificity. The
 write-up will report fd as the decisive detector, with a matched Kerr distribution at the same (E, L/m) shown next to
 any TS candidate. A Carter-constant check on the flagged Kerr orbit is requested from the Bridge's V11.
+
+## Amendment 6 (2026-10-10 ~07:00): harmonic-flip filter. POST HOC, applied after TS candidates were seen, but it can
+## only REMOVE detections, and it is applied uniformly to TS, Kerr and ZV
+`frequency_drift` picks the single strongest spectral peak in each half of the section sequence. On a REGULAR orbit
+whose fundamental and second harmonic have comparable power, the pick can flip between halves, giving
+fd = |2f − f| / (1.5f) = 2/3. Seventeen A5-confirmed TS orbits sit at fd ≈ 0.66–0.70 (9 at p = 4/5, 8 at p = 3/5). One
+Kerr candidate also showed fd 0.672 at 1e-11 (0.0000 at 1e-13).
+- **Rule:** an orbit with fd in (0.55, 0.80) at either tolerance is SUSPECT (possible harmonic flip), never CONFIRMED.
+  This removes 17 TS confirmations; Kerr is unaffected (0 confirmed); ZV is unaffected (its fd values are 0.016–0.064).
+- **After A5 + A6:** TS p = 4/5 has 53 CONFIRMED (38 sticky, plunging after ≥ 100 crossings; 15 full-window); TS p = 3/5
+  has 32 CONFIRMED (20 sticky; 12 full-window); Kerr 0 / 0. Confirmed fd values are 0.012–0.11, the ZV layer's range.
+- **Future work** (not applied here): estimate the rotation frequency from the complex signal x + i·p_x, which removes
+  the harmonic ambiguity.
+- **No chaos claim before the Bridge's independent V11 replay** of representative orbits.

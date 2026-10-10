@@ -1,0 +1,263 @@
+  [Kerr (TS2 pipeline, delta=1) p=3/5] rhs module rhs_71d54c11241a01a4.py [0s]
+  [Kerr (TS2 pipeline, delta=1) p=3/5] rhs module rhs_71d54c11241a01a4.py [0s]
+  [Kerr (TS2 pipeline, delta=1) p=3/5] rhs module rhs_71d54c11241a01a4.py [0s]
+  [Kerr (TS2 pipeline, delta=1) p=3/5] rhs module rhs_71d54c11241a01a4.py [0s]
+  [Kerr (TS2 pipeline, delta=1) p=3/5] rhs module rhs_71d54c11241a01a4.py [0s]
+  [Kerr (TS2 pipeline, delta=1) p=3/5] rhs module rhs_71d54c11241a01a4.py [0s]
+  [Kerr (TS2 pipeline, delta=1) p=3/5] rhs module rhs_71d54c11241a01a4.py [0s]
+  E=0.95 L=1.6667 x0=7.47790: 1e-11 fd 0.0417 S_ex 102.6 n 300 | 1e-13 fd 0.0000 S_ex 9.1 n 300 st 0 -> rejected
+  E=0.95 L=2.4167 x0=8.85457: 1e-11 fd 0.0493 S_ex 39.7 n 300 | 1e-13 fd 0.0000 S_ex 9.1 n 300 st 0 -> rejected
+  E=0.95 L=-2.4167 x0=3.60508: 1e-11 fd 0.0573 S_ex 77.7 n 241 | 1e-13 fd 0.0001 S_ex 7.8 n 300 st 0 -> rejected
+  E=0.95 L=-3.1667 x0=2.99559: 1e-11 fd 0.6710 S_ex 11.5 n 300 | 1e-13 fd 0.0004 S_ex 1.6 n 300 st 0 -> rejected
+  E=0.97 L=-1.9167 x0=3.71123: 1e-11 fd 0.6604 S_ex 23.0 n 300 | 1e-13 fd 0.0005 S_ex -0.6 n 300 st 0 -> rejected
+  E=0.97 L=-2.4167 x0=3.38229: 1e-11 fd 0.6139 S_ex 58.7 n 112 | 1e-13 fd 0.0010 S_ex 25.0 n 300 st 0 -> rejected
+  E=0.97 L=5.4167 x0=8.05179: 1e-11 fd 0.0490 S_ex 66.1 n 171 | 1e-13 fd 0.0000 S_ex 14.4 n 300 st 0 -> rejected
+  E=0.97 L=5.9167 x0=8.33635: 1e-11 fd 0.0165 S_ex 39.7 n 300 | 1e-13 fd 0.0000 S_ex 0.4 n 300 st 0 -> rejected
+VERDICT-A5 [kerr35] candidates 8: CONFIRMED 0, INCONCLUSIVE 0, rejected 8
+  [Tomimatsu-Sato delta=2 p=4/5] rhs module rhs_093919abe726c361.py [0s]
+  [Tomimatsu-Sato delta=2 p=4/5] rhs module rhs_093919abe726c361.py [0s]
+  [Tomimatsu-Sato delta=2 p=4/5] rhs module rhs_093919abe726c361.py [0s]
+  [Tomimatsu-Sato delta=2 p=4/5] rhs module rhs_093919abe726c361.py [0s]
+  [Tomimatsu-Sato delta=2 p=4/5] rhs module rhs_093919abe726c361.py [0s]
+  [Tomimatsu-Sato delta=2 p=4/5] rhs module rhs_093919abe726c361.py [0s]
+  [Tomimatsu-Sato delta=2 p=4/5] rhs module rhs_093919abe726c361.py [0s]
+  E=0.95 L=-2.5000 x0=7.18368: 1e-11 fd 0.0312 S_ex 25.7 n 181 | 1e-13 fd nan S_ex 16.5 n 70 st 1 -> rejected
+  E=0.95 L=-2.5000 x0=7.21985: 1e-11 fd 0.0329 S_ex 15.4 n 123 | 1e-13 fd 0.0222 S_ex 14.8 n 123 st 1 -> CONFIRMED
+  E=0.95 L=-2.5000 x0=7.22176: 1e-11 fd 0.0279 S_ex 15.4 n 300 | 1e-13 fd 0.0028 S_ex 6.1 n 300 st 0 -> rejected
+  E=0.95 L=-2.5000 x0=7.22556: 1e-11 fd 0.0314 S_ex 20.3 n 300 | 1e-13 fd 0.0065 S_ex 8.1 n 172 st 1 -> rejected
+  E=0.95 L=-2.8750 x0=6.98201: 1e-11 fd 0.0586 S_ex 35.0 n 300 | 1e-13 fd 0.0068 S_ex 23.4 n 215 st 1 -> rejected
+  E=0.95 L=-2.8750 x0=7.02173: 1e-11 fd 0.0201 S_ex 16.7 n 170 | 1e-13 fd 0.0285 S_ex 18.2 n 212 st 1 -> CONFIRMED
+  E=0.95 L=-2.8750 x0=7.02362: 1e-11 fd 0.0206 S_ex 12.3 n 300 | 1e-13 fd 0.6955 S_ex 15.8 n 300 st 0 -> CONFIRMED
+  E=0.95 L=-2.8750 x0=7.06335: 1e-11 fd 0.6796 S_ex 14.6 n 300 | 1e-13 fd 0.0000 S_ex 5.4 n 300 st 0 -> rejected
+  E=0.95 L=3.2500 x0=11.44434: 1e-11 fd 0.0674 S_ex 16.4 n 300 | 1e-13 fd 0.0024 S_ex 25.0 n 118 st 1 -> rejected
+  E=0.95 L=3.2500 x0=11.45046: 1e-11 fd 0.0210 S_ex 10.3 n 300 | 1e-13 fd 0.0289 S_ex 11.1 n 282 st 1 -> CONFIRMED
+  E=0.95 L=3.2500 x0=11.45657: 1e-11 fd 0.0543 S_ex 17.1 n 161 | 1e-13 fd 0.0882 S_ex 18.5 n 163 st 1 -> CONFIRMED
+  E=0.95 L=-3.2500 x0=6.81258: 1e-11 fd 0.0289 S_ex 25.0 n 300 | 1e-13 fd 0.0055 S_ex 39.2 n 300 st 0 -> rejected
+  E=0.95 L=-3.2500 x0=29.31505: 1e-11 fd 0.7034 S_ex 19.8 n 300 | 1e-13 fd 0.6844 S_ex 11.7 n 300 st 0 -> CONFIRMED
+  E=0.95 L=-3.6250 x0=6.60106: 1e-11 fd 0.0384 S_ex 21.8 n 117 | 1e-13 fd nan S_ex 9.1 n 98 st 1 -> rejected
+  E=0.95 L=-3.6250 x0=6.62226: 1e-11 fd 0.0294 S_ex 24.3 n 300 | 1e-13 fd 0.7001 S_ex 15.7 n 300 st 0 -> CONFIRMED
+  E=0.95 L=-3.6250 x0=6.63109: 1e-11 fd 0.0310 S_ex 21.8 n 300 | 1e-13 fd 0.7013 S_ex 11.9 n 300 st 0 -> CONFIRMED
+  E=0.95 L=-3.6250 x0=6.63639: 1e-11 fd 0.0155 S_ex 27.6 n 300 | 1e-13 fd 0.0012 S_ex 23.7 n 300 st 0 -> rejected
+  E=0.95 L=-3.6250 x0=6.63815: 1e-11 fd 0.0273 S_ex 17.0 n 278 | 1e-13 fd 0.6808 S_ex 14.1 n 253 st 1 -> CONFIRMED
+  E=0.95 L=-4.0000 x0=6.44984: 1e-11 fd 0.0380 S_ex 34.8 n 287 | 1e-13 fd 0.6853 S_ex 25.1 n 300 st 0 -> CONFIRMED
+  E=0.95 L=-4.0000 x0=6.45509: 1e-11 fd 0.0153 S_ex 12.6 n 181 | 1e-13 fd 0.0079 S_ex 23.6 n 300 st 0 -> rejected
+  E=0.95 L=-4.0000 x0=6.45684: 1e-11 fd 0.6967 S_ex 21.1 n 300 | 1e-13 fd 0.6764 S_ex 19.5 n 300 st 0 -> CONFIRMED
+  E=0.95 L=-4.3750 x0=6.28160: 1e-11 fd 0.0834 S_ex 34.6 n 263 | 1e-13 fd 0.0245 S_ex 8.0 n 125 st 1 -> rejected
+  E=0.95 L=-4.3750 x0=6.28324: 1e-11 fd 0.0433 S_ex 16.8 n 154 | 1e-13 fd 0.0460 S_ex 17.4 n 170 st 1 -> CONFIRMED
+  E=0.95 L=-4.3750 x0=6.31280: 1e-11 fd 0.6679 S_ex 14.0 n 300 | 1e-13 fd 0.6679 S_ex 15.4 n 300 st 0 -> CONFIRMED
+  E=0.95 L=-4.3750 x0=6.31444: 1e-11 fd 0.6690 S_ex 12.8 n 300 | 1e-13 fd 0.0000 S_ex 4.0 n 300 st 0 -> rejected
+  E=0.95 L=-4.7500 x0=6.08864: 1e-11 fd 0.0449 S_ex 27.8 n 300 | 1e-13 fd nan S_ex 11.8 n 96 st 1 -> rejected
+  E=0.95 L=-4.7500 x0=6.09027: 1e-11 fd 0.0647 S_ex 26.7 n 155 | 1e-13 fd nan S_ex 10.4 n 78 st 1 -> rejected
+  E=0.95 L=-4.7500 x0=6.11299: 1e-11 fd 0.0262 S_ex 22.2 n 300 | 1e-13 fd 0.0251 S_ex 18.8 n 300 st 0 -> CONFIRMED
+  E=0.95 L=-4.7500 x0=6.11624: 1e-11 fd 0.0401 S_ex 22.6 n 300 | 1e-13 fd 0.0542 S_ex 23.4 n 300 st 0 -> CONFIRMED
+  E=0.95 L=-5.1250 x0=5.93507: 1e-11 fd 0.0442 S_ex 24.9 n 244 | 1e-13 fd 0.0210 S_ex 25.4 n 300 st 0 -> CONFIRMED
+  E=0.95 L=-5.1250 x0=5.95027: 1e-11 fd 0.0327 S_ex 39.5 n 300 | 1e-13 fd 0.0058 S_ex 24.5 n 210 st 1 -> rejected
+  E=0.95 L=-5.1250 x0=5.95179: 1e-11 fd 0.0142 S_ex 14.3 n 115 | 1e-13 fd 0.0208 S_ex 24.0 n 228 st 1 -> CONFIRMED
+  E=0.95 L=-5.1250 x0=5.96243: 1e-11 fd 0.0144 S_ex 18.5 n 300 | 1e-13 fd 0.0376 S_ex 15.8 n 174 st 1 -> CONFIRMED
+  E=0.95 L=-5.5000 x0=5.80716: 1e-11 fd 0.0444 S_ex 25.9 n 107 | 1e-13 fd nan S_ex 6.8 n 60 st 1 -> rejected
+  E=0.95 L=-5.5000 x0=5.81165: 1e-11 fd 0.0131 S_ex 24.9 n 166 | 1e-13 fd nan S_ex 15.9 n 82 st 1 -> rejected
+  E=0.95 L=-5.5000 x0=5.81315: 1e-11 fd 0.0233 S_ex 17.9 n 300 | 1e-13 fd 0.0159 S_ex 18.5 n 250 st 1 -> CONFIRMED
+  E=0.95 L=-5.5000 x0=5.83862: 1e-11 fd 0.7008 S_ex 22.9 n 300 | 1e-13 fd 0.6682 S_ex 6.9 n 300 st 0 -> rejected
+  E=0.95 L=-5.8750 x0=5.65366: 1e-11 fd 0.0187 S_ex 18.9 n 106 | 1e-13 fd nan S_ex 11.4 n 66 st 1 -> rejected
+  E=0.95 L=-5.8750 x0=5.67279: 1e-11 fd 0.0212 S_ex 25.3 n 280 | 1e-13 fd 0.0020 S_ex 25.1 n 266 st 1 -> rejected
+  E=0.95 L=-5.8750 x0=5.67574: 1e-11 fd 0.0180 S_ex 10.9 n 300 | 1e-13 fd 0.0158 S_ex 15.0 n 300 st 0 -> CONFIRMED
+  E=0.95 L=-6.2500 x0=5.53864: 1e-11 fd 0.0301 S_ex 26.0 n 300 | 1e-13 fd 0.0591 S_ex 37.6 n 228 st 1 -> CONFIRMED
+  E=0.95 L=-6.6250 x0=5.41393: 1e-11 fd 0.0629 S_ex 11.0 n 129 | 1e-13 fd 0.0252 S_ex 19.1 n 143 st 1 -> CONFIRMED
+  E=0.97 L=2.5000 x0=8.62514: 1e-11 fd 0.0123 S_ex 22.6 n 164 | 1e-13 fd nan S_ex 16.9 n 76 st 1 -> rejected
+  E=0.97 L=2.5000 x0=8.69672: 1e-11 fd 0.0654 S_ex 22.5 n 113 | 1e-13 fd nan S_ex 8.2 n 77 st 1 -> rejected
+  E=0.97 L=2.5000 x0=8.70774: 1e-11 fd 0.0848 S_ex 21.8 n 279 | 1e-13 fd 0.0008 S_ex 4.3 n 300 st 0 -> rejected
+  E=0.97 L=-2.5000 x0=6.49871: 1e-11 fd 0.0199 S_ex 25.0 n 167 | 1e-13 fd 0.0031 S_ex 20.7 n 126 st 1 -> rejected
+  E=0.97 L=-2.5000 x0=6.51076: 1e-11 fd 0.0384 S_ex 18.0 n 131 | 1e-13 fd 0.0818 S_ex 16.9 n 101 st 1 -> CONFIRMED
+  E=0.97 L=-2.5000 x0=6.51478: 1e-11 fd 0.0956 S_ex 15.5 n 156 | 1e-13 fd 0.0492 S_ex 16.8 n 134 st 1 -> CONFIRMED
+  E=0.97 L=2.8750 x0=8.85255: 1e-11 fd 0.0250 S_ex 35.7 n 243 | 1e-13 fd 0.0041 S_ex 13.4 n 300 st 0 -> rejected
+  E=0.97 L=2.8750 x0=8.85804: 1e-11 fd 0.0231 S_ex 23.1 n 132 | 1e-13 fd 0.0367 S_ex 13.6 n 102 st 1 -> CONFIRMED
+  E=0.97 L=2.8750 x0=8.87450: 1e-11 fd 0.0539 S_ex 27.4 n 146 | 1e-13 fd 0.0198 S_ex 22.7 n 104 st 1 -> CONFIRMED
+  E=0.97 L=-2.8750 x0=6.28420: 1e-11 fd 0.0125 S_ex 21.9 n 300 | 1e-13 fd 0.0054 S_ex 28.1 n 255 st 1 -> rejected
+  E=0.97 L=-2.8750 x0=6.30223: 1e-11 fd 0.0268 S_ex 27.4 n 195 | 1e-13 fd 0.0258 S_ex 18.1 n 152 st 1 -> CONFIRMED
+  E=0.97 L=-2.8750 x0=6.36231: 1e-11 fd 0.0182 S_ex 25.8 n 232 | 1e-13 fd nan S_ex 6.4 n 95 st 1 -> rejected
+  E=0.97 L=-2.8750 x0=6.36832: 1e-11 fd 0.0162 S_ex 12.0 n 104 | 1e-13 fd nan S_ex 12.8 n 86 st 1 -> rejected
+  E=0.97 L=3.2500 x0=9.02377: 1e-11 fd 0.0128 S_ex 30.1 n 300 | 1e-13 fd nan S_ex 6.7 n 74 st 1 -> rejected
+  E=0.97 L=3.2500 x0=9.04415: 1e-11 fd 0.1373 S_ex 21.3 n 109 | 1e-13 fd nan S_ex 10.0 n 99 st 1 -> rejected
+  E=0.97 L=3.2500 x0=9.04997: 1e-11 fd 0.0163 S_ex 20.6 n 300 | 1e-13 fd nan S_ex 10.5 n 87 st 1 -> rejected
+  E=0.97 L=-3.2500 x0=6.19682: 1e-11 fd 0.0158 S_ex 29.0 n 225 | 1e-13 fd 0.0175 S_ex 15.4 n 158 st 1 -> CONFIRMED
+  E=0.97 L=-3.2500 x0=6.20879: 1e-11 fd 0.0489 S_ex 13.6 n 143 | 1e-13 fd 0.0272 S_ex 9.5 n 117 st 1 -> rejected
+  E=0.97 L=3.6250 x0=9.20117: 1e-11 fd 0.0438 S_ex 41.9 n 257 | 1e-13 fd 0.0092 S_ex 32.7 n 280 st 1 -> rejected
+  E=0.97 L=3.6250 x0=9.20987: 1e-11 fd 0.0124 S_ex 16.0 n 300 | 1e-13 fd 0.0137 S_ex 25.7 n 262 st 1 -> CONFIRMED
+  E=0.97 L=3.6250 x0=9.21277: 1e-11 fd 0.0293 S_ex 19.3 n 300 | 1e-13 fd 0.0067 S_ex 17.4 n 300 st 0 -> rejected
+  E=0.97 L=3.6250 x0=9.22725: 1e-11 fd 0.0510 S_ex 24.0 n 238 | 1e-13 fd 0.0355 S_ex 19.5 n 219 st 1 -> CONFIRMED
+  E=0.97 L=3.6250 x0=9.23015: 1e-11 fd 0.0483 S_ex 28.8 n 248 | 1e-13 fd 0.0043 S_ex 17.2 n 300 st 0 -> rejected
+  E=0.97 L=-3.6250 x0=6.07501: 1e-11 fd 0.0392 S_ex 19.1 n 130 | 1e-13 fd nan S_ex 9.1 n 84 st 1 -> rejected
+  E=0.97 L=4.0000 x0=9.37673: 1e-11 fd 0.0348 S_ex 13.2 n 223 | 1e-13 fd 0.0299 S_ex 27.0 n 232 st 1 -> CONFIRMED
+  E=0.97 L=4.0000 x0=9.37961: 1e-11 fd 0.0330 S_ex 12.0 n 141 | 1e-13 fd 0.0483 S_ex 14.3 n 145 st 1 -> CONFIRMED
+  E=0.97 L=4.0000 x0=9.40557: 1e-11 fd 0.0123 S_ex 15.1 n 300 | 1e-13 fd 0.0011 S_ex 5.9 n 300 st 0 -> rejected
+  E=0.97 L=4.0000 x0=9.40845: 1e-11 fd 0.0341 S_ex 16.2 n 300 | 1e-13 fd 0.0000 S_ex 3.7 n 300 st 0 -> rejected
+  E=0.97 L=-4.0000 x0=5.89496: 1e-11 fd 0.0287 S_ex 18.9 n 155 | 1e-13 fd 0.0000 S_ex 15.9 n 234 st 1 -> rejected
+  E=0.97 L=-4.0000 x0=5.93775: 1e-11 fd 0.0251 S_ex 29.4 n 200 | 1e-13 fd 0.0006 S_ex 11.1 n 146 st 1 -> rejected
+  E=0.97 L=-4.0000 x0=5.93961: 1e-11 fd 0.0130 S_ex 19.7 n 151 | 1e-13 fd nan S_ex 8.3 n 69 st 1 -> rejected
+  E=0.97 L=4.3750 x0=9.55444: 1e-11 fd 0.0203 S_ex 20.9 n 213 | 1e-13 fd 0.0049 S_ex 33.7 n 249 st 1 -> rejected
+  E=0.97 L=4.3750 x0=9.55750: 1e-11 fd 0.0188 S_ex 23.1 n 300 | 1e-13 fd 0.0096 S_ex 20.1 n 300 st 0 -> rejected
+  E=0.97 L=4.3750 x0=9.57276: 1e-11 fd 0.0165 S_ex 15.4 n 121 | 1e-13 fd 0.0126 S_ex 20.2 n 189 st 1 -> CONFIRMED
+  E=0.97 L=4.3750 x0=9.58191: 1e-11 fd 0.0521 S_ex 18.5 n 142 | 1e-13 fd 0.0012 S_ex 18.3 n 300 st 0 -> rejected
+  E=0.97 L=-4.3750 x0=5.80163: 1e-11 fd 0.0216 S_ex 19.0 n 157 | 1e-13 fd 0.0040 S_ex 30.1 n 246 st 1 -> rejected
+  E=0.97 L=4.7500 x0=9.65480: 1e-11 fd 0.0191 S_ex 21.3 n 300 | 1e-13 fd 0.0436 S_ex 18.0 n 136 st 1 -> CONFIRMED
+  E=0.97 L=4.7500 x0=9.73063: 1e-11 fd 0.0144 S_ex 25.7 n 300 | 1e-13 fd 0.0163 S_ex 11.7 n 300 st 0 -> CONFIRMED
+  E=0.97 L=4.7500 x0=9.75490: 1e-11 fd 0.0366 S_ex 27.8 n 300 | 1e-13 fd 0.0424 S_ex 23.9 n 225 st 1 -> CONFIRMED
+  E=0.97 L=4.7500 x0=9.75793: 1e-11 fd 0.0297 S_ex 21.4 n 194 | 1e-13 fd nan S_ex 7.6 n 95 st 1 -> rejected
+  E=0.97 L=-4.7500 x0=5.66431: 1e-11 fd 0.0448 S_ex 13.6 n 169 | 1e-13 fd 0.0105 S_ex 9.1 n 136 st 1 -> rejected
+  E=0.97 L=-4.7500 x0=65.08627: 1e-11 fd 0.0234 S_ex 31.9 n 300 | 1e-13 fd 0.0025 S_ex 28.2 n 231 st 1 -> rejected
+  E=0.97 L=5.1250 x0=9.85484: 1e-11 fd 0.6634 S_ex 13.9 n 101 | 1e-13 fd 0.0692 S_ex 23.2 n 120 st 1 -> CONFIRMED
+  E=0.97 L=5.1250 x0=9.85785: 1e-11 fd 0.0389 S_ex 30.7 n 125 | 1e-13 fd 0.0749 S_ex 24.4 n 142 st 1 -> CONFIRMED
+  E=0.97 L=5.1250 x0=9.86688: 1e-11 fd 0.0456 S_ex 31.4 n 198 | 1e-13 fd 0.0126 S_ex 7.3 n 300 st 0 -> rejected
+  E=0.97 L=5.1250 x0=9.89701: 1e-11 fd 0.1096 S_ex 43.9 n 246 | 1e-13 fd 0.0562 S_ex 12.0 n 100 st 1 -> CONFIRMED
+  E=0.97 L=5.1250 x0=9.90604: 1e-11 fd 0.0246 S_ex 32.8 n 298 | 1e-13 fd 0.0161 S_ex 9.8 n 300 st 0 -> rejected
+  E=0.97 L=5.1250 x0=9.91207: 1e-11 fd 0.0199 S_ex 15.5 n 205 | 1e-13 fd 0.0439 S_ex 16.6 n 231 st 1 -> CONFIRMED
+  E=0.97 L=5.1250 x0=9.92713: 1e-11 fd 0.0663 S_ex 17.7 n 125 | 1e-13 fd 0.1138 S_ex 26.8 n 178 st 1 -> CONFIRMED
+  E=0.97 L=5.1250 x0=9.93014: 1e-11 fd 0.0494 S_ex 22.4 n 247 | 1e-13 fd 0.0146 S_ex 23.7 n 300 st 0 -> CONFIRMED
+  E=0.97 L=-5.1250 x0=5.54338: 1e-11 fd 0.0136 S_ex 24.0 n 300 | 1e-13 fd 0.0019 S_ex 24.2 n 269 st 1 -> rejected
+  E=0.97 L=-5.1250 x0=5.55371: 1e-11 fd 0.0345 S_ex 12.7 n 109 | 1e-13 fd 0.0033 S_ex 23.0 n 187 st 1 -> rejected
+  E=0.97 L=5.5000 x0=10.02196: 1e-11 fd 0.0160 S_ex 18.8 n 300 | 1e-13 fd 0.0154 S_ex 10.5 n 300 st 0 -> CONFIRMED
+  E=0.97 L=5.5000 x0=10.05375: 1e-11 fd 0.0438 S_ex 25.0 n 161 | 1e-13 fd nan S_ex 10.7 n 79 st 1 -> rejected
+  E=0.97 L=5.5000 x0=10.08555: 1e-11 fd 0.0883 S_ex 27.2 n 194 | 1e-13 fd 0.0072 S_ex 13.2 n 120 st 1 -> rejected
+  E=0.97 L=5.5000 x0=10.09508: 1e-11 fd 0.0149 S_ex 11.7 n 300 | 1e-13 fd 0.0049 S_ex 23.5 n 300 st 0 -> rejected
+  E=0.97 L=5.5000 x0=10.11416: 1e-11 fd 0.0313 S_ex 17.9 n 300 | 1e-13 fd 0.0489 S_ex 14.7 n 300 st 0 -> CONFIRMED
+  E=0.97 L=-5.5000 x0=5.42412: 1e-11 fd 0.0543 S_ex 16.9 n 125 | 1e-13 fd 0.0103 S_ex 25.2 n 287 st 1 -> rejected
+  E=0.97 L=-5.5000 x0=5.42754: 1e-11 fd 0.0261 S_ex 28.6 n 300 | 1e-13 fd nan S_ex 10.4 n 62 st 1 -> rejected
+  E=0.97 L=-5.5000 x0=5.43438: 1e-11 fd 0.0414 S_ex 32.4 n 212 | 1e-13 fd 0.0628 S_ex 14.5 n 117 st 1 -> CONFIRMED
+  E=0.97 L=5.8750 x0=10.21220: 1e-11 fd 0.0216 S_ex 18.4 n 114 | 1e-13 fd nan S_ex 12.7 n 85 st 1 -> rejected
+  E=0.97 L=5.8750 x0=10.22481: 1e-11 fd 0.6630 S_ex 15.1 n 133 | 1e-13 fd 0.0167 S_ex 19.5 n 114 st 1 -> CONFIRMED
+  E=0.97 L=5.8750 x0=10.25948: 1e-11 fd 0.0267 S_ex 22.2 n 300 | 1e-13 fd 0.0221 S_ex 10.5 n 300 st 0 -> CONFIRMED
+  E=0.97 L=5.8750 x0=10.27524: 1e-11 fd 0.0238 S_ex 17.4 n 300 | 1e-13 fd 0.0311 S_ex 14.2 n 300 st 0 -> CONFIRMED
+  E=0.97 L=5.8750 x0=10.28155: 1e-11 fd 0.0269 S_ex 13.6 n 300 | 1e-13 fd 0.0039 S_ex 22.5 n 300 st 0 -> rejected
+  E=0.97 L=5.8750 x0=10.28470: 1e-11 fd 0.0166 S_ex 11.5 n 300 | 1e-13 fd 0.0199 S_ex 18.5 n 300 st 0 -> CONFIRMED
+  E=0.97 L=5.8750 x0=10.28785: 1e-11 fd 0.0245 S_ex 14.7 n 300 | 1e-13 fd 0.0089 S_ex 15.8 n 300 st 0 -> rejected
+  E=0.97 L=5.8750 x0=10.29416: 1e-11 fd 0.0742 S_ex 14.7 n 300 | 1e-13 fd 0.0504 S_ex 22.1 n 300 st 0 -> CONFIRMED
+  E=0.97 L=-5.8750 x0=5.27342: 1e-11 fd 0.0217 S_ex 43.0 n 225 | 1e-13 fd 0.0176 S_ex 15.7 n 104 st 1 -> CONFIRMED
+  E=0.97 L=-5.8750 x0=5.28141: 1e-11 fd 0.0990 S_ex 12.1 n 112 | 1e-13 fd nan S_ex 13.9 n 92 st 1 -> rejected
+  E=0.97 L=-5.8750 x0=5.32134: 1e-11 fd 0.0424 S_ex 49.6 n 287 | 1e-13 fd 0.0226 S_ex 18.0 n 195 st 1 -> CONFIRMED
+  E=0.97 L=-5.8750 x0=5.32772: 1e-11 fd 0.0443 S_ex 14.5 n 300 | 1e-13 fd 0.0016 S_ex 4.0 n 300 st 0 -> rejected
+  E=0.97 L=6.2500 x0=10.38451: 1e-11 fd 0.0130 S_ex 24.6 n 175 | 1e-13 fd 0.0652 S_ex 29.6 n 300 st 0 -> CONFIRMED
+  E=0.97 L=6.2500 x0=10.38763: 1e-11 fd 0.0597 S_ex 16.4 n 209 | 1e-13 fd 0.0045 S_ex 26.2 n 235 st 1 -> rejected
+  E=0.97 L=6.2500 x0=10.43760: 1e-11 fd 0.0675 S_ex 20.4 n 185 | 1e-13 fd 0.0228 S_ex 11.8 n 141 st 1 -> CONFIRMED
+  E=0.97 L=6.2500 x0=10.44072: 1e-11 fd 0.0134 S_ex 15.1 n 300 | 1e-13 fd 0.0133 S_ex 18.8 n 300 st 0 -> CONFIRMED
+  E=0.97 L=-6.2500 x0=5.19052: 1e-11 fd 0.0966 S_ex 29.0 n 153 | 1e-13 fd nan S_ex 12.0 n 51 st 1 -> rejected
+  E=0.97 L=-6.2500 x0=5.19528: 1e-11 fd 0.0507 S_ex 13.3 n 300 | 1e-13 fd 0.0445 S_ex 36.4 n 295 st 1 -> CONFIRMED
+  E=0.97 L=-6.2500 x0=5.19686: 1e-11 fd 0.6642 S_ex 13.4 n 133 | 1e-13 fd 0.0030 S_ex 11.0 n 121 st 1 -> rejected
+  E=0.97 L=-6.2500 x0=5.20796: 1e-11 fd 0.0183 S_ex 14.1 n 300 | 1e-13 fd 0.0182 S_ex 16.9 n 300 st 0 -> CONFIRMED
+  E=0.97 L=-6.2500 x0=5.22064: 1e-11 fd 0.0149 S_ex 15.2 n 300 | 1e-13 fd 0.0039 S_ex 8.0 n 300 st 0 -> rejected
+  E=0.97 L=-6.6250 x0=5.08243: 1e-11 fd 0.0117 S_ex 16.8 n 115 | 1e-13 fd nan S_ex 13.0 n 95 st 1 -> rejected
+  E=0.97 L=-7.0000 x0=4.99519: 1e-11 fd 0.0674 S_ex 23.1 n 143 | 1e-13 fd 0.0266 S_ex 31.3 n 273 st 1 -> CONFIRMED
+  E=0.97 L=-7.0000 x0=4.99675: 1e-11 fd 0.6720 S_ex 21.3 n 300 | 1e-13 fd 0.0764 S_ex 20.5 n 151 st 1 -> CONFIRMED
+  E=0.97 L=-7.0000 x0=5.00608: 1e-11 fd 0.0122 S_ex 19.4 n 300 | 1e-13 fd 0.0240 S_ex 4.5 n 300 st 0 -> rejected
+  E=0.97 L=7.3750 x0=10.95092: 1e-11 fd 0.6687 S_ex 26.4 n 171 | 1e-13 fd nan S_ex 9.6 n 86 st 1 -> rejected
+  E=0.97 L=7.3750 x0=10.96452: 1e-11 fd 0.0136 S_ex 27.4 n 286 | 1e-13 fd 0.0077 S_ex 7.9 n 300 st 0 -> rejected
+  E=0.97 L=7.7500 x0=11.13757: 1e-11 fd 0.0172 S_ex 11.5 n 241 | 1e-13 fd 0.0161 S_ex 1.0 n 195 st 1 -> rejected
+  E=0.97 L=-7.7500 x0=4.83589: 1e-11 fd 0.0195 S_ex 11.9 n 124 | 1e-13 fd 0.0455 S_ex 22.6 n 213 st 1 -> CONFIRMED
+  E=0.97 L=8.1250 x0=11.27211: 1e-11 fd 0.0616 S_ex 19.8 n 138 | 1e-13 fd 0.0367 S_ex 21.9 n 158 st 1 -> CONFIRMED
+  E=0.97 L=8.8750 x0=11.62377: 1e-11 fd 0.7031 S_ex 26.8 n 203 | 1e-13 fd nan S_ex 12.9 n 77 st 1 -> rejected
+  E=0.97 L=8.8750 x0=11.63045: 1e-11 fd 0.6977 S_ex 11.7 n 116 | 1e-13 fd 0.6854 S_ex 31.2 n 299 st 1 -> CONFIRMED
+VERDICT-A5 [ts45] candidates 134: CONFIRMED 62, INCONCLUSIVE 0, rejected 72
+  [Tomimatsu-Sato delta=2 p=3/5] rhs module rhs_e3d9c088caea4fd8.py [0s]
+  [Tomimatsu-Sato delta=2 p=3/5] rhs module rhs_e3d9c088caea4fd8.py [0s]
+  [Tomimatsu-Sato delta=2 p=3/5] rhs module rhs_e3d9c088caea4fd8.py [0s]
+  [Tomimatsu-Sato delta=2 p=3/5] rhs module rhs_e3d9c088caea4fd8.py [0s]
+  [Tomimatsu-Sato delta=2 p=3/5] rhs module rhs_e3d9c088caea4fd8.py [0s]
+  [Tomimatsu-Sato delta=2 p=3/5] rhs module rhs_e3d9c088caea4fd8.py [0s]
+  [Tomimatsu-Sato delta=2 p=3/5] rhs module rhs_e3d9c088caea4fd8.py [0s]
+  E=0.95 L=-3.3333 x0=8.22962: 1e-11 fd 0.0555 S_ex 40.5 n 236 | 1e-13 fd nan S_ex 9.6 n 76 st 1 -> rejected
+  E=0.95 L=-3.3333 x0=8.23949: 1e-11 fd 0.0224 S_ex 19.2 n 268 | 1e-13 fd 0.0067 S_ex 11.0 n 197 st 1 -> rejected
+  E=0.95 L=-3.3333 x0=8.24195: 1e-11 fd 0.0261 S_ex 11.2 n 198 | 1e-13 fd 0.0355 S_ex 17.5 n 300 st 0 -> CONFIRMED
+  E=0.95 L=3.8333 x0=15.36645: 1e-11 fd 0.0397 S_ex 29.8 n 300 | 1e-13 fd 0.0068 S_ex 26.2 n 300 st 0 -> rejected
+  E=0.95 L=-3.8333 x0=7.83467: 1e-11 fd 0.0304 S_ex 27.2 n 198 | 1e-13 fd 0.0675 S_ex 12.4 n 119 st 1 -> CONFIRMED
+  E=0.95 L=-3.8333 x0=7.84161: 1e-11 fd 0.0334 S_ex 22.7 n 211 | 1e-13 fd 0.0121 S_ex 26.3 n 139 st 1 -> CONFIRMED
+  E=0.95 L=-5.3333 x0=6.69822: 1e-11 fd 0.0128 S_ex 21.0 n 219 | 1e-13 fd 0.0044 S_ex 22.9 n 238 st 1 -> rejected
+  E=0.95 L=-5.3333 x0=6.70961: 1e-11 fd 0.0236 S_ex 26.5 n 125 | 1e-13 fd 0.0306 S_ex 17.2 n 149 st 1 -> CONFIRMED
+  E=0.95 L=-5.3333 x0=6.71151: 1e-11 fd 0.0265 S_ex 24.8 n 300 | 1e-13 fd 0.0187 S_ex 24.2 n 300 st 0 -> CONFIRMED
+  E=0.95 L=-5.3333 x0=6.71530: 1e-11 fd 0.0385 S_ex 11.1 n 300 | 1e-13 fd 0.0145 S_ex 16.1 n 234 st 1 -> CONFIRMED
+  E=0.95 L=-5.3333 x0=6.71720: 1e-11 fd 0.0274 S_ex 20.4 n 300 | 1e-13 fd 0.0213 S_ex 24.8 n 300 st 0 -> CONFIRMED
+  E=0.95 L=-5.8333 x0=6.37370: 1e-11 fd 0.0119 S_ex 20.2 n 148 | 1e-13 fd 0.0012 S_ex 15.9 n 129 st 1 -> rejected
+  E=0.95 L=-5.8333 x0=6.39625: 1e-11 fd 0.0343 S_ex 26.0 n 176 | 1e-13 fd 0.0076 S_ex 13.9 n 140 st 1 -> rejected
+  E=0.95 L=-6.3333 x0=6.07110: 1e-11 fd 0.0203 S_ex 17.1 n 169 | 1e-13 fd 0.0029 S_ex 40.3 n 288 st 1 -> rejected
+  E=0.95 L=-6.3333 x0=6.07987: 1e-11 fd 0.0468 S_ex 15.2 n 104 | 1e-13 fd 0.0309 S_ex 18.7 n 137 st 1 -> CONFIRMED
+  E=0.95 L=-6.8333 x0=5.75772: 1e-11 fd 0.6690 S_ex 12.2 n 155 | 1e-13 fd 0.0003 S_ex 7.9 n 150 st 1 -> rejected
+  E=0.95 L=-7.3333 x0=5.46565: 1e-11 fd 0.0639 S_ex 12.0 n 141 | 1e-13 fd 0.0506 S_ex 22.1 n 273 st 1 -> CONFIRMED
+  E=0.95 L=-7.3333 x0=5.47480: 1e-11 fd 0.0220 S_ex 17.0 n 203 | 1e-13 fd 0.0012 S_ex 10.3 n 145 st 1 -> rejected
+  E=0.95 L=-7.3333 x0=5.47633: 1e-11 fd 0.0275 S_ex 10.3 n 127 | 1e-13 fd 0.0116 S_ex 18.3 n 205 st 1 -> CONFIRMED
+  E=0.95 L=-7.8333 x0=5.19409: 1e-11 fd 0.0398 S_ex 38.9 n 287 | 1e-13 fd 0.0092 S_ex 14.0 n 182 st 1 -> rejected
+  E=0.95 L=-7.8333 x0=5.19860: 1e-11 fd 0.0228 S_ex 24.1 n 300 | 1e-13 fd 0.0049 S_ex 21.1 n 237 st 1 -> rejected
+  E=0.95 L=-7.8333 x0=5.24966: 1e-11 fd 0.0272 S_ex 15.6 n 279 | 1e-13 fd 0.0148 S_ex 18.8 n 275 st 1 -> CONFIRMED
+  E=0.95 L=-8.3333 x0=4.93508: 1e-11 fd 0.0193 S_ex 17.8 n 170 | 1e-13 fd 0.0354 S_ex 25.1 n 159 st 1 -> CONFIRMED
+  E=0.95 L=-8.3333 x0=4.94345: 1e-11 fd 0.0148 S_ex 21.8 n 229 | 1e-13 fd 0.0246 S_ex 21.2 n 300 st 0 -> CONFIRMED
+  E=0.95 L=-8.3333 x0=4.98251: 1e-11 fd 0.0140 S_ex 27.9 n 300 | 1e-13 fd 0.0026 S_ex 18.6 n 189 st 1 -> rejected
+  E=0.95 L=-8.3333 x0=4.98391: 1e-11 fd 0.0223 S_ex 18.7 n 300 | 1e-13 fd 0.0118 S_ex 21.1 n 300 st 0 -> CONFIRMED
+  E=0.95 L=-8.3333 x0=4.98530: 1e-11 fd 0.0166 S_ex 10.3 n 300 | 1e-13 fd 0.0024 S_ex 18.9 n 260 st 1 -> rejected
+  E=0.95 L=-8.8333 x0=4.70274: 1e-11 fd 0.0350 S_ex 26.0 n 265 | 1e-13 fd 0.0326 S_ex 20.5 n 300 st 0 -> CONFIRMED
+  E=0.95 L=-8.8333 x0=4.70404: 1e-11 fd 0.0117 S_ex 12.8 n 300 | 1e-13 fd 0.0005 S_ex 21.2 n 300 st 0 -> rejected
+  E=0.95 L=-8.8333 x0=4.70533: 1e-11 fd 0.0221 S_ex 23.7 n 175 | 1e-13 fd 0.0104 S_ex 14.3 n 152 st 1 -> rejected
+  E=0.97 L=3.3333 x0=11.62340: 1e-11 fd 0.6791 S_ex 32.7 n 197 | 1e-13 fd 0.0005 S_ex 24.9 n 126 st 1 -> rejected
+  E=0.97 L=3.3333 x0=11.72529: 1e-11 fd 0.0185 S_ex 15.9 n 300 | 1e-13 fd 0.0051 S_ex 14.5 n 300 st 0 -> rejected
+  E=0.97 L=3.3333 x0=11.72937: 1e-11 fd 0.0261 S_ex 28.5 n 281 | 1e-13 fd 0.0063 S_ex 14.8 n 300 st 0 -> rejected
+  E=0.97 L=-3.3333 x0=7.56988: 1e-11 fd 0.0153 S_ex 21.3 n 200 | 1e-13 fd 0.0100 S_ex 14.2 n 300 st 0 -> rejected
+  E=0.97 L=-3.3333 x0=7.58762: 1e-11 fd 0.0168 S_ex 13.6 n 300 | 1e-13 fd 0.0087 S_ex 10.2 n 300 st 0 -> rejected
+  E=0.97 L=-3.3333 x0=7.59776: 1e-11 fd 0.0166 S_ex 10.9 n 300 | 1e-13 fd 0.0130 S_ex 14.5 n 300 st 0 -> CONFIRMED
+  E=0.97 L=-3.3333 x0=7.60283: 1e-11 fd 0.0146 S_ex 13.0 n 300 | 1e-13 fd 0.0238 S_ex 11.0 n 300 st 0 -> CONFIRMED
+  E=0.97 L=3.8333 x0=11.99239: 1e-11 fd 0.0198 S_ex 23.2 n 288 | 1e-13 fd 0.0215 S_ex 16.3 n 204 st 1 -> CONFIRMED
+  E=0.97 L=3.8333 x0=12.00051: 1e-11 fd 0.0331 S_ex 19.6 n 198 | 1e-13 fd 0.0064 S_ex 10.5 n 162 st 1 -> rejected
+  E=0.97 L=3.8333 x0=12.02082: 1e-11 fd 0.0126 S_ex 18.3 n 206 | 1e-13 fd 0.0247 S_ex 7.0 n 129 st 1 -> rejected
+  E=0.97 L=-3.8333 x0=7.21124: 1e-11 fd 0.0509 S_ex 27.6 n 158 | 1e-13 fd nan S_ex 11.6 n 75 st 1 -> rejected
+  E=0.97 L=-3.8333 x0=7.24915: 1e-11 fd 0.0689 S_ex 24.8 n 141 | 1e-13 fd nan S_ex 15.6 n 56 st 1 -> rejected
+  E=0.97 L=-3.8333 x0=7.25927: 1e-11 fd 0.0151 S_ex 21.7 n 152 | 1e-13 fd nan S_ex 8.3 n 76 st 1 -> rejected
+  E=0.97 L=4.3333 x0=12.31016: 1e-11 fd 0.0436 S_ex 16.0 n 175 | 1e-13 fd 0.0505 S_ex 25.5 n 204 st 1 -> CONFIRMED
+  E=0.97 L=-4.3333 x0=6.89838: 1e-11 fd 0.0375 S_ex 21.1 n 107 | 1e-13 fd nan S_ex 11.3 n 97 st 1 -> rejected
+  E=0.97 L=-4.3333 x0=6.94548: 1e-11 fd 0.1032 S_ex 24.9 n 195 | 1e-13 fd 0.0083 S_ex 16.3 n 162 st 1 -> rejected
+  E=0.97 L=4.8333 x0=12.58035: 1e-11 fd 0.0117 S_ex 13.2 n 100 | 1e-13 fd 0.0303 S_ex 11.4 n 112 st 1 -> CONFIRMED
+  E=0.97 L=5.3333 x0=12.86673: 1e-11 fd 0.0427 S_ex 16.1 n 300 | 1e-13 fd 0.0684 S_ex 21.2 n 300 st 0 -> CONFIRMED
+  E=0.97 L=5.3333 x0=12.90105: 1e-11 fd 0.0449 S_ex 18.3 n 228 | 1e-13 fd 0.0114 S_ex 11.6 n 300 st 0 -> rejected
+  E=0.97 L=5.8333 x0=13.12497: 1e-11 fd 0.6528 S_ex 23.9 n 173 | 1e-13 fd 0.0000 S_ex 7.4 n 300 st 0 -> rejected
+  E=0.97 L=-5.8333 x0=6.02405: 1e-11 fd 0.0330 S_ex 35.5 n 155 | 1e-13 fd 0.6666 S_ex 11.9 n 112 st 1 -> CONFIRMED
+  E=0.97 L=-5.8333 x0=6.05049: 1e-11 fd 0.6488 S_ex 18.5 n 252 | 1e-13 fd 0.0250 S_ex 14.0 n 121 st 1 -> CONFIRMED
+  E=0.97 L=6.3333 x0=13.47377: 1e-11 fd 0.6627 S_ex 18.0 n 237 | 1e-13 fd 0.0204 S_ex 28.4 n 235 st 1 -> CONFIRMED
+  E=0.97 L=-6.3333 x0=5.79542: 1e-11 fd 0.0125 S_ex 15.3 n 300 | 1e-13 fd 0.0142 S_ex 10.2 n 300 st 0 -> CONFIRMED
+  E=0.97 L=-6.8333 x0=5.51704: 1e-11 fd 0.0249 S_ex 28.2 n 290 | 1e-13 fd 0.0013 S_ex 14.2 n 300 st 0 -> rejected
+  E=0.97 L=7.3333 x0=14.07811: 1e-11 fd 0.6679 S_ex 11.6 n 299 | 1e-13 fd 0.6679 S_ex 11.2 n 299 st 1 -> CONFIRMED
+  E=0.97 L=-7.3333 x0=5.23265: 1e-11 fd 0.0167 S_ex 21.7 n 128 | 1e-13 fd 0.0676 S_ex 25.0 n 133 st 1 -> CONFIRMED
+  E=0.97 L=-7.3333 x0=5.26941: 1e-11 fd 0.0341 S_ex 13.6 n 138 | 1e-13 fd 0.0500 S_ex 9.7 n 141 st 1 -> rejected
+  E=0.97 L=-7.3333 x0=5.31142: 1e-11 fd 0.0146 S_ex 30.1 n 218 | 1e-13 fd 0.0006 S_ex 14.3 n 153 st 1 -> rejected
+  E=0.97 L=7.8333 x0=14.38676: 1e-11 fd 0.0400 S_ex 24.9 n 209 | 1e-13 fd 0.6716 S_ex 24.0 n 260 st 1 -> CONFIRMED
+  E=0.97 L=-7.8333 x0=5.07724: 1e-11 fd 0.0350 S_ex 21.1 n 300 | 1e-13 fd 0.0043 S_ex 7.9 n 150 st 1 -> rejected
+  E=0.97 L=8.3333 x0=14.63733: 1e-11 fd 0.0247 S_ex 20.6 n 118 | 1e-13 fd 0.0097 S_ex 16.8 n 300 st 0 -> rejected
+  E=0.97 L=8.3333 x0=14.68735: 1e-11 fd 0.0150 S_ex 28.2 n 299 | 1e-13 fd 0.0013 S_ex 7.1 n 134 st 1 -> rejected
+  E=0.97 L=-8.3333 x0=4.82223: 1e-11 fd 0.0180 S_ex 19.1 n 170 | 1e-13 fd 0.0041 S_ex 39.7 n 216 st 1 -> rejected
+  E=0.97 L=-8.3333 x0=4.85456: 1e-11 fd 0.0289 S_ex 10.7 n 300 | 1e-13 fd 0.0165 S_ex 8.4 n 237 st 1 -> rejected
+  E=0.97 L=8.8333 x0=14.93406: 1e-11 fd 0.6775 S_ex 20.4 n 300 | 1e-13 fd 0.6701 S_ex 27.0 n 276 st 1 -> CONFIRMED
+  E=0.97 L=8.8333 x0=14.98847: 1e-11 fd 0.6681 S_ex 11.5 n 251 | 1e-13 fd 0.6659 S_ex 22.4 n 261 st 1 -> CONFIRMED
+  E=0.97 L=8.8333 x0=14.99341: 1e-11 fd 0.6680 S_ex 15.6 n 267 | 1e-13 fd 0.6679 S_ex 15.5 n 283 st 1 -> CONFIRMED
+  E=0.97 L=-9.3333 x0=4.42506: 1e-11 fd 0.0284 S_ex 20.0 n 300 | 1e-13 fd 0.0271 S_ex 6.8 n 145 st 1 -> rejected
+  E=0.97 L=9.8333 x0=15.59618: 1e-11 fd 0.6940 S_ex 16.0 n 300 | 1e-13 fd 0.6764 S_ex 16.8 n 300 st 0 -> CONFIRMED
+  E=0.97 L=10.3333 x0=15.82137: 1e-11 fd 0.0598 S_ex 10.4 n 108 | 1e-13 fd 0.0636 S_ex 16.9 n 109 st 1 -> CONFIRMED
+  E=0.97 L=10.3333 x0=15.84161: 1e-11 fd 0.0321 S_ex 12.9 n 103 | 1e-13 fd 0.0460 S_ex 16.2 n 300 st 0 -> CONFIRMED
+  E=0.97 L=10.8333 x0=16.09611: 1e-11 fd 0.0585 S_ex 28.8 n 204 | 1e-13 fd 0.0241 S_ex 22.1 n 107 st 1 -> CONFIRMED
+  E=0.97 L=10.8333 x0=16.12791: 1e-11 fd 0.0267 S_ex 25.7 n 190 | 1e-13 fd 0.0315 S_ex 7.8 n 300 st 0 -> rejected
+  E=0.97 L=10.8333 x0=16.13852: 1e-11 fd 0.0174 S_ex 11.8 n 129 | 1e-13 fd 0.0168 S_ex 14.5 n 126 st 1 -> CONFIRMED
+  E=0.97 L=10.8333 x0=16.15442: 1e-11 fd 0.6656 S_ex 10.1 n 300 | 1e-13 fd 0.6685 S_ex 12.5 n 300 st 0 -> CONFIRMED
+  E=0.97 L=11.8333 x0=16.69746: 1e-11 fd 0.0211 S_ex 22.3 n 180 | 1e-13 fd 0.0228 S_ex 31.2 n 235 st 1 -> CONFIRMED
+  E=0.97 L=11.8333 x0=16.74069: 1e-11 fd 0.0186 S_ex 20.2 n 292 | 1e-13 fd 0.0505 S_ex 20.4 n 300 st 0 -> CONFIRMED
+  E=0.97 L=11.8333 x0=16.74609: 1e-11 fd 0.0639 S_ex 35.8 n 286 | 1e-13 fd 0.0274 S_ex 10.8 n 277 st 1 -> CONFIRMED
+VERDICT-A5 [ts35] candidates 79: CONFIRMED 40, INCONCLUSIVE 0, rejected 39
+  [Kerr (TS2 pipeline, delta=1) p=4/5] rhs module rhs_f234d03df20c467e.py [0s]
+  [Kerr (TS2 pipeline, delta=1) p=4/5] rhs module rhs_f234d03df20c467e.py [0s]
+  [Kerr (TS2 pipeline, delta=1) p=4/5] rhs module rhs_f234d03df20c467e.py [0s]
+  [Kerr (TS2 pipeline, delta=1) p=4/5] rhs module rhs_f234d03df20c467e.py [0s]
+  [Kerr (TS2 pipeline, delta=1) p=4/5] rhs module rhs_f234d03df20c467e.py [0s]
+  [Kerr (TS2 pipeline, delta=1) p=4/5] rhs module rhs_f234d03df20c467e.py [0s]
+  [Kerr (TS2 pipeline, delta=1) p=4/5] rhs module rhs_f234d03df20c467e.py [0s]
+  E=0.95 L=-1.2500 x0=3.74993: 1e-11 fd 0.0253 S_ex 84.2 n 300 | 1e-13 fd 0.0000 S_ex 11.2 n 300 st 0 -> rejected
+  E=0.95 L=1.6250 x0=5.90239: 1e-11 fd 0.0551 S_ex 44.9 n 161 | 1e-13 fd 0.0007 S_ex 12.2 n 300 st 0 -> rejected
+  E=0.97 L=1.2500 x0=4.44855: 1e-11 fd 0.6201 S_ex 74.9 n 110 | 1e-13 fd 0.0001 S_ex 62.0 n 300 st 0 -> rejected
+  E=0.97 L=1.4375 x0=4.52770: 1e-11 fd 0.0198 S_ex 85.5 n 300 | 1e-13 fd 0.0001 S_ex 21.6 n 300 st 0 -> rejected
+  E=0.97 L=1.6250 x0=4.60651: 1e-11 fd 0.0179 S_ex 83.1 n 300 | 1e-13 fd 0.0001 S_ex 14.0 n 300 st 0 -> rejected
+  E=0.97 L=-2.1875 x0=2.96353: 1e-11 fd 0.0523 S_ex 112.9 n 262 | 1e-13 fd 0.0013 S_ex 6.2 n 300 st 0 -> rejected
+  E=0.97 L=-3.5000 x0=2.38115: 1e-11 fd 0.6716 S_ex 12.6 n 300 | 1e-13 fd 0.0000 S_ex -1.6 n 300 st 0 -> rejected
+  E=0.97 L=3.6875 x0=5.46649: 1e-11 fd 0.0493 S_ex 50.0 n 137 | 1e-13 fd 0.0001 S_ex 18.2 n 300 st 0 -> rejected
+  E=0.97 L=4.2500 x0=5.70038: 1e-11 fd 0.0120 S_ex 18.1 n 300 | 1e-13 fd 0.0000 S_ex -0.9 n 300 st 0 -> rejected
+VERDICT-A5 [kerr45] candidates 9: CONFIRMED 0, INCONCLUSIVE 0, rejected 9
+ALL DONE Sat Oct 10 07:45:48 IST 2026
