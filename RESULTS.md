@@ -3991,7 +3991,10 @@ tolerance and budget, Kerr's survive/plunge boundary is smooth and TS's is fract
 confirmation of §150, independent of the fd/S_ex detectors.
 
 **Pending, before this section is final:**
-1. The Bridge's V11 independent replay of orbits a)–g), with a geometric section-roughness diagnostic calibrated on
+1. (Status 2026-10-11, relayed: V11's first ensemble run was ALL INCONCLUSIVE because of a V11-side bug, plunge
+   checked only at chunk ends. It is fixed as V11 addendum 6, labelled post-failure with controls unchanged; the rerun
+   is queued after tabula's §194. Then the Bridge will run an independent α reproduction with its own integrator.)
+   The Bridge's V11 independent replay of orbits a)–g), with a geometric section-roughness diagnostic calibrated on
    controls. Note: V11 found the AND rule conservative, since its realisations of the ZV layer read regular, so
    "V11 does not confirm" alone will not refute.
 2. Section figures.
