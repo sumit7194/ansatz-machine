@@ -65,3 +65,20 @@ Predictions: every Kerr α in [0.85, 1.15] (~85% each). Every TS α < 0.85 with 
 Wording, per the Bridge: α is the fractality of the boundary of {plunge within N crossings}, at an N-crossing horizon.
 Outcome sensitivity includes realisation sensitivity; the same-tolerance Kerr control is what excludes integration
 noise.
+
+## Addendum 2 (2026-10-10 ~22:30, after pair (a)'s Kerr control FAILED, before any rerun; agreed with the Bridge)
+**Outcome on record, unchanged:** pair (a) "Kerr control failed (0.837 [0.799, 0.876]) → TS(a) 0.128 not
+interpreted". The saturation-cut refit is labelled post hoc.
+
+**Rule change, the same for TS and Kerr:** the window must satisfy W ≥ 10·ε_max = 0.03. If the addendum-1 rule gives
+less, widen it symmetrically about the centre of the status-change span to exactly 10·ε_max. Everything else is
+unchanged: K = 1500, the ε set, tol 1e-11, nsec 300, the fit (≥ 10 hits, ≥ 3 ε points), the bootstrap and the seeds.
+
+**Rerun:** pair (a) only (ts35 E = 0.95, L = −5.3333, and its separatrix-matched kerr35 level), tag `p35w`. Run after
+(c) finishes (the script is not edited while a process runs from it).
+
+**Predictions:** Kerr(a) α in [0.85, 1.15] with the CI containing 1 (~85%); TS(a) α < 0.85 with the CI excluding 1
+(~75%). The reading rules are as before.
+
+**Why the threshold is not tuned:** 10·ε_max keeps 2ε/W ≤ 0.2 for an isolated boundary point, so f stays in its linear
+regime at every ε. It is a rule about the instrument, not about any measured slope.
