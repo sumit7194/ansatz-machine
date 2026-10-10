@@ -5,9 +5,10 @@ exec < /dev/null
 export OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 VECLIB_MAXIMUM_THREADS=1
 J=".venv/bin/python -u scripts/_kt_jet.py --threads 2"
 for p in 5/13 12/13 8/17 15/17 20/29 21/29 7/25 24/25; do
-  for d in 1 2 3 4; do $J --metric ts2kerr:$p --rank $d --point 3,1/3 >> data/jet/psweep.out 2>&1; done
+  for d in 1 2 3 4; do ${=J} --metric ts2kerr:$p --rank $d --point 3,1/3 >> data/jet/psweep.out 2>&1; done
   for pt in 3,1/3 17/10,3/5; do
-    for d in 1 2 3 4 5 6 7 8; do $J --metric ts2:$p --rank $d --point $pt >> data/jet/psweep.out 2>&1; done
+    for d in 1 2 3 4 5 6 7 8; do ${=J} --metric ts2:$p --rank $d --point $pt >> data/jet/psweep.out 2>&1; done
   done
 done
-echo "ALL DONE $(date)" >> data/jet/psweep.out
+n=$(grep -c "^VERDICT" data/jet/psweep.out)
+echo "ALL DONE $(date): $n verdicts (expected 8 x (4 Kerr + 16 TS) = 160)$([ "$n" -eq 160 ] || echo '  INCOMPLETE')" >> data/jet/psweep.out
