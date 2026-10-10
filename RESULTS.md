@@ -4019,7 +4019,7 @@ unchanged.
    - The 17 harmonic-flip suspects: 10 fire (A6 was conservative).
 
 
-## §151 — Manko–Novikov has NO Killing tensor of valence 1–10 beyond the trivial ones (ansatz-free, both parameter points); against Brink's 4th-order suggestion for MN
+## §151 — Manko–Novikov has NO Killing tensor of valence 1–10 beyond the trivial ones (ansatz-free, both parameter points); against Brink's 4th-order suggestion for MN  **[two implementations: CONFIRMED by the Bridge V10-MN, fafb1ae]**
 
 **Ask and why.** This was the Bridge's option A for the overnight machine.
 - Brink, *Spacetime Encodings IV* (arXiv:0911.1595), suggested from numerics (his own and Gair–Li–Mandel 2008) that
@@ -4083,4 +4083,11 @@ The predictions (~88% per target, ~85% for d = 4) held.
 - MN is exact, so ceiling 1 (analyticity in a coupling) does not apply. It is also not a truncation, so the §1
   substrate gap does not apply either.
 
-**Pending.** The Bridge's independent reproduction (offered: V10-style, after its V11 ensembles).
+**Independent reproduction: DONE (the Bridge V10-MN, relayed, not verified here; TheBridge fafb1ae).** CONFIRMED
+at valence 1–10, with all 40 rows exactly trivial: MN p1 (5, 3, 1/5) and p2 (13, 5, −1/3), at points (3/2, 1/3) and
+(2, −1/4), with N = r + 1 and a single draw (the second draw was never needed). Its gates:
+- the Kerr limit gives 2/5/8/14;
+- 82/82 exp/√ series identities.
+
+It is independent of ours in the metric transcription (its V9), the exp/√ evaluator, the points and the draw. §151
+therefore rests on **two implementations**.
