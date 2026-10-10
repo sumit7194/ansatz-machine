@@ -125,3 +125,20 @@ Re-validated on the ZV gate (`zv_control_v2_trunc.out`): 13 candidates, **5 CONF
 
 The partial v2 run (kerr45, 52 of 68 levels, 0 candidates, old scorer) was STOPPED so that every system is scored
 with the same rule. All four systems are rerun from scratch with the truncated scorer.
+
+## Amendment 5 (2026-10-10 ~06:20): confirmation must not accept step-capped orbits. Calibrated on the KERR control,
+## before any TS v2 candidate has been looked at
+- **Kerr v2 (kerr45, 72 levels, 21,200 boundary orbits): 9 candidates at tol 1e-11, 1 "confirmed".** 8 of the 9 vanish
+  at tol 1e-13 (fd 0.0000–0.0013), the signature of near-separatrix ill-conditioning: integration error tips orbits
+  across the unstable manifold. The tolerance rule caught them as designed.
+- **The single "confirmation" (E = 0.97, L = 1.25, x0 = 4.44855) was STEP-CAPPED at 1e-13** (status 3; 3M steps reached
+  after only 103 crossings). The scorer accepted a truncated orbit. That is a scorer bug, not chaos in Kerr.
+
+**Rule from now on, applied to every system including the already-finished kerr45:**
+- a candidate is CONFIRMED only if its tol-1e-13 re-run (step cap raised to 30M) has status ≠ 3, n ≥ 100 crossings,
+  fd > 0.0115 AND S_ex ≥ 10;
+- step-capped re-runs are INCONCLUSIVE and reported as such.
+
+Candidates are re-confirmed under this rule by `scripts/_ts_chaos_confirm.py` after the v2 scans finish. The ZV gate
+is unaffected: its 5 confirmations had status 1/1/1/1/0 at 1e-13, none capped. P1 (Kerr: no confirmed chaos) is
+judged under this rule.
