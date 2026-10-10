@@ -1,0 +1,18 @@
+  ok    [1] p1: g^ab formula == SymPy inverse of g_ab, exact
+  ok    [1] p2: g^ab formula == SymPy inverse of g_ab, exact
+  ok    [2] p1 P1 draw 0: Ricci series = 0 to order 10 (N = 6591796875)   [zero to order 10]
+  ok    [2] p1 P1 draw 1: Ricci series = 0 to order 10 (N = 6591796875)   [zero to order 10]
+  ok    [2] p1 P1 SABOTAGE f*exp((Z_P - Z_P(P))/50): Ricci series NONZERO   [zero only to order -1]
+  ok    [2] p1 P2 draw 0: Ricci series = 0 to order 10 (N = 2913111186148805)   [zero to order 10]
+  ok    [2] p1 P2 draw 1: Ricci series = 0 to order 10 (N = 2913111186148805)   [zero to order 10]
+  ok    [2] p1 P2 SABOTAGE f*exp((Z_P - Z_P(P))/50): Ricci series NONZERO   [zero only to order -1]
+  ok    [2] p2 P1 draw 0: Ricci series = 0 to order 10 (N = 2373046875)   [zero to order 10]
+  ok    [2] p2 P1 draw 1: Ricci series = 0 to order 10 (N = 2373046875)   [zero to order 10]
+  ok    [2] p2 P1 SABOTAGE f*exp((Z_P - Z_P(P))/50): Ricci series NONZERO   [zero only to order -1]
+  ok    [2] p2 P2 draw 0: Ricci series = 0 to order 10 (N = 1747866711689283)   [zero to order 10]
+  ok    [2] p2 P2 draw 1: Ricci series = 0 to order 10 (N = 1747866711689283)   [zero to order 10]
+  ok    [2] p2 P2 SABOTAGE f*exp((Z_P - Z_P(P))/50): Ricci series NONZERO   [zero only to order -1]
+  ok    [3] kerr1: Kerr limit ranks 1-4 bounds [2, 5, 8, 14] == [2, 5, 8, 14] (Carter recovered)
+  ok    [3] kerr2: Kerr limit ranks 1-4 bounds [2, 5, 8, 14] == [2, 5, 8, 14] (Carter recovered)
+  ok    [4] kerr1 + sabotage g^xx*(1+x*y/7): rank-2 bound 4 == 4 (Carter gone)
+CONTROLS ALL PASS

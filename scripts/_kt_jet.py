@@ -126,14 +126,16 @@ def monomials(d):
     return [e for e in itertools.product(range(d + 1), repeat=4) if sum(e) == d]
 
 
-def build(ginv, d, M, x0, y0, p, branch):
-    """The M-th prolongation matrix at P for rank d, one (p_x, p_y)-parity branch. Returns (rows, cols, dense int64)."""
+def build(ginv, d, M, x0, y0, p, branch, G=None):
+    """The M-th prolongation matrix at P for rank d, one (p_x, p_y)-parity branch. Returns (rows, cols, dense int64).
+    G: optional precomputed {(a, b): Series of g^ab at P, truncated at M + 2} for non-rational metrics (_kt_jet_mn)."""
     T = M + 2                         # H's series needed to degree M+1 after one derivative
-    G = {}
-    for a in range(4):
-        for b in range(a, 4):
-            if ginv[a, b] != 0:
-                G[(a, b)] = rational_series(ginv[a, b], x0, y0, T, p)
+    if G is None:
+        G = {}
+        for a in range(4):
+            for b in range(a, 4):
+                if ginv[a, b] != 0:
+                    G[(a, b)] = rational_series(ginv[a, b], x0, y0, T, p)
     for (a, b) in G:
         if (a, b) in ((0, 1), (0, 2), (1, 3), (2, 3), (1, 2)):
             raise ValueError("this implementation assumes no t/phi - x/y and no x-y cross terms in g^ab")
