@@ -3948,8 +3948,12 @@ a Cantor boundary 0.337 against the exact 0.369. Script `scripts/_ts_chaos_alpha
       TS p=4/5           0.055    [0.044, 0.067]    0.55 -> 0.42   (almost flat)
 
 - Both predictions held: Kerr α in [0.85, 1.15], 85% expected; TS α < 0.85 with the CI excluding 1, 65% expected.
-- Kerr gives a smooth boundary, an isolated point. The instrument passes its control at the same tolerance, so
-  integration noise alone does not create uncertainty.
+- Kerr gives a smooth boundary, an isolated point. Outcome sensitivity at tol 1e-11 includes realisation sensitivity
+  (itself a chaos symptom). Kerr at the SAME tolerance and budget being smooth is what rules out integration noise as
+  the cause.
+- "Survive" means surviving 300 crossings, so α measures the fractality of the boundary of {plunge within 300
+  crossings}, **at a 300-crossing horizon**. Kerr under the same budget is the control, so the CONTRAST is what
+  is claimed.
 - TS gives uncertainty dimension 1 − α ≈ 0.94: across two decades of scale, nearly every start point in the window has
   its fate flipped by a nudge of 3×10⁻⁵. That is the signature of chaotic transient scattering at a fractal (here
   nearly space-filling) basin boundary.

@@ -49,3 +49,19 @@ fitted slope over this ε range can read close to 1 even with a fractal componen
 - Smooth: 3 isolated boundary points in a 0.03 window → α = 0.985, CI [0.913, 1.068].
 - Fractal: middle-thirds Cantor boundary (expected α = 1 − log 2/log 3 = 0.369) → α = 0.337, CI [0.311, 0.363].
 - TS window by the rule: [9.912067, 9.945202], 5 status changes, dense step 3.0e-3.
+
+## Addendum 1 (2026-10-10, after the first result, before any of these runs; the Bridge's ask)
+These are repeats with the SAME definition, window rule, K = 1500, ε set, tolerance and fit. The script now takes
+the level as arguments (the defaults reproduce the 81c988f run). Separatrix matching uses |L| with the level's sign.
+- **(a) p = 3/5:** the strongest confirmed level, ts35 E = 0.95, L = −5.3333 (4 confirmed); window by the rule
+  [6.705812, 6.719099]. Its ε_sep-matched kerr35 level.
+- **(b) p = 4/5, a second level:** ts45 E = 0.97, L = 5.875 (5 confirmed); window [10.250026, 10.281548]. Its matched
+  kerr45 level.
+- **(c) horizon:** the first level pair (ts45 E = 0.97, L = 5.125, and its matched Kerr) at a 600-crossing budget. The
+  window is unchanged (still chosen from the 300-crossing dense scan).
+
+Predictions: every Kerr α in [0.85, 1.15] (~85% each). Every TS α < 0.85 with the CI excluding 1: (a) ~70%, (b) ~70%,
+(c) ~85%. The same reading rules apply: a Kerr failure voids that pair's TS number.
+Wording, per the Bridge: α is the fractality of the boundary of {plunge within N crossings}, at an N-crossing horizon.
+Outcome sensitivity includes realisation sensitivity; the same-tolerance Kerr control is what excludes integration
+noise.

@@ -4,7 +4,9 @@ data/ts_chaos/ALPHA_PREREGISTRATION.md). For x0 uniform in a window W around the
 eps if the outcome (status after nsec crossings) at x0 differs from that at x0 - eps or x0 + eps. The uncertain
 fraction scales as f(eps) ~ eps^alpha: alpha = 1 for a smooth boundary (isolated boundary points, integrable), alpha < 1
 for a fractal basin boundary (chaotic). Same orbit settings as the v2 scan (tol 1e-11, nsec 300).
-    .venv/bin/python scripts/_ts_chaos_alpha.py [workers=2] [K=1500]
+    .venv/bin/python scripts/_ts_chaos_alpha.py [workers=2] [K=1500]                       # the 81c988f run
+    .venv/bin/python scripts/_ts_chaos_alpha.py 2 1500 --ts ts35 --E 0.95 --L -5.333333333333334 --kerr kerr35 --tag p35
+    ... --nsec 600 (horizon test; the window is still chosen from the 300-crossing dense scan)
 """
 import json
 import os
@@ -45,13 +47,16 @@ def window(level, xmax_inner=None):
     return orb[ch[0]]["x0"] - 2 * step, orb[ch[-1] + 1]["x0"] + 2 * step, len(ch), step
 
 
+NSEC = 300
+
+
 def _sample(a):
-    sysname, L, x0, xpl = a
+    sysname, L, x0, xpl, E0, NSEC = a
     spec, m, x_in = SYSTEMS[sysname]
     eng = _engine(spec)
 
     def st(xx):
-        r = eng.orbit(float(xx), E0, L, nsec=300, tmax=5e6, xmin=xpl, xmax=2000.0, tol=1e-11)
+        r = eng.orbit(float(xx), E0, L, nsec=NSEC, tmax=5e6, xmin=xpl, xmax=2000.0, tol=1e-11)
         return -1 if r is None else int(r["status"])
     c = st(x0)
     out = dict(x0=x0, c=c, pm={})
@@ -86,17 +91,24 @@ def analyse(samples):
 
 
 def main():
-    workers = int(sys.argv[1]) if len(sys.argv) > 1 else 2
-    K = int(sys.argv[2]) if len(sys.argv) > 2 else 1500
+    def arg(fl, dflt, cast=str):
+        return cast(sys.argv[sys.argv.index(fl) + 1]) if fl in sys.argv else dflt
+    pos = [a for a in sys.argv[1:3] if not a.startswith("--")]
+    workers = int(pos[0]) if len(pos) > 0 else 2
+    K = int(pos[1]) if len(pos) > 1 else 1500
+    global E0, L_TS, SYS_TS, SYS_K
+    SYS_TS, E0, L_TS, SYS_K = arg("--ts", SYS_TS), arg("--E", E0, float), arg("--L", L_TS, float), arg("--kerr", SYS_K)
+    nsec, tag = arg("--nsec", 300, int), arg("--tag", "")
+    sign = 1 if L_TS > 0 else -1
     # TS level: stored v2 scan (bit-identical on re-run, cachecheck)
     lv_ts = [l for l in json.load(open(os.path.join(D, f"bscan_{SYS_TS}_v2.json")))["levels"]
-             if l["E"] == E0 and l["L"] == L_TS][0]
+             if abs(l["E"] - E0) < 1e-12 and abs(l["L"] - L_TS) < 1e-9][0]
     spec_ts, m_ts, xin_ts = SYSTEMS[SYS_TS]
     spec_k, m_k, xin_k = SYSTEMS[SYS_K]
     e_ts, e_k = _engine(spec_ts), _engine(spec_k)
-    Ls_ts, Ls_k = find_Lsep(e_ts, E0, m_ts, xin_ts, +1), find_Lsep(e_k, E0, m_k, xin_k, +1)
-    eps_sep = (L_TS - Ls_ts) / Ls_ts
-    L_K = Ls_k * (1 + eps_sep)
+    Ls_ts, Ls_k = abs(find_Lsep(e_ts, E0, m_ts, xin_ts, sign)), abs(find_Lsep(e_k, E0, m_k, xin_k, sign))
+    eps_sep = (abs(L_TS) - Ls_ts) / Ls_ts
+    L_K = sign * Ls_k * (1 + eps_sep)
     print(f"separatrix-matched: TS L_sep {Ls_ts:.6f}, eps {eps_sep:+.5f} at L = {L_TS}; Kerr L_sep {Ls_k:.6f} -> Kerr L = {L_K:.6f}",
           flush=True)
     lv_k = _level_job((spec_k, E0, L_K, xin_k, 60, 200, 300))
@@ -107,17 +119,17 @@ def main():
         print(f"[{s}] L = {L:.6f}: inner window {lv['windows'][0]}, {nch} status changes in the dense seeding "
               f"(step {step:.2e}) -> W = [{a:.6f}, {b:.6f}] (width {b - a:.4f}); plunge cut {xpl:.3f}", flush=True)
         rnd = random.Random(1500 + len(s))
-        jobs = [(s, L, rnd.uniform(a, b), xpl) for _ in range(K)]
+        jobs = [(s, L, rnd.uniform(a, b), xpl, E0, nsec) for _ in range(K)]
         with Pool(workers) as pool:
             samples = pool.map(_sample, jobs, chunksize=8)
         an = analyse(samples)
-        an.update(system=s, L=L, W=[a, b], dense_changes=nch, eps=list(EPS))
+        an.update(system=s, E=E0, L=L, W=[a, b], dense_changes=nch, eps=list(EPS), nsec=nsec)
         res[s] = dict(analysis=an, samples=samples)
         print(f"  [{s}] valid {an['n_valid']} (invalid {an['n_invalid']}): uncertain hits per eps {dict(zip(EPS, an['hits']))}",
               flush=True)
-        print(f"VERDICT-alpha [{s}] alpha = {an['alpha']:.3f}  95% CI [{an['ci95'][0]:.3f}, {an['ci95'][1]:.3f}]  "
+        print(f"VERDICT-alpha [{s}{' ' + tag if tag else ''}] E={E0} L={L:.4f} nsec={nsec}: alpha = {an['alpha']:.3f}  95% CI [{an['ci95'][0]:.3f}, {an['ci95'][1]:.3f}]  "
               f"({an['fit_points']} eps points with >= {MIN_HITS} hits)", flush=True)
-        json.dump(res, open(os.path.join(D, "alpha.json"), "w"))
+        json.dump(res, open(os.path.join(D, f"alpha{'_' + tag if tag else ''}.json"), "w"))
     return 0
 
 
