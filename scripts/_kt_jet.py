@@ -220,6 +220,7 @@ def main():
     x0, y0 = sp.Rational(pt[0]), sp.Rational(pt[1])
     prime = arg("--prime", 0, int); p = PRIMES[prime]
     engine = arg("--engine", "flint")
+    threads = arg("--threads", 8, int)
     sabotage = "--sabotage" in sys.argv
     t0 = time.time()
     ginv, name = get_metric(spec)
@@ -230,7 +231,7 @@ def main():
     res = {}
     for branch in (0, 1):
         A, mons, J = build(ginv, d, M, x0, y0, p, branch)
-        r = rank_of(A, p, engine)
+        r = rank_of(A, p, engine, threads=threads)
         k = A.shape[1] - r["rank"]
         res[branch] = dict(rows=A.shape[0], cols=A.shape[1], rank=r["rank"], bound=k, seconds=r["seconds"])
         tot += k

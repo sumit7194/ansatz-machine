@@ -8,3 +8,4 @@
 8003 2026-10-10 13:13:33 alpha addendum-1 driver (run_alpha2.sh), 2 workers
 1579 2026-10-10 19:32:51 alpha addendum-1 driver RESTART after power loss (run_alpha2.sh, resumable), 2 workers
 68726 2026-10-11 00:43:13 alpha addendum-2 rerun pair (a) p35w, 2 workers
+24885 2026-10-11 03:10:19 TS2 p-sweep metric builds (run_psweep_build.sh), 1 core

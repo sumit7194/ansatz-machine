@@ -1,0 +1,25 @@
+[t2o3 TS] PASS -- all checks
+[t3o5 TS] PASS -- all checks
+[t3o7 TS] PASS -- all checks
+[t2o5 TS] PASS -- all checks
+[t1o4 TS] PASS -- all checks
+[t1o5 TS] PASS -- all checks
+[t1o7 TS] PASS -- all checks
+[t3o4 TS] PASS -- all checks
+(p,q) = (5/13,12/13): omega sign s = 1; Kerr vacuum at 4 random rational points: max |R_ab| = 0
+  written data/sealed/TS2_for_quantum/ts2_KERR_metric_components_t2o3.txt
+(p,q) = (8/17,15/17): omega sign s = 1; Kerr vacuum at 4 random rational points: max |R_ab| = 0
+  written data/sealed/TS2_for_quantum/ts2_KERR_metric_components_t3o5.txt
+(p,q) = (20/29,21/29): omega sign s = 1; Kerr vacuum at 4 random rational points: max |R_ab| = 0
+  written data/sealed/TS2_for_quantum/ts2_KERR_metric_components_t3o7.txt
+(p,q) = (21/29,20/29): omega sign s = 1; Kerr vacuum at 4 random rational points: max |R_ab| = 0
+  written data/sealed/TS2_for_quantum/ts2_KERR_metric_components_t2o5.txt
+(p,q) = (15/17,8/17): omega sign s = 1; Kerr vacuum at 4 random rational points: max |R_ab| = 0
+  written data/sealed/TS2_for_quantum/ts2_KERR_metric_components_t1o4.txt
+(p,q) = (12/13,5/13): omega sign s = 1; Kerr vacuum at 4 random rational points: max |R_ab| = 0
+  written data/sealed/TS2_for_quantum/ts2_KERR_metric_components_t1o5.txt
+(p,q) = (24/25,7/25): omega sign s = 1; Kerr vacuum at 4 random rational points: max |R_ab| = 0
+  written data/sealed/TS2_for_quantum/ts2_KERR_metric_components_t1o7.txt
+(p,q) = (7/25,24/25): omega sign s = 1; Kerr vacuum at 4 random rational points: max |R_ab| = 0
+  written data/sealed/TS2_for_quantum/ts2_KERR_metric_components_t3o4.txt
+ALL DONE Sun Oct 11 03:14:18 IST 2026
