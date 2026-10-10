@@ -37,14 +37,18 @@ def plunge_cut(eng, E, L, x_in):
     return max(x_in, PLUNGE_X if x_ridge is None else min(PLUNGE_X, 0.8 * x_ridge))
 
 
-def window(level, xmax_inner=None):
+def window(level, minW=0.0):
     """W rule (pre-registered): in the INNER survive/plunge window, from the first to the last status change of the
     dense seeding, padded by 2 dense steps each side."""
     w1 = level["windows"][0]
     orb = sorted((o for o in level["orbits"] if w1[0] <= o["x0"] <= w1[1]), key=lambda o: o["x0"])
     ch = [i for i in range(len(orb) - 1) if orb[i]["status"] != orb[i + 1]["status"]]
     step = (w1[1] - w1[0]) / (len(orb) - 1)
-    return orb[ch[0]]["x0"] - 2 * step, orb[ch[-1] + 1]["x0"] + 2 * step, len(ch), step
+    a, b = orb[ch[0]]["x0"] - 2 * step, orb[ch[-1] + 1]["x0"] + 2 * step
+    if b - a < minW:            # addendum 2 (7f616c9): widen symmetrically about the centre to exactly minW
+        c = 0.5 * (a + b)
+        a, b = c - minW / 2, c + minW / 2
+    return a, b, len(ch), step
 
 
 NSEC = 300
@@ -99,6 +103,7 @@ def main():
     global E0, L_TS, SYS_TS, SYS_K
     SYS_TS, E0, L_TS, SYS_K = arg("--ts", SYS_TS), arg("--E", E0, float), arg("--L", L_TS, float), arg("--kerr", SYS_K)
     nsec, tag = arg("--nsec", 300, int), arg("--tag", "")
+    minW = arg("--minw-factor", 0.0, float) * max(EPS)          # addendum 2: --minw-factor 10
     sign = 1 if L_TS > 0 else -1
     # TS level: stored v2 scan (bit-identical on re-run, cachecheck)
     lv_ts = [l for l in json.load(open(os.path.join(D, f"bscan_{SYS_TS}_v2.json")))["levels"]
@@ -115,7 +120,7 @@ def main():
     levels = {SYS_TS: (L_TS, lv_ts, plunge_cut(e_ts, E0, L_TS, xin_ts)), SYS_K: (L_K, lv_k, plunge_cut(e_k, E0, L_K, xin_k))}
     res = {}
     for s, (L, lv, xpl) in levels.items():
-        a, b, nch, step = window(lv)
+        a, b, nch, step = window(lv, minW)
         print(f"[{s}] L = {L:.6f}: inner window {lv['windows'][0]}, {nch} status changes in the dense seeding "
               f"(step {step:.2e}) -> W = [{a:.6f}, {b:.6f}] (width {b - a:.4f}); plunge cut {xpl:.3f}", flush=True)
         rnd = random.Random(1500 + len(s))

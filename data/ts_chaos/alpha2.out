@@ -38,3 +38,12 @@ separatrix-matched: TS L_sep 10.475000, eps -0.51074 at L = 5.125; Kerr L_sep 5.
   [ts45] checkpoint /Users/sumit/Github/conjecture_machine/data/ts_chaos/alpha_p45_n600_ts45_n600.partial.jsonl: 0 done, 1500 to run
   [Tomimatsu-Sato delta=2 p=4/5] rhs module rhs_093919abe726c361.py [0s]
   [Tomimatsu-Sato delta=2 p=4/5] rhs module rhs_093919abe726c361.py [0s]
+  [ts45] valid 1500 (invalid 0): uncertain hits per eps {0.003: 728, 0.001: 629, 0.0003: 605, 0.0001: 594, 3e-05: 564}
+VERDICT-alpha [ts45 p45_n600] E=0.97 L=5.1250 nsec=600: alpha = 0.051  95% CI [0.037, 0.065]  (5 eps points with >= 10 hits)
+[kerr45] L = 2.550268: inner window (4.9328734659100775, 5.186442653401151), 1 status changes in the dense seeding (step 1.27e-03) -> W = [4.990213, 4.996584] (width 0.0064); plunge cut 1.500
+  [kerr45] checkpoint /Users/sumit/Github/conjecture_machine/data/ts_chaos/alpha_p45_n600_kerr45_n600.partial.jsonl: 0 done, 1500 to run
+  [Kerr (TS2 pipeline, delta=1) p=4/5] rhs module rhs_f234d03df20c467e.py [0s]
+  [Kerr (TS2 pipeline, delta=1) p=4/5] rhs module rhs_f234d03df20c467e.py [0s]
+  [kerr45] valid 1500 (invalid 0): uncertain hits per eps {0.003: 1410, 0.001: 455, 0.0003: 124, 0.0001: 42, 3e-05: 9}
+VERDICT-alpha [kerr45 p45_n600] E=0.97 L=2.5503 nsec=600: alpha = 1.042  95% CI [0.983, 1.109]  (4 eps points with >= 10 hits)
+ALL DONE Sun Oct 11 00:42:04 IST 2026

@@ -3968,7 +3968,7 @@ a Cantor boundary 0.337 against the exact 0.369. Script `scripts/_ts_chaos_alpha
       pair                         TS alpha [95% CI]        matched Kerr alpha [95% CI]   pre-registered verdict
       (b) p=4/5 E=0.97 L=5.875     0.093 [0.079, 0.109]     1.039 [0.978, 1.098]          both predictions held
       (a) p=3/5 E=0.95 L=-5.333    0.128 [0.112, 0.145]     0.837 [0.799, 0.876]          KERR CONTROL FAILED -> TS(a) not interpreted
-      (c) horizon 600 crossings    running
+      (c) first pair, 600 cross.   0.051 [0.037, 0.065]     1.042 [0.983, 1.109]          both predictions held; horizon-independent (300: 0.055 / 1.055)
 
 The (a) failure is reported as a failure. **Cause (diagnosed, post hoc):** the window rule gave the kerr35 level
 W = 0.0039, narrower than 2·ε_max = 0.006. So the largest ε is fully saturated (1500/1500 uncertain), and the next one
