@@ -3904,4 +3904,9 @@ sticky orbits at these energies do not approach it.
    controls. Note: V11 found the AND rule conservative, since its realisations of the ZV layer read regular, so
    "V11 does not confirm" alone will not refute.
 2. Section figures.
-3. A complex-signal frequency estimator as a third check.
+3. ~~A complex-signal frequency estimator as a third check~~ DONE (`scripts/_ts_chaos_check3.py`,
+   `data/ts_chaos/check3.json`, report-only, harmonic-proof). Results:
+   - Kerr candidates: ≤ 0.0006 (17/17 regular).
+   - ZV torus and island: 0. ZV layer: 0.021 and 0.0001 (realisation-sensitive, as V11 also saw).
+   - **TS confirmed: 83 of 85 fire (median 0.029).**
+   - The 17 harmonic-flip suspects: 10 fire (A6 was conservative).

@@ -35,16 +35,20 @@ SYSTEMS = {   # spec, mass m (sigma = 1), inner boundary x_in (ring for TS, hori
 }
 FD_THR, SEX_THR = 0.0115, 10.0
 _ENG = None
+_ENGS = {}
 
 
 def _engine(spec):
+    """One Engine per METRIC per process. (It was a single global, which returned the wrong metric to a worker serving
+    mixed systems. All scans so far ran one system per pool, so they were unaffected; caught by check3.)"""
     global _ENG
-    if _ENG is None:
+    if spec not in _ENGS:
         from _kt_exact_op import get_metric
         from _ts_chaos import Engine
         gi, name = get_metric(spec)
-        _ENG = Engine(gi, name)
-    return _ENG
+        _ENGS[spec] = Engine(gi, name)
+    _ENG = _ENGS[spec]
+    return _ENGS[spec]
 
 
 def pockets(eng, E, L, x_in, x_far=400.0, n=6000):
