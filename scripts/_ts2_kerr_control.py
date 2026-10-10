@@ -2,13 +2,14 @@
 """Kerr (delta = 1) through the SAME _ts2_build.py pipeline, as the in-stage control requested by quantum.
 Same Ernst construction (xi = p x - i q y), same Weyl-Papapetrou prolate form, coordinates (T, x, y, phi), same
 omega sign convention (fixed by the twist equations), same srepr format as the TS files.  Vacuum re-verified at
-each fixed (p, q) before writing.  Usage: _ts2_kerr_control.py"""
+each fixed (p, q) before writing.  Usage: _ts2_kerr_control.py [t ...] (default 1/2 1/3)"""
 import sys
 sys.path.insert(0, "scripts")
 import sympy as sp
 import _ts2_build as B
 
-for tval, tag in ((sp.Rational(1, 2), "t1o2"), (sp.Rational(1, 3), "t1o3")):
+TS = [sp.Rational(a) for a in sys.argv[1:]] or [sp.Rational(1, 2), sp.Rational(1, 3)]   # usage: _ts2_kerr_control.py [t ...]
+for tval, tag in ((tv, f"t{tv.p}o{tv.q}") for tv in TS):
     B.T_FIXED = tval
     p, q = B.pq()
     g, info = B.metric(1)

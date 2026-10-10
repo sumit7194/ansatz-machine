@@ -39,6 +39,17 @@ from _kt_opfast import operator_columns, operator_from_templates  # noqa: E402
 x, y = MM.x, MM.y
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TS2_FILES = {"4/5": "t1o3", "3/5": "t1o2"}
+
+
+def ts2_tag(par):
+    """File tag for TS2 parameter p: p = (1 - t^2)/(1 + t^2) with t rational -> "t<num>o<den>" (4/5 -> t1o3, 3/5 -> t1o2)."""
+    if par in TS2_FILES:
+        return TS2_FILES[par]
+    pr = sp.Rational(par)
+    t = sp.sqrt((1 - pr) / (1 + pr))
+    if not t.is_Rational:
+        raise SystemExit(f"p = {par}: t = sqrt((1-p)/(1+p)) is not rational, so no TS2 file can exist")
+    return f"t{t.p}o{t.q}"
 SREPR_NAMES = {n: getattr(sp, n) for n in ("Add", "Mul", "Pow", "Integer", "Rational", "Symbol")}
 
 
@@ -64,7 +75,7 @@ def load_package(path):
 def get_metric(spec):
     kind, _, par = spec.partition(":")
     if kind in ("ts2", "ts2kerr"):
-        tag = TS2_FILES[par]
+        tag = ts2_tag(par)
         f = f"ts2_{'KERR_' if kind == 'ts2kerr' else ''}metric_components_{tag}.txt"
         g = load_package(os.path.join(ROOT, "data", "sealed", "TS2_for_quantum", f))
         name = f"{'Kerr (TS2 pipeline, delta=1)' if kind == 'ts2kerr' else 'Tomimatsu-Sato delta=2'} p={par}"
