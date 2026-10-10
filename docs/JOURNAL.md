@@ -4376,3 +4376,9 @@ one-parameter T ↦ t specialisation.
 
 The new control, Ricci from the series, passed to order 10. Kerr and the sabotage controls passed. Then MN p1/p2 at
 valence 1–10, 2 points × 2 draws: all trivial. Total ~50 min on 2 threads.
+
+## 2026-10-10 midday — §150 option B: uncertainty exponent
+
+Pre-registered (81c988f) and validated offline on synthetic data. Results: Kerr matched α = 1.055 [0.997, 1.112],
+a smooth boundary; TS α = 0.055 [0.044, 0.067], a near-space-filling fractal basin boundary. Both predictions held.
+This is a third, outcome-only line of evidence for §150, independent of the fd/S_ex detectors.

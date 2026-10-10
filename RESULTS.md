@@ -3934,6 +3934,31 @@ reported. V11's primary criterion is basin structure across 9-member x0 ensemble
 our request before any ensemble result was seen: late escape alone is not non-integrable near a separatrix, because of
 zoom-whirl).
 
+**Fractal basin boundary, quantified (uncertainty exponent; the Bridge's option B).** Pre-registered at 81c988f
+(`data/ts_chaos/ALPHA_PREREGISTRATION.md`), with the fit validated offline: a synthetic smooth boundary gives 0.985,
+a Cantor boundary 0.337 against the exact 0.369. Script `scripts/_ts_chaos_alpha.py`, data `alpha.out` / `alpha.json`.
+- Method: x0 uniform in a window across the survive/plunge boundary. x0 is uncertain at scale ε if the outcome after
+  300 crossings differs at x0 ± ε. The uncertain fraction f ∝ ε^α.
+- Levels: the TS level with the most confirmed chaos (p = 4/5, E = 0.97, L = 5.125, window [9.912, 9.945]), and the
+  separatrix-matched Kerr level (L = 2.5503, ε_sep = −0.511 for both).
+- Sampling: K = 1500 each, ε from 3e-3 to 3e-5, at scan settings (tol 1e-11).
+
+      level              alpha    95% CI            uncertain fraction, eps = 3e-3 -> 3e-5
+      Kerr (matched)     1.055    [0.997, 1.112]    0.94 -> 0.005  (falls like eps)
+      TS p=4/5           0.055    [0.044, 0.067]    0.55 -> 0.42   (almost flat)
+
+- Both predictions held: Kerr α in [0.85, 1.15], 85% expected; TS α < 0.85 with the CI excluding 1, 65% expected.
+- Kerr gives a smooth boundary, an isolated point. The instrument passes its control at the same tolerance, so
+  integration noise alone does not create uncertainty.
+- TS gives uncertainty dimension 1 − α ≈ 0.94: across two decades of scale, nearly every start point in the window has
+  its fate flipped by a nudge of 3×10⁻⁵. That is the signature of chaotic transient scattering at a fractal (here
+  nearly space-filling) basin boundary.
+- The detection is independent of fd and S_ex: it uses only the survive/plunge outcome.
+- Scope:
+  - one TS level, finite-time outcomes (300 crossings), over the measured ε range;
+  - the Kerr window holds one boundary point, so its largest-ε point is slightly saturated (1413/1500). This was
+    noted before the result, and the fit still contains 1.
+
 **Pending, before this section is final:**
 1. The Bridge's V11 independent replay of orbits a)–g), with a geometric section-roughness diagnostic calibrated on
    controls. Note: V11 found the AND rule conservative, since its realisations of the ZV layer read regular, so

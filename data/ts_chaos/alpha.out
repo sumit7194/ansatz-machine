@@ -1,0 +1,14 @@
+  [Tomimatsu-Sato delta=2 p=4/5] rhs module rhs_093919abe726c361.py [0s]
+  [Kerr (TS2 pipeline, delta=1) p=4/5] rhs module rhs_f234d03df20c467e.py [0s]
+separatrix-matched: TS L_sep 10.475000, eps -0.51074 at L = 5.125; Kerr L_sep 5.212500 -> Kerr L = 2.550268
+    level E=0.97 L=2.5503: ridge None, plunge cut 1.500; region [1.000, 38.536] inner-open=True, 2 windows, 400 boundary orbits, 0 candidates, 0 step-capped
+[ts45] L = 5.125000: inner window [9.393967530794885, 9.993396833576918], 5 status changes in the dense seeding (step 3.01e-03) -> W = [9.912067, 9.945202] (width 0.0331); plunge cut 1.500
+  [Tomimatsu-Sato delta=2 p=4/5] rhs module rhs_093919abe726c361.py [0s]
+  [Tomimatsu-Sato delta=2 p=4/5] rhs module rhs_093919abe726c361.py [0s]
+  [ts45] valid 1500 (invalid 0): uncertain hits per eps {0.003: 831, 0.001: 732, 0.0003: 685, 0.0001: 682, 3e-05: 631}
+VERDICT-alpha [ts45] alpha = 0.055  95% CI [0.044, 0.067]  (5 eps points with >= 10 hits)
+[kerr45] L = 2.550268: inner window (4.9328734659100775, 5.186442653401151), 1 status changes in the dense seeding (step 1.27e-03) -> W = [4.990213, 4.996584] (width 0.0064); plunge cut 1.500
+  [Kerr (TS2 pipeline, delta=1) p=4/5] rhs module rhs_f234d03df20c467e.py [0s]
+  [Kerr (TS2 pipeline, delta=1) p=4/5] rhs module rhs_f234d03df20c467e.py [0s]
+  [kerr45] valid 1500 (invalid 0): uncertain hits per eps {0.003: 1413, 0.001: 462, 0.0003: 128, 0.0001: 32, 3e-05: 8}
+VERDICT-alpha [kerr45] alpha = 1.055  95% CI [0.997, 1.112]  (4 eps points with >= 10 hits)
