@@ -3963,6 +3963,22 @@ a Cantor boundary 0.337 against the exact 0.369. Script `scripts/_ts_chaos_alpha
   - the Kerr window holds one boundary point, so its largest-ε point is slightly saturated (1413/1500). This was
     noted before the result, and the fit still contains 1.
 
+**Uncertainty exponent, addendum 1 (1e6eaad; restarted after a power loss with per-sample checkpoints).**
+
+      pair                         TS alpha [95% CI]        matched Kerr alpha [95% CI]   pre-registered verdict
+      (b) p=4/5 E=0.97 L=5.875     0.093 [0.079, 0.109]     1.039 [0.978, 1.098]          both predictions held
+      (a) p=3/5 E=0.95 L=-5.333    0.128 [0.112, 0.145]     0.837 [0.799, 0.876]          KERR CONTROL FAILED -> TS(a) not interpreted
+      (c) horizon 600 crossings    running
+
+The (a) failure is reported as a failure. **Cause (diagnosed, post hoc):** the window rule gave the kerr35 level
+W = 0.0039, narrower than 2·ε_max = 0.006. So the largest ε is fully saturated (1500/1500 uncertain), and the next one
+is half-saturated, which flattens the slope. This is the saturation hazard flagged before the first result. Here it
+crossed from "slight" to "decisive" because this Kerr window is the narrowest of the three.
+
+A post-hoc fit that drops saturated ε (f ≥ 0.5) gives Kerr(a) 0.975, Kerr(b) 1.081 and the original Kerr 1.115.
+TS(a) is unchanged at 0.128, since no TS point is saturated. That fit is labelled post hoc and is NOT the verdict.
+A clean re-test needs a rule fixed in advance (addendum 2: ε_max ≤ W/10, or a wider window), run on pair (a) again.
+
 **Pending, before this section is final:**
 1. The Bridge's V11 independent replay of orbits a)–g), with a geometric section-roughness diagnostic calibrated on
    controls. Note: V11 found the AND rule conservative, since its realisations of the ZV layer read regular, so
