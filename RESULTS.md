@@ -3990,8 +3990,21 @@ The rerun under a rule fixed in advance is what is claimed.
 tolerance and budget, Kerr's survive/plunge boundary is smooth and TS's is fractal. This is an outcome-only
 confirmation of §150, independent of the fd/S_ex detectors.
 
+**Independent replay: the Bridge's V11 (relayed, not verified here; TheBridge 0776484).** This used its own
+DOP853 integrator, an x0 ensemble of 9 members per orbit, and basin-structure scoring (V11 addendum 4, fixed before
+any data and amended at our request). The rerun is post-failure (addendum 6, terminal plunge events), with controls
+unchanged.
+- **CONFIRMED: b, c, d** (p = 4/5). TS T/V = 2/2, 4/2 and 0/4. Every matched Kerr ensemble is clean (T ≤ 1, V = 0),
+  with Carter conserved ≤ 1.3e−12.
+- **INCONCLUSIVE: a** (TS 1/1, borderline).
+- **INCONCLUSIVE: e, f, g** (p = 3/5). V11 matched Kerr by L/m rather than by separatrix distance, so at those levels
+  Kerr has no survive/plunge transition and no control ensemble could be built. The Bridge records this as the weaker
+  design and did not change it after seeing the data.
+- Net: an independent confirmation of the TS-vs-Kerr contrast at 3 of 4 p = 4/5 candidates, with no contradiction
+  anywhere. The p = 3/5 side is covered here by α (a'), which is ε_sep-matched.
+
 **Pending, before this section is final:**
-1. (Status 2026-10-11, relayed: V11's first ensemble run was ALL INCONCLUSIVE because of a V11-side bug, plunge
+1. DONE, see "Independent replay" above. Earlier status kept for the record. (Status 2026-10-11, relayed: V11's first ensemble run was ALL INCONCLUSIVE because of a V11-side bug, plunge
    checked only at chunk ends. It is fixed as V11 addendum 6, labelled post-failure with controls unchanged; the rerun
    is queued after tabula's §194. Then the Bridge will run an independent α reproduction with its own integrator.)
    The Bridge's V11 independent replay of orbits a)–g), with a geometric section-roughness diagnostic calibrated on
