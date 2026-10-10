@@ -3925,6 +3925,15 @@ cache has been checked:
 4. **Matched table.** `_ts_chaos_matched.py` built all four engines in ONE process and relied on a manual
    `S._ENG = None` reset between systems. Re-run under the fixed cache, `matched_table.json` is **byte-identical**.
 
+**Independent check of the one Kerr false positive (the Bridge V11, relayed, not verified here).** The step-capped
+kerr45 orbit (E 0.97, L 1.25, x0 4.44855) that amendment 5 reclassified was replayed with an 8th-order DOP853 integrator.
+It is REGULAR at both tolerances: 300 crossings with no plunge, S_ex −1.5 / 4.0, fd 0.0011 / 0.0001. Carter's maximum
+relative deviation is 1.0e−10 / 6.5e−13. So the 1e−11 plunge in our run was integration error, as diagnosed. V11's
+Fourier-roughness R does NOT separate the controls (regular Kerr 0.0115, above the ZV layer's 0.0015–0.002) and is only
+reported. V11's primary criterion is basin structure across 9-member x0 ensembles (V11 addendum 4, 8901cb7, amended at
+our request before any ensemble result was seen: late escape alone is not non-integrable near a separatrix, because of
+zoom-whirl).
+
 **Pending, before this section is final:**
 1. The Bridge's V11 independent replay of orbits a)–g), with a geometric section-roughness diagnostic calibrated on
    controls. Note: V11 found the AND rule conservative, since its realisations of the ZV layer read regular, so
