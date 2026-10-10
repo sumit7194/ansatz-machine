@@ -1,0 +1,17 @@
+  [Tomimatsu-Sato delta=2 p=3/5] rhs module rhs_e3d9c088caea4fd8.py [0s]
+  [Kerr (TS2 pipeline, delta=1) p=3/5] rhs module rhs_71d54c11241a01a4.py [0s]
+separatrix-matched: TS L_sep 9.266667, eps -0.42446 at L = -5.333333333333334; Kerr L_sep 4.500000 -> Kerr L = -2.589928
+    level E=0.95 L=-2.5899: ridge None, plunge cut 1.500; region [1.000, 30.354] inner-open=True, 2 windows, 400 boundary orbits, 0 candidates, 0 step-capped
+[ts35] L = -5.333333: inner window [6.352737706363674, 6.730488960061812], 3 status changes in the dense seeding (step 1.90e-03) -> W = [6.697456, 6.727456] (width 0.0300); plunge cut 1.500
+  [ts35] checkpoint /Users/sumit/Github/conjecture_machine/data/ts_chaos/alpha_p35w_ts35_n300.partial.jsonl: 0 done, 1500 to run
+  [Tomimatsu-Sato delta=2 p=3/5] rhs module rhs_e3d9c088caea4fd8.py [0s]
+  [Tomimatsu-Sato delta=2 p=3/5] rhs module rhs_e3d9c088caea4fd8.py [0s]
+  [ts35] valid 1500 (invalid 0): uncertain hits per eps {0.003: 362, 0.001: 263, 0.0003: 224, 0.0001: 202, 3e-05: 172}
+VERDICT-alpha [ts35 p35w] E=0.95 L=-5.3333 nsec=300: alpha = 0.159  95% CI [0.132, 0.186]  (5 eps points with >= 10 hits)
+[kerr35] L = -2.589928: inner window (3.3219018366775135, 3.4785599729168832), 1 status changes in the dense seeding (step 7.87e-04) -> W = [3.448209, 3.478209] (width 0.0300); plunge cut 1.500
+  [kerr35] checkpoint /Users/sumit/Github/conjecture_machine/data/ts_chaos/alpha_p35w_kerr35_n300.partial.jsonl: 0 done, 1500 to run
+  [Kerr (TS2 pipeline, delta=1) p=3/5] rhs module rhs_71d54c11241a01a4.py [0s]
+  [Kerr (TS2 pipeline, delta=1) p=3/5] rhs module rhs_71d54c11241a01a4.py [0s]
+  [kerr35] valid 1500 (invalid 0): uncertain hits per eps {0.003: 285, 0.001: 88, 0.0003: 24, 0.0001: 10, 3e-05: 1}
+VERDICT-alpha [kerr35 p35w] E=0.95 L=-2.5899 nsec=300: alpha = 1.039  95% CI [0.906, 1.203]  (4 eps points with >= 10 hits)
+ALL DONE Sun Oct 11 01:48:29 IST 2026

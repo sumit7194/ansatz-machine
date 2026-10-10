@@ -4382,3 +4382,14 @@ valence 1–10, 2 points × 2 draws: all trivial. Total ~50 min on 2 threads.
 Pre-registered (81c988f) and validated offline on synthetic data. Results: Kerr matched α = 1.055 [0.997, 1.112],
 a smooth boundary; TS α = 0.055 [0.044, 0.067], a near-space-filling fractal basin boundary. Both predictions held.
 This is a third, outcome-only line of evidence for §150, independent of the fd/S_ex detectors.
+
+## 2026-10-10/11 — α addenda 1–2, through a power loss and an app restart
+
+- (b) and (c) held: TS 0.093 / 0.051 against Kerr 1.04, so the result is horizon-independent.
+- (a) FAILED its Kerr control: 0.837, a saturated window (W = 0.0039 < 2ε_max). It stays on record.
+- Addendum 2 (W ≥ 10·ε_max, pre-registered, Bridge-agreed) reran (a): TS 0.159 against Kerr 1.039. Held.
+- The power loss killed the first addendum-1 attempt with no saved samples. The script now checkpoints per sample
+  and resumes by seeded index.
+
+Lesson: a scale rule must be a RATIO to the window, not tuned on the first case. The hazard was flagged before the
+first result, but it was not guarded, and it bit on the narrowest window.

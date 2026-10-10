@@ -3977,7 +3977,18 @@ crossed from "slight" to "decisive" because this Kerr window is the narrowest of
 
 A post-hoc fit that drops saturated ε (f ≥ 0.5) gives Kerr(a) 0.975, Kerr(b) 1.081 and the original Kerr 1.115.
 TS(a) is unchanged at 0.128, since no TS point is saturated. That fit is labelled post hoc and is NOT the verdict.
-A clean re-test needs a rule fixed in advance (addendum 2: ε_max ≤ W/10, or a wider window), run on pair (a) again.
+**Addendum 2 (7f616c9, pre-registered before the rerun): W ≥ 10·ε_max for TS and Kerr alike; pair (a) rerun.**
+
+      (a') p=3/5, W = 0.030        TS 0.159 [0.132, 0.186]  Kerr 1.039 [0.906, 1.203]     both predictions held
+
+With the window out of saturation (Kerr hits 285 / 88 / 24 / 10, i.e. linear in ε), the p = 3/5 Kerr control passes,
+and TS(a) reads fractal at the second parameter point. The original (a) outcome stays on record as a failed control.
+The rerun under a rule fixed in advance is what is claimed.
+
+**The α series in one line.** At three TS levels across both parameter points, and at two horizons, TS α = 0.05–0.16
+(uncertainty dimension 0.84–0.95). Every separatrix-matched Kerr control reads α ≈ 1 (1.04–1.06). Under the same
+tolerance and budget, Kerr's survive/plunge boundary is smooth and TS's is fractal. This is an outcome-only
+confirmation of §150, independent of the fd/S_ex detectors.
 
 **Pending, before this section is final:**
 1. The Bridge's V11 independent replay of orbits a)–g), with a geometric section-roughness diagnostic calibrated on
