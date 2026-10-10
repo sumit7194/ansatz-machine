@@ -1,0 +1,7 @@
+  [Tomimatsu-Sato delta=2 p=3/5] rhs module rhs_e3d9c088caea4fd8.py [0s]
+  [Kerr (TS2 pipeline, delta=1) p=3/5] rhs module rhs_71d54c11241a01a4.py [0s]
+separatrix-matched: TS L_sep 9.266667, eps -0.42446 at L = -5.333333333333334; Kerr L_sep 4.500000 -> Kerr L = -2.589928
+    level E=0.95 L=-2.5899: ridge None, plunge cut 1.500; region [1.000, 30.354] inner-open=True, 2 windows, 400 boundary orbits, 0 candidates, 0 step-capped
+[ts35] L = -5.333333: inner window [6.352737706363674, 6.730488960061812], 3 status changes in the dense seeding (step 1.90e-03) -> W = [6.705812, 6.719099] (width 0.0133); plunge cut 1.500
+  [Tomimatsu-Sato delta=2 p=3/5] rhs module rhs_e3d9c088caea4fd8.py [0s]
+  [Tomimatsu-Sato delta=2 p=3/5] rhs module rhs_e3d9c088caea4fd8.py [0s]

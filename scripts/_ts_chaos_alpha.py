@@ -120,8 +120,27 @@ def main():
               f"(step {step:.2e}) -> W = [{a:.6f}, {b:.6f}] (width {b - a:.4f}); plunge cut {xpl:.3f}", flush=True)
         rnd = random.Random(1500 + len(s))
         jobs = [(s, L, rnd.uniform(a, b), xpl, E0, nsec) for _ in range(K)]
-        with Pool(workers) as pool:
-            samples = pool.map(_sample, jobs, chunksize=8)
+        # Resumable (after a power loss lost a run, 2026-10-10): every finished sample is appended to a checkpoint
+        # file keyed by its index in the seeded job list. A restart recomputes only the missing indices. The x0 list
+        # and the integrations are deterministic, so the result is identical to an uninterrupted run.
+        ck = os.path.join(D, f"alpha{'_' + tag if tag else ''}_{s}_n{nsec}.partial.jsonl")
+        done = {}
+        if os.path.exists(ck):
+            for line in open(ck):
+                try:
+                    r = json.loads(line)
+                except ValueError:
+                    continue                                  # a torn last line from the interruption
+                if r["i"] < K and abs(r["s"]["x0"] - jobs[r["i"]][2]) == 0:
+                    done[r["i"]] = r["s"]
+        todo = [i for i in range(K) if i not in done]
+        print(f"  [{s}] checkpoint {ck}: {len(done)} done, {len(todo)} to run", flush=True)
+        with Pool(workers) as pool, open(ck, "a") as fh:
+            for i, smp in zip(todo, pool.imap(_sample, [jobs[i] for i in todo], chunksize=4)):
+                done[i] = smp
+                fh.write(json.dumps(dict(i=i, s=smp)) + "\n")
+                fh.flush()
+        samples = [done[i] for i in range(K)]
         an = analyse(samples)
         an.update(system=s, E=E0, L=L, W=[a, b], dense_changes=nch, eps=list(EPS), nsec=nsec)
         res[s] = dict(analysis=an, samples=samples)

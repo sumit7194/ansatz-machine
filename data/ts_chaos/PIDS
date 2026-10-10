@@ -5,3 +5,4 @@
 34184 2026-10-10 08:23:20 cachecheck run 2 (NaN-safe comparator)
 70395 2026-10-10 10:51:58 MN jet bound driver (data/jet/run_mn.sh)
 81008 2026-10-10 11:43:36 alpha (uncertainty exponent), 2 workers
+8003 2026-10-10 13:13:33 alpha addendum-1 driver (run_alpha2.sh), 2 workers
