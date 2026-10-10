@@ -142,3 +142,11 @@ with the same rule. All four systems are rerun from scratch with the truncated s
 Candidates are re-confirmed under this rule by `scripts/_ts_chaos_confirm.py` after the v2 scans finish. The ZV gate
 is unaffected: its 5 confirmations had status 1/1/1/1/0 at 1e-13, none capped. P1 (Kerr: no confirmed chaos) is
 judged under this rule.
+
+### Observation after amendment 5 (no rule change): S_ex alone is NOT specific near separatrices
+Under amendment 5, kerr45 has 0 CONFIRMED (all 9 candidates rejected; `bscan_kerr45_v2_confirm.json`). But at tol 1e-13
+several regular Kerr orbits still reach S_ex = 11–62: finite-time stretching near the hyperbolic unstable circular
+orbit, as the Bridge's separatrix-hyperbolicity hypothesis predicts. The frequency drift discriminates (Kerr ≤ 0.0013 at
+1e-13; ZV layer 0.016–0.064). So the existing AND-rule (fd > 0.0115 AND S_ex ≥ 10) is what provides specificity. The
+write-up will report fd as the decisive detector, with a matched Kerr distribution at the same (E, L/m) shown next to
+any TS candidate. A Carter-constant check on the flagged Kerr orbit is requested from the Bridge's V11.
