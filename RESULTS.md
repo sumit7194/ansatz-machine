@@ -4052,6 +4052,20 @@ All 6 cells agree (the CIs overlap); V12 reads lower in all six.
 rtol 1e−11 … 1e−14 is a lower bound from 4 tolerances: TS L1 0.373, TS L3 0.067, Kerr 0/75 in each window. Its
 ordering matches the α ordering.
 
+**Where the fractality lives (the Bridge V12 secondary, pre-registered outside the verdict; relayed, not verified
+here).** The same design at the OUTER survive/plunge transition (K = 2000):
+
+      level   TS alpha                 Kerr alpha
+      L1      0.653 [0.578, 0.739]     0.938
+      L2      0.665 [0.588, 0.760]     1.009
+      L3      1.150 [1.017, 1.303]     0.972
+
+At L1 the TS outer hits run 406, 145, 56, 39, 42: Kerr-like at large ε, flattening at about 2% of x0 at small ε.
+- **Reading.** The fractality is concentrated at the INNER (plunge-side) transition (α 0.04–0.16). The outer edge is
+  mostly smooth: a small residual sensitive set at L1/L2, fully smooth at L3.
+- **Fit with the main result.** This fits a thin chaotic layer hugging the separatrix on the plunge side, the picture
+  §150's sticky orbits already suggested.
+
 **Pending, before this section is final:**
 1. DONE, see "Independent replay" above. Earlier status kept for the record. (Status 2026-10-11, relayed: V11's first ensemble run was ALL INCONCLUSIVE because of a V11-side bug, plunge
    checked only at chunk ends. It is fixed as V11 addendum 6, labelled post-failure with controls unchanged; the rerun
