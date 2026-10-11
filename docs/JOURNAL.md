@@ -4400,3 +4400,11 @@ Built 8 new TS δ = 2 metrics (rational t, 4 q-swap pairs); all vacuum batteries
 load- and memory-gated, per the Bridge. The first launch ran nothing (the zsh `$J` word-split trap again); it was
 fixed, a verdict count was added, and the run relaunched. 160/160: Kerr finds Carter at every p, and TS is trivial at
 every p × 2 points to valence 8. The §149 null is generic across the family.
+
+## 2026-10-11 — parser integrity (tabula's crash hunt, via the Bridge)
+
+Python 3.12's tokenizer was found to crash or corrupt the heap on the ~26 KB srepr lines of the TS component files.
+Our loader (sympify → parse_expr) runs only on the project venv, Python 3.14.5. Check: 20 fresh processes under
+PYTHONMALLOC=debug and -X faulthandler, parsing all 20 TS component files: 20/20 exit 0, 20/20 identical
+sha256(srepr) 8e16541e… (`scripts/_ts2_parse_check.py`, `data/jet/ts2_parse_check.out`). No result of ours was parsed
+on 3.12, so nothing needs a rerun.
