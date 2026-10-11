@@ -190,8 +190,8 @@ def make_dd_integrator(f):
         return oh, ol
 
     @numba.njit
-    def midpoint(yh, yl, f0h, f0l, h, n, Eh, El, Lh, Ll):
-        hs = dd_div(h, 0.0, float(n), 0.0)
+    def midpoint(yh, yl, f0h, f0l, h, hl, n, Eh, El, Lh, Ll):
+        hs = dd_div(h, hl, float(n), 0.0)                       # the step is the DD value h + hl (hl = 0 in run())
         h2 = dd_mul_d(hs[0], hs[1], 2.0)
         zph, zpl = yh.copy(), yl.copy()                         # z_{m-1}
         zh, zl = axpy(yh, yl, hs[0], hs[1], f0h, f0l)           # z_1
@@ -208,13 +208,13 @@ def make_dd_integrator(f):
         return oh, ol
 
     @numba.njit
-    def gbs_step(yh, yl, h, k, Eh, El, Lh, Ll):
+    def gbs_step(yh, yl, h, hl, k, Eh, El, Lh, Ll):
         """One GBS step of order k. Returns (new state hi, lo, error estimate hi-vector)."""
         f0h, f0l = rhs(yh, yl, Eh, El, Lh, Ll)
         Th = np.empty((k, k, 4)); Tl = np.empty((k, k, 4))
         for j in range(k):
             nj = 2 * (j + 1)
-            mh, ml = midpoint(yh, yl, f0h, f0l, h, nj, Eh, El, Lh, Ll)
+            mh, ml = midpoint(yh, yl, f0h, f0l, h, hl, nj, Eh, El, Lh, Ll)
             Th[j, 0], Tl[j, 0] = mh, ml
             for m in range(1, j + 1):
                 nm = 2 * (j - m + 1)
@@ -254,7 +254,7 @@ def make_dd_integrator(f):
             hmax = min(hmax0, 0.1 * dt_cross)
             if h > hmax:
                 h = hmax
-            nh, nl, err = gbs_step(sh, sl, h, k, Eh, El, Lh, Ll)
+            nh, nl, err = gbs_step(sh, sl, h, 0.0, k, Eh, El, Lh, Ll)
             e = 0.0
             bad = False
             for i in range(4):
@@ -296,7 +296,45 @@ def make_dd_integrator(f):
             h *= min(4.0, max(0.2, fac))
         return status, ns, th, nsteps, secs[:ns], maxshell
 
-    return run
+    @numba.njit
+    def run_to_time(x0, Eh, El, Lh, Ll, tol, k, T, hmax0):
+        """G4 (addendum 2): integrate to proper time T exactly (last step clipped), no events. Returns the DD state."""
+        sh = np.zeros(4); sl = np.zeros(4)
+        sh[0] = x0
+        p = py_on_shell(x0, Eh, El, Lh, Ll)
+        sh[3], sl[3] = p
+        th, tl = 0.0, 0.0
+        h = 0.05
+        expo = 1.0 / (2 * k - 1)
+        for _ in range(100_000_000):
+            rem = dd_sub(T, 0.0, th, tl)
+            if rem[0] <= 0.0:
+                break
+            if h > hmax0:
+                h = hmax0
+            clipped = False
+            hl = 0.0
+            if h >= rem[0]:
+                h, hl = rem[0], rem[1]          # the clipped step is the EXACT DD remainder (dropping rem[1] cost ~1e-17 in time)
+                clipped = True
+            nh, nl, err = gbs_step(sh, sl, h, hl, k, Eh, El, Lh, Ll)
+            e = 0.0
+            for i in range(4):
+                v = abs(err[i]) / (tol * (1.0 + max(abs(sh[i]), abs(nh[i]))))
+                if v > e:
+                    e = v
+            if e <= 1.0:
+                sh, sl = nh, nl
+                if clipped:
+                    th, tl = T, 0.0
+                    break
+                th, tl = dd_add(th, tl, h, 0.0)
+            fac = 0.94 * (1.0 / e) ** expo if e > 0.0 else 4.0
+            h *= min(4.0, max(0.2, fac))
+        return sh, sl
+
+    run.gbs_step = gbs_step          # exposed for debugging (no effect on run())
+    return run, run_to_time
 
 
 class DDEngine:
@@ -304,7 +342,7 @@ class DDEngine:
         from _kt_exact_op import get_metric
         self.ginv, self.name = get_metric(spec)
         self.f, self.path = build_dd_rhs(self.ginv, self.name)
-        self._run = make_dd_integrator(self.f)
+        self._run, self._run_to_time = make_dd_integrator(self.f)
 
     def orbit(self, x0, E, L, tol, nsec, k=12, tmax=5e6, xmin=1.5, xmax=2000.0, ymax=0.999999, hmax0=20.0,
               maxsteps=50_000_000):
@@ -313,6 +351,16 @@ class DDEngine:
         st, n, t, steps, secs, mshell = self._run(float(x0), Eh, El, Lh, Ll, tol, k, nsec, tmax, xmin, xmax, ymax,
                                                  hmax0, maxsteps)
         return dict(status=int(st), n=int(n), t_end=float(t), steps=int(steps), secs=secs, maxshell=float(mshell))
+
+
+def _ddpair(v):
+    return v if isinstance(v, tuple) else tuple(float(c) for c in dd_const(v))
+
+
+def dd_state_at(eng, x0, E, L, T, tol=1e-28, k=12, hmax0=20.0):
+    (Eh, El), (Lh, Ll) = _ddpair(E), _ddpair(L)
+    sh, sl = eng._run_to_time(float(x0), Eh, El, Lh, Ll, tol, k, float(T), hmax0)
+    return sh, sl
 
 
 def carter_Q(ginv, E, L, xstar=3):
@@ -405,3 +453,48 @@ class MPEngine:
             fac = mp.mpf("0.94") * (1 / e) ** expo if e > 0 else mp.mpf(4)
             h *= min(mp.mpf(4), max(mp.mpf("0.2"), fac))
         return dict(status=status, n=ns, t_end=float(t), steps=steps)
+
+
+def mp_state_at(m, x0, E, L, T, tol=1e-40, k=14, hmax0=20.0):
+    """G4 (addendum 2): the mpmath twin of dd_state_at."""
+    mp = m.mp
+    mp.mp.dps = m.dps
+    Er, Lr = sp.Rational(E), sp.Rational(L)
+    Em, Lm = mp.mpf(Er.p) / Er.q, mp.mpf(Lr.p) / Lr.q
+    x0m = mp.mpf(float(x0))
+    v = m.F(x0m, mp.mpf(0), Em, Lm)
+    s = [x0m, mp.mpf(0), mp.mpf(0), mp.sqrt((-1 - v[8]) / v[1])]
+    t, h, Tm, tolm = mp.mpf(0), mp.mpf("0.05"), mp.mpf(float(T)), mp.mpf(tol)
+    expo = mp.mpf(1) / (2 * k - 1)
+    while t < Tm:
+        h = min(h, mp.mpf(hmax0))
+        clipped = h >= Tm - t
+        if clipped:
+            h = Tm - t
+        f0 = m._rhs(s, Em, Lm)
+        Tab = []
+        for j in range(k):
+            nj = 2 * (j + 1)
+            hs = h / nj
+            zp, z = list(s), [s[i] + hs * f0[i] for i in range(4)]
+            for _ in range(nj - 1):
+                fz = m._rhs(z, Em, Lm)
+                zp, z = z, [zp[i] + 2 * hs * fz[i] for i in range(4)]
+            fz = m._rhs(z, Em, Lm)
+            row = [[(z[i] + zp[i] + hs * fz[i]) / 2 for i in range(4)]]
+            for q in range(1, j + 1):
+                nm = 2 * (j - q + 1)
+                r = mp.mpf(nj * nj - nm * nm) / (nm * nm)
+                row.append([row[q - 1][i] + (row[q - 1][i] - Tab[j - 1][q - 1][i]) / r for i in range(4)])
+            Tab.append(row)
+        new = Tab[k - 1][k - 1]
+        e = max(abs(new[i] - Tab[k - 1][k - 2][i]) / (tolm * (1 + max(abs(s[i]), abs(new[i])))) for i in range(4))
+        if e <= 1:
+            s = new
+            if clipped:
+                t = Tm
+                break
+            t += h
+        fac = mp.mpf("0.94") * (1 / e) ** expo if e > 0 else mp.mpf(4)
+        h *= min(mp.mpf(4), max(mp.mpf("0.2"), fac))
+    return s
