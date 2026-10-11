@@ -59,9 +59,18 @@ sensitivity itself. The α VALUES should agree within their confidence intervals
 must agree exactly.
 
 ## The two independent implementations behind each claim
-| claim | this repo | independent implementation |
-|---|---|---|
-| §149 TS jet bound | `_kt_jet.py`: Python 3.14.5 + numpy 2.4.6 series, rank by FLINT 3.6 or Rust `ktdense` | the Bridge V10, its own stack (see TheBridge FINDINGS) |
-| §151 MN jet bound | `_kt_jet_mn.py` (the same stack + exp/√ series) | the Bridge V10-MN (TheBridge fafb1ae), its own transcription and evaluator |
-| §150 chaos | Dormand–Prince 5(4) in numba 0.65.1 (`_ts_chaos.py`) | the Bridge V11 (numba DOP853); V12 α pending |
-| §152 p-sweep | `_kt_jet.py` | the Bridge V10 subset reproduction, queued |
+**Read this first: the independence is in the CODE, not the interpreter.** The Bridge's implementations (V10, V10-MN,
+V11, V12) run on the SAME Python stack as this repo: CPython 3.14.5 from this repo's `.venv`, numpy 2.4.6 and
+scipy 1.18.0 (both Accelerate), sympy 1.14.0, mpmath 1.3.0, numba 0.65.1 / llvmlite 0.47.0, macOS 26.5 arm64 (pinned
+in TheBridge ENVIRONMENT/, 243ec82). A bug in a shared dependency (sympy, numpy, numba, Accelerate) would therefore
+NOT be caught by our cross-check. The fleet's different-stack implementations are tabula (Python 3.12, then a newer
+venv) and quantum (3.13 plus Rust/Arb).
+
+Where the two differ, the difference is real:
+
+| claim | this repo | the Bridge (same interpreter, independent code) | what is genuinely different |
+|---|---|---|---|
+| §149 TS jet bound | `_kt_jet.py`: numpy series; rank by FLINT 3.6.0 `nmod_mat` or Rust `ktdense` | V10 | the rank engine (FLINT/Rust vs the Bridge's own numpy int32/int64 Gaussian elimination over GF(2³¹−1), no FLINT); series code; points; primes |
+| §151 MN jet bound | `_kt_jet_mn.py` (the same stack + exp/√ series, T-specialisation) | V10-MN (fafb1ae) | the metric transcription (its V9), the exp/√ evaluator, the rank engine, points, draw |
+| §150 chaos / α | Dormand–Prince 5(4) in numba (`_ts_chaos.py`) | V11 / V12, numba DOP853 | the integrator order and code, event handling, L_sep method, seeds, estimator (binomial MLE in V12) |
+| §152 p-sweep | `_kt_jet.py` | V10 subset (queued) | as §149 |
