@@ -88,3 +88,19 @@ null. The next rung would then be quad-double or arbitrary precision.
 - Converged fractions are reported with the unresolved counts, never dropped.
 - Resources: ≤ 2 worker processes, thread env vars = 1, load gate (5-min load < 8, free + inactive ≥ 3 GB),
   checkpointed per orbit. The environment is recorded under the reproducibility policy.
+
+## Addendum 1 (2026-10-11, the Bridge's review, before ANY probe run)
+1. **Tolerance headroom.** A neighbour outcome counts only if R1 (1e−22) and R2 (1e−28) agree, so integration error
+   at R1 cannot masquerade as ε-sensitivity: it shows up as "unresolved". In addition, an ε rung enters the ε_c
+   determination only if ≥ 80% of its neighbour outcomes converged; otherwise that rung is "below DD resolution" and
+   ε_c is stated as an inequality.
+2. **Unresolved outcomes.**
+   - Base x0 whose outcome does not converge between R1 and R2 are excluded from the crossover set, and their count is
+     reported as U(N), the fraction of the probe set whose outcome is decided below ~1e−28. A large U(N) is itself the
+     answer that "ε_c lies below DD resolution".
+   - For f(ε), PRIMARY: x0 with an unresolved neighbour are excluded at that ε (counts reported). SECONDARY BOUND:
+     unresolved neighbours counted as uncertain (an upper bound on f).
+   - The verdict uses PRIMARY. If PRIMARY and the SECONDARY BOUND give different ε_c, that is reported as
+     "not robust".
+3. **Conventions matched to the double engine** (for G3): a crossing is counted when y goes from < 0 to ≥ 0 with p_y > 0
+   at an accepted step, so the start (y = 0) is not counted. Plunge and escape are checked at accepted step ends.
