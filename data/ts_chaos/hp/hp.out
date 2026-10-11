@@ -1,0 +1,68 @@
+[gate] start Sun Oct 11 22:36:07 IST 2026 load5 7.83 mem 6.3GB
+[select] 0 done, 675 to run
+  [Tomimatsu-Sato delta=2 p=4/5] rhs module rhs_093919abe726c361.py [0s]
+  [Tomimatsu-Sato delta=2 p=4/5] rhs module rhs_093919abe726c361.py [0s]
+  [select] 20/675  [88s]
+  [select] 40/675  [137s]
+  [select] 60/675  [191s]
+  [select] 80/675  [272s]
+  [select] 100/675  [330s]
+  [select] 120/675  [407s]
+  [select] 140/675  [477s]
+  [select] 160/675  [556s]
+  [select] 180/675  [632s]
+  [select] 200/675  [713s]
+  [select] 220/675  [806s]
+  [select] 240/675  [863s]
+  [select] 260/675  [957s]
+  [select] 280/675  [1004s]
+  [select] 300/675  [1075s]
+  [select] 320/675  [1168s]
+  [select] 340/675  [1239s]
+  [select] 360/675  [1328s]
+  [select] 380/675  [1409s]
+  [select] 400/675  [1468s]
+  [select] 420/675  [1535s]
+  [select] 440/675  [1598s]
+  [select] 460/675  [1658s]
+  [select] 480/675  [1744s]
+  [select] 500/675  [1808s]
+  [select] 520/675  [1898s]
+  [select] 540/675  [1936s]
+  [select] 560/675  [2023s]
+  [select] 580/675  [2079s]
+  [Kerr (TS2 pipeline, delta=1) p=4/5] rhs module rhs_f234d03df20c467e.py [0s]
+  [select] 600/675  [2167s]
+  [Kerr (TS2 pipeline, delta=1) p=4/5] rhs module rhs_f234d03df20c467e.py [0s]
+  [select] 620/675  [2197s]
+  [select] 640/675  [2213s]
+  [select] 660/675  [2229s]
+VERDICT-select: TS 200 classified, SENSITIVE 81 (40%), STABLE 119; Kerr sensitive 0/25; any DP5 step-capped: 0
+[gates] 0 done, 55 to run
+  [gates] 20/55  [67s]
+  [gates] 40/55  [103s]
+G1 Kerr Carter drift (R2, N=300): ['1.2e-28', '5.3e-28', '1.7e-26', '1.8e-26', '2.2e-26'] -> PASS
+G2 shell max|2H+1| (R2): ['1.6e-28', '1.5e-28', '9.3e-27', '9.4e-27', '9.9e-27', '8.8e-28', '3.4e-27', '1.2e-27', '1.7e-27', '3.6e-28'] -> PASS
+G3 R1 vs DP5 (outcome, n at N=300): TS stable 19/20, Kerr 25/25 -> PASS
+   G3 disagreement ts:0 x0=9.925681556: DP5 ('survive', 300) vs R1 ('plunge', 283)
+VERDICT-gates G1-G3: ALL PASS
+[base] 0 done, 250 to run
+  [base] 20/250  [77s]
+  [base] 40/250  [137s]
+  [base] 60/250  [208s]
+  [base] 80/250  [276s]
+  [base] 100/250  [343s]
+  [base] 120/250  [452s]
+  [base] 140/250  [591s]
+  [base] 160/250  [740s]
+  [base] 180/250  [885s]
+  [base] 200/250  [977s]
+  [base] 220/250  [1015s]
+  [base] 240/250  [1040s]
+VERDICT-base [TS sensitive] N=300: converged 49/50 (U = 0.02)
+VERDICT-base [TS sensitive] N=600: converged 44/50 (U = 0.12)
+VERDICT-base [TS stable] N=300: converged 49/50 (U = 0.02)
+VERDICT-base [TS stable] N=600: converged 46/50 (U = 0.08)
+VERDICT-base [Kerr] N=300: converged 25/25 (U = 0.00)
+VERDICT-base [Kerr] N=600: converged 25/25 (U = 0.00)
+ALL DONE (select, gates, base) Sun Oct 11 23:32:42 IST 2026
