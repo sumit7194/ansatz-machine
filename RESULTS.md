@@ -4082,7 +4082,22 @@ At L1 the TS outer hits run 406, 145, 56, 39, 42: Kerr-like at large ε, flatten
    - `fig150_sections.svg`: **Poincaré sections do NOT discriminate at 300 crossings.** Confirmed-chaotic TS orbits
      and regular Kerr controls both trace near-curves, because the layers are thin. That is a methods result in its
      own right, and the likely reason sections alone (Dubeibe et al. 2007) read regular.
-4. (Agreed with the Bridge.) Before §150 comes off DRAFT: the Bridge's E1 extension, ε down to 1e−6 at N = 300 vs
+4. **E1 is in (the Bridge, TheBridge 2a4185b; relayed, not verified here): NOT EVALUABLE for its registered
+   crossover test.**
+   - Uncertain fraction at TS L1, rtol 1e−13, ε 3e−3 → 1e−6: 55% → 38% (N = 300) and 43% → 34% (N = 600). That is
+     fractal-like and flat over 3.5 decades, with no approach to α = 1.
+   - But 17% (N = 300) and 22% (N = 600) of the window x0 change outcome between rtol 1e−11 and 1e−13. The
+     pre-registered noise rule therefore leaves 2/8 and 0/8 usable ε, so "ε_c falls with N" cannot be decided in
+     double precision: any finite-time crossover lies below ~1e−11.
+   - Kerr control: r = 0.001, α 1.03 [0.92, 1.16], identical at both N.
+   - **Wording adopted:** "fractal-like and flat to ε = 1e−6. A fifth of the window is outcome-indeterminate at
+     integration precision (Kerr 0.1%), itself a chaos signature. The finite-time vs genuine-fractal distinction is
+     not resolvable by ε-shrinking in double precision. The fixed-ε horizon test (α 0.055 → 0.051 for N 300 → 600)
+     is the available discriminator."
+   - Taking §150 off DRAFT with that caveat is the USER's decision. The real next rung is a higher-precision probe
+     (a double-double or mpmath Taylor integrator on ~50 sensitive x0), proposed and not started.
+
+   The original item, kept for the record: (Agreed with the Bridge.) Before §150 comes off DRAFT: the Bridge's E1 extension, ε down to 1e−6 at N = 300 vs
    600, rtol 1e−13. Its pre-registered prediction: for a true fractal, the finite-time crossover ε_c moves lower as N
    grows. That is the sharpest test of "fractal" against "finite-time artefact". Tabula's §195 (a different method)
    is welcome but not blocking.
