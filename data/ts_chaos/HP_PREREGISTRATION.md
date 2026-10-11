@@ -104,3 +104,18 @@ null. The next rung would then be quad-double or arbitrary precision.
      "not robust".
 3. **Conventions matched to the double engine** (for G3): a crossing is counted when y goes from < 0 to ≥ 0 with p_y > 0
    at an accepted step, so the start (y = 0) is not counted. Plunge and escape are checked at accepted step ends.
+
+## Addendum 2 (2026-10-11, G4 redefined because of MEASURED cost; before any G4 or probe run)
+Measured: the mpmath 50-digit GBS (R3) takes 609 s for 20 Kerr crossings (~30 s per crossing; TS ~5× more). G4 as
+written (3 Kerr at N = 300, 3 TS at N = 100) would cost ~20 CPU-hours. It would also be weak, since outcomes over a few
+crossings agree trivially. **G4 is replaced by a state-agreement check:**
+- integrate to a FIXED proper time T, with the last step clipped to land exactly on T, in DD at R2 (tol 1e−28) and in
+  mpmath at 50 digits (tol 1e−40). Compare the full state (x, y, p_x, p_y);
+- 2 Kerr probe x0 at T = 2400 (~20 crossings), and 2 TS x0 (the first STABLE and the first SENSITIVE) at T = 4000
+  (~10 crossings);
+- **pass:** max relative state difference ≤ 1e−20 for Kerr and the STABLE TS. The SENSITIVE TS value is reported as
+  the measured DD-vs-50-digit divergence at T, informative, not pass/fail.
+
+G4 does not gate `base` (G1–G3 do, as before). It runs on one core after `base`, or alongside it if the load allows.
+The functions used are separate from the probe's `run()` (new `run_to_time` / `state_at`), so the probe code path is
+unchanged.
