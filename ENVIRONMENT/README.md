@@ -75,20 +75,9 @@ Where the two differ, the difference is real:
 | §150 chaos / α | Dormand–Prince 5(4) in numba (`_ts_chaos.py`) | V11 / V12, numba DOP853 | the integrator order and code, event handling, L_sep method, seeds, estimator (binomial MLE in V12) |
 | §152 p-sweep | `_kt_jet.py` | V10 subset (queued) | as §149 |
 
-## Known library hazard: Apple Accelerate dgeqrf (fleet alert, root-caused by tabula 59812ec)
-Accelerate's QR (`dgeqrf`) writes past a heap block for near-square matrices of about 550–800 × 550–629. This is
-silent heap corruption; minimal repro `np.linalg.qr(rng.standard_normal((629, 629)), mode='r')`. Both numpy and scipy
-here link Accelerate.
+## Known library hazard (under responsible disclosure)
+A vendor numerical-library defect is under responsible disclosure. Details are withheld until the vendor resolves it.
+**Audit of this repo's cited results (2026-10-11): not affected.**
 
-**Exposure audit of this repo's cited results (2026-10-11): NONE.** Every QR-using call (qr, lstsq/gelsd, svd, pinv,
-matrix_rank, polyfit) behind §149–§152 and §150 was grepped:
-- **jet bounds and B1 sampled check:** exact mod-p rank in FLINT `nmod_mat` or Rust `ktdense`; series by integer numpy
-  arithmetic. No LAPACK.
-- **α fits:** `np.linalg.lstsq` on a matrix of at most 5 × 2.
-- **frequency drift and check3:** FFT (pocketfft, not LAPACK).
-- **FTLE slope:** `np.polyfit` on an n × 2 Vandermonde matrix, a column count far outside the band. It is also demoted
-  since amendment 2 and appears in no verdict.
-- **builds and ergosurface check:** exact SymPy / mpmath.
-
-Rule going forward: any new dense float linear algebra with dimensions in the hundreds gets its shapes logged and is
-checked against this band (or run on an OpenBLAS env).
+Forward rule: any new dense floating-point linear algebra with dimensions in the hundreds gets its shapes logged and
+checked against the fleet's hazard note before its results are cited.
