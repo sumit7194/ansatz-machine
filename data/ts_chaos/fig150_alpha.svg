@@ -1,0 +1,111 @@
+<svg xmlns='http://www.w3.org/2000/svg' width='1040' height='460' viewBox='0 0 1040 460' font-family='Helvetica, Arial, sans-serif'>
+<rect width='1040' height='460' fill='#fcfcfb'/>
+<text x='30.0' y='30.0' font-size='15' fill='#0b0b0b' text-anchor='start' font-weight='bold'>Uncertainty exponent: fraction of start points whose fate flips under a nudge ε</text>
+<text x='30.0' y='48.0' font-size='11' fill='#52514e' text-anchor='start' font-weight='normal'>f ∝ ε^α. Smooth boundary (integrable): α = 1 (dotted guide). Fractal boundary (chaotic): α ≪ 1. 300 crossings, tol 1e-11.</text>
+<text x='30.0' y='64.0' font-size='11' fill='#52514e' text-anchor='start' font-weight='normal'>Compare SLOPES, not heights: f scales with 1/(window width), and V12's Kerr window (0.03) is wider than ours at L1 (0.0064).</text>
+<line x1='158.7' y1='120' x2='158.7' y2='380' stroke='#e4e3df'/>
+<text x='158.7' y='394.0' font-size='10' fill='#52514e' text-anchor='middle' font-weight='normal'>0.0001</text>
+<line x1='271.3' y1='120' x2='271.3' y2='380' stroke='#e4e3df'/>
+<text x='271.3' y='394.0' font-size='10' fill='#52514e' text-anchor='middle' font-weight='normal'>0.001</text>
+<line x1='80' y1='341.4' x2='350' y2='341.4' stroke='#e4e3df'/>
+<text x='75.0' y='344.4' font-size='10' fill='#52514e' text-anchor='end' font-weight='normal'>0.001</text>
+<line x1='80' y1='267.6' x2='350' y2='267.6' stroke='#e4e3df'/>
+<text x='75.0' y='270.6' font-size='10' fill='#52514e' text-anchor='end' font-weight='normal'>0.01</text>
+<line x1='80' y1='193.8' x2='350' y2='193.8' stroke='#e4e3df'/>
+<text x='75.0' y='196.8' font-size='10' fill='#52514e' text-anchor='end' font-weight='normal'>0.1</text>
+<line x1='80' y1='120.0' x2='350' y2='120.0' stroke='#e4e3df'/>
+<text x='75.0' y='123.0' font-size='10' fill='#52514e' text-anchor='end' font-weight='normal'>1</text>
+<line x1='80.0' y1='283.1' x2='350.0' y2='120.0' stroke='#52514e' stroke-width='1' stroke-dasharray='1,3'/>
+<polyline fill='none' stroke='#2a78d6' stroke-width='2' points='325.0,138.9 271.3,143.0 212.4,145.1 158.7,145.3 99.8,147.8'/>
+<circle cx='325.0' cy='138.9' r='4' fill='#2a78d6' stroke='#fcfcfb' stroke-width='2'/>
+<circle cx='271.3' cy='143.0' r='4' fill='#2a78d6' stroke='#fcfcfb' stroke-width='2'/>
+<circle cx='212.4' cy='145.1' r='4' fill='#2a78d6' stroke='#fcfcfb' stroke-width='2'/>
+<circle cx='158.7' cy='145.3' r='4' fill='#2a78d6' stroke='#fcfcfb' stroke-width='2'/>
+<circle cx='99.8' cy='147.8' r='4' fill='#2a78d6' stroke='#fcfcfb' stroke-width='2'/>
+<polyline fill='none' stroke='#2a78d6' stroke-width='1.5' stroke-dasharray='4,3' points='325.0,141.0 271.3,142.0 212.4,143.8 158.7,145.3 99.8,147.5'/>
+<circle cx='325.0' cy='141.0' r='4' fill='#fcfcfb' stroke='#2a78d6' stroke-width='2'/>
+<circle cx='271.3' cy='142.0' r='4' fill='#fcfcfb' stroke='#2a78d6' stroke-width='2'/>
+<circle cx='212.4' cy='143.8' r='4' fill='#fcfcfb' stroke='#2a78d6' stroke-width='2'/>
+<circle cx='158.7' cy='145.3' r='4' fill='#fcfcfb' stroke='#2a78d6' stroke-width='2'/>
+<circle cx='99.8' cy='147.5' r='4' fill='#fcfcfb' stroke='#2a78d6' stroke-width='2'/>
+<text x='93.8' y='138.8' font-size='10' fill='#0b0b0b' text-anchor='start' font-weight='normal'>TS α=0.055 [0.04, 0.07]</text>
+<polyline fill='none' stroke='#eb6834' stroke-width='2' points='325.0,121.9 271.3,157.7 212.4,198.9 158.7,243.3 99.8,287.8'/>
+<circle cx='325.0' cy='121.9' r='4' fill='#eb6834' stroke='#fcfcfb' stroke-width='2'/>
+<circle cx='271.3' cy='157.7' r='4' fill='#eb6834' stroke='#fcfcfb' stroke-width='2'/>
+<circle cx='212.4' cy='198.9' r='4' fill='#eb6834' stroke='#fcfcfb' stroke-width='2'/>
+<circle cx='158.7' cy='243.3' r='4' fill='#eb6834' stroke='#fcfcfb' stroke-width='2'/>
+<circle cx='99.8' cy='287.8' r='4' fill='#eb6834' stroke='#fcfcfb' stroke-width='2'/>
+<polyline fill='none' stroke='#eb6834' stroke-width='1.5' stroke-dasharray='4,3' points='325.0,171.3 271.3,207.9 212.4,245.4 158.7,279.0 99.8,306.2'/>
+<circle cx='325.0' cy='171.3' r='4' fill='#fcfcfb' stroke='#eb6834' stroke-width='2'/>
+<circle cx='271.3' cy='207.9' r='4' fill='#fcfcfb' stroke='#eb6834' stroke-width='2'/>
+<circle cx='212.4' cy='245.4' r='4' fill='#fcfcfb' stroke='#eb6834' stroke-width='2'/>
+<circle cx='158.7' cy='279.0' r='4' fill='#fcfcfb' stroke='#eb6834' stroke-width='2'/>
+<circle cx='99.8' cy='306.2' r='4' fill='#fcfcfb' stroke='#eb6834' stroke-width='2'/>
+<text x='93.8' y='303.8' font-size='10' fill='#0b0b0b' text-anchor='start' font-weight='normal'>Kerr α=1.055 [1.00, 1.11]</text>
+<text x='80.0' y='110.0' font-size='11' fill='#0b0b0b' text-anchor='start' font-weight='bold'>L1  p=4/5 E=0.97 L=+5.125 (retrograde)</text>
+<text x='215.0' y='410.0' font-size='10' fill='#52514e' text-anchor='middle' font-weight='normal'>nudge ε (log)</text>
+<text x='40.0' y='250.0' font-size='10' fill='#52514e' text-anchor='middle' transform='rotate(-90 40.0 250.0)'>uncertain fraction f (log)</text>
+<line x1='488.7' y1='120' x2='488.7' y2='380' stroke='#e4e3df'/>
+<text x='488.7' y='394.0' font-size='10' fill='#52514e' text-anchor='middle' font-weight='normal'>0.0001</text>
+<line x1='601.3' y1='120' x2='601.3' y2='380' stroke='#e4e3df'/>
+<text x='601.3' y='394.0' font-size='10' fill='#52514e' text-anchor='middle' font-weight='normal'>0.001</text>
+<line x1='410' y1='341.4' x2='680' y2='341.4' stroke='#e4e3df'/>
+<text x='405.0' y='344.4' font-size='10' fill='#52514e' text-anchor='end' font-weight='normal'>0.001</text>
+<line x1='410' y1='267.6' x2='680' y2='267.6' stroke='#e4e3df'/>
+<text x='405.0' y='270.6' font-size='10' fill='#52514e' text-anchor='end' font-weight='normal'>0.01</text>
+<line x1='410' y1='193.8' x2='680' y2='193.8' stroke='#e4e3df'/>
+<text x='405.0' y='196.8' font-size='10' fill='#52514e' text-anchor='end' font-weight='normal'>0.1</text>
+<line x1='410' y1='120.0' x2='680' y2='120.0' stroke='#e4e3df'/>
+<text x='405.0' y='123.0' font-size='10' fill='#52514e' text-anchor='end' font-weight='normal'>1</text>
+<line x1='410.0' y1='283.9' x2='680.0' y2='120.0' stroke='#52514e' stroke-width='1' stroke-dasharray='1,3'/>
+<polyline fill='none' stroke='#2a78d6' stroke-width='2' points='655.0,140.9 601.3,147.3 542.4,150.0 488.7,152.5 429.8,155.0'/>
+<circle cx='655.0' cy='140.9' r='4' fill='#2a78d6' stroke='#fcfcfb' stroke-width='2'/>
+<circle cx='601.3' cy='147.3' r='4' fill='#2a78d6' stroke='#fcfcfb' stroke-width='2'/>
+<circle cx='542.4' cy='150.0' r='4' fill='#2a78d6' stroke='#fcfcfb' stroke-width='2'/>
+<circle cx='488.7' cy='152.5' r='4' fill='#2a78d6' stroke='#fcfcfb' stroke-width='2'/>
+<circle cx='429.8' cy='155.0' r='4' fill='#2a78d6' stroke='#fcfcfb' stroke-width='2'/>
+<text x='423.8' y='146.0' font-size='10' fill='#0b0b0b' text-anchor='start' font-weight='normal'>TS α=0.093 [0.08, 0.11]</text>
+<polyline fill='none' stroke='#eb6834' stroke-width='2' points='655.0,123.2 601.3,158.5 542.4,199.1 488.7,241.4 429.8,277.5'/>
+<circle cx='655.0' cy='123.2' r='4' fill='#eb6834' stroke='#fcfcfb' stroke-width='2'/>
+<circle cx='601.3' cy='158.5' r='4' fill='#eb6834' stroke='#fcfcfb' stroke-width='2'/>
+<circle cx='542.4' cy='199.1' r='4' fill='#eb6834' stroke='#fcfcfb' stroke-width='2'/>
+<circle cx='488.7' cy='241.4' r='4' fill='#eb6834' stroke='#fcfcfb' stroke-width='2'/>
+<circle cx='429.8' cy='277.5' r='4' fill='#eb6834' stroke='#fcfcfb' stroke-width='2'/>
+<text x='423.8' y='293.5' font-size='10' fill='#0b0b0b' text-anchor='start' font-weight='normal'>Kerr α=1.039 [0.98, 1.10]</text>
+<text x='410.0' y='110.0' font-size='11' fill='#0b0b0b' text-anchor='start' font-weight='bold'>L2  p=4/5 E=0.97 L=+5.875 (retrograde)</text>
+<text x='545.0' y='410.0' font-size='10' fill='#52514e' text-anchor='middle' font-weight='normal'>nudge ε (log)</text>
+<text x='370.0' y='250.0' font-size='10' fill='#52514e' text-anchor='middle' transform='rotate(-90 370.0 250.0)'>uncertain fraction f (log)</text>
+<line x1='818.7' y1='120' x2='818.7' y2='380' stroke='#e4e3df'/>
+<text x='818.7' y='394.0' font-size='10' fill='#52514e' text-anchor='middle' font-weight='normal'>0.0001</text>
+<line x1='931.3' y1='120' x2='931.3' y2='380' stroke='#e4e3df'/>
+<text x='931.3' y='394.0' font-size='10' fill='#52514e' text-anchor='middle' font-weight='normal'>0.001</text>
+<line x1='740' y1='341.4' x2='1010' y2='341.4' stroke='#e4e3df'/>
+<text x='735.0' y='344.4' font-size='10' fill='#52514e' text-anchor='end' font-weight='normal'>0.001</text>
+<line x1='740' y1='267.6' x2='1010' y2='267.6' stroke='#e4e3df'/>
+<text x='735.0' y='270.6' font-size='10' fill='#52514e' text-anchor='end' font-weight='normal'>0.01</text>
+<line x1='740' y1='193.8' x2='1010' y2='193.8' stroke='#e4e3df'/>
+<text x='735.0' y='196.8' font-size='10' fill='#52514e' text-anchor='end' font-weight='normal'>0.1</text>
+<line x1='740' y1='120.0' x2='1010' y2='120.0' stroke='#e4e3df'/>
+<text x='735.0' y='123.0' font-size='10' fill='#52514e' text-anchor='end' font-weight='normal'>1</text>
+<line x1='740.0' y1='336.3' x2='1010.0' y2='159.3' stroke='#52514e' stroke-width='1' stroke-dasharray='1,3'/>
+<polyline fill='none' stroke='#2a78d6' stroke-width='2' points='985.0,165.6 931.3,175.8 872.4,180.9 818.7,184.3 759.8,189.4'/>
+<circle cx='985.0' cy='165.6' r='4' fill='#2a78d6' stroke='#fcfcfb' stroke-width='2'/>
+<circle cx='931.3' cy='175.8' r='4' fill='#2a78d6' stroke='#fcfcfb' stroke-width='2'/>
+<circle cx='872.4' cy='180.9' r='4' fill='#2a78d6' stroke='#fcfcfb' stroke-width='2'/>
+<circle cx='818.7' cy='184.3' r='4' fill='#2a78d6' stroke='#fcfcfb' stroke-width='2'/>
+<circle cx='759.8' cy='189.4' r='4' fill='#2a78d6' stroke='#fcfcfb' stroke-width='2'/>
+<text x='753.8' y='180.4' font-size='10' fill='#0b0b0b' text-anchor='start' font-weight='normal'>TS α=0.159 [0.13, 0.19]</text>
+<polyline fill='none' stroke='#eb6834' stroke-width='2' points='985.0,173.2 931.3,210.9 872.4,252.5 818.7,280.6 759.8,354.4'/>
+<circle cx='985.0' cy='173.2' r='4' fill='#eb6834' stroke='#fcfcfb' stroke-width='2'/>
+<circle cx='931.3' cy='210.9' r='4' fill='#eb6834' stroke='#fcfcfb' stroke-width='2'/>
+<circle cx='872.4' cy='252.5' r='4' fill='#eb6834' stroke='#fcfcfb' stroke-width='2'/>
+<circle cx='818.7' cy='280.6' r='4' fill='#eb6834' stroke='#fcfcfb' stroke-width='2'/>
+<circle cx='759.8' cy='354.4' r='4' fill='#eb6834' stroke='#fcfcfb' stroke-width='2'/>
+<text x='753.8' y='370.4' font-size='10' fill='#0b0b0b' text-anchor='start' font-weight='normal'>Kerr α=1.039 [0.91, 1.20]</text>
+<text x='740.0' y='110.0' font-size='11' fill='#0b0b0b' text-anchor='start' font-weight='bold'>L3  p=3/5 E=0.95 L=-5.333 (prograde), W=0.03</text>
+<text x='875.0' y='410.0' font-size='10' fill='#52514e' text-anchor='middle' font-weight='normal'>nudge ε (log)</text>
+<text x='700.0' y='250.0' font-size='10' fill='#52514e' text-anchor='middle' transform='rotate(-90 700.0 250.0)'>uncertain fraction f (log)</text>
+<circle cx='90' cy='432' r='4' fill='#2a78d6'/><text x='100.0' y='436.0' font-size='11' fill='#0b0b0b' text-anchor='start' font-weight='normal'>Tomimatsu–Sato δ=2 (this repo)</text>
+<circle cx='320' cy='432' r='4' fill='#eb6834'/><text x='330.0' y='436.0' font-size='11' fill='#0b0b0b' text-anchor='start' font-weight='normal'>Kerr, separatrix-matched (this repo)</text>
+<circle cx='580' cy='432' r='4' fill='#fcfcfb' stroke='#52514e' stroke-width='2'/><text x='590.0' y='436.0' font-size='11' fill='#52514e' text-anchor='start' font-weight='normal'>hollow, dashed: the Bridge V12, independent code (L1; relayed)</text>
+</svg>

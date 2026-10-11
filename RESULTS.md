@@ -4059,7 +4059,19 @@ ordering matches the α ordering.
    The Bridge's V11 independent replay of orbits a)–g), with a geometric section-roughness diagnostic calibrated on
    controls. Note: V11 found the AND rule conservative, since its realisations of the ZV layer read regular, so
    "V11 does not confirm" alone will not refute.
-2. Section figures.
+2. ~~Section figures~~ DONE (`scripts/_ts_chaos_figures.py`, static SVG in `data/ts_chaos/`):
+   - `fig150_fate.svg`: the survive/plunge outcome of every sampled x0 across the L1 windows. **Kerr switches once.
+     TS switches 370 times in 1500 points, and 53 times in a 10× zoom of its central 10%.** This is the fractal
+     boundary made visible.
+   - `fig150_alpha.svg`: f(ε) per level pair, ours plus the Bridge V12 overlay at L1. Compare slopes, not heights:
+     f scales with 1/W.
+   - `fig150_sections.svg`: **Poincaré sections do NOT discriminate at 300 crossings.** Confirmed-chaotic TS orbits
+     and regular Kerr controls both trace near-curves, because the layers are thin. That is a methods result in its
+     own right, and the likely reason sections alone (Dubeibe et al. 2007) read regular.
+4. (Agreed with the Bridge.) Before §150 comes off DRAFT: the Bridge's E1 extension, ε down to 1e−6 at N = 300 vs
+   600, rtol 1e−13. Its pre-registered prediction: for a true fractal, the finite-time crossover ε_c moves lower as N
+   grows. That is the sharpest test of "fractal" against "finite-time artefact". Tabula's §195 (a different method)
+   is welcome but not blocking.
 3. ~~A complex-signal frequency estimator as a third check~~ DONE (`scripts/_ts_chaos_check3.py`,
    `data/ts_chaos/check3.json`, report-only, harmonic-proof). Results:
    - Kerr candidates: ≤ 0.0006 (17/17 regular).
