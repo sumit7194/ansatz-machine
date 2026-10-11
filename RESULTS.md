@@ -4066,6 +4066,20 @@ At L1 the TS outer hits run 406, 145, 56, 39, 42: Kerr-like at large ε, flatten
 - **Fit with the main result.** This fits a thin chaotic layer hugging the separatrix on the plunge side, the picture
   §150's sticky orbits already suggested.
 
+**Robustness to integration noise and perturbation direction (the Bridge E2′ and a post-hoc cut; relayed, not
+verified here).**
+- **E2′, perturbing p_x instead of x0** (ε 3e−4 … 3e−6, same x0). Kerr control passes at 1.051 [0.905, 1.228]. TS gives
+  0.045 [0.034, 0.056], the same as the x direction. Formally INCONCLUSIVE: the noise rule (f < 3r, r = 0.18) leaves
+  1/5 ε.
+- **POST HOC, labelled:** α recomputed on ONLY the tolerance-invariant x0 (base outcome identical at rtol 1e−11 and
+  1e−13). x direction: TS 0.065 [0.051, 0.078] (1665 x0) against Kerr 1.020 (1999). p_x direction: TS 0.061
+  [0.047, 0.073] (1641 x0) against Kerr 1.051 (2000).
+- **Conclusion.** Among tolerance-stable TS points, 36–38% are still uncertain at the smallest ε, so the flat profile
+  is NOT an integration-noise artefact. The TS-vs-Kerr contrast survives:
+  - changing the tolerance;
+  - changing the perturbation direction;
+  - excluding every realisation-sensitive orbit.
+
 **Pending, before this section is final:**
 1. DONE, see "Independent replay" above. Earlier status kept for the record. (Status 2026-10-11, relayed: V11's first ensemble run was ALL INCONCLUSIVE because of a V11-side bug, plunge
    checked only at chunk ends. It is fixed as V11 addendum 6, labelled post-failure with controls unchanged; the rerun
