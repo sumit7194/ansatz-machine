@@ -1,0 +1,50 @@
+{
+ "python": "3.14.5",
+ "executable": "/Users/sumit/Github/conjecture_machine/.venv/bin/python",
+ "executable_resolved": "/opt/homebrew/Cellar/python@3.14/3.14.5/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+ "platform": "macOS-26.5-arm64-arm-64bit-Mach-O",
+ "machine": "arm64",
+ "macos": "26.5",
+ "git_commit": "1730ef40adf3f3dafe669ce37cf377aa7b7825e6",
+ "git_dirty": false,
+ "packages": {
+  "numpy": "2.4.6",
+  "scipy": "1.18.0",
+  "sympy": "1.14.0",
+  "mpmath": "1.3.0",
+  "numba": "0.65.1",
+  "llvmlite": "0.47.0"
+ },
+ "blas_lapack": {
+  "numpy": {
+   "blas": {
+    "name": "accelerate",
+    "version": "unknown",
+    "found": true
+   },
+   "lapack": {
+    "name": "accelerate",
+    "version": "unknown",
+    "found": true
+   }
+  },
+  "scipy": {
+   "blas": {
+    "name": "Accelerate",
+    "version": "unknown",
+    "found": true
+   },
+   "lapack": {
+    "name": "Accelerate",
+    "version": "unknown",
+    "found": true
+   }
+  }
+ },
+ "native": {
+  "rustc": "rustc 1.98.1 (48a229cea 2026-09-01)",
+  "cargo": "cargo 1.98.1 (797e8a9bc 2026-08-05)",
+  "brew": "flint 3.6.0\ngmp 6.3.0\nmpfr 4.2.2",
+  "flint_rank_links": "/Users/sumit/Github/conjecture_machine/native/flint_rank:\n\t/opt/homebrew/opt/flint/lib/libflint.24.0.dylib (compatibility version 24.0.0, current version 24.0.0)\n\t/opt/homebrew/opt/gmp/lib/libgmp.10.dylib (compatibility version 16.0.0, current version 16.0.0)\n\t/opt/homebrew/opt/mpfr/lib/libmpfr.6.dylib (compatibility version 9.0.0, current version 9.2.0)\n\t/usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1356.0.0)"
+ }
+}

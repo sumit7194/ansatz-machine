@@ -3843,6 +3843,8 @@ Non-invariant ones, of the form e^{λt+imφ} or Jordan chains under the Killing 
 Kruglikov–Steneker's full-4D route, which is much larger. *Locality:* near the points; carrying it globally rests on
 analytic continuation (the metric is rational and the system is of finite type), which is not written out here.
 
+**Environment:** Python 3.14.5 (.venv), numpy 2.4.6 / scipy 1.18.0 (Apple Accelerate), sympy 1.14.0, mpmath 1.3.0, numba 0.65.1, FLINT 3.6.0, rustc 1.98.1, macOS 26.5 arm64. Full stamp: `ENVIRONMENT/stamp.json`. *Back-filled 2026-10-11; environment assumed unchanged since the run (no package installs between the run and the stamp).*
+
 ## §150 — Tomimatsu–Sato δ = 2 geodesics ARE chaotic, in thin sticky layers at the plunge boundary; the far field Dubeibe et al. sampled is regular. DRAFT, pending the Bridge's independent V11 replay
 
 **Why this was done.** §149 excluded polynomial integrals up to degree 10. Quantum's Morales–Ramis / Ziglin result
@@ -4032,6 +4034,7 @@ ergosurface f = 0, because singular terms cancel there (the Bridge found O(1) er
    - **TS confirmed: 83 of 85 fire (median 0.029).**
    - The 17 harmonic-flip suspects: 10 fire (A6 was conservative).
 
+**Environment:** Python 3.14.5 (.venv), numpy 2.4.6 / scipy 1.18.0 (Apple Accelerate), sympy 1.14.0, mpmath 1.3.0, numba 0.65.1, FLINT 3.6.0, rustc 1.98.1, macOS 26.5 arm64. Full stamp: `ENVIRONMENT/stamp.json`. *Back-filled 2026-10-11; environment assumed unchanged since the run (no package installs between the run and the stamp).*
 
 ## §151 — Manko–Novikov has NO Killing tensor of valence 1–10 beyond the trivial ones (ansatz-free, both parameter points); against Brink's 4th-order suggestion for MN  **[two implementations: CONFIRMED by the Bridge V10-MN, fafb1ae]**
 
@@ -4106,6 +4109,7 @@ at valence 1–10, with all 40 rows exactly trivial: MN p1 (5, 3, 1/5) and p2 (1
 It is independent of ours in the metric transcription (its V9), the exp/√ evaluator, the points and the draw. §151
 therefore rests on **two implementations**.
 
+**Environment:** Python 3.14.5 (.venv), numpy 2.4.6 / scipy 1.18.0 (Apple Accelerate), sympy 1.14.0, mpmath 1.3.0, numba 0.65.1, FLINT 3.6.0, rustc 1.98.1, macOS 26.5 arm64. Full stamp: `ENVIRONMENT/stamp.json`. *Back-filled 2026-10-11; environment assumed unchanged since the run (no package installs between the run and the stamp).*
 
 ## §152 — The §149 null is not special to p = 3/5, 4/5: TS δ = 2 has no invariant Killing tensor of valence 1–8 beyond the trivial ones at 8 more parameter points (p from 0.28 to 0.96)
 
@@ -4144,3 +4148,5 @@ family, NOT a proof for all p.
 **A failure along the way, reported.** The first launch ran NO jets. zsh does not word-split an unquoted `$J`, so every
 line failed with "no such file". The log is kept as `psweep_run1_FAILED_zsh_wordsplit.out`. The driver now counts
 verdicts against the expected 160 and flags INCOMPLETE otherwise.
+
+**Environment:** Python 3.14.5 (.venv), numpy 2.4.6 / scipy 1.18.0 (Apple Accelerate), sympy 1.14.0, mpmath 1.3.0, numba 0.65.1, FLINT 3.6.0, rustc 1.98.1, macOS 26.5 arm64. Full stamp: `ENVIRONMENT/stamp.json`. *(Stamp taken the same session as the run.)*
