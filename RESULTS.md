@@ -4019,6 +4019,39 @@ ergosurface f = 0, because singular terms cancel there (the Bridge found O(1) er
 - The engine uses the exact, cancelled inverse metric, never f and ω separately, so the precision loss does not
   occur anywhere in §150's integrations.
 
+**Independent α reproduction: the Bridge V12 (relayed, not verified here; sealed at TheBridge e7e0414). REPRODUCED,
+3/3 pairs.** Same levels and outcome rules. Everything else is the Bridge's own:
+- exact L_sep by bisection, gated on the analytic BPT circular orbit;
+- sense matched by sign(L·J);
+- its own windows (≥ 0.03), seeds, K = 2000, numba DOP853 at rtol 1e−11;
+- binomial MLE, with WLS secondary;
+- the same Python stack (see ENVIRONMENT/README.md: independence is in the code, not the interpreter).
+
+**Caveat recorded by the Bridge:** V12 was NOT blind to our values (they were in its ledger), but its procedure and
+thresholds were fixed before any α was computed.
+
+      level                 TS ours / V12                         Kerr ours / V12
+      L1 (p=4/5, retro)     0.055 [0.044,0.067] / 0.044 [0.032,0.055]   1.055 [0.997,1.112] / 1.008 [0.906,1.129]
+      L2 (p=4/5, retro)     0.093 [0.079,0.109] / 0.075 [0.060,0.089]   1.039 [0.978,1.098] / 0.955 [0.861,1.072]
+      L3 (p=3/5, pro)       0.159 [0.132,0.186] / 0.147 [0.124,0.170]   1.039 [0.906,1.203] / 0.938 [0.843,1.049]
+
+All 6 cells agree (the CIs overlap); V12 reads lower in all six.
+
+**Our reading of the offset** (diagnosed from our own stored samples, `alpha*.json`):
+- **Kerr.** The excess over 1 sits in the smallest fitted ε, where hits are few. Our pairwise slopes RISE at small ε
+  (L1: 1.02 → 1.07 → 1.26). V12's fall (1.04 → 0.97 → 0.96 → 0.70). Both straddle 1. The offset is finite-sample
+  noise at the low-hit end, not a systematic in the boundary: a smooth boundary gives α = 1 wherever it sits, so the
+  ε_sep grid cannot bias it.
+- **TS.** f(ε) is not a pure power law. Its pairwise slope falls from ~0.1–0.3 at large ε to ~0–0.1 at small ε, so
+  the fitted α depends on the window's mix of smooth main boundary and chaotic sea, and on the weights. Refitting our
+  data on the three largest ε alone gives 0.084 / 0.126 / 0.213, above both full fits.
+- **Conclusion.** "α ≈ 0.04–0.16" is the robust statement, not the third digit. The contrast (TS ≪ 1, Kerr ≈ 1) is
+  what reproduces.
+
+**Realisation sensitivity (V12, an α-independent signature).** The fraction of x0 whose outcome changes across
+rtol 1e−11 … 1e−14 is a lower bound from 4 tolerances: TS L1 0.373, TS L3 0.067, Kerr 0/75 in each window. Its
+ordering matches the α ordering.
+
 **Pending, before this section is final:**
 1. DONE, see "Independent replay" above. Earlier status kept for the record. (Status 2026-10-11, relayed: V11's first ensemble run was ALL INCONCLUSIVE because of a V11-side bug, plunge
    checked only at chunk ends. It is fixed as V11 addendum 6, labelled post-failure with controls unchanged; the rerun
