@@ -128,7 +128,7 @@ def build_dd_rhs(ginv, name):
         outs = [em.conv(e_) for e_ in red]
         head = [f"# GENERATED double-double RHS from the exact inverse metric of: {name}",
                 "import numba", "from _hp_ddprim import dd_add, dd_mul, dd_div", "",
-                "@numba.njit(cache=True)", "def f(xh, xl, yh, yl, Eh, El, Lh, Ll):"]
+                "@numba.njit", "def f(xh, xl, yh, yl, Eh, El, Lh, Ll):"]
         tail = ["    return (" + ", ".join(f"{h}, {l}" for h, l in outs) + ",)"]
         with open(path, "w") as fh:
             fh.write("\n".join(head + em.lines + tail) + "\n")
@@ -329,3 +329,79 @@ def carter_Q(ginv, E, L, xstar=3):
         Em, Lm = mp.mpf(Er.p) / Er.q, mp.mpf(Lr.p) / Lr.q
         return (1 - yv**2) * pyv**2 + Gf(mp.mpf(xstar), yv, Em, Lm) - Gf(mp.mpf(xstar), mp.mpf(0), Em, Lm)
     return Q
+
+
+class MPEngine:
+    """The R3 rung: the same GBS algorithm and event rules as the DD engine, in mpmath at `dps` digits (pure Python,
+    slow: spot checks only). RHS = lambdify(mpmath) of the same 9 exact expressions."""
+
+    def __init__(self, spec, dps=50):
+        import mpmath as mp
+        from _kt_exact_op import get_metric
+        self.mp = mp
+        self.dps = dps
+        self.ginv, self.name = get_metric(spec)
+        self.F = sp.lambdify((x, y, E_, L_), rhs_exprs(self.ginv), "mpmath")
+
+    def _rhs(self, s, E, L):
+        gxx, gyy, gxx_x, gxx_y, gyy_x, gyy_y, W_x, W_y, W = self.F(s[0], s[1], E, L)
+        return [gxx * s[2], gyy * s[3], -(gxx_x * s[2] ** 2 + gyy_x * s[3] ** 2 + W_x) / 2,
+                -(gxx_y * s[2] ** 2 + gyy_y * s[3] ** 2 + W_y) / 2]
+
+    def orbit(self, x0, E, L, tol, nsec, k=14, tmax=5e6, xmin=1.5, xmax=2000.0, ymax=0.999999, hmax0=20.0,
+              maxsteps=10_000_000):
+        mp = self.mp
+        mp.mp.dps = self.dps
+        Er, Lr = sp.Rational(E), sp.Rational(L)
+        Em, Lm = mp.mpf(Er.p) / Er.q, mp.mpf(Lr.p) / Lr.q
+        x0m = mp.mpf(float(x0))
+        v = self.F(x0m, mp.mpf(0), Em, Lm)
+        q = (-1 - v[8]) / v[1]
+        if q <= 0:
+            return dict(status=-1, n=0, t_end=0.0, steps=0)
+        s = [x0m, mp.mpf(0), mp.mpf(0), mp.sqrt(q)]
+        t, h, ns, status, steps, t_last, dtc = mp.mpf(0), mp.mpf("0.05"), 0, 0, 0, mp.mpf(0), mp.mpf("1e300")
+        tolm = mp.mpf(tol)
+        expo = mp.mpf(1) / (2 * k - 1)
+        while ns < nsec and t < tmax:
+            if steps >= maxsteps:
+                status = 3
+                break
+            h = min(h, min(mp.mpf(hmax0), dtc / 10))
+            f0 = self._rhs(s, Em, Lm)
+            T = []
+            for j in range(k):
+                nj = 2 * (j + 1)
+                hs = h / nj
+                zp, z = list(s), [s[i] + hs * f0[i] for i in range(4)]
+                for _ in range(nj - 1):
+                    fz = self._rhs(z, Em, Lm)
+                    zp, z = z, [zp[i] + 2 * hs * fz[i] for i in range(4)]
+                fz = self._rhs(z, Em, Lm)
+                row = [[(z[i] + zp[i] + hs * fz[i]) / 2 for i in range(4)]]
+                for m in range(1, j + 1):
+                    nm = 2 * (j - m + 1)
+                    r = mp.mpf(nj * nj - nm * nm) / (nm * nm)
+                    row.append([row[m - 1][i] + (row[m - 1][i] - T[j - 1][m - 1][i]) / r for i in range(4)])
+                T.append(row)
+            new = T[k - 1][k - 1]
+            e = max(abs(new[i] - T[k - 1][k - 2][i]) / (tolm * (1 + max(abs(s[i]), abs(new[i])))) for i in range(4))
+            if e <= 1:
+                y0, y1 = s[1], new[1]
+                s = new
+                t += h
+                steps += 1
+                if y0 < 0 <= y1 and s[3] > 0:
+                    if ns > 0:
+                        dtc = t - t_last
+                    t_last = t
+                    ns += 1
+                if s[0] < xmin:
+                    status = 1
+                    break
+                if s[0] > xmax or abs(s[1]) > ymax:
+                    status = 2
+                    break
+            fac = mp.mpf("0.94") * (1 / e) ** expo if e > 0 else mp.mpf(4)
+            h *= min(mp.mpf(4), max(mp.mpf("0.2"), fac))
+        return dict(status=status, n=ns, t_end=float(t), steps=steps)
