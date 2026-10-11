@@ -66,3 +66,67 @@ VERDICT-base [TS stable] N=600: converged 46/50 (U = 0.08)
 VERDICT-base [Kerr] N=300: converged 25/25 (U = 0.00)
 VERDICT-base [Kerr] N=600: converged 25/25 (U = 0.00)
 ALL DONE (select, gates, base) Sun Oct 11 23:32:42 IST 2026
+[gate] part 2 start Sun Oct 11 23:58:04 IST 2026 load5 7.87
+[cross] mean R1+R2 cost per 600-crossing TS orbit 19.6s -> K_cross = 40 (converged at both N: sensitive 44, stable 46); Kerr 10
+[cross] 0 done, 1000 to run
+  [cross] 20/1000  [86s]
+  [cross] 40/1000  [251s]
+  [cross] 60/1000  [280s]
+  [cross] 80/1000  [446s]
+  [cross] 100/1000  [509s]
+  [cross] 120/1000  [683s]
+  [cross] 140/1000  [725s]
+  [cross] 160/1000  [741s]
+  [cross] 180/1000  [900s]
+  [cross] 200/1000  [1072s]
+  [cross] 220/1000  [1098s]
+  [cross] 240/1000  [1271s]
+  [cross] 260/1000  [1306s]
+  [cross] 280/1000  [1317s]
+  [cross] 300/1000  [1394s]
+  [cross] 320/1000  [1576s]
+  [cross] 340/1000  [1628s]
+  [cross] 360/1000  [1654s]
+  [cross] 380/1000  [1713s]
+  [cross] 400/1000  [1734s]
+  [cross] 420/1000  [1834s]
+  [cross] 440/1000  [1975s]
+  [cross] 460/1000  [2021s]
+  [cross] 480/1000  [2169s]
+  [cross] 500/1000  [2206s]
+  [cross] 520/1000  [2375s]
+  [cross] 540/1000  [2411s]
+  [cross] 560/1000  [2580s]
+  [cross] 580/1000  [2619s]
+  [cross] 600/1000  [2746s]
+  [cross] 620/1000  [2796s]
+  [cross] 640/1000  [2968s]
+  [cross] 660/1000  [3113s]
+  [cross] 680/1000  [3137s]
+  [cross] 700/1000  [3168s]
+  [cross] 720/1000  [3339s]
+  [cross] 740/1000  [3393s]
+  [cross] 760/1000  [3580s]
+  [cross] 780/1000  [3622s]
+  [cross] 800/1000  [3749s]
+  [cross] 820/1000  [3750s]
+  [cross] 840/1000  [3754s]
+  [cross] 860/1000  [3802s]
+  [cross] 880/1000  [3844s]
+  [cross] 900/1000  [3885s]
+  [cross] 920/1000  [3925s]
+  [cross] 940/1000  [3963s]
+  [cross] 960/1000  [3967s]
+  [cross] 980/1000  [4008s]
+  [cross] 1000/1000  [4050s]
+[cross] integrations done
+[cross] mean R1+R2 cost per 600-crossing TS orbit 19.6s -> K_cross = 40 (converged at both N: sensitive 44, stable 46); Kerr 10
+  TS   N=300: f PRIMARY 1e-08:8/39  1e-11:6/39  1e-14:2/39  1e-17:0/40  1e-20:0/40 | coverage 0.99 0.99 0.99 1.00 1.00
+       SECONDARY 1e-08:9/40  1e-11:7/40  1e-14:3/40  1e-17:0/40  1e-20:0/40 | eps_c primary 1e-14, secondary 1e-14
+  TS   N=600: f PRIMARY 1e-08:8/34  1e-11:4/32  1e-14:2/37  1e-17:0/40  1e-20:0/40 | coverage 0.91 0.89 0.94 1.00 1.00
+       SECONDARY 1e-08:14/40  1e-11:12/40  1e-14:5/40  1e-17:0/40  1e-20:0/40 | eps_c primary 1e-14, secondary 1e-14
+  Kerr N=300: f PRIMARY 1e-08:0/10  1e-11:0/10  1e-14:0/10  1e-17:0/10  1e-20:0/10 | coverage 1.00 1.00 1.00 1.00 1.00
+       SECONDARY 1e-08:0/10  1e-11:0/10  1e-14:0/10  1e-17:0/10  1e-20:0/10 | eps_c primary below reach (< 1e-20), secondary below reach (< 1e-20)
+  Kerr N=600: f PRIMARY 1e-08:0/10  1e-11:0/10  1e-14:0/10  1e-17:0/10  1e-20:0/10 | coverage 1.00 1.00 1.00 1.00 1.00
+       SECONDARY 1e-08:0/10  1e-11:0/10  1e-14:0/10  1e-17:0/10  1e-20:0/10 | eps_c primary below reach (< 1e-20), secondary below reach (< 1e-20)
+VERDICT-cross: SUPPORTS FINITE-TIME ARTEFACT (eps_c(600) >= eps_c(300)); Kerr uncertain 0; primary/secondary agree

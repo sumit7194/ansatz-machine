@@ -4080,6 +4080,61 @@ verified here).**
   - changing the perturbation direction;
   - excluding every realisation-sensitive orbit.
 
+**High-precision probe (this repo, pre-registered fdb028d + addenda d556df2 and e2afbde; asked for by the user).**
+Double-double (~32-digit) GBS, generated from the exact rational RHS:
+- validated against exact rational RHS evaluation (≤ 1e−31) and against mpmath at 50 digits (state agreement 3.9e−28
+  at T = 24);
+- gates G1–G3 ALL PASS: Kerr Carter drift ≤ 2.2e−26 over 300 crossings; shell ≤ 1e−26; R1 vs DP5 agreement 19/20
+  stable TS and 25/25 Kerr.
+
+1. **Converged outcomes.** Of 200 TS L1 x0, 81 (40%) are realisation-sensitive at double (outcome changes across DP5
+   tol 1e−11 / 1e−12 / 1e−13); Kerr 0/25. At DD, R1 (1e−22) = R2 (1e−28) for:
+
+   | group | N = 300 | N = 600 |
+   |---|---|---|
+   | TS SENSITIVE | 49/50 | 44/50 |
+   | TS STABLE | 49/50 | 46/50 |
+   | Kerr | 25/25 | 25/25 |
+
+   **The outcomes that double precision cannot decide are DETERMINATE at 32 digits.** The indeterminacy is
+   amplification of rounding (the chaos signature), not a defect of the system. All three base predictions held.
+2. **Crossover test, pre-registered verdict: "SUPPORTS FINITE-TIME ARTEFACT".** K = 40 TS x0 (alternating
+   sensitive/stable) plus 10 Kerr; neighbours at ε = 1e−8 … 1e−20, counted only if R1 = R2.
+
+       f(eps)   1e-8    1e-11   1e-14   1e-17   1e-20       eps_c
+       N=300    8/39    6/39    2/39    0/40    0/40        1e-14
+       N=600    8/34    4/32    2/37    0/40    0/40        1e-14   (primary = secondary bound)
+       Kerr     0/10 at every eps, both N (control passes)
+
+   ε_c(600) = ε_c(300), so by the pre-registered rule this supports a finite-time artefact. That is the verdict, and it
+   is reported as such. Predictions: "ε_c(300) inside reach" held (~50%); "ε_c(600) < ε_c(300)" FAILED.
+3. **POST HOC diagnosis (labelled; it does not replace the verdict).** The rule assumed that doubling N doubles every
+   orbit's exposure. In this sample it does not:
+   - 23 of the 40 x0 plunge before crossing 300, so their dynamics END at the plunge whatever N is;
+   - of the 15 that survive 600 crossings, 10 show no sensitivity at any ε (most likely regular, trapped orbits);
+   - so only ~7 points could have shown an N-shift, with counts of 2 vs 0 at the decisive rung.
+
+   Grouping instead by the base orbit's LIFETIME, the smallest ε at which the outcome or crossing count still flips is:
+
+   | lifetime | n | smallest flipping ε |
+   |---|---|---|
+   | plunge < 150 crossings | 18 | 1e−8 or 1e−11 (none at 1e−14) |
+   | plunge 150–299 | 5 | mostly 1e−14 |
+   | plunge 300–599 | 2 | 1e−11, 1e−14 |
+   | survive 600 | 15 | 10 none, 5 sensitive |
+
+   Sensitivity reaches finer scales the longer an orbit lives (ε_c ~ e^{−λ·lifetime}), which is the transient-chaos
+   signature. The N-doubling statistic was the wrong control variable for transient orbits.
+4. **What this does and does not establish.**
+   - Established: outcomes are determinate at DD; sensitivity is real down to ~1e−14 and scales with lifetime; the
+     Kerr control is clean.
+   - NOT established: that the N → ∞ boundary is a genuine fractal. The pre-registered test speaks against it, but it
+     lacked power for the reason above.
+   - A decisive test would need its own pre-registration: condition on lifetime (ε_c against lifetime across many x0),
+     or sample long-lived chaotic orbits near the saddle.
+   - §150's α and contrast statements stand as measured at finite horizon. "Fractal" in the strict limit sense is NOT
+     claimed.
+
 **Pending, before this section is final:**
 1. DONE, see "Independent replay" above. Earlier status kept for the record. (Status 2026-10-11, relayed: V11's first ensemble run was ALL INCONCLUSIVE because of a V11-side bug, plunge
    checked only at chunk ends. It is fixed as V11 addendum 6, labelled post-failure with controls unchanged; the rerun
