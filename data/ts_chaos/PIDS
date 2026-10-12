@@ -14,3 +14,4 @@
 26060 2026-10-11 04:37:45 TS2 p-sweep jets RELAUNCH (zsh word-split fixed), 2 threads
 70808 2026-10-11 19:18:04 HP probe runner (select->gates->base), load-gated, 2 workers
 27233 2026-10-11 23:34:03 HP probe part 2 (cross run+analyse, then G4), load-gated, 2 workers
+98529 2026-10-12 09:49:51 HP G4 rerun (addendum 3), 1 core

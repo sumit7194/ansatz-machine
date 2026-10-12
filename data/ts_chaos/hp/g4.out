@@ -1,0 +1,5 @@
+  G4 kerr x0=4.996122766 T=2400.0: DD-R2 vs MP50 max rel state diff 1.61e-21  (gate) PASS  [511s]
+  G4 kerr x0=4.995841145 T=2400.0: DD-R2 vs MP50 max rel state diff 5.37e-21  (gate) PASS  [491s]
+  G4 ts x0=9.925681556 T=1000.0: DD-R2 vs MP50 max rel state diff 5.77e-26  (gate) PASS  [394s]
+  G4 ts x0=9.928326380 T=1000.0: DD-R2 vs MP50 max rel state diff 1.07e-26  (sensitive TS: informative)  [389s]
+VERDICT-G4: PASS

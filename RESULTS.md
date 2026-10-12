@@ -3845,7 +3845,28 @@ analytic continuation (the metric is rational and the system is of finite type),
 
 **Environment:** Python 3.14.5 (.venv), numpy 2.4.6 / scipy 1.18.0 (Apple Accelerate), sympy 1.14.0, mpmath 1.3.0, numba 0.65.1, FLINT 3.6.0, rustc 1.98.1, macOS 26.5 arm64. Full stamp: `ENVIRONMENT/stamp.json`. *Back-filled 2026-10-11; environment assumed unchanged since the run (no package installs between the run and the stamp).*
 
-## §150 — Tomimatsu–Sato δ = 2 geodesics ARE chaotic, in thin sticky layers at the plunge boundary; the far field Dubeibe et al. sampled is regular. DRAFT, pending the Bridge's independent V11 replay
+## §150 — Tomimatsu–Sato δ = 2: transient chaos at the capture edge; fractal-like basin boundary down to ε ≈ 1e−14; no strict-limit fractal claimed
+
+**STATUS: FINAL (2026-10-12).** It came off DRAFT after the last pre-registered gate (G4, high-precision state check)
+passed. Per the user's instruction ("we will not try to anyhow modify the results or what we read from them based on
+what we hoped to get"), the verdicts are stated in this order:
+
+1. **Pre-registered high-precision verdict, unaltered:** SUPPORTS FINITE-TIME ARTEFACT (ε_c(600) = ε_c(300) = 1e−14).
+   The ansatz prediction ε_c(600) < ε_c(300) FAILED.
+2. **Established:**
+   - TS δ = 2 geodesics at these levels show sensitive dependence that Kerr does not, at matched separatrix distance.
+     It shows in fd and S_ex, the complex drift, the fate map and α, in V11 basin structure, and in V12 (two
+     implementations, independent code, the same Python stack).
+   - Outcomes are DETERMINATE at 32 digits: 98% of the double-sensitive x0 converge (R1 = R2).
+   - Sensitivity is real down to ε ≈ 1e−14.
+   - Kerr is clean in every test.
+   - α (TS 0.04–0.16 against Kerr ≈ 1) is an EFFECTIVE exponent over ε ∈ [3e−5, 3e−3], at a 300-crossing horizon.
+   - G4: DD at R2 agrees with mpmath at 50 digits to 1.6e−21 / 5.4e−21 (Kerr, T = 2400) and 5.8e−26 (stable TS,
+     T = 1000); the sensitive TS value is 1.1e−26, informative.
+3. **POST HOC reading (labelled):** the smallest flipping ε shrinks with orbit LIFETIME, consistent with transient chaos
+   on a chaotic saddle (ε_c ~ e^{−λ·lifetime}). The N-doubling statistic was the wrong control for transient orbits.
+   A strict-limit (N → ∞) fractal is NOT claimed. Testing it needs a new pre-registration conditioned on lifetime.
+
 
 **Why this was done.** §149 excluded polynomial integrals up to degree 10. Quantum's Morales–Ramis / Ziglin result
 excludes meromorphic integrals near the equatorial orbit (later run at the exact levels of this search: 8 of 8
