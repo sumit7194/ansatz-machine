@@ -130,3 +130,4 @@ ALL DONE (select, gates, base) Sun Oct 11 23:32:42 IST 2026
   Kerr N=600: f PRIMARY 1e-08:0/10  1e-11:0/10  1e-14:0/10  1e-17:0/10  1e-20:0/10 | coverage 1.00 1.00 1.00 1.00 1.00
        SECONDARY 1e-08:0/10  1e-11:0/10  1e-14:0/10  1e-17:0/10  1e-20:0/10 | eps_c primary below reach (< 1e-20), secondary below reach (< 1e-20)
 VERDICT-cross: SUPPORTS FINITE-TIME ARTEFACT (eps_c(600) >= eps_c(300)); Kerr uncertain 0; primary/secondary agree
+[stopped Mon Oct 12 09:48:57 IST 2026] G4 run stopped by ansatz: first Kerr probe x0 plunges before T; run_to_time had no plunge/NaN guard (looped). No G4 result produced. See addendum 3.

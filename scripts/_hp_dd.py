@@ -323,8 +323,14 @@ def make_dd_integrator(f):
                 v = abs(err[i]) / (tol * (1.0 + max(abs(sh[i]), abs(nh[i]))))
                 if v > e:
                     e = v
+            if not (e == e) or not (nh[0] == nh[0]):
+                sh[0] = math.nan                  # non-finite: report, never loop (addendum 3)
+                break
             if e <= 1.0:
                 sh, sl = nh, nl
+                if sh[0] < 1.5:                    # plunge before T (addendum 3): stop and flag
+                    sh[0] = -sh[0]
+                    break
                 if clipped:
                     th, tl = T, 0.0
                     break
@@ -489,8 +495,12 @@ def mp_state_at(m, x0, E, L, T, tol=1e-40, k=14, hmax0=20.0):
             Tab.append(row)
         new = Tab[k - 1][k - 1]
         e = max(abs(new[i] - Tab[k - 1][k - 2][i]) / (tolm * (1 + max(abs(s[i]), abs(new[i])))) for i in range(4))
+        if not mp.isfinite(e) or not mp.isfinite(new[0]):
+            return None                            # non-finite (addendum 3)
         if e <= 1:
             s = new
+            if s[0] < mp.mpf("1.5"):
+                return None                        # plunge before T (addendum 3)
             if clipped:
                 t = Tm
                 break

@@ -119,3 +119,18 @@ crossings agree trivially. **G4 is replaced by a state-agreement check:**
 G4 does not gate `base` (G1–G3 do, as before). It runs on one core after `base`, or alongside it if the load allows.
 The functions used are separate from the probe's `run()` (new `run_to_time` / `state_at`), so the probe code path is
 unchanged.
+
+## Addendum 3 (2026-10-12 ~09:55, after the first G4 attempt produced NO result; before any G4 rerun)
+**What happened:** the first G4 attempt ran ~8.7 h and wrote nothing. Cause:
+- addendum 2 picked "the first 2 Kerr probe x0", and both PLUNGE at t ≈ 100 (base R2), long before T = 2400;
+- the fixed-time integrator had no plunge stop and no NaN guard, so it looped on the singular state.
+
+The run was stopped by its owner. No G4 number exists, so nothing has been read.
+
+**Changes, fixed now:**
+1. G4 cases are the first 2 Kerr probe x0 and the first STABLE and first SENSITIVE TS probe x0 whose base R2
+   integration survives past T (t_end > T). That is a property of the base data, not of any G4 output.
+2. The fixed-time integrators (DD and mpmath) stop and report if x < x_pl or the state goes non-finite. Such a case is
+   a G4 failure to complete, reported, never silently passed.
+3. Cost: TS at T = 1000 (was 4000), so the whole of G4 fits ~1.5 h on one core. Kerr stays at T = 2400. Pass criterion
+   unchanged: max relative state difference ≤ 1e−20 for Kerr and the STABLE TS; the SENSITIVE TS is informative.

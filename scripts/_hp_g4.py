@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """G4 of the high-precision probe (HP_PREREGISTRATION.md addendum 2): full-state agreement at a FIXED proper time T
 between DD at R2 (tol 1e-28) and mpmath at 50 digits (tol 1e-40). 2 Kerr probe x0 at T = 2400; the first STABLE and the
-first SENSITIVE TS x0 at T = 4000. Pass: max relative state difference <= 1e-20 for Kerr and the stable TS; the
+first SENSITIVE TS x0 at T = 1000, each the first whose base R2 run survives past T (addendum 3). Pass: max relative state difference <= 1e-20 for Kerr and the stable TS; the
 sensitive TS value is reported (informative).
     .venv/bin/python scripts/_hp_g4.py        (needs the `select` phase done; ~1 core, slow: mpmath)
 """
@@ -20,8 +20,11 @@ import _hp_probe as P  # noqa: E402
 
 def main():
     sens, stab, kerr = P.probe_set()
-    cases = [("kerr", kerr[0][1]["x0"], 2400.0, True), ("kerr", kerr[1][1]["x0"], 2400.0, True),
-             ("ts", stab[0][1]["x0"], 4000.0, True), ("ts", sens[0][1]["x0"], 4000.0, False)]
+    b = P.ck_load("base")
+    surv = lambda tag, s, lst, T: [v for i, v in lst if b[f"{tag}:{s}:{i}:R2"]["t_end"] > T]   # addendum 3
+    TK, TT = 2400.0, 1000.0
+    cases = [("kerr", x["x0"], TK, True) for x in surv("K", "kerr", kerr, TK)[:2]] + \
+            [("ts", surv("T", "ts", stab, TT)[0]["x0"], TT, True), ("ts", surv("S", "ts", sens, TT)[0]["x0"], TT, False)]
     out = []
     ok = True
     for sys_, x0, T, gated in cases:
@@ -31,9 +34,12 @@ def main():
         mp.mp.dps = 50
         t0 = time.time()
         sh, sl = H.dd_state_at(d, x0, lv["E"], lv["L"], T, tol=1e-28)
-        A = [mp.mpf(a) + b for a, b in zip(sh, sl)]
         M = H.mp_state_at(m, x0, lv["E"], lv["L"], T, tol=1e-40)
-        rel = float(max(abs(a - b) / (1 + abs(b)) for a, b in zip(A, M)))
+        if not (sh[0] == sh[0]) or sh[0] < 0 or M is None:          # addendum 3: plunge / non-finite before T
+            rel = float("inf")
+        else:
+            A = [mp.mpf(a) + bb for a, bb in zip(sh, sl)]
+            rel = float(max(abs(a - c) / (1 + abs(c)) for a, c in zip(A, M)))
         passed = rel <= 1e-20
         if gated:
             ok &= passed
