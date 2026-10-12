@@ -4156,6 +4156,20 @@ Double-double (~32-digit) GBS, generated from the exact rational RHS:
    - §150's α and contrast statements stand as measured at finite horizon. "Fractal" in the strict limit sense is NOT
      claimed.
 
+**Literature context (relayed from the Bridge's sweep, NOT verified here; for the write-up, no change to the verdict).**
+- Ramond, arXiv:2607.27129 (2026): tidally perturbed Kerr, an analytic non-integrability proof plus "fractal basin
+  boundaries" in escape-time maps (~2 decades, no uncertainty exponent, no Kerr control). The closest competitor.
+- Contopoulos, Harsoula & Lukes-Gerakopoulos 2012 (CMDA 113, 255): plunging Manko–Novikov orbits undergo chaotic
+  scattering (escape statistics, no basin exponent).
+- Shoom 2017 (PRD 96, 084056): a photon-sphere boundary turns fractal under distortion, with an uncertainty exponent,
+  for null rays only.
+- Framework: Lai & Tél, *Transient Chaos* (2011). Lau, Finn & Ott 1991: non-hyperbolic chaotic scattering
+  (stickiness near islands) drives the uncertainty exponent toward 0, the standard reading of the small α here.
+  The 10 regular long-survivors in the HP probe fit that picture.
+- TS (any δ): no chaos study is known beyond Dubeibe 2007 (regular sections). TS δ = 2 transient chaos with a
+  Kerr-controlled exponent appears new.
+- Each reference to be checked at source before any citation in print.
+
 **Pending, before this section is final:**
 1. DONE, see "Independent replay" above. Earlier status kept for the record. (Status 2026-10-11, relayed: V11's first ensemble run was ALL INCONCLUSIVE because of a V11-side bug, plunge
    checked only at chunk ends. It is fixed as V11 addendum 6, labelled post-failure with controls unchanged; the rerun
