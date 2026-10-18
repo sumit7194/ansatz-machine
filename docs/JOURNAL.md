@@ -4408,3 +4408,21 @@ Our loader (sympify → parse_expr) runs only on the project venv, Python 3.14.5
 PYTHONMALLOC=debug and -X faulthandler, parsing all 20 TS component files: 20/20 exit 0, 20/20 identical
 sha256(srepr) 8e16541e… (`scripts/_ts2_parse_check.py`, `data/jet/ts2_parse_check.out`). No result of ours was parsed
 on 3.12, so nothing needs a rerun.
+
+## 2026-10-18 — resume notes (HOLD for a Mac restart; nothing running)
+
+**State:** all work committed and pushed; no jobs running.
+- §150 FINAL (TS δ = 2: transient chaos at the capture edge; fractal-like boundary down to ε ≈ 1e−14; the
+  pre-registered HP verdict "finite-time artefact" stated first; no strict-limit fractal claimed).
+- §151 FINAL (MN: no KT at valence 1–10; two implementations).
+- §152 (TS p-sweep: null at 10 points).
+- Reproducibility kit: `ENVIRONMENT/`.
+- Blinding guard installed: `tools/` plus the `.claude/settings.json` hook. The embargo list is empty; the guard is
+  live from the next session.
+
+**Next, if the user wants it:**
+- (a) a pre-registered lifetime-conditioned test of the strict-limit fractal question (sample near the saddle);
+- (b) a write-up of §150–§152, with literature checked at source;
+- (c) the deformed-Kerr rank-3/4 open question (CLAUDE.md §1).
+
+The fable_briefs prompts are parked (the user runs them). Repos are private; no history action is needed.
