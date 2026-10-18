@@ -1,0 +1,4 @@
+{
+  "_doc": "ansatz (conjecture_machine) active blinding embargoes. tools/blind_check.py runs on every outgoing SendMessage via the PreToolUse hook in .claude/settings.json and BLOCKS a hit. Open an embargo when a blind exchange starts (recipient \"*\" so uds:/tmp socket addresses cannot slip past); lift it only when its seal arrives, and record the commit. Template: TheBridge/tools (fleet practice 3, 2026-10-18). Inbound blinding (what not to READ) is not enforceable here: list it in the prereg disclosures.",
+  "embargoes": []
+}

@@ -1,0 +1,18 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "SendMessage",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/sumit/Github/conjecture_machine/tools/blind_hook.sh",
+            "timeout": 20,
+            "onFailure": "block",
+            "statusMessage": "Blinding guard: checking outgoing message"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -93,3 +93,8 @@ data/ts2_exact/r6/templates_p*.npz
 data/ts2_exact/cachecheck/*.npz
 native/flint_rank
 rust/ktdense/target/
+
+# per-sample checkpoints of the alpha runs (all samples are in the committed alpha*.json results)
+data/ts_chaos/*.partial.jsonl
+# auto-generated double-double RHS modules (regenerated on demand by scripts/_hp_dd.py)
+data/ts_chaos/gen/rhs_dd_*.py
