@@ -14,7 +14,7 @@ Fleet policy (2026-10-11, from the user): our code is used as proof, so someone 
 | numpy / scipy | 2.4.6 / 1.18.0, both linked to **Apple Accelerate** (BLAS and LAPACK) |
 | sympy / mpmath | 1.14.0 / 1.3.0 |
 | numba / llvmlite | 0.65.1 / 0.47.0 |
-| platform | macOS 26.5, arm64 |
+| platform | macOS 26.5, arm64 (all results through §152); since 2026-10-24 macOS 27.0.1 (26A434), regression-checked identical, see below |
 | Rust | rustc 1.98.1, cargo 1.98.1; `rust/ktdense/Cargo.lock` and `rust/ktsolve/Cargo.lock` are committed |
 | FLINT | 3.6.0 (Homebrew; libflint.24), GMP 6.3.0, MPFR 4.2.2 |
 
@@ -81,3 +81,14 @@ A vendor numerical-library defect is under responsible disclosure. Details are w
 
 Forward rule: any new dense floating-point linear algebra with dimensions in the hundreds gets its shapes logged and
 checked against the fleet's hazard note before its results are cited.
+
+## OS update regression check (2026-10-24, macOS 26.5 → 27.0.1, build 26A434)
+- The Python stack is unchanged (numpy 2.4.6, scipy 1.18.0, sympy 1.14.0, mpmath 1.3.0, numba 0.65.1, llvmlite 0.47.0),
+  as are FLINT 3.6.0 and rustc 1.98.1. Only the OS changed.
+- Three reruns compared with the pre-update outputs:
+  1. MN jet-bound controls (`_kt_jet_mn.py --controls`): exact GF(p) series and FLINT rank. **Bit-identical**
+     to `data/jet/mn_controls.out`.
+  2. TS δ = 2, p = 4/5, rank-8 jet verdict at (3, 1/3). **Identical** to `data/jet/targets.out`.
+  3. Floating-point engine RHS against 50-digit evaluation (`_ts_chaos_ergocheck.py`): numba/LLVM floats.
+     **Bit-identical** to `data/ts_chaos/ergocheck.out`.
+- No result needs a rerun.

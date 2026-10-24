@@ -1,4 +1,4 @@
-# pip freeze of /opt/homebrew/Cellar/python@3.14/3.14.5/Frameworks/Python.framework/Versions/3.14/bin/python3.14 (Python 3.14.5), at 1730ef40adf3f3dafe669ce37cf377aa7b7825e6
+# pip freeze of /opt/homebrew/Cellar/python@3.14/3.14.5/Frameworks/Python.framework/Versions/3.14/bin/python3.14 (Python 3.14.5), at ad54e1128cb7a9dbf6770b8e6c39e6f7785149d0
 llvmlite==0.47.0
 mpmath==1.3.0
 numba==0.65.1

@@ -58,7 +58,8 @@ def stamp():
         "native": {
             "rustc": _run(["rustc", "-V"]),
             "cargo": _run(["cargo", "-V"]),
-            "brew": _run(["brew", "list", "--versions", "flint", "gmp", "mpfr"]),
+            "brew_cellar": {pkg: sorted(os.listdir(f"/opt/homebrew/Cellar/{pkg}")) if os.path.isdir(f"/opt/homebrew/Cellar/{pkg}")
+                            else None for pkg in ("flint", "gmp", "mpfr")},   # read the Cellar: `brew` may hang on network
             "flint_rank_links": _run(["otool", "-L", os.path.join(ROOT, "native", "flint_rank")]),
         },
     }
