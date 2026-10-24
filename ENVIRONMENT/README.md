@@ -75,8 +75,9 @@ Where the two differ, the difference is real:
 | §150 chaos / α | Dormand–Prince 5(4) in numba (`_ts_chaos.py`) | V11 / V12, numba DOP853 | the integrator order and code, event handling, L_sep method, seeds, estimator (binomial MLE in V12) |
 | §152 p-sweep | `_kt_jet.py` | V10 subset (queued) | as §149 |
 
-## Known library hazard (under responsible disclosure)
-A vendor numerical-library defect is under responsible disclosure. Details are withheld until the vendor resolves it.
+## Known library hazard (resolved)
+A vendor numerical-library defect in the platform BLAS/LAPACK QR routine, found by the fleet (tabula) and reported to the
+vendor. It was classified as a reliability defect, not a security issue, and is fixed in macOS 27.0.1.
 **Audit of this repo's cited results (2026-10-11): not affected.**
 
 Forward rule: any new dense floating-point linear algebra with dimensions in the hundreds gets its shapes logged and
