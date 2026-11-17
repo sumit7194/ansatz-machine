@@ -12,6 +12,17 @@
             "statusMessage": "Blinding guard: checking outgoing message"
           }
         ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/usr/bin/python3 /Users/sumit/Github/conjecture_machine/tools/zsh_cmdvar_hook.py",
+            "timeout": 10,
+            "statusMessage": "zsh guard: checking for $VAR used as a command"
+          }
+        ]
       }
     ]
   }
