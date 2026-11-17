@@ -93,3 +93,15 @@ checked against the fleet's hazard note before its results are cited.
   3. Floating-point engine RHS against 50-digit evaluation (`_ts_chaos_ergocheck.py`): numba/LLVM floats.
      **Bit-identical** to `data/ts_chaos/ergocheck.out`.
 - No result needs a rerun.
+
+## OS update regression check (2026-11-17, macOS 27.0.1 → 27.2, build 26B123)
+The stack is unchanged apart from the OS. Four spot checks were run at low priority on 1 core, each compared with the
+stored output:
+1. MN jet-bound controls (exact GF(p) series and FLINT rank): **bit-identical**.
+2. TS δ = 2, p = 4/5, rank-8 jet verdict at (3, 1/3): **identical**.
+3. Floating-point orbit-engine RHS against 50-digit evaluation (numba/LLVM): **bit-identical**.
+4. NEW: one double-double high-precision orbit (HP probe base `T:ts:1:R1`, N = 600: status, crossings, end time,
+   steps and shell error): **bit-identical**.
+
+A first attempt reported three false "DIFFERS" because no check had actually run: a command was stored in a zsh
+variable, which zsh does not word-split. It was rerun correctly. See JOURNAL 2026-11-17 for the guard added.
