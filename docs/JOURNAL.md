@@ -4426,3 +4426,14 @@ on 3.12, so nothing needs a rerun.
 - (c) the deformed-Kerr rank-3/4 open question (CLAUDE.md §1).
 
 The fable_briefs prompts are parked (the user runs them). Repos are private; no history action is needed.
+
+## 2026-11-17 — macOS 27.2 regression (all identical); the zsh command-in-variable slip, third time
+
+Four spot checks were identical (ENVIRONMENT/README). The first attempt printed three false "DIFFERS": the command
+prefix was stored as `N="nice -n 19"` and run as `$N python ...`, and zsh does not word-split an unquoted variable,
+so nothing ran. This is the THIRD time (the p-sweep `$J`, earlier `set -- $m`, now `$N`). Per fleet practice 2 it needs
+a mechanism, not a promise:
+- **Proposed:** a PreToolUse hook on Bash that refuses any command line whose command word is an unquoted
+  `$VAR`/`${VAR}`. It is a config change, so it waits for the user's OK.
+- **Already applied in the check itself:** a comparison now first requires non-empty output (`[ -s file ]`), so a
+  command that never ran can no longer read as a result.
