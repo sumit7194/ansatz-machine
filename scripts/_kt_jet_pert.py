@@ -60,13 +60,15 @@ def entries(G, d, M, mons, J, p):
                     mr = tuple(a + b for a, b in zip(mq, eh))
                     for (a, b) in zip(*np.nonzero(s.a)):
                         add(mr, a + i, b + j, col, m[q] * int(s.a[a, b]))
-            for q, g, di, dj in ((1, gxx, 1, 0), (2, gyy, 0, 1)):
+            # term B: - sum_q (dH/dp_q)(d_q I), with dH/dp_x = g^xx p_x + g^xy p_y and dH/dp_y = g^yy p_y + g^xy p_x
+            gxy = G.get((1, 2))
+            for q, g, pm, di, dj in ((1, gxx, 1, 1, 0), (2, gyy, 2, 0, 1), (1, gxy, 2, 1, 0), (2, gxy, 1, 0, 1)):
                 if g is None:
                     continue
-                k = i if q == 1 else j
+                k = i if q == 1 else j          # q = which coordinate derivative of I; pm = which momentum multiplies
                 if k == 0:
                     continue
-                mr = list(m); mr[q] += 1
+                mr = list(m); mr[pm] += 1
                 for (a, b) in zip(*np.nonzero(g.a)):
                     add(mr, a + i - di, b + j - dj, col, -k * int(g.a[a, b]))
     return out
@@ -153,12 +155,79 @@ def control_G1(kind, S, G0):
     raise ValueError(kind)
 
 
+def stage2_jobs():
+    """Stage 2 (addendum 1): the published ladder in the reduced double expansion (section 142): base = Schwarzschild
+    (the chi^0 piece of slow-rotation Kerr, coords x = r, y = cos theta, M = 1), deformation = the chi^2 piece of the
+    named shape directions. Returns {name: (G0 sympy, G1 sympy)}."""
+    import _kt_carter_space as CS
+    import _kt_double as KD
+    import _kt_search as K
+    t_, ph = sp.symbols("t phi", real=True)
+    K.set_dim((t_, KJ.x, KJ.y, ph), sp.symbols("P_t P_x P_y P_phi", real=True), dep=(1, 2))
+    GI = KD.kerr_chi_pieces()
+    names, gis, roles = CS.build_space(GI, 6, slots=("l2rr", "l2ang"))
+    piece = {n: g[2] for n, g in zip(names, gis)}
+    combos = {"d1": {"l2rr_3": 1, "l2ang_3": 1, "l2ang_4": sp.Rational(3, 2)},
+              "d3": {"l2rr_5": 1, "l2ang_3": sp.Rational(100, 609), "l2ang_4": sp.Rational(25, 203),
+                     "l2ang_5": sp.Rational(321, 2030), "l2ang_6": sp.Rational(103, 174)},
+              "gauge_r": None}
+    from _kt_anatomy import chi_pieces, lie_inverse
+    chi = KD.chi if hasattr(KD, "chi") else sp.Symbol("chi")
+    giK = sum((chi ** n * GI[n] for n in range(3)), sp.zeros(4, 4))
+    for k in (1, 3):      # the section-142 controls: PURE O(chi^2) l=2 coordinate changes (every product must survive)
+        names.append(f"gaugeY2r_{k}"); gis.append(chi_pieces(lie_inverse(giK, [0, chi ** 2 * (3 * KJ.y ** 2 - 1) * KJ.x ** -k, 0, 0])))
+        names.append(f"gaugeY2y_{k}"); gis.append(chi_pieces(lie_inverse(giK, [0, 0, chi ** 2 * KJ.y * (1 - KJ.y ** 2) * KJ.x ** -k, 0])))
+        combos[f"gaugeY2r_{k}"] = None; combos[f"gaugeY2y_{k}"] = None
+    out = {}
+    for nm, cmb in combos.items():
+        if cmb is None:
+            g = gis[names.index(nm)]
+            # GUARD (mechanism, 2026-11-17): the reduction applies only to PURE O(chi^2) deformations. gauge_r failed
+            # it (nonzero chi^0/chi^1 pieces) and was first run anyway, reading as a spurious "control failure".
+            if g[0] != sp.zeros(4, 4) or g[1] != sp.zeros(4, 4):
+                print(f"  SKIP {nm}: not a pure O(chi^2) deformation (chi^0/chi^1 pieces nonzero) -- reduction does not apply",
+                      flush=True)
+                continue
+            G1 = g[2]
+        else:
+            G1 = sum((c * piece[k] for k, c in cmb.items()), sp.zeros(4, 4))
+        out[nm] = (GI[0], G1.applyfunc(sp.cancel))
+    return out
+
+
+def rational_G(Gsym, x0, y0, T, p):
+    G = {}
+    for a in range(4):
+        for b in range(a, 4):
+            if Gsym[a, b] != 0:
+                if (a, b) in ((0, 1), (0, 2), (1, 3), (2, 3)):
+                    raise ValueError(f"cross term g^{a}{b}: not supported by the bracket builder")
+                G[(a, b)] = KJ.rational_series(Gsym[a, b], x0, y0, T, p)
+    return G
+
+
 def main():
     def arg(fl, dflt, cast=str):
         return cast(sys.argv[sys.argv.index(fl) + 1]) if fl in sys.argv else dflt
     mode = sys.argv[1]
     lo, hi = map(int, arg("--ranks", "1-4").split("-"))
     threads = arg("--threads", 1, int)
+    if mode == "stage2":
+        pts = [(sp.Integer(7), sp.Rational(1, 3)), (sp.Rational(11, 2), sp.Rational(-2, 5))]
+        for nm, (G0s, G1s) in stage2_jobs().items():
+            for (x0, y0) in pts:
+                for d in range(lo, hi + 1):
+                    t0 = time.time()
+                    res = []
+                    for pi in (0, 1):
+                        p = KJ.PRIMES[pi]
+                        res.append(bounds(rational_G(G0s, x0, y0, d + 2, p), rational_G(G1s, x0, y0, d + 2, p), d, d, p,
+                                          threads))
+                    B0, B, Sd = min(res, key=lambda t: t[2])
+                    print(f"VERDICT stage2 {nm} ({x0},{y0}) d={d}: B0={B0} (Schwarzschild K={K_KERR.get(d)}) B={B} -> "
+                          f"S={Sd} (primes {[t[2] for t in res]}); trivial T={KJ.trivial_count(d)}  [{time.time()-t0:.0f}s]",
+                          flush=True)
+        return
     jobs = ([(k, "kerr1", "P1") for k in ("null", "separable", "sabotage")] if mode == "stage1"
             else [("mn-beta", s, pt) for s in ("p1", "p2") for pt in ("P1", "P2")])
     for kind, spec, pt in jobs:

@@ -1,0 +1,13 @@
+  SKIP gauge_r: not a pure O(chi^2) deformation (chi^0/chi^1 pieces nonzero) -- reduction does not apply
+VERDICT stage2 gaugeY2r_1 (7,1/3) d=2: S=[5, 5] (must equal K=5)
+VERDICT stage2 gaugeY2r_1 (7,1/3) d=4: S=[14, 14] (must equal K=14)
+VERDICT stage2 gaugeY2r_1 (7,1/3) d=6: S=[30, 30] (must equal K=30)
+VERDICT stage2 gaugeY2y_1 (7,1/3) d=2: S=[5, 5] (must equal K=5)
+VERDICT stage2 gaugeY2y_1 (7,1/3) d=4: S=[14, 14] (must equal K=14)
+VERDICT stage2 gaugeY2y_1 (7,1/3) d=6: S=[30, 30] (must equal K=30)
+VERDICT stage2 gaugeY2r_3 (7,1/3) d=2: S=[5, 5] (must equal K=5)
+VERDICT stage2 gaugeY2r_3 (7,1/3) d=4: S=[14, 14] (must equal K=14)
+VERDICT stage2 gaugeY2r_3 (7,1/3) d=6: S=[30, 30] (must equal K=30)
+VERDICT stage2 gaugeY2y_3 (7,1/3) d=2: S=[5, 5] (must equal K=5)
+VERDICT stage2 gaugeY2y_3 (7,1/3) d=4: S=[14, 14] (must equal K=14)
+VERDICT stage2 gaugeY2y_3 (7,1/3) d=6: S=[30, 30] (must equal K=30)

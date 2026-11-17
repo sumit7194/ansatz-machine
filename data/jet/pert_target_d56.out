@@ -1,0 +1,8 @@
+VERDICT mn-beta p1 P1 d=5: B0=20 (Kerr K=20) B=32 -> S=12 (draws [12, 12]); trivial T=12  [4s]
+VERDICT mn-beta p1 P1 d=6: B0=30 (Kerr K=30) B=46 -> S=16 (draws [16, 16]); trivial T=16  [22s]
+VERDICT mn-beta p1 P2 d=5: B0=20 (Kerr K=20) B=32 -> S=12 (draws [12, 12]); trivial T=12  [4s]
+VERDICT mn-beta p1 P2 d=6: B0=30 (Kerr K=30) B=46 -> S=16 (draws [16, 16]); trivial T=16  [22s]
+VERDICT mn-beta p2 P1 d=5: B0=20 (Kerr K=20) B=32 -> S=12 (draws [12, 12]); trivial T=12  [4s]
+VERDICT mn-beta p2 P1 d=6: B0=30 (Kerr K=30) B=46 -> S=16 (draws [16, 16]); trivial T=16  [22s]
+VERDICT mn-beta p2 P2 d=5: B0=20 (Kerr K=20) B=32 -> S=12 (draws [12, 12]); trivial T=12  [4s]
+VERDICT mn-beta p2 P2 d=6: B0=30 (Kerr K=30) B=46 -> S=16 (draws [16, 16]); trivial T=16  [21s]

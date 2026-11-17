@@ -4328,3 +4328,68 @@ line failed with "no such file". The log is kept as `psweep_run1_FAILED_zsh_word
 verdicts against the expected 160 and flags INCOMPLETE otherwise.
 
 **Environment:** Python 3.14.5 (.venv), numpy 2.4.6 / scipy 1.18.0 (Apple Accelerate), sympy 1.14.0, mpmath 1.3.0, numba 0.65.1, FLINT 3.6.0, rustc 1.98.1, macOS 26.5 arm64. Full stamp: `ENVIRONMENT/stamp.json`. *(Stamp taken the same session as the run.)*
+
+## §153 — Manko–Novikov to first order in its quadrupole: no Kerr symmetry survives at valence 1–6, not even a power of Carter (ansatz-free, first-order jet test; the published box ladder reproduced as validation)
+
+**Question** (the repo's founding question, CLAUDE.md §1, for the physical quadrupole deformation). When Kerr is
+deformed by the Manko–Novikov anomalous quadrupole β at first order, which of Kerr's Killing tensors survive?
+§140–§142 showed, in boxes, that for some deformations Carter dies but Carter² or Carter³ survives (a Carter with a
+pole). Pre-registration: `data/jet/PERTURB_PREREGISTRATION.md` (4d7a0c3; addendum 1 562a159, before any build).
+
+**Method** (`scripts/_kt_jet_pert.py`). H = H₀ + εH₁ and F = F₀ + εF₁, both invariant under ∂_t, ∂_φ. The §149
+prolongation is applied at a point to BOTH {H₀, F₀} = 0 and {H₀, F₁} + {H₁, F₀} = 0, in the jets of the pair.
+- B = #cols − rank bounds dim{(F₀, F₁)}, and B₀ (the first equation alone) gives Kerr's own count.
+- S(d) = B − B₀ is an upper bound on the Kerr tensors that extend to first order.
+- No basis box, no denominator; GF(p).
+- MN's non-rational functions are handled as in §151. The first-order term dg/dβ is exact, and it agrees with a
+  60-digit central difference of the full MN metric to 1.8e−32.
+
+**Validation, before the target counted** (`data/jet/pert_stage1.out`, `pert_stage2.out`, `pert_stage2_gauge.out`):
+- **Exact Kerr base:**
+  - B₀ = 2, 5, 8, 14 (Kerr);
+  - a null coordinate change keeps everything (S = 2, 5, 8, 14);
+  - a separable deformation keeps everything (§139);
+  - a non-separable sabotage drops to the floor 2, 4, 6, 9.
+- **The published ladder reproduced** (reduced double expansion: Schwarzschild base plus the χ² piece; two points; two
+  primes):
+
+  | | S(2) | S(4) | S(6) |
+  |---|---|---|---|
+  | d1 (pole order 1) | 4: Carter dies | 10: Carter² survives | 21: §141's "16 + 0 + 4 + 1" exactly |
+  | d3 (pole order 2) | 4 | 9: Carter² dies | 17: Carter³ survives, §141's "16 + 1" |
+
+- **Pure O(χ²) gauge controls** (§142's four) keep everything: S = 5, 14, 30.
+- A first, invalid control (`gauge_r`, which has χ⁰/χ¹ pieces, so the reduction does not apply) read as the floor. It
+  is now refused by a guard, the same one §142's code has.
+
+So the box-free first-order test can see survival that first appears at a higher valence (pole orders 1 and 2): it is
+not a floor-machine.
+
+**Result** (`data/jet/pert_target_prevalidation.out` for d = 1–4, run before stage 2 and identical after it;
+`pert_target_d56.out` for d = 5–6). MN at both parameter points (p1: M = 5, a = 3; p2: M = 13, a = 5, at β → 0), at
+both jet points, on both draws:
+
+    valence d         1   2   3   4   5   6
+    S(d), MN-beta     2   4   6   9  12  16      = the trivial floor everywhere
+    (Kerr K(d)        2   5   8  14  20  30)
+
+**At first order in the Manko–Novikov quadrupole, no Killing tensor of valence ≤ 6 survives beyond products of p_t,
+p_φ, H.** Carter dies (d = 2), Carter² dies (d = 4, unlike the d1 shape direction) and Carter³ dies (d = 6, unlike d3).
+If any power of Carter survives as a rational integral, its pole order is ≥ 3. Nothing at valence 3 or 5 survives
+either. Predictions: Carter dies (85%) held; nothing at d = 3 (85%) held; d = 4 was left open (40/60) and came out
+"dies".
+
+**Reading.**
+- This answers CLAUDE.md §1's question for the MN quadrupole at first order: no irreducible KT of rank 3 or 4, and
+  none at 5 or 6, survives the deformation.
+- It differs from the §140–§141 shape directions, which keep a power of Carter. The MN quadrupole is "less integrable"
+  than those deformations already at first order.
+- It is consistent with §151 (finite β, exact metric: floor to valence 10) and with the published MN chaos.
+
+**Scope.**
+- First order in β only (the linearised problem; CLAUDE.md §3 ceiling 1: analytic in β with a Kerr root).
+- Invariant tensors; local near the jet points; valence ≤ 6; two parameter points.
+- Independent reproduction requested from the Bridge before this is called settled.
+
+**Environment:** Python 3.14.5 (.venv), numpy 2.4.6, sympy 1.14.0, mpmath 1.3.0, FLINT 3.6.0, macOS 27.2 arm64. Full
+stamp: `ENVIRONMENT/stamp.json`.
