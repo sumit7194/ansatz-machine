@@ -26,10 +26,10 @@ local and invariant-class for the symmetry nulls; finite-horizon for the chaos; 
 ## 1. Introduction (outline)
 - Kerr's Carter constant, why integrability matters (EMRI waveforms), and non-Kerr test spacetimes.
 - Prior claims:
-  - Dubeibe, Pachón & Sanabria-Gómez 2007 call TS2 "completely integrable" from regular sections
-    (gr-qc/0701065) **[verify]**;
-  - Brink, *Spacetime Encodings IV* (arXiv:0911.1595), suggests that many SAV spacetimes may carry a 4th-order KT
-    **[verify]**;
+  - Dubeibe, Pachón & Sanabria-Gómez 2007 call TS2 "completely integrable" from regular Poincaré sections, while
+    finding chaos in a deformed (Manko et al.) solution (gr-qc/0701065, verified);
+  - Brink, *Spacetime Encodings IV* (arXiv:0911.1595), writes that numerical experiments suggest a large number of
+    SAV spacetimes may possess a 4th-order KT (verified, intro);
   - Gair, Li & Mandel 2008 report MN chaos **[verify]**;
   - Contopoulos, Harsoula & Lukes-Gerakopoulos 2012: chaotic scattering of plunging MN orbits **[verify]**.
 - Methods lineage: Kruglikov–Matveev arXiv:1111.4690 (ZV) **[verify]**; Vollmer arXiv:1602.08968 (TS2, p = 3/5,
@@ -95,27 +95,25 @@ local and invariant-class for the symmetry nulls; finite-horizon for the chaos; 
 - What is NOT claimed: no all-rank statement; no global KT statement; no EMRI-orbit statement; no strict-limit fractal
   unless the pending test supports it.
 - Relation to tabula's TS2 measurements [placeholder; terminology aligned; content only via the Bridge].
-- Literature context: Ramond 2026 (tidally perturbed Kerr, fractal basin boundaries, no Kerr control) **[verify]**;
+- Literature context: Ramond 2026 (a body with a tidally induced quadrupole moving in Kerr: analytic non-integrability, fractal basin boundaries in escape-time maps; verified at abstract);
   Shoom 2017 (null rays) **[verify]**; Lai & Tél 2011 and Lau, Finn & Ott 1991 (stickiness → small α) **[verify]**.
 
 ## Reproducibility
 - Environment, commands and logs: ENVIRONMENT/README.md.
 - All verdicts pre-registered (commit hashes listed per section in RESULTS).
 
-## Reference checklist (each must be opened at the source before citing)
+## Reference checklist (checked 2026-11-17 at arXiv abstract/HTML; "verified" = the claim was read in the source text)
 | ref | used for | status |
 |---|---|---|
-| Tomimatsu & Sato 1972/73 (original TS solutions) | §2 | [verify] |
-| Manko & Novikov 1992 | §2 | [verify] |
-| Gair, Li & Mandel 2008, PRD 77, 024035 | MN form, MN chaos | [verify] |
-| Dubeibe, Pachón & Sanabria-Gómez 2007, gr-qc/0701065 | the integrability claim | [verify] |
-| Brink 2009, arXiv:0911.1595 | 4th-order KT suggestion | [verify] |
-| Kruglikov & Matveev, arXiv:1111.4690 | prolongation method, ZV | [verify] |
-| Vollmer 2016, arXiv:1602.08968 | TS2 p = 3/5 to valence 7 | [verify] |
+| Dubeibe, Pachón & Sanabria-Gómez, PRD 75, 023008 (2007), gr-qc/0701065 | the integrability claim | **verified (body).** §III.1 and the conclusions call TS δ=2 motion "completely integrable" / "only integrable geodesics", from Poincaré sections (Fig. 1b, E = 0.94, L = −3.12; other (E, L) not listed; q not given). NOTE: the paper's chaos result is for the deformed Manko et al. solution (b ≠ 0), not TS2. Say both. |
+| Brink, PRD 81, 022002 (2010), arXiv:0911.1595 | 4th-order KT suggestion | **verified (intro):** numerical experiments suggest "a large number of SAV spacetimes may possess a fourth-order Killing tensor". MN is not named in the part read. Whether his ref [6] is Gair–Li–Mandel: **unverified**. |
+| Gair, Li & Mandel, PRD 77, 024035 (2008), arXiv:0708.0628 | MN orbits | **verified (abstract):** most MN geodesics have an approximate 4th constant; it can be lost (chaos) for some orbits in OBLATE MN. Not "ergodic". |
+| Kruglikov & Matveev, PRD 85, 124057 (2012), arXiv:1111.4690 | ZV, no integral of degree < 7 | **verified (abstract).** The prolongation method is in the body, not the abstract: [verify body] |
+| Vollmer, J. Geom. Phys. 115, 28 (2017), arXiv:1602.08968 | TS no KT to valence 7 (also C-metric to 9, ZV to 11) | **verified (abstract)**; the parameter p = 3/5: [verify body] (our reproduction matches his count) |
+| Maciejewski, Przybylska & Stachowiak, PRD 88, 064003 (2013), arXiv:1302.4234 | ZV: no additional meromorphic integral | **verified (abstract)**; the Galois method is in the body: [verify body] |
+| Ramond 2026, arXiv:2607.27129 (preprint) | closest comparison | **verified (abstract):** a non-spinning body with a TIDALLY INDUCED QUADRUPOLE moving in Kerr (not "tidally perturbed Kerr"); analytic non-integrability for generic couplings/spin; fractal basin boundaries in escape-time maps. |
+| Contopoulos, Harsoula & Lukes-Gerakopoulos, CMDA 113, 255 (2012) | MN chaotic scattering | [verify] |
+| Shoom 2017, PRD 96, 084056 | fractal photon boundary | [verify] (arXiv id not found yet) |
+| Tomimatsu & Sato 1972/73; Manko & Novikov 1992 | §2 | [verify] |
 | Kruglikov & Steneker (non-invariant KTs) | scope | [verify] |
-| Contopoulos, Harsoula & Lukes-Gerakopoulos 2012, CMDA 113, 255 | MN chaotic scattering | [verify] |
-| Ramond 2026, arXiv:2607.27129 | closest comparison | [verify] |
-| Shoom 2017, PRD 96, 084056 | fractal photon boundary | [verify] |
-| Lai & Tél 2011, *Transient Chaos* | framework | [verify] |
-| Lau, Finn & Ott 1991 | stickiness → α → 0 | [verify] |
-| Maciejewski, Przybylska & Stachowiak 2013, PRD 88, 064003 | ZV non-integrability (context) | [verify] |
+| Lai & Tél, *Transient Chaos* (2011); Lau, Finn & Ott, PRL (1991) | framework | [verify] |

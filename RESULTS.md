@@ -4157,7 +4157,7 @@ Double-double (~32-digit) GBS, generated from the exact rational RHS:
      claimed.
 
 **Literature context (relayed from the Bridge's sweep, NOT verified here; for the write-up, no change to the verdict).**
-- Ramond, arXiv:2607.27129 (2026): tidally perturbed Kerr, an analytic non-integrability proof plus "fractal basin
+- Ramond, arXiv:2607.27129 (2026): a non-spinning body with a tidally induced quadrupole moving in Kerr (corrected 2026-11-17 against the abstract; previously described as "tidally perturbed Kerr"), an analytic non-integrability proof plus "fractal basin
   boundaries" in escape-time maps (~2 decades, no uncertainty exponent, no Kerr control). The closest competitor.
 - Contopoulos, Harsoula & Lukes-Gerakopoulos 2012 (CMDA 113, 255): plunging Manko–Novikov orbits undergo chaotic
   scattering (escape statistics, no basin exponent).
