@@ -67,3 +67,19 @@ below the 3× criterion) is reported as INCONCLUSIVE with the numbers. Nothing h
 - Stop guard: free disk < 5 GB, or memory pressure not normal, or swap > 2 GB → stop cleanly (the checkpoint keeps
   progress).
 - ~8 h estimated. The Bridge is told at launch and at finish.
+
+## Addendum 1 (2026-11-17, after the Kerr control finished and BEFORE any TS output was read)
+**Defect seen in the Kerr log:** levels 1–10 each "refined" the same single bracket (width 0.015) and added no orbits.
+The top local maximum was a plateau of points surviving to the cap (n = 600), and 17 points placed across a capped
+plateau just reproduce the plateau. For Kerr this is harmless (N(t) = 1 is still the smooth-boundary answer). For TS,
+capped plateaus come first in the highest-n ordering, so they could fill the 300-bracket cap and starve the real
+(n < 600) peaks where any branching lives. The TS run was stopped by its owner at 15 orbits; nothing was read.
+
+**Fix (the same for TS, Kerr and the control):**
+1. A local-maximum plateau AT THE CAP is refined at its two EDGES, [x_{i−1}, x_i] and [x_j, x_{j+1}], not across its
+   interior. That is where the survive/plunge boundary structure is. Plateaus below the cap are refined across, as
+   before.
+2. A bracket already refined (same endpoints) is never refined again, and does not count toward the 300 cap.
+
+Everything else is unchanged: thresholds, budgets, the statistic, the controls, the predictions, the reading rules.
+Kerr and the tent control are re-run under the fix (orbits come from the checkpoint cache).

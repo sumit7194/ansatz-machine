@@ -36,6 +36,7 @@ WIN = {"ts": (mp.mpf("9.912067"), mp.mpf("9.945202")),
        "kerr": (mp.mpf("4.9933985") - mp.mpf("0.015"), mp.mpf("4.9933985") + mp.mpf("0.015"))}
 BUDGET = {"ts": 10000, "kerr": 3000}
 THR = 20
+CAP_FOR_EDGES = NCAP          # addendum 1 (tent control sets its own cap)
 
 
 def split(v):
@@ -85,9 +86,15 @@ def local_max_brackets(seq, thr):
         left = seq[i - 1][1] if i > 0 else -10
         right = seq[j + 1][1] if j + 1 < m else -10
         if seq[i][1] >= thr and seq[i][1] > left and seq[i][1] > right:
-            a = seq[i - 1][0] if i > 0 else seq[i][0]
-            b = seq[j + 1][0] if j + 1 < m else seq[j][0]
-            out.append((seq[i][1], a, b))
+            if seq[i][1] >= CAP_FOR_EDGES:          # addendum 1: a capped plateau is refined at its two EDGES
+                if i > 0:
+                    out.append((seq[i][1], seq[i - 1][0], seq[i][0]))
+                if j + 1 < m:
+                    out.append((seq[i][1], seq[j][0], seq[j + 1][0]))
+            else:
+                a = seq[i - 1][0] if i > 0 else seq[i][0]
+                b = seq[j + 1][0] if j + 1 < m else seq[j][0]
+                out.append((seq[i][1], a, b))
         i = j + 1
     return out
 
@@ -137,13 +144,16 @@ def search(sys_, evaluate, budget, thr, label, pool=None, ck=None):
     ev(pts)
     levels = [dict(level=0, points=G0, brackets=None)]
     seqs = [[(mpv(p), done[p]) for p in pts]]
+    refined = set()
     for lev in range(1, MAXLEV + 1):
         brs = []
         for seq in seqs:
             brs += local_max_brackets(seq, thr)
-        brs = [br for br in brs if (br[2] - br[1]) > WREL * abs(br[1]) and br[2] > br[1]]
+        brs = [br for br in brs if (br[2] - br[1]) > WREL * abs(br[1]) and br[2] > br[1]
+               and (br[1], br[2]) not in refined]                      # addendum 1: never re-refine a bracket
         brs.sort(key=lambda t: -t[0])
         brs = brs[:MAXB]
+        refined.update((br[1], br[2]) for br in brs)
         if not brs or count[0] >= budget:
             break
         new_seqs = []
@@ -196,6 +206,8 @@ def main():
         def ev(points, fh):
             return [life_tent(Fraction(p[0]) + Fraction(p[1])) for p in points]
         WIN["tent"] = (mp.mpf(0), mp.mpf(1))
+        global CAP_FOR_EDGES
+        CAP_FOR_EDGES = 30
         allpts, levels = search("tent", ev, 20000, 1, "tent")
         ts = list(range(1, 11))
         Nt = N_of_t(allpts, ts)

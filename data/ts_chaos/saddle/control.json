@@ -8,8 +8,8 @@
   "6": 64,
   "7": 122,
   "8": 240,
-  "9": 398,
-  "10": 642
+  "9": 408,
+  "10": 600
  },
  "h": 0.6828031090676083,
  "levels": [
@@ -20,35 +20,35 @@
   },
   {
    "level": 1,
-   "brackets": 118,
-   "evaluated": 3690,
+   "brackets": 132,
+   "evaluated": 3914,
    "max_n": 30,
    "min_width": 0.0005
   },
   {
    "level": 2,
    "brackets": 300,
-   "evaluated": 7978,
+   "evaluated": 8223,
    "max_n": 30,
    "min_width": 3.125e-05
   },
   {
    "level": 3,
    "brackets": 300,
-   "evaluated": 12248,
+   "evaluated": 12523,
    "max_n": 30,
    "min_width": 1.953125e-06
   },
   {
    "level": 4,
    "brackets": 300,
-   "evaluated": 16530,
+   "evaluated": 16815,
    "max_n": 30,
    "min_width": 1.220703125e-07
   },
   {
    "level": 5,
-   "brackets": 245,
+   "brackets": 223,
    "evaluated": 20009,
    "max_n": 30,
    "min_width": 7.62939453125e-09

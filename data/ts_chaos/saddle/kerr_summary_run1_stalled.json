@@ -1,0 +1,90 @@
+{
+ "levels": [
+  {
+   "level": 0,
+   "points": 2001,
+   "brackets": null
+  },
+  {
+   "level": 1,
+   "brackets": 1,
+   "evaluated": 2016,
+   "max_n": 600,
+   "min_width": 0.015105
+  },
+  {
+   "level": 2,
+   "brackets": 1,
+   "evaluated": 2016,
+   "max_n": 600,
+   "min_width": 0.015105
+  },
+  {
+   "level": 3,
+   "brackets": 1,
+   "evaluated": 2016,
+   "max_n": 600,
+   "min_width": 0.015105
+  },
+  {
+   "level": 4,
+   "brackets": 1,
+   "evaluated": 2016,
+   "max_n": 600,
+   "min_width": 0.015105
+  },
+  {
+   "level": 5,
+   "brackets": 1,
+   "evaluated": 2016,
+   "max_n": 600,
+   "min_width": 0.015105
+  },
+  {
+   "level": 6,
+   "brackets": 1,
+   "evaluated": 2016,
+   "max_n": 600,
+   "min_width": 0.015105
+  },
+  {
+   "level": 7,
+   "brackets": 1,
+   "evaluated": 2016,
+   "max_n": 600,
+   "min_width": 0.015105
+  },
+  {
+   "level": 8,
+   "brackets": 1,
+   "evaluated": 2016,
+   "max_n": 600,
+   "min_width": 0.015105
+  },
+  {
+   "level": 9,
+   "brackets": 1,
+   "evaluated": 2016,
+   "max_n": 600,
+   "min_width": 0.015105
+  },
+  {
+   "level": 10,
+   "brackets": 1,
+   "evaluated": 2016,
+   "max_n": 600,
+   "min_width": 0.015105
+  }
+ ],
+ "Nt": {
+  "50": 1,
+  "100": 1,
+  "150": 1,
+  "200": 1,
+  "300": 1,
+  "400": 1,
+  "500": 1,
+  "600": 1
+ },
+ "n_points": 2016
+}
