@@ -4437,3 +4437,27 @@ a mechanism, not a promise:
   `$VAR`/`${VAR}`. It is a config change, so it waits for the user's OK.
 - **Already applied in the check itself:** a comparison now first requires non-empty output (`[ -s file ]`), so a
   command that never ran can no longer read as a result.
+
+## 2026-11-17 — (c) first-order jet test: stage 1 passes; MN-β pre-validation result
+
+Pre-registration in `data/jet/PERTURB_PREREGISTRATION.md` (4d7a0c3, plus addendum 1 562a159). Code:
+`scripts/_kt_jet_pert.py`, a pair prolongation of {H0, F0} and {H0, F1} + {H1, F0}, S(d) = B(d) − B0(d).
+
+**Stage 1, on the exact Kerr base (MN chart, β = 0), point P1, both draws** (`data/jet/pert_stage1.out`):
+
+| | d = 1 | d = 2 | d = 3 | d = 4 |
+|---|---|---|---|---|
+| B0 (Kerr) | 2 | 5 | 8 | 14 (as expected) |
+| null coordinate change: S | 2 | 5 | 8 | 14 (everything survives) |
+| separable s(x): S | 2 | 5 | 8 | 14 (Carter and the whole algebra survive) |
+| non-separable sabotage: S | 2 | 4 | 6 | 9 (floor; Carter and Carter² die) |
+
+ALL PASS.
+
+**MN linearised in β, PRE-VALIDATION** (stage 2 not run): S(d) = 2, 4, 6, 9 = the floor at d = 1–4, for p1 and p2,
+at P1 and P2, on both draws (`data/jet/pert_target_prevalidation.out`). Read at face value: at first order in the
+anomalous quadrupole, neither Carter nor Carter² nor anything at valence 3 survives. The input is checked: the exact
+dG/dβ equals a 60-digit central difference of the full MN metric to 1.8e−32.
+
+NOT a claim until stage 2 (the d1/d3 ladder reproduction in the double expansion) shows the method can see a
+pole-order-1 Carter² survival.
