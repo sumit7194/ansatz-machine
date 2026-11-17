@@ -172,8 +172,8 @@ def make_dd_integrator(f):
         return dd_add(s[0], s[1], 1.0, 0.0)
 
     @numba.njit
-    def py_on_shell(x0, Eh, El, Lh, Ll):
-        v = f(x0, 0.0, 0.0, 0.0, Eh, El, Lh, Ll)
+    def py_on_shell(x0, x0l, Eh, El, Lh, Ll):
+        v = f(x0, x0l, 0.0, 0.0, Eh, El, Lh, Ll)                # x0 is the DD value x0 + x0l (x0l = 0: a double)
         num = dd_sub(-1.0, 0.0, v[16], v[17])                  # -1 - W  (p_x = 0)
         if num[0] <= 0.0:
             return -1.0, 0.0
@@ -230,10 +230,10 @@ def make_dd_integrator(f):
         return Th[k - 1, k - 1].copy(), Tl[k - 1, k - 1].copy(), err
 
     @numba.njit
-    def run(x0, Eh, El, Lh, Ll, tol, k, nsec, tmax, xmin, xmax, ymax, hmax0, maxsteps):
+    def run(x0, x0l, Eh, El, Lh, Ll, tol, k, nsec, tmax, xmin, xmax, ymax, hmax0, maxsteps):
         sh = np.zeros(4); sl = np.zeros(4)
-        sh[0] = x0
-        p = py_on_shell(x0, Eh, El, Lh, Ll)
+        sh[0], sl[0] = x0, x0l
+        p = py_on_shell(x0, x0l, Eh, El, Lh, Ll)
         if p[0] < 0.0:
             return -1, 0, 0.0, 0, np.zeros((1, 8)), 0.0
         sh[3], sl[3] = p
@@ -301,7 +301,7 @@ def make_dd_integrator(f):
         """G4 (addendum 2): integrate to proper time T exactly (last step clipped), no events. Returns the DD state."""
         sh = np.zeros(4); sl = np.zeros(4)
         sh[0] = x0
-        p = py_on_shell(x0, Eh, El, Lh, Ll)
+        p = py_on_shell(x0, 0.0, Eh, El, Lh, Ll)
         sh[3], sl[3] = p
         th, tl = 0.0, 0.0
         h = 0.05
@@ -351,10 +351,11 @@ class DDEngine:
         self._run, self._run_to_time = make_dd_integrator(self.f)
 
     def orbit(self, x0, E, L, tol, nsec, k=12, tmax=5e6, xmin=1.5, xmax=2000.0, ymax=0.999999, hmax0=20.0,
-              maxsteps=50_000_000):
+              maxsteps=50_000_000, x0l=0.0):
+        """x0 may be given as a DD value: x0 + x0l (saddle test, SADDLE_PREREGISTRATION.md). x0l = 0 is the old path."""
         Eh, El = (float(v) for v in dd_const(E)) if not isinstance(E, tuple) else E
         Lh, Ll = (float(v) for v in dd_const(L)) if not isinstance(L, tuple) else L
-        st, n, t, steps, secs, mshell = self._run(float(x0), Eh, El, Lh, Ll, tol, k, nsec, tmax, xmin, xmax, ymax,
+        st, n, t, steps, secs, mshell = self._run(float(x0), float(x0l), Eh, El, Lh, Ll, tol, k, nsec, tmax, xmin, xmax, ymax,
                                                  hmax0, maxsteps)
         return dict(status=int(st), n=int(n), t_end=float(t), steps=int(steps), secs=secs, maxshell=float(mshell))
 
