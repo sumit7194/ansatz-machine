@@ -4329,7 +4329,7 @@ verdicts against the expected 160 and flags INCOMPLETE otherwise.
 
 **Environment:** Python 3.14.5 (.venv), numpy 2.4.6 / scipy 1.18.0 (Apple Accelerate), sympy 1.14.0, mpmath 1.3.0, numba 0.65.1, FLINT 3.6.0, rustc 1.98.1, macOS 26.5 arm64. Full stamp: `ENVIRONMENT/stamp.json`. *(Stamp taken the same session as the run.)*
 
-## §153 — Manko–Novikov to first order in its quadrupole: no Kerr symmetry survives at valence 1–6, not even a power of Carter (ansatz-free, first-order jet test; the published box ladder reproduced as validation)
+## §153 — Manko–Novikov to first order in its quadrupole: no Kerr symmetry survives at valence 1–6, not even a power of Carter (ansatz-free, first-order jet test; the published box ladder reproduced as validation)  **[independently reproduced: the Bridge V17, bdce0f1]**
 
 **Question** (the repo's founding question, CLAUDE.md §1, for the physical quadrupole deformation). When Kerr is
 deformed by the Manko–Novikov anomalous quadrupole β at first order, which of Kerr's Killing tensors survive?
@@ -4389,7 +4389,20 @@ either. Predictions: Carter dies (85%) held; nothing at d = 3 (85%) held; d = 4 
 **Scope.**
 - First order in β only (the linearised problem; CLAUDE.md §3 ceiling 1: analytic in β with a Kerr root).
 - Invariant tensors; local near the jet points; valence ≤ 6; two parameter points.
-- Independent reproduction requested from the Bridge before this is called settled.
+- **Independently reproduced (the Bridge V17, TheBridge bdce0f1, seal results/V17_SEAL.sha256; relayed, not
+  verified here).**
+  - Independent code: its own MN transcription (V9) and its own jet builder (V10), with a different formulation (an
+    explicit Kerr basis p_t^i p_φ^j H^k K^l plus jet-level solvability, cross-checked by the joint kernel B − B₀).
+  - Different parameters' jet points (3/2, 1/3) and (2, −1/4), and primes 2³¹−1 and 2³¹−19.
+  - S = the floor 2/4/6/9/12/16 at valence 1–6 in all 48 runs. Controls 96/96 (∂M, ∂a and null keep everything;
+    sabotage gives the floor).
+  - Grade: non-blind (the Bridge knew the headline), independent code, AGREES. Not covered by V17: the pole-order
+    ladder (no independent partial-survival control), valence > 6, second order.
+- **V17's disclosed bug, checked here:** a Lie derivative of a TRUNCATED series loses its top-order term, and once made
+  V17's null control falsely kill Carter. Here the null control differentiates series built to order M + 2, so it is
+  exact through M + 1. The bracket uses H only through M + 1 (before its own derivative) and g through M. So this null
+  control is unaffected, and it kept everything as it should. The MN-β and stage-2 inputs are full series, not
+  derivatives of truncated ones.
 
 **Environment:** Python 3.14.5 (.venv), numpy 2.4.6, sympy 1.14.0, mpmath 1.3.0, FLINT 3.6.0, macOS 27.2 arm64. Full
 stamp: `ENVIRONMENT/stamp.json`.
