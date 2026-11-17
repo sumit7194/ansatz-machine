@@ -1,4 +1,21 @@
 {
-  "_doc": "ansatz (conjecture_machine) active blinding embargoes. tools/blind_check.py runs on every outgoing SendMessage via the PreToolUse hook in .claude/settings.json and BLOCKS a hit. Open an embargo when a blind exchange starts (recipient \"*\" so uds:/tmp socket addresses cannot slip past); lift it only when its seal arrives, and record the commit. Template: TheBridge/tools (fleet practice 3, 2026-10-18). Inbound blinding (what not to READ) is not enforceable here: list it in the prereg disclosures.",
-  "embargoes": []
+ "_doc": "ansatz (conjecture_machine) active blinding embargoes. tools/blind_check.py runs on every outgoing SendMessage via the PreToolUse hook in .claude/settings.json and BLOCKS a hit. Open an embargo when a blind exchange starts (recipient \"*\" so uds:/tmp socket addresses cannot slip past); lift it only when its seal arrives, and record the commit. Template: TheBridge/tools (fleet practice 3, 2026-10-18). Inbound blinding (what not to READ) is not enforceable here: list it in the prereg disclosures.",
+ "embargoes": [
+  {
+   "id": "ansatz-alpha-saddle-vs-tabula-s200",
+   "recipient": "*",
+   "until": "the Bridge arranges the TS2 uncertainty-exponent comparison with tabula's §200 and both sides are sealed (record commits)",
+   "opened": "2026-11-17",
+   "patterns": [
+    "(uncertainty exponent|\\balpha\\b|α)[^\\n]{0,60}\\d\\.\\d",
+    "\\d\\.\\d+[^\\n]{0,40}(uncertainty exponent|\\balpha\\b|α)",
+    "0\\.0[45]\\d?|0\\.093|0\\.15[0-9]|1\\.0[3-6]\\d?",
+    "N\\(t\\)[^\\n]{0,40}\\d",
+    "\\bh\\s*=\\s*-?\\d",
+    "370 (switches|times)|53 (switches|times)",
+    "fate map[^\\n]{0,60}\\d"
+   ],
+   "note": "tabula §200 measures an uncertainty exponent near the TS2 plunge boundary (methodological overlap). Outbound blind for ansatz's alpha values, fate-map counts and saddle-test N(t)/h. Inbound: do not read tabula's §200 numbers."
+  }
+ ]
 }

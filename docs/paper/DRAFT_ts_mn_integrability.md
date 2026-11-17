@@ -98,6 +98,18 @@ local and invariant-class for the symmetry nulls; finite-horizon for the chaos; 
 - Literature context: Ramond 2026 (a body with a tidally induced quadrupole moving in Kerr: analytic non-integrability, fractal basin boundaries in escape-time maps; verified at abstract);
   Shoom 2017 (null rays) **[verify]**; Lai & Tél 2011 and Lau, Finn & Ott 1991 (stickiness → small α) **[verify]**.
 
+## Conventions and units (aligned with tabula's terminology, 2026-11-17; terms only, no results exchanged)
+- TS δ = 2 with (p, q), p² + q² = 1, prolate (x, y). THIS draft uses σ = 1 (so m = 2/p for TS2, m = 1/p for Kerr);
+  tabula works in m = 1 with σ = p/2. L and p_x differ by the factor σ, so state units explicitly and compare only
+  coordinate-invariant quantities (e.g. α).
+- Terms: "timelike geodesic" on first use, "orbit" after; "Poincaré section y = 0 crossed upward (p_y > 0), coordinates
+  (x, p_x)"; "unstable circular orbit" / "saddle-centre"; "Lyapunov orbit"; "open level" vs "closed pocket";
+  "separatrix" (the Kerr homoclinic loop); "homoclinic tangle"; "chaotic saddle"; "plunge (capture)" and "plunge
+  boundary". "Capture edge" in our headline = the plunge boundary. α = 1 − D for the singular set of the escape-time
+  function along a line.
+- BLINDING: tabula's §200 also measures an uncertainty exponent near the plunge boundary. No α numbers are exchanged
+  until the Bridge arranges a comparison (embargo in tools/EMBARGOES.json).
+
 ## Reproducibility
 - Environment, commands and logs: ENVIRONMENT/README.md.
 - All verdicts pre-registered (commit hashes listed per section in RESULTS).
