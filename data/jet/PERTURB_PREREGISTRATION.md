@@ -57,3 +57,15 @@ two parameter points. Positives go to the Bridge for independent reproduction be
 ## Resources (to be requested from the Bridge before any run longer than 30 min)
 Matrices at d = 4: about 2× the §151 size (pairs of jets), ~2000 × 1900, seconds each. Even d = 6 is minutes. Estimated
 total < 1 h on 1 core, < 1 GB, < 50 MB disk. The build and validation are the main cost (hours of my time, not compute).
+
+## Addendum 1 (2026-11-17, before any build output or run)
+Controls 3–4 (d1, d3) live in the double expansion (coupling ε × spin χ², slow-rotation base), not on exact Kerr, so
+they need a two-parameter version of the pair test. Staging:
+- **Stage 1 (exact Kerr base in the MN chart, β = 0):** controls 1 (null: a pure coordinate change ξ^x = s(x), giving
+  δg^{ab} = −L_ξ g^{ab}; everything must survive, S(d) = K(d)); 2 (separable: δg^xx = s(x)·g₀^xx/(x² − 1) with
+  s = x³/7; Carter and hence the whole Kerr algebra must survive, S(d) = K(d)); 5 (non-separable sabotage:
+  δg^xx = (x y/7)·g₀^xx; S(2) = 4 expected, i.e. Carter dies). After those pass, the MN-β target at d = 1–4.
+- **Stage 2 (gate on any CLAIM):** controls 3–4, the ladder reproduction in the double expansion. No MN-β result is
+  claimed, and none is sent beyond the Bridge as a finding, until stage 2 passes. The MN-β numbers are recorded as
+  they come but labelled "pre-validation".
+The predictions are unchanged.
