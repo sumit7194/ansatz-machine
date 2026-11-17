@@ -15,3 +15,5 @@
 70808 2026-10-11 19:18:04 HP probe runner (select->gates->base), load-gated, 2 workers
 27233 2026-10-11 23:34:03 HP probe part 2 (cross run+analyse, then G4), load-gated, 2 workers
 98529 2026-10-12 09:49:51 HP G4 rerun (addendum 3), 1 core
+74043 2026-11-17 19:41:28 saddle test runner (kerr then ts), 2 workers, nice 10
+96639 2026-11-17 20:06:22 saddle test runner RESTART after addendum 1 (kerr then ts), 2 workers, nice 10
