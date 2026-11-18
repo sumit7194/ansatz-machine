@@ -82,3 +82,7 @@ B only if C cannot locate the periodic orbit. A is not recommended.
   Both are DIFFERENT levels from tabula's p = 3/5, E = 0.94: E is unit-independent, and p differs for the first.
   So §199b's horseshoe does not transfer to our capture edge as it stands. Whether the splitting persists at our
   levels is a question for tabula's §201 (p = 4/5) or a later ask, not for a rebuild here.
+- **§201 level (relayed by the Bridge, setup only):** p = 4/5, E = 0.94, prograde, |L| ≈ 7.30–7.50 (σ = 1). Also
+  DIFFERENT from our capture edge (E = 0.97, retrograde, L = 41/8). Units agree: tabula's L·(1/σ) with σ = p/2 is our
+  σ = 1 convention, and E and direction differ regardless. **No level in the fleet's tangle work matches ours.** Option
+  C "at the capture-edge level" goes back to Sumit as a live proposal; it stays on hold until then.
