@@ -1,0 +1,22 @@
+{
+ "kerr": {
+  "x_new_vs_stored": 3.526454068786376e-30,
+  "x_new_vs_old": 0.0,
+  "lam_new_vs_old": 0.0,
+  "lam_new_vs_stored_double": 5.145351738797237e-16,
+  "step_agree": 0.0,
+  "residual": 4.0148601441978505e-28,
+  "sec": 5.415220260620117,
+  "pass": true
+ },
+ "ts": {
+  "x_new_vs_stored": 1.8199991946371361e-28,
+  "x_new_vs_old": 0.0,
+  "lam_new_vs_old": 0.0,
+  "lam_new_vs_stored_double": 9.213590890845916e-16,
+  "step_agree": 0.0,
+  "residual": 5.101780609940713e-26,
+  "sec": 31.336752891540527,
+  "pass": true
+ }
+}
