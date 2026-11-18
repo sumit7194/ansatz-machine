@@ -180,8 +180,9 @@ def controls():
     Mt, Mt1, Ft, zst = E.setup("ts")
     bt = json.load(open(os.path.join(E.OUT, "tbands_ts.json")))
     e = [e_ for e_ in bt["edges"] if e_["j"] == 244][0]
-    d = mp.mpf(e["d"])
-    pa_, pb_ = zst[0] + d * (1 - mp.mpf("1e-10")), zst[0] + d * (1 + mp.mpf("1e-10"))
+    lu_ = mp.mpf(json.load(open(os.path.join(E.TANG, "ts_R2_d1e-12.json")))["lam"])
+    _, lu_, _, _, _, _ = E.fixed_and_frame(Mt, "ts")                      # addendum 1: grid neighbours d_244, d_245
+    pb_, pa_ = (zst[0] + mp.mpf("0.14") * lu_ ** (-mp.mpf(j) / 96) for j in (244, 245))
     hA, hB = history(Mt, Ft, pa_, cap=120), history(Mt, Ft, pb_, cap=120)
     same = hA["sig"] == hB["sig"]
     fa = E.fate(Mt, [pa_, mp.mpf(0)], E.XFAR["ts"])

@@ -83,3 +83,23 @@ The proposal said ρ_min ∝ w (slope 1) on a strand and ∝ w² at x\*. **That 
   cost implies more than 1.5 h in total, the number goes to the Bridge before TS.
 - Embargo `ansatz-edge-link-ts` covers TS strand positions, slopes, counts and class counts. Only the verdict word and
   seals go out.
+
+## Addendum 1 (2026-11-19, after the controls run, BEFORE any window run)
+**Controls (`edge2/controls.json`):**
+- **K-sep: slope 0.499** over 7.5 decades, "strand"; converged to the closed-form x_h within 7e−18; R1/R2 and ε both
+  pass.
+- **K-star: slope 1.000** over 8.1 decades, "at γ", within 2e−18.
+- **MF-2: slope 1e−8**, "not owned", with identical histories.
+- **T-sep: PASS.**
+- **MF-1: FAIL ("insufficient").** So **the controls as registered give VOID.**
+
+The corrected theory (½ on a strand, 1 at γ, 0 not owned) is confirmed in Kerr to three digits.
+
+**Diagnosis of MF-1, a defect in the registered INPUT:** the registered bracket d(1 ± 1e−10) around the §155 edge is
+2.6e−15 wide, i.e. w/x = 2.6e−16. That is already below the fit window [1e−15, 1e−5], so no decades could be fitted.
+The histories were identical, as required.
+
+**v2′ (a new verdict; the registered v2 stays VOID).** MF-1's input becomes the two §155 T-BANDS grid neighbours
+that bracket that edge, d_244 and d_245 (w/x ≈ 5e−8, more than 7 decades available). The predicate, the
+identical-history requirement and the "not owned" target are unchanged. All five controls are rerun under the same
+code.
