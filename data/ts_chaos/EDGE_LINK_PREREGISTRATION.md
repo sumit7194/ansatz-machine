@@ -237,3 +237,12 @@ Time 39 s, so TS T-BANDS is estimated at ~10 min.
   crossing's x passes through x_c: transverse and precision-robust, and not owned by γ. It must give **O**.
 - **T-H as the prereg text says:** the certificate applied directly to p = x_h + 1e−12, q = x_h − 1e−12.
 - K-x_h, K-H and K-A are rerun under the same code, so the Π reinterpretation cannot have changed them silently.
+- **T-SWITCH′ controls (`tswitch_controls.json`): ALL PASS.**
+  - K-x_h: 4.3e−24.
+  - K-H: H, with x_h inside the final bracket and the result cut-independent.
+  - **K-O′: O.** The last close approach is at crossing 27, with ρ > 1e−2 throughout; R1 and R2 agree, with
+    lifetimes (28, survive) at both rungs.
+  - K-A: A.
+  - **T-H: certificate holds (k = 3).**
+- Next: TS T-BANDS (~10 min) and TS T-SWITCH′ (≤ 60 examined pairs, 8 accepted at most). Estimated cost below,
+  then a slot request.
