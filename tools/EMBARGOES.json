@@ -16,6 +16,18 @@
     "fate map[^\\n]{0,60}\\d"
    ],
    "note": "tabula §200 measures an uncertainty exponent near the TS2 plunge boundary (methodological overlap). Outbound blind for ansatz's alpha values, fate-map counts and saddle-test N(t)/h. Inbound: do not read tabula's §200 numbers."
+  },
+  {
+   "id": "ansatz-tangle-ts-capture-edge-2",
+   "recipient": "*",
+   "opened": "2026-11-18",
+   "until": "any further comparison (e.g. tabula) is arranged by the Bridge and sealed",
+   "patterns": [
+    "\\b(theta|θ|splitting|angle)\\b[^\\n]{0,40}\\d\\.\\d+(e-?\\d+)?",
+    "\\b(lambda|λ|eigenvalues?|multipliers?)\\b[^\\n]{0,40}\\d\\.\\d",
+    "fixed point[^\\n]{0,40}\\d\\.\\d{3}"
+   ],
+   "note": "Re-imposed after the V20 send (values went to the Bridge only, 43cde03)."
   }
  ],
  "lifted": [
