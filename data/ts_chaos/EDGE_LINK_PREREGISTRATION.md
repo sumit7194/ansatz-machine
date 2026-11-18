@@ -201,3 +201,39 @@ needs a slot request.
   (8,467 samples, one sign); exits = 439 (≥ 30); C0 = C1 = C2 = C3 = C4 = C5 = 0; all 64 inward seeds give status 1
   (A2 holds); must-fail C4 = 620 > 0 and C1 = 52 > 0; brake diagnostic 6e−27 (γ is a brake orbit). No falsifying
   counter is non-zero, so no R1 run is needed. Time 4,033 s (56,590 map calls).
+
+## Addendum 2 (2026-11-18, ansatz-machine; after the T-SWITCH controls, BEFORE any TS T-SWITCH run)
+**Kerr T-BANDS (cost measurement, `tbands_kerr.json`): Kerr gate PASS.** All 373 points have fate B (zero T, zero X).
+Time 39 s, so TS T-BANDS is estimated at ~10 min.
+
+**T-SWITCH controls (`tswitch_controls.json`):**
+- K-x_h PASS: the closed form equals the stored §154 crossing to 4.3e−24.
+- K-H PASS: class H, the closed-form x_h inside the final bracket, cut-independent.
+- K-A PASS: class A.
+- **K-O FAIL** (class U).
+- **T-H FAIL.**
+- **So T-SWITCH as registered is VOID.**
+
+**Diagnosis.**
+1. **K-O, a design flaw.** With the plunge cut raised to x_pl = 11.458, the flip on ℓ lies between orbits that graze
+   the cut on one pass and orbits that miss it and plunge later. Final lifetimes were (9, 23) at R2 against (4, 17)
+   at R1. A grazing (tangency) boundary is precision-ill-posed by construction, so the "R1 and R2 agree" clause of
+   class O cannot be met. The control could never pass.
+   - The same review exposed an **ambiguity that would have made the real test unable to fail:** "the fates differ"
+     in class O was coded as "plunges vs never plunges". But at a raised cut, and in TS, where T-L3′ shows exiting
+     orbits plunge, both members usually plunge eventually. Class O could then never be assigned, and the falsifier
+     would be vacuous.
+2. **T-H, my implementation bug.** The prereg says T-H gives "the certificate" for (x_h + 1e−12, x_h − 1e−12). I ran
+   the pair through the T-SWITCH acceptance rule first. In TS both members plunge (after 9 and 12 crossings), so the
+   pair was rejected before the certificate was tried.
+
+**T-SWITCH′ (a new verdict; the registered T-SWITCH stays VOID). Everything else unchanged:**
+- **"Fates" means the bisection predicate Π** (plunges with n ≤ n_a + 12). Class O: Π(p) ≠ Π(q); the closeness and
+  ρ > 1e−2 history clause as registered; and R1/R2 agree on both lifetimes. Classes H, A and U as registered, tried in
+  the order H, A, O, U.
+- **K-O′ replaces K-O.** Kerr with a **section cut**: an orbit counts as plunged at the first upward crossing with
+  x < x_c, where x_c = the midpoint between x\* and the stable spherical orbit (11.458). The flip on ℓ between the
+  stable orbit and x_h is found by scan, then bisection, with the same switch procedure. The boundary is then where a
+  crossing's x passes through x_c: transverse and precision-robust, and not owned by γ. It must give **O**.
+- **T-H as the prereg text says:** the certificate applied directly to p = x_h + 1e−12, q = x_h − 1e−12.
+- K-x_h, K-H and K-A are rerun under the same code, so the Π reinterpretation cannot have changed them silently.

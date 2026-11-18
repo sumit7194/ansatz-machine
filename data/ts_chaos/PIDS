@@ -22,3 +22,5 @@
 76462 2026-11-18 20:22:21 edge-link T-L3 kerr R2, 1 thread, nice 10
 82609 2026-11-18 20:36:37 edge-link T-L3' kerr R2 (addendum 1), 1 thread, nice 10
 86385 2026-11-18 20:51:25 edge-link T-L3' TS R2 (slot granted), 1 thread, nice 10
+13688 2026-11-18 21:59:18 edge-link T-BANDS kerr (cost measurement), 1 thread, nice 10
+15108 2026-11-18 22:00:20 edge-link T-SWITCH controls (Kerr K-x_h/K-H/K-O/K-A + TS T-H), 1 thread, nice 10

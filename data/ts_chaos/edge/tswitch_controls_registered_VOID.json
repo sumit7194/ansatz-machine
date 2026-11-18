@@ -1,0 +1,219 @@
+{
+ "K-x_h": {
+  "closed": "28.4161842752631720373362556604",
+  "stored": "28.41618427526317203733626",
+  "diff": 4.339608606544871e-24,
+  "pass_": true
+ },
+ "K-H": {
+  "result": {
+   "cls": "H",
+   "a": "28.4161842752637680837840095666",
+   "b": "28.4161842752628740141123787073",
+   "halvings": 25,
+   "stages": [
+    {
+     "halvings": 25,
+     "width": 8.940696716308594e-13,
+     "cert": true,
+     "info": {
+      "k": 3
+     }
+    }
+   ],
+   "info": {}
+  },
+  "xh_inside": true,
+  "cut_indep": true,
+  "cut": {
+   "1.3": [
+    true,
+    false
+   ],
+   "1.7": [
+    true,
+    false
+   ]
+  },
+  "pass_": true
+ },
+ "K-O": {
+  "result": {
+   "cls": "U",
+   "a": "24.1139060462124863280423165048",
+   "b": "24.1139060462124863047439461406",
+   "halvings": 51,
+   "stages": [
+    {
+     "halvings": 25,
+     "width": 1.5635271681936802e-09,
+     "cert": false,
+     "info": {
+      "reason": "no short close approach",
+      "rung": 0
+     }
+    },
+    {
+     "halvings": 30,
+     "width": 4.8860224006052506e-11,
+     "cert": false,
+     "info": {
+      "reason": "no short close approach",
+      "rung": 0
+     }
+    },
+    {
+     "halvings": 35,
+     "width": 1.5268820001891408e-12,
+     "cert": false,
+     "info": {
+      "reason": "no short close approach",
+      "rung": 0
+     }
+    },
+    {
+     "halvings": 40,
+     "width": 4.771506250591065e-14,
+     "cert": false,
+     "info": {
+      "reason": "no short close approach",
+      "rung": 0
+     }
+    },
+    {
+     "halvings": 45,
+     "width": 1.4910957033097078e-15,
+     "cert": false,
+     "info": {
+      "reason": "no short close approach",
+      "rung": 0
+     }
+    },
+    {
+     "halvings": 50,
+     "width": 4.659674072842837e-17,
+     "cert": false,
+     "info": {
+      "reason": "no short close approach",
+      "rung": 0
+     }
+    }
+   ],
+   "info": {
+    "final": {
+     "p": [
+      1,
+      9
+     ],
+     "q": [
+      1,
+      23
+     ],
+     "p_R1": [
+      1,
+      4
+     ],
+     "q_R1": [
+      1,
+      17
+     ]
+    }
+   }
+  },
+  "xpl": 11.458417865439216,
+  "pass_": false
+ },
+ "K-A": {
+  "result": {
+   "cls": "A",
+   "a": "28.5161842752631720373362556604",
+   "b": "28.5161842752631720179003061524",
+   "halvings": 51,
+   "stages": [
+    {
+     "halvings": 25,
+     "width": 1.3043244922448723e-09,
+     "cert": false,
+     "info": {
+      "reason": "no short close approach",
+      "rung": 0
+     }
+    },
+    {
+     "halvings": 30,
+     "width": 4.076014038265226e-11,
+     "cert": false,
+     "info": {
+      "reason": "no short close approach",
+      "rung": 0
+     }
+    },
+    {
+     "halvings": 35,
+     "width": 1.273754386957883e-12,
+     "cert": false,
+     "info": {
+      "reason": "no short close approach",
+      "rung": 0
+     }
+    },
+    {
+     "halvings": 40,
+     "width": 3.9804824592433846e-14,
+     "cert": false,
+     "info": {
+      "reason": "no short close approach",
+      "rung": 0
+     }
+    },
+    {
+     "halvings": 45,
+     "width": 1.2439007685135577e-15,
+     "cert": false,
+     "info": {
+      "reason": "no short close approach",
+      "rung": 0
+     }
+    },
+    {
+     "halvings": 50,
+     "width": 3.887189901604868e-17,
+     "cert": false,
+     "info": {
+      "reason": "no short close approach",
+      "rung": 0
+     }
+    }
+   ],
+   "info": {
+    "final": {
+     "p": [
+      1,
+      1
+     ],
+     "q": [
+      1,
+      1
+     ],
+     "p_R1": [
+      1,
+      1
+     ],
+     "q_R1": [
+      1,
+      1
+     ]
+    }
+   }
+  },
+  "n0": 1,
+  "pass_": true
+ },
+ "T-H": {
+  "pass_": false,
+  "why": {
+   "reject": "fates (1,9) / (1,12)"
+  }
+ },
+ "all_pass": false
+}

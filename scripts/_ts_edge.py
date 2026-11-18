@@ -111,8 +111,18 @@ class EdgeMap:
         self.xpl = xpl
         self.calls = 0
 
+    xc = None                                  # addendum 2: optional SECTION cut (plunge at a crossing with x < xc)
+
     def step(self, z, down=False):
         """-> (status, z_next or None, maxx). status 0 = a crossing was reached."""
+        if self.xc is not None and not down:
+            st, zn, mx = self._step(z, down)
+            if st == 0 and zn[0] < self.xc:
+                return 1, None, mx
+            return st, zn, mx
+        return self._step(z, down)
+
+    def _step(self, z, down=False):
         xh, xl = TT.dd_of(z[0]); ph, pl = TT.dd_of(z[1])
         st, sh, sl, mx = self.sm(xh, xl, ph, pl, self.E[0], self.E[1], self.L[0], self.L[1], self.tol, 12, 2.0,
                                  self.xpl, 2000.0, 5_000_000, down)
@@ -513,7 +523,7 @@ def switch_pair(M, M1, F, xfar, xa, xo, n_a, accept_cert=True):
         (ep1, np1), (eq1, nq1) = life(M1, a, 120), life(M1, b, 120)
         if ep == 1 and eq == 1 and abs(np_ - nq) <= 2:
             cls = "A"
-        elif (ep == 1) != (eq == 1):
+        elif (ep == 1 and np_ <= n_a + 12) != (eq == 1 and nq <= n_a + 12):      # addendum 2: fates = Pi
             zp, zq = [a, mp.mpf(0)], [b, mp.mpf(0)]
             hist = []
             for _ in range(120):
@@ -578,9 +588,10 @@ def controls():
         out["K-H"] = dict(result=r, xh_inside=bool(inside), cut_indep=ci, cut=cres,
                           pass_=(r["cls"] == "H" and inside and ci))
     print("K-H:", {k: v for k, v in out["K-H"].items() if k != "result"}, out["K-H"].get("result", {}).get("cls"), flush=True)
-    # K-O: raised cut at the midpoint between x* and the stable spherical orbit
-    xpl = float((zs[0] + kc["x_stable"]) / 2)
-    Mo, Mo1 = EdgeMap("kerr", "R2", xpl=xpl), EdgeMap("kerr", "R1", xpl=xpl)
+    # K-O' (addendum 2): SECTION cut at the midpoint between x* and the stable spherical orbit
+    xc = (zs[0] + kc["x_stable"]) / 2
+    Mo, Mo1 = EdgeMap("kerr", "R2"), EdgeMap("kerr", "R1")
+    Mo.xc = Mo1.xc = xc
     xs_scan = [kc["x_stable"] + (kc["x_h"] - kc["x_stable"]) * i / 200 for i in range(1, 200)]
     prev, flip = None, None
     for x in xs_scan:
@@ -591,13 +602,13 @@ def controls():
             break
         prev = (x, pl)
     if flip is None:
-        out["K-O"] = dict(pass_=False, why="no flip found", xpl=xpl)
+        out["K-O"] = dict(pass_=False, why="no flip found", xc=float(xc))
     else:
         xa, xo = (flip[0], flip[1]) if flip[2] else (flip[1], flip[0])
         ea, na = life(Mo, xa, 120)
         r = switch_pair(Mo, Mo1, F, XFAR["kerr"], xa, xo, na)
-        out["K-O"] = dict(result=r, xpl=xpl, pass_=r["cls"] == "O")
-    print("K-O:", out["K-O"].get("result", {}).get("cls"), out["K-O"].get("why"), "xpl", xpl, flush=True)
+        out["K-O"] = dict(result=r, xc=float(xc), pass_=r["cls"] == "O")
+    print("K-O':", out["K-O"].get("result", {}).get("cls"), out["K-O"].get("why"), "xc", float(xc), flush=True)
     # K-A: a one-whirl lifetime step outside x_h
     xs2 = [kc["x_h"] + mp.mpf(10) ** (-mp.mpf(g) / 4) for g in range(4, 40)]
     ns = [life(M, x, 120) for x in xs2]
@@ -617,12 +628,9 @@ def controls():
     # T-H (TS; written to file only)
     Mt, Mt1, Ft, zst = setup("ts")
     _, _, xh_ts, _ = stored("ts")
-    acc = accept(Mt, xh_ts + mp.mpf("1e-12"), xh_ts - mp.mpf("1e-12"))
-    if "reject" in acc:
-        out["T-H"] = dict(pass_=False, why=acc)
-    else:
-        ok, ci = certificate([Mt, Mt1], Ft, XFAR["ts"], [acc["xa"], mp.mpf(0)], [acc["xo"], mp.mpf(0)])
-        out["T-H"] = dict(cert=ok, info=ci, pass_=ok)
+    ok, ci = certificate([Mt, Mt1], Ft, XFAR["ts"], [xh_ts + mp.mpf("1e-12"), mp.mpf(0)],
+                         [xh_ts - mp.mpf("1e-12"), mp.mpf(0)])            # addendum 2: certificate directly
+    out["T-H"] = dict(cert=ok, info=ci, pass_=ok)
     print("T-H:", "PASS" if out["T-H"]["pass_"] else "FAIL", flush=True)
     out["all_pass"] = all(v["pass_"] for v in out.values() if isinstance(v, dict))
     return out
