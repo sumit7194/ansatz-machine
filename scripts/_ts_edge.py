@@ -257,7 +257,8 @@ def tl3(sys_, rung):
             if inside(poly, x, p):
                 Bx.append((mp.mpf(x), mp.mpf(p)))
     C = [xh + mp.mpf(10) ** (-(1 + mp.mpf(i) * 6 / 100)) for i in range(101)]
-    samples = [("a", [x, mp.mpf(0)]) for x in A] + [("b", list(z)) for z in Bx] + [("c", [x, mp.mpf(0)]) for x in C]
+    Mpts = [xs + mp.mpf("0.2") + (xh - xs - mp.mpf("0.4")) * i / 59 for i in range(60)]    # addendum 1: group (m)
+    samples = [("a", [x, mp.mpf(0)]) for x in A] + [("a", [x, mp.mpf(0)]) for x in Mpts] + [("b", list(z)) for z in Bx] + [("c", [x, mp.mpf(0)]) for x in C]
     cnt = dict(C0=0, exits=0, C1=0, C2=0, C3=0, C4=0, C5=0, mf_C4=0, mf_C1=0, amb_crossings=0, orbits=0)
     det_ = []
     for grp, z0 in samples:
@@ -322,7 +323,7 @@ def tl3(sys_, rung):
     st, zH, _ = M.step(zs, down=True)
     brake = dict(status=st, dx=float(abs(zH[0] - zs[0])) if zH else None, dpx=float(abs(zH[1])) if zH else None)
     out = dict(sys=sys_, rung=rung, Fb=fb, counts=cnt, A2_status=a2, A2_all_plunge=all(e == 1 for e in a2),
-               brake=brake, n_samples=dict(a=len(A), b=len(Bx), c=len(C)), details=det_[:200],
+               brake=brake, n_samples=dict(a=len(A), m=len(Mpts), b=len(Bx), c=len(C)), details=det_[:200],
                map_calls=M.calls, sec_trace=t_trace, sec_orbits=t_orb, sec=time.time() - t0)
     return out
 

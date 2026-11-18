@@ -164,3 +164,32 @@ not change.
   `data/ts_chaos/edge/`, PID recorded in `data/ts_chaos/PIDS`. Cost is measured on Kerr first. Expected: under
   30 minutes each, under 1 GB, under 10 MB of disk. If a measurement predicts more than 30 minutes, a slot request
   goes to the Bridge before that run starts. Stop if free disk falls below 5 GB.
+
+## Addendum 1 (2026-11-18, ansatz-machine session, Opus 5.5; after the Kerr T-L3 run, BEFORE any TS T-L3 run)
+**Engine gate: PASS** (`data/ts_chaos/edge/engine_gate.json`). The new section routine is bit-identical to §154's for
+Kerr and TS: fixed point, multiplier and one step all agree to 0. Deviation, recorded: the stored multiplier is a
+double, so "≤ 1e−20 against stored" was checked as ≤ 1e−20 against the §154 routine recomputed (agreement 0), plus
+5e−16 against the stored double.
+
+**Kerr T-L3 (R2, `tl3_kerr_R2.json`):**
+- F-b′ holds (7,496 samples, one sign).
+- C0 = 0, exits = 0, C1 = C2 = C3 = C4 = C5 = 0.
+- All 64 inward seeds end with status 1.
+- Brake: |H(z\*) − z\*| = 2e−27.
+- Must-fail C4 (misplaced gate) = 683 > 0: it fires, as it must.
+- **Must-fail C1 (polygon shrunk ×0.5) = 0: it did NOT fire.** So by the registered rule, **T-L3 as registered is
+  VOID.**
+
+**Diagnosis (Kerr only):** every start point the design specifies hugs the separatrix. The T-BANDS grid sits within
+0.14 of x\*; the x_h − 10^(−g) points sit within 0.1 of x_h; the box is a thin wedge at z\*. In Kerr these orbits
+stay on invariant curves next to ∂D. That is why 34,074 of the ~41,600 crossings were "ambiguous" (within 1e−3 of the
+polygon), and why no orbit ever came inside the half-size polygon. The control could not fire for lack of interior
+orbits, not because the C1 detector is broken. The same feature would make TS exits harder to see; the VACUOUS guard
+(≥ 30 exits) covers that.
+
+**T-L3′ (a new verdict; the registered T-L3 stays VOID):** identical to T-L3, plus one sample group:
+- **(m)** 60 points on ℓ, uniform in x over [x\* + 0.2, x_h − 0.2], counted with (a) in every counter.
+- Same gates: the Kerr gate now also requires must-fail C1 > 0. Nothing else changes.
+
+Cost measured on Kerr: 786 s (71,182 map calls). TS maps are about 4× dearer, so TS T-L3′ is estimated at ~1 h, which
+needs a slot request.
