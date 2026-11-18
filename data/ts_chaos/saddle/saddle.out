@@ -1,0 +1,13 @@
+  [kerr] level 1: 1 brackets refined, 2031 orbits so far, min bracket width 1.50e-05
+  [kerr] level 2: 1 brackets refined, 2046 orbits so far, min bracket width 9.38e-07
+  [kerr] level 3: 1 brackets refined, 2061 orbits so far, min bracket width 5.86e-08
+  [kerr] level 4: 1 brackets refined, 2076 orbits so far, min bracket width 3.66e-09
+  [kerr] level 5: 1 brackets refined, 2091 orbits so far, min bracket width 2.29e-10
+  [kerr] level 6: 7 brackets refined, 2194 orbits so far, min bracket width 1.43e-11
+  [kerr] level 7: 54 brackets refined, 2987 orbits so far, min bracket width 8.94e-13
+  [kerr] level 8: 1 brackets refined, 3002 orbits so far, min bracket width 5.59e-14
+VERDICT-run [kerr]: 3002 orbits, N(t) = {50: 112, 100: 136, 150: 137, 200: 141, 300: 141, 400: 130, 500: 125, 600: 123}  [469s]
+  [ts] level 1: 300 brackets refined, 6501 orbits so far, min bracket width 1.66e-05
+  [ts] level 2: 234 brackets refined, 10011 orbits so far, min bracket width 1.04e-06
+VERDICT-run [ts]: 10011 orbits, N(t) = {50: 35, 100: 478, 150: 960, 200: 1318, 300: 1677, 400: 1767, 500: 1709, 600: 1596}  [39380s]
+ALL DONE (kerr, ts) Wed Nov 18 07:10:31 IST 2026

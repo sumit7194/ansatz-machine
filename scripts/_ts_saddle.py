@@ -243,7 +243,129 @@ def main():
                   indent=1)
         print(f"VERDICT-run [{sys_}]: {len(allpts)} orbits, N(t) = {Nt}  [{time.time() - t0:.0f}s]", flush=True)
         return
-    raise SystemExit(f"unknown mode {mode} (precision and analyse are added after the run, before reading results)")
+    if mode == "precision":
+        workers = int(sys.argv[2]) if len(sys.argv) > 2 else 2
+        g = guard_ok()
+        if g:
+            print(f"[precision] NOT STARTED: guard {g}", flush=True)
+            return
+        peaks = top_peaks(load_pts("ts"), 30)
+        with Pool(workers) as pool:
+            res = pool.map(life_dd, [("ts", hi, lo, "R2") for (hi, lo, _) in peaks], chunksize=1)
+        rows = [dict(hi=hi, lo=lo, n_R1=n1, n_R2=r[2], status_R2=r[3]) for (hi, lo, n1), r in zip(peaks, res)]
+        agree = sum(r["n_R1"] == r["n_R2"] for r in rows)
+        json.dump(dict(rows=rows, agree=agree, total=len(rows)), open(os.path.join(OUT, "precision.json"), "w"), indent=1)
+        print(f"VERDICT-precision: {agree}/{len(rows)} identical at R2 (pass needs >= 27/30)", flush=True)
+        return
+    if mode == "analyse":
+        which = sys.argv[2:] or ["kerr", "ts"]
+        out = {}
+        for s_ in which:
+            out[s_] = analyse(s_)
+            print(f"[{s_}] {out[s_]['n_points']} points; N(t) (LOWER BOUNDS) = {out[s_]['Nt']}; "
+                  f"h = {out[s_]['h']}; 95% CI = {out[s_]['ci']}", flush=True)
+        if which == ["kerr", "ts"]:
+            out["verdict"] = verdict(out)
+            print("VERDICT:", json.dumps(out["verdict"]), flush=True)
+            json.dump(out, open(os.path.join(OUT, "analysis.json"), "w"), indent=1)
+        return
+    raise SystemExit(f"unknown mode {mode}")
+
+
+# ---------------------------------------------------------------------------------------------------- analysis
+# Fixed 2026-11-18 AFTER the run finished and BEFORE any TS output was read (prereg: "precision and analyse are added
+# after the run, before reading results"). Operational choices the prereg left open are stated here:
+#  * "peak" = a local maximum of n over all evaluated points sorted by x0 (a plateau counts once, represented by its
+#    first point); the 30 longest-lived = sorted by (-n, x0).
+#  * bootstrap over level-0 cells: cell i = [g_i, g_{i+1}) of the level-0 grid (the last grid point joins the last
+#    cell). Each run of {n >= t} is assigned to the cell holding its first point; a resample draws 2000 cells with
+#    replacement and sums their run-start counts. 1000 resamples, seed 20261118. A resample whose h is undefined
+#    counts as h <= 0 (conservative for the saddle reading). CI = 2.5 / 97.5 percentiles.
+#  * h = least-squares slope of ln N(t) on t over t in [50, 400] with N(t) >= 2; needs >= 2 such t, else undefined.
+#  * "grows with t" is read as: h > 0 with the bootstrap CI excluding 0.
+def load_pts(sys_):
+    d = {}
+    for line in open(os.path.join(OUT, f"{sys_}.jsonl")):
+        try:
+            r = json.loads(line)
+        except ValueError:
+            continue
+        d[(r["hi"], r["lo"])] = r["n"]
+    return sorted(((hi, lo, n) for (hi, lo), n in d.items()), key=lambda t: mpv(t[:2]))
+
+
+def top_peaks(pts, k):
+    peaks, i, m = [], 0, len(pts)
+    while i < m:
+        j = i
+        while j + 1 < m and pts[j + 1][2] == pts[i][2]:
+            j += 1
+        left = pts[i - 1][2] if i > 0 else -10
+        right = pts[j + 1][2] if j + 1 < m else -10
+        if pts[i][2] > left and pts[i][2] > right:
+            peaks.append(pts[i])
+        i = j + 1
+    peaks.sort(key=lambda t: (-t[2], mpv(t[:2])))
+    return peaks[:k]
+
+
+def fit_h2(Nt, ts):
+    q = [(t, math.log(Nt[t])) for t in ts if 50 <= t <= 400 and Nt[t] >= 2]
+    if len(q) < 2:
+        return None
+    return float(np.polyfit([a for a, _ in q], [b for _, b in q], 1)[0])
+
+
+def analyse(sys_):
+    pts = load_pts(sys_)
+    a, b = WIN[sys_]
+    grid = [mpv(split(a + (b - a) * i / (G0 - 1))) for i in range(G0)]
+    starts = np.zeros((G0 - 1, len(TS_T)), int)
+    import bisect
+    xs = [mpv(p[:2]) for p in pts]
+    for k, t in enumerate(TS_T):
+        prev = False
+        for x, p in zip(xs, pts):
+            on = p[2] >= t
+            if on and not prev:
+                c = min(max(bisect.bisect_right(grid, x) - 1, 0), G0 - 2)
+                starts[c, k] += 1
+            prev = on
+    Nt = {t: int(starts[:, k].sum()) for k, t in enumerate(TS_T)}
+    h = fit_h2(Nt, TS_T)
+    rng = np.random.default_rng(20261118)
+    hs = []
+    for _ in range(1000):
+        idx = rng.integers(0, G0 - 1, G0 - 1)
+        s = starts[idx].sum(axis=0)
+        hb = fit_h2({t: int(s[k]) for k, t in enumerate(TS_T)}, TS_T)
+        hs.append(hb if hb is not None else -math.inf)
+    hs = np.array(hs)
+    ci = [float(np.percentile(hs, 2.5)), float(np.percentile(hs, 97.5))]
+    return dict(n_points=len(pts), Nt=Nt, h=h, ci=ci, undefined_resamples=int(np.isinf(hs).sum()))
+
+
+def verdict(out):
+    ctl = json.load(open(os.path.join(OUT, "control.json")))
+    ctl_ok = 0.6 <= ctl["h"] <= 0.8
+    kerr_ok = all(v <= 2 for v in out["kerr"]["Nt"].values())
+    ts = out["ts"]
+    prec = None
+    if os.path.exists(os.path.join(OUT, "precision.json")):
+        pr = json.load(open(os.path.join(OUT, "precision.json")))
+        bad = [r["n_R1"] for r in pr["rows"] if r["n_R1"] != r["n_R2"]]
+        prec = dict(agree=pr["agree"], total=pr["total"], pass_=pr["agree"] >= 27,
+                    unreliable_above_n=(min(bad) if (bad and pr["agree"] < 27) else None))
+    Nt = ts["Nt"]
+    if not (ctl_ok and kerr_ok):
+        v = "VOID (control failed)"
+    elif ts["h"] is not None and ts["h"] > 0 and ts["ci"][0] > 0 and Nt[400] >= 3 * Nt[100]:
+        v = "SUPPORTS CHAOTIC SADDLE"
+    elif all(x <= 3 for x in Nt.values()):
+        v = "SUPPORTS NO SADDLE"
+    else:
+        v = "INCONCLUSIVE"
+    return dict(control_h=ctl["h"], control_pass=ctl_ok, kerr_pass=kerr_ok, precision=prec, ts=v)
 
 
 if __name__ == "__main__":

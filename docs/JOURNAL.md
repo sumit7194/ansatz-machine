@@ -4461,3 +4461,19 @@ dG/dβ equals a 60-digit central difference of the full MN metric to 1.8e−32.
 
 NOT a claim until stage 2 (the d1/d3 ladder reproduction in the double expansion) shows the method can see a
 pole-order-1 Carter² survival.
+
+## 2026-11-18 — saddle test (a): run finished; Kerr control FAILS; TS still unread
+- The run ended cleanly at 07:10 (ALL DONE; no guard stop; TS 10,011 / Kerr 3,002 orbits).
+- `precision` and `analyse` modes were added to `scripts/_ts_saddle.py` AFTER the run and BEFORE any TS output was read,
+  as the prereg requires. The choices it left open are written in the code header (peak definition, cell bootstrap,
+  h needs at least 2 values of t, and "grows" means h > 0 with a CI excluding 0).
+- **Kerr negative control: N(t) = 112, 136, 137, 141, 141, 130, 125, 123 for t = 50 … 600. The prereg needs ≤ 2, so it
+  FAILS. By the reading rules the TS verdict is VOID, and that holds whatever the TS data show.**
+- Anatomy, from Kerr data only: every extra interval sits in a band 1.8e−10 wide at the boundary point. That band was
+  reached at refinement levels 6–7 (bracket widths 1e−11 to 1e−12). Inside it the lifetimes jump around erratically
+  in steps of ~15 crossings (22, 37, 52, 66, 81, 96, … with 600s mixed in). This fits an orbit next to Kerr's
+  separatrix that plunges at whichever radial pass the integrator's error decides: a precision floor, not dynamics.
+  It is being tested by rerunning 24 band points at R2 (tol 1e−28). If R2 changes those lifetimes, the band is
+  integration noise.
+- What the prereg could not see: its refinement has no resolution floor tied to the engine. It refines down to
+  1e−18 relative, and Kerr shows the engine cannot resolve lifetimes near a separatrix at 1e−11.
