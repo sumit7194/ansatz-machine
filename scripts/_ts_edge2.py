@@ -205,9 +205,65 @@ def controls():
     return out
 
 
+def window():
+    t0 = time.time()
+    M, M1, F, zs = E.setup("ts")
+    a0, b0 = mp.mpf("9.912067"), mp.mpf("9.945202")
+    xs = [a0 + (b0 - a0) * i / 399 for i in range(400)]
+    H = [history(M, F, x) for x in xs]
+    t_hist = time.time() - t0
+    with_visit = sum(1 for h in H if h["sig"])
+    plunging = [h for h in H if h["fate"]]
+    covered = sum(1 for h in plunging if h["sig"] and h["sig"][-1] == -1)
+    coverage = covered / len(plunging) if plunging else None
+    guards = dict(with_visit=with_visit, plunging=len(plunging), coverage=coverage,
+                  pass_=with_visit >= 30 and coverage is not None and coverage >= 0.9)
+    strands, fals, cand_s, cand_f = [], [], [], []
+    for i in range(399):
+        ha, hb = H[i]["sig"], H[i + 1]["sig"]
+        first = next((k for k in range(min(len(ha), len(hb))) if ha[k] != hb[k]), None)
+        if first is not None:
+            cand_s.append(i)
+        complete = all((h["sig"] and h["sig"][-1] == -1) or len(h["sig"]) < K for h in (H[i], H[i + 1]))
+        if H[i]["fate"] != H[i + 1]["fate"] and ha == hb and complete:
+            cand_f.append(i)
+    if guards["pass_"]:
+        for i in cand_s[:20]:
+            r = bisect_sigma(M, M1, F, xs[i], xs[i + 1])
+            r.pop("mid", None)
+            strands.append(dict(i=i, **r))
+        for i in cand_f:
+            fa = H[i]["fate"]
+            r = bisect_pred(M, F, lambda x: history(M, F, x)["fate"] == fa, xs[i], xs[i + 1], nmax=CAP)
+            if r.get("ok"):
+                ha_ = history(M, F, mp.mpf(r["a"])); hb_ = history(M, F, mp.mpf(r["b"]))
+                f1a = history(M1, F, mp.mpf(r["a"]))["fate"]; f1b = history(M1, F, mp.mpf(r["b"]))["fate"]
+                r["falsifier"] = bool(ha_["sig"] == hb_["sig"] and ha_["fate"] != hb_["fate"]
+                                      and min(ha_["gmin"], hb_["gmin"]) >= 0.1
+                                      and (f1a, f1b) == (ha_["fate"], hb_["fate"]))
+            fals.append(dict(i=i, **{k: v for k, v in r.items() if k != "stages"}))
+    n_cert = sum(1 for s_ in strands if s_.get("certified"))
+    n_fals = sum(1 for f in fals if f.get("falsifier"))
+    if not guards["pass_"]:
+        verdict = "VACUOUS"
+    elif n_fals > 0:
+        verdict = "FALSIFIED"
+    elif n_cert >= 3:
+        verdict = "SUPPORTED on the sample"
+    else:
+        verdict = "NOT ESTABLISHED"
+    return dict(guards=guards, n_cand_strand=len(cand_s), n_cand_fals=len(cand_f), strands=strands, fals=fals,
+                n_cert=n_cert, n_falsifiers=n_fals, verdict=verdict, sec_hist=t_hist, sec=time.time() - t0,
+                calls=M.calls + M1.calls)
+
+
 if __name__ == "__main__":
     os.makedirs(OUT, exist_ok=True)
     if sys.argv[1] == "controls":
         o = controls()
         json.dump(o, open(os.path.join(OUT, "controls.json"), "w"), indent=1, default=str)
         print("VERDICT-controls:", "PASS" if o["all_pass"] else "FAIL (VOID)", flush=True)
+    if sys.argv[1] == "window":
+        o = window()
+        json.dump(o, open(os.path.join(OUT, "window_ts.json"), "w"), indent=1, default=str)
+        print("[ts] window done (values in file)", flush=True)

@@ -1,0 +1,6 @@
+K-sep {'ok': True, 'why': None, 'v': 1, 'slope': 0.4988115018802643, 'decades': 7.52574989159953, 'cls': 'strand', 'conv': 7.275957614183426e-18, 'r1_agree': True, 'eps_ok': True, 'pass_': True} [11s, 764 calls]
+K-star {'ok': True, 'why': None, 'v': 1, 'slope': 0.9999999999999962, 'decades': 8.127809882927492, 'cls': 'at_gamma', 'conv': 1.8189894035458564e-18, 'r1_agree': True, 'eps_ok': True, 'pass_': True} [16s, 1477 calls]
+MF-2 {'ok': True, 'why': None, 'identical_histories': True, 'slope': 1.157350624866506e-08, 'decades': 7.52574989159953, 'cls': 'not_owned', 'pass_': True} [169s]
+MF-1 PASS [213s]
+T-sep PASS [240s, TS calls 1183]
+VERDICT-controls: PASS

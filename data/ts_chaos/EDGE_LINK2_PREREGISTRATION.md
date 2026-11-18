@@ -103,3 +103,10 @@ The histories were identical, as required.
 that bracket that edge, d_244 and d_245 (w/x ≈ 5e−8, more than 7 decades available). The predicate, the
 identical-history requirement and the "not owned" target are unchanged. All five controls are rerun under the same
 code.
+- **v2′ controls: ALL PASS** (`edge2/controls.json`).
+  - K-sep: slope 0.499 (strand).
+  - K-star: slope 1.000 (at γ).
+  - MF-2: slope 1e−8 (not owned).
+  - **MF-1: slope 3e−4 over 7.2 decades, "not owned"**, with identical histories.
+  - T-sep: pass.
+  - The window run waits for a slot; its estimated cost is above 1.5 h.
