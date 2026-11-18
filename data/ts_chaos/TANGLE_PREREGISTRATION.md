@@ -69,3 +69,24 @@ levels, valences or EMRIs. A null (NOT RESOLVED) does not reverse §150.
   output, then sealed (commit + sha256) and sent to nobody until the Bridge arranges it.
 - Expected cost under 30 min on 1 core, < 1 GB, < 10 MB disk, measured first. A slot request goes to the Bridge if a
   measurement exceeds 30 min. nice 10, detached; stop guards as in the saddle test.
+
+## Addendum 1 (2026-11-18, after G1 passed and a Kerr-only G0 probe, BEFORE any TS map evaluation)
+**G1 passed:** forced pendulum, θ/Melnikov = 1.0005 at ε = 1e−3 and 1.0014 at ε = 3e−3; θ = 2.3e−11 at ε = 0
+(`data/ts_chaos/tangle/g1.json`).
+
+**Mis-specification found in G0, from Kerr only:** at this (E, L), W(x, 0) has NO critical point. −1 − W falls
+monotonically along the equator from x = 1.6 to 40, so the "neck saddle" G0 assumed does not exist. That was my
+assumption: at ε_sep = −0.51 the equatorial barrier is gone. The hyperbolic orbit that bounds the capture edge is
+instead the **unstable spherical-type orbit**. In Kerr it is the double root of the radial potential R(r) with Q > 0
+at this (E, L). It oscillates in y at fixed r and crosses y = 0 with p_x = 0. On the section it is a hyperbolic fixed
+point ON the line p_x = 0, and in Kerr it should coincide with the capture-edge boundary point. The question is
+unchanged: does this hyperbolic orbit have a transverse homoclinic point?
+
+**G0, restated (the rest of the prereg is unchanged):**
+- G0a: reflection symmetry exact (Kerr already confirmed True).
+- G0b: Newton finds a hyperbolic fixed point of P on p_x = 0, starting from the window centre (Kerr 4.9933985; TS the
+  midpoint of [9.912067, 9.945202]). It must have residual ≤ 1e−24, λμ = 1 to ≤ 1e−12, and |p_x*| ≤ 1e−24. If
+  none is found, STOP.
+- **G0c (new, Kerr only, an exact check of the section map):** Kerr's x* must equal r_sph − m, where r_sph is the
+  analytic unstable spherical orbit from R = R′ = 0 (Boyer–Lindquist, m = 1/p, a = qm, chart L > 0 retrograde), to
+  ≤ 1e−20.
