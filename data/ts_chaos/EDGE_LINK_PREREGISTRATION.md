@@ -197,3 +197,7 @@ needs a slot request.
   seeds give status 1; must-fail C4 = 704 > 0; **must-fail C1 = 51 > 0**. Time 846 s. Next: TS T-L3′ at R2 (~1 h,
   slot requested). R1 runs only if a falsifying counter is non-zero, because the rule needs R1/R2 agreement only to
   falsify.
+- **TS T-L3′ (R2, `tl3_ts_R2.json`; graded "post-failure amendment, blind to TS"): PASS, NOT VACUOUS.** F-b′ holds
+  (8,467 samples, one sign); exits = 439 (≥ 30); C0 = C1 = C2 = C3 = C4 = C5 = 0; all 64 inward seeds give status 1
+  (A2 holds); must-fail C4 = 620 > 0 and C1 = 52 > 0; brake diagnostic 6e−27 (γ is a brake orbit). No falsifying
+  counter is non-zero, so no R1 run is needed. Time 4,033 s (56,590 map calls).
