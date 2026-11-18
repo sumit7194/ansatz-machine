@@ -1,0 +1,85 @@
+# Edge-link v2: are the §150 window's switches strands of W^s(γ)? Exit-sign bisection. Pre-registration, 2026-11-18, BEFORE any code
+
+**Ask:** Sumit's go, relayed by the Bridge, on the redesign proposal (`EDGE_LINK_REDESIGN_PROPOSAL.md`, a5daf8e).
+**Model:** design and implementation by Claude Opus 5.5 (ansatz-machine session).
+**State at registration:** no code exists for this. Data already seen: everything in §155 (edge-link v1), including
+its TS outcome. That is disclosed, and it is why the must-fail controls use v1's actual artefacts.
+
+## Correction to the proposal, made before any code
+The proposal said ρ_min ∝ w (slope 1) on a strand and ∝ w² at x\*. **That is wrong.**
+- **On a strand:** a point at distance w from a strand of W^s has u₀ ∝ w and s₀ = O(1) when it arrives near γ.
+  After j crossings, |u| ≈ u₀λ^j and |s| ≈ s₀λ^(−j), so the closest approach is ρ_min ≈ √(u₀ s₀) ∝ **w^(1/2)**.
+- **At x\*** (where ℓ passes through γ): the start point is already within ~d of γ in both directions, so
+  ρ_min ∝ **d (slope 1)**.
+- **On a boundary γ does not own:** ρ_min does not shrink (slope ≈ 0).
+- The registered targets below use 1/2, 1 and 0.
+
+## Definitions (fixed)
+- **Level:** TS `ts2:4/5`, E = 97/100, L = 41/8. **Kerr:** `ts2kerr:4/5`, L = 2550268/1000000. The section, ℓ, z\*, λ,
+  v_u (a > 0), v_s = R(v_u) and the eigenframe (u, s) with ρ = max(|u|, |s|) are as in §155. The engine is
+  `_ts_edge.EdgeMap` (gate passed in §155); plunge is status 1 at x_pl = 1.5.
+- **Visit** (ε_c = 1e−2): a maximal run of consecutive section points (the start point counts as index 0) with
+  ρ ≤ ε_c.
+  - It ends at the first later crossing with ρ > ε_c. **σ = sign(u)** there.
+  - If the orbit plunges (status ≠ 0) before such a crossing, σ = −1.
+  - **ρ_min(visit)** = the smallest ρ during the visit.
+- **History H(x):** the list of σ for successive visits. It stops at the first σ = −1, at K = 6 visits, or at the
+  300-crossing cap. **Fate F(x)** = plunges within 300 crossings (status 1).
+- **Bisection on σ_v:** for a pair whose histories agree on visits 1 … v−1 and differ in σ_v (both have visit v).
+  The midpoint goes to the side whose σ_v it shares. If a midpoint's prefix differs, or it has no visit v, the
+  bracket is **broken**: it stops and is logged.
+  - Stop at relative width 1e−18, or after 70 halvings.
+  - At every stage record w (the bracket width) and ρ_min(w), the LARGER of the two members' visit-v minima.
+- **Ownership slope:** a least-squares fit of log ρ_min against log w over the stages with w/x ∈ [1e−15, 1e−5].
+  At least 6 decades of w are needed, or the result is "insufficient".
+  - **"Transverse strand"** = slope in [0.4, 0.6].
+  - "At γ" = slope in [0.85, 1.15].
+  - "Not owned" = slope < 0.2.
+- **Precision:** σ_v at R1 must agree with R2 at every 10th stage and at the final stage.
+- **ε-independence:** the final pair, rerun with ε_c = 3e−3, must give the same σ_v (the visit index may shift; the
+  sign at the decisive visit must not).
+
+## Controls (run first, in this order; any failure means VOID)
+| control | input | must give |
+|---|---|---|
+| K-sep | Kerr pair x_h ± 1e−6 on ℓ (x_h in closed form) | a σ flip; bisection converges to x_h within 1e−16; slope "transverse strand" |
+| K-star | Kerr pair x\* ± 1e−6 | a σ flip; converges to x\* within 1e−16; slope "at γ" (so NOT classed as a transverse strand) |
+| MF-1 (must fail) | the §155 T-BANDS edge pair (TS, edge j = 244, d(1 ± 1e−10)) | identical histories (no σ flip). Then bisected on the v1 artefact predicate ("a leg's max x > 30") to w/x = 1e−15: slope "not owned" |
+| MF-2 (must fail) | the §155 K-O′ section-cut boundary (Kerr, x_c = 11.458) | identical histories. Bisected on the section-cut fate to w/x = 1e−15: slope "not owned" |
+| T-sep | TS pair x_h ± 1e−6 around §154's x_h | a σ flip; converges within 1e−14 of the stored x_h; slope "transverse strand" |
+
+## Window test (TS, only if every control passes)
+- 400 samples on ℓ, uniform over [9.912067, 9.945202]. Histories and fates at R2.
+- **Vacuity guards:** ≥ 30 samples with at least one visit, AND among plunging samples ≥ 90% whose last visit before
+  the plunge has σ = −1 (coverage: plunges go through γ's neighbourhood). If either fails: **VACUOUS**.
+- **Strand candidates:** neighbouring samples whose histories first differ by a σ flip at some visit v. At most 20,
+  in x order, are bisected and certified. A **certified strand** has slope "transverse strand", R1/R2 agreement, and
+  ε-independence.
+- **Falsifier candidates:** neighbouring samples with DIFFERENT fates and IDENTICAL complete histories. "Complete"
+  means each ended with σ = −1 or reached the cap with fewer than K visits.
+  - Bisect on fate to w/x = 1e−15.
+  - It is a **FALSIFIER** if the fate flip persists, the histories stay identical at every stage, ρ_min along the
+    final pair's orbits stays ≥ 0.1, and R1 agrees on both final fates.
+
+## Verdict words (this (E, L) level only)
+- **VOID:** any control fails.
+- **VACUOUS:** a vacuity guard fails.
+- **FALSIFIED:** any falsifier. The window contains a switch that γ does not own.
+- **SUPPORTED on the sample:** ≥ 3 certified strands and 0 falsifiers. With §154 (horseshoe), this licenses "a
+  Cantor set of edge points lies in the §150 window" (reasoning W-2). It is numerical, on a sample, at one level.
+- **NOT ESTABLISHED:** otherwise.
+- Nothing here licenses statements about α, other levels or EMRIs.
+
+## Predictions (sealed by this commit)
+| item | prediction | confidence |
+|---|---|---|
+| all 5 controls behave | yes | ~65% (a new pipeline; the slope fits have a phase jitter of up to λ^(1/2) per point) |
+| vacuity guards pass | yes | ~70% |
+| verdict SUPPORTED | yes | ~50% |
+| verdict FALSIFIED | no | ~90% |
+
+## Resources and blinding
+- Slot from the Bridge: about 1 h for TS plus the Kerr measurement, 1 core, nice 10, < 1 GB. If the measured Kerr
+  cost implies more than 1.5 h in total, the number goes to the Bridge before TS.
+- Embargo `ansatz-edge-link-ts` covers TS strand positions, slopes, counts and class counts. Only the verdict word and
+  seals go out.
