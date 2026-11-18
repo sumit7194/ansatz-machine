@@ -4407,7 +4407,7 @@ either. Predictions: Carter dies (85%) held; nothing at d = 3 (85%) held; d = 4 
 **Environment:** Python 3.14.5 (.venv), numpy 2.4.6, sympy 1.14.0, mpmath 1.3.0, FLINT 3.6.0, macOS 27.2 arm64. Full
 stamp: `ENVIRONMENT/stamp.json`.
 
-## §154 — TS δ = 2 at the §150 α level L1: the unstable spherical-type orbit has a transverse homoclinic point, so a chaotic saddle exists at this (E, L) level. Numerical, not rigorous
+## §154 — TS δ = 2 at the §150 α level L1: the unstable spherical-type orbit has a transverse homoclinic point, so a chaotic saddle exists at this (E, L) level. Numerical, not rigorous  **[independently reproduced: the Bridge V20, edf46dd]**
 
 Pre-registered: `data/ts_chaos/TANGLE_PREREGISTRATION.md` (7c43e03, before any build), with addendum 1 (6039005, before
 any TS map evaluation). Ask: Sumit, directly ("go ahead with option C at our capture edge"). It replaces the void
@@ -4482,3 +4482,15 @@ map runs. The Kerr G0 probe and the analytic orbit came before addendum 1; the T
 Artifacts: `data/ts_chaos/tangle/{g1,kerr_R2_d1e-12,ts_R2_d1e-12,ts_R1_d1e-12,ts_R2_d1e-11,verdict}.json`.
 **Environment:** Python 3.14.5 (.venv), numpy 2.4.6, sympy 1.14.0, mpmath 1.3.0, numba (DD engine), macOS 27.2 arm64.
 Full stamp: `ENVIRONMENT/stamp.json`.
+
+**Independent reproduction: the Bridge V20 (relayed, not verified here; sealed at TheBridge 8b7eb6f before our values were
+sent; comparison recorded at edf46dd). AGREE on everything comparable.**
+- Its own code ran in float64; the chart is the same (ts2:4/5).
+- The fixed point agrees to ≤ 8.5e−15 relative, λ_u to ≤ 6.9e−13, and x_h to ≤ 4.2e−13.
+- θ: V20 gets 1.1237e−2 to 1.1247e−2 across 4 variants (1.9e−5 to 8.1e−4 relative to ours; tolerance 2%). The
+  spread is V20's float64 floor; ours is stable to 11 digits across rungs and seeds.
+- The homoclinic index was not comparable as registered (different seeds). The seed-invariant s_h·λ^n agrees to 1e−6.
+- V20 adds an invariant certificate we do not have: the Lazutkin invariant is nonzero against its Kerr floor (relayed).
+- Process: V20's registered run was VOID (a seed-stability gate at float64). The agreeing numbers come from its
+  amendment 2, registered before it ran.
+- Scope unchanged: a chaotic saddle at this (E, L) level; the link to the §150 window is unchecked.
