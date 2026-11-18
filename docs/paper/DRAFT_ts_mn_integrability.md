@@ -85,8 +85,11 @@ local and invariant-class for the symmetry nulls; finite-horizon for the chaos; 
 - High precision: outcomes determinate at 32 digits; sensitivity down to ε ≈ 10⁻¹⁴.
 - **The pre-registered crossover test returned "finite-time artefact".** That is stated as is; the post-hoc lifetime
   reading follows, labelled.
-- [PENDING] The lifetime-interval (topological-entropy) test, pre-registered 471f76c. Its outcome decides whether this
-  section may speak of a chaotic saddle / fractal in the limit, or only of finite-horizon fractal-like structure.
+- [PENDING] The lifetime-interval (topological-entropy) test, pre-registered 471f76c. **First run VOID:** the Kerr
+  negative control failed because of R1 spurious plunges at Kerr's separatrix, an instrument precision floor
+  (addendum 2, 7c1e845). An R2 rerun gated on Kerr is proposed. Until a verdict exists, this section speaks only of
+  finite-horizon fractal-like structure. Report the void run in the paper as a methods lesson: near a separatrix,
+  lifetime statistics need a precision check at every refinement depth.
 - Why sections mislead: chaotic and regular orbits both trace near-curves at 300 crossings, because the layers are thin.
 
 ## 7. Discussion
