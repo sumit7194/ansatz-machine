@@ -83,3 +83,27 @@ capped plateaus come first in the highest-n ordering, so they could fill the 300
 
 Everything else is unchanged: thresholds, budgets, the statistic, the controls, the predictions, the reading rules.
 Kerr and the tent control are re-run under the fix (orbits come from the checkpoint cache).
+
+## Addendum 2 (2026-11-18, after the Kerr control FAILED and BEFORE any TS output was read)
+**Outcome of the registered test: VOID.** Kerr gave 𝒩(t) = 112–141 against the required ≤ 2. The reading rules void
+the TS verdict, and nothing here changes that. The TS R1 data are committed and sealed unread (02682bb; sha256 of
+ts.jsonl 9876f3c9…8317) and will STAY unread until the rerun below has its own verdict.
+
+**Diagnosis (Kerr data only):** every extra Kerr interval lies in a band 1.8e−10 wide at the boundary point, reached
+at refinement levels 6–7. 24 random band points rerun at R2 (tol 1e−28): **all 24 survive to 600 at R2. At R1 only 6/24
+did; the others plunged spuriously after 21–476 crossings** (data/ts_chaos/saddle/kerr_band_R2.json). Near Kerr's
+separatrix the R1 integration error decides on which radial pass the orbit plunges. That is a precision floor of the
+instrument, and the prereg's search refines straight through it. The control did its job: it caught an instrument
+defect that the TS data alone would have shown as "branching".
+
+**Proposed rerun (a new verdict; the original stays VOID):**
+1. **Kerr first, at R2**, with the identical search (window, grid, thresholds, budget 3,000). Pass = 𝒩(t) ≤ 2 for all
+   t. If it fails, stop: the DD engine cannot resolve this boundary, and §150 keeps "finite-horizon" wording.
+2. **Only if Kerr passes: TS at R2**, with the identical search and a budget of 3,000 orbits (R2 costs ~4× R1). The
+   statistic, h fit, bootstrap and thresholds are as in the prereg and `analyse`, unchanged.
+3. **Precision check, made stricter:** the top-30 TS peaks AND 30 random points with 20 ≤ n < 600 are rerun at
+   tol 1e−31 (near the DD floor). Pass needs ≥ 27/30 identical in each set. If either fails, the TS verdict is
+   INCONCLUSIVE (precision-limited).
+4. Reading rules and predictions as in the prereg. The budget cut lowers the counts (they are lower bounds), so the
+   3× criterion is unchanged and is stated to be harder to meet.
+Needs a slot from the Bridge (step 1 ≈ 2 h on 2 cores; step 2 ≈ 12–14 h on 2 cores).
