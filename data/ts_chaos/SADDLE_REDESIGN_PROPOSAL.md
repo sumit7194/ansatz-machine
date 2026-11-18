@@ -53,3 +53,19 @@ lifetime statistic taken below the floor measures integrator noise, not dynamics
 
 **Recommendation:** C, gated by its two controls, with the cheap scaling gate (1) run first as the root-cause check.
 B only if C cannot locate the periodic orbit. A is not recommended.
+
+## Literature check for C (2026-11-18, read-only, at abstract level)
+- **Method precedent, so C is not a new method:**
+  - Sota, Suzuki & Maeda (gr-qc/9505036, gr-qc/9610065) use a homoclinic tangle around an unstable periodic orbit as
+    the criterion for strong chaos, in STATIC axisymmetric spacetimes.
+  - Perez-Giz & Levin (0811.3815) map Kerr's homoclinic orbits: the integrable separatrix that C uses as its control.
+  - Melnikov analyses exist for Kerr's equatorial plane under a non-Hamiltonian Poynting–Robertson perturbation
+    (De Falco et al., 2001.04979), and for static black holes with discs or rings.
+- **Not found:** a homoclinic or manifold computation for Tomimatsu–Sato or Manko–Novikov geodesics, or for any non-Kerr
+  STATIONARY ROTATING vacuum. Dubeibe et al. 2007 used Poincaré sections only, for TS. Searches run: two web
+  searches, an arXiv search ("Tomimatsu-Sato chaos" returned 0 hits, which is suspicious given that Dubeibe exists, so
+  the arXiv search is weak evidence), and "homoclinic non-Kerr" (4 hits, none relevant).
+- **So the likely novelty is the object, not the method:** a transverse homoclinic intersection for TS δ = 2 at a level
+  where it was called "completely integrable". Before any write-up, a full-text check of Gair–Li–Mandel, of the
+  Lukes-Gerakopoulos MN papers (Contopoulos et al. 2011/2012 study MN chaos and could include manifolds), and of quantum's
+  MN horseshoe work (asked of quantum directly, not read) is still owed.
