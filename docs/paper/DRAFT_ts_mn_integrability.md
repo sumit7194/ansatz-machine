@@ -85,12 +85,14 @@ local and invariant-class for the symmetry nulls; finite-horizon for the chaos; 
 - High precision: outcomes determinate at 32 digits; sensitivity down to ε ≈ 10⁻¹⁴.
 - **The pre-registered crossover test returned "finite-time artefact".** That is stated as is; the post-hoc lifetime
   reading follows, labelled.
-- [PENDING] The lifetime-interval (topological-entropy) test, pre-registered 471f76c. **First run VOID:** the Kerr
-  negative control failed because of R1 spurious plunges at Kerr's separatrix, an instrument precision floor
-  (addendum 2, 7c1e845). The R2 rerun failed its Kerr gate too, at levels 9–10; the failure width scales roughly as
-  √tol, so the DD engine cannot reach the registered depth (06844c5). No verdict exists, so this section speaks only of
-  finite-horizon fractal-like structure. Report the void run in the paper as a methods lesson: near a separatrix,
-  lifetime statistics need a precision check at every refinement depth.
+- **Homoclinic tangle (§154, pre-registered 7c43e03 + addendum 1).** At the capture-edge level, the unstable
+  spherical-type orbit (Kerr: exactly the boundary point, matching the analytic spherical orbit to 8e−28) has a
+  TRANSVERSE homoclinic point in TS and a zero splitting in Kerr. Controls: the forced pendulum vs Melnikov, and
+  precision and seed checks. So there is a horseshoe and a chaotic saddle, and the capture edge is fractal in the limit
+  (numerically). A rigorous interval-arithmetic version is possible.
+- The earlier lifetime-interval test (471f76c) was VOID: the Kerr control failed, and the R2 rerun stopped at its Kerr
+  gate. Lifetimes near a separatrix are blurred over a width ~√tol. We report it as a methods lesson; the tangle test
+  sidesteps it.
 - Why sections mislead: chaotic and regular orbits both trace near-curves at 300 crossings, because the layers are thin.
 
 ## 7. Discussion
