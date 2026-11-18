@@ -193,3 +193,7 @@ orbits, not because the C1 detector is broken. The same feature would make TS ex
 
 Cost measured on Kerr: 786 s (71,182 map calls). TS maps are about 4× dearer, so TS T-L3′ is estimated at ~1 h, which
 needs a slot request.
+- **Kerr T-L3′ result (`tl3_kerr_R2.json`): the Kerr gate PASSES.** F-b′ holds; exits = 0; C0–C5 = 0; all 64 inward
+  seeds give status 1; must-fail C4 = 704 > 0; **must-fail C1 = 51 > 0**. Time 846 s. Next: TS T-L3′ at R2 (~1 h,
+  slot requested). R1 runs only if a falsifying counter is non-zero, because the rule needs R1/R2 agreement only to
+  falsify.
