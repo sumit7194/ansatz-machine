@@ -4494,3 +4494,30 @@ sent; comparison recorded at edf46dd). AGREE on everything comparable.**
 - Process: V20's registered run was VOID (a seed-stability gate at float64). The agreeing numbers come from its
   amendment 2, registered before it ran.
 - Scope unchanged: a chaotic saddle at this (E, L) level; the link to the §150 window is unchecked.
+
+## §155 — Is the §150 window's capture edge the stable manifold of the §154 orbit? NOT ESTABLISHED (the one-way gate holds; switch certification failed by design)
+
+Pre-registered by the ansatz-machine-personal session (Claude Fable 5.2, reasoning v1 → Opus review → v2,
+`data/ts_chaos/EDGE_LINK_{REASONING,PREREGISTRATION}.md`, d9641a7). Built and run here (Opus 5.5,
+`scripts/_ts_edge.py`). Two registered tests were VOID and amended before any TS run of them (addenda 1–2), so the
+grade is **"two post-failure amendments, blind to TS"**.
+- **Engine gate:** PASS, bit-identical to §154's section routine.
+- **T-L3′, "is the gate one-way?": PASS, not vacuous.**
+  - Kerr gate passed.
+  - TS: 439 exits; C0 = C1 = C2 = C3 = C4 = C5 = 0; all 64 inward seeds plunge (A2); both must-fail controls fire.
+  - γ is a brake orbit (half-return 6e−27).
+  - The registered T-L3 was VOID: its must-fail re-entry control could not fire, because every registered start
+    point hugged the separatrix. Fixed by adding interior points.
+- **T-SWITCH′:**
+  - All 5 controls pass, including the exact Kerr x_h (4e−24) and a non-γ boundary correctly classed O.
+  - The registered T-SWITCH was VOID: the raised-cut control was precision-ill-posed, and "fates differ" was coded
+    in a way that would have made the falsifier vacuous in TS.
+  - **TS: 3 accepted of 60, all class A (lifetime steps), 0 H, 0 O.**
+- **T-BANDS:** statistics as predicted (τ = 96, A(96) = 1, edge ratio = λ), but **0 of 4 edges certified**.
+  Post-hoc: the edges are threshold artefacts of "excursion = max x > 30".
+- **Verdict: NOT ESTABLISHED.** Not falsified, not supported. Post-hoc diagnosis: the T-SWITCH design inherited a Kerr
+  picture (inside orbits never plunge), and in TS it converges to lifetime steps beside the strands. A redesign would
+  bisect on a predicate γ owns (the sign of u at the decisive close approach). Details in the prereg's Outcome
+  section.
+- **Scope unchanged:** §154's chaotic saddle at this (E, L); the §150 window keeps its finite-horizon wording.
+- **Environment:** Python 3.14.5 (.venv), numpy 2.4.6, sympy 1.14.0, mpmath 1.3.0, numba DD engine, macOS 27.2 arm64.

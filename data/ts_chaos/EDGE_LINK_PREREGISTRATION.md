@@ -246,3 +246,39 @@ Time 39 s, so TS T-BANDS is estimated at ~10 min.
   - **T-H: certificate holds (k = 3).**
 - Next: TS T-BANDS (~10 min) and TS T-SWITCH′ (≤ 60 examined pairs, 8 accepted at most). Estimated cost below,
   then a slot request.
+
+## Outcome (2026-11-18 23:05; graded "two post-failure amendments, blind to TS"; registered T-L3 and T-SWITCH both VOID, kept visible)
+**TS T-BANDS (`tbands_ts.json`, 266 s).**
+- Both fates are present, with zero X. The T-fraction (deep range) is 0.234, in [0.1, 0.9].
+- Best τ = 96 and A(96) = 1.00.
+- Edge ratio / λ = 1.000 for the 2 matched pairs.
+- **Certified edges: 0 of 4.** The prediction was ≥ 4, so **T-BANDS is NOT as predicted.**
+
+**TS T-SWITCH′ (`tswitch_ts.json`).**
+- 60 examined, 3 accepted (5%; predicted 20–70%).
+- Classes: **A = 3, H = 0, O = 0, U = 0.**
+- Of the 57 rejections, 54 are pairs where neither member plunges within 120 crossings. (The stored statuses differ
+  at §150's 300/600 horizons, not at 120.)
+
+**VERDICT: NOT ESTABLISHED. The link is NOT falsified:** T-L3′ passed, there is no class O, and no H depends on the
+cut. **The link is NOT supported:** 0 H against the ≥ 3 required.
+
+**Post-hoc diagnosis (after seeing TS output; labelled as such):**
+1. **T-BANDS edges are artefacts of the excursion threshold.** For the first edge, the T member and the B member
+   follow identical paths and BOTH plunge at crossing 9. One leg peaks at x just above X_far = 30 for one member and
+   just below for the other, so "excursion" counts differ by one. The edge is where a leg's maximum crosses 30. It is
+   smooth, and γ does not own it: ρ never falls below 1e−2 after the start. So the T/B "bands" measure the phase of
+   the departure from γ, which is why τ = 96 and the ratio λ come out exactly. But their edges are not W^s strands.
+   This is a definitional flaw of "excursion = max x > X_far". The certificate correctly refused all 4.
+2. **T-SWITCH′ cannot certify strands in TS as designed.** In TS, start points on both sides of a strand have finite
+   lifetimes (T-L3′: exiting orbits plunge), so bisecting on "plunges within n_a + 12" converges to a one-crossing
+   lifetime step (65 vs 66). By construction that is class A, next to a strand rather than on it. In Kerr, inside
+   orbits never plunge, so the lifetime jumps to ∞ at the strand and K-H works. **The design inherited a Kerr
+   picture.**
+3. A suspected bug (the certificate uses only the first close approach) was checked on the T-BANDS edge and is NOT
+   the cause there: ρ never comes within 1e−2. It remains a deviation from "there is a k" and is noted for any rerun.
+
+**What stands:** T-L3′ (the gate is one-way on the sample; A2 holds; γ is a brake orbit) and §154. The §150 window
+keeps the finite-horizon wording.
+**What a redesign would need:** a switch predicate that γ actually owns, e.g. the SIGN of u at the decisive close
+approach to γ, bisected directly, and fates that do not depend on a distance threshold. Not done; proposal only.

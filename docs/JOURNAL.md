@@ -4508,3 +4508,8 @@ pole-order-1 Carter² survival.
   Theorem-1 check only). New embargo `ansatz-edge-link-ts`, tested to block.
 - Lesson kept: a "within tolerance of the manifold" test cannot fail where the manifold is dense, so the tests use
   what the orbit does (it must approach the orbit and split there), not a distance.
+- 2026-11-18 evening, edge-link tests (§155):
+  - Engine PASS. T-L3′ PASS (after T-L3 VOID). T-SWITCH′ controls PASS (after T-SWITCH VOID).
+  - TS T-SWITCH′: 3 A, 0 H, 0 O. T-BANDS edges 0/4 certified. **NOT ESTABLISHED.**
+  - Post-hoc: excursion-threshold artefact in T-BANDS; T-SWITCH bisects to lifetime steps in TS.
+  - Hash guard installed (Sumit's direct yes).
