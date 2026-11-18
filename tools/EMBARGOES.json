@@ -28,6 +28,20 @@
     "fixed point[^\\n]{0,40}\\d\\.\\d{3}"
    ],
    "note": "Re-imposed after the V20 send (values went to the Bridge only, 43cde03)."
+  },
+  {
+   "id": "ansatz-edge-link-ts",
+   "recipient": "*",
+   "opened": "2026-11-18",
+   "until": "the Bridge arranges a comparison of the edge-link tests and the ansatz verdict is sealed (record commit)",
+   "patterns": [
+    "(band|strand|switch|homoclinic point|bracket|edge ratio)[^\\n]{0,60}\\d\\.\\d{3,}",
+    "\\bclass(es)?\\b[^\\n]{0,40}\\b[HAOU]\\b[^\\n]{0,20}\\d",
+    "\\b[HAOU]\\s*[:=]\\s*\\d",
+    "\\b(C[0-5]|exits|re-?entr\\w*|stalls?|deep returns?)\\b\\s*[:=]\\s*\\d+",
+    "(T-fraction|acceptance rate|accepted)[^\\n]{0,30}\\d"
+   ],
+   "note": "EDGE_LINK_PREREGISTRATION.md: outbound blind for TS band edges, strand positions, T-L3 counter values and T-SWITCH class counts at the capture-edge level. Verdict words (LINK SUPPORTED / LINK FALSIFIED / NOT ESTABLISHED / VOID / VACUOUS) and seals may be sent."
   }
  ],
  "lifted": [

@@ -4485,3 +4485,26 @@ pole-order-1 Carter² survival.
   (no equatorial saddle at this level, so the hyperbolic orbit is the unstable spherical-type orbit; it matches Kerr's
   analytic r_sph to 8e−28). G1 (pendulum Melnikov) and G2 (Kerr zero) pass. **TS: TRANSVERSE** with a large margin
   (RESULTS §154). Cost: minutes, not hours. The lifetime-test failure was the push to find the precision-robust route.
+
+## 2026-11-18 (evening) — "window vs saddle": reasoning, Opus review, pre-registration. Nothing run
+- Session: ansatz-machine-personal, now the only committer (handover `docs/HANDOVER_2026-11-18.md`). Model: Claude
+  Fable 5.2 for the reasoning and design; a Claude Opus subagent for the review. Ask: Sumit, relayed by the Bridge.
+- **Reasoning** (`data/ts_chaos/EDGE_LINK_REASONING.md`; v1 before review is 73427e4, v2 after):
+  - Theorem 1: the stable manifold of the §154 orbit is always inside the capture edge, given the transverse
+    crossing and one plunging point on the inward branch. So a Cantor set of edge points accumulates on the fixed
+    point x\*. This says nothing yet about the §150 window, 0.11 above.
+  - Theorem 2: if the gate is one-way (hypothesis L3), every outcome switch on the start line between x\* and x_h,
+    which includes the window, is a symmetric homoclinic point of that orbit. Lobe-dynamics argument; no
+    hyperbolicity needed.
+  - The crossing alone does not give an outcome exponent α < 1 in the infinite-time limit, and it does not explain
+    the measured α ≈ 0.05.
+  - Kerr control, exact: the edge on the start line is two points, x\* and the closed-form x_h.
+- **Opus review:** no blocker, 9 major and 10 minor points; all majors accepted, three points partly overruled, with
+  reasons (§6 of the reasoning). It caught, among others: a hypothesis that contradicted the transverse crossing
+  as worded; an equality that was only two inclusions; a census that would have failed in Kerr too; a certificate
+  that checked only the ends of a segment; and must-fail controls that could not fail.
+- **Pre-registration** (`data/ts_chaos/EDGE_LINK_PREREGISTRATION.md`): T-L3 (is the gate one-way), T-SWITCH (are
+  window switches strands of the orbit's stable manifold, with a class O that falsifies), T-BANDS (engine and
+  Theorem-1 check only). New embargo `ansatz-edge-link-ts`, tested to block.
+- Lesson kept: a "within tolerance of the manifold" test cannot fail where the manifold is dense, so the tests use
+  what the orbit does (it must approach the orbit and split there), not a distance.
