@@ -69,3 +69,16 @@ B only if C cannot locate the periodic orbit. A is not recommended.
   where it was called "completely integrable". Before any write-up, a full-text check of Gair–Li–Mandel, of the
   Lukes-Gerakopoulos MN papers (Contopoulos et al. 2011/2012 study MN chaos and could include manifolds), and of quantum's
   MN horseshoe work (asked of quantum directly, not read) is still owed.
+
+## Correction (2026-11-18, relayed by the Bridge): option C is already done inside the fleet. ON HOLD, nothing built.
+- **Prior work inside the fleet (relayed, not verified here, per CLAUDE.md §0):** tabula §199/§199b traced the stable
+  and unstable manifolds of TS δ = 2's unstable periodic orbit and found a transversal splitting at p = 3/5, E = 0.94,
+  prograde, with Kerr at the same level as the zero-splitting control. The Bridge's V16 (sealed 2026-10-23) reproduced
+  it blind with independent code. At p = 4/5 the splitting was below double precision; tabula §201 is running on that.
+  My web literature check missed this because it was fleet-internal.
+- **Level comparison (my setup only):**
+  - the saddle-test / capture-edge level is p = 4/5, E = 0.97, L = 41/8 (σ = 1 units), retrograde;
+  - my nearest §150 level is p = 3/5, E = 0.95, L = −16/3, prograde.
+  Both are DIFFERENT levels from tabula's p = 3/5, E = 0.94: E is unit-independent, and p differs for the first.
+  So §199b's horseshoe does not transfer to our capture edge as it stands. Whether the splitting persists at our
+  levels is a question for tabula's §201 (p = 4/5) or a later ask, not for a rebuild here.
