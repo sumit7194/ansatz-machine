@@ -16,7 +16,9 @@
     "fate map[^\\n]{0,60}\\d"
    ],
    "note": "tabula §200 measures an uncertainty exponent near the TS2 plunge boundary (methodological overlap). Outbound blind for ansatz's alpha values, fate-map counts and saddle-test N(t)/h. Inbound: do not read tabula's §200 numbers."
-  },
+  }
+ ],
+ "lifted": [
   {
    "id": "ansatz-tangle-ts-capture-edge",
    "recipient": "*",
@@ -27,7 +29,8 @@
     "\\b(lambda|λ|eigenvalues?|multipliers?)\\b[^\\n]{0,40}\\d\\.\\d",
     "fixed point[^\\n]{0,40}\\d\\.\\d{3}"
    ],
-   "note": "TANGLE_PREREGISTRATION.md: outbound blind for TS splitting angle, multipliers, fixed point at the capture-edge level. Verdict word (TRANSVERSE / NOT RESOLVED / VOID) and seals may be sent."
+   "note": "TANGLE_PREREGISTRATION.md: outbound blind for TS splitting angle, multipliers, fixed point at the capture-edge level. Verdict word (TRANSVERSE / NOT RESOLVED / VOID) and seals may be sent.",
+   "lifted": "2026-11-18: Bridge V20 sealed (TheBridge 8b7eb6f, V20_SEALED.json sha256 6665007f…3d2a, verified by hash without reading); values sent to the Bridge for the registered one-way-blind comparison; re-imposed right after as ansatz-tangle-ts-capture-edge-2"
   }
  ]
 }
