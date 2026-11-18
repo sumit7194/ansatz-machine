@@ -4477,3 +4477,7 @@ pole-order-1 Carter² survival.
   integration noise.
 - What the prereg could not see: its refinement has no resolution floor tied to the engine. It refines down to
   1e−18 relative, and Kerr shows the engine cannot resolve lifetimes near a separatrix at 1e−11.
+- 08:33: Kerr control at R2 also FAILS, now only at levels 9–10 (width ≤ 3e−15). Stopped per addendum 2, so TS is not
+  run and the TS R1 seal stays unread. The failure width scales roughly as √tol (1e−11 at 1e−22, 1e−15 at 1e−28):
+  a quadratic separatrix margin. DD cannot reach the 1e−18 the prereg asked for. Bootstrap NaN bug fixed (−inf
+  sentinel → −1e9); it did not affect any verdict.

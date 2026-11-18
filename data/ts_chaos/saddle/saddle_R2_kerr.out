@@ -1,0 +1,12 @@
+  [kerr_R2] level 1: 1 brackets refined, 2016 orbits so far, min bracket width 1.50e-05
+  [kerr_R2] level 2: 1 brackets refined, 2031 orbits so far, min bracket width 9.38e-07
+  [kerr_R2] level 3: 1 brackets refined, 2046 orbits so far, min bracket width 5.86e-08
+  [kerr_R2] level 4: 1 brackets refined, 2061 orbits so far, min bracket width 3.66e-09
+  [kerr_R2] level 5: 1 brackets refined, 2076 orbits so far, min bracket width 2.29e-10
+  [kerr_R2] level 6: 1 brackets refined, 2091 orbits so far, min bracket width 1.43e-11
+  [kerr_R2] level 7: 1 brackets refined, 2106 orbits so far, min bracket width 8.94e-13
+  [kerr_R2] level 8: 2 brackets refined, 2135 orbits so far, min bracket width 5.59e-14
+  [kerr_R2] level 9: 9 brackets refined, 2269 orbits so far, min bracket width 3.49e-15
+  [kerr_R2] level 10: 49 brackets refined, 3004 orbits so far, min bracket width 2.18e-16
+VERDICT-run [kerr_R2]: 3004 orbits  [4022s]  (N(t) in the summary file)
+STEP1 DONE Wed Nov 18 08:33:01 IST 2026

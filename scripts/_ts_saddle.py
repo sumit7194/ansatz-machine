@@ -342,10 +342,10 @@ def analyse(sys_, tag=None):
         idx = rng.integers(0, G0 - 1, G0 - 1)
         s = starts[idx].sum(axis=0)
         hb = fit_h2({t: int(s[k]) for k, t in enumerate(TS_T)}, TS_T)
-        hs.append(hb if hb is not None else -math.inf)
+        hs.append(hb if hb is not None else -1e9)            # undefined -> a large negative sentinel (-inf made NaN)
     hs = np.array(hs)
     ci = [float(np.percentile(hs, 2.5)), float(np.percentile(hs, 97.5))]
-    return dict(n_points=len(pts), Nt=Nt, h=h, ci=ci, undefined_resamples=int(np.isinf(hs).sum()))
+    return dict(n_points=len(pts), Nt=Nt, h=h, ci=ci, undefined_resamples=int((hs <= -1e9).sum()))
 
 
 def verdict(out):

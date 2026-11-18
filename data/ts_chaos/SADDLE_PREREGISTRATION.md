@@ -107,3 +107,15 @@ defect that the TS data alone would have shown as "branching".
 4. Reading rules and predictions as in the prereg. The budget cut lowers the counts (they are lower bounds), so the
    3× criterion is unchanged and is stated to be harder to meet.
 Needs a slot from the Bridge (step 1 ≈ 2 h on 2 cores; step 2 ≈ 12–14 h on 2 cores).
+
+### Addendum 2, step 1 outcome (2026-11-18 08:33): Kerr at R2 FAILS. Stop, as pre-registered.
+At R2 the Kerr search stayed on one bracket through level 7 (width 9e−13), past where R1 broke down. Spurious
+intervals appeared at levels 9–10 (widths 3e−15 to 2e−16): 𝒩(t) was far above 2 again (counts in
+data/ts_chaos/saddle/kerr_R2_summary.json). **Step 2 is NOT run. The TS R1 data stay sealed and unread.** §150 keeps
+"finite-horizon fractal-like" wording.
+**Reading (post hoc, labelled as such):** the failure scale tracks the tolerance. It sat near 1e−11 at tol 1e−22 and
+near 1e−15 at tol 1e−28, roughly width ∝ √tol. That fits a margin quadratic in the distance to the separatrix
+(Δx² ~ integration error). On that scaling the double-double floor (~1e−32) cannot resolve below ~1e−16 to 1e−17. The
+prereg's refinement to 1e−18 was therefore unreachable for this engine at any rung. A valid version would need a
+refinement floor set by a Kerr calibration (stop at width ~10·√tol), or a higher-precision engine. That is a new
+design, not a rescue of this one.
