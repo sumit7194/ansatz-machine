@@ -87,7 +87,8 @@ local and invariant-class for the symmetry nulls; finite-horizon for the chaos; 
   reading follows, labelled.
 - [PENDING] The lifetime-interval (topological-entropy) test, pre-registered 471f76c. **First run VOID:** the Kerr
   negative control failed because of R1 spurious plunges at Kerr's separatrix, an instrument precision floor
-  (addendum 2, 7c1e845). An R2 rerun gated on Kerr is proposed. Until a verdict exists, this section speaks only of
+  (addendum 2, 7c1e845). The R2 rerun failed its Kerr gate too, at levels 9–10; the failure width scales roughly as
+  √tol, so the DD engine cannot reach the registered depth (06844c5). No verdict exists, so this section speaks only of
   finite-horizon fractal-like structure. Report the void run in the paper as a methods lesson: near a separatrix,
   lifetime statistics need a precision check at every refinement depth.
 - Why sections mislead: chaotic and regular orbits both trace near-curves at 300 crossings, because the layers are thin.
