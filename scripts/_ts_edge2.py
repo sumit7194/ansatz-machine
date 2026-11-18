@@ -21,7 +21,43 @@ OUT = os.path.join(E.ROOT, "data", "ts_chaos", "edge2")
 EPS, K, CAP = mp.mpf("1e-2"), 6, 300
 
 
+_CK = {"path": None, "memo": {}, "new": 0}
+
+
+def checkpoint(path):
+    """Persistent memo of histories (one JSON line each): a guard stop or restart loses at most one history."""
+    _CK["path"] = path
+    if os.path.exists(path):
+        for line in open(path):
+            try:
+                r = json.loads(line)
+                _CK["memo"][r["k"]] = r["v"]
+            except ValueError:
+                pass
+
+
 def history(M, F, x, eps=EPS, stop_after=None, cap=CAP):
+    key = f"{M.tol}|{getattr(M, 'xc', None)}|{mp.nstr(mp.mpf(x), 36)}|{eps}|{stop_after}|{cap}"
+    if _CK["path"] and key in _CK["memo"]:
+        v = _CK["memo"][key]
+        return dict(v, gmin=mp.mpf(v["gmin"]) if v["gmin"] is not None else mp.inf)
+    r = _history(M, F, x, eps, stop_after, cap)
+    if _CK["path"]:
+        v = dict(sig=r["sig"], rmin=[float(q) for q in r["rmin"]], fate=r["fate"], n=r["n"], end=r["end"],
+                 gmin=(float(r["gmin"]) if r["gmin"] != mp.inf else None))
+        _CK["memo"][key] = v
+        with open(_CK["path"], "a") as fh:
+            fh.write(json.dumps(dict(k=key, v=v)) + "\n")
+        _CK["new"] += 1
+        if _CK["new"] % 25 == 0:
+            from _ts_saddle import guard_ok
+            g = guard_ok()
+            if g:
+                raise SystemExit(f"STOP GUARD: {g} (checkpoint kept; rerun resumes)")
+    return r
+
+
+def _history(M, F, x, eps=EPS, stop_after=None, cap=CAP):
     """-> dict(sig, rmin (per visit), fate, n, end, gmin (min rho over crossings >= 1))."""
     z = [mp.mpf(x), mp.mpf(0)]
     sig, rmins = [], []
@@ -264,6 +300,7 @@ if __name__ == "__main__":
         json.dump(o, open(os.path.join(OUT, "controls.json"), "w"), indent=1, default=str)
         print("VERDICT-controls:", "PASS" if o["all_pass"] else "FAIL (VOID)", flush=True)
     if sys.argv[1] == "window":
+        checkpoint(os.path.join(OUT, "window_ts_histories.jsonl"))
         o = window()
         json.dump(o, open(os.path.join(OUT, "window_ts.json"), "w"), indent=1, default=str)
         print("[ts] window done (values in file)", flush=True)
