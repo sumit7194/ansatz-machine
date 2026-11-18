@@ -220,6 +220,9 @@ def main():
     if mode == "run":
         sys_ = sys.argv[2]
         workers = int(sys.argv[3]) if len(sys.argv) > 3 else 2
+        rung = sys.argv[4] if len(sys.argv) > 4 else "R1"          # addendum 2: R2 rerun, separate files
+        tag = sys_ if rung == "R1" else f"{sys_}_{rung}"
+        budget = BUDGET[sys_] if rung == "R1" else 3000
         g = guard_ok()
         if g:
             print(f"[{sys_}] NOT STARTED: guard {g}", flush=True)
@@ -228,7 +231,7 @@ def main():
 
         def ev(points, fh):
             res = {}
-            for k, (hi, lo, n, st) in enumerate(pool.imap(life_dd, [(sys_, p[0], p[1], "R1") for p in points], chunksize=1)):
+            for k, (hi, lo, n, st) in enumerate(pool.imap(life_dd, [(sys_, p[0], p[1], rung) for p in points], chunksize=1)):
                 res[(hi, lo)] = n
                 fh.write(json.dumps(dict(hi=hi, lo=lo, n=n, status=st)) + "\n")
                 fh.flush()
@@ -236,12 +239,12 @@ def main():
                     raise SystemExit(f"STOP GUARD: {guard_ok()} (checkpoint kept; rerun resumes)")
             return [res[p] for p in points]
         t0 = time.time()
-        allpts, levels = search(sys_, ev, BUDGET[sys_], THR, sys_, ck=os.path.join(OUT, f"{sys_}.jsonl"))
+        allpts, levels = search(sys_, ev, budget, THR, tag, ck=os.path.join(OUT, f"{tag}.jsonl"))
         pool.close()
         Nt = N_of_t(allpts, TS_T)
-        json.dump(dict(levels=levels, Nt=Nt, n_points=len(allpts)), open(os.path.join(OUT, f"{sys_}_summary.json"), "w"),
+        json.dump(dict(levels=levels, Nt=Nt, n_points=len(allpts)), open(os.path.join(OUT, f"{tag}_summary.json"), "w"),
                   indent=1)
-        print(f"VERDICT-run [{sys_}]: {len(allpts)} orbits, N(t) = {Nt}  [{time.time() - t0:.0f}s]", flush=True)
+        print(f"VERDICT-run [{tag}]: {len(allpts)} orbits  [{time.time() - t0:.0f}s]  (N(t) in the summary file)", flush=True)
         return
     if mode == "precision":
         workers = int(sys.argv[2]) if len(sys.argv) > 2 else 2
@@ -283,9 +286,9 @@ def main():
 #    counts as h <= 0 (conservative for the saddle reading). CI = 2.5 / 97.5 percentiles.
 #  * h = least-squares slope of ln N(t) on t over t in [50, 400] with N(t) >= 2; needs >= 2 such t, else undefined.
 #  * "grows with t" is read as: h > 0 with the bootstrap CI excluding 0.
-def load_pts(sys_):
+def load_pts(sys_, tag=None):
     d = {}
-    for line in open(os.path.join(OUT, f"{sys_}.jsonl")):
+    for line in open(os.path.join(OUT, f"{tag or sys_}.jsonl")):
         try:
             r = json.loads(line)
         except ValueError:
@@ -316,8 +319,8 @@ def fit_h2(Nt, ts):
     return float(np.polyfit([a for a, _ in q], [b for _, b in q], 1)[0])
 
 
-def analyse(sys_):
-    pts = load_pts(sys_)
+def analyse(sys_, tag=None):
+    pts = load_pts(sys_, tag)
     a, b = WIN[sys_]
     grid = [mpv(split(a + (b - a) * i / (G0 - 1))) for i in range(G0)]
     starts = np.zeros((G0 - 1, len(TS_T)), int)
