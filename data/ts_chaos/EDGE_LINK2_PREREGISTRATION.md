@@ -110,3 +110,23 @@ code.
   - **MF-1: slope 3e−4 over 7.2 decades, "not owned"**, with identical histories.
   - T-sep: pass.
   - The window run waits for a slot; its estimated cost is above 1.5 h.
+
+## Outcome (2026-11-19 01:35; grade: registered controls VOID → v2′ via fde95e2 before any TS run; slope corrected before code)
+**VERDICT: VACUOUS.** The vacuity guards failed.
+- **Samples with at least one visit (ρ ≤ 1e−2): 7 of 400** (≥ 30 needed).
+- **Coverage: 1.9%** of the 160 plunging samples ended with an inward exit from a visit (≥ 90% needed).
+- So there was 1 σ-flip candidate and 119 fate-flip neighbour pairs. No bisection ran, because the guard failed
+  first. Time 8,079 s (91,127 map calls). No certificates, no falsifiers.
+
+**Post-hoc diagnosis (labelled as such):** the coverage guard encoded a FALSE premise, that plunging orbits leave
+through γ's neighbourhood. They do not. Window orbits that plunge leave D through the exit lobe of the turnstile, whose
+bulk lies far from z\* (ρ = O(1)). Only orbits near the lobe's BOUNDARY, a strand of W^s, pass close to γ. So "visits"
+are rare by geometry, and exit-sign histories cannot label most switches. This agrees with T-L3′: exits are
+one-way, but they are not near γ.
+
+**What it points to (a proposal only, for Sumit):** drop visits altogether. Bisect directly on the 300-crossing fate
+of window neighbours with different fates (119 pairs available), and classify each switch by the ownership slope of
+the larger of the two members' whole-orbit ρ_min against w: ½ means a strand, 0 means not owned. The controls just
+validated (K-sep ½, K-star 1, two must-fail artefacts at 0) carry over unchanged. The lifetime-step worry from v1 is
+small at a 300-crossing cap: the step sits roughly λ^(−(300 − n)) from its strand, far below any resolvable w. That
+argument needs checking before it is relied on.

@@ -1,0 +1,18 @@
+{
+ "guards": {
+  "with_visit": 7,
+  "plunging": 160,
+  "coverage": 0.01875,
+  "pass_": false
+ },
+ "n_cand_strand": 1,
+ "n_cand_fals": 119,
+ "strands": [],
+ "fals": [],
+ "n_cert": 0,
+ "n_falsifiers": 0,
+ "verdict": "VACUOUS",
+ "sec_hist": 8079.2023339271545,
+ "sec": 8079.202736854553,
+ "calls": 91127
+}

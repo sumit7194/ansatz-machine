@@ -4521,3 +4521,20 @@ grade is **"two post-failure amendments, blind to TS"**.
   section.
 - **Scope unchanged:** §154's chaotic saddle at this (E, L); the §150 window keeps its finite-horizon wording.
 - **Environment:** Python 3.14.5 (.venv), numpy 2.4.6, sympy 1.14.0, mpmath 1.3.0, numba DD engine, macOS 27.2 arm64.
+
+## §156 — Edge-link v2 (exit-sign bisection): VACUOUS. Visits to γ are rare in the window; the ownership slope is validated
+
+Pre-registered: `data/ts_chaos/EDGE_LINK2_PREREGISTRATION.md` (60ccf93). The ownership-slope theory was corrected
+before any code: ½ on a strand, 1 at γ, 0 not owned. The registered controls were VOID (an MF-1 input bracket
+narrower than the fit window). v2′ came via fde95e2, before any TS run.
+- **Controls, all pass:**
+  - Kerr separatrix: slope 0.499 over 7.5 decades, converging to the closed-form x_h within 7e−18.
+  - Kerr at x\*: slope 1.000.
+  - Must-fail artefacts: the §155 T-BANDS edge gives 3e−4, and the section cut gives 1e−8. Both are "not owned".
+  - TS x_h: strand.
+  - **The slope test discriminates the three cases cleanly.**
+- **TS window: VACUOUS.** 7 of 400 samples visit γ within ρ ≤ 1e−2, and 1.9% coverage of plunges.
+  - Post-hoc: plunges leave through the turnstile lobe far from γ, so the "plunges pass near γ" premise was false.
+- **Proposal (not run):** bisect on the fate directly and classify each switch by the slope.
+- **Scope unchanged:** the §150 window keeps its finite-horizon wording.
+- **Environment:** Python 3.14.5 (.venv), numpy 2.4.6, sympy 1.14.0, mpmath 1.3.0, numba DD engine, macOS 27.2 arm64.
