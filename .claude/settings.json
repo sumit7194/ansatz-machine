@@ -10,6 +10,13 @@
             "timeout": 20,
             "onFailure": "block",
             "statusMessage": "Blinding guard: checking outgoing message"
+          },
+          {
+            "type": "command",
+            "command": "/Users/sumit/Github/conjecture_machine/tools/hash_hook.sh",
+            "timeout": 30,
+            "onFailure": "block",
+            "statusMessage": "Hash guard: checking cited commit hashes"
           }
         ]
       },
