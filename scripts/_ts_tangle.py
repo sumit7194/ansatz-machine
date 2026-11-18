@@ -307,10 +307,70 @@ def g0(sys_):
     return dict(name=name, reflection_symmetric=bool(sym), critical=crit)
 
 
+WINC = {"ts": (mp.mpf("9.912067") + mp.mpf("9.945202")) / 2, "kerr": mp.mpf("4.9933985")}
+
+
+def kerr_xsph():
+    m = mp.mpf(5) / 4; a = mp.mpf(3) / 5 * m; E = mp.mpf(97) / 100; Ls = -mp.mpf(2550268) / 1000000   # chart L>0 = retro
+    R = lambda r, Q: (E * (r**2 + a**2) - a * Ls) ** 2 - (r**2 - 2 * m * r + a**2) * (r**2 + (Ls - a * E) ** 2 + Q)  # noqa
+    dR = lambda r, Q: mp.diff(lambda rr: R(rr, Q), r)  # noqa
+    r, Q = mp.findroot([R, dR], (mp.mpf(6.24), mp.mpf(18)))
+    return r - m
+
+
+def run(sys_, rung, delta):
+    t0 = time.time()
+    P = TSMap(sys_, rung)
+    alive = lambda z: z is not None  # noqa: E731
+    zs, J, res = fixed_point(P, [WINC[sys_], mp.mpf(0)], mp.mpf("1e-12"), mp.mpf("1e-27"))
+    lu, ls, vu, vs, det = eig2(J)
+    rec = dict(sys=sys_, rung=rung, delta=float(delta), fixed=[mp.nstr(zs[0], 30), mp.nstr(zs[1], 6)],
+               residual=float(res), lam=float(lu), mu=float(ls), lam_mu_minus_1=float(det - 1))
+    if sys_ == "kerr":
+        rec["G0c_xsph_minus_xstar"] = float(kerr_xsph() - zs[0])
+    branches = {}
+    for sgn in (1, -1):
+        v = [sgn * vu[0], sgn * vu[1]]
+        u, zc, _, info = first_crossing(P, zs, v, mp.mpf(delta), lu, 1, 40, alive)
+        if u is None:
+            branches[sgn] = dict(found=False, info=info)
+            continue
+        t = tangent(P, zs, v, mp.mpf(delta), lu, u, mp.mpf("1e-12"), alive)
+        th = split_angle(t, 1)
+        b = dict(found=True, u=float(u), cross=[mp.nstr(zc[0], 25), mp.nstr(zc[1], 6)], theta=mp.nstr(th, 12),
+                 tangent=[mp.nstr(t[0], 12), mp.nstr(t[1], 12)], vu_x=float(v[0]))
+        if sys_ == "kerr":
+            import _hp_dd as H
+            Q = H.carter_Q(P.eng.ginv, P.lv["E"], P.lv["L"])
+            def qat(z):
+                P(z); sh, sl, _y = P.last
+                return Q(mp.mpf(sh[0]) + sl[0], mp.mpf(sh[1]) + sl[1], mp.mpf(sh[2]) + sl[2], mp.mpf(sh[3]) + sl[3])
+            q_fix = qat(zs)
+            zprev = branch_point(P, zs, v, mp.mpf(delta), lu, u - 1, alive)
+            q_br = qat(zprev)
+            b["carter_rel_diff_branch_vs_fixed"] = float(abs(q_br - q_fix) / abs(q_fix))
+        branches[sgn] = b
+    rec["branches"] = branches
+    rec["map_calls"] = P.calls
+    rec["sec"] = time.time() - t0
+    return rec
+
+
 if __name__ == "__main__":
     mode = sys.argv[1]
     if mode == "g1":
         g1()
+    if mode == "run":
+        s_ = sys.argv[2]; rung = sys.argv[3] if len(sys.argv) > 3 else "R2"
+        delta = sys.argv[4] if len(sys.argv) > 4 else "1e-12"
+        os.makedirs(OUT, exist_ok=True)
+        rec = run(s_, rung, delta)
+        fn = os.path.join(OUT, f"{s_}_{rung}_d{delta}.json")
+        json.dump(rec, open(fn, "w"), indent=1, default=str)
+        if s_ == "kerr":
+            print(json.dumps(rec, indent=1, default=str))
+        else:
+            print(f"[ts] done -> {fn} (values not printed: embargo; read only after the Kerr gates)", flush=True)
     if mode == "g0":
         for s_ in sys.argv[2:] or ["kerr", "ts"]:
             r = g0(s_)

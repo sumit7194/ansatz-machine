@@ -4406,3 +4406,68 @@ either. Predictions: Carter dies (85%) held; nothing at d = 3 (85%) held; d = 4 
 
 **Environment:** Python 3.14.5 (.venv), numpy 2.4.6, sympy 1.14.0, mpmath 1.3.0, FLINT 3.6.0, macOS 27.2 arm64. Full
 stamp: `ENVIRONMENT/stamp.json`.
+
+## §154 — TS δ = 2 at the capture-edge level: the unstable spherical-type orbit has a transverse homoclinic point (a horseshoe, hence a chaotic saddle). Numerical, not rigorous
+
+Pre-registered: `data/ts_chaos/TANGLE_PREREGISTRATION.md` (7c43e03, before any build), with addendum 1 (6039005, before
+any TS map evaluation). Ask: Sumit, directly ("go ahead with option C at our capture edge"). It replaces the void
+lifetime-interval test (§150 open item; SADDLE_PREREGISTRATION.md addenda 1–2). Prior fleet work at OTHER levels,
+relayed and not verified here: tabula §199b and the Bridge's V16 (p = 3/5 and p = 4/5 at E = 0.94, prograde). None of
+it was read or used; this is our engine only.
+
+**Level:** TS p = 4/5, E = 97/100, L = 41/8 (σ = 1, retrograde), the §150 α level L1. Kerr control at the
+separatrix-matched L = 2.550268.
+
+**Method:** section y = 0 upward, coordinates (x, p_x). The double-double GBS engine (k = 12) is used, with each crossing
+located exactly by Newton on the last step length (`scripts/_ts_tangle.py`, new; `_hp_dd.py` unchanged). The reversor
+R(x, p_x) = (x, −p_x) holds exactly (both metrics are reflection-symmetric, checked in sympy), so W^s = R(W^u). The
+splitting angle θ = 2 atan(|t_x| / |t_px|) is taken where the outward branch of W^u first crosses p_x = 0.
+
+**The unstable orbit (addendum 1, a correction to the prereg):** at this level W(x, 0) has no critical point, so there
+is no equatorial saddle. The hyperbolic orbit is the unstable spherical-type orbit (Kerr: the double root of R(r) with
+Q > 0), a fixed point of the section map on the line p_x = 0. **Kerr check, exact:** the Newton fixed point equals the
+analytic Boyer–Lindquist r_sph − m (r_sph = 6.2433046646767…) to 7.6e−28. It is also exactly where the §150 / saddle-test
+Kerr band sat, so Kerr's capture-edge boundary point IS this orbit.
+
+| gate | result |
+|---|---|
+| G0 structure | symmetry exact (both); TS and Kerr fixed points on p_x = 0 to ≤ 2e−28, residual ≤ 1.4e−25, λμ − 1 ≤ 4e−14 |
+| G0c Kerr vs analytic spherical orbit | 7.6e−28 (gate 1e−20) |
+| G1 forced pendulum vs Melnikov (same tracer) | ratio 1.0005 (ε = 1e−3), 1.0014 (3e−3); θ = 2.3e−11 at ε = 0 |
+| G2 Kerr splitting | θ_Kerr = 9.7e−14 (gate 1e−12); Carter on W^u equal to the fixed point's to 6.7e−29 |
+| G3 TS R1 vs R2 | agree to 11 digits |
+| G4 TS δ = 1e−12 vs 1e−11 | agree to 11 digits |
+
+**TS: θ = 1.1238e−2. That is 3.7e7 times the verdict bar (1000 × the largest of θ_Kerr and the precision and seed
+spreads). VERDICT: TRANSVERSE.** The crossing lies at the outer turning point (x ≈ 56.9); the inward branch plunges.
+Multiplier λ ≈ 38.4 per crossing (Kerr 39.8). Each run takes about 70 s on 1 core.
+
+**What this licenses:**
+- A transverse symmetric homoclinic point of a hyperbolic periodic orbit gives a Smale horseshoe (Smale–Birkhoff), and
+  hence an invariant Cantor set with positive topological entropy: a **chaotic saddle** at this level.
+- The orbit's stable manifold is part of the survive/plunge boundary. It accumulates on itself, so **the TS capture
+  edge has genuinely fractal structure in the infinite-time limit, not only at a finite horizon.** That is the claim the
+  void lifetime test was after, now reached by a route that needs no extreme precision.
+- It **contradicts "completely integrable" at this level**, and agrees with §149–§151's KT nulls (no polynomial
+  integral) and §150's α.
+
+**What it does not:**
+- It is **numerical, not a proof.** A computer-assisted proof would need interval arithmetic (CAPD-style), which would
+  be an ask to quantum.
+- θ is a coordinate angle: a zero-versus-nonzero test, not a number for comparison across projects.
+- One (E, L) level, and the first symmetric crossing only.
+- The TS fixed point is at x* ≈ 9.805. That is 0.11 below the α window [9.912, 9.945], which was chosen in §150
+  before this orbit was known. Whether the window's switches are this orbit's W^s strands is likely but not checked
+  here (post-hoc; not done).
+- Nothing about EMRI orbits.
+
+**Predictions vs outcome:**
+- G0 "neck open with a fixed point found": the neck premise was WRONG (no saddle; corrected in addendum 1), but a fixed
+  point was found.
+- G1 yes; G2 yes; TS TRANSVERSE yes (~70%).
+
+**Embargo:** θ_TS, λ_TS and x*_TS are under `ansatz-tangle-ts-capture-edge`. Only the verdict word and the seal go out.
+
+Artifacts: `data/ts_chaos/tangle/{g1,kerr_R2_d1e-12,ts_R2_d1e-12,ts_R1_d1e-12,ts_R2_d1e-11,verdict}.json`.
+**Environment:** Python 3.14.5 (.venv), numpy 2.4.6, sympy 1.14.0, mpmath 1.3.0, numba (DD engine), macOS 27.2 arm64.
+Full stamp: `ENVIRONMENT/stamp.json`.

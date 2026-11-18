@@ -4481,3 +4481,7 @@ pole-order-1 Carter² survival.
   run and the TS R1 seal stays unread. The failure width scales roughly as √tol (1e−11 at 1e−22, 1e−15 at 1e−28):
   a quadratic separatrix margin. DD cannot reach the 1e−18 the prereg asked for. Bootstrap NaN bug fixed (−inf
   sentinel → −1e9); it did not affect any verdict.
+- Afternoon: option C (the tangle test) at the capture edge, on Sumit's direct go. Prereg 7c43e03; addendum 1 6039005
+  (no equatorial saddle at this level, so the hyperbolic orbit is the unstable spherical-type orbit; it matches Kerr's
+  analytic r_sph to 8e−28). G1 (pendulum Melnikov) and G2 (Kerr zero) pass. **TS: TRANSVERSE** with a large margin
+  (RESULTS §154). Cost: minutes, not hours. The lifetime-test failure was the push to find the precision-robust route.

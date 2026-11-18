@@ -1,0 +1,17 @@
+{
+ "gates": {
+  "G0a": true,
+  "G0b_kerr": true,
+  "G0b_ts": true,
+  "G0c": true,
+  "G1": true,
+  "G2": true,
+  "G3": true,
+  "G4": true
+ },
+ "theta_ts": "0.011237603095",
+ "theta_kerr": "9.70259e-14",
+ "bar": "3.0e-10",
+ "margin": "3.746e+7",
+ "verdict": "TRANSVERSE"
+}
