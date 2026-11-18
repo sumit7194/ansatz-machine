@@ -23,8 +23,8 @@
    "until": "the Bridge arranges a comparison and the ansatz tangle verdict is sealed (record commit)",
    "opened": "2026-11-18",
    "patterns": [
-    "(theta|θ|splitting|angle)[^\\n]{0,40}\\d\\.?\\d*e-?\\d",
-    "(lambda|λ|eigenvalue|multiplier)[^\\n]{0,40}\\d",
+    "\\b(theta|θ|splitting|angle)\\b[^\\n]{0,40}\\d\\.\\d+(e-?\\d+)?",
+    "\\b(lambda|λ|eigenvalues?|multipliers?)\\b[^\\n]{0,40}\\d\\.\\d",
     "fixed point[^\\n]{0,40}\\d\\.\\d{3}"
    ],
    "note": "TANGLE_PREREGISTRATION.md: outbound blind for TS splitting angle, multipliers, fixed point at the capture-edge level. Verdict word (TRANSVERSE / NOT RESOLVED / VOID) and seals may be sent."
