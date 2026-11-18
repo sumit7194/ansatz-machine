@@ -4407,7 +4407,7 @@ either. Predictions: Carter dies (85%) held; nothing at d = 3 (85%) held; d = 4 
 **Environment:** Python 3.14.5 (.venv), numpy 2.4.6, sympy 1.14.0, mpmath 1.3.0, FLINT 3.6.0, macOS 27.2 arm64. Full
 stamp: `ENVIRONMENT/stamp.json`.
 
-## §154 — TS δ = 2 at the capture-edge level: the unstable spherical-type orbit has a transverse homoclinic point (a horseshoe, hence a chaotic saddle). Numerical, not rigorous
+## §154 — TS δ = 2 at the §150 α level L1: the unstable spherical-type orbit has a transverse homoclinic point, so a chaotic saddle exists at this (E, L) level. Numerical, not rigorous
 
 Pre-registered: `data/ts_chaos/TANGLE_PREREGISTRATION.md` (7c43e03, before any build), with addendum 1 (6039005, before
 any TS map evaluation). Ask: Sumit, directly ("go ahead with option C at our capture edge"). It replaces the void
@@ -4442,12 +4442,23 @@ Kerr band sat, so Kerr's capture-edge boundary point IS this orbit.
 spreads). VERDICT: TRANSVERSE.** The crossing lies at the outer turning point (x ≈ 56.9); the inward branch plunges.
 Multiplier λ ≈ 38.4 per crossing (Kerr 39.8). Each run takes about 70 s on 1 core.
 
+**Process disclosure (asked by the Bridge):** no tangle code was written and no section map (TS or Kerr) was
+evaluated before 7c43e03. Before it, the only work was:
+- reading existing code and RESULTS;
+- the saddle-test Kerr R2 band check (lifetime engine);
+- an mpmath-vs-DD timing on one 20-crossing LIFETIME orbit. The Kerr run finished; the TS run was stopped, and only
+  Kerr's timing was printed.
+Everything tangle-specific came after 7c43e03: G1, the Kerr-only G0 probe, the analytic Kerr spherical orbit, and all
+map runs. The Kerr G0 probe and the analytic orbit came before addendum 1; the TS map runs came after it.
+
 **What this licenses:**
 - A transverse symmetric homoclinic point of a hyperbolic periodic orbit gives a Smale horseshoe (Smale–Birkhoff), and
   hence an invariant Cantor set with positive topological entropy: a **chaotic saddle** at this level.
-- The orbit's stable manifold is part of the survive/plunge boundary. It accumulates on itself, so **the TS capture
-  edge has genuinely fractal structure in the infinite-time limit, not only at a finite horizon.** That is the claim the
-  void lifetime test was after, now reached by a route that needs no extreme precision.
+- **Scope of the claim (tightened 2026-11-18 at the Bridge's request): "a chaotic saddle exists at this (E, L)
+  level".** It does NOT yet say "the §150 capture-edge window is fractal". The saddle's stable manifold is generically
+  part of this level's survive/plunge boundary, so fractal structure in that boundary is expected. But the §150 window
+  lies 0.11 above this orbit's fixed point, and the link between the two (whether the window's switches are this
+  orbit's W^s strands) is NOT checked. Until it is, the window keeps the §150 finite-horizon wording.
 - It **contradicts "completely integrable" at this level**, and agrees with §149–§151's KT nulls (no polynomial
   integral) and §150's α.
 

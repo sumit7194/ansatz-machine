@@ -88,8 +88,8 @@ local and invariant-class for the symmetry nulls; finite-horizon for the chaos; 
 - **Homoclinic tangle (§154, pre-registered 7c43e03 + addendum 1).** At the capture-edge level, the unstable
   spherical-type orbit (Kerr: exactly the boundary point, matching the analytic spherical orbit to 8e−28) has a
   TRANSVERSE homoclinic point in TS and a zero splitting in Kerr. Controls: the forced pendulum vs Melnikov, and
-  precision and seed checks. So there is a horseshoe and a chaotic saddle, and the capture edge is fractal in the limit
-  (numerically). A rigorous interval-arithmetic version is possible.
+  precision and seed checks. So a horseshoe, and hence a chaotic saddle, exists at this (E, L) level (numerically).
+  The link to the §150 window (0.11 above the orbit) is not checked, so the window keeps the finite-horizon wording. A rigorous interval-arithmetic version is possible.
 - The earlier lifetime-interval test (471f76c) was VOID: the Kerr control failed, and the R2 rerun stopped at its Kerr
   gate. Lifetimes near a separatrix are blurred over a width ~√tol. We report it as a methods lesson; the tangle test
   sidesteps it.
