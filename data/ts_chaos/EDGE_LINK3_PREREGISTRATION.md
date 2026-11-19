@@ -103,3 +103,31 @@ window run still waits for a Bridge OK on cost.
     trap is real and is caught.
   - MF-1 and MF-2: not strand.
   - The window run waits for the Bridge's OK on cost (~3.2 h).
+
+## Outcome (2026-11-19 16:11; two guard stops on the way: a sticky level-2 reading at 08:45 (guard then re-armed to the fleet rule) and a real swap event at 09:55 (the Bridge's V22 leak); resumed from the checkpoint each time)
+**VERDICT: NOT ESTABLISHED.**
+- 122 fate-flip candidates; the first 16 bisected.
+- **All 16 are OTHER:** slope "not owned" (|slope| ≤ 0.06 over 9.3 decades).
+- None is TIMING: |Δn| is 60–250 at cap 600.
+- None is FALSIFIER: the final ρ_min is 0.013–0.054, below the 0.1 bar.
+- R1 agrees on F_300 for all 16. On the cap-600 fates it agrees for 11 and differs for 5.
+- Time 22,477 s; 227,581 map calls.
+
+**Post-hoc diagnosis (labelled):** every window switch is decided LATE. The plunging member's lifetime is 199–293
+crossings, and the decisive exit comes after a long chaotic transient. The ownership slope assumes that a bracket of
+width w arrives near γ with u₀ ∝ w. But after ~200 chaotic crossings, w is stretched by a factor far larger than
+1/w_min (w_min ≈ 1e−17), so u₀ is O(1) at every resolvable w. ρ_min then saturates (~0.05), and the slope is 0 by
+**resolvability, not by ownership.** So "not owned" here means "unresolved". The falsifier's ρ_min ≥ 0.1 guard is what
+kept these switches from being misread as falsifiers.
+- This is the same wall as the void lifetime test and §150's realisation-sensitivity: late-decided switches lie
+  beyond what 32-digit arithmetic can resolve pointwise.
+- A pointwise test of the window's switches would need precision growing with lifetime: about log₁₀(stretch over
+  ~250 crossings) digits, which far exceeds DD.
+
+**What the edge-link chain (§155–§157) establishes:**
+- the one-way gate (T-L3′);
+- a validated ownership-slope instrument (Kerr ½, 1, 0, and the TIMING trap caught);
+- and that the window's switches are beyond pointwise resolution.
+
+It does not establish or refute the link. Theorem 1 (a Cantor set of edge points accumulating at x\*) still rests on
+A1 (§154) and A2 (holds, T-L3′).

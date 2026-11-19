@@ -1,2 +1,18 @@
-STOP GUARD: sustained memory condition for 1035s (pressure 2, swap 3153 MB) (checkpoint kept; rerun resumes)
-V3 WINDOW DONE Thu Nov 19 09:55:06 IST 2026
+  [ts] switch 1/16 done [4612s]
+  [ts] switch 2/16 done [5795s]
+  [ts] switch 3/16 done [7170s]
+  [ts] switch 4/16 done [8327s]
+  [ts] switch 5/16 done [9852s]
+  [ts] switch 6/16 done [11083s]
+  [ts] switch 7/16 done [12236s]
+  [ts] switch 8/16 done [13228s]
+  [ts] switch 9/16 done [14504s]
+  [ts] switch 10/16 done [15665s]
+  [ts] switch 11/16 done [16592s]
+  [ts] switch 12/16 done [17857s]
+  [ts] switch 13/16 done [19190s]
+  [ts] switch 14/16 done [20271s]
+  [ts] switch 15/16 done [21427s]
+  [ts] switch 16/16 done [22477s]
+[ts] v3 window done (values in file)
+V3 WINDOW DONE Thu Nov 19 16:11:38 IST 2026

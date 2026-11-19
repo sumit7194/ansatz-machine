@@ -4538,3 +4538,29 @@ narrower than the fit window). v2′ came via fde95e2, before any TS run.
 - **Proposal (not run):** bisect on the fate directly and classify each switch by the slope.
 - **Scope unchanged:** the §150 window keeps its finite-horizon wording.
 - **Environment:** Python 3.14.5 (.venv), numpy 2.4.6, sympy 1.14.0, mpmath 1.3.0, numba DD engine, macOS 27.2 arm64.
+
+## §157 — Edge-link v3 (fate bisection + ownership slope): NOT ESTABLISHED. The window's switches are decided too late to resolve
+
+Pre-registered: `data/ts_chaos/EDGE_LINK3_PREREGISTRATION.md` (25d8aa9). Step 1 as registered FAILED (an off-by-one
+in the timing control), fixed by 45ab364 before any TS run.
+- **Step 1 (Kerr):**
+  - The lifetime law dn/dlog₁₀(1/d) = 0.6256 against 1/log₁₀ λ = 0.6249.
+  - Fate bisection at x_h gives STRAND: slope 0.497, within 7e−18.
+  - **The timing step is caught as TIMING:** its slope ~0 would otherwise have read as a falsifier.
+  - Both artefacts are not strand.
+- **TS window:** of 16 switches, **16 are OTHER** (slope ~0 over 9.3 decades, final ρ_min 0.013–0.054), with 0 TIMING
+  and 0 FALSIFIER.
+  - Post-hoc: every switch is decided after ~200–290 chaotic crossings, which stretch any resolvable bracket to O(1)
+    before the decisive approach to γ. The slope is 0 by **resolvability**, not by ownership.
+- **Edge-link chain (§155–§157), net:**
+  - the one-way gate holds;
+  - the ownership-slope instrument is validated;
+  - **the §150 window's switches lie beyond pointwise resolution in 32-digit arithmetic.**
+  - The link is neither established nor refuted.
+  - The §150 window keeps the finite-horizon wording. Theorem 1's accumulation at x\* rests on §154 plus T-L3′'s A2.
+- **Grade, kept visible:**
+  - v1: two registered VOIDs;
+  - v2: registered controls VOID;
+  - v3: step 1 registered FAIL;
+  - all amended before any TS run of the amended test.
+- **Environment:** Python 3.14.5 (.venv), numpy 2.4.6, sympy 1.14.0, mpmath 1.3.0, numba DD engine, macOS 27.2 arm64.
