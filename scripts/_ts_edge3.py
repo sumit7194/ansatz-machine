@@ -116,9 +116,43 @@ def step1():
     return out
 
 
+def window():
+    t0 = time.time()
+    V.checkpoint(os.path.join(V.OUT, "window_ts_histories.jsonl"))      # reuses §156's R2 cap-300 histories
+    M, M1, F, zs = E.setup("ts")
+    a0, b0 = mp.mpf("9.912067"), mp.mpf("9.945202")
+    xs = [a0 + (b0 - a0) * i / 399 for i in range(400)]
+    Fs = [bool(V.history(M, F, x)["fate"]) for x in xs]
+    cands = [i for i in range(399) if Fs[i] != Fs[i + 1]]
+    res = []
+    for i in cands[:16]:
+        r = bisect_F(M, M1, F, xs[i], xs[i + 1], 300)
+        r.pop("mid", None)
+        res.append(dict(i=i, **r))
+        print(f"  [ts] switch {len(res)}/16 done [{time.time() - t0:.0f}s]", flush=True)
+    from collections import Counter
+    cc = Counter(r_.get("cls") for r_ in res)
+    nontiming = [r_ for r_ in res if r_.get("cls") != "TIMING"]
+    nstr = cc.get("STRAND", 0)
+    if cc.get("FALSIFIER", 0) > 0:
+        verdict = "FALSIFIED"
+    elif len(nontiming) < 5:
+        verdict = "VACUOUS"
+    elif nstr >= 3 and nstr >= 0.8 * len(nontiming):
+        verdict = "SUPPORTED on the sample"
+    else:
+        verdict = "NOT ESTABLISHED"
+    return dict(n_candidates=len(cands), classes=dict(cc), verdict=verdict, switches=res,
+                calls=M.calls + M1.calls, sec=time.time() - t0)
+
+
 if __name__ == "__main__":
     os.makedirs(OUT, exist_ok=True)
     if sys.argv[1] == "step1":
         o = step1()
         json.dump(o, open(os.path.join(OUT, "step1.json"), "w"), indent=1, default=str)
         print("VERDICT-step1:", "PASS" if o["all_pass"] else "FAIL (STOP)", flush=True)
+    if sys.argv[1] == "window":
+        o = window()
+        json.dump(o, open(os.path.join(OUT, "window_ts.json"), "w"), indent=1, default=str)
+        print("[ts] v3 window done (values in file)", flush=True)

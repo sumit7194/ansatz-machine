@@ -1,0 +1,6 @@
+P-log {'slope': 0.6256157635467979, 'target': 0.6248546748971185, 'pass_': True} [4s]
+K-sep-F {'ok': True, 'why': None, 'cls': 'STRAND', 'slope': 0.4972490571180504, 'decades': 7.52574989159953, 'conv': 7.275957614183426e-18, 'life600': {'p': (True, 36), 'q': (False, 600), 'p_R1': (True, 30), 'q_R1': (False, 600)}, 'pass_': True} [70s]
+K-timing {'ok': True, 'why': None, 'cls': 'TIMING', 'slope': 0.0008397509898832101, 'life600': {'p': (True, 2), 'q': (True, 3), 'p_R1': (True, 3), 'q_R1': (True, 3)}, 'N': 3, 'pass_': True} [74s]
+MF-1 {'slope': 0.00030458872489051426, 'slope_cls': 'not_owned', 'pass_': True}
+MF-2 {'slope': 1.157350624866506e-08, 'slope_cls': 'not_owned', 'pass_': True}
+VERDICT-step1: PASS

@@ -96,3 +96,10 @@ K-timing set N = the smaller lifetime of the step pair (n = 2 vs 3), so F_2 was 
 **Fix:** keep F_N's definition as coded, since §156's stored window F_300 means the same thing (n ≤ 299). For
 K-timing, set N = the smaller lifetime + 1. Nothing else changes. Step 1 is rerun in full under the fixed code. The
 window run still waits for a Bridge OK on cost.
+- **Step 1 rerun: PASS** (`edge3/step1.json`).
+  - P-log 0.6256 against 0.6249.
+  - K-sep-F: STRAND (slope 0.497, within 7e−18).
+  - **K-timing: TIMING, with slope 8e−4.** That slope would have read as "not owned" without the TIMING class, so the
+    trap is real and is caught.
+  - MF-1 and MF-2: not strand.
+  - The window run waits for the Bridge's OK on cost (~3.2 h).
