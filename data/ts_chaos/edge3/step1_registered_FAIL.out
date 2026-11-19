@@ -1,0 +1,6 @@
+P-log {'slope': 0.6256157635467979, 'target': 0.6248546748971185, 'pass_': True} [6s]
+K-sep-F {'ok': True, 'why': None, 'cls': 'STRAND', 'slope': 0.4972490571180504, 'decades': 7.52574989159953, 'conv': 7.275957614183426e-18, 'life600': {'p': (True, 36), 'q': (False, 600), 'p_R1': (True, 30), 'q_R1': (False, 600)}, 'pass_': True} [140s]
+K-timing {'ok': False, 'why': 'F equal at ends', 'cls': None, 'slope': None, 'life600': None, 'N': 2, 'pass_': False} [140s]
+MF-1 {'slope': 0.00030458872489051426, 'slope_cls': 'not_owned', 'pass_': True}
+MF-2 {'slope': 1.157350624866506e-08, 'slope_cls': 'not_owned', 'pass_': True}
+VERDICT-step1: FAIL (STOP)

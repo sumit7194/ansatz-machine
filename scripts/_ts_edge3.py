@@ -99,7 +99,7 @@ def step1():
     if step_ is None:
         out["K-timing"] = dict(pass_=False, why="no lifetime step found")
     else:
-        N = min(ns[step_]["n"], ns[step_ + 1]["n"])
+        N = min(ns[step_]["n"], ns[step_ + 1]["n"]) + 1          # addendum 1: F_N true iff n <= N - 1
         r = bisect_F(M, M1, F, kc["x_h"] + ds[step_], kc["x_h"] + ds[step_ + 1], N)
         r.pop("mid", None)
         r["N"] = N

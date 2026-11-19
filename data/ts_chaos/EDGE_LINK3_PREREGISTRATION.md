@@ -81,3 +81,18 @@ This is the third design in a chain:
 ## Resources
 - 1 core, nice 10, < 1 GB, per-history checkpoint plus stop guards.
 - Step 1 on Kerr is ~15 min. Step 2 is ~3.2 h, which is over 2 h, so that number goes to the Bridge before TS.
+
+## Addendum 1 (2026-11-19, after step 1, BEFORE any TS run)
+**Step 1 as registered: FAIL, so STOP (`edge3/step1.json`):**
+- **P-log PASS:** slope 0.6256 against 1/log₁₀ λ = 0.6249 (0.1%), with 29 plunging points from n = 2 to 11.
+- **K-sep-F PASS:** STRAND, slope 0.497 over 7.5 decades, converged to the closed-form x_h within 7e−18.
+- MF-1 and MF-2 PASS: not strand.
+- **K-timing FAIL: "F equal at ends".**
+
+**Diagnosis, an off-by-one in the control's parameter (an implementation bug):** in code, F_N = `history(cap=N).fate`.
+That is true iff the orbit plunges with lifetime n ≤ N − 1 (it completes at most N − 1 crossings before the plunge).
+K-timing set N = the smaller lifetime of the step pair (n = 2 vs 3), so F_2 was false for both members.
+
+**Fix:** keep F_N's definition as coded, since §156's stored window F_300 means the same thing (n ≤ 299). For
+K-timing, set N = the smaller lifetime + 1. Nothing else changes. Step 1 is rerun in full under the fixed code. The
+window run still waits for a Bridge OK on cost.
