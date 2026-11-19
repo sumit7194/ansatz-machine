@@ -1,3 +1,2 @@
-  [ts] switch 1/16 done [1651s]
-STOP GUARD: memory pressure level 2 (checkpoint kept; rerun resumes)
-V3 WINDOW DONE Thu Nov 19 08:45:27 IST 2026
+STOP GUARD: sustained memory condition for 1035s (pressure 2, swap 3153 MB) (checkpoint kept; rerun resumes)
+V3 WINDOW DONE Thu Nov 19 09:55:06 IST 2026
