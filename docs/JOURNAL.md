@@ -4513,3 +4513,11 @@ pole-order-1 Carter² survival.
   - TS T-SWITCH′: 3 A, 0 H, 0 O. T-BANDS edges 0/4 certified. **NOT ESTABLISHED.**
   - Post-hoc: excursion-threshold artefact in T-BANDS; T-SWITCH bisects to lifetime steps in TS.
   - Hash guard installed (Sumit's direct yes).
+- 2026-11-19 ~09:00, **guard change (logged as instructed):**
+  - **Why:** the v3 window run was stopped at 08:45 by the old guard (kernel memory-pressure level 2) after 1 of 16
+    switches. The Bridge reports the box at 39% free memory, swap 0.34 GB, and the level-2 reading as sticky (GPU
+    wired memory).
+  - **New rule:** the fleet's sustained rule, as quantum uses it, in `_ts_edge2.fleet_guard`. Stop at once if free
+    disk < 5 GB or our own RSS > 1 GB. Otherwise stop if [(swap > 2 GB AND pressure ≥ 2) OR pressure ≥ 4] holds
+    continuously for 600 s.
+  - **Run:** resumed with all 16 switches from the checkpoint (~7 h).

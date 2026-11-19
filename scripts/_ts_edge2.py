@@ -36,6 +36,40 @@ def checkpoint(path):
                 pass
 
 
+_G = {"since": None}
+
+
+def fleet_guard():
+    """Fleet sustained rule (re-armed 2026-11-19 on the Bridge's instruction, after a sticky kernel level-2 reading
+    stopped the v3 window run on a box with 39% free memory):
+      stop at once if free disk < 5 GB or own peak RSS > 1 GB;
+      stop if [(swap > 2 GB and pressure >= 2) or pressure >= 4] holds continuously for >= 600 s."""
+    import resource
+    import subprocess
+    try:
+        st = os.statvfs("/")
+        if st.f_bavail * st.f_frsize / 2**30 < 5.0:
+            return "free disk < 5 GB"
+        if resource.getrusage(resource.RUSAGE_SELF).ru_maxrss > 2**30:
+            return "own footprint > 1 GB"
+        lvl = int(subprocess.run(["sysctl", "-n", "kern.memorystatus_vm_pressure_level"], capture_output=True,
+                                 text=True, timeout=10).stdout.strip() or 1)
+        sw = subprocess.run(["sysctl", "-n", "vm.swapusage"], capture_output=True, text=True, timeout=10).stdout
+        used = float(sw.split("used = ")[1].split("M")[0])
+    except Exception as e:                                     # a guard that cannot read must not pass silently
+        return f"guard read failed: {e}"
+    bad = (used > 2048 and lvl >= 2) or lvl >= 4
+    now = time.time()
+    if not bad:
+        _G["since"] = None
+        return None
+    if _G["since"] is None:
+        _G["since"] = now
+    if now - _G["since"] >= 600:
+        return f"sustained memory condition for {now - _G['since']:.0f}s (pressure {lvl}, swap {used:.0f} MB)"
+    return None
+
+
 def history(M, F, x, eps=EPS, stop_after=None, cap=CAP):
     key = f"{M.tol}|{getattr(M, 'xc', None)}|{mp.nstr(mp.mpf(x), 36)}|{eps}|{stop_after}|{cap}"
     if _CK["path"] and key in _CK["memo"]:
@@ -50,8 +84,7 @@ def history(M, F, x, eps=EPS, stop_after=None, cap=CAP):
             fh.write(json.dumps(dict(k=key, v=v)) + "\n")
         _CK["new"] += 1
         if _CK["new"] % 25 == 0:
-            from _ts_saddle import guard_ok
-            g = guard_ok()
+            g = fleet_guard()
             if g:
                 raise SystemExit(f"STOP GUARD: {g} (checkpoint kept; rerun resumes)")
     return r
