@@ -4590,3 +4590,10 @@ interval iff deg f0 ≤ 2.
   - Sufficiency ~80–85% (tested families, not proven).
   - "Generic E" is essential.
 - **Environment:** Python 3.14.5 (.venv), mpmath 1.3.0, sympy 1.14.0, macOS 27.2 arm64.
+- **Sufficiency, relayed (not verified here): the Bridge V25 FINDINGS (P3/P6).** For two simple poles the first-order
+  solutions are explicit Liouvillian functions, √Δ·exp(±κu), with Δ = f0·D, D = (z − z1)(z − z2) and
+  u = ∫dz/√(N·D), N = E²D − μ²Δ. They were checked to ≤ 1e−9 at 5 loop points for Kerr-type, Kerr–NUT-type and
+  real-pole data. For the double pole, exact-ZV return-map multipliers match e^(±√2π) to 7 digits. If correct, G⁰ is a
+  torus in both patterns, which would raise our sufficiency estimate from ~80–85% toward proof for those patterns. The
+  Corollary itself needs only the necessary direction. Wording adopted: "for E in an interval (generic E)", never
+  "every E".
