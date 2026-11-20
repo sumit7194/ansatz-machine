@@ -179,3 +179,13 @@ read as a measure of "how obstructed".
 - **Follow-up note (Bridge request, 2026-11-21):** tr(g_in) − 2 on |z| = 1.35 (and r = 1.6 as a control; it must
   agree) at E = 0.7, 0.8, 0.9 × k ∈ {1e−3, 1e−2, 1/30, 1/10, 0}, at two steps (`scripts/_nve_lower_trace.py`).
   The k² coefficient c(E) comes from a fit of (tr − 2)/k² = c + c′k. Expectation: c < 0 at every E.
+- **Commutator note (Bridge request, 2026-11-21; it checks the group-theory step of an unverified analytic proof
+  relayed by the Bridge; that proof's file was NOT opened here):**
+  - Setup: base point 1.35. M0 is the circle |z| = 1.35. M1 is a counter-clockwise rectangle enclosing exactly the
+    upper pole (≈ 2 + 0.6i) and the zero ≈ 1.93; the enclosed set is checked by winding number.
+  - Reported: tr M1 and tr[M1, M0] − 2 at k ∈ {1e−2, 1/30, 1/10, 0}, E = 0.8, at two steps
+    (`scripts/_nve_lower_comm.py`).
+  - **Homotopy control:** a second rectangle in the same class must give the same values.
+  - **Must-fail:** a rectangle that also encloses the lower pole must give different values.
+  - **Expectation (relayed):** tr M1 ≈ −0.984 + 2.777i, k-independent at leading order; tr[M1, M0] − 2 ∝ k².
+    At k = 0 it must vanish: M0 = I there.
