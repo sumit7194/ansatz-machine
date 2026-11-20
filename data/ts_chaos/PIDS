@@ -36,3 +36,5 @@
 47925 2026-11-20 15:16:59 NVE monodromy check (all cases), 1 thread, nice 10
 74635 2026-11-20 22:17:34 lower-axis NVE run (controls + 9 targets), 1 thread, nice 10
 48647 2026-11-20 23:23:04 lower-axis NVE rerun (addendum 1), 1 thread, nice 10
+69683 nve_lower_kscan 2026-11-21 01:35:52 scripts/_nve_lower_kscan.py
+69683 STOPPED 2026-11-21 01:37:02 superseded by _nve_lower_stat.py (post-unblinding superset)

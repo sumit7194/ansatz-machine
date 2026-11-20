@@ -133,3 +133,18 @@ E = 0.8, k ∈ {1/10000, 1/1000, 1/300}, same code (`scripts/_nve_lower_kscan.py
 §159 saw. If S stays ~1e−4 down to k = 1e−4, then either S is discontinuous at k = 0 (some feature of c0 is not
 analytic in k) or the statistic's normalisation is doing it. That would need a diagnosis before §159's numbers are
 read as a measure of "how obstructed".
+
+## POST-UNBLINDING addition (2026-11-21, after the Bridge's V26 addendum C was read)
+- The Bridge agrees on the verdict (obstructed at every k ≠ 0; Kerr at the floor) and on the singular-point
+  locations.
+- The statistics disagree in trend:
+  - The Bridge's S_B = max ‖KK′ − K′K‖_F/(‖K‖_F‖K′‖_F) over generator commutators K. At E = 0.8 it **rises**
+    linearly in k (log–log slope 1.0001).
+  - Ours **falls** with k.
+- At the Bridge's request, `scripts/_nve_lower_stat.py` computes both S and S_B from the same 50-digit monodromy
+  matrices, at E = 0.8 and k ∈ {1/10, 1/30, 1/100, 3/1000, 1/1000, 1/10000, 0}, at both steps. S_B is reported for
+  all generators, and for the point loops only. This **supersedes** the k-scan above (stopped after 40 s, no
+  output); its grid includes the Bridge's scan points.
+- **Expectation:** the monodromy agrees and the difference is the statistic. Ours takes the max over G′ commutators
+  *including conjugates*, normalised by 1 + ‖A‖²‖B‖², so a few large-norm elements can dominate. If S_B here
+  reproduces the Bridge's linear trend, the discrepancy is in the statistic.
