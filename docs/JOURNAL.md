@@ -4521,3 +4521,9 @@ pole-order-1 Carter² survival.
     disk < 5 GB or our own RSS > 1 GB. Otherwise stop if [(swap > 2 GB AND pressure ≥ 2) OR pressure ≥ 4] holds
     continuously for 600 s.
   - **Run:** resumed with all 16 switches from the checkpoint (~7 h).
+
+## 2026-11-20/21 — Lower-axis NVE for the Bridge (V26), blind second implementation
+- Ask: Sumit ("give them a helping hand"), Bridge V26. Prereg 2a3b5e9 → code fa36acd → run 1 VOID (the C-NV pipeline
+  control failed its gates) → addendum 1 070cc74 (inner-ring step control; big-loop gate) → full rerun, PID 48647, ~2 h.
+- **OBSTRUCTED:** all 9 targets NON-VA, controls behave, all gates pass (RESULTS §159).
+- Open: S falls with k at fixed E. A k → 0 scan checks continuity.

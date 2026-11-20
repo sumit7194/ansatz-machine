@@ -34,3 +34,5 @@
 37758 2026-11-19 08:46:54 edge-link v3 TS window RESUME (fleet sustained guard), 1 thread, nice 10
 50783 2026-11-19 09:57:00 edge-link v3 TS window RESUME 2 (after Bridge V22 leak stopped), 1 thread, nice 10
 47925 2026-11-20 15:16:59 NVE monodromy check (all cases), 1 thread, nice 10
+74635 2026-11-20 22:17:34 lower-axis NVE run (controls + 9 targets), 1 thread, nice 10
+48647 2026-11-20 23:23:04 lower-axis NVE rerun (addendum 1), 1 thread, nice 10

@@ -4597,3 +4597,32 @@ interval iff deg f0 ≤ 2.
   torus in both patterns, which would raise our sufficiency estimate from ~80–85% toward proof for those patterns. The
   Corollary itself needs only the necessary direction. Wording adopted: "for E in an interval (generic E)", never
   "every E".
+
+## §159 — Lower-axis first-order NVE for the "invisible" twist family (blind second implementation for the Bridge, V26): OBSTRUCTED at all 9 sampled (k, E)
+
+Pre-registered: `data/nve/LOWER_AXIS_PREREGISTRATION.md` (2a3b5e9). Code (fa36acd), addendum 1 (070cc74). Blind to the
+Bridge's B8 results; only its problem statement was used. The question: below the axis, does the twist family
+(M = 1, spin 0.6, twist strength k) have a non-virtually-abelian monodromy group on loops in |z| > 1.3, for k ≠ 0?
+- **Method (own):**
+  - The twist c0 is built from its Laurent series at ∞. The radicand starts at (144 − 33.6k)a²w⁸, there are no log
+    terms, and the series converges for |z| > ρ_c = 0.6.
+  - Singular points of P = E² − f0/(f0² + c0²) in the annulus are counted by the argument principle and located by
+    Newton.
+  - Monodromy is computed by 50-digit power-series continuation (the §158 engine), with generator loops plus an
+    inner loop.
+  - Virtually-abelian statistic S, computed at two step sizes.
+- **Result:** Kerr controls VA ×3; the degree-3 pipeline control NON-VA; **all 9 targets NON-VA** (k ∈ {1/100, 1/30,
+  1/10} × E ∈ {0.7, 0.8, 0.9}). S is stable to all printed digits under refinement (5 sig. figs), from 1.4e−6 to
+  2.0e−4. Every gate passes (det ≤ 6e−33, big loop ≤ 5e−39). Each target has the same singular-point pattern as Kerr:
+  2 simple zeros and a conjugate pair of poles. The twist moves the poles off 2 ± 0.6i by about 3e−3 × (10k).
+- **First run VOID** (C-NV gates). Step control ignored inner-ring singular points, and the ordered-product gate is
+  invalid when tails cross. It was fixed in addendum 1, graded "post-failure, not blind to target results"; the target
+  classes were identical in both runs.
+- **Why (plain):** Kerr's lower-axis mass function is rational of low degree, so its monodromy is abelian up to a
+  finite index. For k ≠ 0 the twist enters through a square root, the same singular points are joined by
+  non-rational data, and the group becomes large (SL(2)-like). Same local picture, different global gluing.
+- **Scope:** first-order NVE only, on the lower axis, at 9 sampled (k, E), numerically (50 digits, two steps). It is
+  not a proof of non-integrability. No statement is made for other spins or for k outside the sample.
+- **Open, post-hoc:** S falls as k grows at fixed E (E = 0.8: 2.0e−4 → 4.4e−5 → 5.4e−6), while S ≈ 0 at k = 0.
+  Continuity in k then needs a rise and a fall. A k → 0 scan is the check (below, if run).
+- **Environment:** Python 3.14.5 (.venv), mpmath 1.3.0, sympy 1.14.0, macOS 27.2 arm64; 1 core, nice 10; ~2 h total.

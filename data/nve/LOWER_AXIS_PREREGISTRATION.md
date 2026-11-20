@@ -95,3 +95,34 @@ passed every gate. Recorded before the fix:
   accuracy). The ordered product is reported for information only.
 - **Grade:** "post-failure amendment, NOT blind to the target results." The amendment changes only the controls'
   numerics, not the statistic or the classification.
+
+## Outcome (2026-11-21, rerun under addendum 1; `data/nve/lower_run.out`, `lower_results.json`)
+**VERDICT: OBSTRUCTED.** All 13 runs pass every gate. ρ_c = 0.600 at every k, so the c0 Laurent series is
+single-valued and analytic in |z| > 0.6.
+
+| run | k | E | zeros of P (annulus) | poles of P (annulus) | S(0.35) | S(0.2) | class |
+|---|---|---|---|---|---|---|---|
+| C-K | 0 | 0.7 | 1.905944, −1.827513 | 2 ± 0.6i | 2.4e−23 | 1.6e−35 | VA |
+| C-K | 0 | 0.8 | 1.934426, −3.489982 | 2 ± 0.6i | 9.3e−25 | 1.2e−36 | VA |
+| C-K | 0 | 0.9 | 1.965688, −8.492004 | 2 ± 0.6i | 1.3e−24 | 3.6e−37 | VA |
+| C-NV | 0 | 0.8 | 4 real (1.707736, 2.338769, 4.721897, −5.464362) | 6 (3 conjugate pairs) | 2.8745e−8 | 2.8745e−8 | NON-VA |
+| T | 1/100 | 0.7 | 1.905729, −1.827280 | 1.999694 ± 0.599486i | 8.7781e−6 | 8.7781e−6 | NON-VA |
+| T | 1/100 | 0.8 | 1.934159, −3.489894 | same | 1.9646e−4 | 1.9646e−4 | NON-VA |
+| T | 1/100 | 0.9 | 1.965365, −8.491985 | same | 8.3311e−5 | 8.3311e−5 | NON-VA |
+| T | 1/30 | 0.7 | 1.905226, −1.826738 | 1.998977 ± 0.598283i | 1.4499e−6 | 1.4499e−6 | NON-VA |
+| T | 1/30 | 0.8 | 1.933535, −3.489689 | same | 4.3943e−5 | 4.3943e−5 | NON-VA |
+| T | 1/30 | 0.9 | 1.964612, −8.491941 | same | 4.0042e−5 | 4.0042e−5 | NON-VA |
+| T | 1/10 | 0.7 | 1.903785, −1.825183 | 1.996919 ± 0.594820i | 2.1175e−6 | 2.1175e−6 | NON-VA |
+| T | 1/10 | 0.8 | 1.931748, −3.489104 | same | 5.4216e−6 | 5.4216e−6 | NON-VA |
+| T | 1/10 | 0.9 | 1.962452, −8.491815 | same | 6.5099e−6 | 6.5099e−6 | NON-VA |
+
+- Gates at STEP 0.2: det ≤ 6e−33, eig ≤ 9e−33, big loop ≤ 5e−39 (C-NV included; its 6 inner-ring points are now in
+  the step control). C-NV's ordered product is 1.0, information only, as the addendum expected for crossing tails.
+- Every target is irreducible (red False), not finite, and S agrees between the two steps to all printed digits.
+  Kerr's S drops by 12 orders, which is what pure numerical noise does.
+- **Predictions:** ρ_c ≤ 1.2 yes; controls behave yes, but only after addendum 1 (first run VOID); OBSTRUCTED yes.
+- **Grade:** post-failure amendment. The target classes were identical in the VOID run and the rerun, and the
+  amendment did not touch the statistic or the classification rule.
+- **Not yet understood (post-hoc, not part of the verdict):** at fixed E, S *decreases* as k grows (E = 0.8:
+  2.0e−4, 4.4e−5, 5.4e−6), yet S ≈ 0 at k = 0. If S is continuous in k, it must rise and then fall. A k-scan toward
+  0 is the check (§159).
