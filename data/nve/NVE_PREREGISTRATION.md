@@ -82,3 +82,42 @@ Write y'' = r y with r = −(3/16) L², where L = P'/P = Σ m_c/(z − c). The s
 
 ## Resources
 One core, nice 10, < 1 GB. Seconds to minutes per case, with a stop guard if a case exceeds 10 min.
+
+## Outcome (2026-11-20)
+**Registered verdict: UNDETERMINED.**
+- 14 of 16 case×E runs came out as predicted, with every gate passing (det ≤ 1e−23, eigenvalues ≤ 2e−21, product at ∞
+  ≤ 3e−16).
+- **Two degree-3 runs, A3 and B3 at E² = 81/100, gave normalised commutator measures of 2.0e−7 and 4.3e−8.** These are
+  below the registered 1e−6 NON-SOLVABLE line, but far above the floor of the solvable cases (≤ 5e−24). The
+  registered line was set too high.
+
+**Post-hoc precision check (labelled; asked for by Sumit):**
+- Raising dps from 30 to 60 changes nothing (the floor is series truncation, not rounding).
+- Halving the step factor from 0.4 to 0.2 (at dps 50):
+  - **Kerr and G2 drop from ~1e−27 to ~1e−46:** noise, so SOLVABLE.
+  - **A3 and B3 are unchanged to 4 digits (1.984e−7, 4.251e−8):** genuinely non-zero, so NON-SOLVABLE.
+- **With that check, all 16 runs agree with the predictions.**
+
+| case | d | s + 2h | result |
+|---|---|---|---|
+| K (Kerr), 2 E | 2 | 4 | SOLVABLE |
+| Z (double pole), 2 E | 2 | 4 | SOLVABLE |
+| S1, 1 E | 1 | 2 | SOLVABLE (reducible, finite-like) |
+| **G2 (generic, non-Kerr degree 2), 2 E** | 2 | 4 | **SOLVABLE** |
+| A3, 3 E | 3 | 6 | NON-SOLVABLE |
+| B3, 2 E | 3 | 5 | NON-SOLVABLE |
+| C3, 2 E | 3 | 6 | NON-SOLVABLE |
+| M2 (2 zeros merge) | 3 | 6 | NON-SOLVABLE |
+| **M3 (3 zeros merge)** | 3 | 4 | **SOLVABLE (reducible): the "generic E" qualifier is necessary** |
+
+**Verdict (c): "deg f0 ≤ 2" is the right condition at generic E.**
+- **Necessary direction (d ≥ 3 ⇒ G = SL(2, C) at generic E): confirmed, ~95%.** It is a short Kovacic count
+  (s + 2h ≥ 5, re-derived independently above, with no log or apparent singularities and ∞ ordinary), and it agrees
+  with 9 numerical runs.
+- **Sufficiency (every degree-2 f0 solvable): supported but NOT proven, ~80–85%.** It holds for Kerr, the double-pole
+  pattern and a generic non-Kerr two-simple-pole f0, at 2 energies each. A proof would need Kovacic's Case 1/2 solution
+  for the (+, +, −, −) cross-ratio family and for the (+, +, −2) pattern. Not done.
+- **Caveats for the write-up:**
+  1. "Generic E" is essential. At isolated E where three zeros of P merge, a degree-3 f0 can be solvable (M3, explicit).
+  2. E² = μ² (∞ singular) and E = 0 are excluded.
+  3. Monodromy is numerical, and solvability rests on the derived-subgroup test.

@@ -4564,3 +4564,29 @@ in the timing control), fixed by 45ab364 before any TS run.
   - v3: step 1 registered FAIL;
   - all amended before any TS run of the amended test.
 - **Environment:** Python 3.14.5 (.venv), numpy 2.4.6, sympy 1.14.0, mpmath 1.3.0, numba DD engine, macOS 27.2 arm64.
+
+## §158 — Independent check of the axis-NVE classification (for the Bridge: Fable's "only Kerr" first-order step). deg f0 ≤ 2 is the right condition at generic E
+
+Pre-registered: `data/nve/NVE_PREREGISTRATION.md` (5df9e05). Code: `scripts/_nve_monodromy.py`. The claim tested is
+that the axis normal variational equation v'' + (3/16)(P'/P)²v = 0, with P = E² − μ²f0, has solvable G⁰ for E in an
+interval iff deg f0 ≤ 2.
+- **(a) Re-derived independently:**
+  - exponents ¼, ¾ (simple) and ½ ± (i/4)√(3m² − 4) (heavy);
+  - no log or apparent singularities;
+  - ∞ ordinary;
+  - all three Kovacic cases need s + 2h ≤ 4;
+  - generic d ≥ 3 gives s + 2h ≥ 5, hence SL(2, C).
+- **New edge case:** when three zeros of P merge, s + 2h drops by 1. An explicit degree-3 f0 is solvable at that one
+  special E (M3).
+- **(b) Numerical monodromy** (40–50 digits, power-series continuation; derived-subgroup test), 16 runs:
+  - **all degree ≤ 2 cases are solvable**, including a generic non-Kerr degree-2 f0;
+  - **all generic degree-3 cases are SL(2)-like**, including at a two-zero merge;
+  - M3 is solvable.
+- **Registered verdict: UNDETERMINED** (two runs fell below an over-high threshold). The post-hoc truncation check
+  resolves them: the solvable floor falls 1e−27 → 1e−46, and the non-solvable values are stable to 4 digits.
+- **(c) Verdict:**
+  - "deg f0 ≤ 2 at generic E" is right.
+  - Necessary direction ~95% (a proof sketch plus numerics).
+  - Sufficiency ~80–85% (tested families, not proven).
+  - "Generic E" is essential.
+- **Environment:** Python 3.14.5 (.venv), mpmath 1.3.0, sympy 1.14.0, macOS 27.2 arm64.
