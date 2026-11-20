@@ -198,3 +198,31 @@ read as a measure of "how obstructed".
     fit to 1e−11:
     **c(0.7) = −1.928286675e−2, c(0.8) = −4.784472498e−3, c(0.9) = −1.262102689e−3.**
   - c(0.8) matches the relayed analytic first-order value −4.784472e−3 to all 7 given digits.
+- **Commutator result (`data/nve/lower_comm.out`, `.jsonl`; E = 0.8; the two steps agree to all 15 printed digits):**
+
+| k | tr M1 | tr[M1, M0] − 2 | \|·\|/k² | tr M0 − 2 |
+|---|---|---|---|---|
+| 0 | −0.984309504 + 2.777280073i | ≤ 3e−40 | — | ~1e−36 |
+| 1/100 | −0.985021180 + 2.776392166i | 1.938532e−5 + 9.875935e−6i | 0.21757 | −4.79093e−7 |
+| 1/30 | −0.986695561 + 2.774304222i | 2.161918e−4 + 1.104412e−4i | 0.21847 | −5.34008e−6 |
+| 1/10 | −0.991587503 + 2.768211734i | 1.966566e−3 + 1.012562e−3i | 0.22119 | −4.85001e−5 |
+
+  - **Controls:**
+    - The homotopy control (M1_alt) is identical to M1 to all digits.
+    - The must-fail (MF_3pts, which also encloses the lower pole) gives a different, real trace (7.1e−5, 2.3e−4,
+      6.8e−4; ≈ 0 at k = 0, an order-4 element).
+    - The enclosed sets were verified by winding number.
+  - **Match with the relayed values:** tr M1 matches −0.984 + 2.777i. |tr[M1, M0] − 2| matches the relayed
+    2.18e−5 (k = 0.01) and 2.21e−3 (k = 0.1) as a **modulus**; our value is complex, with arg ≈ 27°. It is ∝ k², with
+    coefficient → ≈ 0.2175 as k → 0.
+  - **Class used:** the rectangle [1.6, 2.4] × [−0.3, 0.9] (ccw), joined to the base 1.35 by the straight real
+    segment. **Caution:** tr M1 depends only on M1's free class, but tr[M1, M0] depends on the *based* class of the
+    pair, so the tail matters there.
+  - **A basis-free certificate that ⟨M1, M0⟩ is non-virtually-abelian for these k ≠ 0** (algebraic subgroups of SL₂
+    are reducible, imprimitive, finite, or SL₂):
+    - tr[M1, M0] ≠ 2, so the pair is irreducible. The margin is ~1e−5 against a floor of ~1e−40.
+    - tr M1 ≠ 0 and tr M0 ≠ 0. An irreducible imprimitive pair needs at least two of tr A, tr B, tr AB to be zero,
+      so the pair is not imprimitive.
+    - tr M1 is non-real. Finite subgroups are conjugate into SU(2), whose traces are real, so the pair is not finite.
+    - So the Zariski closure is SL₂. This is numerical at 50 digits, at 3 values of k, at E = 0.8. It does not depend
+      on the S statistic.

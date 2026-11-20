@@ -4639,3 +4639,10 @@ Bridge's B8 results; only its problem statement was used. The question: below th
 - **Inner-trace E-dependence (Bridge follow-up):** tr(g_in) − 2 = c(E)k² + O(k³), with c(0.7) = −1.928287e−2,
   c(0.8) = −4.784472e−3, c(0.9) = −1.262103e−3. It is radius-independent, and the two steps agree to 20 digits.
   The E = 0.8 value matches a relayed (unverified-source) analytic first-order formula to 7 digits.
+- **Two-loop certificate (Bridge request; it checks the group step of a relayed unverified analytic proof):**
+  - The setup: M0 is the inner circle and M1 encloses {upper pole, zero ≈ 1.93}, both based at 1.35.
+  - tr[M1, M0] − 2 ≈ 0.2175·e^(i·27°)·k² ≠ 0, so the pair is irreducible. tr M1 and tr M0 are ≠ 0, so it is not
+    imprimitive. tr M1 is non-real, so it is not finite. Hence ⟨M1, M0⟩ is Zariski-dense in SL₂ at k ∈ {1e−2, 1/30,
+    1/10}, E = 0.8, with controls passing.
+  - tr M1 and |tr[M1, M0] − 2| match the relayed values.
+  - This is basis-free, and the cleanest form of §159's verdict.
