@@ -4626,3 +4626,12 @@ Bridge's B8 results; only its problem statement was used. The question: below th
 - **Open, post-hoc:** S falls as k grows at fixed E (E = 0.8: 2.0e−4 → 4.4e−5 → 5.4e−6), while S ≈ 0 at k = 0.
   Continuity in k then needs a rise and a fall. A k → 0 scan is the check (below, if run).
 - **Environment:** Python 3.14.5 (.venv), mpmath 1.3.0, sympy 1.14.0, macOS 27.2 arm64; 1 core, nice 10; ~2 h total.
+- **Post-unblinding (2026-11-21).**
+  - The Bridge's V26 addendum C (independent double-precision code) **agrees**: obstructed at every k ≠ 0, Kerr at
+    the floor, same singular-point locations.
+  - The statistics disagreed in trend. Recomputed from our 50-digit generators, the Bridge's S_B on the point loops
+    is linear in k (slope 1.0002 versus their 1.0001), so the monodromies agree.
+  - Our S is saturated: the inner-loop generator's O(k) deviation (‖g_in − I‖ ≈ 80.5k) is amplified ~1e7 by our
+    large-norm basis. S is a valid detector, not a magnitude.
+  - The basis-free invariant is tr(g_in) − 2 = −4.7845e−3·k² (elliptic) at E = 0.8.
+  - Details in the prereg's post-unblinding section.

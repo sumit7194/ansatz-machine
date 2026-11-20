@@ -148,3 +148,31 @@ read as a measure of "how obstructed".
 - **Expectation:** the monodromy agrees and the difference is the statistic. Ours takes the max over G′ commutators
   *including conjugates*, normalised by 1 + ‖A‖²‖B‖², so a few large-norm elements can dominate. If S_B here
   reproduces the Bridge's linear trend, the discrepancy is in the statistic.
+- **Result (`data/nve/lower_stat.out`, `.jsonl`; 50-digit generators stored):**
+
+| k | S ours | S_B (point loops) | S_B (all, incl. inner) | ‖g_in − I‖_F | tr(g_in) − 2 |
+|---|---|---|---|---|---|
+| 1/10 | 5.42e−6 | 1.7198e−5 | 1.71e−3 | 8.09 | −4.8500e−5 |
+| 1/30 | 4.39e−5 | 5.7044e−6 | 1.67e−3 | 2.69 | −5.3401e−6 |
+| 1/100 | 1.96e−4 | 1.7084e−6 | 1.29e−3 | 0.805 | −4.7909e−7 |
+| 3/1000 | 8.40e−5 | 5.1225e−7 | 1.17e−3 | 0.241 | −4.3078e−8 |
+| 1/1000 | 1.31e−4 | 1.7072e−7 | 8.35e−4 | 0.0805 | −4.7851e−9 |
+| 1/10000 | 1.90e−4 | 1.7071e−8 | 9.25e−5 | 0.00805 | −4.7845e−11 |
+| 0 | 1e−36 | 2e−37 | 2e−34 | 2e−33 | ~1e−35 |
+
+  - **The monodromy agrees with the Bridge in trend.** S_B on the point loops is linear in k, with log–log slope
+    1.0002 over 1e−4 to 1e−2 (Bridge: 1.0001). Both steps agree to 5 figures.
+  - **The magnitude differs** (ours 1.7e−6 at k = 1/100, Bridge's 3.2e−4). That is expected: Frobenius norms are not
+    conjugation-invariant, and our basis (identity at base point z = 40) gives generators of norm 1.2e3 to 4.2e3.
+  - **Why our S is not monotone (diagnosed):**
+    - The inner-loop generator deviates from I linearly, ‖g_in − I‖ ≈ 80.5k.
+    - Commutators with large-norm generators amplify that by about ‖M‖‖M⁻¹‖ ~ 1e7, so any statistic that involves
+      g_in is already **saturated** (non-linear in k) at k = 1e−4. S_B over all generators shows the crossover: linear
+      below ~1e−3, then flat.
+    - Ours takes commutators of commutators, conjugates included, so it is saturated throughout the scanned range.
+  - **Conclusion:** S is a valid zero-versus-nonzero detector, since the refinement test separates noise from a
+    real value. It is **not** a measure of "how obstructed", and §159's S values should not be read as one.
+  - **A basis-free, path-free number for comparison:** the inner loop is a circle |z| = r (1.3 < r < 1.9 at
+    E = 0.8), so its free homotopy class is unique and its trace is implementation-independent.
+    **tr(g_in) − 2 = −4.7845e−3·k² + O(k³)**: real and negative, so the monodromy is elliptic with rotation angle
+    ≈ 0.0692k.
