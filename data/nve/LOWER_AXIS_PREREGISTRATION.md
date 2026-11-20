@@ -189,3 +189,12 @@ read as a measure of "how obstructed".
   - **Must-fail:** a rectangle that also encloses the lower pole must give different values.
   - **Expectation (relayed):** tr M1 ≈ −0.984 + 2.777i, k-independent at leading order; tr[M1, M0] − 2 ∝ k².
     At k = 0 it must vanish: M0 = I there.
+- **Trace result (`data/nve/lower_trace.out`, `.jsonl`):**
+  - tr(g_in) − 2 is real, negative and ∝ k² at every E.
+  - The two radii (1.35 and 1.6) agree to the step floor (~1e−24 at STEP 0.35, ~1e−36 at STEP 0.2); the two steps
+    agree to all 20 printed digits.
+  - k = 0 gives ≤ 1e−36.
+  - The k² coefficient c(E), from an exact cubic in k through k ∈ {1e−3, 1e−2, 1/30, 1/10}, agrees with a 3-point
+    fit to 1e−11:
+    **c(0.7) = −1.928286675e−2, c(0.8) = −4.784472498e−3, c(0.9) = −1.262102689e−3.**
+  - c(0.8) matches the relayed analytic first-order value −4.784472e−3 to all 7 given digits.

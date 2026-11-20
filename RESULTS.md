@@ -4636,3 +4636,6 @@ Bridge's B8 results; only its problem statement was used. The question: below th
     large-norm basis. S is a valid detector, not a magnitude.
   - The basis-free invariant is tr(g_in) − 2 = −4.7845e−3·k² (elliptic) at E = 0.8.
   - Details in the prereg's post-unblinding section.
+- **Inner-trace E-dependence (Bridge follow-up):** tr(g_in) − 2 = c(E)k² + O(k³), with c(0.7) = −1.928287e−2,
+  c(0.8) = −4.784472e−3, c(0.9) = −1.262103e−3. It is radius-independent, and the two steps agree to 20 digits.
+  The E = 0.8 value matches a relayed (unverified-source) analytic first-order formula to 7 digits.
