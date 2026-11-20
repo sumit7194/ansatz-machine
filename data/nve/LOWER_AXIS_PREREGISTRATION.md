@@ -126,3 +126,10 @@ single-valued and analytic in |z| > 0.6.
 - **Not yet understood (post-hoc, not part of the verdict):** at fixed E, S *decreases* as k grows (E = 0.8:
   2.0e−4, 4.4e−5, 5.4e−6), yet S ≈ 0 at k = 0. If S is continuous in k, it must rise and then fall. A k-scan toward
   0 is the check (§159).
+
+## Post-hoc k → 0 scan (2026-11-21, registered before running; NOT part of the verdict)
+E = 0.8, k ∈ {1/10000, 1/1000, 1/300}, same code (`scripts/_nve_lower_kscan.py`).
+**Prediction:** S → 0 as k → 0 (continuity). S rises from ~0 to a maximum somewhere below k = 1/100, then falls as
+§159 saw. If S stays ~1e−4 down to k = 1e−4, then either S is discontinuous at k = 0 (some feature of c0 is not
+analytic in k) or the statistic's normalisation is doing it. That would need a diagnosis before §159's numbers are
+read as a measure of "how obstructed".
