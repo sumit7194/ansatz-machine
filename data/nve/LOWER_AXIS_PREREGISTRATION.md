@@ -176,3 +176,6 @@ read as a measure of "how obstructed".
     E = 0.8), so its free homotopy class is unique and its trace is implementation-independent.
     **tr(g_in) − 2 = −4.7845e−3·k² + O(k³)**: real and negative, so the monodromy is elliptic with rotation angle
     ≈ 0.0692k.
+- **Follow-up note (Bridge request, 2026-11-21):** tr(g_in) − 2 on |z| = 1.35 (and r = 1.6 as a control; it must
+  agree) at E = 0.7, 0.8, 0.9 × k ∈ {1e−3, 1e−2, 1/30, 1/10, 0}, at two steps (`scripts/_nve_lower_trace.py`).
+  The k² coefficient c(E) comes from a fit of (tr − 2)/k² = c + c′k. Expectation: c < 0 at every E.

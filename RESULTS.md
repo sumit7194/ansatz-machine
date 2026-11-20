@@ -4615,6 +4615,7 @@ Bridge's B8 results; only its problem statement was used. The question: below th
   1/10} × E ∈ {0.7, 0.8, 0.9}). S is stable to all printed digits under refinement (5 sig. figs), from 1.4e−6 to
   2.0e−4. Every gate passes (det ≤ 6e−33, big loop ≤ 5e−39). Each target has the same singular-point pattern as Kerr:
   2 simple zeros and a conjugate pair of poles. The twist moves the poles off 2 ± 0.6i by about 3e−3 × (10k).
+- **S values are a zero/nonzero detector only, NOT a measure of how obstructed** (post-unblinding diagnosis below: S saturates through large-norm commutators; the Bridge records its own statistic the same way).
 - **First run VOID** (C-NV gates). Step control ignored inner-ring singular points, and the ordered-product gate is
   invalid when tails cross. It was fixed in addendum 1, graded "post-failure, not blind to target results"; the target
   classes were identical in both runs.
