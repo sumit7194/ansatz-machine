@@ -72,3 +72,26 @@ statement in the Bridge's message is used.
 
 ## Resources
 1 core, nice 10, < 1 GB, minutes per run, with a guard (fleet rule).
+
+## Addendum 1 (2026-11-20, AFTER the first full run; NOT blind to its target results)
+**First run: VOID.** The pipeline control C-NV failed its gates (det 1.5e−17; ordered product ≠ I). All other runs
+passed every gate. Recorded before the fix:
+- **C-K:** VA ×3 (S falls 1e−23 → 1e−36 under refinement).
+- **C-NV:** S stable at 2.875e−8.
+- **All 9 targets: NON-VA**, with S stable to ≥ 4 digits at 1e−6 to 2e−4, and every gate passing.
+
+**Diagnosis, two implementation defects that only C-NV exposed:**
+1. **Step control** ignored the singular points of r inside |z| < 1.3. C-NV (degree 3) has zeros of G1 and G2 between
+   0.9 and 1.3, so steps near the inner circle overran the series' radius (the det error). The Kerr-family runs have no
+   such points, and their gates are at 1e−35.
+2. **The "ordered product = I" gate** assumes non-crossing lasso tails. C-NV has three singular points on the
+   positive real axis, so its tails needed angular detours that cross. The generators are still a valid generating set
+   (lassos with any tails generate π₁ of the punctured annulus), but the simple ordered relation no longer holds.
+
+**Fix (applies to all runs; everything is rerun):**
+- The step size also uses the zeros of G1 and G2 in 0.9 < |z| < 1.3 (same zero-finder; the c0 series is extended to
+  converge there).
+- The product gate is replaced by **a direct loop around |z| = 40, which must equal I to 1e−15** (∞ ordinary, plus
+  accuracy). The ordered product is reported for information only.
+- **Grade:** "post-failure amendment, NOT blind to the target results." The amendment changes only the controls'
+  numerics, not the statistic or the classification.

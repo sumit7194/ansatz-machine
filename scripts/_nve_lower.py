@@ -20,7 +20,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, "data", "nve")
 z = sp.symbols("z")
 A = sp.Rational(3, 5)
-RIN = mp.mpf("1.3")
+RIN = mp.mpf("0.9")          # addendum 1: c0 series must converge down to |z| = 0.9 (step control)
 KSER = 50
 
 
@@ -335,8 +335,8 @@ def statistic(gens):
     return S, red, finite
 
 
-def monodromy(pr, sing, ms, STEP):
-    W = Walker(pr, sing, STEP)
+def monodromy(pr, sing, ms, STEP, extra=()):
+    W = Walker(pr, list(sing) + list(extra), STEP)
     Ls = loops(sing)
     gens, gates = [], dict(det=0.0, eig=0.0)
     for kind, c, th, path in Ls:
@@ -357,8 +357,10 @@ def monodromy(pr, sing, ms, STEP):
         for i in seq:
             Mp = mul(Mp, gens[i])
         prods.append(float(dist_I(Mp) / (1 + nrm(Mp))))
-    gates["prod_inf"] = min(prods)
-    gates["pass"] = gates["det"] <= 1e-20 and gates["eig"] <= 1e-15 and gates["prod_inf"] <= 1e-15
+    gates["prod_ordered_info"] = min(prods)
+    big = W.walk(arc(mp.mpf(40), mp.mpf(0), 2 * mp.pi), [[mp.mpc(1), mp.mpc(0)], [mp.mpc(0), mp.mpc(1)]])
+    gates["big_loop"] = float(dist_I(big) / (1 + nrm(big)))           # addendum 1: direct loop around everything
+    gates["pass"] = gates["det"] <= 1e-20 and gates["eig"] <= 1e-15 and gates["big_loop"] <= 1e-15
     S, red, finite = statistic(gens)
     return dict(gates=gates, S=float(S), reducible=red, finite=finite,
                 inner_trace=str(complex(gens[-1][0][0] + gens[-1][1][1])))
@@ -372,9 +374,11 @@ def run_case(name, f0, k, E):
     count_ok = (len(z1) == n1 and len(z2) == n2)
     sing = z1 + z2
     ms = [1] * len(z1) + [-1] * len(z2)
+    i1, _ = find_zeros(pr, 1, rmin=0.9, rmax=1.3)                 # addendum 1: inner-ring points (step control only)
+    i2, _ = find_zeros(pr, 2, rmin=0.9, rmax=1.3)
     runs = {}
     for st in ("0.35", "0.2"):
-        runs[st] = monodromy(pr, sing, ms, st)
+        runs[st] = monodromy(pr, sing, ms, st, extra=i1 + i2)
     S1, S2 = runs["0.35"]["S"], runs["0.2"]["S"]
     if runs["0.2"]["finite"] or S2 < 1e-30 or (S1 > 0 and S2 < 1e-6 * S1):
         cls = "VA"
@@ -383,7 +387,8 @@ def run_case(name, f0, k, E):
     else:
         cls = "UNDETERMINED"
     gates_ok = count_ok and runs["0.35"]["gates"]["pass"] and runs["0.2"]["gates"]["pass"] and pr.rho <= 1.2
-    return dict(case=name, k=str(k), E=str(E), rho_c=pr.rho, zeros_P=[str(complex(x)) for x in z1],
+    return dict(case=name, k=str(k), E=str(E), rho_c=pr.rho, inner_ring=[str(complex(x)) for x in i1 + i2],
+                zeros_P=[str(complex(x)) for x in z1],
                 poles_P=[str(complex(x)) for x in z2], count=dict(G1=(len(z1), n1), G2=(len(z2), n2)),
                 count_ok=count_ok, runs=runs, cls=cls, gates_ok=gates_ok, sec=time.time() - t0)
 
@@ -414,7 +419,7 @@ def main():
         res.append(r)
         print(f"{name} k={k} E={E}: rho_c {r['rho_c']:.3f}; points P0 {r['count']['G1']} Pinf {r['count']['G2']}; "
               f"S(0.35)={r['runs']['0.35']['S']:.3e} S(0.2)={r['runs']['0.2']['S']:.3e}; red {r['runs']['0.2']['reducible']} "
-              f"fin {r['runs']['0.2']['finite']}; gates {'PASS' if r['gates_ok'] else 'FAIL'} "
+              f"fin {r['runs']['0.2']['finite']}; inner {len(r.get('inner_ring', []))}; gates {'PASS' if r['gates_ok'] else 'FAIL'} "
               f"{r['runs']['0.2']['gates']} -> {r['cls']} [{r['sec']:.0f}s]", flush=True)
     ctrl_ok = all(r["cls"] == "VA" for r in res if r["case"] == "C-K") and \
         all(r["cls"] == "NON-VA" for r in res if r["case"] == "C-NV") and all(r["gates_ok"] for r in res)
