@@ -226,3 +226,19 @@ read as a measure of "how obstructed".
     - tr M1 is non-real. Finite subgroups are conjugate into SU(2), whose traces are real, so the pair is not finite.
     - So the Zariski closure is SL₂. This is numerical at 50 digits, at 3 values of k, at E = 0.8. It does not depend
       on the S statistic.
+
+## k = 4 note (2026-11-21, registered before running; prompted by reviewing a relayed all-spin extension)
+- **Algebra, checked here:** disc_w B(w, k) = 240k(k − 4), with B(w, 0) = 10(3w − 1)² and B(w, 4) = 6(w + 1)². So
+  **k = 4 is the second point where c0″ is rational**; k = 0 is the first, and it is the Kerr point (VA). The
+  relayed exception list (k = 0, k = 30/7, a = 0) does not name k = 4.
+- **Branch points of √B:**
+  - k < 0: real, with |u| < 0.89;
+  - 0 < k < 4: complex, with |u| < 1;
+  - 4 < k < 30/7: on the imaginary axis.
+  So Re z < a always, which supports a half-plane construction in Re z > a.
+- **Run:** the same pipeline (`run_case`) at k = 4 and at its neighbour k = 39/10, E = 0.8 (`scripts/_nve_lower_k4.py`).
+  - **Prediction:** NON-VA at both (~65%). At k = 4, c0 still carries arctan/log terms from integrating
+    1/(z² + a²)², so f0⁻ is not rational.
+  - **If k = 4 is VA:** it is a genuine exception missing from the relayed list.
+  - **Caveat:** k = 4 is not small, so singular points may sit far from their Kerr positions; the count gates
+    decide whether the run is valid.
