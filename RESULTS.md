@@ -4688,3 +4688,40 @@ Bridge's B8 results; only its problem statement was used. The question: below th
       orbits, consistent with our c(0.7), c(0.8) and c(0.9) being ≠ 0.
   - **Still open:** E < 1 at large |k|, where no separating-curve certificate exists. The irreducible ⇒ non-VA step also
     needs the imprimitive and finite cases excluded explicitly.
+
+## §160 — Cariglia–Galajinsky re-derived: their cubic is −½{Q_a, Q_b} (CONFIRMED), and the anti-self-duality argument covers less than was claimed (CORRECTED)
+
+*Back-filled 2026-11-21 at the Bridge's request, so that every claim in the rank-3 note (`docs/notes/NOTE_rank3_ppwave_DRAFT.md`
+§3) points at a registered result. The check itself was pre-registered and run on 2026-09-26
+(`data/cg_recheck/PREREGISTRATION.md`, output `recheck.out`, commit 5365bd7). Nothing was re-run for this entry.*
+
+**Question.** The note borrowed two statements from the high_rank_killing workspace (EXP-003). (a) Cariglia–Galajinsky's
+cubic integral (CG 2015, eq. 20) is a Poisson bracket of two quadratic ones, hence functionally dependent. (b) Their
+rank-4 metrics have no Lorentzian real form, by anti-self-duality. Both were re-derived from the typeset PDF with fresh
+code (`scripts/_cg_recheck.py`), without reading EXP-003's code.
+
+**(a) CONFIRMED.**
+- {H, I} = {H, Q_a} = {H, Q_b} = 0 exactly, with Q_a from CG's footnote 9 and Q_b its image under (x, α) ↔ (y, β).
+- {Q_a, Q_b} = −2I exactly.
+- The relation was **derived, not just checked**: fitting I² over all H^i Q_a^j Q_b^k with i + j + k ≤ 3 at three
+  generic rational (α, β) gives a unique solution, I² = −H Q_a Q_b − β² Q_a − α² Q_b, and the symbolic identity holds for
+  all α, β.
+- Functional rank of (H, Q_a, Q_b, I) = 3, so I is functionally dependent.
+- Sabotage (the sign of I's β-term flipped) turns all three tests red.
+
+**(b) CORRECTED.** There are no rank-4 (2,2) metrics in CG; rank 4 lives in 5D (2,3) eq. 26 and 6D (2,4) eq. 30.
+- **B1:** the 4D lift of Drach's first system (CG eq. 16 in eq. 1) is non-flat, Ricci-flat, anti-self-dual and not
+  self-dual, with Kretschmann 0. It carries rank 3, not 4.
+- **B2 (computed part):** ** = +1 on 2-forms in (2,2) and −1 in (1,3). **(Argued, textbook):** in (1,3) the two chiral
+  halves of a real Weyl tensor are complex conjugates. So W⁻ = 0 forces W = 0, and Ricci-flat plus conformally flat
+  is flat. Hence the 4D metric has no Lorentzian real form.
+- **B3:** eq. 26 = h + (dw + αx dt)², with an anti-self-dual, non-flat, Kretschmann-0 base h. It is excluded only on
+  real slices where ∂_w is real; other slices are not covered.
+- **B4:** eq. 30's Kaluza–Klein base is flat, so the argument does not transfer at all.
+
+**Scope.** Exact symbolic identities in (a). In (b), B2's Lorentzian step is an argument, not a computation, and B3
+excludes only slices with real ∂_w. The first run stalled in a symbolic-parameter solve (over 20 min). It was replaced
+by exact QQ row reduction at fixed rational parameters plus the symbolic identity, with the same content.
+
+**Environment:** Python 3.14 (.venv), sympy 1.14.0, macOS arm64; run 2026-09-26 (commit 5365bd7). Stamp:
+`ENVIRONMENT/stamp.json`.

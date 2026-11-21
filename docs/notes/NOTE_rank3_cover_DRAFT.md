@@ -17,7 +17,8 @@ We think one has been in print since 2017 without being recognised. S. A. Filyuk
 the harmonic σ = 0 member of the Smorodinsky–Winternitz potential. The Poisson bracket of its two quadratic Killing
 tensors is a rank-3 Killing tensor that is irreducible in the polynomial sense. Like your ultrahyperbolic cubic, it
 is functionally dependent on the quadratic integrals. So it is not a functionally new symmetry, and the question you
-posed, read in that stronger sense, is still open. The attached two-page note states exactly what is and is not
+posed, read in that stronger sense, is still open. The spacetime is also singular: a pp-wave whose profile
+grows like 1/ρ, with a conical excess, so it is not geodesically complete. The attached two-page note states exactly what is and is not
 claimed.
 
 One thing you should know before reading. The computations and the literature search were done with AI assistance
