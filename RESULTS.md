@@ -4768,3 +4768,37 @@ monodromy to 1.1e−12. G1⁰ = C* off a countable set of E (`scripts/_nve_kappa
 
 **Environment:** Python 3.14.5 (.venv), mpmath 1.3.0, sympy 1.14.0, numpy 2.4.6, macOS 27.2 arm64; 1 core, nice 10;
 under 1 GB; about 6 min per run.
+
+## §162 — The window up to the endpoint: no exceptional twist in [3.95, 30/7 − 10⁻¹²] (spin 3/5, E 4/5), by a half-plane argument-principle count with an exact-radicand c0 engine
+
+*Bridge GO after §161. Prereg `data/nve/WINDOW_PREREGISTRATION.md` (431c39d); code `scripts/_nve_lower_hp.py` (engine)
+and `scripts/_nve_lower_hp_count.py`.*
+
+**Why a new engine.** Near 30/7, the Laurent radius of c0 at infinity diverges, so gap B's circle picture fails there.
+- c0″ = −√(N_k/lcD)/(z² + a²)³, with the exact radicand numerator written as a product of principal square roots over
+  its roots.
+- Constants come from quadrature to ∞, and a 220-term series about z = 2 covers every loop.
+- Guards: no branch cut crosses the working region, and the series ratio stays ≤ 0.6.
+- The engine matches the Laurent series to 1.3e−51 where both apply.
+
+**Classifier.** The half-plane pair is M1 (lasso around {r+, p+}) and Γ (disc around {r+, p±}). For Kerr this pair is
+imprimitive (tr Γ = tr M1Γ = 0). So the verdict requires all of:
+- F_h = tr[M1, Γ] − 2 zero-free;
+- tr M1 zero-free, and one of tr Γ / tr M1Γ zero-free;
+- tr M1 avoiding every finite-subgroup trace.
+
+**Result.**
+- All 15 counted functions have zero zeros in R = [3.95, 30/7 − 10⁻¹²] × [−0.25, 0.25]i. **NO EXCEPTIONAL k IN R.**
+- Controls: engine reproduction; a truncated-series must-fail (fired); Kerr detected as imprimitive; a planted non-VA
+  member at 4.1 (agreeing with the independent circle pair); counter must-detect; three-step agreement 2.4e−20; clean
+  geometry and counts.
+- Combined with gap B and §161: at spin 3/5 and E 4/5, **every k in (0, 30/7 − 10⁻¹²] and k = 30/7 itself are
+  non-VA**. The only remaining gap is the open sliver (30/7 − 10⁻¹², 30/7): finite at most, and sampled clean at
+  three points.
+
+**Scope.** 50-digit floating point, not an interval certificate; one (E, spin); first-order lower-axis NVE. Under
+regularity on both outer axes, the physical family is 0 ≤ k ≤ 30/7 (T38 grading 1c). This closes the T38 1d window
+at this one (E, spin).
+
+**Environment:** Python 3.14.5 (.venv), mpmath 1.3.0, sympy 1.14.0, numpy 2.4.6, macOS 27.2 arm64; 1 core, nice 10;
+< 1 GB; ~35 min.

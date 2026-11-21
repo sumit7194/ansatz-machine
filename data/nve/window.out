@@ -1,0 +1,23 @@
+C-repro {'worst': 1.336389064294053e-51, 'ok': True} C-repro-F {'diff': 2.2499027886801997e-48, 'ok': True} MF-trunc {'c0_diff': 1.158236294556863e-08, 'F_diff': 1.056730145385696e-06, 'ok': True}
+C-repro-F-30/7 {'diff': 4.947900621350986e-15, 'ok': True}
+P1 {'TG': 1.273056431711344e-24, 'T1G': 2.4506491352608317e-22, 'cls': 'imprimitive (VA)', 'ok': True}
+P2 {'circle': {'F': '(8.373815217 + 18.70562349j)', 'trM0': '(1.761804741 - 1.491890718e-32j)', 'trM1': '(-1.866499789 + 1.104104708j)'}, 'circle_nonVA': True, 'halfplane': 'non-VA', 'ok': True}
+G-geo row Im=-0.25: fails so far 0
+G-geo row Im=-0.20: fails so far 0
+G-geo row Im=-0.15: fails so far 0
+G-geo row Im=-0.10: fails so far 0
+G-geo row Im=-0.05: fails so far 0
+G-geo row Im=+0.00: fails so far 0
+G-geo row Im=+0.05: fails so far 0
+G-geo row Im=+0.10: fails so far 0
+G-geo row Im=+0.15: fails so far 0
+G-geo row Im=+0.20: fails so far 0
+G-geo row Im=+0.25: fails so far 0
+G-geo True G-count {'(4.2857143 - 0.25j)': (1, 2), '(3.95 - 0.25j)': (1, 2), '(4.2857143 + 0.0j)': (1, 2), '(4.1107143 + 0.0j)': (1, 2), '(4.2857143 + 0.25j)': (1, 2), '(3.95 + 0.25j)': (1, 2)}
+boundary: 85 samples, geo fails 0
+refinement 1: inserted 0, now 85
+G-step {'worst_rel': 2.396873528671093e-20, 'ok': True}
+counts {'F': 0, 'T1': 0, 'TG': 0, 'T1G': 0, 'T1-s0': 0, 'T1-s1': 0, 'T1-s2': 0, 'T1-s3': 0, 'T1-s4': 0, 'T1-s5': 0, 'T1-s6': 0, 'T1-s7': 0, 'T1-s8': 0, 'T1-s9': 0, 'T1-s10': 0} max darg 0.6839395598661026
+C2 {'mul': 1, 'div': -1, 'out': 0, 'ok': True}
+sliver {'30/7-1e-13': {'F': '(-0.737260531789578 - 2.76903380084309j)', 'T1': '(-1.941918310642 + 0.712963512849223j)', 'cls': 'non-VA'}, '30/7-1e-14': {'F': '(-0.737260531790033 - 2.76903380084382j)', 'T1': '(-1.94191831064196 + 0.712963512849424j)', 'cls': 'non-VA'}, '30/7-1e-15': {'F': '(-0.737260531790079 - 2.76903380084389j)', 'T1': '(-1.94191831064195 + 0.712963512849444j)', 'cls': 'non-VA'}}
+VERDICT NO EXCEPTIONAL k IN R

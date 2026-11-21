@@ -66,3 +66,24 @@ result **UNDETERMINED (possible imprimitive point)**.
 - That last open sliver is reported with samples (F_h, T1 at 30/7 − 10^{−j}, j = 13, 14, 15), not counted.
 - 50-digit floating point; not an interval certificate; one (E, spin).
 - Peak memory expected < 1 GB (the engine stores ~220-term series). Estimated ~30–60 min, 1 core, nice 10.
+
+## RESULT (run 2026-11-21, PID 29329, from the registered code 431c39d unchanged): **NO EXCEPTIONAL k IN R**
+- **Counts over ∂R** (85 samples; no refinement needed; max |Δarg| = 0.684 < π/4):
+  - F_h: 0; T1: 0; TΓ: 0; T1Γ: 0; T1 − s: 0 for all 11 finite-subgroup trace values.
+  - So ⟨M1, Γ⟩ is irreducible, not imprimitive and not finite, hence Zariski-dense in SL₂, at every k in
+    [3.95, 30/7 − 10⁻¹²] × [−0.25, 0.25]i.
+- **All controls and guards pass:**
+  - C-repro: 1.3e−51. C-repro-F at 4.05: 2.2e−48. At 30/7, vs §161: 4.9e−15.
+  - MF-trunc fired: c0 diff 1.2e−8, F diff 1.1e−6.
+  - P1 Kerr detected as imprimitive (VA): |TΓ| 1.3e−24, |T1Γ| 2.5e−22.
+  - P2 at k = 4.1: non-VA by the circle pair (independent, Laurent) and by the half-plane classifier.
+  - C2: +1, −1, 0.
+  - G-geo: interior grid and boundary clean. G-count: (1, 2) at all 6 points.
+  - G-step: three steps agree to 2.4e−20.
+- **Sliver samples** (not counted): at 30/7 − 10^{−13}, 10^{−14} and 10^{−15}, F_h and T1 agree with the endpoint values
+  to ≤ 5e−13, and all three are classified non-VA.
+- **Consequence at (E 4/5, spin 3/5):**
+  - gap B (0, 4.05], this window [3.95, 30/7 − 10⁻¹²], and §161 (the endpoint) together give
+    **K*(3/5) ∩ (0, 30/7] ⊂ (30/7 − 10⁻¹², 30/7)**;
+  - finite there, and sampled clean at three points.
+- **Scope:** 50-digit floating point, not an interval certificate; one (E, spin).
