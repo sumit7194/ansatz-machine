@@ -72,3 +72,15 @@ and 19/20.
 - The physical family is 0 ≤ k ≤ 30/7 (T38 grading 1c). Region A's k < 0 part is a complex-metric region, included
   only to enclose k = 0.
 - Peak memory < 1 GB. Run sequentially, 1 core, nice 10, roughly 1–2 h per spin.
+
+**Run 1 (chain PID 29686): CRASH at spin 3/10, no verdict.**
+- Region A had completed and passed every registered check: F 2 zeros; tr M0, tr M1 and every T1 − s with 0; step
+  8e−23; C2 OK; Kerr 6e−50; C1 (2, 2). Region B's geometry and counts were also clean (span 0.35, (1, 2)).
+- The crash was in B-repro: the Laurent builder's ABSOLUTE 1e−40 thresholds (trimming the vanishing leading radicand
+  coefficient at k = 30/7, and detecting the leading series power) failed at spin 3/10, where the residual is larger
+  than 1e−40. That left a spurious root, ρ ~ 3e24.
+- Fixed with RELATIVE thresholds (1e−35 × scale) in `_nve_lower_kc.py` and `_nve_lower_hp.py`. Checked at spins 3/5,
+  3/10, 4/5 and 9/10, k ∈ {0.1, 4, 30/7} (ρ_c correct). At spin 3/5 it reproduces the original `_nve_lower.c0_laurent`
+  to ≤ 1e−50.
+- No criterion changed. The chain was stopped by me and is rerun from the start as run 2 (log of run 1:
+  `spin_run_3_10_crash1.out`).

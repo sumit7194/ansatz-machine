@@ -59,3 +59,6 @@
 2125 _nve_lower_k307.py 2026-11-21 16:38:26 k=30/7 rerun under A1
 8052 _nve_lower_k307.py 2026-11-21 16:44:05 k=30/7 A1 run 2
 29329 _nve_lower_hp_count.py 2026-11-21 17:02:35 window count registered run
+75408 spin geo scan (4 spins, sequential) 2026-11-21 17:56:50
+29686 spin_scan run chain (3/10, 4/5, 9/10) 2026-11-21 18:26:32
+29686 (+child 17357) stopped by me 19:24:35: spin 3/10 crashed in B-repro (Laurent threshold); fixing

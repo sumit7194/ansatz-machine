@@ -47,7 +47,8 @@ def c0_laurent_c(k, NW=None):
     k = mp.mpc(k)
     dN = max(N0.degree(), N1.degree())
     nc = [x + k * y for x, y in zip(_asc(N0, dN), _asc(N1, dN))]
-    while abs(nc[-1]) < mp.mpf(10) ** -40:
+    scale = max(abs(x) for x in nc)          # relative thresholds (absolute 1e-40 failed at spin 3/10, k = 30/7)
+    while abs(nc[-1]) < mp.mpf(10) ** -35 * scale:
         nc.pop()
     dc = _asc(DEN, DEN.degree())
     # rho only sets NW and is a guard: double precision suffices (numerator has double roots at k = 0;
@@ -66,7 +67,8 @@ def c0_laurent_c(k, NW=None):
     S = [mp.mpc(0)] * L
     for j in range(L):
         S[j] = (Nrev[j] - mp.fsum(S[i] * Drev[j - i] for i in range(j))) / Drev[0]
-    j0 = next(j for j in range(L) if abs(S[j]) > mp.mpf(10) ** (-40))
+    sS = max(abs(x) for x in S[:40])
+    j0 = next(j for j in range(L) if abs(S[j]) > mp.mpf(10) ** (-35) * sS)
     lead = dD - dN + j0               # w^8 for k < 30/7; w^10 at the endpoint k = 30/7 (J = 0); T38 grading 1d
     if lead not in (8, 10):
         raise RuntimeError(f"radicand leading power w^{lead}, expected w^8 or w^10")

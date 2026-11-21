@@ -63,7 +63,8 @@ class C0Engine:
         Zc = self.Z0
         dN = max(KC.N0.degree(), KC.N1.degree())
         asc = [x + k * y for x, y in zip(KC._asc(KC.N0, dN), KC._asc(KC.N1, dN))]
-        while abs(asc[-1]) < mp.mpf(10) ** -40:
+        scale = max(abs(x) for x in asc)
+        while abs(asc[-1]) < mp.mpf(10) ** -35 * scale:
             asc.pop()
         self.desc = list(reversed(asc))
         lcD = mp.mpf(sp.N(KC.DEN.LC(), 60))                 # DEN = lcD * (z^2 + a^2)^6 (checked: lcD = 5^12)
