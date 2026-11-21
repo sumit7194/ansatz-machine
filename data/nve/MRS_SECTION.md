@@ -20,12 +20,16 @@ abelian for every m ≥ 1.
 we compute, however, belongs to the v-equation in the axis coordinate u, not to the NVE on Γ in the time parameter.
 Two finite steps connect them, covered by Lemma C.
 
-**Lemma C (covering and gauge; source being checked, see §6).** Let L be a linear differential equation over the
+**Lemma C (covering and gauge; sources in §6).** Let L be a linear differential equation over the
 field K of meromorphic functions on a Riemann surface X, with Galois group G.
 - **(a)** If π: X̃ → X is a finite branched covering and L̃ is L pulled back to X̃, over K̃ = M(X̃) ⊇ K a finite
   extension, then Gal(L̃) is a finite-index subgroup of G. So (Gal L̃)⁰ = G⁰.
-- **(b)** If ξ = g·v with g algebraic over K (gⁿ ∈ K), the equations for ξ and for v have Picard–Vessiot extensions
-  that differ by the finite algebraic extension K(g). So their Galois groups have the same identity component.
+- **(b)** If ξ = g·v with g algebraic over K (gⁿ ∈ K), the identity components of the Galois groups of the equations
+  for ξ and for v coincide.
+  - **Proof.** First pass to K′ = K(g), a finite extension. That leaves each identity component unchanged (finite base
+    extension; §6).
+  - Over K′ the gauge is rational, so the two equations have the same Picard–Vessiot extension and the same Galois
+    group over K′.
 
 **Application.**
 - **The covering.** Let t be the time along the axis geodesic. Γ_E (y² = P) is a double cover of the u-sphere,
@@ -136,6 +140,18 @@ meromorphic there.
   - Stationary asymptotically flat space-times are "analytic in a neighbourhood of spatial infinity".
   - Caveat, read secondhand (Bäckdahl–Herberthson gr-qc/0606115): this may require nonzero mass. Ours is M = 1.
 - **Beig & Simon, Commun. Math. Phys. 78 (1980) 75–82: a static UNIQUENESS result.** Do not cite it for analyticity.
+- **Lemma C(a), finite branched coverings:** Morales-Ruiz & Ramis, Methods Appl. Anal. 8 (2001) 33–95, **Theorem 5**.
+  - SECONDHAND: quoted with this number by Acosta-Humánez & Blázquez-Sanz, arXiv:math-ph/0610010, p. 8 ("injective
+    homomorphism Gal(∇′) → Gal(∇) … isomorphism between their Lie algebras").
+  - Worked double-cover case VERIFIED at source: Audin, Ann. Fac. Sci. Toulouse 12 (2003) 1–23, p. 7. A double cover
+    ramified at the roots of P and at ∞, with identity components isomorphic. That is exactly our Γ_E → u-sphere step.
+  - Morales-Ruiz 1999 (Progr. Math. 179), "Theorem 2.5": NOT confirmed (the book was not accessible).
+- **Lemma C(b), finite base extension and gauge:**
+  - Combot, arXiv:1209.4747, Lemma 3 (p. 4): a finite extension of the base field gives the same identity component.
+    VERIFIED.
+  - Singer, arXiv:0712.4124, Corollary 1.3.10(3) (p. 14): K^{G⁰} is the algebraic closure of k in K. VERIFIED.
+  - The rational-gauge step over K(g) is immediate.
+  - (van der Put–Singer 2003, "Prop. 1.34": number NOT confirmed.)
 - **Fodor, Hoenselaers & Perjés, J. Math. Phys. 30 (1989) 2252–2257, DOI 10.1063/1.528551: VERIFIED (abstract).**
   Moments are expressed through the expansion coefficients of the axis Ernst potential.
 - Baouendi–Goulaouic (Fuchsian Cauchy–Kovalevskaya); Hauser–Ernst 1981; Sibgatullin: to check.
