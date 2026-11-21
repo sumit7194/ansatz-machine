@@ -71,3 +71,6 @@
 9439 t48b_spin S3 rerun chain (3/10, 4/5, 9/10) 2026-11-22 01:24:19
 40910 endpoint scaling (4 spins) 2026-11-22 01:45:54
 78121 S4 sliver spin 3/10 2026-11-22 02:10:36
+99413 _nve_spin_locateA.py 9/10 (post hoc) 2026-11-22 03:49:36
+407 a_c secant driver 2026-11-22 03:50:19
+14474 a_c secant driver (retry) 2026-11-22 04:02:52

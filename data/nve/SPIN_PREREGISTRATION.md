@@ -309,3 +309,14 @@ circle-type pair there is Zariski-dense (floating point, relayed). We have not r
   |Δa| < 1e−12.
 - Then the circle pair at a_c, with Z1–Z4 at steps 0.2 and 0.12.
 - **Pass:** a_c agrees with T50 to ≥ 10 digits, and the circle pair is non-VA.
+
+**a_c reproduction RESULT (2026-11-22; `ac_secant.out`, `ac_circle.out`): PASS. a_c is two-implementation.**
+- **Our secant on the endpoint tr Y:** a_c = 0.858446198791717253463097 (final residual tr Y = 5.7e−23). T50:
+  0.858446198791717253463067. Agreement to 22 digits.
+- **Circle pair at a_c** (R0 = 1.190, with ρ_c = 0.858 and outer min |z| = 1.521, so margins of 0.33 on each side):
+  - F = 35.297 + 15.820i;
+  - tr M0 = 0.89973;
+  - tr M1 = −0.89489 + 2.88422i (non-real, at distance 2.886 from S);
+  - tr M0M1 = 6.4250 + 2.7575i;
+  - steps 0.2 and 0.12 agree to 1.0e−34.
+  - So Z1–Z4 hold: Zariski-dense, non-VA, at the spin where the half-plane pair degenerates. Floating point (50 digits).
