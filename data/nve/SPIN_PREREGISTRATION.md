@@ -276,3 +276,29 @@ Code: `data/nve/t48b_s4/sliver_s4.py`. It is `sliver_spin.py` with these changes
 - By tr(W²) = (tr W)² − 2, τ(A, B) = −(tr M2M1M3)².
 - For trace-zero X, Y, Z, tr(XYZ) = −tr(XZY). So tr(M2M1M3) = −tr(M2M3M1) = −tr Y, and τ(A, B) = −(tr Y)².
 - In words: A and B commute exactly when the 3-point loop Y has trace 0, which is the imprimitive (Kerr-like) case.
+
+## Comparison with Neon T50 (blind; our numbers were not given to it), graded 2026-11-22: **AGREE to every printed digit**
+Source: `neon_work/onlykerr/T50_full.md` and `T50_code/endpoint_spin_study.py` (sha256 b4024130…). T50's values were
+compared with our committed `endpoint_scaling.out` (e025bbf, 15 significant digits printed):
+- **Spin 0.3:** τ(M1, M3) −0.023827775480582 − 0.509903821338622i; τ(A, B) −4.4550650918703e−10. Equal.
+- **Spin 0.6:** τ(M1, M3) −0.737270245448137 − 2.7690338008439i; τ(A, B) −9.71365805269462e−6. Equal.
+- **Spin 0.8:** τ(M1, M3) −5.94162746200745 − 6.13124334276386i; τ(A, B) −9.0592502892551e−4. Equal.
+- **Spin 0.9:** τ(M1, M3) −17.1099311668528 + 0.608299045397344i; τ(A, B) −0.0308000378939229; tr Y −0.175499395708142.
+  Equal.
+- **Also found independently by T50:** the exact relation τ(A, B) = −(tr M1M2M3)². Its Kerr controls are imprimitive at
+  every spin.
+
+**Independence, stated exactly:**
+- **Independent:**
+  - the integrators: T50's order-44 Taylor scheme vs our §159 power-series walker;
+  - the endpoint c0: T50's elementary closed form vs our Laurent series at ∞;
+  - the root finding;
+  - the code.
+- **Shared:** the CHOICE of loop classes (single-point loops around p+, p− and r+, based on the real axis to the right).
+  Both descend from Neon's T48b loops; T50's box sizes and base point differ from ours (0.45 vs 0.49 × Im u_p, base
+  3·Im u_p vs max(0.25, 2·Im u_p)). Traces depend only on the classes.
+- **Wording:** "two independent implementations of the same loop invariants". The classes are a choice of generators,
+  not an input that could bias the values.
+
+**T50's degenerate spin** a_c = 0.858446198791717253… (secant, 30 digits) lies in our (0.8, 0.9). Its independent
+circle-type pair there is Zariski-dense (floating point, relayed). We have not reproduced it yet.
