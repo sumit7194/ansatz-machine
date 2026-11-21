@@ -320,3 +320,19 @@ circle-type pair there is Zariski-dense (floating point, relayed). We have not r
   - tr M0M1 = 6.4250 + 2.7575i;
   - steps 0.2 and 0.12 agree to 1.0e−34.
   - So Z1–Z4 hold: Zariski-dense, non-VA, at the spin where the half-plane pair degenerates. Floating point (50 digits).
+
+## Spin 9/10 (run 2): registered verdict **EXCEPTIONAL CANDIDATES**, resolved POST HOC as no real exception (labelled)
+- **Region A:** count(F) = 3, where Kerr's double zero accounts for 2. tr M0, tr M1 and every T1 − s are zero-free.
+  Step agreement 2.4e−20; C2 OK (4 and 2); Kerr |F| 1e−50; **C1 on |k| = 0.3: (2, 2), so the extra zero lies outside
+  |k| < 0.3.**
+- **Region B:** all 15 functions zero-free, with tr Γ zero-free, so S1 was not needed. Step agreement 3e−22; every
+  control OK. Endpoint and sliver samples non-VA.
+- **Post-hoc location** (`_nve_spin_locateA.py`, `spin_locateA_9_10.out`; region A was not covered by S1, and its count
+  had been seen first):
+  - **No reflection symmetry:** F(k̄) vs conj F(k) differ by a relative 1.12–3.58 on the ±0.25i rows. So an odd count
+    does NOT force a real zero.
+  - **The extra zero is at k = 0.11011286321 + 0.34146478076i,** with |F| = 7e−36, tr M0 = 2.0018 − 0.0011i and
+    tr M1 = 0.250 + 3.869i. It is **off the real axis**, so it is physically irrelevant: the twist parameter is real.
+  - Hence **no real exceptional k at spin 9/10, E = 4/5, in (0, 30/7 − 1e−12] or at 30/7.**
+- **Lesson for the record:** S1 covered region B only. A resolution protocol must cover every counted region, and
+  should say up front that only real zeros of the classifier functions matter physically.

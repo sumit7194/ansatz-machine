@@ -4802,3 +4802,46 @@ at this one (E, spin).
 
 **Environment:** Python 3.14.5 (.venv), mpmath 1.3.0, sympy 1.14.0, numpy 2.4.6, macOS 27.2 arm64; 1 core, nice 10;
 < 1 GB; ~35 min.
+
+## §163 — Spin coverage of the branched-twist family (spins 0.3, 0.6, 0.8, 0.9 at E = 0.8): no real exceptional twist found; the obstruction weakens like a^7–a^8 toward low spin
+
+*Prereg and every amendment, result and lesson: `data/nve/SPIN_PREREGISTRATION.md` (0db8841 → S1 94df693 → S2 22cd905 →
+S3 835ead3 → S4 c0652b1). Code: `scripts/_nve_spin_scan.py`, `_nve_spin_locate*.py`, `_nve_spin_kstar.py`,
+`_nve_endpoint_scaling.py`, `_nve_ac.py`, and `data/nve/t48b_spin`, `t48b_s4`.*
+
+**What was run at each spin** (spin enters only via NVE_SPIN; checked symbolically that the family's constants are
+spin-independent):
+- **Region A:** the circle picture (Laurent c0), over k ∈ [−½, 4 (3.85 at spin 0.9)] × [−½, ½]i.
+- **Region B:** the half-plane picture (exact-radicand engine), over [3.95 (3.8 at spin 0.9), 30/7 − 1e−12] ×
+  [−¼, ¼]i (±0.15 at spin 0.9).
+- **The endpoint** k = 30/7, classified directly.
+- **The sliver** (30/7 − δ0, 30/7] by an interval certificate: our patched and generalised T48b.
+
+**Results:**
+| spin | region A | region B | sliver (interval) |
+|---|---|---|---|
+| 0.3 | clean (2 zeros = Kerr) | clean | δ0 = 7.4e−15 only (S4 FAIL, final); the rest of the 1e−12 sliver is floating point |
+| 0.6 | (§162 / gap B) | (§162) | δ0 = 1.33e−11 (patched T48b: 1.37e−11) |
+| 0.8 | clean | registered rule failed (tr Γ and tr M1Γ share a zero at k* = 4.00816; tr M1Γ = tr M1·tr Γ identically); resolved post hoc: circle pair dense at k* | δ0 = 2.41e−10 (S3) |
+| 0.9 | one extra F zero, located post hoc OFF the real axis (k = 0.110 + 0.341i) | clean | δ0 = 3.63e−10 (S3) |
+
+**Endpoint obstruction vs spin.** One number, tr Y (the Γ-like 3-point loop), carries the near-imprimitivity:
+τ(A, B) = −(tr Y)² exactly. It takes the values 2.11e−5, 3.12e−3, 3.01e−2 and −0.1755 at spins 0.3, 0.6, 0.8 and
+0.9, a log-log slope of 7.2–7.9. **Independently reproduced blind by Neon T50 to all 15 printed digits** (independent
+integrator, c0 form and roots; shared choice of loop classes). tr Y changes sign at **a_c = 0.8584461987917172534631**
+(ours and T50 agree to 22 digits). There the half-plane pair is imprimitive, but the circle pair is Zariski-dense
+(F = 35.3 + 15.8i).
+
+**Lessons recorded:**
+- A classifier's trace triple must be independent on the region: tr M1Γ = tr M1·tr Γ, because M1Γ⁻¹ is a
+  single-point loop.
+- Thresholds must be relative (an absolute 1e−40 failed at spin 0.3).
+- A resolution protocol must cover every region, and only REAL zeros matter physically.
+- Spins 0.8 and 0.9 resolutions are POST HOC; spin 0.3 and the sliver certificates are registered (S2–S4).
+
+**Scope.** E = 0.8 only; four spins; first-order lower-axis NVE; 50-digit floating point except the interval sliver;
+integrals meromorphic near the complexified orbit. Spins below 0.3 are not tested. The physical family is
+0 ≤ k ≤ 30/7 (T38 grading 1c).
+
+**Environment:** Python 3.14.5 (.venv), mpmath 1.3.0, sympy 1.14.0, numpy 2.4.6, scipy (T48b scripts), macOS 27.2
+arm64; 1 core per job, nice 10; < 1 GB. About 20 h of compute in total.
