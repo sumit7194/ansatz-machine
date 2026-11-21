@@ -193,3 +193,25 @@ Z1b dropped) with three changes:
    - At spin 3/5 the matrix test already passes, so 3/5 is unaffected.
 3. **Rerun spins 3/10, 4/5 and 9/10.** Pass criteria and report rules are as in S2, including δ0 > 1e−12, the Kerr
    control and the wrong tail.
+
+**S3 RESULT (2026-11-22; label: under post-failure amendment S3):**
+- **Spin 4/5: PASS.** Certified δ0 = 2.40765e−10 (241 × 1e−12).
+  - Z1 |τ(M1, M3)| ≥ 8.49; Z3 |tr A| ≥ 7.47, |tr B| ≥ 2.53, |tr AB| ≥ 2.43; Z4 Im tr B ∈ [2.041, 2.051].
+  - Kerr enclosure top 0.0020 < endpoint bottom 0.0759. The wrong tail shrinks δ0 to 1.2e−18.
+- **Spin 9/10: PASS.** Certified δ0 = 3.63466e−10 (363 × 1e−12).
+  - Z1 ≥ 16.97; Z3 ≥ 15.0, 3.60, 2.95; Z4 Im tr B ∈ [3.602, 3.642].
+  - Kerr 0.0025 < 0.668. Wrong tail 2.8e−18.
+- **Spin 3/10: FAIL. The method's margin is genuinely too small at low spin.** It is not a precision accident. Our
+  50-digit walker on the same loops gives:
+  - τ(A, B) = −4.455e−10, identical for every pairing of the three single-point loops, while τ(M1, M3) = −0.0238 −
+    0.5099i;
+  - for the alternative pair X = M3M1 (the lasso) and Y = M2M3M1 (Γ-like): τ(X, Y) = −0.0238 − 0.5099i, but
+    **tr Y = 2.1e−5** and tr XY = 4.2e−5.
+  - So the endpoint group at spin 3/10 is NEAR-imprimitive: either the pair nearly commutes or one trace is nearly 0.
+    It is still Zariski-dense in floating point (region B counts, §161-type endpoint classification, sliver samples).
+  - With drift constants r ~ 1e5, Z2 on (A, B) cannot keep a 4e−10 margin for any δ0 near 1e−12.
+  - **A possible S4 (not run; needs the Bridge's OK):** the (X, Y) pair at iv.dps ≥ 30 with tighter defect tolerances,
+    so that tr Y ≈ 2e−5 is enclosed away from 0, with the drift kept below 2e−5. A rough estimate gives δ0 ~ 1e−11,
+    which is marginal.
+- **Net for the sliver:** interval-certified at spins 3/5, 4/5 and 9/10 (E = 4/5). At spin 3/10 it is covered by
+  50-digit floating point only (samples at 30/7 − 1e−13 to 1e−15, and the endpoint, all non-VA).
