@@ -104,3 +104,37 @@ rerun):**
   the accuracy arbiter.
 - The endpoint computation itself is unchanged (deterministic), so A1 can only turn VOID into a verdict, not change the
   numbers. That grade must stay visible.
+
+## AMENDMENT A1 (2026-11-21, Bridge OK with conditions; post-failure AND post-unblinding: the endpoint values were seen)
+Result label: **"verdict under post-unblinding amendment A1"**. Independent confirmation (Neon T41 and/or a Bridge
+check) is required before the digest calls it settled. Each fix keeps a way to fail:
+
+1. **C-c0, domain-restricted, with a must-fail.**
+   - In-domain points, fixed now: 1.4 + 0.3i, 2 + 0.5i, 2.5 − 1i, 3 + 2i, 1.2 + 2.5i (all Re z > spin + 0.5).
+   - Required: |Laurent − ray| ≤ 1e−15 at each.
+   - **Must-fail, labelled "flagged other branch":** z = −1.8 + 2.2i, outside the ray domain. Required:
+     |Laurent − ray| ≥ 1e−3 AND |Laurent + ray| ≤ 1e−15.
+2. **Derivative column, fixed, with a planted known derivative.**
+   - `c0_ray` now runs at the caller's precision. The guard is `mp.diff` of `c0_ray` against the Laurent series'
+     exact derivative `c0_eval(C, z, 1)`, at k = 4, 39/10 and 30/7, at 1.4 + 0.3i, 2 + 0.5i and 3 + 2i.
+   - Required: agreement to 1e−15 AND |c0′| ≥ 1e−4 at every point, so a column that silently zeroes fails.
+   - Then the C-cont c0′ column must be nonzero and monotone. The c0 and point columns keep their slope window
+     [0.3, 1.2].
+3. **C-geo clearance, scale-relative.**
+   - Lasso clearance ≥ 0.3 × dist(p−, segment [r+, p+]); disc clearance ≥ 0.3 × (|r− − centre| − max radius of the
+     enclosed points). The other C-geo clauses are unchanged.
+   - **The accuracy arbiter is three steps, 0.35, 0.2 and 0.12.** Every pair must agree, for F, F_h, tr M0, tr M1 and
+     tr Γ, to a relative **1e−15**, fixed now.
+4. **Unchanged:** C0, P1, P2, the counts, C-cont-fire, and every endpoint computation and outcome threshold.
+
+**Scope, answering the Bridge's question.** "Endpoint value plus continuity from below" covers only a neighbourhood
+(30/7 − δ₀, 30/7] of the endpoint, with δ₀ > 0 unknown: continuity gives existence, not size. What A1 can establish
+at (E 4/5, spin 3/5):
+- (i) the endpoint itself;
+- (ii) no accumulation of exceptional k at 30/7. With analyticity on (0, 30/7) and gap B, K*(3/5) ∩ (0, 30/7] is then
+  a **finite** subset of (4.05, 30/7 − δ₀].
+
+It does **not** show that window empty. Covering (4.05, 30/7) needs a separate run: a gap-B-type count in the
+half-plane picture. The circle picture is refused there, since ρ_c > 1.1 already at k ≈ 4.114. The obstacle is c0
+near 30/7, where the Laurent radius blows up. The route is to integrate c0″ = −√R(z) (R rational and known exactly)
+alongside the NVE, starting from the Laurent series at large |z|. Not proposed here; a separate prereg if wanted.

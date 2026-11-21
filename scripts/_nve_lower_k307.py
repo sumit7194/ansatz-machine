@@ -41,6 +41,7 @@ def disc_lasso(center, R, n=96):
 def loops_at(pr, outer):
     rp, rm, pp, pm = outer
     lasso, delta = KC.capsule_lasso(rp, pp, [rm, pm])
+    sep_l = KC.seg_dist(pm, rp, pp)
     cen = (rp + pp + pm) / 3
     md = max(abs(c - cen) for c in (rp, pp, pm))
     clear = abs(rm - cen) - md
@@ -49,8 +50,9 @@ def loops_at(pr, outer):
     geo = dict(rho=float(pr.rho), lasso_clr=float(min(KC.path_dist(c, lasso) for c in (rm, pm))),
                disc_clr=float(abs(rm - cen) - R), disc_left=float(mp.re(cen) - R),
                outer_min_abs=float(min(abs(c) for c in outer)))
-    geo["ok"] = (pr.rho <= 1.1 and geo["lasso_clr"] >= 0.05 and geo["disc_clr"] >= 0.05
-                 and geo["disc_left"] >= float(A) + 0.1 and geo["outer_min_abs"] >= 1.55)
+    geo["sep_lasso"], geo["sep_disc"] = float(sep_l), float(clear)
+    geo["ok"] = (pr.rho <= 1.1 and geo["lasso_clr"] >= 0.3 * float(sep_l) and geo["disc_clr"] >= 0.3 * float(clear)
+                 and geo["disc_left"] >= float(A) + 0.1 and geo["outer_min_abs"] >= 1.55)   # A1: scale-relative
     return lasso, gam, geo
 
 
@@ -65,8 +67,8 @@ def track_to(k_target, seeds):
 
 
 # ---------------------------------------------------------------------------------------- ray formula (T14)
-def c0_ray(zz, k, dps=30):
-    with mp.workdps(dps):
+def c0_ray(zz, k):          # A1: runs at the caller's precision (the old internal workdps(30) zeroed mp.diff)
+    if True:
         u = zz / A
         c4, c2, c0p = 90 - 21 * k, -(60 - 18 * k), 10 - k
         f = lambda x: x * (1 - x) * u**-2 * (1 + x**2 * u**-2) ** -3 * mp.sqrt(c4 + c2 * x**2 * u**-2 + c0p * x**4 * u**-4)
@@ -133,19 +135,34 @@ def main():
     log("C-geo", geoE)
     # C-c0: Laurent (w^10 path) vs ray
     errs = []
-    for zz in (mp.mpc(1.4, 0.3), mp.mpc(2, 0.5), mp.mpc(2.5, -1), mp.mpc(-1.8, 2.2), mp.mpc(3, 2), mp.mpc(0.5, 3.9)):
+    for zz in (mp.mpc(1.4, 0.3), mp.mpc(2, 0.5), mp.mpc(2.5, -1), mp.mpc(3, 2), mp.mpc(1.2, 2.5)):   # A1: Re z > a only
         errs.append(abs(L.c0_eval(prE.C, zz) - c0_ray(zz, K307)))
     V["controls"]["C-c0"] = dict(maxdiff=float(max(errs)), ok=bool(max(errs) < 1e-15))
-    log("C-c0", V["controls"]["C-c0"])
+    zo = mp.mpc(-1.8, 2.2)                                   # A1 must-fail: off-domain point, other branch
+    lo, ro = L.c0_eval(prE.C, zo), c0_ray(zo, K307)
+    V["controls"]["C-c0-mustfail"] = dict(diff=float(abs(lo - ro)), sum=float(abs(lo + ro)),
+                                          ok=bool(abs(lo - ro) >= 1e-3 and abs(lo + ro) <= 1e-15))
+    log("C-c0", V["controls"]["C-c0"], "must-fail (flagged other branch)", V["controls"]["C-c0-mustfail"])
+    # A1: planted known derivative (Laurent exact derivative vs mp.diff of the ray formula)
+    worst, small = 0.0, 9.0
+    for kk in (mp.mpf(4), mp.mpf(39) / 10, K307):
+        prk = KC.ProblemC(KC.FK, kk, E2)
+        for zz in (mp.mpc(1.4, 0.3), mp.mpc(2, 0.5), mp.mpc(3, 2)):
+            dl = L.c0_eval(prk.C, zz, 1)
+            dr = mp.diff(lambda t: c0_ray(t, kk), zz)
+            worst, small = max(worst, float(abs(dl - dr))), min(small, float(abs(dl)))
+    V["controls"]["C-deriv"] = dict(worst=worst, min_abs=small, ok=bool(worst <= 1e-15 and small >= 1e-4))
+    log("C-deriv", V["controls"]["C-deriv"])
     # endpoint monodromies at two steps
     res = {}
-    for step in ("0.35", "0.2"):
+    for step in ("0.35", "0.2", "0.12"):
         M0, M1, Gm, M0sq = mono(prE, posE, step, [KC.M0_PATH, lassoE, gamE, L.arc(B0, 0, 4 * mp.pi)])
         res[step] = dict(F=tr(comm(M1, M0)) - 2, Fh=tr(comm(M1, Gm)) - 2, trM0=tr(M0), trM1=tr(M1), trG=tr(Gm),
                          P2=tr(comm(M0sq, M0)) - 2)
         log("endpoint", step, {kk: mp.nstr(v, 15) for kk, v in res[step].items()})
-    a, b = res["0.35"], res["0.2"]
-    rel = max(float(abs(a[kk] - b[kk]) / max(abs(b[kk]), mp.mpf(10) ** -30)) for kk in ("F", "Fh", "trM0", "trM1", "trG"))
+    a, b = res["0.35"], res["0.12"]
+    rel = max(float(abs(x[kk] - y[kk]) / max(abs(y[kk]), mp.mpf(10) ** -30)) for kk in ("F", "Fh", "trM0", "trM1", "trG")
+              for x, y in ((res["0.35"], res["0.2"]), (res["0.35"], res["0.12"]), (res["0.2"], res["0.12"])))
     V["controls"]["C-step"] = dict(worst_rel=rel, ok=rel <= 1e-15)
     V["controls"]["P2"] = dict(val=float(abs(b["P2"])), ok=bool(abs(b["P2"]) <= 1e-25))
     log("C-step", V["controls"]["C-step"], "P2", V["controls"]["P2"])
@@ -176,7 +193,7 @@ def main():
         xs = [math.log(r[0]) for r in rows]; ys = [math.log(r[col]) for r in rows]
         mx, my = sum(xs) / len(xs), sum(ys) / len(ys)
         return sum((x - mx) * (y - my) for x, y in zip(xs, ys)) / sum((x - mx) ** 2 for x in xs)
-    mono_ok = all(rows[i][c] > rows[i + 1][c] for i in range(3) for c in (1, 2, 3))
+    mono_ok = all(rows[i][c] > rows[i + 1][c] for i in range(3) for c in (1, 2, 3)) and all(r[2] > 0 for r in rows)
     sl = (slope(1), slope(3))
     V["controls"]["C-cont"] = dict(rows=rows, slope_c0=sl[0], slope_points=sl[1],
                                    ok=bool(mono_ok and all(0.3 <= s_ <= 1.2 for s_ in sl) and rows[-1][3] < 1e-2))
@@ -191,10 +208,10 @@ def main():
     elif abs(b["F"]) <= 1e-25:
         V["verdict"] = "ENDPOINT VA-COMPATIBLE"
     elif all(nz(b[kk]) for kk in ("F", "Fh", "trM0", "trM1", "trG")) and abs(mp.im(b["trM1"])) > 1e-8 and dS >= 1e-3:
-        V["verdict"] = "ENDPOINT OBSTRUCTED (non-VA); no accumulation of K*(3/5) at 30/7 at E = 4/5"
+        V["verdict"] = "ENDPOINT OBSTRUCTED (non-VA); no accumulation of K*(3/5) at 30/7 at E = 4/5 [verdict under post-unblinding amendment A1]"
     else:
         V["verdict"] = "UNDETERMINED (a trace near zero or near S)"
-    json.dump(V, open(os.path.join(L.OUT, "k307_verdict.json"), "w"), indent=1, default=str)
+    json.dump(V, open(os.path.join(L.OUT, "k307_A1_verdict.json"), "w"), indent=1, default=str)
     log("VERDICT", V["verdict"])
 
 
