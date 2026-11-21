@@ -72,3 +72,45 @@ basepoint conjugations are applied consistently to the three loops.
 
 **Status:** conditional on (a) the gap fix and (b) a code read, T48 would close the sliver at spin 0.6 for E = 0.8
 and 1.5. It is also conditional on our floating-point counts on (0, 30/7 − 10⁻¹²], as it says itself.
+
+---
+
+## T48b (the Zariski-density certificate), code read plus independent reproduction, 2026-11-21: SOUND; the sliver is closed at spin 0.6 for E = 0.8 and 1.5 (with one trivial rigour fix)
+Script: `neon_work/onlykerr/T48b_code/sliver_closure_iv.py` (sha256 80f6b0c9…). Run from a scratch copy with
+`python -I`. Output: `data/nve/t48b_rerun.out`.
+
+**Reproduced:** δ0 = 1.37288e−11 at E = 0.8 (13.7 × 10⁻¹²) and 2.03609e−10 at E = 1.5. All of Z1–Z4 hold. The Kerr
+controls are tight and disjoint from the endpoint: [0, 0.00168] vs ≥ 0.00361, and [0, 0.108] vs ≥ 1.110. The
+wrong-tail controls collapse δ0 by 3e9 and 2e8. Runtime 201 s.
+
+**Code read (the rigour points):**
+- **Interval primitives:** csqrt and clog raise unless Re > 0. c0 at 30/7 comes from Neon's elementary closed form,
+  which agrees with our Laurent c0 to double precision at 4 loop points. Its box enclosure is a centred form. That is
+  valid for complex functions, because the integral remainder lies in a convex box.
+- **q and its derivatives:** exact interval Taylor arithmetic on f0⁻ = Re(1/e) and P′/P. I checked the c0‴ and c0⁗
+  chain rule and the q″ and q‴ factors.
+- **The defect is enclosed over WHOLE subintervals:** Horner over t ∈ [−½, ½], plus the q‴(U_box) Taylor remainder ×
+  [−1/8, 1/8]. Nothing is sampled. The quintic Hermite coefficients reproduce the endpoint value, first derivative and
+  second derivative exactly (checked symbolically), so the piecewise interpolant is continuous and Gronwall applies.
+- **Floating point only seeds:** float DOP853 supplies only the Hermite data and is converted into intervals. The
+  endpoint monodromy is inflated by ‖S⁻¹Φ̃(1)‖·η.
+- **The classifier logic (Z1–Z4) is correct and complete** for algebraic subgroups of SL₂: reducible, imprimitive,
+  finite, or SL₂. The trace drift is bounded by 2 × the ∞-norm bounds.
+
+**Independent reproduction on Neon's own loops** (our 50-digit walker, steps 0.35 and 0.2 agreeing to 12 digits):
+- |τ(M1, M3)| = 2.86550 ∈ [2.86336, 2.86765];
+- |tr A| = 3.57243 ∈ [3.57080, 3.57406];
+- |tr B| = |tr AB| = 2.06866 ∈ the certified intervals;
+- Im tr B = 0.71296 ∈ [0.71214, 0.71378];
+- tr M1 = tr M3 = 0 to 1e−46 (single-point loops, as expected).
+
+**Remaining issues (minor):**
+1. **The basis is not exactly a conjugation.** M^(S) = S_iv⁻¹·M·Φ̃(0), but Φ̃(0) is the float midpoint of S, which may
+   lie about 1e−16 outside the decimal-string interval S_iv. So it is not exactly a conjugation. Every margin is many
+   orders larger, but the fix is one line: make S_iv the exact float matrix, or start from S_iv as an interval.
+2. **Z1b at E = 1.5 is unnecessary and sets δ0 there** (lower bound 1.07e−14). Z1 alone, |τ(M1, M3)| ≥ 1.58, already
+   gives irreducibility. Dropping Z1b would raise δ0 at E = 1.5.
+
+**Combined status at spin 0.6:** (0, 4.05] (gap B), [3.95, 30/7 − 10⁻¹²] (§162), [30/7 − δ0, 30/7] (T48b,
+interval-certified) and k = 30/7 (§161) leave no exceptional k at E = 0.8, and likewise at E = 1.5 for the sliver.
+Only the sliver part is interval-certified; the rest are 50-digit floating-point counts.
