@@ -4540,3 +4540,32 @@ pole-order-1 Carter² survival.
     - finding singular points by full search cost 390 s per k; Newton-tracking them costs 0.4 s;
     - the fixed M1 rectangle breaks near k ≈ 3.5, so M1 became an adaptive lasso;
     - extra inner zero/pole pairs appear for k < 0, and they set the left edge of the region.
+
+## 2026-11-21/22 — Only-Kerr referee round: T38 grading, the endpoint, the window, spin coverage, the reference claim
+- **T38 graded** (d153394).
+  - k < 0 is not physical, because c0 is complex on the lower outer axis.
+  - k = 30/7 is a J = 0 member. Its endpoint is obstructed (§161, under post-unblinding A1, after a VOID and a
+    crash).
+  - The window [3.95, 30/7 − 1e−12] is clean (§162, half-plane count, exact-radicand engine).
+  - 2a closed: v± = (ND)^{1/4}e^{±κu}.
+- **Neon checks:**
+  - T48/T48b: code read, reproduced, two fixes (`t48b_fixed`), so the sliver is interval-certified at spin 0.6.
+  - T49: the MRS draft is sound.
+  - T50: blind, agrees to 15 digits.
+  - Citations checked at source; the Casale use was dropped.
+- **Spin coverage (§163; spins 0.3, 0.6, 0.8, 0.9):** no real exceptional k.
+  - The sliver is interval-certified at 0.6, 0.8 and 0.9; at 0.3 only to 7e−15 (S4 FAIL, final).
+  - The obstruction scales as |tr Y| ~ a^7–8, with τ(A, B) = −(tr Y)².
+  - a_c is two-implementation.
+- **Post-hoc resolutions,** both labelled:
+  - spin 0.8: the zeros of tr Γ and tr M1Γ coincide, because tr M1Γ = tr M1·tr Γ;
+  - spin 0.9: an extra zero of F, which lies off the real axis.
+- **Lessons:**
+  - trace triples must be independent (check the Fricke relations);
+  - thresholds must be relative;
+  - a resolution protocol must cover every region, and only real zeros matter.
+- **Deliverables:**
+  - reference claim `data/nve/CLAIM_FAMILY_II.md` (eed501f);
+  - MRS section `data/nve/MRS_SECTION.md`, with Lemma C (covering and gauge) and checked citations.
+  - The Bridge calls the pre-outreach list complete on our side.
+- **Status:** the hold on new directions stands until Sumit discusses the ideas file.
