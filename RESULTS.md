@@ -4728,3 +4728,43 @@ by exact QQ row reduction at fixed rational parameters plus the symbolic identit
 
 **Environment:** Python 3.14 (.venv), sympy 1.14.0, macOS arm64; run 2026-09-26 (commit 5365bd7). Stamp:
 `ENVIRONMENT/stamp.json`.
+
+## §161 — The endpoint k = 30/7 of the branched-twist family (J = 0): obstructed at first order on the lower axis; exceptional k cannot accumulate there [verdict under post-unblinding amendment A1]
+
+*From grading Neon T38 (point 1d, `data/nve/T38_GRADING.md`). Bridge GO; prereg `data/nve/K307_PREREGISTRATION.md`
+(7702285); code `scripts/_nve_lower_k307.py`.*
+
+**Why it was needed.**
+- At k = 30/7, B = (40/7)(3w + 1) > 0, and the twist's angular-momentum term (∝ √(90 − 21k)) vanishes. So the
+  endpoint is a real, asymptotically flat, J = 0 member that no result covered.
+- Also, c0 is not analytic in k there, so exceptional k could accumulate at 30/7.
+- Under regularity on both outer axes, the physical family is 0 ≤ k ≤ 30/7: for k < 0, c0 is complex on the lower
+  outer axis (T38 grading 1c).
+
+**History, kept visible:**
+- The registered run was **VOID**, with three control failures:
+  - an off-domain test point for the ray-formula cross-check;
+  - an absolute clearance threshold at a genuine near-collision (the poles sit ~0.05 from r+);
+  - a precision bug that zeroed the derivative column.
+- Amendment A1 came after the endpoint values were seen (Bridge OK with conditions): a must-fail kept for the off-domain
+  point, a planted-derivative guard, scale-relative clearance, and a three-step arbiter.
+- A1 run 1 crashed (a type bug, fixed with one line). A1 run 2: all 10 controls pass.
+
+**Result (spin 3/5, E = 4/5):**
+- F = tr[M1, M0] − 2 = 18.08 + 66.86i; tr M0 = 1.7034; tr M1 = −1.942 + 0.713i (non-real, at distance 0.715 from the
+  finite-subgroup trace set). So the pair is Zariski-dense in SL₂, and the endpoint is non-VA.
+- The half-plane pair (needed for continuity): F_h = −0.737 − 2.769i, tr Γ = −0.0031, both nonzero.
+- Continuity from below: c0 and the singular points converge monotonically (slopes ~0.88).
+- So K*(3/5) ∩ (0, 30/7] is finite and lies in (4.05, 30/7 − δ₀], with δ₀ unknown.
+
+**Scope.**
+- One (E, spin), 50-digit floating point. The continuity step is an argument plus a numerical exercise.
+- The window (4.05, 30/7 − δ₀] is NOT shown free of exceptions. That needs a half-plane covering run (not done).
+- Independent confirmation is pending (Neon T41 / the Bridge).
+
+**Also from the T38 grading (2a), recorded here.** For two simple poles, the first-order solutions are
+(ND)^{1/4}·e^{±κu}, with κ² = [E²(z1 − z2)² + μ²(2a0 + a1(z1 + z2) + 2a2·z1·z2)]/4. This matches the §159
+monodromy to 1.1e−12. G1⁰ = C* off a countable set of E (`scripts/_nve_kappa_omega.py`).
+
+**Environment:** Python 3.14.5 (.venv), mpmath 1.3.0, sympy 1.14.0, numpy 2.4.6, macOS 27.2 arm64; 1 core, nice 10;
+under 1 GB; about 6 min per run.

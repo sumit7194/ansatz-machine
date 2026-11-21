@@ -145,3 +145,33 @@ alongside the NVE, starting from the Laurent series at large |z|. Not proposed h
 - Then C-cont's Newton crashed. Cause: a type bug in which a sympy E² multiplied an mpmath value inside `G_ray`, and
   mp.diff could not add the resulting sympy object.
 - Fixed by using an mpmath E² (one line). No criterion changed. Rerun as "A1 run 2".
+
+## RESULT, A1 run 2 (2026-11-21, `k307_A1r2.out`, `k307_A1_verdict.json`)
+**ENDPOINT OBSTRUCTED (non-VA). No accumulation of K*(3/5) at 30/7 at E = 4/5. [Verdict under post-unblinding
+amendment A1.]**
+
+**All 10 controls pass:**
+- C0: 3.8e−18.
+- P1 (Kerr): F 2.7e−50.
+- P2 (planted M0²): 1.6e−52.
+- C-geo: scale-relative; counts (2, 2, 0, 0).
+- C-c0: 8e−51 at 5 in-domain points.
+- C-c0 must-fail: fired. The off-domain point is on the other branch: diff 0.0138, sum 5e−51.
+- C-deriv: 3e−51, with min |c0′| = 2.7e−3.
+- C-step: three steps agree to 6e−21.
+- C-cont: monotone. Log-log slopes 0.88 (c0) and 0.87 (points); c0′ column nonzero (3.3e−2 → 4.8e−5).
+- C-cont-fire: |z_b| = 54 at δ = 1e−4.
+
+**At k = 30/7 (spin 3/5, E = 4/5):**
+- F = 18.08 + 66.86i; F_h = −0.737 − 2.769i;
+- tr M0 = 1.7034; tr M1 = −1.942 + 0.713i (non-real, at distance 0.715 from S); tr Γ = −0.0031.
+- All nonzero, so the circle pair is Zariski-dense in SL₂ at the endpoint.
+
+**Note:** I had expected a slope of ~0.5 for the convergence (from the √(90 − 21k) angular-momentum term). The
+measured ~0.88 is inside the registered window, but that expectation was wrong in detail.
+
+**Consequence (scope as in A1):** with analyticity on (0, 30/7), the isolated double zero at k = 0 and gap B,
+K*(3/5) ∩ (0, 30/7] is a **finite** subset of (4.05, 30/7 − δ₀] at E = 4/5, with δ₀ > 0 unknown. **Not shown empty.**
+That needs a covering run in the half-plane picture (A1 scope).
+
+**Pending:** independent confirmation (Neon T41 and/or the Bridge) before the digest calls it settled.
