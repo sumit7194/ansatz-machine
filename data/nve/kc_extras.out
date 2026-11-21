@@ -1,0 +1,13 @@
+-10 G1 True (-0.065364138 + 1.0506894j) |z| 1.05272 res 1.39e-28 it 4
+-10 G2 True (-0.2098359 + 0.9123323j) |z| 0.936152 res 8.86e-28 it 5
+-10 annulus counts 2 2
+-5 G1 True (-0.037997258 + 0.86971036j) |z| 0.87054 res 7.76e-28 it 5
+-5 G2 True (-0.12380342 + 0.79271428j) |z| 0.802324 res 6.67e-28 it 4
+-5 annulus counts 2 2
+-3 G1 True (-0.024570115 + 0.77836654j) |z| 0.778754 res 1.01e-28 it 5
+-3 G2 True (-0.081178138 + 0.72962505j) |z| 0.734127 res 6.86e-28 it 5
+-3 annulus counts 2 2
+-1 G1 True (-0.0090093915 + 0.66755508j) |z| 0.667616 res 4.4e-28 it 5
+-1 G2 True (-0.030425688 + 0.65009665j) |z| 0.650808 res 6.08e-28 it 5
+-1 annulus counts 2 2
+# (log of scripts/_nve_lower_kc_extras.py, run 2026-11-21 ~10:05 from scratch copy; conjugates implied by the counts)
