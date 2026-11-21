@@ -4649,3 +4649,22 @@ Bridge's B8 results; only its problem statement was used. The question: below th
 - **k = 4** (the second perfect-square point of the radicand, where c0″ is rational, as at the Kerr point; found by
   reviewing a relayed all-spin extension): **NON-VA** at E = 0.8 (S stable at 1.7e−7, all gates pass), and its
   neighbour k = 3.9 is NON-VA too. It is not an exception at this (E, spin).
+- **Second reading of the relayed all-spin loop construction (2026-11-21, `data/nve/T11_LOOP_REVIEW.md`):**
+  - **The k = 0 roots are in closed form:** r± = [(2E² − 1) ± √(1 − a²(E² − 1)²)]/(E² − 1). They are real and ≥ 2 for
+    1 < E < √(1 + 1/a), so the half-plane picture holds for every E > 1. The relayed threshold E > √(1 + 1/a) is only
+    where r± become complex.
+  - **For E < 1, r− < 0 and the half-plane loop is not the inner loop.**
+  - **The relayed analyticity condition is incomplete.** It names only the poles p±. The zeros of P (G1, E-dependent)
+    must also stay in the half-plane, and the relayed half-plane certificate covers only G2.
+    - **Measured** (`scripts/_nve_t11_check.py`, `data/nve/t11_check.out`; spin 0.6, c0 from the relayed ray
+      formula, argument principle over Re z > 1): exactly 2 zeros and 2 poles in Re z > 1 for k ∈ [−50, 4.2]
+      (8 values) × E ∈ {1.05, 1.3, 2, 3, 10}; at E = 0.8, 1 zero.
+    - **The relayed ray formula for c0** matches our Laurent c0 to all printed digits at k ∈ {0, 1/10, 4, −5}.
+  - **The large-E → generic-E step is closable.**
+    - The k² coefficient c(E) depends only on the k = 0 geometry and on the separation class.
+    - It is therefore analytic in E for E > E_min(a). E_min ≈ 0.625 at spin 0.6 is where r− enters the inner circle.
+      Continuing around E = 1 gives no monodromy, because ∞ is an ordinary point.
+    - So the relayed large-E nonvanishing transfers to all E > E_min except a discrete set. That includes bound
+      orbits, consistent with our c(0.7), c(0.8) and c(0.9) being ≠ 0.
+  - **Still open:** E < 1 at large |k|, where no separating-curve certificate exists. The irreducible ⇒ non-VA step also
+    needs the imprimitive and finite cases excluded explicitly.

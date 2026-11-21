@@ -4527,3 +4527,7 @@ pole-order-1 Carter² survival.
   control failed its gates) → addendum 1 070cc74 (inner-ring step control; big-loop gate) → full rerun, PID 48647, ~2 h.
 - **OBSTRUCTED:** all 9 targets NON-VA, controls behave, all gates pass (RESULTS §159).
 - Open: S falls with k at fixed E. A k → 0 scan checks continuity.
+- 2026-11-21 morning: the Bridge asked for a second reading of the relayed all-spin loop step (T11/T14). Verdict in
+  `data/nve/T11_LOOP_REVIEW.md`, and a short check (`_nve_t11_check.py`, PID 9610, under 2 min): the relayed claims hold
+  for E > 1 once the zeros of P are added to the isotopy condition. The E-step is closable down to E_min. E < 1 at
+  large |k| stays open.
