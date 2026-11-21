@@ -145,3 +145,32 @@ count(TΓ) > 0:
    - EXCEPTIONAL CANDIDATE at any k_j that fails, listed;
    - UNDETERMINED if the location fails.
    - Labels: "registered (amendment S1)" for spin 9/10; spin 4/5's resolution stays labelled post hoc.
+
+## AMENDMENT S2 (2026-11-22, before running): the interval-certified sliver (30/7 − δ0, 30/7] at each tested spin, E = 4/5
+Asked by the Bridge. Code: `data/nve/t48b_spin/sliver_spin.py`. It is our patched T48b (`t48b_fixed`: exact float S,
+Z1b dropped) with three changes:
+- **Spin as input:** `T48_GEO` → `geo_<spin>.json`, built from OUR endpoint positions (`spin_geo_*.json`; §161 at
+  3/5).
+- **Loops by a fixed rule:**
+  - box around u_p of half-width 0.49·Im u_p;
+  - box around u_tp of half-width 0.1 and half-height 0.45·Im u_p;
+  - base point max(Re u_p, u_tp) + max(0.25, 2·Im u_p).
+  - Kerr: box around 2/a + i of half-width 0.45; box around r+_Kerr/a of half-width 0.25; base point
+    max(2/a, r+_K/a) + 0.35.
+  - At spin 3/5 this reproduces Neon's geometry to within a base-point shift.
+- **Z4b (|tr A| > 2) dropped.** Z4 (Im tr B ≠ 0) alone gives infinite order.
+- **Everything else is unchanged:** the O(L) bounds, the whole-box defect enclosure, the Gronwall drift, Z1
+  (τ(M1, M3) ≠ 0), Z2 ([A, B] ≠ 0) and Z3 (tr A, tr B, tr AB ≠ 0).
+
+**Spins:** 3/5 (cross-check against T48b: δ0 should be ~1.4e−11), then 3/10, 4/5, 9/10.
+
+**Pass at a spin requires all of:**
+- endpoint Z1–Z4 certified;
+- the Kerr control's enclosure upper bound below the endpoint's lower bound;
+- the wrong-tail control shrinking δ0;
+- certified **δ0 > 1e−12**.
+
+**Report rules:**
+- If δ0 ≤ 1e−12, report it as is. Nothing is widened or retuned.
+- An assertion failure (defect too large, or the endpoint certificate failing) is reported as FAIL at that spin, with
+  its reason.
