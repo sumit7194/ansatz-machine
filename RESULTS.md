@@ -4675,6 +4675,11 @@ Bridge's B8 results; only its problem statement was used. The question: below th
   - **Found along the way:** for k < 0, a zero/pole pair of P splits off from ±i·spin and moves outward, reaching
     |z| = 1.25 at k ≈ −17. That is why the region stops at −10.5. Beyond it a different M0 is needed.
   - **Scope:** a floating-point argument principle at one (E, spin), not interval-certified.
+  - **Post-hoc (same samples, `gapb_finite.out`).** tr M1 − s has no zeros in R for any finite-subgroup trace value s,
+    so the group is not finite. Hence it is Zariski-dense, so non-VA, at every k ≠ 0 in R.
+  - **Why one E suffices for the theorem:** Morales–Ramis needs only one particular solution per parameter value. A k
+    is a genuine exception only if the obstruction fails at every E at once. Over the spin range, the analytic argument
+    leaves a discrete (possibly empty) exceptional set K*(spin). The numerics here show K*(0.6) ∩ [−10.5, 4.05] = ∅.
   - **The large-E → generic-E step is closable.**
     - The k² coefficient c(E) depends only on the k = 0 geometry and on the separation class.
     - It is therefore analytic in E for E > E_min(a). E_min ≈ 0.625 at spin 0.6 is where r− enters the inner circle.

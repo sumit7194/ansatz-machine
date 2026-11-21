@@ -1,0 +1,13 @@
+s=        2: zeros of trM1-s in R = 0 (raw -1.73e-53, max|darg| 0.052); trM0-s: 2 (max|darg| 0.484)
+s=       -2: zeros of trM1-s in R = 0 (raw -1.23e-52, max|darg| 0.304); trM0-s: 0 (max|darg| 0.015)
+s=        1: zeros of trM1-s in R = 0 (raw +2.08e-53, max|darg| 0.081); trM0-s: 0 (max|darg| 0.074)
+s=       -1: zeros of trM1-s in R = 0 (raw -4.26e-54, max|darg| 0.243); trM0-s: 0 (max|darg| 0.021)
+s=        0: zeros of trM1-s in R = 0 (raw -1.83e-53, max|darg| 0.140); trM0-s: 0 (max|darg| 0.033)
+s=  1.41421: zeros of trM1-s in R = 0 (raw +2.06e-53, max|darg| 0.066); trM0-s: 0 (max|darg| 0.157)
+s= -1.41421: zeros of trM1-s in R = 0 (raw +1.12e-52, max|darg| 0.306); trM0-s: 0 (max|darg| 0.018)
+s= 0.618034: zeros of trM1-s in R = 0 (raw +1.03e-53, max|darg| 0.098); trM0-s: 0 (max|darg| 0.050)
+s=-0.618034: zeros of trM1-s in R = 0 (raw -3.54e-53, max|darg| 0.208); trM0-s: 0 (max|darg| 0.024)
+s=  1.61803: zeros of trM1-s in R = 0 (raw +2.70e-53, max|darg| 0.060); trM0-s: 0 (max|darg| 0.339)
+s= -1.61803: zeros of trM1-s in R = 0 (raw +6.18e-53, max|darg| 0.322); trM0-s: 0 (max|darg| 0.017)
+min |Im tr M1| on boundary samples: 1.16276 ; min |tr M1 - s| over s, samples: 1.16372
+tr M1 avoids every finite-group trace value throughout R: True

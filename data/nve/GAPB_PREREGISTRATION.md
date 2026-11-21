@@ -102,3 +102,11 @@ no k in the region makes this pair of monodromies reducible.
   argument principle, not an interval certificate, and one (E, spin).
 - Files: `gapb.out`, `gapb.jsonl` (194 evaluations), `gapb_verdict.json`. Compute: ~44 min of evaluation, ~1.5 h
   wall-clock, 1 core, nice 10.
+
+## POST-HOC addition (2026-11-21, not in this prereg; no new evaluations): the finite case
+`scripts/_nve_lower_kc_finite.py` reuses the 134 cached boundary samples. It counts zeros over R of tr M1 − s for every
+trace value s of a finite subgroup of SL₂ (orders 1, 2, 3, 4, 5, 6, 8, 10): 0 for all 11 values, with max |Δarg|
+≤ 0.33. min over the samples of |tr M1 − s| is 1.16. So M1 lies in no finite group anywhere in R.
+- **Combined with the registered result:** irreducible, not imprimitive and not finite means the Zariski closure is
+  SL₂. So the group is **non-VA at every k ≠ 0 in R**, at (E 4/5, spin 3/5). This conclusion is post-hoc, from the same
+  floating-point samples. Output: `gapb_finite.out`.
