@@ -302,3 +302,10 @@ compared with our committed `endpoint_scaling.out` (e025bbf, 15 significant digi
 
 **T50's degenerate spin** a_c = 0.858446198791717253… (secant, 30 digits) lies in our (0.8, 0.9). Its independent
 circle-type pair there is Zariski-dense (floating point, relayed). We have not reproduced it yet.
+
+**Dated line (2026-11-22, before running): reproduction of T50's a_c** (known target 0.858446198791717…). Script
+`scripts/_nve_ac.py`.
+- Secant in spin on tr Y at the endpoint (S2 loop rule, our walker), starting from spins 0.85 and 0.87, to
+  |Δa| < 1e−12.
+- Then the circle pair at a_c, with Z1–Z4 at steps 0.2 and 0.12.
+- **Pass:** a_c agrees with T50 to ≥ 10 digits, and the circle pair is non-VA.
