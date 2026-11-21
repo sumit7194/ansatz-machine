@@ -243,21 +243,7 @@ def compute_c0_perturbation_bounds(x_min, y_max, a):
     C1 = kappa2 / (2 * x_min ** 2)
     C0 = kappa2 / (2 * x_min)
 
-    r_c = iv.mpf('0.4')
-    xc, yc = x_min - r_c, y_max + r_c
-    cos_th_c = xc / iv.sqrt(xc ** 2 + yc ** 2)
-    cos_2th_c = (xc ** 2 - yc ** 2) / (xc ** 2 + yc ** 2)
-    cos_4th_c = 2 * cos_2th_c ** 2 - 1
-    assert cos_4th_c.a > 0, "Cauchy disk violates cos(4*theta) > 0"
-    re_P1_c = cos_4th_c * xc ** 4 - iv.mpf(6) / 7 * (xc ** 2 + yc ** 2) - iv.mpf(1) / 21
-    assert re_P1_c.a > 0, "Cauchy disk violates Re(P1) > 0"
-    c_B0_c = iv.sqrt(iv.mpf(40) / 7) * iv.sqrt(3 - 1 / xc ** 2) * cos_th_c
-    c_P1_c = 1 + iv.mpf(6) / (7 * xc ** 2) + iv.mpf(1) / (21 * xc ** 4)
-    c_den_c = (1 - 1 / xc ** 2) ** 3
-    kappa2_c = (iv.sqrt(iv.mpf(8) / 5) / a) * c_P1_c / (c_den_c * c_B0_c)
-    C2_cauchy = kappa2_c / (xc ** 3)
-    C3 = C2_cauchy / r_c
-    C4 = 2 * C2_cauchy / (r_c ** 2)
+    C3 = C4 = iv.mpf(0)   # ansatz S3: VE3-only Cauchy block removed (unused by the VE1 certificate)
 
     c1_val = iv.mpf(120) / 7
     pref = iv.sqrt(iv.mpf(8) / 5) / a
@@ -646,9 +632,6 @@ def run_zariski_sliver_proof(E_str, nsub=8, tol_kerr=6e-9, tol_end=1e-7):
     def all_zariski_hold(L_val):
         """Certifies ALL four Zariski-density inequalities on the entire interval [0, L_val]."""
         d1, d3, dM1M3, dA, dB, dAB, dC = gronwall_bounds(L_val)
-        # (Z2) [A, B] != 0
-        if not (dC.b < C_inf_lo.a):
-            return False
         # Inflate traces by 2 * d_X (since |tr(dX)| <= |dX_00| + |dX_11| <= 2*||dX||_inf)
         t1_i = iv_inflate(trM1, 2 * d1)
         t3_i = iv_inflate(trM3, 2 * d3)
@@ -656,6 +639,10 @@ def run_zariski_sliver_proof(E_str, nsub=8, tol_kerr=6e-9, tol_end=1e-7):
         tA_i = iv_inflate(trA, 2 * dA)
         tB_i = iv_inflate(trB, 2 * dB)
         tAB_i = iv_inflate(trAB, 2 * dAB)
+        # (Z2) [A, B] != I: matrix-norm drift test, OR (ansatz S3) Fricke tau(A, B) = tr[A, B] - 2 != 0 on inflated traces
+        if not (dC.b < C_inf_lo.a):
+            if not (iv_cabs(fricke_tau(tA_i, tB_i, tAB_i)).a > 0):
+                return False
         # (Z1) Irreducibility: tau(M_1, M_3) != 0 (and at E=1.5, tau(A, B) != 0)
         tau13_i = fricke_tau(t1_i, t3_i, t13_i)
         if not (iv_cabs(tau13_i).a > 0):

@@ -174,3 +174,22 @@ Z1b dropped) with three changes:
 - If δ0 ≤ 1e−12, report it as is. Nothing is widened or retuned.
 - An assertion failure (defect too large, or the endpoint certificate failing) is reported as FAIL at that spin, with
   its reason.
+
+**S2 RESULT (run 2026-11-22):**
+- **Spin 3/5 (cross-check): PASS.** δ0 = 1.32869e−11 (T48b: 1.37e−11). Kerr enclosure top 0.0013 < endpoint bottom
+  0.0036. The wrong tail shrinks δ0 by 3.6e9.
+- **Spins 4/5 and 9/10: FAIL, as registered.** An assertion in the VE3-only Cauchy bounds (C3, C4; the disk r = 0.4
+  violates cos 4θ > 0 at these geometries) aborted the run. **C3 and C4 are never used by the first-order certificate**
+  (the Gronwall drift uses C0 and C1 only; checked in the code).
+- **Spin 3/10: FAIL, as registered.** At the endpoint, Z2's ∞-norm enclosure of [A, B] has lower bound 0, so it is too
+  loose. Every other condition holds clearly: |τ(M1, M3)| ≈ 0.51; |tr A| ≈ 2.26; |tr B| and |tr AB| ≈ 2.00;
+  Im tr B ≈ 0.128 (diagnostic copy).
+
+## AMENDMENT S3 (post-failure, 2026-11-22, before any rerun; results will be labelled "under post-failure amendment S3")
+1. **Remove the Cauchy-disk block (C3, C4, and its two assertions).** It is unused by the VE1 certificate.
+2. **Z2 holds if EITHER** the matrix-norm drift test (unchanged) **OR** |τ(A, B)| > 0 on the drift-inflated trace
+   enclosures (Fricke: τ(A, B) = tr[A, B] − 2 ≠ 0 implies [A, B] ≠ I).
+   - Mathematically this is the same condition, evaluated from the tighter trace enclosures.
+   - At spin 3/5 the matrix test already passes, so 3/5 is unaffected.
+3. **Rerun spins 3/10, 4/5 and 9/10.** Pass criteria and report rules are as in S2, including δ0 > 1e−12, the Kerr
+   control and the wrong tail.

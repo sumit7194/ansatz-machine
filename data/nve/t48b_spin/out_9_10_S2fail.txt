@@ -1,0 +1,16 @@
+=========================================================================
+ZARISKI-DENSITY SLIVER CLOSURE AT a = [0.9, 0.9], E = 0.8 (iv.dps = 14)
+=========================================================================
+Traceback (most recent call last):
+  File "/Users/sumit/Github/conjecture_machine/data/nve/t48b_spin/sliver_spin.py", line 759, in <module>
+    main()
+    ~~~~^^
+  File "/Users/sumit/Github/conjecture_machine/data/nve/t48b_spin/sliver_spin.py", line 754, in main
+    d0, dw, clo, khi = run_zariski_sliver_proof("0.8", nsub=8, tol_kerr=6e-9, tol_end=1e-7)
+                       ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sumit/Github/conjecture_machine/data/nve/t48b_spin/sliver_spin.py", line 595, in run_zariski_sliver_proof
+    bnds = compute_c0_perturbation_bounds(x_min, y_max, a)
+  File "/Users/sumit/Github/conjecture_machine/data/nve/t48b_spin/sliver_spin.py", line 251, in compute_c0_perturbation_bounds
+    assert cos_4th_c.a > 0, "Cauchy disk violates cos(4*theta) > 0"
+           ^^^^^^^^^^^^^^^
+AssertionError: Cauchy disk violates cos(4*theta) > 0

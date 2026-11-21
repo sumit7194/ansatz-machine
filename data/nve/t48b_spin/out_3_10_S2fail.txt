@@ -1,0 +1,17 @@
+=========================================================================
+ZARISKI-DENSITY SLIVER CLOSURE AT a = [0.3, 0.3], E = 0.8 (iv.dps = 14)
+=========================================================================
+[Part (1): Explicit O(L) c0^(m) bounds on loop set K]
+  K box: Re(u) >= [6.41325, 6.41325], |Im(u)| <= [0.0521579, 0.0521579]
+  kappa_2 <= [1.123872497, 1.123872497], C_0 <= [0.08762119615, 0.08762119615], C_1 <= [0.01366253563, 0.01366253563], C_2 <= [0.0042607243, 0.0042607243]
+Traceback (most recent call last):
+  File "/Users/sumit/Github/conjecture_machine/data/nve/t48b_spin/sliver_spin.py", line 759, in <module>
+    main()
+    ~~~~^^
+  File "/Users/sumit/Github/conjecture_machine/data/nve/t48b_spin/sliver_spin.py", line 754, in main
+    d0, dw, clo, khi = run_zariski_sliver_proof("0.8", nsub=8, tol_kerr=6e-9, tol_end=1e-7)
+                       ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sumit/Github/conjecture_machine/data/nve/t48b_spin/sliver_spin.py", line 674, in run_zariski_sliver_proof
+    assert all_zariski_hold(iv.mpf(0)), "Endpoint Zariski-density certification failed!"
+           ~~~~~~~~~~~~~~~~^^^^^^^^^^^
+AssertionError: Endpoint Zariski-density certification failed!
