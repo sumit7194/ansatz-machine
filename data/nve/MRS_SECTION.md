@@ -9,7 +9,9 @@ Let H be a complex-analytic Hamiltonian with n degrees of freedom. Here n = 2: t
 system at fixed E, μ and L_z = 0. Let Γ be a non-equilibrium integral curve, viewed as a connected Riemann surface. It
 may be open, or restricted to an open subsurface Ũ on which the coefficients are single-valued.
 
-**Theorem (Morales-Ruiz–Ramis 2001; Morales-Ruiz–Ramis–Simó 2007 for higher orders).** If H has n functionally
+**Theorem (Morales-Ruiz–Ramis 2001; Morales-Ruiz–Ramis–Simó 2007, Theorem 2 p. 849 and Theorem 5 "Main theorem"
+pp. 867–868, for every order k).** Γ is a connected Riemann surface (open allowed; it is the default there), and the
+coefficient field is the meromorphic functions on Γ. If H has n functionally
 independent first integrals in involution, meromorphic in a neighbourhood of Γ, then the identity component of the
 differential Galois group of the m-th variational equation along Γ, over the field of meromorphic functions on Γ, is
 abelian for every m ≥ 1.
@@ -87,7 +89,7 @@ meromorphic there.
     proved.
 
 ## 5. Why both outer axis segments must be regular (an argument, not a proof)
-1. **e₋ = 1/e₊** comes from analyticity at spatial infinity: Beig–Simon, together with the
+1. **e₋ = 1/e₊** comes from analyticity at spatial infinity: Beig–Simon 1981 (not 1980), together with the
    Fodor–Hoenselaers–Perjés relation between multipole moments and axis data. It also uses the Meinel–Neugebauer
    1995 relation, which was read in the original.
 2. **The axis expansions** U0, U2, U4 on a segment need that segment to be regular, with no strut or Misner string.
@@ -95,11 +97,24 @@ meromorphic there.
    positive roots in w, so c0 is complex on part of z < 1 − √(1 − a²) (`T38_GRADING.md` 1c).
 4. No equatorial symmetry is needed.
 
-## 6. Citations: status
-- Morales-Ruiz & Ramis, Methods Appl. Anal. 8 (2001) 33–95, 97–112: to check.
-- Morales-Ruiz, Ramis & Simó, Ann. Sci. ÉNS (4) 40 (2007) 845–884: being checked (in progress).
-- Casale, Ann. Inst. Fourier 59 (2009) 2593–2610: being checked (in progress).
-- Beig & Simon (1980/1981); Fodor, Hoenselaers & Perjés, J. Math. Phys. 30 (1989) 2252: being checked (in progress).
+## 6. Citations: status (checked at source 2026-11-22; texts in our scratchpad)
+- **Morales-Ruiz, Ramis & Simó, Ann. Sci. ÉNS (4) 40 (2007) 845–884, DOI 10.1016/j.ansens.2007.09.002: VERIFIED (full
+  text).**
+  - Theorem 2 (p. 849): first integrals meromorphic "in a neighbourhood of Γ"; (G_k)⁰ is commutative for each k.
+  - Theorem 5 (Main theorem, pp. 867–868).
+  - Γ is a connected Riemann surface, **open by default**. So MRS itself covers our open subsurface Ũ.
+- **Casale, Ann. Inst. Fourier 59 (2009) 2593–2610, DOI 10.5802/aif.2501: citation real, but T49's use is NOT
+  SUPPORTED.**
+  - Casale's setting is algebraic: rational equations, algebraic solutions, rational first integrals.
+  - It is not a wider, open-surface version. **Do not cite it for open Γ.** Cite MRS 2007 instead.
+  - (It does generalise to virtually solvable groups for integrability by quadratures.)
+- **Beig & Simon, "On the multipole expansion for stationary space-times", Proc. R. Soc. Lond. A 376 (1981) 333–341,
+  DOI 10.1098/rspa.1981.0095: VERIFIED (abstract).**
+  - Stationary asymptotically flat space-times are "analytic in a neighbourhood of spatial infinity".
+  - Caveat, read secondhand (Bäckdahl–Herberthson gr-qc/0606115): this may require nonzero mass. Ours is M = 1.
+- **Beig & Simon, Commun. Math. Phys. 78 (1980) 75–82: a static UNIQUENESS result.** Do not cite it for analyticity.
+- **Fodor, Hoenselaers & Perjés, J. Math. Phys. 30 (1989) 2252–2257, DOI 10.1063/1.528551: VERIFIED (abstract).**
+  Moments are expressed through the expansion coefficients of the axis Ernst potential.
 - Baouendi–Goulaouic (Fuchsian Cauchy–Kovalevskaya); Hauser–Ernst 1981; Sibgatullin: to check.
 - Maciejewski–Przybylska–Stachowiak 2013: body read in full by the Bridge and Neon T47 (relayed); used only for ZV
   δ = 2 (first-order NVE along an equatorial radial geodesic).

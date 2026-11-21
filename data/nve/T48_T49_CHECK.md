@@ -121,3 +121,10 @@ Only the sliver part is interval-certified; the rest are 50-digit floating-point
 
 Rerun: δ0 = 1.37288e−11 at E = 0.8 (unchanged) and **1.90372e−9 at E = 1.5** (up from 2.04e−10, since Z1b had set it).
 All Z1–Z4 and both controls pass. **This patched copy is the one to cite.** Neon may adopt the same two lines.
+
+## T49 citations, checked at source (2026-11-22): see `MRS_SECTION.md` §6
+- **MRS 2007:** verified (open Γ is the default).
+- **Casale 2009:** algebraic setting only; T49's "covering open Riemann subsurfaces" is NOT supported.
+- **Beig–Simon 1981:** verified (abstract); caveat: may require nonzero mass.
+- **Beig–Simon 1980:** a uniqueness result, not analyticity.
+- **Fodor–Hoenselaers–Perjés 1989:** verified.
