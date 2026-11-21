@@ -114,3 +114,10 @@ wrong-tail controls collapse δ0 by 3e9 and 2e8. Runtime 201 s.
 **Combined status at spin 0.6:** (0, 4.05] (gap B), [3.95, 30/7 − 10⁻¹²] (§162), [30/7 − δ0, 30/7] (T48b,
 interval-certified) and k = 30/7 (§161) leave no exceptional k at E = 0.8, and likewise at E = 1.5 for the sliver.
 Only the sliver part is interval-certified; the rest are 50-digit floating-point counts.
+
+**Both minor items fixed in our copy** (`data/nve/t48b_fixed/`: the patched script, PATCH.diff and the output):
+- S is built from the exact float matrix (iv.mpf(float)), so Φ̃(0) = S exactly and M^(S) is a true conjugation;
+- Z1b is dropped.
+
+Rerun: δ0 = 1.37288e−11 at E = 0.8 (unchanged) and **1.90372e−9 at E = 1.5** (up from 2.04e−10, since Z1b had set it).
+All Z1–Z4 and both controls pass. **This patched copy is the one to cite.** Neon may adopt the same two lines.

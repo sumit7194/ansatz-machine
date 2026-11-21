@@ -64,3 +64,4 @@
 29686 (+child 17357) stopped by me 19:24:35: spin 3/10 crashed in B-repro (Laurent threshold); fixing
 21764 spin_scan run 2 chain (3/10, 4/5, 9/10) 2026-11-21 19:25:10
 72194 T48b sliver_closure_iv.py (scratch copy, -I) 2026-11-21 21:40:30
+91810 T48b fixed copy (scratch, -I) 2026-11-21 21:57:36

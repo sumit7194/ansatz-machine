@@ -1,0 +1,11 @@
+365c365
+<         [iv.mpc(f"{S_np[i, j].real:.8f}", f"{S_np[i, j].imag:.8f}") for j in range(2)]
+---
+>         [iv.mpc(iv.mpf(float(S_np[i, j].real)), iv.mpf(float(S_np[i, j].imag))) for j in range(2)]   # ansatz fix: exact float S, so Phi(0) == S
+661,664c661
+<         if E_str == "1.5":
+<             tauAB_i = fricke_tau(tA_i, tB_i, tAB_i)
+<             if not (iv_cabs(tauAB_i).a > 0):
+<                 return False
+---
+>         # ansatz fix: Z1b dropped (Z1 alone gives irreducibility)
