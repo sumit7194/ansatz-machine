@@ -79,3 +79,9 @@ The proof also needs:
 
 All of these are analytic in k, so they hold generically. They should be stated. §159's two-loop certificate does this
 numerically.
+
+## Addendum (2026-11-21): the same zero count at spins 0.3 and 0.9
+`scripts/_nve_t11_check.py 3/10` and `9/10` give counts identical to spin 0.6 at all 8 × 6 (k, E): 2 zeros and 2 poles of
+P in Re z > 1 for E > 1, and 1 zero at E = 0.8. Outputs: `t11_check_spin3_10.out` and `t11_check_spin9_10.out`.
+Note that Re z > 1 is narrower than Re z > a when spin < 1. At spin 0.9 the strip 0.9 < Re z < 1 is not covered by this
+count.

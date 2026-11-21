@@ -4660,6 +4660,9 @@ Bridge's B8 results; only its problem statement was used. The question: below th
       formula, argument principle over Re z > 1): exactly 2 zeros and 2 poles in Re z > 1 for k ∈ [−50, 4.2]
       (8 values) × E ∈ {1.05, 1.3, 2, 3, 10}; at E = 0.8, 1 zero.
     - **The relayed ray formula for c0** matches our Laurent c0 to all printed digits at k ∈ {0, 1/10, 4, −5}.
+    - **At two more spins, 0.3 and 0.9** (Bridge request, `data/nve/t11_check_spin3_10.out`, `_spin9_10.out`): the
+      counts are identical to spin 0.6. Every (k, E > 1) has 2 zeros and 2 poles in Re z > 1, and E = 0.8 has 1 zero.
+      This is an independent target for the relayed G1 certificate.
   - **The large-E → generic-E step is closable.**
     - The k² coefficient c(E) depends only on the k = 0 geometry and on the separation class.
     - It is therefore analytic in E for E > E_min(a). E_min ≈ 0.625 at spin 0.6 is where r− enters the inner circle.

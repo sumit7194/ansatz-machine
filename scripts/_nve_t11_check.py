@@ -8,17 +8,18 @@ sys.path.insert(0, "scripts")
 import mpmath as mp, sympy as sp
 from _nve_lower import c0_laurent, c0_eval
 mp.mp.dps = 30
-a = mp.mpf(3)/5
+SPIN = sys.argv[1] if len(sys.argv) > 1 else None      # e.g. "3/10": run part (2) only, at that spin
+a = mp.mpf(3)/5 if SPIN is None else mp.mpf(sp.Rational(SPIN))
 def c0_ray(zz, k):
     u = zz/a
     c4, c2, c0p = 90-21*k, -(60-18*k), 10-k
     f = lambda x: x*(1-x)*u**-2*(1+x**2*u**-2)**-3*mp.sqrt(c4 + c2*x**2*u**-2 + c0p*x**4*u**-4)
     return -(mp.sqrt(mp.mpf(8)/5)/a)*mp.quad(f, [0, 1])
-for k in (0, sp.Rational(1,10), 4, -5):
+for k in ((0, sp.Rational(1,10), 4, -5) if SPIN is None else ()):
     C, rho, NW, _ = c0_laurent(k)
     for zz in (mp.mpc(2.5, 0.7), mp.mpc(-1.8, 2.2), mp.mpc(1.5, -3)):
         print(k, float(rho), complex(zz), complex(c0_ray(zz, float(k))), complex(c0_eval(C, zz)))
-print("---- zero counts in Re z > 1", flush=True)
+print(f"---- zero counts in Re z > 1, spin {a}", flush=True)
 mp.mp.dps = 20
 Y = mp.mpf(40)
 ys = [Y*mp.sinh(mp.mpf(6)*(j/1500 - 1))/mp.sinh(6) for j in range(3001)]      # -Y..Y, dense near 0
