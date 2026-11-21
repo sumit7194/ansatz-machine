@@ -4646,3 +4646,6 @@ Bridge's B8 results; only its problem statement was used. The question: below th
     1/10}, E = 0.8, with controls passing.
   - tr M1 and |tr[M1, M0] − 2| match the relayed values.
   - This is basis-free, and the cleanest form of §159's verdict.
+- **k = 4** (the second perfect-square point of the radicand, where c0″ is rational, as at the Kerr point; found by
+  reviewing a relayed all-spin extension): **NON-VA** at E = 0.8 (S stable at 1.7e−7, all gates pass), and its
+  neighbour k = 3.9 is NON-VA too. It is not an exception at this (E, spin).

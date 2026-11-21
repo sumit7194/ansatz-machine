@@ -242,3 +242,16 @@ read as a measure of "how obstructed".
   - **If k = 4 is VA:** it is a genuine exception missing from the relayed list.
   - **Caveat:** k = 4 is not small, so singular points may sit far from their Kerr positions; the count gates
     decide whether the run is valid.
+- **k = 4 result (`data/nve/lower_k4.out`, `.jsonl`): NON-VA at both points, all gates pass (det ≤ 5e−35, big
+  loop ≤ 1.3e−39), counts consistent.**
+
+| k | zeros of P | poles of P | S(0.35) | S(0.2) | class |
+|---|---|---|---|---|---|
+| 4 | 1.811405, −3.453963 | 1.825052 ± 0.195295i | 1.7275e−7 | 1.7275e−7 | NON-VA |
+| 3.9 | 1.814987, −3.454888 | 1.831870 ± 0.222593i | 1.0623e−7 | 1.0623e−7 | NON-VA |
+
+  - The prediction held. The rational c0″ at k = 4 does not make the monodromy VA, so k = 4 is not an exception at
+    E = 0.8, spin 0.6.
+  - The singular-point pattern is unchanged: 2 zeros and a conjugate pair of poles. The poles have moved from
+    2 ± 0.6i to near 1.83 ± 0.2i.
+  - Scope: one E and one spin.
