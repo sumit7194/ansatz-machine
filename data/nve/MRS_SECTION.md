@@ -16,8 +16,31 @@ independent first integrals in involution, meromorphic in a neighbourhood of Γ,
 differential Galois group of the m-th variational equation along Γ, over the field of meromorphic functions on Γ, is
 abelian for every m ≥ 1.
 
-**Use.** Analytic continuation along loops in Γ (or Ũ) gives elements of the Galois group. So a Zariski-dense (SL₂)
-monodromy group of the first-order normal variational equation (NVE1) contradicts integrability.
+**Use.** Analytic continuation along loops in Γ (or Ũ) gives elements of the Galois group over M(Γ). The monodromy
+we compute, however, belongs to the v-equation in the axis coordinate u, not to the NVE on Γ in the time parameter.
+Two finite steps connect them, covered by Lemma C.
+
+**Lemma C (covering and gauge; source being checked, see §6).** Let L be a linear differential equation over the
+field K of meromorphic functions on a Riemann surface X, with Galois group G.
+- **(a)** If π: X̃ → X is a finite branched covering and L̃ is L pulled back to X̃, over K̃ = M(X̃) ⊇ K a finite
+  extension, then Gal(L̃) is a finite-index subgroup of G. So (Gal L̃)⁰ = G⁰.
+- **(b)** If ξ = g·v with g algebraic over K (gⁿ ∈ K), the equations for ξ and for v have Picard–Vessiot extensions
+  that differ by the finite algebraic extension K(g). So their Galois groups have the same identity component.
+
+**Application.**
+- **The covering.** Let t be the time along the axis geodesic. Γ_E (y² = P) is a double cover of the u-sphere,
+  branched at the odd zeros and poles of P, and du/dt = y·(algebraic factor). So passing from t on Γ to u is a finite
+  covering plus an algebraic rescaling of d/dt.
+- **The gauge.** The NVE variable ξ1 and v are related by ξ1 = U0^{−1/4}·v = f0^{1/2}·P^{−1/4}·v. That is an algebraic
+  gauge: (f0^{1/2}P^{−1/4})⁴ = f0²/P lies in the coefficient field.
+- **Conclusion.** Hence (G_NVE)⁰ = (G_v)⁰.
+  - The u-plane monodromy is Zariski-dense in SL₂ (checked numerically, and interval-certified on the end sliver), so
+    G_v = SL₂ and (G_v)⁰ = SL₂.
+  - The index-≤ 2 subgroup coming from Γ_E is still Zariski-dense, because SL₂ is connected.
+  - So (G_NVE)⁰ = SL₂, which is non-abelian, and integrability fails by the theorem above.
+
+**On the tree K_k.** It crosses ℝ at u = 1 because the rod endpoints (1 ± √(1 − a²))/a have product 1 and so straddle
+u = 1. A crossing at u = 0 would instead cut the physical lower axis.
 
 **Excluded:** every complete set of integrals in involution that is complex-meromorphic in a neighbourhood of the
 complexified orbit. This includes all Carter-type, polynomial and rational-in-momenta integrals with coefficients
