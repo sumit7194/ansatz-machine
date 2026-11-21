@@ -4675,6 +4675,9 @@ Bridge's B8 results; only its problem statement was used. The question: below th
   - **Found along the way:** for k < 0, a zero/pole pair of P splits off from ±i·spin and moves outward, reaching
     |z| = 1.25 at k ≈ −17. That is why the region stops at −10.5. Beyond it a different M0 is needed.
   - **Scope:** a floating-point argument principle at one (E, spin), not interval-certified.
+  - **Label (2026-11-21, T38 grading 1c):** for k < 0, c0 is complex on part of the physical lower outer axis. Under
+    regularity on both outer axes the family is 0 ≤ k ≤ 30/7, so the [−10.5, 0) part of this count concerns complex
+    metrics. The physical statement is: no exceptional k in (0, 4.05].
   - **Post-hoc (same samples, `gapb_finite.out`).** tr M1 − s has no zeros in R for any finite-subgroup trace value s,
     so the group is not finite. Hence it is Zariski-dense, so non-VA, at every k ≠ 0 in R.
   - **Why one E suffices for the theorem:** Morales–Ramis needs only one particular solution per parameter value. A k

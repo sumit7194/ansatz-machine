@@ -110,3 +110,12 @@ trace value s of a finite subgroup of SL₂ (orders 1, 2, 3, 4, 5, 6, 8, 10): 0 
 - **Combined with the registered result:** irreducible, not imprimitive and not finite means the Zariski closure is
   SL₂. So the group is **non-VA at every k ≠ 0 in R**, at (E 4/5, spin 3/5). This conclusion is post-hoc, from the same
   floating-point samples. Output: `gapb_finite.out`.
+
+## Label added 2026-11-21 (T38 grading, point 1c): the k < 0 part concerns complex metrics
+For every k < 0, B(w, k) has two positive roots in w. So (c0″)² < 0 on an interval of |z| whose negative-z copy lies on
+the physical lower outer axis z < 1 − √(1 − a²) (0.2 at spin 0.6). There c0, and hence the lower-axis Ernst data 1/e₊,
+is not real.
+- Under the hypothesis of regularity on both outer axes, **k < 0 is not a physical member of the family**, which is
+  0 ≤ k ≤ 30/7 (k = 0 Kerr).
+- The registered result on [−10.5, 0) stands as a statement about complex (non-real) metrics.
+- The physically relevant part is (0, 4.05]: no exceptional k there at (E 4/5, spin 3/5).

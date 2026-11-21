@@ -124,3 +124,50 @@ Null geodesics (μ = 0) make the test blind, so restrict to timelike geodesics e
   k < 0 and on k = 30/7.
 - **Rest:** wording or already handled.
 - **New computation worth doing:** one, the k = 30/7 lower-axis NVE test, about 1 h, registered.
+
+---
+
+## Addendum (2026-11-21): point 2a written out. G1⁰ = C* for two simple poles at all but countably many E
+Script: `scripts/_nve_kappa_omega.py`; output: `data/nve/kappa_omega.out` (commit 7702285).
+
+**Setting.** f0 = Δ/D, with D = (z − z1)(z − z2), z1 ≠ z2, Δ = a2z² + a1z + a0, and μ ≠ 0. The first-order axis NVE is
+v″ + (3/16)(P′/P)²v = 0, with P = E² − μ²f0 = N/D and N = E²D − μ²Δ.
+
+**1. The closed form (exact).**
+- Write v = g·e^{κu} with u′ = h. The terms linear in κ vanish iff g = h^{−1/2}.
+- With h = 1/√(ND) and g = (ND)^{1/4}, the quantity ND·(g″/g + (3/16)(P′/P)²) is **constant in z** (sympy, symbolic in
+  all parameters). It equals −κ², with
+
+      κ² = [E²(z1 − z2)² + μ²(2a0 + a1(z1 + z2) + 2a2·z1·z2)]/4.
+
+- So v± = (ND)^{1/4}·exp(±κu), with u = ∫dz/√(ND).
+- For Kerr data on either axis this gives κ² = a²(1 − E²).
+
+**2. Monodromy.**
+- The branch points of √(ND) are the turning points (zeros of N) and the poles z1, z2.
+- A loop γ that encircles an **even** number of them gives M_γ = c_γ·diag(e^{κω_γ}, e^{−κω_γ}), with c_γ a fourth
+  root of unity and ω_γ = ∮_γ dz/√(ND).
+- A loop around an odd number swaps v+ and v− (antidiagonal).
+- So G1 lies in the normaliser of a torus, and **G1⁰ = C* iff some even loop has c_γ·e^{κω_γ} of infinite order.**
+
+**3. Independent cross-check.**
+- For §159's loop M1 (k = 0, Kerr lower axis, E = 4/5), the formula predicts tr M1 = −2cosh(κω) =
+  −0.98430950429047 + 2.7772800733214i.
+- The 50-digit monodromy code (`lower_comm.jsonl`, sharing no code with this check) measured
+  −0.984309504290635 + 2.7772800733203i. The difference is 1.1e−12, the quadrature's accuracy.
+
+**4. Non-constancy (the open item in the Bridge's digest).**
+- κ and ω_γ(E) are analytic in E away from the discrete set where branch points collide. So κω_γ(E) is analytic.
+- It is non-constant:
+  - as E → ∞ each turning point approaches a pole (t_i − z_i ~ μ²Δ(z_i)/(E²D′(z_i)));
+  - the curve y² = ND degenerates, and by Picard–Lefschetz the period of a cycle linking the two collapsing pairs
+    diverges like (const/E)·log E, while κ ~ E(z1 − z2)/2;
+  - so κω diverges like const·log E. This is the argument, not a computation.
+  - Numerically, for Kerr data and the M1 loop: κω = 1.506 − 1.809i, 1.363 − 1.573i, 1.165 − 1.287i and
+    0.864 − 0.910i at E = 0.6, 0.7, 0.8 and 0.9, with |e^{κω}| = 4.51, 3.91, 3.20 and 2.37.
+- An analytic non-constant function takes values in the countable set (2πi·ℚ − log c) only on a countable set of E. So
+  **G1⁰ = C* for all E outside a countable set**, in particular at generic E on any interval. Hence every use of
+  Lemmas P/X on two-simple-pole data sits where G1⁰ = C*, which answers T38 point 7b / 2a.
+- **κ ≠ 0** except at the single value E² = −μ²(2a0 + a1(z1 + z2) + 2a2z1z2)/(z1 − z2)²; generic E avoids it.
+- **Not covered:** double poles (z1 = z2), where the form changes. The digest handles those separately (ZV via MPS;
+  static double-pole data via the lower axis).
