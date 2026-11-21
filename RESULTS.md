@@ -3840,7 +3840,7 @@ frequency-map search near a resonance or separatrix at these p, with a Kerr cont
 
 **Ceilings.** *Rank:* 10, one rung at a time, with no all-ranks argument. *Class:* invariant tensors only.
 Non-invariant ones, of the form e^{λt+imφ} or Jordan chains under the Killing vectors, are not excluded; that is
-Kruglikov–Steneker's full-4D route, which is much larger. *Locality:* near the points; carrying it globally rests on
+Kruglikov–Steneker's full-4D route, which is much larger. *(Correction 2026-11-21: that attribution is unsupported. Kruglikov–Steneker 2022, arXiv:2207.03474, treats Koutras–McIntosh and pp-wave Killing tensors, not non-invariant ones. The ceiling stands, uncited.)* *Locality:* near the points; carrying it globally rests on
 analytic continuation (the metric is rational and the system is of finite type), which is not written out here.
 
 **Environment:** Python 3.14.5 (.venv), numpy 2.4.6 / scipy 1.18.0 (Apple Accelerate), sympy 1.14.0, mpmath 1.3.0, numba 0.65.1, FLINT 3.6.0, rustc 1.98.1, macOS 26.5 arm64. Full stamp: `ENVIRONMENT/stamp.json`. *Back-filled 2026-10-11; environment assumed unchanged since the run (no package installs between the run and the stamp).*

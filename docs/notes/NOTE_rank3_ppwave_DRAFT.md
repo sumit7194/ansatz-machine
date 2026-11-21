@@ -2,7 +2,7 @@
 
 # A polynomially irreducible rank-3 Killing tensor on a known Lorentzian vacuum pp-wave
 
-*Draft short note, 2026-09-24. Sized as agreed with The Bridge: a corollary on a published spacetime, not a
+*Draft short note, 2026-09-24; v1 2026-11-21 (references checked at source; see "v1 audit" at the end). Sized as agreed with The Bridge: a corollary on a published spacetime, not a
 first construction. Sources and checks are in RESULTS §147 and `workspaces/high_rank_killing/`.*
 
 > **STATUS OF VERIFICATION — READ FIRST.** Every check below was carried out by **AI sessions** (Claude):
@@ -19,8 +19,8 @@ none of the Lorentzian spacetimes previously built by the Eisenhart lift solves 
 constructed ultrahyperbolic examples; their conclusion poses as "an important problem" whether an
 integrable system with a cubic (or higher) integral can be governed by a harmonic potential, in which case
 Lorentzian Ricci-flat spacetimes with higher-rank Killing tensors could be built by the Eisenhart lift (as
-printed, "signature (1, q) and d > 4" — strict, checked on the typeset PDF, where the preceding sentence
-prints d ≥ 4; a two-degree-of-freedom system lifts to d = 4). Filyukov (2017) named a harmonic planar potential with an integral of
+printed, "signature (1, q) and d > 4", strict; the preceding paragraph, about signature (2, q), prints d ≥ 4; a
+two-degree-of-freedom system lifts to d = 4). Filyukov (2017) named a harmonic planar potential with an integral of
 third or higher order as the main open problem. Fordy and Galajinsky (2019) wrote that no vacuum solution
 admitting higher-rank Killing tensors is presently known, and called the rank-2 barrier puzzling. We point out
 that an example was already in print, unrecognised. The four-dimensional vacuum pp-wave that Filyukov (2017)
@@ -38,8 +38,8 @@ Coordinates (t, s, ξ, η), ρ² = ξ² + η², a ≠ 0 (|a| is a gauge), signat
 
 With w = (ξ + iη)² the transverse metric is 2|dw|² (flat; (ξ, η) are parabolic coordinates), and the profile
 is 4a Re(w^{−1/2}), a harmonic function. This is the Eisenhart lift of the planar potential √(r+x)/r, whose
-lift is Ricci-flat exactly because the potential is harmonic (Gibbons–Houri–Kubizňák–Warnick 2011:
-R_tt = ΔV).
+lift is Ricci-flat exactly because the potential is harmonic (this follows from Gibbons–Houri–Kubizňák–Warnick
+2011, eq. (55): R_tt = (∂_x² + ∂_y²)V for this class of pp-waves).
 
 With H = ½ g^{ab} p_a p_b = p_t p_s + 2aξ p_s²/ρ² + (p_ξ² + p_η²)/(16ρ²), the quadratic Killing tensors
 (the two parabolic separation constants) are
@@ -98,14 +98,14 @@ claimed more.)
 
 ## 4. Prior art — what is in print and what is not
 
-- **In print:** the spacetime (Filyukov 2017, eq. (33): U = α√(r+x)/r, which equals √2 × the profile above,
-  checked). Filyukov displays **one** quadratic integral per potential; the second is implied by his
+- **In print:** the spacetime (Filyukov 2017, eq. (33), third potential: U = γ√(r+x)/r, which equals √2 × the
+  profile above for γ = 4a, checked). Filyukov displays **one** quadratic integral per potential; the second is implied by his
   statement that the systems are superintegrable. The SW-IV potential itself dates from 1965. The general
   Eisenhart lift and its vacuum condition are GHKW 2011. Bracket cubics treated as Killing tensors appear in
   Fordy–Galajinsky 2019, on a non-vacuum lift. Kruglikov–Steneker 2022 show that on generic *conformally flat*
-  pp-waves all degree-3/4 Killing tensors are reducible. The object here is type N, not conformally flat.
-  (Per the workspace's EXP-001 / §7 sweep and The Bridge's V6; the papers other than Filyukov's record and
-  eq. (33) were not re-read for this draft.)
+  pp-waves (plane waves, which are pure radiation, not vacuum) all degree-3/4 Killing tensors are reducible. The
+  object here is a vacuum type-N wave, not conformally flat, so that result does not apply to it.
+  (All cited statements were checked at the source on 2026-11-21; see the reference list.)
 - **Not found in print:** F, its bracket origin on this spacetime, and its polynomial irreducibility. The
   search that counts is The Bridge's V6: a controlled INSPIRE citer query (`refersto:recid:1351199`, with a
   positive control and a count bound), which returns 18 citers of Cariglia–Galajinsky, Filyukov among them.
@@ -137,5 +137,36 @@ Two routes that share no code both got a first-order Killing-count upper bound o
 3. Any irreducible rank ≥ 3 Killing tensor on a **regular** Lorentzian vacuum spacetime.
 
 ---
+
+## References (checked at the source 2026-11-21; "abstract" or "metadata" says how far)
+
+1. M. Cariglia and A. Galajinsky, "Ricci-flat spacetimes admitting higher rank Killing tensors", Phys. Lett. B 744
+   (2015) 320–324, arXiv:1503.02162. Quotes checked in the arXiv PDF: "none of the Lorentzian spacetimes studied in
+   [...] solves the vacuum Einstein equations" (introduction); "an important problem" (conclusion); "Lorenzian
+   signature (1, q) and d > 4" (conclusion; their spelling).
+2. S. A. Filyukov, "Скрытые симметрии Риччи-плоских пространств и интегрируемые системы с гармоническим
+   потенциалом" (Hidden symmetries of Ricci-flat spacetimes and integrable systems with harmonic potentials), Science,
+   Technology and Education 1(5) (2017) 13–20, in Russian; INSPIRE 1620354. Eq. (33), superintegrability statement and
+   the open problem in the conclusion checked in the full text by an AI session (not by a Russian-reading human).
+3. A. P. Fordy and A. Galajinsky, "Eisenhart lift of 2-dimensional mechanics", Eur. Phys. J. C 79 (2019) 301,
+   arXiv:1901.03699. Quotes checked: "no solution to the vacuum Einstein equations admitting higher rank Killing tensors
+   is presently known"; "This empirical barrier of rank–2 seems rather puzzling."
+4. G. W. Gibbons, T. Houri, D. Kubizňák and C. M. Warnick, "Some spacetimes with higher rank Killing–Stäckel tensors",
+   Phys. Lett. B 700 (2011) 68–74, arXiv:1103.5366 (Sec. 4, eq. (55)).
+5. J. Friš, V. Mandrosov, Ya. A. Smorodinsky, M. Uhlíř and P. Winternitz, "On higher symmetries in quantum mechanics",
+   Phys. Lett. 16 (1965) 354–356 (metadata).
+6. B. Kruglikov and W. Steneker, "Killing tensors in Koutras–McIntosh spacetimes", Class. Quantum Grav. 39 (2022),
+   arXiv:2207.03474 (Theorem 13, Corollary 14: generic conformally flat pp-waves, i.e. plane waves).
+
+## v1 audit (2026-11-21): what is backed, and by what
+- §1–§2 (the object, {H,F} = 0, dim K₁ = 2, irreducibility, functional dependence, F = −4{Q1,Q2}, the F² identity):
+  RESULTS §147 (this repo, standalone) plus the workspace's EXP-002–004; the Bridge's V5 is relayed.
+- §3 (CG's cubic is −½{Q_a, Q_b}; the anti-self-duality reach): pre-registered re-derivation
+  `data/cg_recheck/PREREGISTRATION.md`, output `recheck.out`, commit 5365bd7. **It has no RESULTS section**; the
+  Lorentzian step (B2) is a textbook argument, recorded as "argued", not computed.
+- §4 (prior art): the INSPIRE citer sweep is the Bridge's V6, relayed. Not searched: elibrary.ru directly, theses.
+- Corrections in v1: Filyukov's constant is γ, not α; the "d ≥ 4" sentence is about signature (2, q); Kruglikov–
+  Steneker's result is for non-vacuum plane waves; GHKW give R_tt = ΔV, and "iff harmonic" is our one-line consequence.
+- Cover message for the outreach (Sumit sends): `docs/notes/NOTE_rank3_cover_DRAFT.md`.
 
 *Not decided and not the drafter's call: whether this goes outside the fleet, to whom, and under whose name.*
