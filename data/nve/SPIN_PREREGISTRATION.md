@@ -237,3 +237,34 @@ Code: `data/nve/t48b_s4/sliver_s4.py`. It is `sliver_spin.py` with these changes
 - **PASS:** endpoint certified, both controls OK, and δ0 > 1e−12. δ0 is reported even if marginal.
 - **FAIL:** anything else. The spin 3/10 sliver then stays floating-point only, with no further amendment.
 - **Expected margins** (50-digit walker): |tr Y| ≈ 2.1e−5, |tr XY| ≈ 4.2e−5, |τ| ≈ 0.51.
+
+**S4 RESULT (2026-11-22, `t48b_s4/out_3_10.txt`, 833 s): FAIL as registered, and FINAL.**
+- **The endpoint k = 30/7 at spin 3/10 IS interval-certified Zariski-dense:**
+  - |τ(X, Y)| ∈ [0.510459, 0.510462];
+  - |tr X| ≈ 2.00218; Im tr X ∈ [0.127596, 0.127597];
+  - **|tr Y| ∈ [2.0423e−5, 2.1802e−5]** (the 50-digit value is 2.1107e−5, inside);
+  - |tr XY| ∈ [4.088e−5, 4.368e−5];
+  - max defect ρ = 6.4e−8.
+- **Kerr control passes and is sharp:** the enclosure of tr Y_Kerr contains 0, and |tr Y_Kerr| ≤ 1.34e−6 < 2.04e−5.
+- **But certified δ0 = 7.37e−15 < 1e−12.** The tr Y margin (2e−5) is exhausted by the Gronwall drift within ~1e−14 of
+  30/7. The wrong tail gives 1.1e−27.
+- **Final status at spin 3/10:** the sliver is interval-certified on (30/7 − 7.4e−15, 30/7] only. On
+  (30/7 − 1e−12, 30/7 − 7.4e−15] it is 50-digit floating point (samples non-VA). No S5.
+
+## Endpoint obstruction vs spin (`scripts/_nve_endpoint_scaling.py`, `endpoint_scaling.out`; S2 loop rule; every value stable to < 1e−33 across dps 50 and 70 and steps 0.35 and 0.2)
+| spin | tr Y (Γ-like loop; the imprimitivity margin of the half-plane pair) | τ(A, B) = −(tr Y)² | \|τ(M1, M3)\| |
+|---|---|---|---|
+| 0.3 | +2.1107e−5 | −4.4551e−10 | 0.510 |
+| 0.6 | +3.1167e−3 | −9.7137e−6 | 2.866 |
+| 0.8 | +3.0099e−2 | −9.0593e−4 | 8.54 |
+| 0.9 | −0.17550 | −3.0800e−2 | 17.12 |
+
+- **τ(A, B) = −(tr Y)² holds to every digit at all four spins** (a Fricke relation for these loops). So one number
+  carries the near-imprimitivity.
+- **|tr Y| grows steeply with spin:** log-log slope 7.2 on 0.3–0.6 and 7.9 on 0.6–0.8. **The obstruction weakens
+  rapidly toward low spin; spins below 0.3 are not tested.**
+- **tr Y changes sign between 0.8 and 0.9,** so it vanishes at some spin a_c ∈ (0.8, 0.9) at the endpoint. That is
+  the same zero curve that passes through (0.8, k* = 4.0082).
+  - Along that curve the half-plane pair is imprimitive. The full group must be settled there by an independent pair,
+    as at k*.
+  - It does not affect the tested spins, but it is worth stating.
