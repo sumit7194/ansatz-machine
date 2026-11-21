@@ -85,3 +85,10 @@ numerically.
 P in Re z > 1 for E > 1, and 1 zero at E = 0.8. Outputs: `t11_check_spin3_10.out` and `t11_check_spin9_10.out`.
 Note that Re z > 1 is narrower than Re z > a when spin < 1. At spin 0.9 the strip 0.9 < Re z < 1 is not covered by this
 count.
+
+## Correction (2026-11-21, from grading Neon T38; `T38_GRADING.md`)
+- **"For k < 0 the negative-B interval lies inside the horizon": wrong.** It lies in |z| < a. On the lower side that
+  includes the physical lower outer axis z < 1 − √(1 − a²), where c0 then becomes complex. With regularity on both
+  outer axes, k < 0 is not a physical member of the family.
+- **"k = 30/7 gives a NUT charge" (accepted from the relayed summary): wrong.** At k = 30/7 the angular-momentum term
+  vanishes (it is ∝ √(90 − 21k)) and c0 ~ z⁻³. That is a real, asymptotically flat J = 0 member, and it is not covered.
