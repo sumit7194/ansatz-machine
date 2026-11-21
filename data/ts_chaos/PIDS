@@ -65,3 +65,5 @@
 21764 spin_scan run 2 chain (3/10, 4/5, 9/10) 2026-11-21 19:25:10
 72194 T48b sliver_closure_iv.py (scratch copy, -I) 2026-11-21 21:40:30
 91810 T48b fixed copy (scratch, -I) 2026-11-21 21:57:36
+78773 _nve_spin_locate.py 4/5 (post-hoc) 2026-11-22 00:56:19
+85485 _nve_spin_kstar.py 4/5 (post-hoc) 2026-11-22 01:01:38

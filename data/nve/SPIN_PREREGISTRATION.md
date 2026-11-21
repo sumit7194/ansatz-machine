@@ -84,3 +84,38 @@ and 19/20.
   to ≤ 1e−50.
 - No criterion changed. The chain was stopped by me and is rerun from the start as run 2 (log of run 1:
   `spin_run_3_10_crash1.out`).
+
+## Spin 4/5 (run 2): registered verdict **EXCEPTIONAL CANDIDATES**, resolved POST HOC as no exception (labelled)
+**Region A passes in full:**
+- F has 2 zeros (the Kerr double zero); tr M0, tr M1 and every T1 − s have none.
+- Step agreement 4.6e−22; C2 and C1 OK; Kerr |F| 1e−50.
+
+**Region B:** F_h, T1 and all T1 − s have no zeros, but **count(TΓ) = count(T1Γ) = 1**, so the registered rule ("TΓ or
+T1Γ zero-free") failed. Every control passed: B-repro 7e−52; repro-F 1.5e−48; MF-trunc fired; P2 non-VA by both
+pictures; P1 Kerr imprimitive; steps agree to 3e−21; geometry and counts clean. The endpoint is non-VA.
+
+**Post-hoc diagnosis (scripts `_nve_spin_locate.py` and `_nve_spin_kstar.py`; outputs `spin_locate_4_5.out` and
+`spin_kstar_4_5.out`):**
+- **The registered rule had a DESIGN FLAW: T1Γ is not independent.**
+  - M1 encloses {r+, p+} and Γ encloses {r+, p+, p−}, so M1Γ⁻¹ encircles the single simple point p−. Its trace is
+    identically 0.
+  - So the Fricke identity gives **tr(M1Γ) = tr M1 · tr Γ identically**.
+  - Check at the endpoint: (−1.49828 + 2.04609i)(−0.030099) = 0.045097 − 0.061585i, equal to T1Γ.
+  - Hence count(T1Γ) = count(T1) + count(TΓ), so 0 + 1. Every zero of TΓ is a zero of T1Γ, and there the half-plane pair
+    is genuinely imprimitive (two order-4 elements generate a dihedral group).
+  - The rule could therefore never exclude imprimitivity where TΓ = 0. At spin 3/5 (§162) and 3/10, TΓ has no zeros,
+    so those verdicts are unaffected.
+- **The common zero:** k* = 4.008164511150082 (real). There T1Γ ≈ 2.5e−43, TΓ ≈ 5e−23 (the secant tolerance), and
+  F_h = −10.17 − 5.69i ≠ 0.
+  - My bisection for TΓ alone had a reversed-bracket bug and stopped after one step. The secant on T1Γ is the reliable
+    locator.
+- **At k* the GROUP is not imprimitive.** The independent circle pair (M0 = circle R0, M1 lasso; Laurent c0; ρ_c 0.906
+  < R0 − 0.1) gives:
+  - F = 15.59 + 8.72i; tr M0 = 1.459; tr M1 = −1.0541 + 2.6989i (non-real, at distance 2.70 from S).
+  - So it is Zariski-dense at k* and at k* ± 0.002. The lasso trace equals the half-plane T1 at k*, as it must.
+- **Conclusion (post hoc, labelled):** no exceptional k at spin 4/5, E = 4/5, in (0, 30/7 − 1e−12] ∪ {30/7}. The
+  half-plane pair degenerates only at k*, where the full group is SL₂ by the circle pair.
+
+**Lesson:** a classifier's trace triple must consist of INDEPENDENT functions on the region. Check the Fricke
+relations (here M1Γ⁻¹ is a single-point loop) before registering. Spin 9/10 runs under the same rule. If TΓ has zeros
+there, they are resolved the same way, with an independent pair at each zero.
