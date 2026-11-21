@@ -268,3 +268,11 @@ Code: `data/nve/t48b_s4/sliver_s4.py`. It is `sliver_spin.py` with these changes
   - Along that curve the half-plane pair is imprimitive. The full group must be settled there by an independent pair,
     as at k*.
   - It does not affect the tested spins, but it is worth stating.
+
+**Why τ(A, B) = −(tr Y)² holds exactly (for the write-up).**
+- M1, M2 and M3 are single-point loops, with exponents ¼ and ¾ at a simple zero or pole of P. So tr Mᵢ = 0, and with
+  det = 1 this gives Mᵢ² = −I, i.e. Mᵢ⁻¹ = −Mᵢ.
+- With A = M2M1 and B = M3M2: A⁻¹ = M1M2 and B⁻¹ = M2M3. Hence [A, B] = M2M1M3M2·M1M2M2M3 = −(M2M1M3)².
+- By tr(W²) = (tr W)² − 2, τ(A, B) = −(tr M2M1M3)².
+- For trace-zero X, Y, Z, tr(XYZ) = −tr(XZY). So tr(M2M1M3) = −tr(M2M3M1) = −tr Y, and τ(A, B) = −(tr Y)².
+- In words: A and B commute exactly when the 3-point loop Y has trace 0, which is the imprimitive (Kerr-like) case.
