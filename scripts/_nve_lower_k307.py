@@ -79,7 +79,7 @@ def G_ray(zz, k, which):
     n, g = zz**2 - 2 * zz + A**2, zz**2 + A**2
     c = c0_ray(zz, k)
     G2 = n * n + c * c * g * g
-    return E2 * G2 - n * g if which == 1 else G2
+    return (mp.mpf(16) / 25) * G2 - n * g if which == 1 else G2   # A1 rerun 2: mp E^2 (a sympy E2 leaked here and crashed mp.diff)
 
 
 def newton_ray(x, k, which):

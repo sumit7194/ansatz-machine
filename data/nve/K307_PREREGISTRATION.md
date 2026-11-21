@@ -138,3 +138,10 @@ It does **not** show that window empty. Covering (4.05, 30/7) needs a separate r
 half-plane picture. The circle picture is refused there, since ρ_c > 1.1 already at k ≈ 4.114. The obstacle is c0
 near 30/7, where the Laurent radius blows up. The route is to integrate c0″ = −√R(z) (R rational and known exactly)
 alongside the NVE, starting from the Laurent series at large |z|. Not proposed here; a separate prereg if wanted.
+
+**A1 run 1 (PID 2125): CRASH, no verdict.**
+- All A1 controls up to C-step had passed: C-c0 8e−51; the must-fail fired (diff 0.0138, sum 5e−51); C-deriv 3e−51
+  with min |c0′| 2.7e−3; C-geo OK under the scale-relative rule; three steps agree to 6e−21; P2 1.6e−52.
+- Then C-cont's Newton crashed. Cause: a type bug in which a sympy E² multiplied an mpmath value inside `G_ray`, and
+  mp.diff could not add the resulting sympy object.
+- Fixed by using an mpmath E² (one line). No criterion changed. Rerun as "A1 run 2".

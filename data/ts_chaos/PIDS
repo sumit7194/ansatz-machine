@@ -56,3 +56,4 @@
 72301 stopped by me 10:22:10 (find_zeros missed the extras; switching to grid search)
 94001 _nve_lower_kc_count.py 2026-11-21 10:33:41 gap-B registered run (98b54e9)
 87948 _nve_lower_k307.py 2026-11-21 16:30:54 k=30/7 endpoint registered run
+2125 _nve_lower_k307.py 2026-11-21 16:38:26 k=30/7 rerun under A1

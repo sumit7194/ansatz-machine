@@ -1,0 +1,25 @@
+C0 {'F': '(0.001966565550913383411 + 0.0010125619632547116598j)', 'diff': 3.793396454531813e-18, 'ok': True}
+P1 {'F': 2.6727647100921956e-50, 'trM0m2': 1.2754110109065258e-36, 'ok': True}
+C-geo {'rho': 0.6, 'lasso_clr': 0.03210695297126811, 'disc_clr': 5.050371285321327, 'disc_left': 1.5990689492837997, 'outer_min_abs': 1.8008208615683778, 'sep_lasso': 0.053470104437561866, 'sep_disc': 5.200371285321327, 'ok': True, 'counts': (2, 2, 0, 0), 'points': ['(1.80082086157 + 0.0j)', '(-3.45130233604 + 0.0j)', '(1.80332022637 + 0.0534116583167j)', '(1.80332022637 - 0.0534116583167j)']}
+C-c0 {'maxdiff': 8.404430033852814e-51, 'ok': True} must-fail (flagged other branch) {'diff': 0.0138053483405528, 'sum': 4.6073581153285974e-51, 'ok': True}
+C-deriv {'worst': 2.800231300393086e-51, 'min_abs': 0.002732125982299246, 'ok': True}
+endpoint 0.35 {'F': '(18.082929628671 + 66.8648725891914j)', 'Fh': '(-0.737260531790084 - 2.7690338008439j)', 'trM0': '(1.70337045334463 + 2.89121318359055e-31j)', 'trM1': '(-1.94191831064195 + 0.712963512849446j)', 'trG': '(-0.00311667419739289 + 1.90516922059438e-23j)', 'P2': '(0.0 + 2.08207139413246e-52j)'}
+endpoint 0.2 {'F': '(18.082929628671 + 66.8648725891914j)', 'Fh': '(-0.737260531790084 - 2.7690338008439j)', 'trM0': '(1.70337045334463 - 4.61149479100764e-37j)', 'trM1': '(-1.94191831064195 + 0.712963512849446j)', 'trG': '(-0.00311667419739289 + 2.4726353567097e-35j)', 'P2': '(5.34552942018439e-51 + 1.5726335474943e-52j)'}
+endpoint 0.12 {'F': '(18.082929628671 + 66.8648725891914j)', 'Fh': '(-0.737260531790084 - 2.7690338008439j)', 'trM0': '(1.70337045334463 + 1.57614605432081e-47j)', 'trM1': '(-1.94191831064195 + 0.712963512849446j)', 'trG': '(-0.00311667419739289 + 3.82731888191072e-46j)', 'P2': '(0.0 + 1.59002804376442e-52j)'}
+C-step {'worst_rel': 6.1128297269455816e-21, 'ok': True} P2 {'val': 1.5900280437644231e-52, 'ok': True}
+Traceback (most recent call last):
+  File "/Users/sumit/Github/conjecture_machine/scripts/_nve_lower_k307.py", line 219, in <module>
+    main()
+    ~~~~^^
+  File "/Users/sumit/Github/conjecture_machine/scripts/_nve_lower_k307.py", line 179, in main
+    posR = [newton_ray(posE[i], K307, 1 if i < 2 else 2) for i in (0, 2, 3)]
+            ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sumit/Github/conjecture_machine/scripts/_nve_lower_k307.py", line 89, in newton_ray
+    d = mp.diff(lambda t: G_ray(t, k, which), x)
+  File "/Users/sumit/Github/conjecture_machine/.venv/lib/python3.14/site-packages/mpmath/calculus/differentiation.py", line 190, in diff
+    v = ctx.difference(values, n) / norm**n
+        ~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "/Users/sumit/Github/conjecture_machine/.venv/lib/python3.14/site-packages/mpmath/calculus/differentiation.py", line 27, in difference
+    d += b * s[k]
+  File "<string>", line 17, in __add__
+AttributeError: property '_mpc_' of 'Add' object has no setter
