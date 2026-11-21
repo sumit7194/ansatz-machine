@@ -119,3 +119,29 @@ pictures; P1 Kerr imprimitive; steps agree to 3e−21; geometry and counts clean
 **Lesson:** a classifier's trace triple must consist of INDEPENDENT functions on the region. Check the Fricke
 relations (here M1Γ⁻¹ is a single-point loop) before registering. Spin 9/10 runs under the same rule. If TΓ has zeros
 there, they are resolved the same way, with an independent pair at each zero.
+
+## AMENDMENT S1 (2026-11-22, dated; committed BEFORE any spin 9/10 output exists: spin_run_9_10.out is empty, region A still running). The zero-resolution protocol for region B, now REGISTERED for spin 9/10
+Reason: the spin 4/5 diagnosis. Because tr(M1Γ) = tr M1·tr Γ identically, the region-B rule cannot exclude
+imprimitivity at zeros of TΓ. For spin 9/10, if count(T1) = 0, count(T1 − s) = 0 for all s and count(F_h) = 0, but
+count(TΓ) > 0:
+1. **Locate every zero of TΓ in B.**
+   - TΓ is real on real k (Γ is reflection-symmetric), so find real zeros by bisection on Re TΓ over a 25-point real
+     grid on [B_X0, B_X1], with a correctly ordered bracket, to |Δk| < 1e−14.
+   - If the number of real zeros is less than count(TΓ), find the complex ones by complex secant on T1Γ from the
+     boundary samples of smallest |TΓ|, to |T1Γ| < 1e−30.
+   - The protocol fails (UNDETERMINED) unless the number located equals count(TΓ).
+2. **At each zero k_j, test the full group with an independent pair:**
+   - **(a) If ρ_c(k_j) < R0 − 0.1 and the region-A geometry holds at k_j: use the circle pair (M0 = circle R0,
+     M1 = lasso; Laurent c0).** Require Z1–Z4 at steps 0.2 and 0.12, with every pair agreeing to a relative 1e−15:
+     - F ≠ 0;
+     - tr M0, tr M1 and tr M0M1 all nonzero (≥ 1e−8);
+     - Im tr M1 ≠ 0 (≥ 1e−8);
+     - distance of tr M1 from S ≥ 1e−3.
+   - **(b) Otherwise, near 30/7: use the extra half-plane pair (M1, M1′),** with M1′ the capsule lasso around [r+, p−]
+     (the mirror of M1), so M1M1′⁻¹ is not a single-point loop. Require Z1–Z4 for (M1, M1′) with the same thresholds,
+     using the engine.
+3. **Verdict at spin 9/10:**
+   - NO EXCEPTIONAL k if every k_j passes;
+   - EXCEPTIONAL CANDIDATE at any k_j that fails, listed;
+   - UNDETERMINED if the location fails.
+   - Labels: "registered (amendment S1)" for spin 9/10; spin 4/5's resolution stays labelled post hoc.
