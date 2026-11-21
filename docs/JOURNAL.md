@@ -4531,3 +4531,12 @@ pole-order-1 Carter² survival.
   `data/nve/T11_LOOP_REVIEW.md`, and a short check (`_nve_t11_check.py`, PID 9610, under 2 min): the relayed claims hold
   for E > 1 once the zeros of P are added to the isotopy condition. The E-step is closable down to E_min. E < 1 at
   large |k| stays open.
+- Bridge follow-ups:
+  - Zero counts at spins 0.3 and 0.9 match spin 0.6 (31a3a62). The relayed G1 certificate has since been proved and
+    verified by the Bridge (addendum K).
+  - **Gap B**, under GO and pre-registered (98b54e9): NO SPECIAL k on [−10.5, 4.05] × [−1, 1]i at (E 0.8, spin 0.6),
+    with all controls passing.
+  - Design lessons, each measured before registering:
+    - finding singular points by full search cost 390 s per k; Newton-tracking them costs 0.4 s;
+    - the fixed M1 rectangle breaks near k ≈ 3.5, so M1 became an adaptive lasso;
+    - extra inner zero/pole pairs appear for k < 0, and they set the left edge of the region.

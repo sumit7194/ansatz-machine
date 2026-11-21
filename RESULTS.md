@@ -4663,6 +4663,18 @@ Bridge's B8 results; only its problem statement was used. The question: below th
     - **At two more spins, 0.3 and 0.9** (Bridge request, `data/nve/t11_check_spin3_10.out`, `_spin9_10.out`): the
       counts are identical to spin 0.6. Every (k, E > 1) has 2 zeros and 2 poles in Re z > 1, and E = 0.8 has 1 zero.
       This is an independent target for the relayed G1 certificate.
+- **Gap B, the argument-principle zero count in k (2026-11-21; prereg `data/nve/GAPB_PREREGISTRATION.md`, 98b54e9;
+  code `scripts/_nve_lower_kc*.py`): NO SPECIAL k IN R.**
+  - F(k) = tr[M1, M0] − 2 has exactly 2 zeros (the known double zero at 0) in the complex-k rectangle [−10.5, 4.05] ×
+    [−1, 1]i, at spin 0.6 and E = 0.8. M1 is a based lasso around {r+, p+}, made adaptive because a fixed rectangle
+    fails near k ≈ 3.5; M0 is the circle at 1.35.
+  - tr M0 and tr M1 have no zeros in the rectangle, so the pair is irreducible and non-imprimitive at every k ≠ 0
+    there. Real k ∈ [−10.5, 4.05], including k = 4, has no exception at this (E, spin).
+  - All controls (reproduction, local double zero, counter must-detect, two must-fail guards) and all guards (geometry
+    over the interior, sparse zero counts, step refinement to 4e−22, arg resolution) pass.
+  - **Found along the way:** for k < 0, a zero/pole pair of P splits off from ±i·spin and moves outward, reaching
+    |z| = 1.25 at k ≈ −17. That is why the region stops at −10.5. Beyond it a different M0 is needed.
+  - **Scope:** a floating-point argument principle at one (E, spin), not interval-certified.
   - **The large-E → generic-E step is closable.**
     - The k² coefficient c(E) depends only on the k = 0 geometry and on the separation class.
     - It is therefore analytic in E for E > E_min(a). E_min ≈ 0.625 at spin 0.6 is where r− enters the inner circle.

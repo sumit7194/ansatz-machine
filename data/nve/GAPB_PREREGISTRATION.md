@@ -79,3 +79,26 @@ no k in the region makes this pair of monodromies reducible.
 - The finite-group case is not counted here. Im T1 ≠ 0 is recorded on the real-k samples as evidence only.
 - Nothing is claimed for k < −10.5, where the extras approach M0 and a different M0 is needed, or for k > 4.05.
 - **Environment:** Python 3.14.5 (.venv), mpmath 1.3.0, sympy 1.14.0, numpy 2.4.6; 1 core, nice 10; estimated about 1 h.
+
+## RESULT (run 2026-11-21 10:33–~12:05, PID 94001, from the registered code 98b54e9 unchanged)
+**NO SPECIAL k IN R.** Over R = [−10.5, 4.05] × [−1, 1]i at spin 3/5, E = 4/5:
+- count(F) = 2, the known double zero at k = 0. Raw winding is 2.000, with max |Δarg| 0.53.
+- count(tr M0 − 2) = 2, and count(T0) = count(T1) = 0. So two traces of the pair are nonzero throughout R, and the pair
+  is **not imprimitive anywhere in R**.
+- All controls pass:
+  - C0: the capsule lasso reproduces the registered rectangle F to 3.8e−18.
+  - C1: the circle |k| = 0.3 gives 2 and 2.
+  - C2: the counts are 3, 1 and 2, exactly as required.
+  - C3a fires at k = −17.25, where the extras reach |z| = 1.25. C3b fires at k = 4.114, where ρ_c = 1.11.
+- All guards pass:
+  - G-geo: on the interior grid and the boundary.
+  - G-count: all 12 points.
+  - G-step: worst relative difference 4e−22.
+  - G-arg: no refinement was needed; 134 boundary samples.
+- **Evidence for the finite case** (not a criterion): Im tr M1 ≠ 0 at the real-k samples k = 0.3, 4.05 and −10.5.
+- **Consequence:** at this (E, spin), the pair ⟨M1, M0⟩ is irreducible and non-imprimitive at every k ≠ 0 with
+  −10.5 ≤ Re k ≤ 4.05 and |Im k| ≤ 1. In particular this holds for real k in [−10.5, 4.05], including k = 4. So the
+  relayed proof's "K_bad" is empty on this real interval at this (E, spin). Scope as registered: a floating-point
+  argument principle, not an interval certificate, and one (E, spin).
+- Files: `gapb.out`, `gapb.jsonl` (194 evaluations), `gapb_verdict.json`. Compute: ~44 min of evaluation, ~1.5 h
+  wall-clock, 1 core, nice 10.

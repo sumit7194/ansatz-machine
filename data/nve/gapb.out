@@ -1,0 +1,33 @@
+C0 {'F': ['0.001966565550913383411020590283605428008727', '0.001012561963254711659757570826477861676379'], 'diff': 3.793396454531813e-18, 'ok': True}
+C3a {'fired': True, 'where': "('-17.2500+0.0000i', {'ok': False, 'lasso_clr': 0.8818234440367355, 'delta': 0.15, 'M0_clr': 0.9106528162328086, 'extra_max': 1.2515177333175196, 'rho': 0.6, 'n_extras': 4})", 'ok': True}
+C3b {'fired': True, 'where': "('+4.1143+0.0000i', {'ok': False, 'lasso_clr': 0.09436657044775006, 'delta': 0.06290864942288328, 'M0_clr': 0.45726535484863867, 'extra_max': 0.0, 'rho': 1.1108596421793038, 'n_extras': 0})", 'ok': True}
+G-count -10.5000-1.0000i (2, 2, 2, 2) extras 4 ok
+G-count -3.5000-1.0000i (2, 2, 2, 2) extras 4 ok
+G-count +4.0500-1.0000i (2, 2, 0, 0) extras 0 ok
+G-geo row Im k=-1.00 done; fails so far 0
+G-geo row Im k=-0.75 done; fails so far 0
+G-geo row Im k=-0.50 done; fails so far 0
+G-geo row Im k=-0.25 done; fails so far 0
+G-count -10.5000+0.0000i (2, 2, 2, 2) extras 4 ok
+G-count -10.0000+0.0000i (2, 2, 2, 2) extras 4 ok
+G-count -5.0000+0.0000i (2, 2, 2, 2) extras 4 ok
+G-count +0.0000+0.0000i (2, 2, 0, 0) extras 0 ok
+G-count +4.0000+0.0000i (2, 2, 0, 0) extras 0 ok
+G-count +4.0500+0.0000i (2, 2, 0, 0) extras 0 ok
+G-geo row Im k=+0.00 done; fails so far 0
+G-geo row Im k=+0.25 done; fails so far 0
+G-geo row Im k=+0.50 done; fails so far 0
+G-geo row Im k=+0.75 done; fails so far 0
+G-count -10.5000+1.0000i (2, 2, 2, 2) extras 4 ok
+G-count -3.5000+1.0000i (2, 2, 2, 2) extras 4 ok
+G-count +4.0500+1.0000i (2, 2, 0, 0) extras 0 ok
+G-geo row Im k=+1.00 done; fails so far 0
+G-geo True G-count True
+[C1] refinement level 1: inserted 9, now 25 samples
+[C1] refinement level 2: inserted 0, now 25 samples
+C1 {'countF': (2, 2.0, 0.7773784240984695), 'count_trM0m2': (2, 2.0, 0.7815130343102434), 'ok': True}
+[R] refinement level 1: inserted 0, now 134 samples
+G-step {'worst_rel': 4.1138588036715153e-22, 'ok': True}
+counts {'F': {'count': 2, 'raw': 2.0, 'max_darg': 0.5330675669782128}, 'trM0m2': {'count': 2, 'raw': 2.0, 'max_darg': 0.4843450327910062}, 'T0': {'count': 0, 'raw': -8.308275690092764e-54, 'max_darg': 0.03278059907386535}, 'T1': {'count': 0, 'raw': -7.78316670311737e-53, 'max_darg': 0.14017025464072794}}
+C2 {'mul': 3, 'div': 1, 'out': 2, 'ok': True}
+VERDICT NO SPECIAL k IN R | T0/T1 zero-free in R: True
