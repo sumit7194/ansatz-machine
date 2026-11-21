@@ -19,7 +19,7 @@ mp.mp.dps = 50
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, "data", "nve")
 z = sp.symbols("z")
-A = sp.Rational(3, 5)
+A = sp.Rational(os.environ.get("NVE_SPIN", "3/5"))   # spin; default 3/5 = every run up to §162
 RIN = mp.mpf("0.9")          # addendum 1: c0 series must converge down to |z| = 0.9 (step control)
 KSER = 50
 

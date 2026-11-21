@@ -17,7 +17,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import _nve_lower as L                     # noqa: E402
 import _nve_lower_kc as KC                 # noqa: E402
 
-A = mp.mpf(3) / 5
+A = mp.mpf(sp.N(L.A, 60))                     # spin from _nve_lower (NVE_SPIN, default 3/5)
 Z0 = mp.mpf(2)
 
 
@@ -57,8 +57,10 @@ def _mul(a, b, n):
 
 
 class C0Engine:
-    def __init__(self, k, NC=220):
+    def __init__(self, k, NC=220, z0=None):
         k = mp.mpc(k)
+        self.Z0 = Z0 if z0 is None else mp.mpf(z0)     # series centre (default 2, as in §162)
+        Zc = self.Z0
         dN = max(KC.N0.degree(), KC.N1.degree())
         asc = [x + k * y for x, y in zip(KC._asc(KC.N0, dN), KC._asc(KC.N1, dN))]
         while abs(asc[-1]) < mp.mpf(10) ** -40:
@@ -69,20 +71,20 @@ class C0Engine:
         self.lc = self.desc[0] / lcD
         self.zeta = mp.polyroots(self.desc, maxsteps=800, extraprec=400)
         self.sing = list(self.zeta) + [mp.mpc(0, A), mp.mpc(0, -A)]
-        self.Rc = min(abs(Z0 - s) for s in self.sing)
+        self.Rc = min(abs(Zc - s) for s in self.sing)
         self.NC = NC
         # c0'' series about Z0
-        nser = [x / lcD for x in _poly_shift(self.desc, Z0, NC)]
+        nser = [x / lcD for x in _poly_shift(self.desc, Zc, NC)]
         self.lcD = lcD
-        lead = self.sqrtN(Z0)
+        lead = self.sqrtN(Zc)
         sq = _series_sqrt(nser, lead, NC)
-        g = _poly_shift([1, 0, A**2], Z0, 3)                      # z^2 + a^2 at Z0 + t
+        g = _poly_shift([1, 0, A**2], Zc, 3)                      # z^2 + a^2 at Zc + t
         g3 = _mul(_mul(g, g, NC), g, NC)
         self.c2 = [-x for x in _mul(sq, _inv_series(g3, NC), NC)]   # c0'' coefficients about Z0
         # constants
         f2 = lambda t: self.c0pp(t)
-        self.c1_0 = -mp.quad(f2, [Z0, 4, 16, mp.inf])
-        self.c0_0 = mp.quad(lambda t: (t - Z0) * f2(t), [Z0, 4, 16, mp.inf])
+        self.c1_0 = -mp.quad(f2, [Zc, 4, 16, mp.inf])
+        self.c0_0 = mp.quad(lambda t: (t - Zc) * f2(t), [Zc, 4, 16, mp.inf])
         # c0 series about Z0: c0 = c0_0 + c1_0 t + sum c2[j] t^(j+2)/((j+1)(j+2))
         self.cser = [self.c0_0, self.c1_0] + [self.c2[j] / ((j + 1) * (j + 2)) for j in range(NC)]
 
@@ -96,7 +98,7 @@ class C0Engine:
         return -self.sqrtN(z) / (z**2 + A**2) ** 3
 
     def c0(self, z, deriv=0):
-        t = z - Z0
+        t = z - self.Z0
         if deriv == 0:
             return L.peval(list(reversed(self.cser)), t)
         return mp.fsum(j * self.cser[j] * t ** (j - 1) for j in range(1, len(self.cser)))
@@ -117,19 +119,19 @@ class C0Engine:
             # cut ray {r - t, t >= 0} must miss the working disc and the real ray [Z0 - 1, inf)
             if mp.re(r) > mp.re(region_center) - region_radius and abs(mp.im(r) - mp.im(region_center)) < region_radius + mp.mpf("0.1"):
                 cut_ok = False
-            if abs(mp.im(r)) < mp.mpf("1e-6") and mp.re(r) > Z0 - 1:
+            if abs(mp.im(r)) < mp.mpf("1e-6") and mp.re(r) > self.Z0 - 1:
                 cut_ok = False
-        reach = abs(region_center - Z0) + region_radius
+        reach = abs(region_center - self.Z0) + region_radius
         return dict(cut_ok=cut_ok, Rc=float(self.Rc), reach=float(reach), conv_ok=bool(reach <= mp.mpf("0.6") * self.Rc))
 
 
 class ProblemHP(L.Problem):
     """Problem with c0 from C0Engine (only valid inside the guarded working region)."""
-    def __init__(self, f0, k, E2, NC=220):
+    def __init__(self, f0, k, E2, NC=220, z0=None):
         n, g = sp.fraction(sp.cancel(sp.together(f0)))
         self.n, self.g = L.poly_mp(n), L.poly_mp(g)
         self.dn, self.dg = L.pder(self.n), L.pder(self.g)
-        self.eng = C0Engine(k, NC)
+        self.eng = C0Engine(k, NC, z0)
         self.rho = mp.mpf(0)          # Walker's |w| - rho term is replaced by passing eng.sing as extra singular points
         self.E2 = mp.mpf(sp.N(E2, 60))
 

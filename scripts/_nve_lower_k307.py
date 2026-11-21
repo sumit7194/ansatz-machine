@@ -15,7 +15,7 @@ from _ts_edge2 import fleet_guard          # noqa: E402
 
 mp.mp.dps = 50
 E2 = sp.Rational(16, 25)
-A = mp.mpf(3) / 5
+A = mp.mpf(sp.N(L.A, 60))                     # spin from _nve_lower (NVE_SPIN, default 3/5)
 K307 = mp.mpf(30) / 7
 B0 = mp.mpf("1.35")
 REF_C0 = mp.mpc("0.00196656555091338", "0.00101256196325471")
