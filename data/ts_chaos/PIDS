@@ -55,3 +55,4 @@
 72301 _nve_lower_kc_extras.py 2026-11-21 10:12:02 gap-B extras tracker (no F)
 72301 stopped by me 10:22:10 (find_zeros missed the extras; switching to grid search)
 94001 _nve_lower_kc_count.py 2026-11-21 10:33:41 gap-B registered run (98b54e9)
+87948 _nve_lower_k307.py 2026-11-21 16:30:54 k=30/7 endpoint registered run

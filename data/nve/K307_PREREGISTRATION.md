@@ -70,3 +70,37 @@ the endpoint's leading power w¹⁰ (c0″ ~ w⁵) as well as w⁸; nothing else
 - The continuity step is an argument plus a numerical exercise, not an interval certificate.
 - It does not decide whether K*(3/5) ∩ (4.05, 30/7) is empty.
 - Memory peak expected < 1 GB (§159 runs used ~200 MB). Estimate ~20–40 min, 1 core, nice 10.
+
+## OUTCOME (run 2026-11-21 16:31, PID 87948, from the registered code 7702285): **VOID**
+Three registered controls failed. Passed: C0 (diff 3.8e−18), P1 (|F| 2.7e−50, |tr M0 − 2| 1.3e−36), P2 (5.3e−51),
+C-step (worst relative 6.1e−21), the counts (2, 2, 0, 0), and C-cont-fire (|z_b| = 54 at δ = 1e−4).
+
+**Diagnosis (post hoc, labelled):**
+1. **C-c0 failed (max diff 0.0138): a design error in the control, not in the builder.**
+   - Per point (diagnostic run): the five points with Re z > a agree to ≤ 4.6e−33.
+   - The one failure is z = −1.8 + 2.2i (arg u = 129°): equal magnitude, opposite sign.
+   - The ray formula is T14's representation for Re u > 1 only. Near c4 = 0, its x-path passes close to the escaping
+     radicand root, and it lands on the other sheet. The Laurent series is the continuation from ∞, the one used
+     everywhere else.
+   - Test points should have been restricted to the ray formula's domain.
+2. **C-geo failed: a genuine near-collision at the endpoint.** At k = 30/7, E = 4/5:
+   - r+ = 1.8008 and p± = 1.8033 ± 0.0534i, so the poles sit ~0.053 from the zero.
+   - The lasso clearance is 0.032 against an ABSOLUTE threshold of 0.05 that was set at gap-B scale.
+   - Walker accuracy is unaffected: C-step agrees to 6e−21.
+3. **C-cont failed: a bug in the measurement code.** `c0_ray` forces `workdps(30)` internally, so `mp.diff`'s
+   higher-precision evaluations are rounded back and every c0′ difference is exactly 0. That made the monotonicity
+   test fail. The c0 and point columns behaved as the argument predicts: monotone, slopes 0.88 and 0.87.
+
+**Endpoint values (seen; NOT a verdict, because the run is VOID):**
+- F = 18.08 + 66.86i; F_h = −0.737 − 2.769i;
+- tr M0 = 1.7034; tr M1 = −1.942 + 0.713i; tr Γ = −0.0031;
+- identical at both steps.
+
+**Proposed amendment A1 (post-failure, made AFTER the endpoint values were seen; it needs the Bridge's OK before a
+rerun):**
+- C-c0: test points restricted to Re z > a.
+- C-cont: `c0_ray` uses the caller's precision, so mp.diff works.
+- C-geo: scale-relative clearance, ≥ 0.3 × the separation of the nearest singular points (here 0.6×), with C-step as
+  the accuracy arbiter.
+- The endpoint computation itself is unchanged (deterministic), so A1 can only turn VOID into a verdict, not change the
+  numbers. That grade must stay visible.
