@@ -1,3 +1,16 @@
+> **SUPERSEDED (2026-11-21, per the Bridge). Do not send.** The Galajinsky outreach already happened on
+> 2026-10-16 to 10-20, through the public snapshot `sumit7194/rank3-pp-wave-killing`. As relayed by the Bridge (not
+> verified here):
+> - he judged the result "interesting, sound and new";
+> - his request for a direct proof of no extra linear integral, and his doubt about the jet-count bound, were
+>   answered by an explicit Killing-equation solve (`check_killing_direct.py`, 22 checks);
+> - he replied that the analysis is "fully complete now", and allowed his name in the repo;
+> - Filyukov's addresses bounced, and there is no other channel.
+>
+> This draft is kept for the record only. The note itself (v1.1) remains useful as the cleaned, reference-checked text
+> for any future arXiv or public-repo version. Where to publish, and whether to ask about an arXiv endorsement, is
+> Sumit's call.
+
 # DRAFT cover message for the rank-3 note (for Sumit to edit and send; nothing is sent by any session)
 
 *2026-11-21, ansatz-machine. Outreach plan (via the Bridge): the note goes to A. Galajinsky first, and Sumit sends it.
