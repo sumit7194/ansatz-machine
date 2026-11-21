@@ -67,16 +67,18 @@ def c0_laurent_c(k, NW=None):
     for j in range(L):
         S[j] = (Nrev[j] - mp.fsum(S[i] * Drev[j - i] for i in range(j))) / Drev[0]
     j0 = next(j for j in range(L) if abs(S[j]) > mp.mpf(10) ** (-40))
-    if dD - dN + j0 != 8:
-        raise RuntimeError("radicand leading power != w^8")
+    lead = dD - dN + j0               # w^8 for k < 30/7; w^10 at the endpoint k = 30/7 (J = 0); T38 grading 1d
+    if lead not in (8, 10):
+        raise RuntimeError(f"radicand leading power w^{lead}, expected w^8 or w^10")
+    m0 = lead // 2                    # c0'' = sum B[jj] w^(jj + m0)
     Sa = S[j0:]
     B = [mp.mpc(0)] * NW
     B[0] = -mp.sqrt(Sa[0])
     for j in range(1, NW):
         B[j] = (Sa[j] - mp.fsum(B[i] * B[j - i] for i in range(1, j))) / (2 * B[0])
-    C = [mp.mpc(0)] * (NW + 3)
+    C = [mp.mpc(0)] * (NW + m0 - 1)
     for jj in range(NW):
-        n = jj + 4
+        n = jj + m0
         C[n - 2] = B[jj] / ((n - 1) * (n - 2))
     return C, rho, NW
 
