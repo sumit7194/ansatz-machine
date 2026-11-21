@@ -215,3 +215,25 @@ Z1b dropped) with three changes:
     which is marginal.
 - **Net for the sliver:** interval-certified at spins 3/5, 4/5 and 9/10 (E = 4/5). At spin 3/10 it is covered by
   50-digit floating point only (samples at 30/7 − 1e−13 to 1e−15, and the endpoint, all non-VA).
+
+**Wording fix (the Bridge):** "τ(A, B) identical for every pairing of the three single-point loops" is automatic, not
+three confirmations. For three loops whose product is the identity, τ(A, B) = τ(B, C) = τ(C, A) identically, so it
+is ONE number. (The same lesson as fleet slip 11.)
+
+## AMENDMENT S4 (2026-11-22, registered BEFORE running; Bridge OK; ITS FAILURE IS FINAL, with no S5): the sliver at spin 3/10
+Code: `data/nve/t48b_s4/sliver_s4.py`. It is `sliver_spin.py` with these changes:
+- **Pair:** X = M3M1 (lasso-like) and Y = M2M3M1 (Γ-like). Same loops (S2 rule) and basis.
+- **Precision:** iv.dps = mp.dps = 30; defect tolerance 1e−11 per subinterval (Kerr and endpoint); nsub = 16;
+  bisection depth ≤ 18.
+- **Conditions on [30/7 − δ0, 30/7]**, on drift-inflated traces (dX, dY, dXY from the loop Gronwall bounds; drift
+  2d per trace):
+  - Z1 + Z2: |τ(X, Y)| > 0 (irreducible, and [X, Y] ≠ I);
+  - Z3: |tr X|, |tr Y| and |tr XY| > 0;
+  - Z4: Im tr X ≠ 0.
+- **Kerr control:** Kerr's Y is a 3-point loop, hence antidiagonal with tr = 0. Its enclosure must contain 0 AND its
+  |·| upper bound must be below the endpoint's |tr Y| lower bound. (The certificate must distinguish exact
+  imprimitivity from |tr Y| ≈ 2e−5.)
+- **Wrong-tail control** as before.
+- **PASS:** endpoint certified, both controls OK, and δ0 > 1e−12. δ0 is reported even if marginal.
+- **FAIL:** anything else. The spin 3/10 sliver then stays floating-point only, with no further amendment.
+- **Expected margins** (50-digit walker): |tr Y| ≈ 2.1e−5, |tr XY| ≈ 4.2e−5, |τ| ≈ 0.51.
