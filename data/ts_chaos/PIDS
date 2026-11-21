@@ -62,3 +62,4 @@
 75408 spin geo scan (4 spins, sequential) 2026-11-21 17:56:50
 29686 spin_scan run chain (3/10, 4/5, 9/10) 2026-11-21 18:26:32
 29686 (+child 17357) stopped by me 19:24:35: spin 3/10 crashed in B-repro (Laurent threshold); fixing
+21764 spin_scan run 2 chain (3/10, 4/5, 9/10) 2026-11-21 19:25:10

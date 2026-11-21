@@ -1,0 +1,15 @@
+[A] 176 samples; geo fails 0
+[A] refinement 1: +0 -> 176
+[A] counts {'F': 2, 'T0m2': 2, 'T0': 0, 'T1': 0, 'T1-s0': 0, 'T1-s1': 0, 'T1-s2': 0, 'T1-s3': 0, 'T1-s4': 0, 'T1-s5': 0, 'T1-s6': 0, 'T1-s7': 0, 'T1-s8': 0, 'T1-s9': 0, 'T1-s10': 0} step 7.661194000056081e-23 C2 {'mul': 3, 'div': 1, 'ok': True}
+[C1] refinement 1: +9 -> 25
+[C1] refinement 2: +0 -> 25
+[A] Kerr {'F': 6.41463530422127e-50, 'T0m2': 1.8360691944210556e-48, 'ok': True} C1 {'F': 2, 'T0m2': 2, 'ok': True}
+[B] span 0.3500529475632193 geo fails 0 counts {'(4.28571 - 0.25j)': (1, 2), '(3.95 - 0.25j)': (1, 2), '(4.28571 + 0.25j)': (1, 2), '(3.95 + 0.25j)': (1, 2), '(4.28571 + 0.0j)': (1, 2)}
+[B] controls {'B-repro': {'worst': 1.670934195514195e-52, 'ok': True}, 'B-repro-F': {'diff': 1.8283898714503965e-48, 'ok': True}, 'B-MF-trunc': {'c0': 1.4978728626968758e-12, 'F': 5.027366173962721e-10, 'ok': True}, 'P2-planted': {'k': 4.0, 'circle_nonVA': True, 'halfplane': 'non-VA', 'ok': True}, 'P1-Kerr-imprimitive': {'TG': 5.072267925595907e-25, 'T1G': 8.956563808864745e-23, 'cls': 'imprimitive (VA)', 'ok': True}}
+[B] 85 samples; geo fails 0
+[B] refinement 1: +2 -> 87
+[B] refinement 2: +2 -> 89
+[B] refinement 3: +0 -> 89
+[B] counts {'F': 0, 'T1': 0, 'TG': 0, 'T1G': 0, 'T1-s0': 0, 'T1-s1': 0, 'T1-s2': 0, 'T1-s3': 0, 'T1-s4': 0, 'T1-s5': 0, 'T1-s6': 0, 'T1-s7': 0, 'T1-s8': 0, 'T1-s9': 0, 'T1-s10': 0} step 3.321607095903091e-18 C2 {'mul': 1, 'div': -1, 'ok': True}
+[B] sliver/endpoint {'30/7-1e-13': {'F': '(-0.023827775035 - 0.509903821337j)', 'cls': 'non-VA'}, '30/7-1e-14': {'F': '(-0.0238277750351 - 0.509903821339j)', 'cls': 'non-VA'}, '30/7-1e-15': {'F': '(-0.0238277750351 - 0.509903821339j)', 'cls': 'non-VA'}, '30/7': {'F': '(-0.0238277750351 - 0.509903821339j)', 'T1': '(-1.99811237455 + 0.127596382424j)', 'cls': 'non-VA'}}
+VERDICT 3/10 NO EXCEPTIONAL k IN (0, 30/7 - 1e-12] AND AT 30/7
