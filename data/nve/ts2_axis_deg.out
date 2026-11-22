@@ -1,0 +1,18 @@
+p=3/5 q=4/5 delta=1: e_+ = (3*x - 5 - 4*I)/(3*x + 5 - 4*I)
+   f0 = 9*(x - 1)*(x + 1)/(9*x**2 + 30*x + 41)   deg f0 = 2   reflection e(x) conj e(-x) - 1 = 0
+   poles of f0 squarefree: True; disc(den) = -576
+p=3/5 q=4/5 delta=2: e_+ = (3*x**2 + x*(-10 - 8*I) + 3)/(3*x**2 + x*(10 - 8*I) + 3)
+   f0 = 9*(x - 1)**2*(x + 1)**2/(9*x**4 + 60*x**3 + 182*x**2 + 60*x + 9)   deg f0 = 4   reflection e(x) conj e(-x) - 1 = 0
+   poles of f0 squarefree: True; disc(den) = 135895449600
+p=4/5 q=3/5 delta=1: e_+ = (x*(2 - 2*I) - 4 + I)/(x*(2 - 2*I) + 1 - 4*I)
+   f0 = 8*(x - 1)*(x + 1)/(8*x**2 + 20*x + 17)   deg f0 = 2   reflection e(x) conj e(-x) - 1 = 0
+   poles of f0 squarefree: True; disc(den) = -144
+p=4/5 q=3/5 delta=2: e_+ = (x**2*(1 - I) + x*(-4 + I) + 1 - I)/(x**2*(1 - I) + x*(1 - 4*I) + 1 - I)
+   f0 = 2*(x - 1)**2*(x + 1)**2/(2*x**4 + 10*x**3 + 21*x**2 + 10*x + 2)   deg f0 = 4   reflection e(x) conj e(-x) - 1 = 0
+   poles of f0 squarefree: True; disc(den) = 291600
+p=45/53 q=28/53 delta=1: e_+ = (45*x - 53 - 28*I)/(45*x + 53 - 28*I)
+   f0 = 2025*(x - 1)*(x + 1)/(2025*x**2 + 4770*x + 3593)   deg f0 = 2   reflection e(x) conj e(-x) - 1 = 0
+   poles of f0 squarefree: True; disc(den) = -6350400
+p=45/53 q=28/53 delta=2: e_+ = (45*x**2 + x*(-106 - 56*I) + 45)/(45*x**2 + x*(106 - 56*I) + 45)
+   f0 = 2025*(x - 1)**2*(x + 1)**2/(2025*x**4 + 9540*x**3 + 18422*x**2 + 9540*x + 2025)   deg f0 = 4   reflection e(x) conj e(-x) - 1 = 0
+   poles of f0 squarefree: True; disc(den) = 90943135101789143040000

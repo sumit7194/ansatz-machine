@@ -4598,6 +4598,20 @@ interval iff deg f0 ≤ 2.
   Corollary itself needs only the necessary direction. Wording adopted: "for E in an interval (generic E)", never
   "every E".
 
+### §158 addendum (2026-11-22, Bridge ask): Tomimatsu–Sato δ = 2 has deg f0 = 4. An algebra check, NOT a §158 monodromy run
+- `scripts/_nve_ts2_axis_deg.py` → `data/nve/ts2_axis_deg.out`. The input is the upper-axis (y = 1) data of the Ernst
+  potential in `_ts2_build.py`, which that script verifies is vacuum.
+- At p = 3/5, 4/5 and 45/53:
+  - f0 = c(x − 1)²(x + 1)²/(quartic), so **deg f0 = 4**;
+  - the 4 poles are simple (the discriminant is nonzero);
+  - e(x)·conj e(−x) = 1 holds exactly, so TS is equatorially symmetric, as it should be.
+- **Control:** Kerr (δ = 1) through the same code gives deg 2.
+- **Projection, not a result.** §158's necessary direction says d ≥ 3 ⇒ SL(2) at generic E. It is graded ~95%: the
+  Kovacic count was re-derived, and it agrees with 9 numerical runs; it is not a written proof. If it holds, it puts
+  TS δ = 2 in the first-order-obstructed class at generic E. TS's axis data were NOT run through the §158 monodromy.
+  TS meromorphic non-integrability is Quantum's result, relayed, not ours.
+- **Environment:** Python 3.14.5 (.venv), sympy 1.14.0, macOS 27.2 arm64.
+
 ## §159 — Lower-axis first-order NVE for the "invisible" twist family (blind second implementation for the Bridge, V26): OBSTRUCTED at all 9 sampled (k, E)
 
 Pre-registered: `data/nve/LOWER_AXIS_PREREGISTRATION.md` (2a3b5e9). Code (fa36acd), addendum 1 (070cc74). Blind to the
