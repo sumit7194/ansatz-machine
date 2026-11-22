@@ -161,7 +161,14 @@ use the same continuation of ξ̃. Kordas 1995: abstract only. Details in `T51_G
 - The condition also depends on where the origin is. Kerr satisfies it in z_c, but in the claim's shifted z,
   e₊(z)·conj e₊(−z) − 1 = −4M²/(z − ia)² ≠ 0 (checked). Kerr is symmetric; the shifted origin is simply not on its
   equatorial plane.
-- Family (ii) with k ≠ 0 is probably not reflection-symmetric. Nothing in the proof uses reflection symmetry.
+- **Family (ii) with k ≠ 0 is NOT reflection-symmetric, at any spin, about any plane** (exact;
+  `scripts/_nve_family2_reflection.py` → `family2_reflection.out`). The test is the EMR multipole criterion in the
+  centred coordinate, about a plane z_c = c.
+  - Re m_1 = −c forces c = 0.
+  - Then the symmetry-violating part of m_3 is −a²(R² − 90)/90 = 7ka²/30 ≠ 0, where R = √(90 − 21k).
+  - At k = 30/7 the same follows by continuity in k.
+  - Control: k = 0 reproduces Kerr's c0, and every violating part vanishes there.
+  Nothing in the proof uses reflection symmetry.
 
 **(b) Robustness: what the NVE is the NVE of.** Morales–Ramis is local around Γ. Proposition 2, applied on the lower
 axis, gives a vacuum metric near the lower outer axis whose axis data are e₋ := 1/e₊. The NVE we integrate is the NVE

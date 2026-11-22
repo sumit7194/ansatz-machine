@@ -43,8 +43,9 @@ pre-assessment was checked, not adopted. Grades: **WRONG** (the objection fails)
 - **Source check:** Meinel–Neugebauer 1995 derive f⁽ˡ⁾ = 1/f⁽ᵘ⁾ (their Eq. 35) in §III, BEFORE assuming
   reflection symmetry, and get the reflection condition in §IV by combining the two. Ernst–Manko–Ruiz 2006
   (Eqs. 56–58) use the same continuation. See "Literature".
-- **Partly right:** family (ii) with k ≠ 0 is probably not reflection-symmetric. The proof never uses reflection
-  symmetry, and the claim never states it.
+- **Partly right:** family (ii) with k ≠ 0 is indeed not reflection-symmetric, now settled exactly at every spin and
+  for every plane: the octupole violation is 7ka²/30 (MRS §5a; `family2_reflection.out`). The proof never uses
+  reflection symmetry, and the claim never states it.
 
 ## 2. Holomorphy of the 4D metric near the loops: FAIR; the f0 = 0 part is closed, Prop. 2 stays open
 - **f₋ = 0 is exactly f0 = 0,** the two rod endpoints, because f0⁻ = f0/(f0² + c0²). Proposition 2 is stated on
@@ -124,7 +125,8 @@ v1 is kept below it, marked superseded. No number changed.
 ## 10. Prior art
 - **All five sources check out.** T51 grades its own prior-art section FINE (novelty not undercut), and that stands.
 - **Two corrections to how T51 uses them:**
-  - **Markakis's conjecture assumes equatorial symmetry,** so our family sits just outside its stated class.
+  - **Markakis's conjecture assumes equatorial symmetry,** and our family is provably not symmetric, so it lies
+    outside that class.
   - **Kruglikov–Matveev is about generic metrics,** not the stationary axisymmetric vacuum class.
 - **Cite all of them, with those caveats.** Details are in "Literature" below.
 
@@ -168,8 +170,8 @@ PDFs and text extractions are in the session scratchpad `lit/`.
   - Conjecture: a stationary axisymmetric equatorially symmetric vacuum spacetime is integrable iff it is Kerr (or
     Kerr–de Sitter).
   - **Relevance:** that conjecture is restricted to EQUATORIALLY SYMMETRIC spacetimes. Family (ii) with k ≠ 0 is
-    probably not reflection-symmetric, so our result sits just outside the conjecture's stated class rather than
-    inside it. Cite it as motivation, and say so.
+    NOT reflection-symmetric (exact, every spin, every plane; MRS §5a). So our result lies outside the conjecture's
+    stated class. Cite it as motivation, and say so.
 - **Kruglikov & Matveev, Nonlinearity 29 (2016) 1755 = arXiv:1510.01493 (T51 gave no number; not 1410.0791):
   VERIFIED.**
   - Any signature, dimension ≥ 2. For each degree, an open set of metrics near any Cᵏ metric has no nontrivial
