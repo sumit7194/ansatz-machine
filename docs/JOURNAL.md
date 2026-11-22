@@ -4569,3 +4569,24 @@ pole-order-1 Carter² survival.
   - MRS section `data/nve/MRS_SECTION.md`, with Lemma C (covering and gauge) and checked citations.
   - The Bridge calls the pre-outreach list complete on our side.
 - **Status:** the hold on new directions stands until Sumit discusses the ideas file.
+
+## 2026-11-22 (late) — T51 follow-ups; Prop. 2 closed by our own majorant proof; ONE RESOURCE SLIP
+- **Done after T51.**
+  - Family (ii) is not equatorially symmetric (octupole 7ka²/30).
+  - TS δ = 2 has deg f0 = 4.
+  - The necessary direction is checked against Kovacic's original.
+  - The related-result line is now in CLAIM_FAMILY_II.
+  - Prop. 2: our Nagumo-norm majorant proof (MRS §4b), with a Kerr control to 3e−27.
+- **RESOURCE SLIP (mine).**
+  - **What happened.** The first Prop. 2 control (`_nve_prop2_majorant_control.py` v1) ran a SymPy recursion on
+    complex rational functions with `cancel` at each order up to n = 9. It grew to ~10 GB, 9.9 GB of it compressed,
+    and pushed swap to its limit. It tripped tabula's §213 memory guard, which killed tabula's run, and Cuspis's
+    watchdogs (081c W8P8 and the P = 4 port jobs).
+  - **What I did.** The Bridge flagged it. I stopped it by my own task handle about 12 minutes after launch, and
+    verified PIDs 92262 and 92265 were gone.
+  - **Cause.** No declared peak and no guard, for a job I wrongly assumed was "small". Symbolic expression swell was
+    foreseeable.
+  - **Fix.** v2 uses numeric Taylor arrays at 30 digits and a ru_maxrss self-guard at 1.5 GB, at nice 10. Peak was
+    22 MB.
+  - **Rule going forward.** Any symbolic recursion gets a declared peak and a guard before launch, however small it
+    looks.

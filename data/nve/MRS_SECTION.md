@@ -135,6 +135,86 @@ meromorphic there.
       convergent by Baouendi–Goulaouic, via a reduction we state ourselves". Calling it proved needs either the 1976
       systems theorem read at source, or a short majorant proof written out, as in Bäckdahl's Lemma 7.
 
+## 4b. Proposition 2: convergence by a majorant (our own proof, 2026-11-22)
+**Claim.** Let K be a compact subset of W, the complex z-domain where the axis data a0 = e (and b0 = ẽ) are
+holomorphic and c0 = (a0 + b0)/2 = f0 ≠ 0. Then the formal series E = Σ a_n(z) tⁿ and Ẽ = Σ b_n(z) tⁿ (t = ρ²) of
+§4 converge for |t| < τ_K, uniformly for z in K, with τ_K > 0. So E and Ẽ are holomorphic in (t, z) there and
+solve the complexified Ernst system.
+
+**Recursion.** For n ≥ 1, read off at order t^{n−1} from f·(4tE_tt + 4E_t + E_zz) = 4tE_t² + E_z², with
+f = (E + Ẽ)/2 = Σ c_n tⁿ:
+
+    4n² c0 a_n = − Σ_{j=1}^{n−1} 4(n−j)² c_j a_{n−j} − Σ_{i+j=n−1} c_j a_i″ + 4 Σ_{i+j=n; i,j≥1} i j a_i a_j
+                 + Σ_{i+j=n−1} a_i′ a_j′,
+
+and the same with a and b swapped (c_j is common). Only the term 4n² c0 a_n contains index n, so the recursion is
+well defined exactly where c0 ≠ 0.
+
+**Norms (Nagumo).** Fix z0 ∈ K and R > 0 with the closed disc D = {|z − z0| ≤ R} inside W. Let d(z) = R − |z − z0|,
+and for u holomorphic on the open disc set ‖u‖_p = sup_D |u(z)| d(z)^p.
+- (N1) ‖uv‖_{p+q} ≤ ‖u‖_p ‖v‖_q. Immediate.
+- (N2) Nagumo's lemma: ‖u′‖_{p+1} ≤ e(p + 1)‖u‖_p. Proof: apply Cauchy's estimate on the disc of radius
+  d(z)/(p + 1) about z. On it d ≥ d(z)·p/(p + 1), so |u′(z)| ≤ ((p + 1)/d(z))·‖u‖_p·(d(z)p/(p + 1))^{−p}, and
+  (1 + 1/p)^p ≤ e. For p = 0 the plain Cauchy estimate gives the bound with 1 in place of e.
+- Hence ‖u″‖_{p+2} ≤ e²(p + 1)(p + 2)‖u‖_p.
+
+**The induction.** Put M = sup_D max(|a0|, |b0|), m = inf_D |c0| > 0, and A_n = max(‖a_n‖_{2n}, ‖b_n‖_{2n}), so that
+‖c_j‖_{2j} ≤ A_j and A_0 ≤ M. Every term on the right has total weight 2n. Bound each one:
+- (n − j)² ≤ n², so the first sum is ≤ 4n² Σ_{j=1}^{n−1} A_j A_{n−j}.
+- ‖a_i″‖_{2i+2} ≤ e²(2i + 1)(2i + 2) A_i ≤ 4e²n² A_i, because i ≤ n − 1. So the second sum is ≤ 4e²n² Σ_{i+j=n−1} A_i A_j.
+- i·j ≤ n²/4, so the third sum is ≤ n² Σ_{i+j=n; i,j≥1} A_i A_j.
+- (2i + 1)(2j + 1) ≤ n² when i + j = n − 1, so the fourth sum is ≤ e² n² Σ_{i+j=n−1} A_i A_j.
+
+With ‖1/c0‖_0 ≤ 1/m, the factor n² cancels, and that is the whole point: the Fuchsian indicial factor 4n² exactly
+pays for the two z-derivatives that each step costs. We get
+
+    A_n ≤ (5/(4m)) [ Σ_{i+j=n; i,j≥1} A_i A_j + e² Σ_{i+j=n−1; i,j≥0} A_i A_j ].
+
+**The majorant series.** Let B_0 = M and define B_n (n ≥ 1) by the same inequality with "=". By induction
+0 ≤ A_n ≤ B_n. The generating function Y(x) = Σ_{n≥1} B_n xⁿ satisfies
+
+    Y = α Y² + β x (M + Y)²,   α = 5/(4m),   β = 5e²/(4m),
+
+which is the coefficient identity. The root with Y(0) = 0 is
+Y = [1 − 2βMx − √((1 − 2βMx)² − 4(α + βx)βM²x)] / (2(α + βx)). Its nearest singularity is the zero of the
+discriminant, 1 = 4βMx(1 + αM), at
+
+    x0 = 1/(4βM(1 + αM)) = 4m² / (5e² M (4m + 5M)).
+
+The coefficients B_n are nonnegative, so Pringsheim's theorem puts the singularity of smallest modulus on the
+positive axis. The radius of convergence is therefore x0, and B_n ≤ C_ε (x0 − ε)^{−n} for each ε > 0.
+
+**Conclusion.**
+- |a_n(z)| ≤ A_n d(z)^{−2n} ≤ C_ε ((x0 − ε) d(z)²)^{−n}. So Σ a_n tⁿ converges for |t| < x0 d(z)², and uniformly on
+  |z − z0| ≤ R/2 for |t| < x0R²/4. The same holds for b_n.
+- **Uniform on K.** M, m and a common R can be chosen uniformly on the compact K, with R < dist(K, ∂W). So
+  τ_K = x0R²/4 works for all of K. The limit is holomorphic in (t, z), and by the recursion it solves the system.
+- Uniqueness among solutions analytic in (ρ², z) is the recursion itself (§4).
+- Only f0 ≠ 0 was used, never f0 > 0. The hypotheses of Hauser–Ernst and Müller zum Hagen are not imported.
+
+**Status: CHECKED (written and checked here).** It is a standard Cauchy–Kovalevskaya majorant in Nagumo norms, with
+the indicial factor in place of the time derivative. It supersedes the reliance on the unread 1976
+Baouendi–Goulaouic systems theorem, which stays as the supporting reference with our stated reduction.
+
+**Numerical control** (`scripts/_nve_prop2_majorant_control.py` → `prop2_majorant_control.out`; Kerr, spin 0.6,
+z0 = 6 in shifted z, recursion to n = 12, 30 digits, peak RSS 22 MB).
+- **The recursion reproduces Kerr's exact off-axis Ernst potential** E = 1 − 2/(r − ia cos θ):
+
+  | ρ | \|partial sum − exact\| |
+  |---|---|
+  | 0.5 | 3e−27 |
+  | 1 | 2e−19 |
+  | 2 | 1e−11 |
+  | 3 | 4e−7 |
+
+  The error grows as ρ² approaches the radius, as truncation should.
+- **Must-fail control:** with the j-sum's sign flipped, the error at ρ = 1 is 2e−5, about 10¹⁴ times worse.
+- **The radius is not contradicted.**
+  - The true radius in t at z0 is (distance to the rod end)² = 17.64.
+  - |a_n|^{−1/n} falls from 56 (n = 3) to 28 (n = 12), heading toward it from above.
+  - The majorant guarantees x0R² = 0.026, 0.030 and 0.0033 for R = 2, 3 and 4. That is far inside the true radius:
+    conservative, as a majorant should be, and never above it.
+
 ## 5. The lower-axis data, and why both outer axis segments must be regular (rewritten 2026-11-22 for Neon T51)
 **Conventions (stated, because T51 found them missing).**
 - M = 1 and μ = 1 (timelike geodesics; E is the energy per unit mass).

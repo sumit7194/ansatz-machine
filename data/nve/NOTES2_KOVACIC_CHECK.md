@@ -5,9 +5,14 @@ the matching Kovacic step of `THEOREM_TS.md` §4.2. Both are UNVERIFIED Fable-er
 Bridge's request. Our earlier grade (RESULTS §158; `NVE_PREREGISTRATION.md`) was "~95%: Kovacic count re-derived,
 plus 9 numerical runs".
 
-**Kovacic data checked against:** the full restatement of Kovacic's algorithm in Acosta-Humánez & Blázquez-Sanz,
-arXiv:math-ph/0610010, Appendix A. The original, Kovacic 1986 (J. Symb. Comput. 2, 3), is being fetched for one
-detail; see Case 3.
+**Kovacic data checked against:**
+- the full restatement in Acosta-Humánez & Blázquez-Sanz, arXiv:math-ph/0610010, Appendix A; and
+- **the ORIGINAL, Kovacic 1986, J. Symb. Comput. 2, 3–43.** The scan was read from page images
+  (ksda.ccny.cuny.edu/PostedPapers/jjk_algorithm_scan.pdf), all six items VERIFIED AT SOURCE:
+  - Case 1: pp. 11–12;
+  - Case 2: p. 18;
+  - Case 3: pp. 22–23;
+  - the four-case exhaustion and the SL(2) conclusion: pp. 5, 7–8 (§1.2, §1.4).
 
 ## Set-up
 - The equation is v″ = r v with r = −(3/16)(P′/P)², P = E² − μ² f0, and f0 rational of degree d.
@@ -33,8 +38,10 @@ detail; see Case 3.
 - **The one detail not settled by the restatement:**
   - App. A lets k run to ±6 for every n ∈ {4, 6, 12}. With γ = 0 at ∞, that would allow e_∞ up to 6 + 3·6 = 24 for
     n = 4.
-  - NOTES assumes e_∞ ≤ 12, which is Kovacic's range k ≤ n/2 as usually stated.
-  - The original is being checked.
+  - NOTES assumes e_∞ ≤ 12, i.e. k ≤ n/2.
+  - **The original settles it (p. 22): k = 0, ±1, …, ±n/2.** With γ = 0 this gives E_∞ ⊂ {0, …, 12} for every n, so
+    max e_∞ = 12. **App. A's "±6 for every n" is a restatement error; NOTES is right.** Case 3 is therefore excluded
+    by Kovacic's own degree condition, 3s + 6h ≤ 12, too.
 - **Case 3 is excluded INDEPENDENTLY of that range** (argument written here):
   - **If h ≥ 1:** a heavy point has local monodromy eigenvalues e^{2πis} with s = 1/2 ± i t, t ≠ 0, so of modulus
     ≠ 1. That is an element of infinite order, so the group is not finite and Case 3 cannot hold.
@@ -63,8 +70,9 @@ At generic E:
 ## Verdict
 **The necessary direction is CHECKED:** deg f0 ≥ 3 ⇒ G = SL(2, C) for the axis normal form, at every E with
 E²/μ² ≠ 0, not a critical value of f0, and ≠ f0(∞).
-- Cases 1 and 2 are checked against Kovacic's conditions as restated in full by Acosta-Humánez & Blázquez-Sanz.
-- Case 3 is excluded by an independent monodromy argument (heavy point ⇒ infinite order; Riemann–Hurwitz for h = 0).
+- Cases 1, 2 and 3 are checked against Kovacic's ORIGINAL conditions.
+- Case 3 is excluded twice: by Kovacic's degree condition, and by an independent monodromy argument (heavy point ⇒
+  infinite order; Riemann–Hurwitz for h = 0).
 - The count is checked.
 - **This is upgraded from "~95%" to checked, at generic E.**
 

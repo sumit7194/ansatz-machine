@@ -68,6 +68,33 @@ involution meromorphic near that complexified orbit.
 - **Not a statement about all spins.** At the intermediate spin a_c ≈ 0.858446, the endpoint test pair degenerates.
   It was settled by an independent pair in two implementations, but it is not a tested spin.
 
+## Related result: rational axis data (SEPARATE from the family (ii) claim; added 2026-11-22 at the Bridge's request)
+**Statement.** Take a stationary axisymmetric vacuum field with a regular outer axis segment whose axis function
+f0 = −g_tt|axis is RATIONAL of degree d ≥ 3. Then at generic energy E (E² ≠ 0, E²/μ² not a critical value of f0 and
+≠ f0(∞)), the first-order normal variational equation along the L_z = 0 timelike geodesic on that axis has
+differential Galois group SL(2, C). So the geodesic flow has no complete set of first integrals in involution
+meromorphic near that complexified orbit.
+- **Only deg f0 ≤ 2 can pass this first-order test.** We do NOT claim that deg f0 ≤ 2 fields are integrable:
+  sufficiency is graded only ~80–85%.
+- **This covers equatorially symmetric non-Kerr members.**
+  - Zipoy–Voorhees δ = 3 (deg 3) was tested numerically in §158.
+  - Tomimatsu–Sato δ = 2 has deg f0 = 4; that is an algebra check only (`ts2_axis_deg.out`), and TS's
+    non-integrability itself is a sibling result, relayed.
+  - Zipoy–Voorhees δ = 2 is deg 2 and NOT covered here (see §124/§126 and Maciejewski–Przybylska–Stachowiak 2013).
+**Grade.**
+- **Checked by hand:** Kovacic cases 1–3 against Kovacic's ORIGINAL conditions (J. Symb. Comput. 2 (1986),
+  pp. 11–12, 18, 22–23); case 3 also excluded by an independent monodromy argument; the count
+  s + 2h ≥ d + 2 ≥ 5.
+- **Consistent with 9 numerical runs** (§158).
+- **Sources:** `NOTES2_KOVACIC_CHECK.md`, RESULTS §158 and its addendum, `NVE_PREREGISTRATION.md`.
+**Caveats.**
+- Generic E only: an explicit degree-3 f0 is solvable at one special E, where three zeros merge (M3, §158).
+- From the axis normal form to Morales–Ramis, it relies on Lemma 1–2 (verified by the Bridge, V21; relayed) and on
+  the covering/gauge step (Lemma C, `MRS_SECTION.md` §1).
+- **Markakis 2014 context:** his conjecture concerns equatorially symmetric fields. This result speaks to it only
+  within rational axis data, at first order, at generic E, and only in the "non-Kerr ⇒ obstructed" direction for
+  d ≥ 3.
+
 ## Plain version
 For one bound orbit up and down the lower axis, our computation finds no twist value in the physical range that makes
 these Kerr-mass, twisted spacetimes integrable in the meromorphic sense. This holds at four spins and one energy. It is
