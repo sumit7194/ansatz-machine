@@ -365,7 +365,7 @@ metric. What (a) adds is the identification: this is the same spacetime as the o
 - **The spin-0.8 degeneracy near 4.0082** is a zero of tr Γ in the half-plane pair. No mechanism ties it to k = 4. It
   is settled by an independent pair either way.
 
-## 6. Citations: status (checked at source 2026-11-22; texts in our scratchpad)
+## 6. Citations: status (checked at source 2026-11-22; downloaded texts kept locally, not committed)
 - **Morales-Ruiz, Ramis & Simó, Ann. Sci. ÉNS (4) 40 (2007) 845–884, DOI 10.1016/j.ansens.2007.09.002: VERIFIED (full
   text).**
   - Theorem 2 (p. 849): first integrals meromorphic "in a neighbourhood of Γ"; (G_k)⁰ is commutative for each k.
@@ -401,7 +401,7 @@ metric. What (a) adds is the identification: this is the same spacetime as the o
   - Kordas, CQG 12 (1995) 2037: abstract only.
   - FHP's statement that ξ̃ is analytic at the origin: NOT confirmed at source (abstract only). The set-up is
     confirmed in EMR and in Pachón–Sanabria-Gómez gr-qc/0603081.
-- **Proposition 2, checked at source 2026-11-22.** Files are in the session scratchpad `lit2/`.
+- **Proposition 2, checked at source 2026-11-22.** Downloaded texts kept locally, not committed.
   - **Baouendi & Goulaouic, J. Differential Equations 22 (1976) 268–291:**
     - The 1976 text was NOT READ (paywalled).
     - The 1974 announcements were VERIFIED AT SOURCE (Numdam: Sém. Goulaouic–Lions–Schwartz 1974–75, exp. 3–4;

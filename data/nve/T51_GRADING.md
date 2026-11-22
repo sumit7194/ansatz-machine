@@ -131,7 +131,7 @@ v1 is kept below it, marked superseded. No number changed.
 - **Cite all of them, with those caveats.** Details are in "Literature" below.
 
 ## Literature (checked at source 2026-11-22 by a web agent; the MN and EMR passages re-read here)
-PDFs and text extractions are in the session scratchpad `lit/`.
+Downloaded PDFs and text extractions were kept locally, not committed.
 **On point 1, the sources say the opposite of what T51 attributes to them:**
 - **Meinel & Neugebauer, CQG 12 (1995) 2045 = arXiv gr-qc/0302114: VERIFIED AT SOURCE (full text; Eq. 35 re-read
   here).**
