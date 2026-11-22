@@ -431,3 +431,23 @@ metric. What (a) adds is the identification: this is the same spacetime as the o
     (it is the non-resonance condition), which is what W assumes.
 - Maciejewski–Przybylska–Stachowiak 2013: body read in full by the Bridge and Neon T47 (relayed); used only for ZV
   δ = 2 (first-order NVE along an equatorial radial geodesic).
+
+- **Prior art, read at source 2026-11-22; neither covers nor contradicts our results, and both complement them.**
+  - **Ramond, arXiv:2607.27129 (29 Jul 2026).**
+    - The background is exact Kerr and is NOT deformed. What carries the deformation is the orbiting body, through
+      a tidally induced quadrupole (MPTD/Dixon–Harte equations), to first order in the tidal coupling ε. So the
+      motion is non-geodesic, with generic L_z.
+    - The proof is perturbative (Eqs. 5.1–5.15): it shows that no first-order deformation of Carter's constant
+      exists, polynomial in the momenta up to rank 4, global in (r, θ), when a ≠ 0. The numerical chaos is labelled
+      illustrative.
+    - Its Sec. VII.D names Morales–Ramis / Melnikov methods as the open next step.
+    - It has no exact vacuum deformation, no axis orbit, and no Galois or Kovacic step.
+  - **Destounis & Kokkotas, arXiv:2305.18522, GRG 55, 123 (2023).**
+    - The spacetime is Hartle–Thorne truncated at O(Ω²): a perturbative metric with an intrinsic quadrupole
+      deviation δq.
+    - The orbits are generic, with L_z ≠ 0.
+    - The evidence is purely numerical: Poincaré maps, plus rotation-curve plateaus of the 2/3 island. Nothing is
+      formally excluded.
+    - HT has no exact axis function f0, so our rational-class result does not even apply to it.
+  - **Neither paper cites any differential-Galois work on Kerr-like spacetimes.** Maciejewski–Przybylska–Stachowiak
+    2013 remains the closest methodological precedent.

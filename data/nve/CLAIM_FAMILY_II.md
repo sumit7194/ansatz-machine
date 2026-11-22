@@ -95,6 +95,15 @@ meromorphic near that complexified orbit.
   within rational axis data, at first order, at generic E, and only in the "non-Kerr ⇒ obstructed" direction for
   d ≥ 3.
 
+## Prior art closest to these claims (read at source; see `MRS_SECTION.md` §6)
+- **Ramond 2026 (arXiv:2607.27129).** Undeformed Kerr, with a tidally deformed orbiting body at O(ε). It proves that
+  no first-order deformation of Carter's constant exists, up to rank 4. It names Morales–Ramis as future work.
+  Complementary: a different system and a different class of integrals.
+- **Destounis–Kokkotas 2023 (arXiv:2305.18522).** Hartle–Thorne at O(Ω²). Numerical chaos only. Complementary.
+- **Maciejewski–Przybylska–Stachowiak 2013.** Static Zipoy–Voorhees δ = 2, by Morales–Ramis. The closest method.
+- **Markakis 2014.** Newtonian, equatorially symmetric. Family (ii) lies outside its class.
+- **Kruglikov–Matveev 2016.** Generic metrics; context only.
+
 ## Plain version
 For one bound orbit up and down the lower axis, our computation finds no twist value in the physical range that makes
 these Kerr-mass, twisted spacetimes integrable in the meromorphic sense. This holds at four spins and one energy. It is
