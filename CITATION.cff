@@ -28,6 +28,9 @@ identifiers:
   - type: doi
     value: "10.5281/zenodo.24431695"
     description: "Ansatz Machine v1.0.0 (this version)"
+  - type: doi
+    value: "10.5281/zenodo.24431694"
+    description: "All versions (resolves to the latest)"
 date-released: "2026-11-22"
 type: software
 repository-code: "https://github.com/sumit7194/ansatz-machine"
