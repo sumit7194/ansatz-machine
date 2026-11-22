@@ -1,5 +1,9 @@
 # Twisted Kerr-mass fields: geodesics along the symmetry axis are not integrable (landing page)
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24431695.svg)](https://doi.org/10.5281/zenodo.24431695)
+
+Archived as Ansatz Machine v1.0.0, DOI [10.5281/zenodo.24431695](https://doi.org/10.5281/zenodo.24431695).
+
 **In five lines.**
 1. We take stationary axisymmetric vacuum fields with exactly Kerr's mass profile along the symmetry axis, and
    deform only the twist, by a one-parameter family with parameter k (k = 0 is Kerr).

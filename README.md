@@ -1,5 +1,9 @@
 # Ansatz Machine
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24431695.svg)](https://doi.org/10.5281/zenodo.24431695)
+
+**Only Kerr axis-integrability results:** see [`ONLY_KERR.md`](ONLY_KERR.md). Archived as v1.0.0, DOI [10.5281/zenodo.24431695](https://doi.org/10.5281/zenodo.24431695).
+
 *A propose → verify → evolve loop hunting for new exact solutions of Einstein's
 field equations. Genetic programming proposes metrics, SymPy proves them —
 theorem or nothing — and curvature-invariant fingerprints unmask century-old

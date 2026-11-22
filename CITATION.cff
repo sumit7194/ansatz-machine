@@ -23,6 +23,11 @@ authors:
     orcid: "https://orcid.org/0009-0000-9541-2793"
     alias: sumit7194
 version: 1.0.0
+doi: "10.5281/zenodo.24431695"
+identifiers:
+  - type: doi
+    value: "10.5281/zenodo.24431695"
+    description: "Ansatz Machine v1.0.0 (this version)"
 date-released: "2026-11-22"
 type: software
 repository-code: "https://github.com/sumit7194/ansatz-machine"
