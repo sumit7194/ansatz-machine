@@ -1,8 +1,85 @@
-# Reference claim for family (ii), the branched twist on Kerr's mass profile (2026-11-22)
+# Reference claim for family (ii), the branched twist on Kerr's mass profile
 
 **This is THE reference text.** Outreach and digests quote it verbatim or point to it. Any change is a new dated
 version in this file, with the reason. Edits up to now were agreed with the Bridge.
 
+# VERSION 2 (2026-11-22): CURRENT
+**Why v2 exists:** Neon T51, a hostile referee read of v1. It is graded in `data/nve/T51_GRADING.md`. v2 changes how the
+claim is presented, not what it says:
+- the status comes first;
+- the conventions are stated;
+- the scope adds "not black holes; off-axis regularity unchecked; null geodesics untested";
+- a_c moves out of the main sentence.
+None of the numbers change.
+
+## Status (read this first)
+- **A numerical result, not a theorem.** Over (0, 30/7 − 10⁻¹²] it rests on 50-digit floating-point argument-principle
+  counts.
+- **Interval arithmetic certifies only the end sliver:** the last ~10⁻¹⁰ of the range at spins 0.6, 0.8 and 0.9, and
+  only the last 7.4 × 10⁻¹⁵ at spin 0.3.
+- **Three degenerate cases were resolved post hoc, in floating point.**
+- **One link in the applicability argument (Proposition 2, the off-axis metric near the orbit) is an argument whose
+  citations are still being checked.**
+
+## The claim (one sentence)
+Numerically (50-digit floating point, interval-certified only at the top of the range), for the stationary axisymmetric
+vacuum fields whose upper-axis Ernst data have Kerr's real part and the branched twist
+(c0″)² = 8B(u², k)/(5a⁶(u² + 1)⁶), with u = z/a and B(w, k) = (90 − 21k)w² − (60 − 18k)w + (10 − k), and whose data
+are real on both outer axis segments exactly for 0 ≤ k ≤ 30/7 (k = 0 being Kerr), the first-order normal
+variational equation along the L_z = 0 timelike geodesic on the lower outer axis at energy E = 0.8 has a
+Zariski-dense (SL₂) monodromy group for every real k ∈ (0, 30/7] at each tested spin a ∈ {0.3, 0.6, 0.8, 0.9}; by
+Morales–Ramis–Simó the geodesic flow of each such field then admits no complete set of first integrals in
+involution meromorphic near that complexified orbit.
+
+## Conventions
+- **Units and particle.** M = 1. μ = 1 (timelike; E is the energy per unit mass).
+- **The coordinate z is the Weyl coordinate shifted by M** (z = z_Weyl + M), so that Kerr's upper-axis data are
+  e₊ = (z − ia − 2)/(z − ia), with real part f0 = 1 − 2z/(z² + a²).
+  - The rod endpoints are z = 1 ± √(1 − a²).
+  - The lower outer axis is z < 1 − √(1 − a²).
+- **Normalisation of c0:** c0, c0′ → 0 as z → +∞ (asymptotically flat, no NUT charge). The branch of √B is analytic off
+  a tree through u = 1 and positive at u → +∞. At k = 0 this is Kerr's c0 = −2a/(z² + a²).
+- **Lower-axis data:** e₋ = 1/e₊. This is a general property of asymptotically flat data, derived in
+  `MRS_SECTION.md` §5a, and it does NOT need equatorial reflection symmetry.
+- **"Real on both outer axis segments"** is an axis statement only (`MRS_SECTION.md` §5c). For k < 0, c0″ is imaginary
+  on part of the lower outer axis at every spin.
+
+## Evidence, with its grade
+| piece | method | grade |
+|---|---|---|
+| (0, 30/7 − 10⁻¹²] at each spin | argument-principle counts over complex k-rectangles | 50-digit floating point |
+| no zeros split off k = 0 | F = O(k²) structurally (`MRS_SECTION.md` §5d), plus the counts | exact, given the counts |
+| k = 30/7 | direct classification | floating point; interval-certified at 0.3 (S4) and at the other spins (S3/T48b) |
+| end sliver (30/7 − δ0, 30/7] | Zariski-density certificate | **interval arithmetic**: δ0 = 1.37e−11, 2.4e−10, 3.6e−10, 7.4e−15 at spins 0.6, 0.8, 0.9, 0.3 |
+| spin 0.3, (30/7 − 10⁻¹², 30/7 − 7.4e−15] | samples, all non-VA | floating point only |
+| spin 0.8, k ≈ 4.0082 (test pair degenerates) | independent pair of monodromies | floating point, post hoc |
+| spin 0.9, one extra zero of F | located; non-real, so off the physical range | floating point, post hoc |
+
+## Scope: what is NOT claimed
+- **Not black holes.** By uniqueness (Chruściel–Costa), no k ≠ 0 member is a regular vacuum black hole.
+- **Nothing off the axis is checked.** Horizons, the rod, naked singularities and CTCs are all unexamined.
+- **Spins and energies.**
+  - Only the four spins listed. Spins below 0.3 are untested, and the obstruction weakens roughly like a⁷–a⁸ toward
+    low spin.
+  - Energies other than 0.8 are tested only at spin 0.6, on the end sliver (E = 1.5, interval, δ0 = 1.9e−9).
+- **Null geodesics are not tested.**
+- **The class of integrals excluded.** Integrals that are real-analytic on the physical exterior but do not continue
+  meromorphically near the complexified orbit are not excluded.
+- **Not a statement about all spins.** At the intermediate spin a_c ≈ 0.858446, the endpoint test pair degenerates.
+  It was settled by an independent pair in two implementations, but it is not a tested spin.
+
+## Plain version
+For one bound orbit up and down the lower axis, our computation finds no twist value in the physical range that makes
+these Kerr-mass, twisted spacetimes integrable in the meromorphic sense. This holds at four spins and one energy. It is
+a careful numerical result: only the very end of the range is proved in interval arithmetic. These are not black
+holes, and we have not looked off the axis.
+
+## Sources for each number
+(As in v1, below. Also: `T51_GRADING.md`, `MRS_SECTION.md` §5–§5e, `t51_axis_check.out`.)
+
+---
+
+# VERSION 1 (eed501f, 2026-11-22): SUPERSEDED by v2 above (same content, presentation fixed)
 ## The claim (one sentence)
 For Kerr's mass profile with the branched twist (c0″)² = 8B(u², k)/(5a⁶(u² + 1)⁶), with u = z/a and
 B(w, k) = (90 − 21k)w² − (60 − 18k)w + (10 − k), whose members regular on both outer axes are exactly 0 ≤ k ≤ 30/7

@@ -1,0 +1,10 @@
+Kerr e_+(z) = (-2*M - I*a + z)/(-I*a + z)   e_-(z) = (-I*a + z)/(-2*M - I*a + z)
+Kerr e_- * e_+ - 1 = 0
+Kerr f0 = Re e_+ on real z: (-2*M*z + a**2 + z**2)/(a**2 + z**2)
+reflection condition in the SHIFTED z (claim's z), e_+(z) conj e_+(-z) - 1 = -4*M**2/(-I*a + z)**2
+reflection condition in the CENTRED z_c = z - M: 0
+two-Curzon axis limits (spot check at z = +-10): 0 0
+two-Curzon psi_- + psi_+ = 0  => e_- = exp(2 psi_-) = 1/e_+
+two-Curzon psi_+(z0+t) + psi_+(z0-t), large t, masses 1 and 3 at 0 and 1: (8*z0 - 6)/t**2 + (8*z0**3 - 18*z0**2 + 18*z0 - 6)/t**4
+t^-2 coefficient vanishes only at z0 = [3/4]
+  at z0 = 3/4 the t^-4 coefficient is 3/4 (nonzero: no reflection plane)
