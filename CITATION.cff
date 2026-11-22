@@ -1,10 +1,30 @@
 cff-version: 1.2.0
-message: "If you use this software, please cite it as below."
+message: "If you use this software or its results, please cite it as below."
 title: "Ansatz Machine: a propose-verify-evolve loop for exact solutions of Einstein's field equations"
-type: software
+abstract: >-
+  A research codebase for exact computations in general relativity: symbolic searches for exact vacuum
+  solutions, exact Killing-tensor (hidden-symmetry) searches over finite fields, and Morales-Ramis
+  (differential Galois) integrability tests of geodesic motion, with pre-registered runs and failed runs kept.
+  Its "Only Kerr" axis-integrability results (see ONLY_KERR.md): for stationary axisymmetric vacuum fields with
+  Kerr's mass profile and a branched twist deformation, the first-order normal variational equation along the
+  lower-axis timelike geodesic has Zariski-dense monodromy for every twist in the physical range at four tested
+  spins, so no complete set of meromorphic first integrals exists near that orbit; this is a numerical result
+  (50-digit floating point), interval-certified only near the end of the range. A related result, checked by hand
+  against Kovacic's algorithm: any stationary axisymmetric vacuum field whose axis function is rational of
+  degree at least 3 has Galois group
+  SL(2,C) for the axis variational equation at generic energy.
+  Developed with substantial assistance from Anthropic's Claude AI models (several versions), which wrote
+  most of the code and ran most of the analyses under the author's direction; the author chose the questions,
+  directed and reviewed the work, and takes responsibility for its content.
 authors:
-  - family-names: "Sumit"
-    email: "sumit7194@gmail.com"
+  - given-names: Sumit
+    family-names: Pal
+    affiliation: Independent researcher
+    orcid: "https://orcid.org/0009-0000-9541-2793"
+    alias: sumit7194
+version: 1.0.0
+date-released: "2026-11-22"
+type: software
 repository-code: "https://github.com/sumit7194/ansatz-machine"
 license: MIT
 keywords:
@@ -17,3 +37,8 @@ keywords:
   - equivalence problem
   - Petrov classification
   - exact solution equivalence
+  - integrability
+  - Morales–Ramis theory
+  - differential Galois theory
+  - Ernst equation
+  - Kerr
