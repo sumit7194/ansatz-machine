@@ -40,7 +40,9 @@ pre-assessment was checked, not adopted. Grades: **WRONG** (the objection fails)
 - **Robustness, independent of all this** (MRS §5b). Morales–Ramis is local near Γ. The NVE we integrate is the NVE of
   the vacuum metric near the lower axis with data 1/e₊, which exists by Prop. 2 applied there. The identity only adds
   that this is the same spacetime as the one with upper data e₊.
-- **Source check of Kordas / Meinel–Neugebauer:** see "Literature" below.
+- **Source check:** Meinel–Neugebauer 1995 derive f⁽ˡ⁾ = 1/f⁽ᵘ⁾ (their Eq. 35) in §III, BEFORE assuming
+  reflection symmetry, and get the reflection condition in §IV by combining the two. Ernst–Manko–Ruiz 2006
+  (Eqs. 56–58) use the same continuation. See "Literature".
 - **Partly right:** family (ii) with k ≠ 0 is probably not reflection-symmetric. The proof never uses reflection
   symmetry, and the claim never states it.
 
@@ -120,11 +122,72 @@ pre-assessment was checked, not adopted. Grades: **WRONG** (the objection fails)
 v1 is kept below it, marked superseded. No number changed.
 
 ## 10. Prior art
-See "Literature" below. T51 grades its own prior-art section FINE (novelty not undercut); we keep that open until the
-sources are read.
+- **All five sources check out.** T51 grades its own prior-art section FINE (novelty not undercut), and that stands.
+- **Two corrections to how T51 uses them:**
+  - **Markakis's conjecture assumes equatorial symmetry,** so our family sits just outside its stated class.
+  - **Kruglikov–Matveev is about generic metrics,** not the stationary axisymmetric vacuum class.
+- **Cite all of them, with those caveats.** Details are in "Literature" below.
 
-## Literature (checked at source by a web agent; labels as returned)
-PENDING — filled in when the check returns.
+## Literature (checked at source 2026-11-22 by a web agent; the MN and EMR passages re-read here)
+PDFs and text extractions are in the session scratchpad `lit/`.
+**On point 1, the sources say the opposite of what T51 attributes to them:**
+- **Meinel & Neugebauer, CQG 12 (1995) 2045 = arXiv gr-qc/0302114: VERIFIED AT SOURCE (full text; Eq. 35 re-read
+  here).**
+  - §III, using only asymptotic flatness and regular axis pieces, derives f⁽ˡ⁾(ζ) = F(ζ)/(1 + G(ζ)) and
+    f⁽ᵘ⁾(ζ) = (1 + G(ζ))/F(ζ), where one pair F(K), G(K) is fixed by the upper-axis data.
+  - **So f⁽ˡ⁾ = 1/f⁽ᵘ⁾, continued.** That is our e₋ = 1/e₊, derived BEFORE any symmetry is assumed.
+  - Reflection symmetry first enters in §IV, as f⁽ˡ⁾(−ζ) = conj f⁽ᵘ⁾(ζ) (Eq. 38). Combined with Eq. 35 it gives
+    Eqs. 39–40, which are equivalent to e₊(ζ)·conj e₊(−ζ) = 1.
+  - This is exactly the decomposition in MRS §5a.
+- **Ernst, Manko & Ruiz, CQG 23 (2006) 4945 = arXiv gr-qc/0701112** (three authors; T51 wrote "Manko & Ruiz"):
+  **VERIFIED AT SOURCE, Eqs. 45–59 re-read here.**
+  - They define ξ̃ = √(z² + ρ²)·ξ with z̄ = z/(z² + ρ²), and continue e₊ through z̄ → −z̄ using analyticity of ξ̃ at
+    z̄ = 0, crediting "the method of reasoning developed by Kordas".
+  - Continuing their Eq. 56 gives e₊(−z) = (1 + z̄ξ̃(−z̄))/(1 − z̄ξ̃(−z̄)), the first equality of Eq. 58, which uses no
+    symmetry. The actual axis value is E(−z, 0) = (1 − z̄ξ̃(−z̄))/(1 + z̄ξ̃(−z̄)). **So E(−z, 0) = 1/e₊(−z):** our
+    conformal-factor step, in their notation.
+  - Their warning that the continued data "are not in general … equal to the axis values" at negative z is this
+    reciprocal relation.
+- **Kordas, CQG 12 (1995) 2037: ABSTRACT ONLY** (the full text was blocked). The theorem is "AF solution is
+  reflection-symmetric iff e₊(z)·e₊*(−z) = 1". The abstract says nothing about the lower axis. EMR describe his method
+  as the analyticity of ξ̃ at infinity (SECONDHAND).
+- **Pachón & Sanabria-Gómez, CQG 23 (2006) 3251 = gr-qc/0603081: VERIFIED.** They state the condition and credit
+  Kordas and MN, and use the same ξ̃ = Ω^{−1/2}ξ set-up. Nothing on the lower axis.
+- **FHP 1989: ABSTRACT ONLY.** That they state analyticity of ξ̃ at the origin is NOT confirmed. The compactified-Weyl
+  set-up is confirmed SECONDHAND (Sotiriou–Apostolatos gr-qc/0407064) and directly in EMR and Pachón–Sanabria-Gómez.
+- **Beig–Simon 1981: ABSTRACT ONLY.** "Analytic in a neighbourhood of spatial infinity". Cite it for that, not for the
+  exact phrasing about rescaled potentials.
+- **Net for point 1:** T51 cited the right papers for the wrong statement. **Cite MN 1995 Eq. 35 and EMR 2006
+  Eqs. 56–58 for e₋ = 1/e₊.**
+
+**Point 10, prior art:**
+- **Markakis, MNRAS 441 (2014) 2974 = arXiv:1202.5228: VERIFIED.**
+  - Newtonian, stationary, axisymmetric AND equatorially symmetric potentials.
+  - A quadratic constant forces the Euler two-centre family, with Kerr-like moments M₂ₗ₊₂ = a²M₂ₗ.
+  - No independent quartic invariant exists, within an ansatz where the rank-4 tensor is itself Z₂-symmetric.
+  - Conjecture: a stationary axisymmetric equatorially symmetric vacuum spacetime is integrable iff it is Kerr (or
+    Kerr–de Sitter).
+  - **Relevance:** that conjecture is restricted to EQUATORIALLY SYMMETRIC spacetimes. Family (ii) with k ≠ 0 is
+    probably not reflection-symmetric, so our result sits just outside the conjecture's stated class rather than
+    inside it. Cite it as motivation, and say so.
+- **Kruglikov & Matveev, Nonlinearity 29 (2016) 1755 = arXiv:1510.01493 (T51 gave no number; not 1410.0791):
+  VERIFIED.**
+  - Any signature, dimension ≥ 2. For each degree, an open set of metrics near any Cᵏ metric has no nontrivial
+    polynomial integral of that degree.
+  - Generic (residual in Cᵏ) metrics have only trivial polynomial integrals, and also only trivial integrals analytic
+    in the momenta.
+  - **Says nothing about the non-generic stationary axisymmetric vacuum class,** which already carries Killing
+    vectors. Cite it as context only.
+- **Vollmer, J. Geom. Phys. 115 (2017) 28 = arXiv:1602.08968: VERIFIED.** No additional Killing tensors, up to
+  valence 7 (Tomimatsu–Sato δ = 2), 9 (C-metric) and 11 (Zipoy–Voorhees δ = 2), each at ONE parameter choice.
+  **Vollmer, PRD 92 (2015) 084036 = arXiv:1506.06926: VERIFIED** (valence 3 in the Weyl static class).
+  (Already known to this repo; see CLAUDE.md, D39.)
+- **Lu & Wu, arXiv:2603.12674 (2026): ABSTRACT ONLY.** Spacetimes where null geodesics are integrable while timelike
+  ones are not: conformally rescaled Kerr, Kerr–Bertotti–Robinson, accelerating Schwarzschild. None is a
+  multipole-deformed Kerr. It supports adding "null geodesics untested" to the scope (done in v2); it is not evidence
+  about our family.
+- **T51's own grade, "novelty not undercut", stands** on these five. Maciejewski–Przybylska–Stachowiak 2013 remains
+  the closest methodological precedent (static, closed form).
 
 ## Net
 - **Of T51's two SERIOUS logic objections:**

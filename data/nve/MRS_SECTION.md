@@ -155,7 +155,9 @@ Write ξ = (1 − E)/(1 + E). Then e₋ = 1/e₊ is the same statement as ξ₋ 
 **Where the reflection condition comes from.** Equatorial reflection symmetry means E(ρ, −z_c) = conj E(ρ, z_c), with
 z_c centred on the equatorial plane. On the axis this says e₋(−z_c) = conj e₊(z_c). Combine it with (a), e₋ = 1/e₊,
 and you get the Kordas / Meinel–Neugebauer condition e₊(z_c)·conj e₊(−z_c) = 1. **So (a) is an input to that
-condition, not a consequence of it.** [Source check of Kordas 1995 / Meinel–Neugebauer 1995: see §6.]
+condition, not a consequence of it.** [Source check: Meinel–Neugebauer 1995 (gr-qc/0302114) derive f⁽ˡ⁾ = 1/f⁽ᵘ⁾, their Eq. 35, in §III from
+asymptotic flatness alone, and combine it with symmetry in §IV. Ernst–Manko–Ruiz 2006 (gr-qc/0701112), Eqs. 56–58,
+use the same continuation of ξ̃. Kordas 1995: abstract only. Details in `T51_GRADING.md`.]
 - The condition also depends on where the origin is. Kerr satisfies it in z_c, but in the claim's shifted z,
   e₊(z)·conj e₊(−z) − 1 = −4M²/(z − ia)² ≠ 0 (checked). Kerr is symmetric; the shifted origin is simply not on its
   equatorial plane.
@@ -286,6 +288,12 @@ metric. What (a) adds is the identification: this is the same spacetime as the o
   - (van der Put–Singer 2003, "Prop. 1.34": number NOT confirmed.)
 - **Fodor, Hoenselaers & Perjés, J. Math. Phys. 30 (1989) 2252–2257, DOI 10.1063/1.528551: VERIFIED (abstract).**
   Moments are expressed through the expansion coefficients of the axis Ernst potential.
+- **For e₋ = 1/e₊ (§5a):**
+  - Meinel & Neugebauer, CQG 12 (1995) 2045 = gr-qc/0302114, Eq. 35 (§III): VERIFIED (full text).
+  - Ernst, Manko & Ruiz, CQG 23 (2006) 4945 = gr-qc/0701112, Eqs. 50–58: VERIFIED (full text).
+  - Kordas, CQG 12 (1995) 2037: abstract only.
+  - FHP's statement that ξ̃ is analytic at the origin: NOT confirmed at source (abstract only). The set-up is
+    confirmed in EMR and in Pachón–Sanabria-Gómez gr-qc/0603081.
 - Baouendi–Goulaouic (Fuchsian Cauchy–Kovalevskaya); Hauser–Ernst 1981; Sibgatullin: to check.
 - Maciejewski–Przybylska–Stachowiak 2013: body read in full by the Bridge and Neon T47 (relayed); used only for ZV
   δ = 2 (first-order NVE along an equatorial radial geodesic).
