@@ -112,8 +112,28 @@ meromorphic there.
     data (even series in ρ², with recursion 4n² f0 e_{2n} = P_n(e_0, …, e_{2n−2})) converges and is single-valued
     (Fuchsian Cauchy–Kovalevskaya; Hauser–Ernst / Sibgatullin axis-data reconstruction).
   - ω and γ come from closed 1-forms whose pullbacks to ρ = 0 vanish, so all their periods are zero.
-  - **Status:** plausible, and correctly excludes the zeros of f0. The citations must be checked before it is called
-    proved.
+  - **Status (2026-11-22, after the source check in §6): uniqueness CHECKED here; convergence CITED, with the fit to
+    the cited theorem written out here but not confirmed in any source.**
+    - **Setting.** Complexify to the pair (E, Ẽ) with ẽ(z) = conj e(conj z), and f = (E + Ẽ)/2. With t = ρ², the
+      flat axisymmetric Laplacian is Δ = 4t∂t² + 4∂t + ∂z² = (4/t)(t∂t)² + ∂z², and |∇E|² = 4tE_t² + E_z².
+    - **The formal recursion (checked here).** The equation f ΔE = ∇E·∇E becomes, at order t^{n−1},
+      4n² f0 e_n = (terms in e_0 … e_{n−1} and their z-derivatives). The only term containing e_n is f0·4n² e_n. The
+      indicial polynomial is 4f0 k², which vanishes only at k = 0, the free axis datum. **So for f0 ≠ 0 the even
+      series is uniquely determined by the axis value.** This is the recursion stated above.
+    - **Convergence: the Fuchsian Cauchy–Kovalevskaya theorem of Baouendi–Goulaouic.**
+      - The 1974 announcements were read at source. Their Theorem 4 covers the scalar higher-order case. Their
+        Example (31) is the axisymmetric problem Δ_y u + f(|y|², x, y·∇_y u, D_x^α u) = 0 with u(x, 0) given, which
+        has a unique analytic solution ũ(x, |y|²), analytic in x and so in complex z.
+      - **The Ernst equation fits only after a reduction:** subtract e0 + t·e2 so that |∇_y E|² becomes admissible,
+        then treat (E, Ẽ) as a system. The reduction was written by the checking agent, not found in a source. The
+        systems version is in the 1976 JDE paper, which was NOT read (paywalled).
+    - **Closest rigorous analogue, read at source:** Bäckdahl, gr-qc/0612043. In complexified Weyl coordinates it
+      proves convergence of the analogous recursion by majorants (Lemma 7), and uniqueness in the analytic class
+      (Theorem 8). But it does so at infinity, with data on a characteristic, not on the real axis.
+    - **ω and γ:** quadratures of closed 1-forms whose pullbacks to ρ = 0 vanish, so all periods are zero (unchanged).
+    - **Net:** Prop. 2 is no longer an argument with nothing cited. It is "unique by the recursion (checked);
+      convergent by Baouendi–Goulaouic, via a reduction we state ourselves". Calling it proved needs either the 1976
+      systems theorem read at source, or a short majorant proof written out, as in Bäckdahl's Lemma 7.
 
 ## 5. The lower-axis data, and why both outer axis segments must be regular (rewritten 2026-11-22 for Neon T51)
 **Conventions (stated, because T51 found them missing).**
@@ -301,6 +321,33 @@ metric. What (a) adds is the identification: this is the same spacetime as the o
   - Kordas, CQG 12 (1995) 2037: abstract only.
   - FHP's statement that ξ̃ is analytic at the origin: NOT confirmed at source (abstract only). The set-up is
     confirmed in EMR and in Pachón–Sanabria-Gómez gr-qc/0603081.
-- Baouendi–Goulaouic (Fuchsian Cauchy–Kovalevskaya); Hauser–Ernst 1981; Sibgatullin: to check.
+- **Proposition 2, checked at source 2026-11-22.** Files are in the session scratchpad `lit2/`.
+  - **Baouendi & Goulaouic, J. Differential Equations 22 (1976) 268–291:**
+    - The 1976 text was NOT READ (paywalled).
+    - The 1974 announcements were VERIFIED AT SOURCE (Numdam: Sém. Goulaouic–Lions–Schwartz 1974–75, exp. 3–4;
+      Publ. Math. Rennes 1974):
+      - Thm 1: the first-order Fuchsian system, with non-resonance det(Λ(0) − k) ≠ 0 for k ∈ ℕ;
+      - Thm 4: the scalar m-th-order case;
+      - Ex. (31): the axisymmetric problem with axis data, unique analytic solution in (x, |y|²).
+    - Bacani–Tahara (Publ. RIMS 48 (2012)) describe the 1976 paper's content SECONDHAND.
+    - **No paper applying it to the Ernst equation was found.**
+  - **Hauser & Ernst, J. Math. Phys. 22 (1981) 1051, "Proof of a Geroch conjecture": ABSTRACT ONLY.**
+    - The set of Kinnersley–Chitre transformations between two spacetimes is uniquely determined by their axis values
+      of E. This is global, needs C³ and a timelike Killing vector on the axis (f > 0), and gives no local
+      convergence.
+    - Hauser & Ernst, gr-qc/0002049 p. 2 (VERIFIED): C³ solutions of the axis-accessible Ernst equation are
+      automatically analytic (no proof given there).
+  - **Sibgatullin (book 1984/1991): NOT READ.** Manko–Sibgatullin, CQG 10 (1993) 1383: abstract only.
+    Ernst–Manko–Ruiz, arXiv:1006.5118 (VERIFIED): axis data are continued holomorphically to ξ = z + iρσ. It is a
+    construction, with no uniqueness or convergence theorem. Not a citation for Prop. 2.
+  - **Bäckdahl, CQG 24 (2007) 2205 = gr-qc/0612043: VERIFIED.** Complexified Weyl coordinates; recursion (Lemma 5),
+    majorant convergence (Lemma 7), uniqueness (Thm 8). Done at infinity, with characteristic data; it also says that
+    convergence of the FHP axis-data method is "still an open question". The closest rigorous model for our step.
+  - **Müller zum Hagen, Proc. Camb. Phil. Soc. 68 (1970) 199: ABSTRACT ONLY.** Analyticity of a given stationary C³
+    vacuum metric. It gives neither existence nor uniqueness from data, and assumes a timelike Killing vector.
+  - **Chruściel, Greuel, Meinel & Szybka, gr-qc/0603041: VERIFIED.** Off-axis analyticity only; ρ = 0 is set aside
+    explicitly.
+  - **Caution:** citing Hauser–Ernst or Müller zum Hagen imports f > 0. On the Fuchsian route only f0 ≠ 0 is needed
+    (it is the non-resonance condition), which is what W assumes.
 - Maciejewski–Przybylska–Stachowiak 2013: body read in full by the Bridge and Neon T47 (relayed); used only for ZV
   δ = 2 (first-order NVE along an equatorial radial geodesic).
