@@ -4590,3 +4590,33 @@ pole-order-1 Carter² survival.
     22 MB.
   - **Rule going forward.** Any symbolic recursion gets a declared peak and a guard before launch, however small it
     looks.
+
+## 2026-11-24 — Reply to Maciejewski–Przybylska drafted; a four-layer check found one real error (fixed)
+- **Ask (the Bridge, for Sumit).** Maciejewski and Przybylska replied to the 22 Nov email. They asked for the system,
+  a particular solution and the exact statement, with nothing else.
+  - The draft is in `outreach/REPLY_maciejewski_2026-11-24.md`. It is local and excluded from git.
+  - It has a 44-row source table (formula → file:line → computing function).
+  - No code was run for it.
+- **New in this repo: NVE1 derived from the metric.** Until now it was taken as given, with the twist cancellation
+  relayed (V25 P1). Hand derivation:
+  - U0 = P/f0²;
+  - f2 = (f0′² − c0′² − f0f0″)/(4f0), γ2 = −(f0′² + c0′²)/(8f0²), ω2² = c0′²/(4f0⁴);
+  - the c0′ terms cancel in U2;
+  - then −U2/U0 − U0″/(4U0) + (3/16)(U0′/U0)² = (3/16)(P′/P)².
+  The Bridge's layer 3 checked it symbolically (24/24 PASS), including f2, γ2 and ω2² against exact Kerr built from
+  Boyer–Lindquist, to 1e−16.
+- **Layer 4, a fresh reader, found a real error in MRS §5b** ("two identical copies of NVE1").
+  - g^{tφ} puts −E f0 ω2 L_z into the transverse quadratic Hamiltonian, so the copies are rotated by a frame-dragging
+    angle Θ.
+  - The conclusion survives: L_z commutes with the rest, and the PSL₂ image is unchanged.
+  - Corrected in commit 4d051a9, with T51_GRADING point 3 annotated.
+  - **Lesson:** "rotation-invariant quadratic form" was enumerated in position space only. In phase space L_z is one
+    too.
+- **Layer 4 also found the Prop. 2 status inconsistent across files.** Fixed in commit 868c158: CLAIM v2.1 status
+  wording, MRS §4/§4b/§5c, T51, ONE_PAGER. The new status is "own majorant proof, not yet independently checked".
+- **The 12 other findings were wording and completeness fixes in the email.** Among them:
+  - J(k) = a√(1 − 7k/30), with the mass quadrupole Kerr's for all k (hand, from the c0 asymptotics and Re ξ);
+  - c0 is an abelian integral on y² = B(u², k);
+  - the explicit finite-trace set S;
+  - the Kerr and degree-3 controls.
+  Revision 2 went back to the Bridge for layers 2–4 again, plus a Neon hostile read.
