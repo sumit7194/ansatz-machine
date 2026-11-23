@@ -131,8 +131,10 @@ meromorphic there.
 - **Two discontinuities in k of the REAL lower-axis data (found 2026-11-24 while doing the check above; hand, plus
   `rodend_c0.out`). Neither affects any monodromy computation.**
   - **At k → 0+.** For k > 0, √B stays positive on all of u < 1. At k = 0 the analytic branch is √10(3u² − 1), which
-    is negative for |u| < 1/√3. So on the lower-axis segment −1/√3 < u < (1 − √(1 − a²))/a, the k → 0+ limit of
-    c0″ is −c_K″, not Kerr's c_K″. The branch points pinch the real line at u = ±1/√3. Examples:
+    is negative for |u| < 1/√3. So on the lower-axis segment −1/√3 < u < min(1/√3, u_rod−), with
+    u_rod− = (1 − √(1 − a²))/a, the k → 0+ limit of c0″ is −c_K″, not Kerr's c_K″. (The min matters at spin 9/10,
+    where u_rod− = 0.627 > 1/√3; the Bridge's correction.) The branch points pinch the real line at u = ±1/√3.
+    Examples:
     - c0″(0) → −4/a³, while Kerr's value is +4/a³;
     - at spin 3/5, c0 at the lower rod end → −5.94, while Kerr's is −3.0.
     So the family is NOT a small deformation of Kerr near the lower end of the rod. Near z = −a/√3, on the physical
@@ -141,7 +143,15 @@ meromorphic there.
     f0⁻ = f0/(f0² + c0²) is even in c0, so NVE1 on the lower axis is continuous there. Only c0⁻, and hence the
     frame-dragging angle Θ of §5b, changes sign.
   - **Why the loops are unaffected.** All our loops lie where the data are analytic in k: the circle |z| = R0 > ρ_c,
-    the lassos in |z| > 1.3, and the half-plane disc near z = 2. The physical lower orbit lies on the same connected
+    the lassos in |z| > 1.3, and the half-plane disc near z = 2.
+  - **Distances, checked against the stored geometry** (`spin_geo_*.json`, `GAPB_PREREGISTRATION.md`; the loop
+    constructors are `_nve_spin_scan.py` L206 and L228, and `_nve_lower_kc.py` L105 and L129).
+    - In the circle picture, which contains k = 0, M0 is |z| = R0 and the lasso M1 is based at b = R0 on ℝ. Its tail
+      runs along ℝ toward the capsule around [r+, p+], which sits at Re z ≈ 1.85–2 at k = 0.
+    - So the smallest distance from any loop or base point to the pinch interval |z| ≤ a/√3 is R0 − a/√3:
+      0.976, 1.004, 0.876 and 0.744 at spins 3/10, 3/5, 4/5 and 9/10.
+    - The half-plane bases (used only for k ≥ 3.8, far from the pinch in k) are 1.481, 1.004, 0.843 and 0.630 away.
+    - So the O(k²) statement of §5d is unaffected. The physical lower orbit lies on the same connected
     Γ0 through U_a. The claim's "k = 0 is Kerr" holds at k = 0 exactly. Continuity of the family at k = 0 was never
     claimed, and it fails near the lower rod end.
 
