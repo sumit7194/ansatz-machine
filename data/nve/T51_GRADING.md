@@ -60,6 +60,11 @@ pre-assessment was checked, not adopted. Grades: **WRONG** (the objection fails)
 - Work in x = ρ cos φ, y = ρ sin φ on the full T*M; these are regular because the outer axes are elementarily flat.
 - Rotation invariance makes the transverse Hessian ∝ the identity. So the (x, y) block of the VE is two identical
   copies of NVE1, with group {diag(g, g)}.
+- **CORRECTED 2026-11-24:** the two bullets above are wrong as stated. The transverse quadratic Hamiltonian also
+  contains −E f0 ω2 L_z (from g^{tφ}), so the two copies are rotated by a frame-dragging angle Θ = ∫ E f0 ω2 dτ. The
+  group is not {diag(g, g)}. The conclusion survives: [H_A, L_z] = 0, the block's Galois group has the ρ-equation's
+  image in PSL₂, and its identity component is non-abelian. The corrected argument is in MRS §5b. The grade of point 3
+  stays FAIR; the fix as first written was itself flawed.
 - Its identity component is non-abelian iff G1⁰ is, and that passes to the full VE through a subquotient (MRS §5b).
 - T51 suggested exactly this fix, and it changes no number.
 
