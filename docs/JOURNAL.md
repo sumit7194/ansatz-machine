@@ -4620,3 +4620,20 @@ pole-order-1 Carter² survival.
   - the explicit finite-trace set S;
   - the Kerr and degree-3 controls.
   Revision 2 went back to the Bridge for layers 2–4 again, plus a Neon hostile read.
+- **Later the same day: rev 3, after layer 4 re-read rev 2 and Neon gave it a hostile read (layer 5).** Both found
+  the core maths correct.
+  - **Repo commit 3a7d29d.**
+    - MRS §1 CORRECTED. Morales–Ramis is applied to the t-reduced 3-dof system. Neither the p_φ reduction nor T*M
+      with t present is used, because t is multivalued around the loops.
+    - Γ0 is now stated explicitly, together with holomorphy of H_E near the complex loops. Prop. 2 is on compacta of
+      the complex domain W.
+    - §3 additions: c0 is holomorphic at ∞ with real coefficients, and c0 ≠ 0 at the rod endpoints. That second fact
+      is proved by hand: B > 0 on ℝ gives c0″ one sign on each real segment of U_a.
+    - The check is `scripts/_nve_rodend_c0.py` → `rodend_c0.out`: four spins, Laurent cross-check ≤ 6e−42, with a
+      must-fail.
+  - **NEW, found along the way.** The real lower-axis data are discontinuous in k in two places:
+    - at k → 0+ near the lower rod end, where the branch points pinch ℝ at u = ±1/√3 and the limit is −c_K″. At spin
+      3/5 the lower-rod-end c0 tends to −5.94, against Kerr's −3.0;
+    - at k = 30/7, where the twist flips sign on the whole lower axis.
+    No loop computation is affected. But the family is not a small deformation of Kerr near the lower rod end, and
+    the "deform only the twist" wording in ONLY_KERR may need a caveat (Sumit's call).
