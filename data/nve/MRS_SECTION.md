@@ -9,6 +9,25 @@ Let H be a complex-analytic Hamiltonian with n degrees of freedom. Here n = 2: t
 system at fixed E, μ and L_z = 0. Let Γ be a non-equilibrium integral curve, viewed as a connected Riemann surface. It
 may be open, or restricted to an open subsurface Ũ on which the coefficients are single-valued.
 
+**CORRECTED 2026-11-24 (Neon, layer 5 of the Maciejewski-reply check): which system the theorem is applied to.**
+- **Do not reduce by p_φ.** The (ρ, z) system at L_z = 0 above is the convenient source of the ρ-equation. But the
+  S¹ action is singular on the axis, so it is not the system to which the theorem is applied.
+- **Do not work on T*M with t present either.** t(z) = ∫E/(f0⁻ ż) dz is multivalued around our loops, so the lifts
+  of the loops do not close in T*M.
+- **Reduce by the cyclic coordinate t instead.** Fix p_t = −E. Any further first integral F of the geodesic flow with
+  {F, p_t} = 0 is independent of t and descends.
+- **The system used.** The t-reduced Hamiltonian H_E on the 3-degree-of-freedom phase space
+  (x, y, z, p_x, p_y, p_z), with x = ρ cos φ and y = ρ sin φ (regular near the outer axes, §5b), on the level
+  H_E = −μ²/2. It has the integrals H_E and p_φ = x p_y − y p_x.
+- **The curve Γ0.** The axis orbit x = y = p_x = p_y = 0, p_z² = P/f0⁻², viewed over a bounded domain D ⊂ U_a that
+  contains all our loops, minus the zeros and poles of P. On the double cover y² = P (Lemma C) the loops close.
+- **What the theorem excludes.** A third integral, independent of H_E and p_φ, in involution with them, and
+  meromorphic in a neighbourhood of Γ0. Equivalently, on T*M: a fourth integral beyond H, p_t and p_φ.
+- **Holomorphy of H_E near all of Γ0, including the complex loops.** Prop. 2 (§4b) is proved on compact subsets of the
+  COMPLEX z-domain W = U_a ∖ {f0 = 0, f0² + c0² = 0}; on the lower axis these are f0⁻ ≠ 0 and no poles of e₋. The loops
+  lie in W (§5c), and γ and ω are holomorphic quadratures there (§4). So H_E is holomorphic on a neighbourhood of Γ0.
+- The rest of the argument is §5b's transverse block and Lemma C, unchanged.
+
 **Theorem (Morales-Ruiz–Ramis 2001; Morales-Ruiz–Ramis–Simó 2007, Theorem 2 p. 849 and Theorem 5 "Main theorem"
 pp. 867–868, for every order k).** Γ is a connected Riemann surface (open allowed; it is the default there), and the
 coefficient field is the meromorphic functions on Γ. If H has n functionally
@@ -90,6 +109,41 @@ meromorphic there.
   one on the physical lower axis. [Checked here: at spin 0.6, E = 0.9, u = −14.150188915044… (k = 1) and
   −14.139807205785… (k = 30/7), agreeing with T49 to 2.5e−44 and 2.3e−44.]
 - **u = ∞:** not a branch point of c0, because deg B is even and c0″ = O(u⁻⁴), or O(u⁻⁵) at k = 30/7.
+  - **(Added 2026-11-24.)** c0″ has no u⁻¹ term at ∞, so c0′ and c0 have no logarithm there. c0 is holomorphic at ∞
+    with c0(∞) = 0, and its Laurent coefficients are real (B has real coefficients and the branch is fixed real at
+    +∞). So c0 is real on the lower outer axis too, which justifies f0⁻ and c0⁻ as real axis data.
+- **Sign of c0″ on the real line, and c0 at the rod endpoints (added 2026-11-24, hand; checked numerically).**
+  - **Why √B keeps one sign.** For 0 < k ≤ 30/7, B(u², k) > 0 for all real u (§5c). Each real segment of U_a,
+    u > 1 and u < 1, is connected without crossing the tree. So √B has one sign on each segment:
+    - on u > 1: + (the normalisation at +∞);
+    - on u < 1, reached through ∞: + for k < 30/7, where √B ~ √(90 − 21k)u² is even; − at k = 30/7, where
+      √B ~ √(120/7)u is odd.
+  - **Hence c0 never vanishes on the outer axes.** On the upper side c0 = ∫_z^∞ (s − z)c0″ ds with c0″ < 0, so
+    c0 < 0. On the lower side c0 = ∫_{−∞}^z (z − s)c0″ ds: < 0 for k < 30/7, > 0 at k = 30/7. So c0 ≠ 0 on both
+    outer axes, in particular at both rod endpoints. Therefore f0² + c0² ≠ 0 there, and the rod endpoints are ordinary
+    points of NVE1, as stated.
+  - **Numerical check** (`scripts/_nve_rodend_c0.py` → `data/nve/rodend_c0.out`; spins 3/10, 3/5, 4/5, 9/10; 12 values
+    of k in (0, 30/7]):
+    - every rod-end c0 is nonzero, with the predicted sign;
+    - the real-line quadratures agree with the code's own Laurent series at z = ±2 to ≤ 6e−42, wherever that series
+      exists (spins 3/10, 3/5, 4/5);
+    - the wrong lower branch disagrees by 0.26–0.61 (must-fail).
+- **Two discontinuities in k of the REAL lower-axis data (found 2026-11-24 while doing the check above; hand, plus
+  `rodend_c0.out`). Neither affects any monodromy computation.**
+  - **At k → 0+.** For k > 0, √B stays positive on all of u < 1. At k = 0 the analytic branch is √10(3u² − 1), which
+    is negative for |u| < 1/√3. So on the lower-axis segment −1/√3 < u < (1 − √(1 − a²))/a, the k → 0+ limit of
+    c0″ is −c_K″, not Kerr's c_K″. The branch points pinch the real line at u = ±1/√3. Examples:
+    - c0″(0) → −4/a³, while Kerr's value is +4/a³;
+    - at spin 3/5, c0 at the lower rod end → −5.94, while Kerr's is −3.0.
+    So the family is NOT a small deformation of Kerr near the lower end of the rod. Near z = −a/√3, on the physical
+    lower axis, the data vary on a scale ~√k.
+  - **At k → 30/7−.** On the whole lower axis c0 → −|c0|, but at k = 30/7 exactly c0 = +|c0|: the twist flips sign.
+    f0⁻ = f0/(f0² + c0²) is even in c0, so NVE1 on the lower axis is continuous there. Only c0⁻, and hence the
+    frame-dragging angle Θ of §5b, changes sign.
+  - **Why the loops are unaffected.** All our loops lie where the data are analytic in k: the circle |z| = R0 > ρ_c,
+    the lassos in |z| > 1.3, and the half-plane disc near z = 2. The physical lower orbit lies on the same connected
+    Γ0 through U_a. The claim's "k = 0 is Kerr" holds at k = 0 exactly. Continuity of the family at k = 0 was never
+    claimed, and it fails near the lower rod end.
 
 ## 4. The single-valued domain U_a, and the off-axis metric
 - **U_a:**

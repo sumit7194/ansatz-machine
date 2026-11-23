@@ -1,0 +1,64 @@
+spin a = 3/10: rod endpoints z = 0.0460607985831, 1.95393920142
+k =         1.0e-6: c0(lower rod end) =   -9.81649671168   c0(upper rod end) =  -0.153535977388   Laurent vs quadrature at z=-2: 0.0, at z=+2: 0.0 (rho_c 0.3)
+k =           0.01: c0(lower rod end) =   -9.82035460324   c0(upper rod end) =  -0.153357006284   Laurent vs quadrature at z=-2: 0.0, at z=+2: 0.0 (rho_c 0.3)
+k =            0.5: c0(lower rod end) =   -9.70023871232   c0(upper rod end) =  -0.144314858177   Laurent vs quadrature at z=-2: 0.0, at z=+2: 0.0 (rho_c 0.3)
+k =            1.0: c0(lower rod end) =   -9.46571584665   c0(upper rod end) =  -0.134462836791   Laurent vs quadrature at z=-2: 0.0, at z=+2: 0.0 (rho_c 0.3)   [must-fail, wrong lower branch: diff 0.257]
+k =            2.0: c0(lower rod end) =   -8.82181589927   c0(upper rod end) =  -0.112192715459   Laurent vs quadrature at z=-2: 0.0, at z=+2: 0.0 (rho_c 0.3)
+k =            3.0: c0(lower rod end) =   -7.92648512475   c0(upper rod end) = -0.0842267811144   Laurent vs quadrature at z=-2: 0.0, at z=+2: 0.0 (rho_c 0.3)
+k =            3.9: c0(lower rod end) =   -6.71766554664   c0(upper rod end) = -0.0463719827235   Laurent vs quadrature at z=-2: 1.43e-42, at z=+2: 1.43e-42 (rho_c 0.3)
+k =            4.0: c0(lower rod end) =   -6.53018259732   c0(upper rod end) = -0.0400129006501   Laurent vs quadrature at z=-2: 0.0, at z=+2: 0.0 (rho_c 0.3)
+k =            4.1: c0(lower rod end) =   -6.31914238031   c0(upper rod end) = -0.0324295971073   Laurent vs quadrature at z=-2: 1.79e-42, at z=+2: 1.79e-42 (rho_c 0.5231525451982632)
+k =            4.2: c0(lower rod end) =   -6.07031776235   c0(upper rod end) = -0.0224102673211
+k =    4.285713286: c0(lower rod end) =   -5.78590791449   c0(upper rod end) = -0.00512886766523
+k =    4.285714286: c0(lower rod end) = (5.7859030162 + 2.12202163328e-60j)   c0(upper rod end) = (-0.00512806726274 - 2.12202163328e-60j)
+c0''(z = 0) at k = 1e-6: -148.1481407;  Kerr c0''(0) = +4/a^3 = 148.1481481
+peak ru_maxrss = 65.7 MB
+
+spin a = 3/5: rod endpoints z = 0.2, 1.8
+k =         1.0e-6: c0(lower rod end) =    -5.9433695828   c0(upper rod end) =  -0.333333294688   Laurent vs quadrature at z=-2: 0.0, at z=+2: 0.0 (rho_c 0.6)
+k =           0.01: c0(lower rod end) =   -5.94626586834   c0(upper rod end) =  -0.332946660617   Laurent vs quadrature at z=-2: 0.0, at z=+2: 0.0 (rho_c 0.6)
+k =            0.5: c0(lower rod end) =   -5.89697858668   c0(upper rod end) =   -0.31341583449   Laurent vs quadrature at z=-2: 0.0, at z=+2: 0.0 (rho_c 0.6)
+k =            1.0: c0(lower rod end) =   -5.77864517439   c0(upper rod end) =  -0.292143509663   Laurent vs quadrature at z=-2: 2.87e-42, at z=+2: 2.87e-42 (rho_c 0.6)   [must-fail, wrong lower branch: diff 0.482]
+k =            2.0: c0(lower rod end) =   -5.44030599643   c0(upper rod end) =  -0.244099071454   Laurent vs quadrature at z=-2: 2.87e-42, at z=+2: 2.87e-42 (rho_c 0.6)
+k =            3.0: c0(lower rod end) =   -4.96129086559   c0(upper rod end) =   -0.18390283682   Laurent vs quadrature at z=-2: 2.87e-42, at z=+2: 2.87e-42 (rho_c 0.6)
+k =            3.9: c0(lower rod end) =   -4.31146175357   c0(upper rod end) =  -0.103093746715   Laurent vs quadrature at z=-2: 2.87e-42, at z=+2: 2.87e-42 (rho_c 0.6)
+k =            4.0: c0(lower rod end) =    -4.2108339092   c0(upper rod end) = -0.0897198198492   Laurent vs quadrature at z=-2: 0.0, at z=+2: 0.0 (rho_c 0.6)
+k =            4.1: c0(lower rod end) =    -4.0977251119   c0(upper rod end) = -0.0739514477654   (Laurent series unavailable here: rho_c too large)
+k =            4.2: c0(lower rod end) =   -3.96470135688   c0(upper rod end) = -0.0536686225881   (Laurent series unavailable here: rho_c too large)
+k =    4.285713286: c0(lower rod end) =   -3.81358558172   c0(upper rod end) = -0.0239001204951
+k =    4.285714286: c0(lower rod end) = (3.81358300953 + 2.66656272047e-61j)   c0(upper rod end) = (-0.0238992935858 - 2.66656272047e-61j)   (Laurent series unavailable here: rho_c too large)
+c0''(z = 0) at k = 1e-6: -18.51851759;  Kerr c0''(0) = +4/a^3 = 18.51851852
+peak ru_maxrss = 65.9 MB
+
+spin a = 4/5: rod endpoints z = 0.4, 1.6
+k =         1.0e-6: c0(lower rod end) =   -5.24879768108   c0(upper rod end) =   -0.49999994248   Laurent vs quadrature at z=-2: 0.0, at z=+2: 0.0 (rho_c 0.8)
+k =           0.01: c0(lower rod end) =   -5.25170983499   c0(upper rod end) =  -0.499424466452   Laurent vs quadrature at z=-2: 0.0, at z=+2: 0.0 (rho_c 0.8)
+k =            0.5: c0(lower rod end) =   -5.22520163983   c0(upper rod end) =  -0.470361289008   Laurent vs quadrature at z=-2: 5.74e-42, at z=+2: 5.74e-42 (rho_c 0.8)
+k =            1.0: c0(lower rod end) =   -5.13844373675   c0(upper rod end) =  -0.438724410873   Laurent vs quadrature at z=-2: 0.0, at z=+2: 0.0 (rho_c 0.8)   [must-fail, wrong lower branch: diff 0.605]
+k =            2.0: c0(lower rod end) =   -4.87820083018   c0(upper rod end) =  -0.367363261675   Laurent vs quadrature at z=-2: 0.0, at z=+2: 0.0 (rho_c 0.8)
+k =            3.0: c0(lower rod end) =   -4.50152864776   c0(upper rod end) =  -0.278252807372   Laurent vs quadrature at z=-2: 2.87e-42, at z=+2: 2.87e-42 (rho_c 0.8)
+k =            3.9: c0(lower rod end) =   -3.98620487101   c0(upper rod end) =  -0.159996529581   Laurent vs quadrature at z=-2: 2.87e-42, at z=+2: 2.87e-42 (rho_c 0.8)
+k =            4.0: c0(lower rod end) =   -3.90633354364   c0(upper rod end) =  -0.140792204935   Laurent vs quadrature at z=-2: 0.0, at z=+2: 0.0 (rho_c 0.8)
+k =            4.1: c0(lower rod end) =   -3.81661037514   c0(upper rod end) =  -0.118436158363   (Laurent series unavailable here: rho_c too large)
+k =            4.2: c0(lower rod end) =   -3.71123714814   c0(upper rod end) = -0.0904171184985   (Laurent series unavailable here: rho_c too large)
+k =    4.285713286: c0(lower rod end) =   -3.59203007189   c0(upper rod end) = -0.0528669578149
+k =    4.285714286: c0(lower rod end) = (3.59202806098 + 3.47014679873e-61j)   c0(upper rod end) = (-0.0528660951048 - 3.47014679873e-61j)   (Laurent series unavailable here: rho_c too large)
+c0''(z = 0) at k = 1e-6: -7.812499609;  Kerr c0''(0) = +4/a^3 = 7.8125
+peak ru_maxrss = 66.5 MB
+
+spin a = 9/10: rod endpoints z = 0.564110105646, 1.43588989435
+k =         1.0e-6: c0(lower rod end) =   -5.21420115277   c0(upper rod end) =  -0.626788934731   (Laurent series unavailable here: rho_c too large)
+k =           0.01: c0(lower rod end) =   -5.21756767242   c0(upper rod end) =  -0.626073178691   (Laurent series unavailable here: rho_c too large)
+k =            0.5: c0(lower rod end) =   -5.20754734814   c0(upper rod end) =  -0.589934038299   (Laurent series unavailable here: rho_c too large)
+k =            1.0: c0(lower rod end) =   -5.13619770696   c0(upper rod end) =  -0.550616238988   (Laurent series unavailable here: rho_c too large)
+k =            2.0: c0(lower rod end) =   -4.90733645208   c0(upper rod end) =  -0.462040528538   (Laurent series unavailable here: rho_c too large)
+k =            3.0: c0(lower rod end) =   -4.56628377401   c0(upper rod end) =  -0.351784060605   (Laurent series unavailable here: rho_c too large)
+k =            3.9: c0(lower rod end) =   -4.09365403643   c0(upper rod end) =  -0.206915683073   (Laurent series unavailable here: rho_c too large)
+k =            4.0: c0(lower rod end) =   -4.02013516152   c0(upper rod end) =  -0.183736500161   (Laurent series unavailable here: rho_c too large)
+k =            4.1: c0(lower rod end) =   -3.93752202195   c0(upper rod end) =  -0.156990765926   (Laurent series unavailable here: rho_c too large)
+k =            4.2: c0(lower rod end) =   -3.84051020845   c0(upper rod end) =  -0.124007441708   (Laurent series unavailable here: rho_c too large)
+k =    4.285713286: c0(lower rod end) =   -3.73095545828   c0(upper rod end) = -0.0817192591812
+k =    4.285714286: c0(lower rod end) = (3.73095361988 + 3.84444401962e-61j)   c0(upper rod end) = (-0.0817183616139 - 3.84444401962e-61j)   (Laurent series unavailable here: rho_c too large)
+c0''(z = 0) at k = 1e-6: -5.486968176;  Kerr c0''(0) = +4/a^3 = 5.48696845
+peak ru_maxrss = 67.7 MB
+
