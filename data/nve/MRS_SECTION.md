@@ -107,7 +107,7 @@ meromorphic there.
   for an upper-axis VE3 test of family (ii). **The proof does not use one:** family (ii) is obstructed at FIRST order
   on the lower axis, by loops inside U_a. For the rational-twist class, c0 is rational and has no logs, so the issue
   does not arise there either.
-- **Proposition 2 (the off-axis metric is single-valued; citation pending, see §6).**
+- **Proposition 2 (the off-axis metric is single-valued; proof in §4b, not yet independently checked; sources §6).**
   - On a tubular neighbourhood of W = U_a ∖ {f0 = 0, f0² + c0² = 0}, the Ernst potential reconstructed from the axis
     data (even series in ρ², with recursion 4n² f0 e_{2n} = P_n(e_0, …, e_{2n−2})) converges and is single-valued
     (Fuchsian Cauchy–Kovalevskaya; Hauser–Ernst / Sibgatullin axis-data reconstruction).
@@ -134,6 +134,7 @@ meromorphic there.
     - **Net:** Prop. 2 is no longer an argument with nothing cited. It is "unique by the recursion (checked);
       convergent by Baouendi–Goulaouic, via a reduction we state ourselves". Calling it proved needs either the 1976
       systems theorem read at source, or a short majorant proof written out, as in Bäckdahl's Lemma 7.
+    - **Superseded:** the majorant proof is now written out in §4b. It is not yet independently checked.
 
 ## 4b. Proposition 2: convergence by a majorant (our own proof, 2026-11-22)
 **Claim.** Let K be a compact subset of W, the complex z-domain where the axis data a0 = e (and b0 = ẽ) are
@@ -192,7 +193,7 @@ positive axis. The radius of convergence is therefore x0, and B_n ≤ C_ε (x0 �
 - Uniqueness among solutions analytic in (ρ², z) is the recursion itself (§4).
 - Only f0 ≠ 0 was used, never f0 > 0. The hypotheses of Hauser–Ernst and Müller zum Hagen are not imported.
 
-**Status: CHECKED (written and checked here).** It is a standard Cauchy–Kovalevskaya majorant in Nagumo norms, with
+**Status (wording amended 2026-11-24): PROVED HERE, checked by its author and by the numerical control below; NOT yet independently checked.** It is a standard Cauchy–Kovalevskaya majorant in Nagumo norms, with
 the indicial factor in place of the time derivative. It supersedes the reliance on the unread 1976
 Baouendi–Goulaouic systems theorem, which stays as the supporting reference with our stated reduction.
 
@@ -350,7 +351,7 @@ metric. What (a) adds is the identification: this is the same spacetime as the o
   its matrix. Every generator is therefore realised by a loop in W.
 - Proposition 2 is needed only on such loops, at REAL k. The k-region counts need only holomorphy of the NVE1
   monodromy in k, which comes from the axis data alone.
-- **Proposition 2 itself is still an argument with citations pending (§6).**
+- **Proposition 2 (amended 2026-11-24):** a majorant proof written here (MRS_SECTION.md §4b), checked by its author and by a numerical control, NOT yet independently checked.
 
 ## 5d. The neighbourhood of k = 0 (T51 point 6)
 - **The question.** The argument-principle region encloses k = 0, where F = tr[M1, M0] − 2 has Kerr's zero. Could

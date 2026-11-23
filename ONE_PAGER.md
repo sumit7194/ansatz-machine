@@ -53,7 +53,7 @@ its rotation (twist) profile, does the integrability survive?
 **Checks.**
 - Pre-registered runs, with failed runs kept.
 - Two hostile referee rounds, answered point by point.
-- Every link of the applicability argument is checked or cited at source, including our own convergence proof for
+- Every link of the applicability argument is checked or cited at source, including our own convergence proof (not yet independently checked) for
   the off-axis metric.
 
 **How it was made.** Developed with substantial assistance from Anthropic's Claude, which wrote and ran most of the

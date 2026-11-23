@@ -55,6 +55,8 @@ pre-assessment was checked, not adopted. Grades: **WRONG** (the objection fails)
 - **Prop. 2 is needed only at REAL k on those loops.** The k-counts use only the axis data.
 - **Still open, as before:** Prop. 2 is an argument. Its citations (Baouendi–Goulaouic; Hauser–Ernst; Sibgatullin)
   are not yet checked. That is the one soft link in the applicability chain, and claim v2 says so up front.
+- **Superseded 2026-11-24:** Prop. 2 now rests on our own majorant proof (MRS §4b). It has been checked by its
+  author and a numerical control, not yet independently. Claim v2.1 says so.
 
 ## 3. Singular reduction at ρ = 0: FAIR, fixed
 - Work in x = ρ cos φ, y = ρ sin φ on the full T*M; these are regular because the outer axes are elementarily flat.

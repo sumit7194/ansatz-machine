@@ -3,7 +3,12 @@
 **This is THE reference text.** Outreach and digests quote it verbatim or point to it. Any change is a new dated
 version in this file, with the reason. Edits up to now were agreed with the Bridge.
 
-# VERSION 2 (2026-11-22): CURRENT
+# VERSION 2 (2026-11-22): CURRENT. Amended 2026-11-24 (v2.1), status wording only
+**v2.1 (2026-11-24):** the Proposition 2 status line below had fallen behind MRS §4b, so the repo contradicted itself.
+It said "citations still being checked", while §4b said "CHECKED". It now says what is true: our own majorant proof,
+checked by its author and a numerical control, not yet independently checked. Found by the Bridge's layer-4 reader.
+The claim and every number are unchanged.
+
 **Why v2 exists:** Neon T51, a hostile referee read of v1. It is graded in `data/nve/T51_GRADING.md`. v2 changes how the
 claim is presented, not what it says:
 - the status comes first;
@@ -18,8 +23,9 @@ None of the numbers change.
 - **Interval arithmetic certifies only the end sliver:** the last ~10⁻¹⁰ of the range at spins 0.6, 0.8 and 0.9, and
   only the last 7.4 × 10⁻¹⁵ at spin 0.3.
 - **Three degenerate cases were resolved post hoc, in floating point.**
-- **One link in the applicability argument (Proposition 2, the off-axis metric near the orbit) is an argument whose
-  citations are still being checked.**
+- **One link in the applicability argument (Proposition 2, the off-axis metric near the orbit) rests on a majorant proof written here (MRS_SECTION.md §4b), checked by its author and by a numerical control, NOT yet independently checked.**
+  It is stated on compact sets where the axis data are holomorphic and f0 ≠ 0. On the lower axis that means f0⁻ ≠ 0
+  and e₋ has no poles (f0² + c0² ≠ 0).
 
 ## The claim (one sentence)
 Numerically (50-digit floating point, interval-certified only at the top of the range), for the stationary axisymmetric
