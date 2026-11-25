@@ -2,8 +2,11 @@
 
 **[model: Fable 5.2] Session ansatz-machine-personal, 2026-11-25. Ask: the Bridge, for Sumit. Branch
 `fable/2026-11-25-c2-analytic`. STATUS: UNVERIFIED until the office ansatz-machine checks it.**
-Hand derivation plus one small double-precision script (`scripts/_nve_c2_analytic.py`, about 0.2 s per spin).
-Nothing here is interval-certified yet; §6 says exactly what a certificate needs.
+Hand derivation, one small double-precision script (`scripts/_nve_c2_analytic.py`, about 0.2 s per spin), and an
+interval certificate of the three numbers the formula needs (`scripts/_nve_c2_certify.py`, about 8 s per spin; §6b).
+**What is and is not certified:** the certificate proves I₊ ≠ 0, I₋ ≠ 0 and Re(κω) ≠ 0 as defined by the formulas
+below. The formula itself (§1–§3) is hand algebra, checked numerically against the 50-digit engine, not
+machine-proved.
 
 ## 0. The simple version
 - Near Kerr (k = 0) the test function F(k) = tr[M1, M0] − 2 starts at order k²: F = c2·k² + O(k³). If c2 ≠ 0, then F ≠ 0
@@ -16,8 +19,10 @@ Nothing here is interval-certified yet; §6 says exactly what a certificate need
 - **Numerically c2 ≠ 0 at all four spins** (E = 4/5). At spin 3/5 the formula agrees with the stored 50-digit
   monodromy data to 12 digits.
 - **Not a closed form in elementary functions**, and none should be expected: I± contain the exponential of an
-  incomplete elliptic integral. But they are explicit and cheap to certify (§6): about a hundred interval
-  evaluations of an explicit function, instead of validated ODE integration.
+  incomplete elliptic integral. But they are explicit and cheap to certify: about a hundred interval evaluations
+  of an explicit function, instead of validated ODE integration.
+- **Certified in interval arithmetic at all four spins (§6b):** I₊ ≠ 0, I₋ ≠ 0, Re(κω) ≠ 0, hence c2 ≠ 0 given the
+  formula. A planted case whose true integral is 0 is correctly refused.
 - **New finding:** c2 is not nonzero at every spin. I₊ changes sign at a\* ≈ 0.9080 (E = 4/5). Spin 9/10 sits
   close to it, which is why |c2| is small there and why that spin alone showed an "extra zero" of F near k = 0.
 
@@ -177,6 +182,55 @@ to locate the finitely many exceptions.
 - ω: the same trapezoid argument after the substitution z = r₊ + (p₊ − r₊)(1 − cos φ)/2, or Arb's elliptic integrals.
 - Margins are comfortable: |Im I₊| ≥ 2.8e−3 (spin 9/10, the tightest), |Im I₋| ≥ 0.045, |Re κω| ≥ 0.84.
 
+## 6b. The certificate, done (`scripts/_nve_c2_certify.py`; outputs in `data/nve/c2/`)
+`mpmath.iv`, 40 digits, outward rounding; about 8 s per spin on one core.
+
+| spin | Im I₊ ∈ | Im I₋ ∈ | \|Re κω\| | verdict |
+|---|---|---|---|---|
+| 3/10 | [0.02593362328601, 0.02593362756747] | [0.0451246043078, 0.04512460805839] | 0.8416039662747 | CERTIFIED |
+| 3/5 | [0.0530164956, 0.0530165024] | [0.1761391988, 0.1761392101] | 1.16468496934 | CERTIFIED |
+| 4/5 | [0.0313602881983, 0.03136029990877] | [0.2942038516549, 0.2942038791508] | 1.326774834709 | CERTIFIED |
+| 9/10 | [0.002776354, 0.002776373] | [0.36237426, 0.36237432] | 1.39810426657 | CERTIFIED |
+
+Every interval contains the double-precision value of §4 and excludes 0.
+
+**How it works.**
+- **Trapezoid with a proved error bound.** Let h be 2π-periodic and analytic with |h| ≤ M on |Im θ| ≤ σ. Its
+  Fourier coefficients satisfy |c_m| ≤ M e^{−σ|m|} (shift the contour), and the N-point trapezoid sum differs from
+  the integral by 2π Σ_{j ≠ 0} c_{jN}. So the error is at most 4πM/(e^{σN} − 1). (This is Trefethen–Weideman 2014,
+  Theorem 3.2, quoted from memory; the two-line proof above is what the certificate relies on.)
+- **For I±:** θ is the angle on |z| = R0, R0 = √(1.05·1.55). The strip is the annulus 1.05 ≤ |z| ≤ 1.55, σ = 0.1947,
+  N = 128. M comes from 360 interval boxes on each boundary circle (maximum modulus on the annulus). The error
+  bound is about 1e−9.
+- **Why the integrand is analytic on the whole annulus** (the boxes only test its boundary):
+  - a ≤ 0.9 < 1.05 and every root r±, p± has modulus ≥ 1.85 > 1.55, so N, D, u² + 1 and 3u² − 1 do not vanish there;
+  - each factor 1 − z/root has positive real part for |z| < |root|, so its principal square root is analytic;
+  - for |u| > 1 the three logarithm arguments (√3u − 1)/(√3u + 1), (u + i)/(u − i) and (u² + 1)/(u² − 1/3) have
+    positive real part: their real parts are (3|u|² − 1)/|√3u + 1|², (|u|² − 1)/|u − i|² and at least
+    (|u|² − 1)(|u|² + 1/3)/|u² − 1/3|².
+- **U(z).** Taylor series at 0 of (ND)^{−1/2} to z²⁶⁰, with coefficients computed exactly in rational arithmetic and
+  the tail bounded by the majorant Π(1 − x/|root|)^{−1/2} at x = 1.7 (tail ≤ 4e−9). On a box, U is the midpoint
+  value plus the mean-value bound sup|U′|·radius, with U′ = 1/√(ND).
+- **For ω:** z = c − (d/2)cos φ maps [0, π] onto the segment r₊ → p₊, and κω = ∓2a e^{−iπ/4} J with
+  J = ∫₀^π dφ/(√(z − r₋)·√(−i(z − p₋))). The integrand is even and periodic; strip |Im φ| ≤ 1/2, N = 128, error
+  ≤ 1e−27. Analytic on the strip because Re(z − r₋) > 0 and Im z + a ≥ a(3/2 − cosh(1/2)/2) − 0.075 sinh(1/2) > 0
+  for a ≥ 3/10. Re(κω) = ∓√2·a·(Re J + Im J).
+- **Every square root and logarithm** in the code checks that its box has positive real part and aborts
+  otherwise.
+
+**Must-fail control** (`certify_3_5_PLANTED_mustfail.out`). With c1 replaced by the constant 1 the integrand is
+holomorphic in the whole disc, so the true I± are 0. The certificate returns intervals of half-width 3.5e−8 and
+4.8e−8 around 0 and the verdict NOT CERTIFIED, as it must.
+
+**Two lessons from building it (both measured, both in the code comments).**
+- The series recurrence must not be run on intervals: the widths grow like 1.4ⁿ and reach 10⁸ by n = 260. Exact
+  rationals first, intervals after.
+- Interval Horner on a complex box diverges once (|x| + |y|)/min|root| > 1, even for a box of width 10⁻⁴. Hence
+  the midpoint-plus-derivative form.
+
+**Still not certified:** the algebra that leads to the formula; analyticity of the monodromies at k = 0 (an
+argument, §1); everything upstream in the Morales–Ramis chain.
+
 ## 7. If route (i) is still wanted (the whole k-range)
 Route (ii) does not replace the k-range certification; Statement B reduces it to geometry plus finitely many
 points, but the counts stay numerical until that is done. A concrete plan for (i):
@@ -204,7 +258,8 @@ points, but the counts stay numerical until that is done. A concrete plan for (i
 ## 8. What the office ansatz-machine should check
 1. The algebra of §1–§3, independently, in particular δq, g, the Wronskian and the sign in c2.
 2. c1: differentiate the closed form twice (sympy) and compare with ∂_k c0″ of `radicand()` at k = 0.
-3. Rerun `scripts/_nve_c2_analytic.py` at the four spins, and add one engine sample of F at k = 0.01 for spins
+3. Rerun `scripts/_nve_c2_analytic.py` and `scripts/_nve_c2_certify.py` at the four spins (and the planted
+   control), read the certificate code against §6b, and add one engine sample of F at k = 0.01 for spins
    3/10, 4/5 and 9/10 (`F_of_k`), to compare F/k² with the table (expect agreement to about 3 digits at k = 0.01).
 4. The a\* ≈ 0.908 finding: one engine count or a few F samples near k = 0 at spin 0.908 should show F/k² ≈ 0.
 5. Whether Statement A's wording is safe to put in the claim, and whether B's geometry step is worth doing.

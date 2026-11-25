@@ -1,0 +1,9 @@
+PLANTED CONTROL: c1 := 1 (integrand holomorphic in the disc; the true I+ and I- are 0). The I+- certificate MUST fail.
+spin a = 3/5, E = 4/5; annulus [1.05, 1.55], R0 = 1.275735, sigma = 0.194732; 128 nodes, 360 boundary boxes per line
+  r+ in [1.934426009314, 1.934426009314]; min|root| >= 1.934426; U series to z^260, tail <= 3.94e-09
+  bounds on the annulus boundary: M+ = 6.908e+01, M- = 2.769e+01; trapezoid errors <= 1.3e-08, 5.2e-09
+  Im I+ in [-3.508221541886e-08, 3.508221539016e-08]   Re I+ in [-3.508221540481e-08, 3.508221540481e-08]
+  Im I- in [-4.797095420365e-08, 4.797095432736e-08]   Re I- in [-4.317131627546e-08, 4.317131627546e-08]
+  J in [1.444745928367, 1.444745928367] + i [-0.07215152875105, -0.07215152875105]; bound M = 5.721e-01, trapezoid error <= 1.2e-27
+  Re(kappa omega) = -+ [1.164684969344, 1.164684969344];  Im(kappa omega) = -+ [-1.287130173951, -1.287130173951]  (one overall branch sign)
+VERDICT spin 3/5: Im I+ != 0: False; Im I- != 0: False; Re(kappa omega) != 0: True  ->  NOT CERTIFIED   [7 s]

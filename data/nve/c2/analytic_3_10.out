@@ -1,0 +1,18 @@
+spin a = 3/10, E = 4/5, kappa = 0.180000000000000, circle R0 = 1.3
+  r+ = 1.983752483276, r- = -3.539308038832, p+- = 2 +- 0.3 i; min|root| = 1.983752 (need a < R0 < min|root|)
+  gate c1 at z = 1.3: |closed - quadrature| = 4.7e-17, |c1' err| = 5.7e-10, |c1'' err| = 2.0e-09
+  gate c1 at z = -2.1: |closed - quadrature| = 4.9e-17, |c1' err| = 6.2e-11, |c1'' err| = 1.4e-10
+  gate c1 at z = 7.0: |closed - quadrature| = 6.1e-16, |c1' err| = 1.1e-12, |c1'' err| = 2.6e-13
+  gate d/dk c0'' at k = 0 (z = 1.7): |finite difference - closed| = 7.5e-13; |c0''(k = 0) - Kerr's| = 2.0e-07
+  gate lower-axis data: |f0m - Delta/Dm| = 1.1e-16; |d f0m/d c0 - 4 a Delta/Dm^2| = 3.6e-11
+  gate Kerr solution: relative ODE residual = 5.0e-09 (finite differences, h = 1e-3)
+  kappa*omega = 0.8416039662747-0.8843162087946j (overall sign is a branch choice); tr M1(0) = -2 cosh = -1.7437007230814+1.4611586543031j
+  I+ = 5.4497945281385e-18+2.5933625426740e-02j   (1024 vs 4096 points: 3.0e-17)
+  I- = 1.0899589056277e-17+4.5124606183096e-02j   (1024 vs 4096 points: 1.5e-17)
+  c2 = sinh^2(kappa omega) I+ I- / kappa^2 = 0.027942230930+0.046011985576j
+  x11 = -0.000000000000-0.098288291923j;  x11^2 + x12 x21 = -6.309229411854e-04+1.873084427252e-18j  (= lim (tr M0 - 2)/k^2)
+  residue route: I+ = 8.1746917922077e-18+2.5933625426740e-02j  (difference from the circle: 2.1e-17)
+                 I- = 8.1746917922077e-18+4.5124606183096e-02j  (difference from the circle: 2.1e-17)
+    residues for I+: real-cut pair -7.875277e-05+6.604210e-21j, +-ia pair 4.206217e-03-1.301043e-18j
+    residues for I-: real-cut pair -1.356907e-04+8.404155e-21j, +-ia pair 7.317495e-03-1.301043e-18j
+  wall 0.3 s
