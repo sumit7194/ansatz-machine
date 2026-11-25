@@ -3,7 +3,17 @@
 **This is THE reference text.** Outreach and digests quote it verbatim or point to it. Any change is a new dated
 version in this file, with the reason. Edits up to now were agreed with the Bridge.
 
-# VERSION 2 (2026-11-22): CURRENT. Amended 2026-11-24 (v2.1), status wording only
+# VERSION 3 (2026-11-25): CURRENT. Adds Statement A; the one-sentence claim and every number are unchanged
+**v3 (2026-11-25), on Sumit's go via the Bridge.** v3 adds **Statement A**, a local result near Kerr that is rigorous
+relative to the applicability chain. Its pieces:
+- **The formula for c2, and its interval certificate.** By the Fable side-session, on branch
+  `fable/2026-11-25-c2-analytic`, commits 5b6110b and 8d8d04c, brought into main as 66873a2 and 29d2555
+  (`data/nve/C2_ANALYTIC.md`, §6b for the certificate).
+- **The verification.** By the office ansatz-machine, commit c3766aa (`data/nve/C2_OFFICE_CHECK.md`).
+- **Lemma K.** `MRS_SECTION.md` §5d, commit b1137da.
+The main claim below is still numerical. v3 makes nothing a theorem overall.
+
+# VERSION 2 (2026-11-22), with the v2.1 amendment (2026-11-24, status wording only). Its text continues below as part of v3
 **v2.1 (2026-11-24):** the Proposition 2 status line below had fallen behind MRS §4b, so the repo contradicted itself.
 It said "citations still being checked", while §4b said "CHECKED". It now says what is true: our own majorant proof,
 checked by its author and a numerical control, not yet independently checked. Found by the Bridge's layer-4 reader.
@@ -23,6 +33,8 @@ None of the numbers change.
 - **Interval arithmetic certifies only the end sliver:** the last ~10⁻¹⁰ of the range at spins 0.6, 0.8 and 0.9, and
   only the last 7.4 × 10⁻¹⁵ at spin 0.3.
 - **Three degenerate cases were resolved post hoc, in floating point.**
+- **One local piece is rigorous relative to the applicability chain:** Statement A below. It covers an unquantified
+  interval (0, ε_a) near Kerr, which the counts already cover numerically. It is an anchor, not new range.
 - **One link in the applicability argument (Proposition 2, the off-axis metric near the orbit) rests on a majorant proof written here (MRS_SECTION.md §4b), checked by its author and by a numerical control, NOT yet independently checked.**
   It is stated on compact sets where the axis data are holomorphic and f0 ≠ 0. On the lower axis that means f0⁻ ≠ 0
   and e₋ has no poles (f0² + c0² ≠ 0).
@@ -36,6 +48,34 @@ variational equation along the L_z = 0 timelike geodesic on the lower outer axis
 Zariski-dense (SL₂) monodromy group for every real k ∈ (0, 30/7] at each tested spin a ∈ {0.3, 0.6, 0.8, 0.9}; by
 Morales–Ramis–Simó the geodesic flow of each such field then admits no complete set of first integrals in
 involution meromorphic near that complexified orbit.
+
+## Statement A (v3, 2026-11-25): near Kerr, rigorous relative to the chain
+> For each tested spin a ∈ {3/10, 3/5, 4/5, 9/10} at E = 4/5 there is ε_a > 0 such that, for every k ∈ (0, ε_a), the
+> monodromy group of the lower-axis ρ-equation is Zariski-dense in SL(2, C). The k²-coefficient c2 of
+> tr[M1, M0] − 2 is given in closed form by Kerr's explicit solutions, and its nonvanishing is certified in interval
+> arithmetic. ε_a is not quantified. The statement is rigorous relative to the applicability chain
+> (MRS_SECTION.md).
+
+**Read it with these four conditions; they are part of the statement.**
+1. **Rigour only on an unquantified (0, ε_a).** The numerical counts already cover that interval, so Statement A is an
+   anchor, not new range. At spin 9/10 the interval is small: a third zero of tr[M1, M0] − 2 lies at |k| ≈ 0.36.
+2. **Relative to the chain, whose caveats stand verbatim:**
+   - Proposition 2 rests on our own majorant proof, not yet independently checked;
+   - e₋ = 1/e₊ is assumed (one asymptotically flat field), or equivalently taken as the definition of the lower-axis
+     data;
+   - Lemma C(a)'s theorem number (Morales-Ruiz–Ramis 2001, Thm 5) is cited secondhand.
+3. **c2 ≠ 0 is certified per spin, and it is false at a\* ≈ 0.908** (E = 4/5), where c2 changes sign. It is not a
+   spin-uniform fact.
+4. **How it was obtained.**
+   - **The formula.** c2 = sinh²(κω)·I₊I₋/κ², with κ = a√(1 − E²). The k-analyticity behind it is Lemma K,
+     `MRS_SECTION.md` §5d.
+   - **The certificate.** I₊ ≠ 0, I₋ ≠ 0 and Re(κω) ≠ 0 are each certified by a trapezoid rule with the
+     Trefethen–Weideman error bound (SIAM Rev. 56 (2014), Thm 3.2, checked at source), in mpmath.iv.
+   - **Why that suffices.** Then F ≈ c2k² ≠ 0 (irreducible), tr M1 ≠ 0 and tr M0 ≈ 2 (not imprimitive), and an
+     eigenvalue of M1 lies off the unit circle (infinite). So the closure is SL₂.
+   - **Credit.** The derivation and certificate are by the Fable side-session (branch
+     `fable/2026-11-25-c2-analytic`, 5b6110b and 8d8d04c, now main 66873a2 and 29d2555). The verification is by the
+     office ansatz-machine (c3766aa). The engine agrees with the formula to 12 digits at 7 spin values.
 
 ## Conventions
 - **Units and particle.** M = 1. μ = 1 (timelike; E is the energy per unit mass).
@@ -55,6 +95,7 @@ involution meromorphic near that complexified orbit.
 |---|---|---|
 | (0, 30/7 − 10⁻¹²] at each spin | argument-principle counts over complex k-rectangles | 50-digit floating point |
 | no zeros split off k = 0 | F = O(k²) structurally (`MRS_SECTION.md` §5d), plus the counts | exact, given the counts |
+| (0, ε_a) near k = 0 (Statement A, v3) | c2 ≠ 0 (closed form; I± and Re κω interval-certified) + Lemma K | **rigorous relative to the chain**; ε_a not quantified; false at spin a\* ≈ 0.908 |
 | k = 30/7 | direct classification | floating point; interval-certified at 0.3 (S4) and at the other spins (S3/T48b) |
 | end sliver (30/7 − δ0, 30/7] | Zariski-density certificate | **interval arithmetic**: δ0 = 1.37e−11, 2.4e−10, 3.6e−10, 7.4e−15 at spins 0.6, 0.8, 0.9, 0.3 |
 | spin 0.3, (30/7 − 10⁻¹², 30/7 − 7.4e−15] | samples, all non-VA | floating point only |

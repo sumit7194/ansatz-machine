@@ -17,6 +17,11 @@ Archived as Ansatz Machine v1.0.0, DOI [10.5281/zenodo.24431695](https://doi.org
    source.
 
 **Status:** a careful numerical result, not a theorem. Read the status block of the claim first.
+- One local piece is rigorous relative to the applicability chain (claim v3, 2026-11-25): **Statement A**.
+- It covers an unquantified interval (0, ε_a) of twists next to Kerr, at each tested spin. The numerical counts
+  already cover that interval, so it is an anchor, not new range.
+- It rests on a closed-form k² coefficient c2 that is certified nonzero in interval arithmetic. c2 does vanish at the
+  untested spin 0.908.
 
 ## The documents
 | document | what it is |
@@ -24,6 +29,7 @@ Archived as Ansatz Machine v1.0.0, DOI [10.5281/zenodo.24431695](https://doi.org
 | [`data/nve/CLAIM_FAMILY_II.md`](data/nve/CLAIM_FAMILY_II.md) | **THE claim (version 2)**: status, the one-sentence statement, conventions, the evidence table with a grade per row, scope, prior art, and a separate related result on rational axis data |
 | [`data/nve/MRS_SECTION.md`](data/nve/MRS_SECTION.md) | Why Morales–Ramis(–Simó) applies. §1 the theorem and the class of integrals excluded; §4 and §4b the off-axis metric (Proposition 2, with our own majorant convergence proof); §5–§5e the lower-axis data (e₋ = 1/e₊, derived; no reflection symmetry needed), the Cartesian NVE, loops, k → 0, k = 4; §6 the citation status, each checked at source |
 | [`data/nve/T38_GRADING.md`](data/nve/T38_GRADING.md), [`data/nve/T51_GRADING.md`](data/nve/T51_GRADING.md) | The two referee rounds, point by point, with our grades and fixes |
+| [`data/nve/C2_ANALYTIC.md`](data/nve/C2_ANALYTIC.md), [`data/nve/C2_OFFICE_CHECK.md`](data/nve/C2_OFFICE_CHECK.md) | Statement A: the k² coefficient c2 from Kerr's explicit solutions, its interval certificate, and the independent verification. Lemma K is in `MRS_SECTION.md` §5d |
 | [`data/nve/NOTES2_KOVACIC_CHECK.md`](data/nve/NOTES2_KOVACIC_CHECK.md) | The check, against Kovacic's original paper, behind the related result on rational axis data |
 | `data/nve/*_PREREGISTRATION.md` | Every run was pre-registered before it was executed. Failed and void runs are kept and labelled |
 | [`RESULTS.md`](RESULTS.md) §158, §159, §161–§163 | The lab-notebook entries |
@@ -44,6 +50,8 @@ Paths are relative to the repository root.
 | a_c ≈ 0.858446 | `scripts/_nve_ac.py` | `data/nve/ac_secant.out`, `ac_circle.out` | post hoc |
 | a⁷–a⁸ weakening | `scripts/_nve_endpoint_scaling.py` | `data/nve/endpoint_scaling.out` | — |
 | no zeros split off k = 0 | analytic (`MRS_SECTION.md` §5d), with the counts above | — | — |
+| Statement A: c2 formula and interval certificate (spins 3/10, 3/5, 4/5, 9/10) | `scripts/_nve_c2_analytic.py`, `scripts/_nve_c2_certify.py` | `data/nve/c2/analytic_*.out`, `certify_*.out` (planted must-fail kept) | — (Fable side-session; verified) |
+| Statement A: verification (exact sympy; 50-digit engine at 7 spins) | `scripts/_nve_c2_sympy_check.py`, `scripts/_nve_c2_engine_check.py` | `data/nve/c2_sympy_check.out`, `c2_engine_check.out` | — |
 | e₋ = 1/e₊ (Kerr; an asymmetric two-mass check) | `scripts/_nve_t51_axis_check.py` | `data/nve/t51_axis_check.out` | — |
 | the family is not reflection-symmetric | `scripts/_nve_family2_reflection.py` | `data/nve/family2_reflection.out` | — |
 | Proposition 2, numerical control | `scripts/_nve_prop2_majorant_control.py` | `data/nve/prop2_majorant_control.out` | — |

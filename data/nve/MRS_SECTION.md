@@ -482,7 +482,7 @@ c2 = tr X² − tr(M1(0) X M1(0)⁻¹ X) and X = M0′(0).
 
 *The hypotheses hold for every loop used.*
 - (H1): every loop and base point is at least 0.744 from the interval |z| ≤ a/√3 (§3, the 2026-11-24 note).
-  Every circle-picture path has |z| ≥ R0 − 0.05 ≥ 1.10, while a/√3 ≤ 0.52.
+  Every circle-picture path has |z| ≥ R0 − 0.05 ≥ 1.09, while a/√3 ≤ 0.52.
 - (H2) and (H3): these are the registered geometry guards. For example, at spin 9/10, R0 = 1.264 and
   min|r±, p±| = 1.850.
 *What Lemma K is for.* With c2 ≠ 0 (certified per spin, `C2_ANALYTIC.md` §6b), it gives Statement A of the claim

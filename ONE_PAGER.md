@@ -30,6 +30,11 @@ its rotation (twist) profile, does the integrability survive?
   - an interval-arithmetic certificate on the last ~10⁻¹⁰ of the range (only 7.4 × 10⁻¹⁵ at spin 0.3);
   - three degenerate cases resolved post hoc (two by an independent pair of loops, one by locating a non-real zero).
 - The obstruction weakens roughly like a⁷–a⁸ toward low spin.
+- **Near Kerr, rigorous relative to the applicability chain** (claim v3).
+  - The k² coefficient of the trace test has a closed form from Kerr's solutions.
+  - Its nonvanishing is interval-certified at each tested spin. So the group is Zariski-dense for all small enough
+    k > 0 (Statement A).
+  - The interval is unquantified. The coefficient vanishes at the untested spin ≈ 0.908.
 
 **Related result (rational axis data).**
 - Any such field whose axis function f0 is rational of degree ≥ 3 has Galois group SL(2, C) for the axis
