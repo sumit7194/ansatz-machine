@@ -1,0 +1,6 @@
+spin 3/5 R0 1.35 theta 22.8: |dq/dk| at the point <= 0.0568125; on a box of half-side 0.002: <= 1.08591 (x19.1)
+spin 3/5 R0 1.35 theta 90.0: |dq/dk| at the point <= 0.0131409; on a box of half-side 0.002: <= 0.100214 (x7.6)
+spin 3/5 R0 1.35 theta 180.0: |dq/dk| at the point <= 0.00539593; on a box of half-side 0.002: <= 0.0111709 (x2.1)
+spin 9/10 R0 1.2639 theta 22.8: |dq/dk| at the point <= 0.0657312; on a box of half-side 0.002: <= 387.325 (x5892.6)
+spin 9/10 R0 1.2639 theta 90.0: |dq/dk| at the point <= 0.0702531; on a box of half-side 0.002: <= 3.96439 (x56.4)
+spin 9/10 R0 1.2639 theta 180.0: |dq/dk| at the point <= 0.0100378; on a box of half-side 0.002: <= 0.0215181 (x2.1)

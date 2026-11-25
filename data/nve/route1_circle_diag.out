@@ -1,0 +1,33 @@
+spin 3/5, R0 = 1.35: constant per unit k at k_c = 21/20: base basis 0.41, optimised gauge 0.36; int |dq/dk| |dz| = 0.155; tr M0(k_c) = (1.9938193 + 2.5057169e-51j) (closure check)
+   largest integrand |dq/dk| |v|^2 at theta (deg): 22.8 (0.0742; |dq/dk| 0.0569, |v|^2 1.31), 22.2 (0.0742; |dq/dk| 0.0575, |v|^2 1.29), 23.3 (0.0742; |dq/dk| 0.0562, |v|^2 1.32), 21.8 (0.0741; |dq/dk| 0.058, |v|^2 1.28)
+   theta in [-180, -135): share of base-basis integral 0.093; max |dq/dk| 0.00744; max |v|^2 5.94
+   theta in [-135, -45): share of base-basis integral 0.255; max |dq/dk| 0.0251; max |v|^2 5.6
+   theta in [-45, 45): share of base-basis integral 0.269; max |dq/dk| 0.0593; max |v|^2 2.2
+   theta in [45, 135): share of base-basis integral 0.288; max |dq/dk| 0.0251; max |v|^2 5.97
+   theta in [135, 180): share of base-basis integral 0.096; max |dq/dk| 0.00744; max |v|^2 6.05
+   nearest inner singularities: +-ia at distance 0.7500; Laurent ratio rho_c/R0 = 0.444
+spin 9/10, R0 = 1.2639: constant per unit k at k_c = 21/20: base basis 0.89, optimised gauge 0.65; int |dq/dk| |dz| = 0.276; tr M0(k_c) = (1.9784731 + 1.8375257e-51j) (closure check)
+   largest integrand |dq/dk| |v|^2 at theta (deg): 88.8 (0.315; |dq/dk| 0.0716, |v|^2 4.4), 88.2 (0.315; |dq/dk| 0.072, |v|^2 4.37), 89.3 (0.315; |dq/dk| 0.0711, |v|^2 4.43), 87.8 (0.315; |dq/dk| 0.0724, |v|^2 4.35)
+   theta in [-180, -135): share of base-basis integral 0.080; max |dq/dk| 0.0185; max |v|^2 5.88
+   theta in [-135, -45): share of base-basis integral 0.319; max |dq/dk| 0.0732; max |v|^2 5.23
+   theta in [-45, 45): share of base-basis integral 0.108; max |dq/dk| 0.0669; max |v|^2 1.97
+   theta in [45, 135): share of base-basis integral 0.407; max |dq/dk| 0.0732; max |v|^2 5.96
+   theta in [135, 180): share of base-basis integral 0.086; max |dq/dk| 0.0185; max |v|^2 6.05
+   nearest inner singularities: +-ia at distance 0.3639; Laurent ratio rho_c/R0 = 0.712
+spin 9/10, R0 = 1.35: constant per unit k at k_c = 21/20: base basis 0.94, optimised gauge 0.75; int |dq/dk| |dz| = 0.324; tr M0(k_c) = (1.9784731 - 2.0045735e-51j) (closure check)
+   largest integrand |dq/dk| |v|^2 at theta (deg): 90.2 (0.248; |dq/dk| 0.0502, |v|^2 4.95), 90.8 (0.248; |dq/dk| 0.0499, |v|^2 4.98), 89.8 (0.248; |dq/dk| 0.0505, |v|^2 4.92), 91.2 (0.248; |dq/dk| 0.0495, |v|^2 5.01)
+   theta in [-180, -135): share of base-basis integral 0.081; max |dq/dk| 0.0163; max |v|^2 6.45
+   theta in [-135, -45): share of base-basis integral 0.281; max |dq/dk| 0.0517; max |v|^2 5.79
+   theta in [-45, 45): share of base-basis integral 0.193; max |dq/dk| 0.108; max |v|^2 2.1
+   theta in [45, 135): share of base-basis integral 0.358; max |dq/dk| 0.0517; max |v|^2 6.6
+   theta in [135, 180): share of base-basis integral 0.087; max |dq/dk| 0.0163; max |v|^2 6.67
+   nearest inner singularities: +-ia at distance 0.4500; Laurent ratio rho_c/R0 = 0.667
+spin 9/10, R0 = 1.45: constant per unit k at k_c = 21/20: base basis 1.15, optimised gauge 1.04; int |dq/dk| |dz| = 0.521; tr M0(k_c) = (1.9784731 + 4.5102904e-51j) (closure check)
+   largest integrand |dq/dk| |v|^2 at theta (deg): -0.2 (0.406; |dq/dk| 0.343, |v|^2 1.18), -0.8 (0.402; |dq/dk| 0.343, |v|^2 1.17), -1.2 (0.397; |dq/dk| 0.341, |v|^2 1.16), -1.8 (0.391; |dq/dk| 0.338, |v|^2 1.15)
+   theta in [-180, -135): share of base-basis integral 0.069; max |dq/dk| 0.0141; max |v|^2 7.02
+   theta in [-135, -45): share of base-basis integral 0.214; max |dq/dk| 0.0373; max |v|^2 6.38
+   theta in [-45, 45): share of base-basis integral 0.367; max |dq/dk| 0.343; max |v|^2 2.24
+   theta in [45, 135): share of base-basis integral 0.275; max |dq/dk| 0.0373; max |v|^2 7.27
+   theta in [135, 180): share of base-basis integral 0.074; max |dq/dk| 0.0141; max |v|^2 7.33
+   nearest inner singularities: +-ia at distance 0.5500; Laurent ratio rho_c/R0 = 0.621
+=== DIAG DONE
