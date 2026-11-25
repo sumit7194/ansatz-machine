@@ -168,3 +168,146 @@ Moving the circle (R0 = 1.2 or 1.5 at spin 3/5) changes r by less than 20%.
 **A lesson from building it (measured).** The first version evaluated the general formula for q and its derivatives
 on interval boxes and subtracted the Kerr value. That lost a factor of several hundred to cancellation and gave
 r ≈ 1e−9. The fix was the exact structure P = P_K(1 + γs), which turns Δq into a closed form with no subtraction.
+
+---
+
+# Part B: a first validated build step for the whole k-range (route (i))
+
+**Status: a working prototype of the validated evaluator at a POINT k, a measurement that k-BALLS do not work, a
+one-segment demonstration of the alternative, and a plan. No certificate of anything over a k-interval yet.**
+
+## B1. The simple version
+- The evaluator (`scripts/_nve_route1_proto.py`, Arb ball arithmetic) encloses both loop monodromies at one value
+  of k, rigorously. At k = 1, 1.05 and 1.1 its enclosures contain the 50-digit engine's values.
+- Feeding it a **ball** of k, as the brief proposed, fails: the enclosure blows up by a factor of 10³ to 10⁷.
+- What works instead: evaluate at points of k and interpolate in k, with a rigorous bound for the interpolation
+  error. That needs one more piece, a crude bound on |F| over a complex neighbourhood of the k-segment. Part A's
+  machinery can supply it; it is not built.
+- **And the argument principle is not needed.** The claim is about real k, so it is enough to enclose F, tr M0 and
+  tr M1 along the real k-interval and see that the enclosures avoid 0. That is a shorter path than a complex
+  rectangle.
+
+## B2. The evaluator (built)
+Interpreter: `/Users/sumit/Github/quantum/sims/.venv/bin/python -I` (Quantum's pinned environment, used read-only;
+Python 3.13.12, python-flint 0.9.0 on FLINT/Arb, mpmath 1.3.0). 256-bit balls. Spin 3/5, E = 4/5, circle R0 = 1.35,
+the engine's own lasso polygon.
+- **c0 and c0′ at a point:** the Laurent series at infinity of c0″ = c_K″√(1 − kφ), to order 190, by ball
+  power-series arithmetic; the tail from a bound of |c0″| on |w| = 0.9/a (400 arcs) and Cauchy's estimate.
+- **One step:** the Taylor series of q at the step centre to order 70 (series arithmetic on f0 and c0); the two
+  solutions by the three-term-style recurrence; the tail beyond order 70 from the majorant |v_j| ≤ Kμʲ, μ = 2/ρ,
+  which holds once Qρ² ≤ 2·70·71, where Q ≥ sup|q| on the disc of radius ρ. Step length ρ/4.
+- **Holomorphy on the path** is certified as a by-product: a disc on which G1 or G2 could vanish is refused and ρ is
+  halved.
+- **Output:** M0, M1 as ball matrices; tr M0, tr M1, F.
+
+**Measured (thin k; `data/nve/eps/route1_proto.out`, `.jsonl`).**
+| k | steps (circle, lasso) | time | radius of F | of tr M0 | of tr M1 | engine float inside |
+|---|---|---|---|---|---|---|
+| 1 | 2164, 704 | 30 s | 1.4e−9 | 1.4e−12 | 1.7e−12 | yes (F, tr M0, tr M1) |
+| 21/20 | 2163, 703 | 30 s | 1.4e−9 | 1.4e−12 | 1.7e−12 | yes |
+| 11/10 | 2163, 701 | 30 s | 1.4e−9 | 1.4e−12 | 1.7e−12 | yes |
+
+Times are on a machine whose ten cores were all busy with other jobs; peak memory 28 MB.
+
+**Known inefficiency.** The bound Q is taken on the whole disc as one box, which overestimates it by about 10⁶
+(Q ≈ 2e7). That forces ρ down, so the walk takes about ten times more steps than the geometry needs. Bounding q on
+small balls around the disc's boundary circle, with a winding-number check that G1 and G2 have no zero inside, would
+fix it. The radius of F is 10³ times that of the traces because the commutator is formed from ball matrices.
+
+## B3. k as a ball: measured, and it fails
+The same evaluator with k = 1.05 ± r (a complex box):
+
+| radius of the k-ball | radius of tr M0 | radius of tr M1 | radius of F |
+|---|---|---|---|
+| 0 | 1.4e−12 | 1.7e−12 | 1.4e−9 |
+| 1e−8 | 1.9e−5 | 2.9e−4 | 0.19 |
+| 1e−6 | 1.2e−3 | 1.8e−2 | 19 |
+| 1e−4 | 0.12 | 1.8 | not finite |
+| 1e−3 (an earlier run) | 1.3 | 19 | not finite |
+
+- The true changes over a radius of 1e−6 are about 1e−7 (traces) and 5e−7 (F). The enclosures are 10⁴ to 10⁷ times
+  wider: the radius of F is 2e7 times the radius of the k-ball.
+- Cause: the wrapping effect. Thousands of ball matrices are multiplied, and each product adds the radii as if every
+  error pointed the worst way. Fewer steps would help by a constant, not in kind.
+- **So "subdivide k until the enclosures exclude 0" would need balls of radius about 1e−9 on F**, i.e. about 10⁹
+  evaluations per unit of k. Not viable.
+
+## B4. What to do instead: points in k, plus rigorous interpolation
+F, tr M0 and tr M1 are holomorphic in k on a complex neighbourhood of a real segment, as long as the two fixed loops
+stay clear of the moving singular points. For a function bounded by M on the Bernstein ellipse of parameter ρ around
+a segment, the Chebyshev interpolant through n + 1 extreme points has error at most 4Mρ⁻ⁿ/(ρ − 1) (Trefethen,
+*Approximation Theory and Approximation Practice*, Theorem 8.2; **quoted from memory, to be checked at source**).
+The convergence is geometric, so a crude M is enough, exactly as with the trapezoid rule in Part A.
+
+Per segment the certificate would be:
+1. **Fixed loops and holomorphy** for every k in the ellipse: σ < ½ and |γs| < ½ on boxes covering both loops, as in
+   Part A's `box_bounds`, but around the reference k_c at the segment's centre instead of around Kerr. The reference
+   data (G1, G2, c0 at k_c along the loops) come from the evaluator.
+2. **M:** from the Dyson bound relative to the validated solution at k_c,
+   ‖M_loop(k)‖ ≤ ‖M_loop(k_c)‖·exp(∫ |Δq|·‖Φ‖‖Φ⁻¹‖ |dz|), with |Δq| from step 1's closed form.
+3. **Point evaluations** at the n + 1 Chebyshev points (thin k), with the loops of k_c.
+4. **Enclosure** of the interpolant over the segment (Clenshaw on sub-balls) ± the error bound; check that it avoids
+   0 for F and tr M0, and that tr M1 avoids [−2, 2].
+
+Steps 3 and 4 are built (`segment` mode). Steps 1 and 2 are not: in the demonstration below M is only **sampled**
+at 8 points of the ellipse.
+
+**One-segment demonstration, k ∈ [1, 1.1]** (`data/nve/eps/route1_segment.out`, `.jsonl`): 
+- 8 Chebyshev points (n = 7) with the loops of k = 1.05, and 8 samples on the Bernstein ellipse ρ = 8 (it reaches
+  0.20 from the centre in every direction). 16 point evaluations, 446 s in all (28 s each, busy machine).
+
+| function | sampled max on the ellipse | error bound 4Mρ⁻ⁿ/(ρ − 1) | smallest \|interpolant\| on the segment | test at k = 1.05 (not a node): \|interpolant − engine\| |
+|---|---|---|---|---|
+| F | 0.433 | 1.2e−7 | ≥ 0.26527 | 3.4e−8 |
+| tr M0 | 1.996 | 5.4e−7 | ≥ 1.99316 | 2.3e−11 |
+| tr M1 | 2.905 | 7.9e−7 | ≥ 2.86330 | 2.8e−11 |
+
+- **Read it as a measurement.** If M were a proved bound of that size, 8 point evaluations would enclose all three
+  functions on [1, 1.1] to about 1e−6 and show they do not vanish there. The test at the centre is consistent with
+  the bound.
+- The engine's values at k = 1 and 1.1 give |F| = 0.26533 and 0.32830, consistent with the enclosure's lower end.
+- **A bug caught here.** The first version evaluated the Chebyshev polynomials through acos of a ball. For the two
+  end sub-balls, which touch ±1, that is not finite, and they were silently dropped: the reported minimum (0.26619)
+  was larger than the true |F(1)| = 0.26533. The recurrence T_{m+1} = 2tT_m − T_{m−1} replaced it, with an assert
+  that every sub-ball is finite. (The same family as the acos-free rule in the certifiers: a non-finite enclosure
+  must stop the run, never be skipped.)
+
+
+## B5. Plan for the full run (not launched; the office session registers and launches after review)
+**What to certify.** For each spin, on the real interval [r_a, k_top] (r_a from Part A; k_top ≈ 4.05, the end of the
+circle picture): F ≠ 0, tr M0 ≠ 0, tr M1 ∉ [−2, 2]. Region B (near 30/7) needs the half-plane loops and is a separate
+build; the top sliver is already interval-certified.
+
+**Size.**
+- Nodes per unit of k-length ≈ (2c·D + ln(1/tol))/(ln ρ)/(segment length), where c is the Dyson constant per unit
+  |Δk| (Part A measured c_L = 40 to 380 and c_C ≈ 4 to 6 at k = 0) and D the size of the ellipse. For large segments
+  this tends to about 1.6·c: **roughly 100 to 600 point evaluations per unit of k**, depending on the spin.
+- Region A is about 4 units long: **400 to 2,400 point evaluations per spin.** At 30 s each on a busy machine that
+  is 3 to 20 core-hours per spin; with the step fix of B2 (about 10× fewer steps) and an idle core, well under
+  2 hours.
+- These numbers rest on c at k ≠ 0, which has not been measured. **Measure c first** (step 1–2 of B4 at one
+  segment), then fix the segment length.
+
+**Checkpoint.** One jsonl line per point evaluation, keyed by (spin, segment, node), as `route1_segment.jsonl`
+already does; a rerun skips finished keys. A segment's verdict is recomputed from its lines.
+
+**Where F is small or the picture changes.**
+- **Near k = 0:** Part A covers (0, r_a]. Just above it F ≈ c2k² ≈ 1e−7 to 1e−10, so the first segments must be
+  short and geometric in k (interpolate F/k², which is holomorphic and of size |c2|).
+- **Spin 9/10:** the third zero at k ≈ 0.11 + 0.34i limits the ellipse there: it must not contain it if one
+  interpolates 1/F, and in any case M and F vary fast. Short segments near k ≈ 0.1.
+- **Spin 4/5, k\* ≈ 4.0082:** in region B, where tr Γ = 0 for the half-plane pair; the circle pair (M1, M0) is the
+  one to certify there, so region A's method should be pushed as far up as its loops allow.
+- **k = 4:** the B roots meet ±i. On the loops nothing happens (MRS §5e), but |kφ| < 1 on the Laurent circle
+  |w| = 0.9/a fails before that (φ → 7/30 at ∞, larger near |u| = 1.1). The Laurent radius or the representation
+  of c0″ must change for k ≳ 3; `laurent()` refuses loudly if the tail bound is not finite.
+
+**Every remaining limit (the fleet rule: listed beside the time estimate).**
+1. M (B4 steps 1–2) is not built; without it nothing over an interval is certified.
+2. c at k ≠ 0 is unmeasured, so the node count is a range, not a number.
+3. The evaluator handles spin 3/5 only as written (constants at the top), real or complex k, |k| ≲ 3.
+4. The loops' homotopy class is taken from the engine's vertices at the segment centre; that they stay clear of the
+   singular points for all k in the ellipse is what step 1 would certify.
+5. The interpolation theorem is quoted from memory.
+6. Region B is not designed.
+7. The evaluator has had no independent check beyond agreement with the engine at three k.

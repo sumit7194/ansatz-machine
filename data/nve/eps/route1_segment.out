@@ -1,0 +1,10 @@
+python 3.13.12, python-flint 0.9.0, interpreter /Users/sumit/Github/quantum/sims/.venv/bin/python; prec 256 bits, Taylor order 70, Laurent order 190; spin 3/5, E = 4/5, R0 = 1.35
+segment k in [21/20 - 0.05, 21/20 + 0.05], 8 Chebyshev points, Bernstein rho = 8.0 (ellipse reaches 0.203 from the centre along the real axis, 0.197 off it)
+  F: sampled max on the ellipse 0.4328; interpolation error bound 1.18e-07; min |interpolant| over the segment >= 0.26527; so F != 0 on the segment (given M): True
+      test at the centre k = 21/20 (not a node): |interpolant - engine float| = 3.37e-08  (bound 1.18e-07)
+  tr M0: sampled max on the ellipse 1.9960; interpolation error bound 5.44e-07; min |interpolant| over the segment >= 1.99316; so tr M0 != 0 on the segment (given M): True
+      test at the centre k = 21/20 (not a node): |interpolant - engine float| = 2.29e-11  (bound 5.44e-07)
+  tr M1: sampled max on the ellipse 2.9047; interpolation error bound 7.91e-07; min |interpolant| over the segment >= 2.86330; so tr M1 != 0 on the segment (given M): True
+      test at the centre k = 21/20 (not a node): |interpolant - engine float| = 2.78e-11  (bound 7.91e-07)
+  total evaluation time for this segment: 446 s for 16 point evaluations (8 nodes + 8 ellipse samples); wall this call 0 s
+peak 26 MB
