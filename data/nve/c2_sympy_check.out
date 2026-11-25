@@ -1,0 +1,14 @@
+S1a c1'' (Fable) = d/dk c0'' at k=0 from radicand(), spin 3/5: PASS
+S1b same, symbolic spin: PASS
+S2 partial fractions: PASS
+S3a dR1/du = -Rr: PASS
+S3b dIu/du = -R1: PASS
+S3c limits at u -> +inf: R1 -> 0, Iu -> 0: PASS
+S3d u^2 Iu -> 7/6 (so c1 = Iu/(5a) ~ (7/30) a / z^2 iff this is 7/6): PASS
+S4a f0- = Delta/D at k = 0: PASS
+S4b d f0-/d c0 at k=0 = 4 a Delta / D^2: PASS
+S5a v'' + (3/16)(P'/P)^2 v = 0 for v = (ND)^(1/4) exp(+kappa U): PASS
+S5b Wronskian = -2 kappa: PASS
+S6 must-fail (sign flipped in partial fractions) -> expect FAIL: FAIL
+S6 verdict: PASS (must-fail fired)
+peak ru_maxrss = 69 MB

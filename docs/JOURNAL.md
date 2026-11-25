@@ -4637,3 +4637,17 @@ pole-order-1 Carter² survival.
     - at k = 30/7, where the twist flips sign on the whole lower axis.
     No loop computation is affected. But the family is not a small deformation of Kerr near the lower rod end, and
     the "deform only the twist" wording in ONLY_KERR may need a caveat (Sumit's call).
+
+## 2026-11-25 — Office check of Fable's c2 (route (ii)): VERIFIED
+- **Ask (the Bridge).** Verify the Fable side-session result on branch fable/2026-11-25-c2-analytic (5b6110b, 8d8d04c):
+  c2 = sinh²(κω)·I₊I₋/κ², c2 ≠ 0 at the four spins, c2 = 0 at a\* ≈ 0.908, and an interval certificate of the
+  inputs.
+- **Result:** VERIFIED. The record is `data/nve/C2_OFFICE_CHECK.md`.
+  - The algebra checks by hand. 11/11 exact sympy checks pass, and the must-fail fires.
+  - The 50-digit engine (not Fable's code) agrees with the formula to 12 digits at 7 spin values, including the sign
+    change of c2 between 0.905 and 0.911.
+  - At spin 9/10, −c2/c3 = 0.095 + 0.370i, against the located extra zero 0.110 + 0.341i, so the formula explains it.
+  - The certificate code was read line by line and rerun, and the planted control is NOT CERTIFIED.
+  - Trefethen–Weideman Thm 3.2 (p. 396) and Thm 2.2 (p. 392) were checked at source.
+- **Statement A** is safe wording relative to the chain. It still needs the k-analyticity lemma written into MRS §5d.
+  Sumit decides any claim change.
