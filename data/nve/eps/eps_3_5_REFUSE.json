@@ -2,7 +2,7 @@
  "spin": "3/5",
  "R0": "1.35",
  "r": null,
- "why": "c2 interval contains 0 (|c2| lower bound is 0), so (Z1) cannot be certified at any r",
+ "why": "(Z1) fails at every t, even t = 1e-12 r_ref: the |c2| lower bound is 0, so c2 k^2 cannot dominate",
  "rows": [
   {
    "rref": 0.3,

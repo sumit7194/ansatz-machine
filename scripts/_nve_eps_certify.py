@@ -316,7 +316,9 @@ def assemble(cst, t, variant=None):
     # by |m|^-2 and pairs with n12 (roles swapped if |m| < 1). Cauchy-Schwarz over the four entries.
     big, small = (cst["a21"], cst["a12"]) if cst["m_gt_1"] else (cst["a12"], cst["a21"])
     e2 = CE * T * T
-    wN = iv.sqrt(2 * (T * cst["a11"] + e2) ** 2 + mu2 ** 2 * (T * big + e2) ** 2 + (T * small + e2) ** 2 / mu2 ** 2)
+    # [office fix 2026-11-26] the |m|^-4 weight needs a LOWER bound of |m|^2 (mu2lo), not the upper bound mu2
+    mu2lo = cst["mu2lo"]
+    wN = iv.sqrt(2 * (T * cst["a11"] + e2) ** 2 + mu2 ** 2 * (T * big + e2) ** 2 + (T * small + e2) ** 2 / iv.mpf(mu2lo) ** 2)
     lass = eta * (2 + eta) * nuN * wN
     lhs = cst["c2lo"] * T * T
     z1 = lhs.a > (circ + lass).b
@@ -357,6 +359,10 @@ def main():
     ew = cexp(w)
     trM1 = -(ew + ew.inv())
     mu = math.exp(max(abs(lb(w.re)), abs(ub(w.re))))
+    # [office fix 2026-11-26] a lower bound of |m|^2 = exp(2|Re kappa omega|), from the enclosure of Re w
+    if lb(w.re) <= 0 <= ub(w.re):
+        print("  GATE FAILED: Re(kappa omega) interval contains 0"); return 1
+    mu2lo = math.exp(2 * min(abs(lb(w.re)), abs(ub(w.re)))) * (1 - 1e-7)
     print(f"  first-order certificate: boundary bounds M = {[f'{fl(m):.3e}' for m in err[0]]}, trapezoid errors <= "
           f"{[f'{fl(e_):.1e}' for e_ in err[1]]}   [{time.time() - t0:.0f} s]")
     print(f"  X (Kerr basis): x11 = {iv_s(x11.re)} + i {iv_s(x11.im)}")
@@ -388,6 +394,9 @@ def main():
         print("  cannot decide the sign of Re(kappa omega) along the lasso"); return 1
     ok_u = (kw.re - sgn * w.re).a <= 0 <= (kw.re - sgn * w.re).b and (kw.im - sgn * w.im).a <= 0 <= (kw.im - sgn * w.im).b
     print(f"         homotopy checks: winding (1, 0, 1, 0) {ok_w}; U increment consistent with omega {ok_u}")
+    if not (ok_w and ok_u):                                   # [office fix 2026-11-26] a correctness gate, not a print
+        print(f"VERDICT spin {A}: GATE FAILED (lasso homotopy checks: winding {ok_w}, U increment {ok_u}); no r reported")
+        return 1
     # the free basis scaling v+- -> exp(-+ kappa u0) v+-: choose u0 from a few candidates
     reU_all = [fl(b["reU"].mid) for b in cb + lbx]
     u0s = [round(-1.5 + 0.1 * j, 1) for j in range(31)]
@@ -417,7 +426,7 @@ def main():
             a12, a21 = iv.mpf(x12.absub()) * sc, iv.mpf(x21.absub()) / sc
             nX = ub(iv.sqrt(2 * iv.mpf(x11.absub()) ** 2 + a12 ** 2 + a21 ** 2))
             xoff = ub(iv.sqrt(a12 ** 2 + a21 ** 2))
-            cst = dict(cL=lL / rref, CE=CE, nX=nX, xoff=xoff, S2=ub(S2), mu2=mu ** 2 * 1.0000001, c2lo=c2lo,
+            cst = dict(cL=lL / rref, CE=CE, nX=nX, xoff=xoff, S2=ub(S2), mu2=mu ** 2 * 1.0000001, mu2lo=mu2lo, c2lo=c2lo,
                        nM1=nM1, imtr=imtr, lC=lC, eC=eC, lL=lL, rref=rref, u0=u0, a11=ub(x11.absub()),
                        a12=ub(a12), a21=ub(a21), m_gt_1=m_gt_1)
             allc.append(cst)
@@ -431,14 +440,27 @@ def main():
               f"[{time.time() - t0:.0f} s]", flush=True)
     peak = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss / 1e6
     if best is None or best[0] <= 0:
-        why = "c2 interval contains 0 (|c2| lower bound is 0), so (Z1) cannot be certified at any r" if c2lo == 0 \
-            else "no r_ref passed the holomorphy boxes or the inequality"
+        # [office fix 2026-11-26] the reason is derived from the failing check, not from a flag
+        dom = [c_ for c_ in allc]
+        if not dom:
+            why = "no r_ref passed the holomorphy boxes (q(z; k) not certified holomorphic on the loops)"
+        else:
+            fails = set()
+            for c_ in dom:
+                _ok, pp = assemble(c_, c_["rref"] * 1e-12)
+                fails |= {nm for nm in ("z1", "z2", "z3") if not pp[nm]}
+            why = ("(Z1) fails at every t, even t = 1e-12 r_ref"
+                   + (f": the |c2| lower bound is {c2lo:g}, so c2 k^2 cannot dominate" if c2lo == 0 else "")
+                   if fails == {"z1"} else f"checks failing at the smallest t: {sorted(fails)}")
         print(f"VERDICT spin {A}: NO r  ({why})   [{time.time() - t0:.0f} s, peak {peak:.0f} MB]")
         json.dump(dict(spin=str(A), R0=R0S, r=None, why=why, rows=rows, refuse=REFUSE),
                   open(os.path.join(OUT, f"eps_{str(A).replace('/', '_')}{TAG}{'_REFUSE' if REFUSE else ''}.json"), "w"), indent=1)
         return 0 if REFUSE else 1
     t, cst = best
+    t = t * (1 - 1e-6)                                         # [office fix 2026-11-26] step back off the knife edge
     ok, parts = assemble(cst, t)
+    if not ok:
+        print(f"VERDICT spin {A}: GATE FAILED (the returned r does not pass the corrected test)"); return 1
     print(f"  |m| > 1 in the basis (v+, v-): {cst['m_gt_1']};  |x11|, |x12|, |x21| after scaling: "
           f"{cst['a11']:.5f}, {cst['a12']:.5f}, {cst['a21']:.5f}")
     print(f"  constants at the best choice (r_ref = {cst['rref']:g}, u0 = {cst['u0']:.4f}): c_L = {cst['cL']:.4e}, "
