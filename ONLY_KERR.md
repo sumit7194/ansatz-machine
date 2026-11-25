@@ -18,8 +18,9 @@ Archived on Zenodo as Ansatz Machine: all versions [10.5281/zenodo.24431694](htt
 
 **Status:** a careful numerical result, not a theorem. Read the status block of the claim first.
 - One local piece is rigorous relative to the applicability chain (claim v3, 2026-11-25): **Statement A**.
-- It covers an unquantified interval (0, ε_a) of twists next to Kerr, at each tested spin. The numerical counts
-  already cover that interval, so it is an anchor, not new range.
+- It covers an explicit, interval-certified interval (0, ε_a] of twists next to Kerr: ε_a = 2.79e−3, 1.92e−3,
+  8.39e−4 and 1.06e−4 at spins 0.3, 0.6, 0.8 and 0.9 (claim v3.1). The numerical counts already cover that interval,
+  so it is an anchor, not new range.
 - It rests on a closed-form k² coefficient c2 that is certified nonzero in interval arithmetic. c2 does vanish at the
   untested spin 0.908.
 
@@ -29,6 +30,7 @@ Archived on Zenodo as Ansatz Machine: all versions [10.5281/zenodo.24431694](htt
 | [`data/nve/CLAIM_FAMILY_II.md`](data/nve/CLAIM_FAMILY_II.md) | **THE claim (version 2)**: status, the one-sentence statement, conventions, the evidence table with a grade per row, scope, prior art, and a separate related result on rational axis data |
 | [`data/nve/MRS_SECTION.md`](data/nve/MRS_SECTION.md) | Why Morales–Ramis(–Simó) applies. §1 the theorem and the class of integrals excluded; §4 and §4b the off-axis metric (Proposition 2, with our own majorant convergence proof); §5–§5e the lower-axis data (e₋ = 1/e₊, derived; no reflection symmetry needed), the Cartesian NVE, loops, k → 0, k = 4; §6 the citation status, each checked at source |
 | [`data/nve/T38_GRADING.md`](data/nve/T38_GRADING.md), [`data/nve/T51_GRADING.md`](data/nve/T51_GRADING.md) | The two referee rounds, point by point, with our grades and fixes |
+| [`data/nve/EPS_EFFECTIVE.md`](data/nve/EPS_EFFECTIVE.md), [`data/nve/EPS_OFFICE_CHECK.md`](data/nve/EPS_OFFICE_CHECK.md) | Statement A's explicit ε_a: the certified remainder bound (Part A), its verification and the one fix; also a prototype and plan for the whole k-range (Part B, not a certificate) |
 | [`data/nve/C2_ANALYTIC.md`](data/nve/C2_ANALYTIC.md), [`data/nve/C2_OFFICE_CHECK.md`](data/nve/C2_OFFICE_CHECK.md) | Statement A: the k² coefficient c2 from Kerr's explicit solutions, its interval certificate, and the independent verification. Lemma K is in `MRS_SECTION.md` §5d |
 | [`data/nve/NOTES2_KOVACIC_CHECK.md`](data/nve/NOTES2_KOVACIC_CHECK.md) | The check, against Kovacic's original paper, behind the related result on rational axis data |
 | `data/nve/*_PREREGISTRATION.md` | Every run was pre-registered before it was executed. Failed and void runs are kept and labelled |
@@ -51,6 +53,8 @@ Paths are relative to the repository root.
 | a⁷–a⁸ weakening | `scripts/_nve_endpoint_scaling.py` | `data/nve/endpoint_scaling.out` | — |
 | no zeros split off k = 0 | analytic (`MRS_SECTION.md` §5d), with the counts above | — | — |
 | Statement A: c2 formula and interval certificate (spins 3/10, 3/5, 4/5, 9/10) | `scripts/_nve_c2_analytic.py`, `scripts/_nve_c2_certify.py` | `data/nve/c2/analytic_*.out`, `certify_*.out` (planted must-fail kept) | — (separate AI side-session; verified) |
+| Statement A: explicit ε_a (interval-certified; corrected code) | `scripts/_nve_eps_certify.py` | `data/nve/eps/eps_*.out`, `.json` (controls: `eps_227_250_CONTROL.out`, `eps_3_5_REFUSE_CONTROL.out`) | — (separate AI side-session; verified) |
+| Statement A, ε_a: verification (rerun; independent per-box truth; exact lasso check) | `scripts/_nve_eps_office_tailcheck.py`, `scripts/_nve_eps_office_polycheck.py` | `data/nve/eps_office_*.out` | — |
 | Statement A: verification (exact sympy; 50-digit engine at 7 spins) | `scripts/_nve_c2_sympy_check.py`, `scripts/_nve_c2_engine_check.py` | `data/nve/c2_sympy_check.out`, `c2_engine_check.out` | — |
 | e₋ = 1/e₊ (Kerr; an asymmetric two-mass check) | `scripts/_nve_t51_axis_check.py` | `data/nve/t51_axis_check.out` | — |
 | the family is not reflection-symmetric | `scripts/_nve_family2_reflection.py` | `data/nve/family2_reflection.out` | — |

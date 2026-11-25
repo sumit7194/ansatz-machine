@@ -3,7 +3,20 @@
 **This is THE reference text.** Outreach and digests quote it verbatim or point to it. Any change is a new dated
 version in this file, with the reason. Edits up to now were agreed with the Bridge.
 
-# VERSION 3 (2026-11-25): CURRENT. Adds Statement A; the one-sentence claim and every number are unchanged
+# VERSION 3.1 (2026-11-26): CURRENT. Statement A now has an explicit, certified ε_a; nothing else changes
+**v3.1 (2026-11-26), on Sumit's go via the Bridge.** Statement A's ε_a, previously "not quantified", is now an explicit
+interval-certified number per spin (table in Statement A).
+- **The certifier:** by the Fable side-session, branch `fable/2026-11-25-eps`, commit 75957fd. It was merged with the
+  office's code fix 9d0ee9f in main bd74e05.
+- **The verification:** by the office ansatz-machine (`data/nve/EPS_OFFICE_CHECK.md`, e10f274 and bcd9292).
+  - Bit-for-bit reproduction.
+  - The per-box bounds checked against independent quadrature.
+  - The lasso polygon certified exactly.
+  - The one slip fixed and re-run: each quoted radius is the fixed-code r rounded down to 3 significant figures, and
+    passes.
+- The one-sentence claim, the conditions and every other number are unchanged. The overall result stays numerical.
+
+# VERSION 3 (2026-11-25), superseded by 3.1 only in the ε_a of Statement A. Adds Statement A; the one-sentence claim and every number are unchanged
 **v3 (2026-11-25), on Sumit's go via the Bridge.** v3 adds **Statement A**, a local result near Kerr that is rigorous
 relative to the applicability chain. Its pieces:
 - **The formula for c2, and its interval certificate.** By the Fable side-session, on branch
@@ -33,8 +46,9 @@ None of the numbers change.
 - **Interval arithmetic certifies only the end sliver:** the last ~10⁻¹⁰ of the range at spins 0.6, 0.8 and 0.9, and
   only the last 7.4 × 10⁻¹⁵ at spin 0.3.
 - **Three degenerate cases were resolved post hoc, in floating point.**
-- **One local piece is rigorous relative to the applicability chain:** Statement A below. It covers an unquantified
-  interval (0, ε_a) near Kerr, which the counts already cover numerically. It is an anchor, not new range.
+- **One local piece is rigorous relative to the applicability chain:** Statement A below. It covers an explicit
+  interval (0, ε_a] near Kerr (ε_a between 1.06e−4 and 2.79e−3 by spin, since v3.1). The counts already cover that
+  interval numerically, so it is an anchor, not new range.
 - **One link in the applicability argument (Proposition 2, the off-axis metric near the orbit) rests on a majorant proof written here (MRS_SECTION.md §4b), checked by its author and by a numerical control, NOT yet independently checked.**
   It is stated on compact sets where the axis data are holomorphic and f0 ≠ 0. On the lower axis that means f0⁻ ≠ 0
   and e₋ has no poles (f0² + c0² ≠ 0).
@@ -49,16 +63,35 @@ Zariski-dense (SL₂) monodromy group for every real k ∈ (0, 30/7] at each tes
 Morales–Ramis–Simó the geodesic flow of each such field then admits no complete set of first integrals in
 involution meromorphic near that complexified orbit.
 
-## Statement A (v3, 2026-11-25): near Kerr, rigorous relative to the chain
-> For each tested spin a ∈ {3/10, 3/5, 4/5, 9/10} at E = 4/5 there is ε_a > 0 such that, for every k ∈ (0, ε_a), the
-> monodromy group of the lower-axis ρ-equation is Zariski-dense in SL(2, C). The k²-coefficient c2 of
-> tr[M1, M0] − 2 is given in closed form by Kerr's explicit solutions, and its nonvanishing is certified in interval
-> arithmetic. ε_a is not quantified. The statement is rigorous relative to the applicability chain
-> (MRS_SECTION.md).
+## Statement A (v3.1, 2026-11-26): near Kerr, rigorous relative to the chain
+> For each tested spin a ∈ {3/10, 3/5, 4/5, 9/10} at E = 4/5, and for every k with 0 < |k| ≤ ε_a (in particular every
+> real k ∈ (0, ε_a]), the monodromy group of the lower-axis ρ-equation is Zariski-dense in SL(2, C), with
+>
+> | spin a | 3/10 | 3/5 | 4/5 | 9/10 |
+> |---|---|---|---|---|
+> | ε_a (certified, rounded down) | 2.79 × 10⁻³ | 1.92 × 10⁻³ | 8.39 × 10⁻⁴ | 1.06 × 10⁻⁴ |
+>
+> The k²-coefficient c2 of tr[M1, M0] − 2 is given in closed form by Kerr's explicit solutions. Its nonvanishing,
+> and the bound that turns it into the radius ε_a, are certified in interval arithmetic. The statement is rigorous
+> relative to the applicability chain (MRS_SECTION.md).
+
+**What ε_a certifies, exactly** (`data/nve/EPS_EFFECTIVE.md` §1; verification `EPS_OFFICE_CHECK.md`). For every complex
+k with 0 < |k| ≤ ε_a:
+- the ρ-equation's coefficient is holomorphic in k on both loops: no zero of P or of f0² + c0² reaches them;
+- the monodromies around the circle |z| = R0 and around the FIXED k = 0 capsule lasso satisfy:
+  - F = tr[M1, M0] − 2 ≠ 0 (irreducible);
+  - tr M0 ≠ 0 and tr M1 ≠ 0 (not imprimitive);
+  - tr M1 ∉ [−2, 2] (infinite).
+- The lasso is certified exactly, in rational arithmetic: a simple convex ring around exactly r₊ and p₊, joined by a
+  tail. Because nothing crosses it for |k| ≤ ε_a, it is homotopic to the engine's re-centred lasso.
+- Each tabulated ε_a is the corrected certifier's r rounded DOWN to 3 significant figures, and passes the corrected
+  test itself.
 
 **Read it with these four conditions; they are part of the statement.**
-1. **Rigour only on an unquantified (0, ε_a).** The numerical counts already cover that interval, so Statement A is an
-   anchor, not new range. At spin 9/10 the interval is small: a third zero of tr[M1, M0] − 2 lies at |k| ≈ 0.36.
+1. **Rigour only on (0, ε_a], with ε_a as tabulated** (since v3.1; it was unquantified in v3).
+   - These are small numbers, a few × 10⁻³ at best. The numerical counts already cover that interval, so Statement A
+     is an anchor, not new range.
+   - At spin 9/10, a third zero of tr[M1, M0] − 2 lies at |k| ≈ 0.36, and ε_a is well below it.
 2. **Relative to the chain, whose caveats stand verbatim:**
    - Proposition 2 rests on our own majorant proof, not yet independently checked;
    - e₋ = 1/e₊ is assumed (one asymptotically flat field), or equivalently taken as the definition of the lower-axis
@@ -76,6 +109,12 @@ involution meromorphic near that complexified orbit.
    - **Credit.** The derivation and certificate are by the Fable side-session (branch
      `fable/2026-11-25-c2-analytic`, 5b6110b and 8d8d04c, now main 66873a2 and 29d2555). The verification is by the
      office ansatz-machine (c3766aa). The engine agrees with the formula to 12 digits at 7 spin values.
+   - **The explicit ε_a (v3.1).** A certified remainder bound, |F − c2k²| < |c2||k|² on 0 < |k| ≤ ε_a.
+     - It is built from the exact identity F = tr N² − tr(M1NM1⁻¹N), M0 = I + N, and a Dyson bound in Kerr's basis.
+     - It uses the closed form P = P_K(1 + γs).
+     - The lasso term gets a crude Dyson bound.
+     - **Credit:** by the Fable side-session (branch `fable/2026-11-25-eps`, 75957fd), with the office's fix 9d0ee9f
+       (merged in bd74e05). The verification is by the office ansatz-machine (e10f274, bcd9292).
 
 ## Conventions
 - **Units and particle.** M = 1. μ = 1 (timelike; E is the energy per unit mass).
@@ -95,7 +134,7 @@ involution meromorphic near that complexified orbit.
 |---|---|---|
 | (0, 30/7 − 10⁻¹²] at each spin | argument-principle counts over complex k-rectangles | 50-digit floating point |
 | no zeros split off k = 0 | F = O(k²) structurally (`MRS_SECTION.md` §5d), plus the counts | exact, given the counts |
-| (0, ε_a) near k = 0 (Statement A, v3) | c2 ≠ 0 (closed form; I± and Re κω interval-certified) + Lemma K | **rigorous relative to the chain**; ε_a not quantified; false at spin a\* ≈ 0.908 |
+| (0, ε_a] near k = 0 (Statement A, v3.1) | c2 ≠ 0 (closed form; I± and Re κω interval-certified) + Lemma K + the certified remainder bound (EPS_EFFECTIVE) | **rigorous relative to the chain**; ε_a = 2.79e−3, 1.92e−3, 8.39e−4, 1.06e−4 (certified, rounded down); c2 = 0 at spin a\* ≈ 0.908 |
 | k = 30/7 | direct classification | floating point; interval-certified at 0.3 (S4) and at the other spins (S3/T48b) |
 | end sliver (30/7 − δ0, 30/7] | Zariski-density certificate | **interval arithmetic**: δ0 = 1.37e−11, 2.4e−10, 3.6e−10, 7.4e−15 at spins 0.6, 0.8, 0.9, 0.3 |
 | spin 0.3, (30/7 − 10⁻¹², 30/7 − 7.4e−15] | samples, all non-VA | floating point only |

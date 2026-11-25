@@ -34,7 +34,8 @@ its rotation (twist) profile, does the integrability survive?
   - The k² coefficient of the trace test has a closed form from Kerr's solutions.
   - Its nonvanishing is interval-certified at each tested spin. So the group is Zariski-dense for all small enough
     k > 0 (Statement A).
-  - The interval is unquantified. The coefficient vanishes at the untested spin ≈ 0.908.
+  - The interval is explicit but small: ε = 2.79e−3, 1.92e−3, 8.39e−4 and 1.06e−4 at spins 0.3, 0.6, 0.8 and 0.9
+    (interval-certified; claim v3.1). The coefficient vanishes at the untested spin ≈ 0.908.
 
 **Related result (rational axis data).**
 - Any such field whose axis function f0 is rational of degree ≥ 3 has Galois group SL(2, C) for the axis

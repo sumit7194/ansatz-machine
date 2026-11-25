@@ -1,5 +1,13 @@
 # An explicit ε for Statement A, and a first step toward the whole k-range
 
+> **VERIFIED 2026-11-26 by the office ansatz-machine (a non-author): `EPS_OFFICE_CHECK.md` (e10f274, bcd9292).**
+> - Part A is verified, with one slip in `assemble`: the |m|⁻⁴ weight used an upper bound of |m|².
+>   - It was fixed in 9d0ee9f and all runs were redone.
+>   - **The quoted ε_a are the corrected r rounded down:** 2.79e−3, 1.92e−3, 8.39e−4 and 1.06e−4. Those, not the
+>     unrounded values in §4 below, are what CLAIM v3.1 states.
+> - Part B is checked as a prototype only: ATAP Thm 8.2 was read at source, and the run reproduces exactly.
+> - Merged into main in bd74e05. The "UNVERIFIED" labels below are historical.
+
 **[model: Fable 5.2] Session ansatz-machine-personal, 2026-11-25/26. Ask: the Bridge, for Sumit (brief
 `docs/BRIEF_FABLE_EPS_2026-11-25.md` v2.1). Branch `fable/2026-11-25-eps`. STATUS: UNVERIFIED until the office
 ansatz-machine checks it.**

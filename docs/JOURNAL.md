@@ -4677,3 +4677,16 @@ pole-order-1 Carter² survival.
   - The acos fix is correct, with no silent drops.
   - One argued precondition (Laurent-disc holomorphy) must be certified in the route-(i) build.
 - **Record:** data/nve/EPS_OFFICE_CHECK.md (e10f274, bcd9292). No claim change; that awaits the Bridge and Sumit.
+- **Later: integrated (on Sumit's go via the Bridge).**
+  - **Lineage:**
+    - Fable 75957fd (Part A) and 4bc7b37 (Part B prototype);
+    - the office fix 9d0ee9f, on branch office/2026-11-26-eps-fix;
+    - merged into main --no-ff as bd74e05, with both authors' commits and tags kept.
+  - **CLAIM v3.1:** Statement A with explicit ε_a = 2.79e−3, 1.92e−3, 8.39e−4 and 1.06e−4 (the fixed-code r rounded
+    down), plus what r certifies. It is still "rigorous relative to the chain", and the overall result stays
+    numerical.
+  - **ONLY_KERR and ONE_PAGER:** one-line status updates, with the neutral credit unchanged.
+  - **EPS_EFFECTIVE.md:** marked VERIFIED.
+  - **docs/ROUTE1_REGISTRATION_INPUT.md:** B5 plus the Laurent-disc precondition, as input for a future registration.
+    Nothing launches.
+  - No release or Zenodo version (Sumit's decision).
