@@ -1,0 +1,8 @@
+spin a = 9/10, E = 4/5; annulus [1.05, 1.55], R0 = 1.275735, sigma = 0.194732; 128 nodes, 360 boundary boxes per line
+  r+ in [1.850158557584, 1.850158557584]; min|root| >= 1.850159; U series to z^260, tail <= 3.97e-09
+  bounds on the annulus boundary: M+ = 8.182e+00, M- = 6.911e+00; trapezoid errors <= 1.5e-09, 1.3e-09
+  Im I+ in [0.002776354302237, 0.002776372592215]   Re I+ in [-9.144988916214e-09, 9.144988916214e-09]
+  Im I- in [0.3623742610046, 0.3623743108159]   Re I- in [-2.414982714353e-08, 2.414982714353e-08]
+  J in [1.188912964363, 1.188912964363] + i [-0.0904585113645, -0.0904585113645]; bound M = 4.731e-01, trapezoid error <= 9.5e-28
+  Re(kappa omega) = -+ [1.398104266572, 1.398104266572];  Im(kappa omega) = -+ [-1.628374043059, -1.628374043059]  (one overall branch sign)
+VERDICT spin 9/10: Im I+ != 0: True; Im I- != 0: True; Re(kappa omega) != 0: True  ->  c2 != 0 CERTIFIED (interval arithmetic)   [7 s]
