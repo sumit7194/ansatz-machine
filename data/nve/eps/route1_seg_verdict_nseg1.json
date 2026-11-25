@@ -1,0 +1,34 @@
+{
+ "nseg": 1,
+ "segs": [
+  {
+   "i": 0,
+   "certified": true,
+   "min_abs_F_certified": 0.2650233683634295,
+   "margins": [
+    0.2653343457597551,
+    1.9931582187817434,
+    2.6488206548314084
+   ],
+   "errors": [
+    0.0003109773963256457,
+    4.365609592575332e-14,
+    7.311392235115638e-11
+   ],
+   "planted_zero_refused": true
+  }
+ ],
+ "planted_precondition_fires": true,
+ "held_out_consistent": true,
+ "proved_M_ge_sampled": true,
+ "engine_inside": true,
+ "shrunken_M_breaks": false,
+ "shrunken_M_below_sampled": [
+  "F",
+  "tr M0",
+  "tr M1"
+ ],
+ "certified": true,
+ "min_abs_F_certified": 0.2650233683634295,
+ "planted_zero_refused": true
+}

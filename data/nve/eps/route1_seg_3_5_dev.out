@@ -1,0 +1,34 @@
+== prove == python 3.13.12, python-flint 0.9.0, interpreter /Users/sumit/Github/quantum/sims/.venv/bin/python; prec 256 bits, Taylor order 70, Laurent order 190; spin 3/5|k in 21/20 +- 1/20; lasso and singular points of k_c from route1_floats.json
+  derivative self-test (finite differences in k at k_c):
+    z = (0.3+1.3162j): |D0 - FD| >= 0.0e+00, |D1 - FD| >= 0.0e+00 (0 = overlap); |FD dq/dk| / sup = 0.168636; rel. radius of D0 1.6e-01  -> FAIL
+    z = (-1.35+0j): |D0 - FD| >= 0.0e+00, |D1 - FD| >= 0.0e+00 (0 = overlap); |FD dq/dk| / sup = 0.443952; rel. radius of D0 1.3e-01  -> FAIL
+    z = (1.757-0.003j): |D0 - FD| >= 0.0e+00, |D1 - FD| >= 0.0e+00 (0 = overlap); |FD dq/dk| / sup = 0.720347; rel. radius of D0 1.2e-01  -> FAIL
+    z = (2.05-0.03j): |D0 - FD| >= 0.0e+00, |D1 - FD| >= 0.0e+00 (0 = overlap); |FD dq/dk| / sup = 0.851449; rel. radius of D0 1.2e-01  -> FAIL
+    z = (2.11+0.55j): |D0 - FD| >= 0.0e+00, |D1 - FD| >= 0.0e+00 (0 = overlap); |FD dq/dk| / sup = 0.720730; rel. radius of D0 1.2e-01  -> FAIL
+  derivative self-test passes: False
+  reference at k_c = 21/20: circle 2163 steps, lasso 703 steps, 22 s; ||M0||_F <= 1.426355, ||M1||_F <= 7.178797; tr M0 = 1.9938193094-0.0000000000j, tr M1 = -1.0815446601+2.6563137335j, F = 0.2553811015+0.1492569656j
+  sup(|v1|^2 + |v2|^2) along the loops: circle 6.057, lasso 41.661; lengths 8.4808, 2.8401
+  MEASURED Dyson constants at k_c = 21/20 (exponent per unit |k - k_c|, K a point): circle c0 = 18.156, lasso c1 = 652.640   [int |dq/dk| |dz|: 8.268, 41.795]
+  rho = 1.25: R = 0.0513; precondition ok (max |w_root| 0.4337 < 1.2346); Dyson exponents I0 = 2.339, I1 = 169.767 (per unit k on the box: 45.63, 3312.52); M_F = 3.230e+151, M_trM0 = 2.091e+01, M_trM1 = 5.436e+74; nodes for 0.001: n = 1608 (error bounds F 7.62e-04, tr M0 4.93e-154, tr M1 1.28e-80)  [25 s]
+  rho = 1.5: R = 0.0542; precondition ok (max |w_root| 0.4366 < 1.2346); Dyson exponents I0 = 2.580, I1 = 200.917 (per unit k on the box: 47.64, 3709.23); M_F = 5.971e+178, M_trM0 = 2.663e+01, M_trM1 = 1.835e+88; nodes for 0.001: n = 1038 (error bounds F 7.88e-04, tr M0 3.51e-181, tr M1 2.42e-94)  [26 s]
+  rho = 2.0: R = 0.0625; precondition ok (max |w_root| 0.4448 < 1.2346); Dyson exponents I0 = 3.372, I1 = 328.764 (per unit k on the box: 53.95, 5260.22); M_F = 3.239e+290, M_trM0 = 5.878e+01, M_trM1 = 6.123e+143; nodes for 0.001: n = 978 (error bounds F 5.07e-04, tr M0 9.20e-293, tr M1 9.59e-151)  [27 s]
+== prove == NSEG = 1; python 3.13.12, python-flint 0.9.0, interpreter /Users/sumit/Github/quantum/sims/.venv/bin/python; prec 256 bits, Taylor order 70, Laurent order 190; spin 3/5|k in [1, 1.1]; lasso and singular points of k = 21/20 from route1_floats.json
+  -- sub-segment 0: k_c = 1.050000, half-width 0.050000 --
+    z = (0.3+1.3162j): |D0 - FD| <= 1.3e-15, |D1 - FD| <= 2.5e-15; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True (rel. radius 1.7e-01)  -> ok
+    z = (-1.35+0j): |D0 - FD| <= 8.5e-16, |D1 - FD| <= 9.9e-16; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True (rel. radius 1.3e-01)  -> ok
+    z = (1.757-0.003j): |D0 - FD| <= 5.4e-16, |D1 - FD| <= 5.4e-16; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True (rel. radius 1.3e-01)  -> ok
+    z = (2.05-0.03j): |D0 - FD| <= 4.1e-16, |D1 - FD| <= 3.6e-16; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True (rel. radius 1.2e-01)  -> ok
+    z = (2.11+0.55j): |D0 - FD| <= 3.7e-16, |D1 - FD| <= 3.2e-16; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True (rel. radius 1.3e-01)  -> ok
+  derivative self-test passes: True
+  reference: circle 2163 steps, lasso 703 steps, 23 s; ||M0||_F <= 1.426355, ||M1||_F <= 7.178797; F = 0.2553811015+0.1492569656j
+  MEASURED Dyson constants at k_c (exponent per unit |k - k_c|, K a point): circle 11.317 (base gauge) -> 10.498 (optimised gauge); lasso 597.849 -> 45.796;  int sup|dq/dk| |dz|: 5.558, 41.306
+  rho = 2.0: R = 0.0625; precondition ok (max |w_root| 0.4448 < 1.2346); I0 = 1.099, I1 = 6.389 (per unit k on the box: 17.59, 102.23); gauge factors 2.15, 12.14; M_F = 2.180e+09, M_trM0 = 6.073e+00, M_trM1 = 4.293e+03; n = 44 (bounds F 4.96e-04, tr M0 1.38e-12, tr M1 9.76e-10)
+  rho = 3.0: R = 0.0833; precondition ok (max |w_root| 0.4649 < 1.2346); I0 = 1.760, I1 = 11.435 (per unit k on the box: 21.12, 137.22); gauge factors 2.16, 12.64; M_F = 2.152e+14, M_trM0 = 1.178e+01, M_trM1 = 6.977e+05; n = 38 (bounds F 3.19e-04, tr M0 1.74e-17, tr M1 1.03e-12)
+  rho = 4.0: R = 0.1063; precondition ok (max |w_root| 0.4868 < 1.2346); I0 = 2.767, I1 = 20.609 (per unit k on the box: 26.04, 193.96); gauge factors 2.17, 13.33; M_F = 1.684e+23, M_trM0 = 3.227e+01, M_trM1 = 7.135e+09; n = 44 (bounds F 7.25e-04, tr M0 1.39e-25, tr M1 3.07e-17)
+  rho = 5.0: R = 0.1300; precondition ok (max |w_root| 0.5095 < 1.2346); I0 = 4.250, I1 = 37.234 (per unit k on the box: 32.69, 286.41); gauge factors 2.19, 14.25; M_F = 1.048e+39, M_trM0 = 1.424e+02, M_trM1 = 1.275e+17; n = 62 (bounds F 4.83e-05, tr M0 6.57e-42, tr M1 5.88e-27)
+  rho = 6.5: R = 0.1663; precondition ok (max |w_root| 0.5449 < 1.2346); I0 = 7.903, I1 = 93.941 (per unit k on the box: 47.51, 564.73); gauge factors 2.23, 16.26; M_F = 3.807e+91, M_trM0 = 5.516e+03, M_trM1 = 6.244e+41; n = 118 (bounds F 3.30e-05, tr M0 4.78e-93, tr M1 5.41e-55)
+  rho = 8.0: R = 0.2031; precondition ok (max |w_root| 0.5821 < 1.2346); I0 = 14.685, I1 = 264.490 (per unit k on the box: 72.29, 1302.11); gauge factors 2.30, 19.56; M_F = 6.217e+245, M_trM0 = 4.883e+06, M_trM1 = 8.891e+115; n = 276 (bounds F 1.98e-04, tr M0 1.56e-243, tr M1 2.84e-134)
+  rho = 13.0: R = 0.3269: a holomorphy box fails at z = (1.920550186458905+0.683183077451656j); rejected
+  rho = 16.0: R = 0.4016: a holomorphy box fails at z = (2.1084634397800377+0.5853291286040656j); rejected
+  CHOSEN for sub-segment 0: rho = 3.0, n = 38 (39 Chebyshev points), proved M_F = 2.152e+14   [39 s]
+  NSEG = 1: total point evaluations needed 39 (shared end points counted twice); prove: 39 s, peak rss 31 MB

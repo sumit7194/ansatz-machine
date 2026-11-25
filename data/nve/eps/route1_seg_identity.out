@@ -1,0 +1,15 @@
+sympy 1.14.0
+  (1a) G2 - G2_c (1 + sigma_c): 0
+  (1b) P - P_c (1 + gamma_c s_c): 0
+  (2) dq/dk - (3/8) lam dlam: 0
+  (2b) dlam (combined form) - dlam: 0
+  (3) n = 4: c0 integral - z^(2-n)/((n-1)(n-2)): 0
+  (3) n = 4: c0' integral + z^(1-n)/(n-1): 0
+  (3) n = 5: c0 integral - z^(2-n)/((n-1)(n-2)): 0
+  (3) n = 5: c0' integral + z^(1-n)/(n-1): 0
+  (3) n = 9: c0 integral - z^(2-n)/((n-1)(n-2)): 0
+  (3) n = 9: c0' integral + z^(1-n)/(n-1): 0
+  (4) 1 - k phi at the root (+): 0
+  (4) 1 - k phi at the root (-): 0
+  (4) phi(omega form, x = a^2 omega^2) - phi(w = 1/x): 0
+ALL ZERO: True

@@ -1,0 +1,28 @@
+== constants == python 3.13.12, python-flint 0.9.0, interpreter /Users/sumit/Github/quantum/sims/.venv/bin/python; spin 3/5, E = 4/5, circle 1.35, lasso of each k_c; segment half-width 1/20; k sub-boxes 5 x 5
+  k_c = 1/2: steps 2165 + 717; |F| = 0.059723, tr M0 = 1.998716-0.000000j, tr M1 = -1.024541+2.727329j; engine float inside: F True
+    Dyson constants at the point (per unit |k - k_c|): circle 10.85 -> 9.97 (optimised gauge); lasso 544.76 -> 41.51
+    rho = 3.0: R = 0.0833; max |w_root| 0.4336; I0 = 1.017, I1 = 4.721 (per unit k: 12.2, 56.7); gauge factors 2.16, 11.51; log10 M_F = 7.8; n = 26 for error 2.0e-04
+    rho = 4.0: R = 0.1063; max |w_root| 0.4517; I0 = 1.383, I1 = 6.619 (per unit k: 13.0, 62.3); gauge factors 2.16, 11.65; log10 M_F = 9.8; n = 24 for error 2.0e-04
+    rho = 5.0: R = 0.1300; max |w_root| 0.4703; I0 = 1.817, I1 = 8.977 (per unit k: 14.0, 69.1); gauge factors 2.15, 11.81; log10 M_F = 12.2; n = 24 for error 2.0e-04
+    rho = 6.5: R = 0.1663; max |w_root| 0.4990; I0 = 2.613, I1 = 13.592 (per unit k: 15.7, 81.7); gauge factors 2.15, 12.10; log10 M_F = 16.9; n = 26 for error 2.0e-04
+    rho = 8.0: R = 0.2031; max |w_root| 0.5288; I0 = 3.629, I1 = 19.967 (per unit k: 17.9, 98.3); gauge factors 2.14, 12.45; log10 M_F = 23.3; n = 30 for error 2.0e-04
+    rho = 10.0: R = 0.2525; max |w_root| 0.5704; I0 = 5.460, I1 = 32.710 (per unit k: 21.6, 129.5); gauge factors 2.14, 13.05; log10 M_F = 36.0; n = 40 for error 2.0e-04
+    [40 s]
+  k_c = 2: steps 2161 + 673; |F| = 1.362050, tr M0 = 1.973043-0.000000j, tr M1 = -1.222536+2.472308j; engine float inside: F True
+    Dyson constants at the point (per unit |k - k_c|): circle 13.00 -> 11.79 (optimised gauge); lasso 741.15 -> 57.93
+    rho = 3.0: R = 0.0833; max |w_root| 0.5460; I0 = 1.361, I1 = 7.695 (per unit k: 16.3, 92.3); gauge factors 2.23, 11.63; log10 M_F = 10.7; n = 28 for error 4.6e-03
+    rho = 4.0: R = 0.1063; max |w_root| 0.5793; I0 = 1.943, I1 = 11.405 (per unit k: 18.3, 107.3); gauge factors 2.24, 11.81; log10 M_F = 14.4; n = 30 for error 4.6e-03
+    rho = 5.0: R = 0.1300; max |w_root| 0.6149; I0 = 2.702, I1 = 16.516 (per unit k: 20.8, 127.0); gauge factors 2.25, 12.03; log10 M_F = 19.6; n = 32 for error 4.6e-03
+    rho = 6.5: R = 0.1663; max |w_root| 0.6720; I0 = 4.306, I1 = 28.164 (per unit k: 25.9, 169.3); gauge factors 2.26, 12.47; log10 M_F = 31.1; n = 42 for error 4.6e-03
+    rho = 8.0: R = 0.2031; max |w_root| 0.7339; I0 = 6.777, I1 = 48.129 (per unit k: 33.4, 236.9); gauge factors 2.28, 13.09; log10 M_F = 50.6; n = 60 for error 4.6e-03
+    rho = 10.0: R = 0.2525; max |w_root| 0.8250; I0 = 12.572, I1 = 103.897 (per unit k: 49.8, 411.5); gauge factors 2.31, 14.40; log10 M_F = 104.2; n = 108 for error 4.6e-03
+    [39 s]
+  k_c = 3: steps 2164 + 636; |F| = 4.322731, tr M0 = 1.920803-0.000000j, tr M1 = -1.457010+2.115920j; engine float inside: F True
+    Dyson constants at the point (per unit |k - k_c|): circle 18.00 -> 14.47 (optimised gauge); lasso 1110.21 -> 90.99
+    rho = 3.0: R = 0.0833; max |w_root| 0.7279; I0 = 2.270, I1 = 16.649 (per unit k: 27.2, 199.8); gauge factors 2.56, 11.99; log10 M_F = 19.4; n = 46 for error 1.5e-02
+    rho = 4.0: R = 0.1063; max |w_root| 0.7979; I0 = 3.710, I1 = 28.238 (per unit k: 34.9, 265.8); gauge factors 2.57, 12.20; log10 M_F = 30.7; n = 56 for error 1.5e-02
+    rho = 5.0: R = 0.1300; max |w_root| 0.8777; I0 = 6.102, I1 = 48.667 (per unit k: 46.9, 374.4); gauge factors 2.59, 12.51; log10 M_F = 50.6; n = 76 for error 1.5e-02
+    rho = 6.5: R = 0.1663; max |w_root| 1.0168; I0 = 13.502, I1 = 119.992 (per unit k: 81.2, 721.3); gauge factors 2.62, 13.30; log10 M_F = 119.0; n = 150 for error 1.5e-02
+    rho = 8.0: R = 0.2031: exponents 34.1, 371.9: too large
+    rho = 10.0: R = 0.2525: precondition NOT certified (a zero of 1 - k phi has |w| up to 1.4527 >= 1.2346: inside the Laurent disc)
+    [36 s]
