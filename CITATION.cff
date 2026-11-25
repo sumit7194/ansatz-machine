@@ -13,6 +13,9 @@ abstract: >-
   against Kovacic's algorithm: any stationary axisymmetric vacuum field whose axis function is rational of
   degree at least 3 has Galois group
   SL(2,C) for the axis variational equation at generic energy.
+  Since v1.1.0, one local piece near Kerr is rigorous relative to the applicability chain ("Statement A"): at each
+  tested spin the monodromy is Zariski-dense for all sufficiently small twists, from a closed-form k^2 coefficient
+  certified nonzero in interval arithmetic; the overall result remains numerical, not a theorem.
   Developed with substantial assistance from Anthropic's Claude AI models (several versions), which wrote
   most of the code and ran most of the analyses under the author's direction; the author chose the questions,
   directed and reviewed the work, and takes responsibility for its content.
@@ -22,16 +25,18 @@ authors:
     affiliation: Independent researcher
     orcid: "https://orcid.org/0009-0000-9541-2793"
     alias: sumit7194
-version: 1.0.0
-doi: "10.5281/zenodo.24431695"
+version: 1.1.0
+# The version-specific DOI of v1.1.0 is to be assigned by Zenodo on release; it will be added in a follow-up commit.
+# Until then the top-level doi is the concept DOI (all versions), which resolves to the latest version.
+doi: "10.5281/zenodo.24431694"
 identifiers:
-  - type: doi
-    value: "10.5281/zenodo.24431695"
-    description: "Ansatz Machine v1.0.0 (this version)"
   - type: doi
     value: "10.5281/zenodo.24431694"
     description: "All versions (resolves to the latest)"
-date-released: "2026-11-22"
+  - type: doi
+    value: "10.5281/zenodo.24431695"
+    description: "Ansatz Machine v1.0.0 (previous version)"
+date-released: "2026-11-25"
 type: software
 repository-code: "https://github.com/sumit7194/ansatz-machine"
 license: MIT
