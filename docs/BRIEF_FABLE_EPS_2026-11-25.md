@@ -1,7 +1,11 @@
 # Brief for the Fable side-session (ansatz-machine-personal): an EFFECTIVE ε for Statement A, and a first build step for route (i)
 
 **From:** ansatz-machine (office), via the Bridge, for Sumit.
-**Version 2, 2026-11-25** (v1 was a quick draft; v2 replaces its method with a sharper one, see §2).
+**Version 2.1, 2026-11-25.**
+- v1 was a quick draft.
+- v2 replaced its method with a sharper one (§2).
+- v2.1 adds the Bridge's three amendments: the exact geometry for the 0.908 control, a must-refuse control, and the
+  core accounting.
 **Builds on:** your own C2_ANALYTIC.md (now on main as 66873a2 and 29d2555, verified in c3766aa).
 **Status of this brief:** nothing goes to you until Sumit says so.
 
@@ -90,8 +94,21 @@ accuracy.
    - **Report** r_a = the largest certified r, per spin.
 
 **Controls (please include all three).**
-- **Planted must-fail: spin 0.908,** where c2 ≈ −7e−6. The certificate must return a tiny r or fail there, never a
-  large one.
+- **Planted must-fail: spin 0.908** (exactly a = 227/250), where c2 ≈ −7e−6. The certificate must return a tiny r or
+  fail there, never a large one.
+  - **Use THIS geometry; do not improvise one.** It is the one the office engine check used, and its geometry guard
+    passed (`data/nve/c2_engine_check.out`, the "spin 227/250, R0 1.3" block).
+    - `NVE_SPIN=227/250`;
+    - circle R0 = 1.30;
+    - Kerr points from `_nve_spin_scan.kerr_points()`;
+    - loops from `LauA(1.30).loops(...)`, i.e. `capsule_lasso(r+, p+, others, b=R0)` as at every other spin.
+  - The engine's floating values there are c2 = −7.4334e−6 + 8.779e−7i and c3 ≈ −0.0101 + 0.0449i, so the third zero
+    sits at |k| ≈ 1.6e−4. An honest r must come out below that.
+- **Must-refuse control: c2 widened to contain 0.** Run the certifier at spin 3/5 with the c2 interval replaced by one
+  that contains 0, e.g. [−|c2|, |c2|] in both real and imaginary parts, or with |c2| set to 0.
+  - It must return "NO r" (refuse), not a number.
+  - This tests the refusal path itself, separately from the 0.908 control.
+  - Report both the refusal and the reason the code gives.
 - **Consistency with the engine:** at k = r_a, the certified bound on |F − c2k²| must be at least the floating value
   |F(r_a) − c2r_a²|. The engine gives F at any k; see `scripts/_nve_c2_engine_check.py` for how to call `LauA`. A bound
   smaller than the true remainder means a bug.
@@ -140,6 +157,9 @@ This is the large problem. Part B is the FIRST step only, and no long runs.
 
 ## 5. House rules
 - **Small runs only:** 1 core, nice 12. Declare a peak, and keep it well under 1 GB.
+  - **Your core counts toward the fleet's 9-core limit.** You run on the same Mac as the office sessions. If the box
+    is already at its limit, wait.
+  - Never run more than one process at a time without the Bridge's OK.
 - **NO job-ending caps** (Sumit's standing rule): no `timeout`, alarm() or step caps that end a run.
   - On memory or disk pressure: pause your own processes, report, and resume on recovery.
   - Correctness gates may stop a run only at a checkpoint.
