@@ -2,7 +2,7 @@
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24431694.svg)](https://doi.org/10.5281/zenodo.24431694)
 
-Archived on Zenodo as Ansatz Machine: all versions [10.5281/zenodo.24431694](https://doi.org/10.5281/zenodo.24431694) (resolves to the latest); v1.0.0 [10.5281/zenodo.24431695](https://doi.org/10.5281/zenodo.24431695). See [`RELEASE_NOTES_v1.1.0.md`](RELEASE_NOTES_v1.1.0.md) for what changed since v1.0.0.
+Archived on Zenodo as Ansatz Machine: all versions [10.5281/zenodo.24431694](https://doi.org/10.5281/zenodo.24431694) (resolves to the latest); v1.1.0 [10.5281/zenodo.24533026](https://doi.org/10.5281/zenodo.24533026); v1.0.0 [10.5281/zenodo.24431695](https://doi.org/10.5281/zenodo.24431695). See [`RELEASE_NOTES_v1.1.0.md`](RELEASE_NOTES_v1.1.0.md) for what changed since v1.0.0.
 
 **In five lines.**
 1. We take stationary axisymmetric vacuum fields with exactly Kerr's mass profile along the symmetry axis, and
@@ -79,11 +79,12 @@ Paths are relative to the repository root.
   - drafted the documents.
 - **Author's role.** The author chose the questions, directed and reviewed the work, and takes responsibility for it.
 - **Other AI sessions.**
-  - The referee rounds (T38, T51) were hostile reads by a separate AI reviewer session; T-numbers are its task
-    numbers.
+  - The referee rounds (T38, T51), and the referee reads of the outreach reply, were hostile reads by Google's
+    Gemini ("Neon"), working as a separate reviewer session; T-numbers are its task numbers.
   - Several cross-checks were done blind by other AI sessions working on separate projects. The documents call them
-    "relayed" until reproduced here. Names such as "the Bridge" (the coordinating and cross-checking session) and
-    "Neon" (the reviewer) refer to these sessions.
+    "relayed" until reproduced here. "The Bridge" (the coordinating and cross-checking session) and the other
+    sessions are Anthropic's Claude models working under the author's direction. "Neon" (the reviewer) is
+    Google's Gemini.
 - **Review.** No professional physicist has reviewed this yet. Corrections are very welcome.
 
 Author: Sumit Pal (independent researcher).

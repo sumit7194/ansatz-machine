@@ -18,7 +18,8 @@ abstract: >-
   certified nonzero in interval arithmetic; the overall result remains numerical, not a theorem.
   Developed with substantial assistance from Anthropic's Claude AI models (several versions), which wrote
   most of the code and ran most of the analyses under the author's direction; the author chose the questions,
-  directed and reviewed the work, and takes responsibility for its content.
+  directed and reviewed the work, and takes responsibility for its content. The hostile referee reads were by
+  Google's Gemini.
 authors:
   - given-names: Sumit
     family-names: Pal
@@ -26,10 +27,11 @@ authors:
     orcid: "https://orcid.org/0009-0000-9541-2793"
     alias: sumit7194
 version: 1.1.0
-# The version-specific DOI of v1.1.0 is to be assigned by Zenodo on release; it will be added in a follow-up commit.
-# Until then the top-level doi is the concept DOI (all versions), which resolves to the latest version.
-doi: "10.5281/zenodo.24431694"
+doi: "10.5281/zenodo.24533026"
 identifiers:
+  - type: doi
+    value: "10.5281/zenodo.24533026"
+    description: "Ansatz Machine v1.1.0 (this version)"
   - type: doi
     value: "10.5281/zenodo.24431694"
     description: "All versions (resolves to the latest)"

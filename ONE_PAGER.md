@@ -62,7 +62,7 @@ its rotation (twist) profile, does the integrability survive?
   the off-axis metric.
 
 **How it was made.** Developed with substantial assistance from Anthropic's Claude, which wrote and ran most of the
-code, checked the literature and drafted the documents. The author chose the questions, directed and reviewed the
+code, checked the literature and drafted the documents. The hostile referee reads were by Google's Gemini. The author chose the questions, directed and reviewed the
 work, and takes responsibility for it. No professional review yet; corrections are welcome.
 
 Sumit Pal (independent researcher) · code, data and full write-up: `ONLY_KERR.md` in github.com/sumit7194/ansatz-machine

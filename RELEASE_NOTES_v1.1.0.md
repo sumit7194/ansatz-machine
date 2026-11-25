@@ -49,9 +49,10 @@ number in the main claim changed.
 - **Independent verification:** the ansatz-machine session, commit c3766aa (`data/nve/C2_OFFICE_CHECK.md`).
 - **The §5b error and the Prop. 2 inconsistency:** found by an independent reader, organised by the coordinating
   session ("the Bridge").
-- **The §1 point:** raised by a hostile referee read ("Neon").
-- **How it was made:** these are AI sessions (Anthropic's Claude) working under the author's direction, as described
-  in `ONLY_KERR.md`. The author chose the questions, reviewed the work, and takes responsibility for it.
+- **The §1 point:** raised by a hostile referee read by Google's Gemini ("Neon").
+- **How it was made:** the sessions above are Anthropic's Claude models working under the author's direction, plus one
+  referee read by Google's Gemini, as described in `ONLY_KERR.md`. The author chose the questions, reviewed the work,
+  and takes responsibility for it.
 
 ## Citation
-Cite all versions as DOI 10.5281/zenodo.24431694. The version DOI of v1.1.0 will be assigned by Zenodo on release.
+Cite all versions as DOI 10.5281/zenodo.24431694. This version (v1.1.0) is DOI 10.5281/zenodo.24533026.
