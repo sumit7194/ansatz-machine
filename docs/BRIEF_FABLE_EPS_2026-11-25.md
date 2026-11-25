@@ -67,7 +67,7 @@ order, plus a remainder; or use the c3 term. Any route counts if it ends in a ri
 what is certified.
 
 ## 3. Deliverables (branch only, as before)
-- **Branch** `fable/2026-11-25-eps` from current main (8 commits ahead of your last branch; includes Lemma K and
+- **Branch** `fable/2026-11-25-eps` from current main (it includes Lemma K and
   claim v3).
 - **`data/nve/EPS_EFFECTIVE.md`.** The derivation; what is certified and what is only argued; r_a per spin with its
   enclosures; a planted must-fail. A good one: claim r_a at spin 0.908, where c2 ≈ −7e−6. The certificate must
