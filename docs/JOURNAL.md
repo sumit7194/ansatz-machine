@@ -4651,3 +4651,10 @@ pole-order-1 Carter² survival.
   - Trefethen–Weideman Thm 3.2 (p. 396) and Thm 2.2 (p. 392) were checked at source.
 - **Statement A** is safe wording relative to the chain. It still needs the k-analyticity lemma written into MRS §5d.
   Sumit decides any claim change.
+- **Later, on Sumit's go via the Bridge: Statement A adopted.**
+  - **Lineage:** fable 5b6110b → main 66873a2 and fable 8d8d04c → main 29d2555, by cherry-pick -x. The files are
+    byte-identical to the checked 8d8d04c.
+  - **b1137da:** MRS §5d Lemma K (k-analyticity of M0 and M1 at k = 0) with its proof. C2_ANALYTIC is marked VERIFIED,
+    with the lineage.
+  - **7486dbb:** CLAIM v3 with Statement A and its four conditions (anchor, not new range; chain caveats; per spin,
+    false at a\* ≈ 0.908; credit). ONLY_KERR and ONE_PAGER now state it, and still say "not a theorem overall".
