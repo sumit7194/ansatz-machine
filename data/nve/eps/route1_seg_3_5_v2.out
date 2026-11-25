@@ -1,0 +1,101 @@
+== prove (v2, all bounds in balls) == NSEG = 1; python 3.13.12, python-flint 0.9.0, interpreter /Users/sumit/Github/quantum/sims/.venv/bin/python; prec 256 bits, Taylor order 70, Laurent order 190; spin 3/5|k in [1, 1.1]; lasso and singular points of k = 21/20 from route1_floats.json; k sub-boxes 5 x 5, 24 balls of s
+  -- sub-segment 0: k_c = 1.050000, half-width 0.050000 --
+    z = (0.3+1.3162j): |D0 - FD| <= 1.3e-15, |D1 - FD| <= 2.5e-15; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True  -> ok
+    z = (-1.35+0j): |D0 - FD| <= 8.5e-16, |D1 - FD| <= 9.9e-16; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True  -> ok
+    z = (1.757-0.003j): |D0 - FD| <= 5.4e-16, |D1 - FD| <= 5.4e-16; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True  -> ok
+    z = (2.05-0.03j): |D0 - FD| <= 4.1e-16, |D1 - FD| <= 3.6e-16; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True  -> ok
+    z = (2.11+0.55j): |D0 - FD| <= 3.7e-16, |D1 - FD| <= 3.2e-16; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True  -> ok
+  derivative self-test passes: True
+  reference: circle 2163 steps, lasso 703 steps, 28 s; ||M0||_F <= 1.426355E+0, ||M1||_F <= 7.178796E+0; F = 0.2553811015+0.1492569656j
+  Dyson constants at k_c (exponent per unit |k - k_c|, K a point): circle <= 1.132E+1 (base basis), <= 1.050E+1 (optimised gauge); lasso <= 5.979E+2, <= 4.580E+1
+  rho = 3.0: R <= 8.334E-2; precondition ok (max |w_root| 0.4649 < 1.2346); all 54075 + 17575 (step box, k-sub-box) pairs enclosed; I0 <= 1.104E+0, I1 <= 5.424E+0; gauge factors <= 2.151E+0, 1.155E+1; M_F <= 2.881E+8, M_trM0 <= 6.087E+0, M_trM1 <= 1.545E+3; n = 26 (bounds F 2.267E-4, tr M0 4.789E-12, tr M1 1.216E-9)
+  rho = 4.0: R <= 1.063E-1; precondition ok (max |w_root| 0.4868 < 1.2346); all 54075 + 17575 (step box, k-sub-box) pairs enclosed; I0 <= 1.519E+0, I1 <= 7.712E+0; gauge factors <= 2.151E+0, 1.170E+1; M_F <= 6.565E+10, M_trM0 <= 9.217E+0, M_trM1 <= 1.544E+4; n = 24 (bounds F 3.110E-4, tr M0 4.366E-14, tr M1 7.312E-11)
+  rho = 5.0: R <= 1.301E-1; precondition ok (max |w_root| 0.5095 < 1.2346); all 54075 + 17575 (step box, k-sub-box) pairs enclosed; I0 <= 2.021E+0, I1 <= 1.064E+1; gauge factors <= 2.150E+0, 1.188E+1; M_F <= 6.342E+13, M_trM0 <= 1.525E+1, M_trM1 <= 2.909E+5; n = 26 (bounds F 4.257E-5, tr M0 1.023E-17, tr M1 1.952E-13)
+  rho = 6.5: R <= 1.664E-1; precondition ok (max |w_root| 0.5449 < 1.2346); all 54075 + 17575 (step box, k-sub-box) pairs enclosed; I0 <= 2.976E+0, I1 <= 1.656E+1; gauge factors <= 2.150E+0, 1.220E+1; M_F <= 6.377E+19, M_trM0 <= 3.961E+1, M_trM1 <= 1.127E+8; n = 28 (bounds F 8.031E-4, tr M0 4.988E-22, tr M1 1.420E-15)
+  rho = 8.0: R <= 2.032E-1; precondition ok (max |w_root| 0.5821 < 1.2346); all 54075 + 17575 (step box, k-sub-box) pairs enclosed; I0 <= 4.250E+0, I1 <= 2.519E+1; gauge factors <= 2.151E+0, 1.262E+1; M_F <= 2.693E+28, M_trM0 <= 1.418E+2, M_trM1 <= 6.503E+11; n = 36 (bounds F 4.741E-5, tr M0 2.496E-31, tr M1 1.146E-21)
+  rho = 10.0: R <= 2.526E-1; precondition ok (max |w_root| 0.6346 < 1.2346); all 54075 + 17575 (step box, k-sub-box) pairs enclosed; I0 <= 6.688E+0, I1 <= 4.375E+1; gauge factors <= 2.154E+0, 1.337E+1; M_F <= 5.247E+46, M_trM0 <= 1.624E+3, M_trM1 <= 7.974E+19; n = 50 (bounds F 2.332E-4, tr M0 7.218E-48, tr M1 3.545E-31)
+  CHOSEN for sub-segment 0: rho = 4.0, n = 24 (25 Chebyshev points)   [48 s]
+  gauge of the chosen row: C0 = [[0.930032+0.000000j, 0.347288-0.091852j], [0.000000+0.000000j, 1.075231+0.000000j]], C1 = [[0.228215+0.000000j, -3.433938+0.250609j], [0.000000+0.000000j, 4.381825+0.000000j]]; ||C||_F ||C^-1||_F <= 2.151E+0 (circle), 3.111E+1 (lasso); ||M_c C||_F ||C^-1||_F <= 2.151E+0, 1.170E+1; ||C^-1 M_c C||_F <= 1.428E+0, 4.888E+0
+  prove: 48 s, peak rss 35 MB
+== verdict (v2; node values: partB evaluator, route1_seg_nodes.jsonl) == spin 3/5|k in [1, 1.1]; NSEG = 1
+  sub-segment 0 (k_c = 1.050000; rho = 4.0, n = 24; proved M_F <= 6.565E+10, M_trM0 <= 9.217E+0, M_trM1 <= 1.544E+4):
+    F:     min |p| >= 0.265334372; proved error bound <= 3.110E-4  -> |F| >= 0.265023401; F != 0: True
+    tr M0: min |p| >= 1.993158418; proved error bound <= 4.366E-14  -> |tr M0| >= 1.993158418; tr M0 != 0: True
+    tr M1: min |Im p| >= 2.648820919; proved error bound <= 7.312E-11  -> |Im tr M1| >= 2.648820919; tr M1 not in [-2, 2]: True
+    control, planted zero (F - F(k_c)): min |p| >= 0.000e+00, bound 3.110E-4 -> certificate REFUSED (as it must be)
+  VERDICT: CERTIFIED  (F != 0, tr M0 != 0, tr M1 not in [-2, 2] for every real k in [1, 1.1])
+  -- controls --
+  planted zero refused on every sub-segment: True
+  planted precondition at k = 4.2 +- 0.01 (complex box): certified False; a zero of 1 - k phi has |w| up to 10.4094 >= 1.2346: inside the Laurent disc
+  planted precondition at k = 4.01 +- 0.001 (complex box): certified False; a zero of 1 - k phi has |w| up to 1.3431 >= 1.2346: inside the Laurent disc
+  planted precondition at k = 4.0 +- 0.001 (complex box): certified True; max |w_root| 1.0996 < 1.2346
+  planted precondition at k = 1.05 +- 0.2 (complex box): certified True; max |w_root| 0.5789 < 1.2346
+  held-out, sub-segment 0, t = -5/8: |p - f| in [0.0e+00, 1.4e-07] (F), [0.0e+00, 9.0e-11] (tr M0), [0.0e+00, 1.3e-10] (tr M1)
+  held-out, sub-segment 0, t = 1/8: |p - f| in [0.0e+00, 1.3e-07] (F), [0.0e+00, 9.0e-11] (tr M0), [0.0e+00, 1.3e-10] (tr M1)
+  held-out, sub-segment 0, t = 3/4: |p - f| in [0.0e+00, 1.3e-07] (F), [0.0e+00, 9.2e-11] (tr M0), [0.0e+00, 1.2e-10] (tr M1)
+  held-out points consistent with interpolant +- bound: True
+  proved M >= sampled on the ellipse rho = 4.0 of sub-segment 0 (8 points): sampled max |F| 0.3629, |tr M0| 1.9950, |tr M1| 2.8860 -> True (overestimate x1.8e+11, x4.6e+00, x5.3e+03)
+  engine F, tr M0, tr M1 at k = 11/10 (an end node; the engine used its own lasso of that k): inside the node enclosures [True, True, True]; node radius of F 6.2e-09
+  engine F, tr M0, tr M1 at k = 1 (an end node; the engine used its own lasso of that k): inside the node enclosures [True, True, True]; node radius of F 3.8e-09
+  shrunken M (all bounds / 1e12): verdict still passes True; held-out inconsistencies: none; below the SAMPLED maximum for: ['F', 'tr M0', 'tr M1']
+  peak rss 30 MB
+== nodes (arb evaluator) == NSEG = 1; 0 records already on disk
+  spin 3/5|k in [1, 1.1]|seg0/1|n=24|node0: 27.3 s, steps [2163, 703], radius of F 1.4e-09
+  spin 3/5|k in [1, 1.1]|seg0/1|n=24|node1: 27.12 s, steps [2163, 703], radius of F 1.4e-09
+  spin 3/5|k in [1, 1.1]|seg0/1|n=24|node2: 27.43 s, steps [2163, 703], radius of F 1.4e-09
+  spin 3/5|k in [1, 1.1]|seg0/1|n=24|node3: 27.68 s, steps [2163, 703], radius of F 1.4e-09
+  spin 3/5|k in [1, 1.1]|seg0/1|n=24|node4: 27.43 s, steps [2163, 703], radius of F 1.4e-09
+  spin 3/5|k in [1, 1.1]|seg0/1|n=24|node5: 27.5 s, steps [2162, 703], radius of F 1.4e-09
+  spin 3/5|k in [1, 1.1]|seg0/1|n=24|node6: 27.16 s, steps [2162, 703], radius of F 1.4e-09
+  spin 3/5|k in [1, 1.1]|seg0/1|n=24|node7: 27.48 s, steps [2162, 703], radius of F 1.4e-09
+  spin 3/5|k in [1, 1.1]|seg0/1|n=24|node8: 27.36 s, steps [2162, 703], radius of F 1.4e-09
+  spin 3/5|k in [1, 1.1]|seg0/1|n=24|node9: 26.92 s, steps [2162, 703], radius of F 1.4e-09
+  spin 3/5|k in [1, 1.1]|seg0/1|n=24|node10: 27.31 s, steps [2163, 703], radius of F 1.4e-09
+  spin 3/5|k in [1, 1.1]|seg0/1|n=24|node11: 25.47 s, steps [2163, 703], radius of F 1.4e-09
+  spin 3/5|k in [1, 1.1]|seg0/1|n=24|node12: 25.49 s, steps [2163, 703], radius of F 1.4e-09
+  spin 3/5|k in [1, 1.1]|seg0/1|n=24|node13: 25.58 s, steps [2163, 703], radius of F 1.4e-09
+  spin 3/5|k in [1, 1.1]|seg0/1|n=24|node14: 25.27 s, steps [2163, 703], radius of F 1.4e-09
+  spin 3/5|k in [1, 1.1]|seg0/1|n=24|node15: 25.64 s, steps [2163, 705], radius of F 1.4e-09
+  spin 3/5|k in [1, 1.1]|seg0/1|n=24|node16: 25.75 s, steps [2163, 705], radius of F 1.4e-09
+  spin 3/5|k in [1, 1.1]|seg0/1|n=24|node17: 25.25 s, steps [2163, 705], radius of F 1.4e-09
+  spin 3/5|k in [1, 1.1]|seg0/1|n=24|node18: 25.63 s, steps [2164, 705], radius of F 1.4e-09
+  spin 3/5|k in [1, 1.1]|seg0/1|n=24|node19: 25.72 s, steps [2164, 706], radius of F 1.4e-09
+  spin 3/5|k in [1, 1.1]|seg0/1|n=24|node20: 24.23 s, steps [2164, 706], radius of F 1.4e-09
+  spin 3/5|k in [1, 1.1]|seg0/1|n=24|node21: 23.62 s, steps [2164, 706], radius of F 1.4e-09
+  spin 3/5|k in [1, 1.1]|seg0/1|n=24|node22: 23.47 s, steps [2164, 706], radius of F 1.4e-09
+  spin 3/5|k in [1, 1.1]|seg0/1|n=24|node23: 23.56 s, steps [2164, 706], radius of F 1.4e-09
+  spin 3/5|k in [1, 1.1]|seg0/1|n=24|node24: 23.57 s, steps [2164, 706], radius of F 1.4e-09
+  spin 3/5|k in [1, 1.1]|seg0/1|held t=-5/8: 23.71 s, steps [2163, 705], radius of F 1.4e-09
+  spin 3/5|k in [1, 1.1]|seg0/1|held t=1/8: 23.73 s, steps [2163, 703], radius of F 1.4e-09
+  spin 3/5|k in [1, 1.1]|seg0/1|held t=3/4: 24.19 s, steps [2162, 703], radius of F 1.4e-09
+  spin 3/5|k in [1, 1.1]|seg0/1|ellipse0/8 rho=4.0: 24.15 s, steps [2164, 702], radius of F 1.4e-09
+  spin 3/5|k in [1, 1.1]|seg0/1|ellipse1/8 rho=4.0: 24.31 s, steps [2166, 702], radius of F 1.4e-09
+  spin 3/5|k in [1, 1.1]|seg0/1|ellipse2/8 rho=4.0: 24.77 s, steps [2165, 703], radius of F 1.3e-09
+  spin 3/5|k in [1, 1.1]|seg0/1|ellipse3/8 rho=4.0: 24.44 s, steps [2164, 708], radius of F 1.4e-09
+  spin 3/5|k in [1, 1.1]|seg0/1|ellipse4/8 rho=4.0: 24.16 s, steps [2164, 708], radius of F 1.4e-09
+  spin 3/5|k in [1, 1.1]|seg0/1|ellipse5/8 rho=4.0: 24.09 s, steps [2164, 708], radius of F 1.5e-09
+  spin 3/5|k in [1, 1.1]|seg0/1|ellipse6/8 rho=4.0: 24.1 s, steps [2162, 703], radius of F 1.5e-09
+  spin 3/5|k in [1, 1.1]|seg0/1|ellipse7/8 rho=4.0: 23.96 s, steps [2163, 702], radius of F 1.5e-09
+  nodes: wall 915 s this call; peak rss 32 MB
+== verdict (v2; node values: arb evaluator, route1_seg_nodes_arb.jsonl) == spin 3/5|k in [1, 1.1]; NSEG = 1
+  sub-segment 0 (k_c = 1.050000; rho = 4.0, n = 24; proved M_F <= 6.565E+10, M_trM0 <= 9.217E+0, M_trM1 <= 1.544E+4):
+    F:     min |p| >= 0.265334372; proved error bound <= 3.110E-4  -> |F| >= 0.265023401; F != 0: True
+    tr M0: min |p| >= 1.993158418; proved error bound <= 4.366E-14  -> |tr M0| >= 1.993158418; tr M0 != 0: True
+    tr M1: min |Im p| >= 2.648820919; proved error bound <= 7.312E-11  -> |Im tr M1| >= 2.648820919; tr M1 not in [-2, 2]: True
+    control, planted zero (F - F(k_c)): min |p| >= 0.000e+00, bound 3.110E-4 -> certificate REFUSED (as it must be)
+  VERDICT: CERTIFIED  (F != 0, tr M0 != 0, tr M1 not in [-2, 2] for every real k in [1, 1.1])
+  -- controls --
+  planted zero refused on every sub-segment: True
+  planted precondition at k = 4.2 +- 0.01 (complex box): certified False; a zero of 1 - k phi has |w| up to 10.4094 >= 1.2346: inside the Laurent disc
+  planted precondition at k = 4.01 +- 0.001 (complex box): certified False; a zero of 1 - k phi has |w| up to 1.3431 >= 1.2346: inside the Laurent disc
+  planted precondition at k = 4.0 +- 0.001 (complex box): certified True; max |w_root| 1.0996 < 1.2346
+  planted precondition at k = 1.05 +- 0.2 (complex box): certified True; max |w_root| 0.5789 < 1.2346
+  held-out, sub-segment 0, t = -5/8: |p - f| in [0.0e+00, 1.4e-07] (F), [0.0e+00, 9.0e-11] (tr M0), [0.0e+00, 1.3e-10] (tr M1)
+  held-out, sub-segment 0, t = 1/8: |p - f| in [0.0e+00, 1.3e-07] (F), [0.0e+00, 9.0e-11] (tr M0), [0.0e+00, 1.3e-10] (tr M1)
+  held-out, sub-segment 0, t = 3/4: |p - f| in [0.0e+00, 1.3e-07] (F), [0.0e+00, 9.2e-11] (tr M0), [0.0e+00, 1.2e-10] (tr M1)
+  held-out points consistent with interpolant +- bound: True
+  proved M >= sampled on the ellipse rho = 4.0 of sub-segment 0 (8 points): sampled max |F| 0.3629, |tr M0| 1.9950, |tr M1| 2.8860 -> True (overestimate x1.8e+11, x4.6e+00, x5.3e+03)
+  engine F, tr M0, tr M1 at k = 11/10 (an end node; the engine used its own lasso of that k): inside the node enclosures [True, True, True]; node radius of F 6.2e-09
+  engine F, tr M0, tr M1 at k = 1 (an end node; the engine used its own lasso of that k): inside the node enclosures [True, True, True]; node radius of F 3.8e-09
+  shrunken M (all bounds / 1e12): verdict still passes True; held-out inconsistencies: none; below the SAMPLED maximum for: ['F', 'tr M0', 'tr M1']
+  peak rss 30 MB

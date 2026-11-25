@@ -4,6 +4,11 @@
 `docs/BRIEF_FABLE_ROUTE1_SEGMENT_2026-11-26.md` (brief v1). Branch `fable/2026-11-26-route1-seg`.
 A single-segment build-and-measure step, not the route-(i) registration.
 
+**Version 2 (same day, the Bridge's follow-up): see §13–§15.** Every bound is now a ball from the first evaluation
+to the printed verdict numbers, the enclosure of dq/dk is asserted complete, and the gauge is spelled out. The
+verdict and all three lower bounds are unchanged. §0–§12 describe version 1 (commit 604d520) and are left as written,
+except where a line says "v2".
+
 ## 0. Result
 
 **VERDICT: CERTIFIED.** For every real k ∈ [1, 1.1], at spin 3/5 and E = 4/5:
@@ -55,6 +60,7 @@ count would have been in the hundreds.
   one.
 - **Upward rounding of the final float steps.** Sums are in Arb; the last conversions (exp, the M products, the
   error formula) are Python floats, each inflated by 1 + 1e−7. This is not directed rounding.
+  **v2: closed.** See §13.
 - **The two-implementation rule.** This is one implementation.
 
 ## 2. The method
@@ -287,7 +293,143 @@ footprint 16 MB (top MEM), peak RSS 33 MB.
 /Users/sumit/Github/quantum/sims/.venv/bin/python -I scripts/_nve_route1_segment.py verdict 1
 ```
 
+**v2** (the same interpreter; `verdict 1 partB` needs only the proof stage, `verdict 1 arb` needs `nodes 1 arb`):
+
+```bash
+/Users/sumit/Github/quantum/sims/.venv/bin/python -I scripts/_nve_route1_segment_v2.py prove 1
+```
+```bash
+/Users/sumit/Github/quantum/sims/.venv/bin/python -I scripts/_nve_route1_segment_v2.py verdict 1 partB
+```
+```bash
+/Users/sumit/Github/quantum/sims/.venv/bin/python -I scripts/_nve_route1_segment_v2.py nodes 1 arb
+```
+```bash
+/Users/sumit/Github/quantum/sims/.venv/bin/python -I scripts/_nve_route1_segment_v2.py verdict 1 arb
+```
+
+v2 outputs: `route1_seg_3_5_v2.out`, `route1_seg_M_v2_nseg1.json`, `route1_seg_nodes_arb.jsonl`,
+`route1_seg_verdict_v2_partB_nseg1.json`, `route1_seg_verdict_v2_arb_nseg1.json`.
+
 Outputs in `data/nve/eps/`: `route1_seg_identity.out`, `route1_seg_3_5.out` (the log of all three stages),
 `route1_seg_M_nseg1.json` (the proved M and every ρ row), `route1_seg_nodes.jsonl` (one line per point evaluation;
 a rerun resumes), `route1_seg_verdict_nseg1.json`, `route1_seg_3_5_dev.out` (the first, looser proof run),
 `route1_seg_consts.out`.
+
+## 13. Version 2: no bound relies on float rounding
+
+`scripts/_nve_route1_segment_v2.py` (version 1's file is left as committed). Log: `data/nve/eps/route1_seg_3_5_v2.out`.
+
+**What changed.**
+
+- Every bound is an Arb ball or an exact upper end of one: the precondition comparison, the Dyson sums and exponents,
+  exp, the gauge norms, M, the error formula, the node inflation, the sub-ball comparisons and the three lower bounds.
+- Printed bounds are rounded outward in decimal and re-checked against the ball (`lo_dec`, `hi_sci`).
+- The point evaluator is re-implemented in the same file with ball tails: the Laurent Cauchy bound, the Laurent tail
+  and the Taylor tail. Part B's evaluator computes these three as floats with a 1 + 1e−7 inflation.
+- The covers are exact: the 400 arcs of the Laurent circle, the 24 balls of s, the k-sub-boxes and the 256 balls of
+  θ are built as centre + radius·[−1, 1] in ball arithmetic, with asserts that neighbours share their end points.
+
+**Where floats remain, and why that is harmless.** Only as choices that any value of would be valid for: polygon
+vertices and step points (binary numbers, converted exactly), the disc radius ρ_step of a Taylor step, the Bernstein
+ρ and n, the gauge matrix C, and the sample points of the controls. Display-only numbers (ratios, times) are floats.
+
+**A gap found in Part B's walk while doing this.** `_nve_route1_proto.walk` computes the end point of each polygon
+edge in floats, `P0 + (P1 − P0)·((done + h)/seglen)`, and starts the next edge at the vertex `P1`. The two can differ
+by rounding, and the edge loop stops once it is within 1e−15 of the edge length, so the transport can skip a gap of
+up to about 1e−15 at a vertex. The effect is far below the enclosure radii (1e−9 on F), but it is not covered by
+them. The v2 walk ends every edge exactly on its vertex and asserts the polygon is closed. I read this off the code;
+I did not measure whether a gap actually occurred in any Part B evaluation.
+
+**The paths of different k.** A walk follows the polyline through its own binary step points. These sit on the
+polygon's edges up to rounding of the point (1e−16) and differ between k, because the step lengths adapt. All of them
+lie inside the reference walk's step boxes, where q is certified holomorphic for every k in the disc, so they are
+homotopic and give the same monodromy as the reference polyline that the Dyson bound uses.
+
+**Result: does any lower bound change?**
+
+| | v1 (floats at the end, Part B nodes) | v2 chain, Part B nodes | v2 chain, v2 all-ball nodes |
+|---|---|---|---|
+| proved M_F | 6.565e10 | ≤ 6.565E+10 | same proof stage |
+| error bound on F | 3.110e−4 | ≤ 3.110E−4 | same |
+| \|F\| ≥ | 0.265023 | 0.265023401 | 0.265023401 |
+| \|tr M0\| ≥ | 1.993158 | 1.993158418 | 1.993158418 |
+| \|Im tr M1\| ≥ | 2.648821 (printed) | 2.648820919 | 2.648820919 |
+| verdict | CERTIFIED | CERTIFIED | CERTIFIED |
+| controls | as §7 | identical outcomes | identical outcomes |
+
+- No lower bound changed at the digits shown, with one printing exception: v1 printed 2.648821 for |Im tr M1| by
+  rounding to nearest, which rounded 2.6488209 up. The certified value is 2.648820919. §0 quoted 2.64882, which was
+  already safe.
+- The proof stage reproduces version 1's constants to the digits printed (M_F, the exponents 1.519 and 7.712, the
+  gauge factors).
+- **The two node sets agree.** All 36 evaluations were rerun with the all-ball evaluator (915 s at nice 12). All 108
+  enclosures (F, tr M0, tr M1 at 25 nodes, 3 held-out points and 8 ellipse points) overlap Part B's; 107 of the 108
+  printed enclosures are identical strings, the midpoints agree to float resolution, and the step counts are the same
+  in all 36 records. So neither the float tails nor the vertex gap moved any value at the precision carried.
+
+## 14. How dq/dk is enclosed over the whole k-disc and every path box (not sampled)
+
+Line numbers are in `scripts/_nve_route1_segment_v2.py`.
+
+1. **The path boxes.** `walk(..., record=True)` (l. 261) returns, for every Taylor step, a box Z = z_c + h/2 +
+   (|h|/2)·([−1, 1] + i[−1, 1]) (built in `step`, l. 203; `hb`). Z is convex and the assert at l. 287 checks that it
+   contains both ends of the step, so it contains the whole step segment. Steps chain exactly: each starts at the
+   binary point where the last one ended, each edge ends on its vertex (`while pos != P1`), and the polygon is closed
+   (assert, l. 266). So the boxes cover the loop with no gap: 2,163 boxes on the circle, 703 on the lasso.
+2. **The k-region.** `kbox` (l. 394) builds the closed square K of half-side R around k_c, which contains the disc
+   |k − k_c| ≤ R, and cuts K − k_c into 5 × 5 closed sub-boxes. None is dropped. The asserts at l. 404–407 fail unless
+   each cell contains both of its edges, the outer edges reach ±R, and there are exactly 25.
+3. **One enclosure per (path box, k-sub-box).** `dq_sup` (l. 351) evaluates dq/dk with Z and the sub-box δk as balls,
+   so the result contains dq/dk(z; k) for every z in Z and every k in k_c + δk. Nothing is evaluated at a point:
+   - c0, c0′ and their k-derivatives at k_c on Z: `c0_at(Z, ·)` (l. 173), a polynomial in the ball 1/Z plus the
+     Cauchy tail;
+   - the second k-derivative on Z × K: `d2kc0` (l. 330). Each of the 24 balls of s carries an enclosure of the
+     integrand; the integral over that ball lies in (enclosure) × (width);
+   - Taylor in k with that second derivative as remainder, then the chain rule (2b).
+4. **Refusals are not skips.** `dq_sup` returns None if G1 or G2 may vanish, if Re(1 − kφ) > 0 is not certified, or
+   if the result is not finite. `dq_list` (l. 411) then returns None for the whole loop, and `prove` rejects that ρ
+   and prints where it failed. A ρ row is used only if both loops returned a full list.
+5. **The asserts that fail if anything was skipped or non-finite.**
+   - l. 390: the number of sub-boxes evaluated on this path box equals the number given, and the supremum is finite;
+   - l. 423: one value per step, the total count equals steps × 25, every value finite;
+   - l. 574: the two counts equal 2,163 × 25 = 54,075 and 703 × 25 = 17,575;
+   - l. 733: the verdict stage refuses a proof file whose counts differ from the expected ones;
+   - l. 325–327 (`coverage_asserts`, run at the start of `prove` and `verdict`): the balls of s cover [0, 1] and the
+     balls of θ cover [0, π].
+   The log prints "all 54075 + 17575 (step box, k-sub-box) pairs enclosed" on every ρ row.
+6. **From the enclosure to the bound.** The disc is convex, so for k in it
+   |q(z; k) − q(z; k_c)| ≤ |k − k_c|·sup over the segment from k_c to k of |dq/dk| ≤ R·(largest of the 25 enclosures).
+   `dyson_sum` (l. 452) then adds sup|dq/dk| × sup|(v1, v2)C|² × |h| over all steps, in balls.
+
+**What this does not cover.** The Dyson step that turns this into a bound on M is the hand derivation of §2.
+
+## 15. Gauge legitimacy
+
+**The claim used.** For any constant invertible C, write Y_k = Φ_c C T C⁻¹. Then T(base) = I and
+T′ = −Δq·(Φ_cC)⁻¹E21(Φ_cC)·T. C does not depend on z or k, so T is as holomorphic in k as Y_k is, and the bound
+‖T‖₂ ≤ e^I needs only det C ≠ 0. A poor C gives a larger M, never a wrong one. That is why C may be chosen in floats
+from the data: nothing about the choice needs proof. The certificate converts the float entries exactly, asserts
+det C ≠ 0 (l. 456), and recomputes every quantity that involves C in balls (`dyson_sum`, `gauge_norms`).
+
+**The matrices of the certified row** (ρ = 4; upper triangular, det = 1 to float accuracy, so C⁻¹ = [[d, −b], [0, a]]
+for C = [[a, b], [0, d]]):
+
+| loop | C | C⁻¹ | ‖C‖_F‖C⁻¹‖_F |
+|---|---|---|---|
+| circle | [[0.930032, 0.347288 − 0.091852i], [0, 1.075231]] | [[1.075231, −0.347288 + 0.091852i], [0, 0.930032]] | ≤ 2.151 |
+| lasso | [[0.228215, −3.433938 + 0.250609i], [0, 4.381825]] | [[4.381825, 3.433938 − 0.250609i], [0, 0.228215]] | ≤ 31.11 |
+
+**How the condition number enters.** M(k) = M_c C T C⁻¹, so
+‖M(k)‖_F ≤ ‖M_cC‖_F·‖C⁻¹‖_F·e^I ≤ κ_F(C)·‖M_c‖_F·e^I, with κ_F(C) = ‖C‖_F‖C⁻¹‖_F.
+
+- The code uses the sharper middle expression, not κ_F: ‖M_cC‖_F‖C⁻¹‖_F ≤ 2.151 on the circle and 11.70 on the lasso.
+  With κ_F it would be 2.151 × 1.4264 = 3.07 and 31.11 × 7.1788 = 223.
+- For the traces, tr M(k) = tr(C⁻¹M_cC·T), so |tr M(k)| ≤ √2·‖C⁻¹M_cC‖_F·e^I, with ‖C⁻¹M_cC‖_F ≤ 1.428 and 4.888.
+- Each factor enters M_F squared: (2.151 × 11.70)² ≈ 633, against (1.4264 × 7.1788)² ≈ 105 with no gauge.
+
+**What the gauge buys for that price.** The lasso's Dyson constant at k_c falls from ≤ 597.9 to ≤ 45.80 per unit k
+(circle: 11.32 to 10.50). On the certified disc that is roughly e^{2·0.106·550} in M_F, against the factor 6 paid.
+
+**Each loop and each ρ row has its own C.** That is allowed: the bounds for M0 and M1 are proved separately and only
+multiplied at the end.

@@ -73,3 +73,53 @@ Interpreter for all Arb work: `/Users/sumit/Github/quantum/sims/.venv/bin/python
 - An independent second implementation.
 - A tighter bound on F (see `ROUTE1_SEGMENT.md` §10, last bullet): it would cut the node count further.
 - The step-size fix of B5.
+
+---
+
+# Follow-up, same day: version 2 (the Bridge's three items)
+
+**[model: Fable 5.2] UNVERIFIED.** Same branch, new commit on top of 604d520. Write-up: `ROUTE1_SEGMENT.md` §13–§15.
+
+## What was asked, and what came out
+
+1. **No float rounding up to the verdict numbers.** Done in a new file, `scripts/_nve_route1_segment_v2.py`; version
+   1's file is untouched so that 604d520 stays reproducible. The verdict is unchanged and no lower bound moved: |F| ≥ 0.265023401, |tr M0| ≥ 1.993158418, |Im tr M1| ≥ 2.648820919, on Part B's node values and on a fresh set from an all-ball evaluator alike. One v1 print was rounded up (2.648821 for |Im tr M1|); the certified value is 2.648820919.
+2. **How dq/dk is enclosed, with code pointers and asserts.** `ROUTE1_SEGMENT.md` §14. The asserts count every
+   (path box, k-sub-box) pair: 54,075 on the circle and 17,575 on the lasso, all enclosed, none skipped.
+3. **Gauge legitimacy.** `ROUTE1_SEGMENT.md` §15: the two matrices, their inverses, and how the condition number
+   enters.
+
+## A finding the office should know about
+
+Part B's `walk` (`_nve_route1_proto.py`) can leave a gap of up to about 1e−15 at a polygon vertex: the edge's end
+point is computed in floats and the next edge starts at the vertex itself. It is far below the enclosure radii but
+not covered by them. Read off the code, not measured. The v2 walk closes it. This touches the office-reproduced Part B
+point enclosures in the formal sense only.
+
+## Files added
+
+| file | what |
+|---|---|
+| `scripts/_nve_route1_segment_v2.py` | the all-ball certifier and point evaluator; stages `prove 1`, `nodes 1 arb`, `verdict 1 arb`, `verdict 1 partB` |
+| `data/nve/eps/route1_seg_3_5_v2.out` | log of the v2 stages |
+| `data/nve/eps/route1_seg_M_v2_nseg1.json` | the proved M as ball strings, box counts, gauge matrices |
+| `data/nve/eps/route1_seg_nodes_arb.jsonl` | point evaluations by the v2 evaluator (one line each) |
+| `data/nve/eps/route1_seg_verdict_v2_partB_nseg1.json`, `..._arb_nseg1.json` | verdicts on the two node sets |
+
+## Runs (one process, nice 12, shared core)
+
+| run | time | note |
+|---|---|---|
+| v2 proof stage, first try | 60 s | stopped at ρ = 8 on a printing error (Python decimal precision too small for 2.7e28); nothing was written. Fixed by raising the decimal precision; rerun below |
+| v1 proof stage, by mistake | 47 s | my write of the new file failed and the old script ran again; it only appended a duplicate block to two v1 outputs, which I restored from git |
+| v2 proof stage | 48 s | |
+| v2 verdict on Part B nodes | 2 s | |
+| v2 nodes (all-ball evaluator) | 915 s | 36 evaluations at about 27 s |
+| v2 verdict on those | 2 s | |
+
+## What the office should check in v2
+
+- `lo_dec` / `hi_sci`: the printed decimal is re-checked against the ball before printing.
+- `walk`: `nxt = P1 if rem <= rho/4 else ...`; the loop ends only when `pos == P1`.
+- `step` against Part B's `step`: same recurrence and majorant; tails as balls; extra return values.
+- The paragraph "The paths of different k" in §13.
