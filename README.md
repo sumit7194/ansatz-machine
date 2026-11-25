@@ -356,3 +356,11 @@ This repo supplies the exact, proof-backed answers the others check their
 inferred/measured/simulated ones against; §111–§123 (Kaluza–Klein, Jacobson,
 Cartan–Karlhede, the emit-legibility theorem) all originated as asks from that
 collaboration.
+
+## AI assistance
+This work was carried out with AI assistance: Claude (Anthropic) for code, analysis, literature checks and drafting,
+and Gemini (Google) for hostile referee reads and cross-checks. AI outputs were treated as unverified until checked;
+every result reported as established was verified independently, by exact symbolic computation, exact linear algebra
+over two finite fields, independent reimplementations and 50-digit numerics with must-fail controls, interval-
+arithmetic certificates where stated, and sources read at source; results not yet verified this way are labelled as
+relayed, numerical or unverified. The author takes full responsibility for the content.

@@ -50,7 +50,7 @@ Paths are relative to the repository root.
 | a_c ≈ 0.858446 | `scripts/_nve_ac.py` | `data/nve/ac_secant.out`, `ac_circle.out` | post hoc |
 | a⁷–a⁸ weakening | `scripts/_nve_endpoint_scaling.py` | `data/nve/endpoint_scaling.out` | — |
 | no zeros split off k = 0 | analytic (`MRS_SECTION.md` §5d), with the counts above | — | — |
-| Statement A: c2 formula and interval certificate (spins 3/10, 3/5, 4/5, 9/10) | `scripts/_nve_c2_analytic.py`, `scripts/_nve_c2_certify.py` | `data/nve/c2/analytic_*.out`, `certify_*.out` (planted must-fail kept) | — (Fable side-session; verified) |
+| Statement A: c2 formula and interval certificate (spins 3/10, 3/5, 4/5, 9/10) | `scripts/_nve_c2_analytic.py`, `scripts/_nve_c2_certify.py` | `data/nve/c2/analytic_*.out`, `certify_*.out` (planted must-fail kept) | — (separate AI side-session; verified) |
 | Statement A: verification (exact sympy; 50-digit engine at 7 spins) | `scripts/_nve_c2_sympy_check.py`, `scripts/_nve_c2_engine_check.py` | `data/nve/c2_sympy_check.out`, `c2_engine_check.out` | — |
 | e₋ = 1/e₊ (Kerr; an asymmetric two-mass check) | `scripts/_nve_t51_axis_check.py` | `data/nve/t51_axis_check.out` | — |
 | the family is not reflection-symmetric | `scripts/_nve_family2_reflection.py` | `data/nve/family2_reflection.out` | — |
@@ -73,18 +73,19 @@ Paths are relative to the repository root.
   control; each pre-registration says how, and the outputs record the agreement.
 
 ## How this was made
-- **AI assistance.** This work was developed with substantial assistance from Anthropic's Claude, which:
-  - wrote and ran most of the code;
-  - checked the literature at source;
-  - drafted the documents.
-- **Author's role.** The author chose the questions, directed and reviewed the work, and takes responsibility for it.
-- **Other AI sessions.**
-  - The referee rounds (T38, T51), and the referee reads of the outreach reply, were hostile reads by Google's
-    Gemini ("Neon"), working as a separate reviewer session; T-numbers are its task numbers.
-  - Several cross-checks were done blind by other AI sessions working on separate projects. The documents call them
-    "relayed" until reproduced here. "The Bridge" (the coordinating and cross-checking session) and the other
-    sessions are Anthropic's Claude models working under the author's direction. "Neon" (the reviewer) is
-    Google's Gemini.
+**AI assistance.** This work was carried out with AI assistance: Claude (Anthropic) for code, analysis, literature
+checks and drafting, and Gemini (Google) for hostile referee reads and cross-checks. AI outputs were treated as
+unverified until checked; every result reported as established was verified independently, by exact symbolic
+computation, exact linear algebra over two finite fields, independent reimplementations and 50-digit numerics with
+must-fail controls, interval-arithmetic certificates where stated, and sources read at source; results not yet
+verified this way are labelled as relayed, numerical or unverified. The author takes full responsibility for the
+content.
+- **Author's role.** The author chose the questions, directed and reviewed the work.
+- **Names in the documents.** Names such as "the Bridge" (the coordinating and cross-checking session) and "Neon" (the
+  referee; T-numbers are its task numbers), and the `[model: …]` tags in commit messages, refer to individual AI
+  sessions working under the author's direction.
+- **Relayed results.** Several cross-checks were done blind by AI sessions working on separate projects. The documents
+  call them "relayed" until reproduced here.
 - **Review.** No professional physicist has reviewed this yet. Corrections are very welcome.
 
 Author: Sumit Pal (independent researcher).

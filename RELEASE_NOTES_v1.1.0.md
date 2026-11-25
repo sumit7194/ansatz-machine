@@ -44,15 +44,21 @@ number in the main claim changed.
   - `scripts/_nve_rodend_c0.py` → `data/nve/rodend_c0.out`.
 
 ## Credit
-- **The c2 formula and its interval certificate:** a Fable side-session. Branch `fable/2026-11-25-c2-analytic`,
+- **The c2 formula and its interval certificate:** a separate AI side-session. Branch `fable/2026-11-25-c2-analytic`,
   commits 5b6110b and 8d8d04c, brought into main as 66873a2 and 29d2555.
 - **Independent verification:** the ansatz-machine session, commit c3766aa (`data/nve/C2_OFFICE_CHECK.md`).
 - **The §5b error and the Prop. 2 inconsistency:** found by an independent reader, organised by the coordinating
   session ("the Bridge").
-- **The §1 point:** raised by a hostile referee read by Google's Gemini ("Neon").
-- **How it was made:** the sessions above are Anthropic's Claude models working under the author's direction, plus one
-  referee read by Google's Gemini, as described in `ONLY_KERR.md`. The author chose the questions, reviewed the work,
-  and takes responsibility for it.
+- **The §1 point:** raised by a hostile referee read (the referee session "Neon").
+- All of these are AI sessions working under the author's direction. See the paragraph below.
+
+## AI assistance
+This work was carried out with AI assistance: Claude (Anthropic) for code, analysis, literature checks and drafting,
+and Gemini (Google) for hostile referee reads and cross-checks. AI outputs were treated as unverified until checked;
+every result reported as established was verified independently, by exact symbolic computation, exact linear algebra
+over two finite fields, independent reimplementations and 50-digit numerics with must-fail controls, interval-
+arithmetic certificates where stated, and sources read at source; results not yet verified this way are labelled as
+relayed, numerical or unverified. The author takes full responsibility for the content.
 
 ## Citation
 Cite all versions as DOI 10.5281/zenodo.24431694. This version (v1.1.0) is DOI 10.5281/zenodo.24533026.

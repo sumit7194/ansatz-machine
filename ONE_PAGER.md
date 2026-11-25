@@ -61,8 +61,13 @@ its rotation (twist) profile, does the integrability survive?
 - Every link of the applicability argument is checked or cited at source, including our own convergence proof (not yet independently checked) for
   the off-axis metric.
 
-**How it was made.** Developed with substantial assistance from Anthropic's Claude, which wrote and ran most of the
-code, checked the literature and drafted the documents. The hostile referee reads were by Google's Gemini. The author chose the questions, directed and reviewed the
-work, and takes responsibility for it. No professional review yet; corrections are welcome.
+**AI assistance.** This work was carried out with AI assistance: Claude (Anthropic) for code, analysis, literature
+checks and drafting, and Gemini (Google) for hostile referee reads and cross-checks. AI outputs were treated as
+unverified until checked; every result reported as established was verified independently, by exact symbolic
+computation, exact linear algebra over two finite fields, independent reimplementations and 50-digit numerics with
+must-fail controls, interval-arithmetic certificates where stated, and sources read at source; results not yet
+verified this way are labelled as relayed, numerical or unverified. The author takes full responsibility for the
+content.
+No professional review yet; corrections are welcome.
 
 Sumit Pal (independent researcher) · code, data and full write-up: `ONLY_KERR.md` in github.com/sumit7194/ansatz-machine

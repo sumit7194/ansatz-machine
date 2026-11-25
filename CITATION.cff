@@ -16,10 +16,8 @@ abstract: >-
   Since v1.1.0, one local piece near Kerr is rigorous relative to the applicability chain ("Statement A"): at each
   tested spin the monodromy is Zariski-dense for all sufficiently small twists, from a closed-form k^2 coefficient
   certified nonzero in interval arithmetic; the overall result remains numerical, not a theorem.
-  Developed with substantial assistance from Anthropic's Claude AI models (several versions), which wrote
-  most of the code and ran most of the analyses under the author's direction; the author chose the questions,
-  directed and reviewed the work, and takes responsibility for its content. The hostile referee reads were by
-  Google's Gemini.
+  AI-assisted; see the AI-assistance statement in README.md and ONLY_KERR.md. The author takes full
+  responsibility for the content.
 authors:
   - given-names: Sumit
     family-names: Pal
