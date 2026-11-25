@@ -1,0 +1,30 @@
+spin a = 227/250, E = 4/5, circle R0 = 1.30; 720 circle boxes, lasso piece length 0.003
+  float gate, closed form of Delta q against the definition: relative error 8.8e-15
+  first-order certificate: boundary bounds M = ['8.199e+00', '7.908e+00', '6.120e+00'], trapezoid errors <= ['1.5e-09', '1.5e-09', '1.2e-09']   [7 s]
+  X (Kerr basis): x11 = [-1.055724833883e-09, 1.055724833883e-09] + i [-0.1295698701352, -0.1295698680238]
+                  x12 = [-2.342626561712e-08, 2.342626561712e-08] + i [-0.3378842948132, -0.3378842464872]
+                  x21 = [-8.753572005171e-09, 8.753572005171e-09] + i [-1.199393657155e-06, -1.181886513144e-06]
+  kappa*omega = -+([1.403580804954, 1.403580804954] + i [-1.637108109741, -1.637108109741]);  tr M1(0) = [0.2859563282945, 0.2859563282945] + i [3.815626813477, 3.815626813477]
+  c2 = [-7.494470676866e-06, -7.372260854757e-06] + i [8.167931370717e-07, 9.390029308032e-07]
+  |c2| >= 7.417370e-06;  |sinh^2| <= 4.651413;  mu^2 = exp(2|Re kappa omega|) <= 16.5628;  |Im tr M1(0)| >= 3.8156
+  lasso: 52 edges, capsule radius 0.1500, 1216 pieces, length 3.5783; winding numbers about r+, r-, p+, p-: +0.999994, +0.000001, +1.000163, -0.000166
+         kappa * (U increment around the lasso) in [1.323940308077, 1.48537327468] + i [-1.711597507124, -1.565113503684]  (must contain +- kappa*omega)
+         homotopy checks: winding (1, 0, 1, 0) True; U increment consistent with omega True
+  r_ref = 0.3: holomorphy boxes ok on C and L; best certified t = 3.0984e-09  (ell_C = 2.534e+00, eps_C = 8.521e-01, ell_L = 1.789e+02, u0 = -0.200)   [18 s]
+  r_ref = 0.1: holomorphy boxes ok on C and L; best certified t = 2.9212e-08  (ell_C = 6.634e-01, eps_C = 7.720e-02, ell_L = 4.663e+01, u0 = -0.400)   [24 s]
+  r_ref = 0.03: holomorphy boxes ok on C and L; best certified t = 4.6230e-08  (ell_C = 1.897e-01, eps_C = 6.710e-03, ell_L = 1.375e+01, u0 = -0.500)   [30 s]
+  r_ref = 0.01: holomorphy boxes ok on C and L; best certified t = 5.1540e-08  (ell_C = 6.163e-02, eps_C = 7.291e-04, ell_L = 4.434e+00, u0 = -0.500)   [36 s]
+  r_ref = 0.003: holomorphy boxes ok on C and L; best certified t = 5.3418e-08  (ell_C = 1.833e-02, eps_C = 6.511e-05, ell_L = 1.315e+00, u0 = -0.500)   [43 s]
+  r_ref = 0.001: holomorphy boxes ok on C and L; best certified t = 5.3955e-08  (ell_C = 6.093e-03, eps_C = 7.219e-06, ell_L = 4.369e-01, u0 = -0.500)   [49 s]
+  r_ref = 0.0003: holomorphy boxes ok on C and L; best certified t = 5.4144e-08  (ell_C = 1.826e-03, eps_C = 6.492e-07, ell_L = 1.309e-01, u0 = -0.500)   [55 s]
+  r_ref = 0.0001: holomorphy boxes ok on C and L; best certified t = 5.4198e-08  (ell_C = 6.087e-04, eps_C = 7.212e-08, ell_L = 4.363e-02, u0 = -0.500)   [61 s]
+  r_ref = 3e-05: holomorphy boxes ok on C and L; best certified t = 5.4216e-08  (ell_C = 1.826e-04, eps_C = 6.490e-09, ell_L = 1.309e-02, u0 = -0.500)   [68 s]
+  r_ref = 1e-05: holomorphy boxes ok on C and L; best certified t = 5.4222e-08  (ell_C = 6.086e-05, eps_C = 7.211e-10, ell_L = 4.362e-03, u0 = -0.500)   [74 s]
+  r_ref = 1e-06: holomorphy boxes ok on C and L; best certified t = 5.4224e-08  (ell_C = 6.086e-06, eps_C = 7.211e-12, ell_L = 4.362e-04, u0 = -0.500)   [80 s]
+  r_ref = 1e-07: holomorphy boxes ok on C and L; best certified t = 5.4224e-08  (ell_C = 6.086e-07, eps_C = 7.211e-14, ell_L = 4.362e-05, u0 = -0.500)   [86 s]
+  |m| > 1 in the basis (v+, v-): True;  |x11|, |x12|, |x21| after scaling: 0.12957, 0.19596, 0.00000
+  constants at the best choice (r_ref = 1e-07, u0 = -0.5000): c_L = 4.3624e+02, C_E = 2.5729e+01, |X|_F <= 0.26828, ell_C/r = 6.0858e+00
+  at |k| = r: |c2| r^2 >= 2.1809e-20;  circle remainder <= 1.4956e-20;  lasso remainder <= 6.8529e-21;  eta <= 2.3655e-05;  Z1 True Z2 True Z3 True
+  sensitivity (hypothetical, NOT certified): lasso term 10x better (c_L/10): r = 7.653e-08; circle term 10x better (C_E/10): r = 1.521e-07; no conjugation loss (mu^2 -> 1): r = 5.422e-08; both 10x better: r = 5.422e-07
+  bound on |F - c2 k^2| at |k| = r: 2.180915e-20
+VERDICT spin 227/250: Statement A holds with epsilon = r = 5.422438e-08  (Z1, Z2, Z3 for all 0 < |k| <= r; interval arithmetic)   [103 s, peak 28 MB]

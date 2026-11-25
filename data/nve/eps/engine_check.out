@@ -1,0 +1,25 @@
+spin 3/5, R0 1.35: certified r = 0.0019255592, certified bound on |F - c2 k^2| at |k| = r: 8.051948e-07
+  k = 0.00192556: engine F = (7.17845762121e-7 + 3.65365115432e-7j), c2 k^2 = (7.17626997544e-7 + 3.65171746495e-7j), |F - c2 k^2| = 2.91975e-10  (<= bound: True; ratio bound/true = 2758.0); tr M0 = (1.999999982 - 1.064700356e-36j), tr M1 = (-0.9844462668 + 2.777109423j); geometry ok True
+  k = (0.0 + 0.00192556j): engine F = (-7.17433646919e-7 - 3.65390365429e-7j), c2 k^2 = (-7.17626997544e-7 - 3.65171746495e-7j), |F - c2 k^2| = 2.91854e-10  (<= bound: True; ratio bound/true = 2759.0); tr M0 = (2.000000018 + 4.601540761e-12j), tr M1 = (-0.9841388649 + 2.777143453j); geometry ok True
+  CONSISTENT: True   [46 s, peak 126 MB]
+
+spin 3/10, R0 1.1492: certified r = 0.002799958, certified bound on |F - c2 k^2| at |k| = r: 4.220292e-07
+  k = 0.00279996: engine F = (2.19089038277e-7 + 3.60887050202e-7j), c2 k^2 = (2.19060512424e-7 + 3.60723134928e-7j), |F - c2 k^2| = 1.66379e-10  (<= bound: True; ratio bound/true = 2537.0); tr M0 = (1.999999995 - 1.521490969e-48j), tr M1 = (-1.743840627 + 1.460779944j); geometry ok True
+  k = (0.0 + 0.00279996j): engine F = (-2.18896672666e-7 - 3.60751580366e-7j), c2 k^2 = (-2.19060512424e-7 - 3.60723134928e-7j), |F - c2 k^2| = 1.66291e-10  (<= bound: True; ratio bound/true = 2538.0); tr M0 = (2.000000005 + 1.058340389e-12j), tr M1 = (-1.743322099 + 1.461018869j); geometry ok True
+  CONSISTENT: True   [31 s, peak 126 MB]
+
+spin 4/5, R0 1.3382: certified r = 0.00083989696, certified bound on |F - c2 k^2| at |k| = r: 1.148565e-07
+  k = 0.000839897: engine F = (1.14392072504e-7 + 1.05265295223e-8j), c2 k^2 = (1.14374252718e-7 + 1.05149494873e-8j), |F - c2 k^2| = 2.12519e-11  (<= bound: True; ratio bound/true = 5405.0); tr M0 = (1.999999992 - 1.766318955e-35j), tr M1 = (-0.212726562 + 3.498672311j); geometry ok True
+  k = (0.0 + 0.000839897j): engine F = (-1.14362670396e-7 - 1.05327633713e-8j), c2 k^2 = (-1.14374252718e-7 - 1.05149494873e-8j), |F - c2 k^2| = 2.12482e-11  (<= bound: True; ratio bound/true = 5405.0); tr M0 = (2.000000008 + 9.060824501e-13j), tr M1 = (-0.2127954643 + 3.498716755j); geometry ok True
+  CONSISTENT: True   [118 s, peak 127 MB]
+
+spin 9/10, R0 1.2639: certified r = 0.00010630354, certified bound on |F - c2 k^2| at |k| = r: 1.796429e-10
+  k = 0.000106304: engine F = (1.7870377707e-10 - 1.82299605053e-11j), c2 k^2 = (1.78711245861e-10 - 1.82794238457e-11j), |F - c2 k^2| = 5.0024e-14  (<= bound: True; ratio bound/true = 3591.0); tr M0 = (2.0 - 6.735525364e-33j), tr M1 = (0.2471569394 + 3.794162488j); geometry ok True
+  k = (0.0 + 0.000106304j): engine F = (-1.78661783245e-10 + 1.82868942694e-11j), c2 k^2 = (-1.78711245861e-10 + 1.82794238457e-11j), |F - c2 k^2| = 5.00236e-14  (<= bound: True; ratio bound/true = 3591.0); tr M0 = (2.0 + 3.068452345e-15j), tr M1 = (0.2471301801 + 3.794178072j); geometry ok True
+  CONSISTENT: True   [57 s, peak 126 MB]
+
+spin 227/250, R0 1.30: certified r = 5.4224438e-8, certified bound on |F - c2 k^2| at |k| = r: 2.180922e-20
+  k = 5.42244e-8: engine F = (-2.18578599463e-20 + 2.58843807745e-21j), c2 k^2 = (-2.18562484234e-20 + 2.58127450265e-21j), |F - c2 k^2| = 7.3426e-24  (<= bound: True; ratio bound/true = 2970.0); tr M0 = (2.0 - 3.812123003e-36j), tr M1 = (0.2859563398 + 3.815626816j); geometry ok True
+  k = (0.0 + 5.42244e-8j): engine F = (2.18634119977e-20 - 2.57966295413e-21j), c2 k^2 = (2.18562484234e-20 - 2.58127450265e-21j), |F - c2 k^2| = 7.34261e-24  (<= bound: True; ratio bound/true = 2970.0); tr M0 = (2.0 + 4.248761901e-25j), tr M1 = (0.2859563253 + 3.815626825j); geometry ok True
+  CONSISTENT: True   [56 s, peak 126 MB]
+

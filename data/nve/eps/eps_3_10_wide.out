@@ -1,0 +1,30 @@
+spin a = 3/10, E = 4/5, circle R0 = 1.1492; 720 circle boxes, lasso piece length 0.003
+  float gate, closed form of Delta q against the definition: relative error 1.2e-15
+  first-order certificate: boundary bounds M = ['9.450e+00', '6.016e+00', '6.159e+00'], trapezoid errors <= ['1.8e-09', '1.1e-09', '1.2e-09']   [7 s]
+  X (Kerr basis): x11 = [-3.215802876688e-09, 3.215802876688e-09] + i [-0.0982882951389, -0.0982882887073]
+                  x12 = [-5.193295897498e-09, 5.193295897498e-09] + i [-0.1253461334955, -0.1253461230772]
+                  x21 = [-5.946467543132e-09, 5.946467543132e-09] + i [0.07203784246114, 0.07203785435408]
+  kappa*omega = -+([0.8416039662747, 0.8416039662747] + i [-0.8843162087946, -0.8843162087946]);  tr M1(0) = [-1.743700723081, -1.743700723081] + i [1.461158654303, 1.461158654303]
+  c2 = [0.02794222175777, 0.02794224010224] + i [0.04601197640171, 0.04601199475076]
+  |c2| >= 5.383187e-02;  |sinh^2| <= 1.490417;  mu^2 = exp(2|Re kappa omega|) <= 5.3828;  |Im tr M1(0)| >= 1.4612
+  lasso: 52 edges, capsule radius 0.1202, 968 pieces, length 2.7846; winding numbers about r+, r-, p+, p-: +0.999997, +0.000000, +1.000086, -0.000090
+         kappa * (U increment around the lasso) in [0.7662606579619, 0.9202219422452] + i [-0.9538958632311, -0.8181776438626]  (must contain +- kappa*omega)
+         homotopy checks: winding (1, 0, 1, 0) True; U increment consistent with omega True
+  r_ref = 0.3: holomorphy boxes ok on C and L; best certified t = 1.0223e-03  (ell_C = 1.215e+00, eps_C = 1.625e-01, ell_L = 2.196e+01, u0 = 0.300)   [18 s]
+  r_ref = 0.1: holomorphy boxes ok on C and L; best certified t = 2.1184e-03  (ell_C = 3.721e-01, eps_C = 1.677e-02, ell_L = 4.707e+00, u0 = 0.600)   [23 s]
+  r_ref = 0.03: holomorphy boxes ok on C and L; best certified t = 2.6012e-03  (ell_C = 1.088e-01, eps_C = 1.477e-03, ell_L = 1.235e+00, u0 = 0.700)   [29 s]
+  r_ref = 0.01: holomorphy boxes ok on C and L; best certified t = 2.7480e-03  (ell_C = 3.593e-02, eps_C = 1.629e-04, ell_L = 4.003e-01, u0 = 0.700)   [34 s]
+  r_ref = 0.003: holomorphy boxes ok on C and L; best certified t = 2.8000e-03  (ell_C = 1.074e-02, eps_C = 1.462e-05, ell_L = 1.190e-01, u0 = 0.700)   [40 s]
+  r_ref = 0.001: holomorphy boxes ok on C and L; best certified t = 1.0000e-03  (ell_C = 4.093e-03, eps_C = 1.893e-06, ell_L = 8.466e-02, u0 = -1.500)   [45 s]
+  r_ref = 0.0003: holomorphy boxes ok on C and L; best certified t = 3.0000e-04  (ell_C = 1.228e-03, eps_C = 1.704e-07, ell_L = 2.537e-02, u0 = -1.500)   [50 s]
+  r_ref = 0.0001: holomorphy boxes ok on C and L; best certified t = 1.0000e-04  (ell_C = 4.092e-04, eps_C = 1.893e-08, ell_L = 8.455e-03, u0 = -1.500)   [55 s]
+  r_ref = 3e-05: holomorphy boxes ok on C and L; best certified t = 3.0000e-05  (ell_C = 1.227e-04, eps_C = 1.703e-09, ell_L = 2.536e-03, u0 = -1.500)   [60 s]
+  r_ref = 1e-05: holomorphy boxes ok on C and L; best certified t = 1.0000e-05  (ell_C = 4.091e-05, eps_C = 1.893e-10, ell_L = 8.454e-04, u0 = -1.500)   [66 s]
+  r_ref = 1e-06: holomorphy boxes ok on C and L; best certified t = 1.0000e-06  (ell_C = 4.091e-06, eps_C = 1.893e-12, ell_L = 8.454e-05, u0 = -1.500)   [72 s]
+  r_ref = 1e-07: holomorphy boxes ok on C and L; best certified t = 1.0000e-07  (ell_C = 4.091e-07, eps_C = 1.893e-14, ell_L = 8.454e-06, u0 = -1.500)   [77 s]
+  |m| > 1 in the basis (v+, v-): True;  |x11|, |x12|, |x21| after scaling: 0.09829, 0.16127, 0.05599
+  constants at the best choice (r_ref = 0.003, u0 = 0.7000): c_L = 3.9656e+01, C_E = 8.1060e+00, |X|_F <= 0.22015, ell_C/r = 3.5812e+00
+  at |k| = r: |c2| r^2 >= 4.2203e-07;  circle remainder <= 2.0517e-07;  lasso remainder <= 2.1686e-07;  eta <= 1.1743e-01;  Z1 True Z2 True Z3 True
+  sensitivity (hypothetical, NOT certified): lasso term 10x better (c_L/10): r = 5.145e-03; circle term 10x better (C_E/10): r = 7.033e-03; no conjugation loss (mu^2 -> 1): r = 3.791e-03; both 10x better: r = 2.601e-02
+  bound on |F - c2 k^2| at |k| = r: 4.220278e-07
+VERDICT spin 3/10: Statement A holds with epsilon = r = 2.799955e-03  (Z1, Z2, Z3 for all 0 < |k| <= r; interval arithmetic)   [84 s, peak 31 MB]
