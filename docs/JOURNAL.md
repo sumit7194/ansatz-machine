@@ -4658,3 +4658,22 @@ pole-order-1 Carter² survival.
     with the lineage.
   - **7486dbb:** CLAIM v3 with Statement A and its four conditions (anchor, not new range; chain caveats; per spin,
     false at a\* ≈ 0.908; credit). ONLY_KERR and ONE_PAGER now state it, and still say "not a theorem overall".
+
+## 2026-11-26 — Office check of Fable's ε round (branch fable/2026-11-25-eps)
+- **Part A (75957fd): VERIFIED.**
+  - The 10 runs reproduce bit for bit on a clean checkout.
+  - The algebra checks: sympy for P = P_K(1 + γs), the rest by hand.
+  - The per-box bounds hold against independent quadrature truth (all ratios at most 0.92; the must-fail fires).
+  - The lasso polygon is certified exactly in rationals.
+  - The refusal trips on (Z1).
+- **One slip:** the |m|⁻⁴ weight used an upper bound of |m|², and the bisection stops at the exact boundary.
+  - Fixed on branch office/2026-11-26-eps-fix (9d0ee9f), which also makes the homotopy checks hard gates and derives
+    the refusal reason from the failing check.
+  - All 10 runs were redone. The quoted 3-s.f. radii are at most the fixed-code r and pass.
+- **Part B (4bc7b37): correct as a prototype.**
+  - ATAP Thm 8.2 checked at source (chebfun.org/ATAP/chap8.m).
+  - "Real k suffices" is fine: route (i) was never registered.
+  - Reproduced identically.
+  - The acos fix is correct, with no silent drops.
+  - One argued precondition (Laurent-disc holomorphy) must be certified in the route-(i) build.
+- **Record:** data/nve/EPS_OFFICE_CHECK.md (e10f274, bcd9292). No claim change; that awaits the Bridge and Sumit.
