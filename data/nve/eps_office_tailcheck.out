@@ -1,0 +1,15 @@
+spin 3/5: R0 = 1.35; 12 circle boxes, 25 lasso boxes (capsule radius 0.1500); 8 values of k on each |k| = r_ref
+  r_ref = 0.003: max truth/bound  |Dq|/alpha = 8.882e-01   |Dq - k dq|/beta = 3.041e-01   |eps2|/e0 = 7.373e-01   |eps2'|/e1 = 6.265e-01   -> PASS
+  r_ref = 0.3: max truth/bound  |Dq|/alpha = 6.932e-01   |Dq - k dq|/beta = 2.631e-01   |eps2|/e0 = 7.028e-01   |eps2'|/e1 = 5.930e-01   -> PASS
+  must-fail (bounds / 1000): max ratio 8.882e+02 -> FIRES
+spin 9/10: R0 = 1.2639; 12 circle boxes, 25 lasso boxes (capsule radius 0.1500); 8 values of k on each |k| = r_ref
+  r_ref = 0.0003: max truth/bound  |Dq|/alpha = 9.222e-01   |Dq - k dq|/beta = 5.294e-01   |eps2|/e0 = 5.569e-01   |eps2'|/e1 = 3.998e-01   -> PASS
+  r_ref = 0.3: max truth/bound  |Dq|/alpha = 7.023e-01   |Dq - k dq|/beta = 4.516e-01   |eps2|/e0 = 5.252e-01   |eps2'|/e1 = 3.770e-01   -> PASS
+  must-fail (bounds / 1000): max ratio 9.222e+02 -> FIRES
+spin 3/10: R0 = 1.1492; 12 circle boxes, 25 lasso boxes (capsule radius 0.1202); 8 values of k on each |k| = r_ref
+  r_ref = 0.003: max truth/bound  |Dq|/alpha = 7.884e-01   |Dq - k dq|/beta = 1.921e-01   |eps2|/e0 = 9.080e-01   |eps2'|/e1 = 8.682e-01   -> PASS
+  must-fail (bounds / 1000): max ratio 9.080e+02 -> FIRES
+spin 4/5: R0 = 1.3382; 12 circle boxes, 25 lasso boxes (capsule radius 0.1500); 8 values of k on each |k| = r_ref
+  r_ref = 0.001: max truth/bound  |Dq|/alpha = 8.913e-01   |Dq - k dq|/beta = 5.283e-01   |eps2|/e0 = 6.164e-01   |eps2'|/e1 = 4.680e-01   -> PASS
+  must-fail (bounds / 1000): max ratio 8.913e+02 -> FIRES
+=== DONE

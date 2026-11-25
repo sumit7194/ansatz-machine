@@ -1,0 +1,31 @@
+eps_3_10 -> VERDICT spin 3/10: Statement A holds with epsilon = r = 2.799958e-03
+eps_3_5 -> VERDICT spin 3/5: Statement A holds with epsilon = r = 1.925559e-03  
+eps_4_5 -> VERDICT spin 4/5: Statement A holds with epsilon = r = 8.398970e-04  
+eps_9_10 -> VERDICT spin 9/10: Statement A holds with epsilon = r = 1.063035e-04
+eps_227_250_CONTROL -> VERDICT spin 227/250: Statement A holds with epsilon = r 
+eps_3_5_REFUSE_CONTROL -> VERDICT spin 3/5: NO r  (c2 interval contains 0 (|c2| 
+eps_3_10_wide -> VERDICT spin 3/10: Statement A holds with epsilon = r = 2.79995
+eps_3_5_wide -> VERDICT spin 3/5: Statement A holds with epsilon = r = 2.796178e
+eps_4_5_wide -> VERDICT spin 4/5: Statement A holds with epsilon = r = 1.443615e
+eps_9_10_wide -> VERDICT spin 9/10: Statement A holds with epsilon = r = 1.47203
+--- comparison with the committed outputs of 75957fd (clean detached checkout, same .venv):
+JSON byte-identical: data/nve/eps/eps_227_250.json
+JSON byte-identical: data/nve/eps/eps_3_10.json
+JSON byte-identical: data/nve/eps/eps_3_10_wide.json
+JSON byte-identical: data/nve/eps/eps_3_5.json
+JSON byte-identical: data/nve/eps/eps_3_5_REFUSE.json
+JSON byte-identical: data/nve/eps/eps_3_5_wide.json
+JSON byte-identical: data/nve/eps/eps_4_5.json
+JSON byte-identical: data/nve/eps/eps_4_5_wide.json
+JSON byte-identical: data/nve/eps/eps_9_10.json
+JSON byte-identical: data/nve/eps/eps_9_10_wide.json
+log identical up to timing: data/nve/eps/eps_227_250_CONTROL.out
+log identical up to timing: data/nve/eps/eps_3_10.out
+log identical up to timing: data/nve/eps/eps_3_10_wide.out
+log identical up to timing: data/nve/eps/eps_3_5.out
+log identical up to timing: data/nve/eps/eps_3_5_REFUSE_CONTROL.out
+log identical up to timing: data/nve/eps/eps_3_5_wide.out
+log identical up to timing: data/nve/eps/eps_4_5.out
+log identical up to timing: data/nve/eps/eps_4_5_wide.out
+log identical up to timing: data/nve/eps/eps_9_10.out
+log identical up to timing: data/nve/eps/eps_9_10_wide.out
