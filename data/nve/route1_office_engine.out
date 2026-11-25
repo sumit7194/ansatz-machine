@@ -1,0 +1,8 @@
+segment chosen row: rho = 4.0, n = 24, R = 0.106250, I0 = 1.5182, I1 = 7.7111; M_F = 6.565e+10, M_trM0 = 9.216e+00, M_trM1 = 1.543e+04
+(1) node 6, k = 1.08535533906: engine F = (0.27466266927637 + 0.16139220954294j), tr M0 = (1.9933561047378 - 1.7289353365754e-41j), tr M1 = (-1.0857426631891 + 2.6510357005962j); inside the certified node enclosures: {'F': True, 'T0': True, 'T1': True}
+(1) node 18, k = 1.01464466094: engine F = (0.23692323986438 + 0.13773423500659j), tr M0 = (1.9942629466952 - 1.4222791236295e-41j), tr M1 = (-1.0774161209395 + 2.661496087975j); inside the certified node enclosures: {'F': True, 'T0': True, 'T1': True}
+(2) k = 1.05 + R e^(i 45 deg): circle: ||T||_2 = 1.01139 <= exp(I) = 4.5641: True; lasso: ||T||_2 = 1.06062 <= exp(I) = 2233.05: True; |F| = 0.345166, |tr M0| = 1.99286, |tr M1| = 2.84826 within the proved M: True
+(2) k = 1.05 + R e^(i 135 deg): circle: ||T||_2 = 1.01137 <= exp(I) = 4.5641: True; lasso: ||T||_2 = 1.05465 <= exp(I) = 2233.05: True; |F| = 0.251019, |tr M0| = 1.99478, |tr M1| = 2.86313 within the proved M: True
+(2) k = 1.05 + R e^(i 225 deg): circle: ||T||_2 = 1.01137 <= exp(I) = 4.5641: True; lasso: ||T||_2 = 1.0597 <= exp(I) = 2233.05: True; |F| = 0.253447, |tr M0| = 1.99478, |tr M1| = 2.88695 within the proved M: True
+(2) k = 1.05 + R e^(i 315 deg): circle: ||T||_2 = 1.01139 <= exp(I) = 4.5641: True; lasso: ||T||_2 = 1.05476 <= exp(I) = 2233.05: True; |F| = 0.348705, |tr M0| = 1.99286, |tr M1| = 2.87401 within the proved M: True
+ALL CHECKS PASS: True

@@ -159,6 +159,13 @@ The 10-run rerun took about 17 min; the tail check about 25 min; peak < 150 MB.
   - It holds for spin 3/5 and k ≲ 3: the B roots satisfy |u| = ((10 − k)/(90 − 21k))^{1/4} < 1, φ's poles are at
     |w| = √3/a and c_K″'s at |w| = 1/a, all outside the disc.
   - It must be CERTIFIED in the route-(i) build, by root enclosures; it is cheap.
+- **Added 2026-11-26: a vertex gap in `_nve_route1_proto.walk`.** Found by Fable in its route-(i) follow-up, and
+  confirmed here by reading.
+  - An edge ends at a float-computed point that can miss the vertex by a few ulp, or stop up to 1e−15 short, while the
+    next edge starts exactly at the vertex.
+  - The resulting uncovered sliver, of length ≲ 1e−15, is harmless at Part B's node radii (1e−9) but not enclosed.
+  - The v2 evaluator (`_nve_route1_segment_v2.py`, d855810) ends every edge exactly on its vertex. See
+    `ROUTE1_OFFICE_CHECK.md`.
 - **B5, the plan,** is input for a future registration only. Points to carry into it:
   - M must be PROVED on the ellipse (B4 steps 1–2);
   - the Laurent-disc holomorphy check above;

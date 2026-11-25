@@ -4690,3 +4690,17 @@ pole-order-1 Carter² survival.
   - **docs/ROUTE1_REGISTRATION_INPUT.md:** B5 plus the Laurent-disc precondition, as input for a future registration.
     Nothing launches.
   - No release or Zenodo version (Sumit's decision).
+
+## 2026-11-26 (early) — Office check of Fable's first certified route-(i) segment: VERIFIED
+- **The result checked.** Branch fable/2026-11-26-route1-seg, commits 604d520 (v1) and d855810 (v2, all bounds in
+  balls). At spin 3/5 and E = 4/5, for every real k ∈ [1, 1.1]: |F| ≥ 0.265023401, |tr M0| ≥ 1.993158418,
+  |Im tr M1| ≥ 2.648820919.
+- **Reproduction.** Clean checkouts of v1 and v2, with all node evaluations recomputed: every output BYTE-IDENTICAL.
+- **(a)** The Dyson chain and the gauge checked by hand (rank-one norm |vC|²/|det C|, any invertible C). The combined
+  dq/dk form and the radial integrals re-checked with sympy.
+- **(b), (c)** Closed by v2 (ball arithmetic to the end; asserted coverage and pair counts). The v1 float argument also
+  holds.
+- **(d)** The independent 50-digit engine on the same fixed loops agrees with the node enclosures, and the proved-M
+  chain holds at 4 complex k on the disc (‖T‖ ≈ 1.06 against e^I ≤ 2233).
+- **A vertex gap in the Part B walk** was confirmed and noted against Part B; v2 closes it.
+- **Record:** data/nve/ROUTE1_OFFICE_CHECK.md. Nothing public changed; route (i) is not registered.
