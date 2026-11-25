@@ -58,11 +58,11 @@ import flint                                     # noqa: E402
 from flint import acb, acb_series, arb, ctx      # noqa: E402
 import _nve_route1_proto as P                    # noqa: E402  (sets ctx.prec = 256; used: horner, mmul, minv, rad)
 
-A, E2, NT, NW = P.A, P.E2, P.NT, P.NW
+SPIN, R0S = os.environ.get("NVE_SPIN", "3/5"), os.environ.get("R1_R0", "1.35"); A, E2, NT, NW = arb(SPIN.split("/")[0]) / arb(SPIN.split("/")[1]), P.E2, P.NT, P.NW
 OUTD = os.path.join(P.ROOT, "data", "nve", "eps")
-LOG = os.path.join(OUTD, "route1_seg_3_5_v2.out")
-NODEFILE = dict(arb=os.path.join(OUTD, "route1_seg_nodes_arb.jsonl"), partB=os.path.join(OUTD, "route1_seg_nodes.jsonl"))
-SEG = "spin 3/5|k in [1, 1.1]"
+TAG = "" if SPIN == "3/5" else "_" + SPIN.replace("/", "_"); FLOATS = f"route1_floats{TAG}.json"; LOG = os.path.join(OUTD, f"route1_seg_{SPIN.replace(chr(47), chr(95))}_v2.out")
+NODEFILE = dict(arb=os.path.join(OUTD, f"route1_seg_nodes_arb{TAG}.jsonl"), partB=os.path.join(OUTD, "route1_seg_nodes.jsonl"))
+SEG = f"spin {SPIN}|k in [1, 1.1]"; LIMZ = max(1.0, float(A.mid()) / 0.855 * 1.005)   # step boxes stay where the Laurent ratio is < 0.95 (1.0 at spin 3/5, as before)
 TOL_F = 1e-3                                     # target for the choice of n (a choice, not a bound)
 SM = 24                                          # sub-intervals of the radial integrals
 KSUB = 5                                         # the k-box is cut into KSUB x KSUB sub-boxes
@@ -269,14 +269,14 @@ def walk(vertices, k, lau, sing, record=False):
     for P0, P1 in zip(vertices[:-1], vertices[1:]):
         pos = P0
         while pos != P1:
-            dist = min([abs(pos - s) for s in sing] + [abs(pos) - 1.0])
+            dist = min([abs(pos - s) for s in sing] + [abs(pos) - LIMZ])
             rho = 0.5 * dist
             rem = abs(P1 - pos)
             while True:
                 nxt = P1 if rem <= rho / 4 else pos + (P1 - pos) * ((rho / 4) / rem)
                 zc = acb(pos.real, pos.imag)
                 zn = acb(nxt.real, nxt.imag)
-                r = step(zc, zn - zc, k, lau, rho)
+                r = safe_step(zc, zn - zc, k, lau, rho)
                 if r is not None:
                     break
                 rho /= 2
@@ -294,7 +294,7 @@ def walk(vertices, k, lau, sing, record=False):
 
 
 def circle_vertices(n=96):
-    r0 = 1.35
+    r0 = float(R0S)
     return [complex(r0 * math.cos(2 * math.pi * j / n), r0 * math.sin(2 * math.pi * j / n)) for j in range(n)] + [complex(r0, 0)]
 
 
@@ -515,13 +515,13 @@ def fmtC(C):
 def prove(nseg, *_):
     t0 = time.time()
     coverage_asserts()
-    refs = json.load(open(os.path.join(OUTD, "route1_floats.json")))
+    refs = json.load(open(os.path.join(OUTD, FLOATS)))
     ref = refs["21/20"]
     sing = [complex(float(p[0]), float(p[1])) for p in ref["points"]]
     lasso = [complex(float(p[0]), float(p[1])) for p in ref["lasso"]]
     say(f"== prove (v2, all bounds in balls) == NSEG = {nseg}; python {sys.version.split()[0]}, python-flint {flint.__version__}, "
         f"interpreter {sys.executable}; prec {ctx.prec} bits, Taylor order {NT}, Laurent order {NW}; {SEG}; lasso and "
-        f"singular points of k = 21/20 from route1_floats.json; k sub-boxes {KSUB} x {KSUB}, {SM} balls of s")
+        f"singular points of k = 21/20 from {FLOATS}, circle {R0S}; k sub-boxes {KSUB} x {KSUB}, {SM} balls of s")
     segs = []
     for i, (kc, half) in enumerate(seg_centres(nseg)):
         ts = time.time()
@@ -594,7 +594,7 @@ def prove(nseg, *_):
             say(f"  sub-segment {i}: NO admissible (rho, n): no proved M")
     out = dict(seg=SEG, nseg=nseg, segs=segs, version=2,
                env=dict(python=sys.version.split()[0], flint=flint.__version__, interpreter=sys.executable))
-    json.dump(out, open(os.path.join(OUTD, f"route1_seg_M_v2_nseg{nseg}.json"), "w"), indent=1)
+    json.dump(out, open(os.path.join(OUTD, f"route1_seg_M_v2{TAG}_nseg{nseg}.json"), "w"), indent=1)
     say(f"  prove: {time.time() - t0:.0f} s, peak rss {resource.getrusage(resource.RUSAGE_SELF).ru_maxrss / 1e6:.0f} MB")
 
 
@@ -642,8 +642,8 @@ def keys(nseg, i, ch):
 
 
 def nodes(nseg, which="arb"):
-    J = json.load(open(os.path.join(OUTD, f"route1_seg_M_v2_nseg{nseg}.json")))
-    ref = dict(json.load(open(os.path.join(OUTD, "route1_floats.json")))["21/20"])
+    J = json.load(open(os.path.join(OUTD, f"route1_seg_M_v2{TAG}_nseg{nseg}.json")))
+    ref = dict(json.load(open(os.path.join(OUTD, FLOATS)))["21/20"])
     done = load_nodes(which)
     t0 = time.time()
     cen = seg_centres(nseg)
@@ -717,8 +717,8 @@ def conditions(qF, q0, q1, eF, e0, e1):
 
 def verdict(nseg, which="arb"):
     coverage_asserts()
-    J = json.load(open(os.path.join(OUTD, f"route1_seg_M_v2_nseg{nseg}.json")))
-    refs = json.load(open(os.path.join(OUTD, "route1_floats.json")))
+    J = json.load(open(os.path.join(OUTD, f"route1_seg_M_v2{TAG}_nseg{nseg}.json")))
+    refs = json.load(open(os.path.join(OUTD, FLOATS)))
     ref = dict(refs["21/20"])
     done = load_nodes(which)
     cen = seg_centres(nseg)
@@ -822,8 +822,17 @@ def verdict(nseg, which="arb"):
     say(f"  shrunken M (all bounds / 1e12): verdict still passes {shrunk_verdict}; held-out inconsistencies: "
         f"{broke if broke else 'none'}; below the SAMPLED maximum for: {m_break if m_break else 'none'}")
     res.update(certified=cert_all, planted_zero_refused=planted_all)
-    json.dump(res, open(os.path.join(OUTD, f"route1_seg_verdict_v2_{which}_nseg{nseg}.json"), "w"), indent=1)
+    json.dump(res, open(os.path.join(OUTD, f"route1_seg_verdict_v2_{which}{TAG}_nseg{nseg}.json"), "w"), indent=1)
     say(f"  peak rss {resource.getrusage(resource.RUSAGE_SELF).ru_maxrss / 1e6:.0f} MB")
+
+
+def safe_step(*a):
+    """step, with "box too close to the Laurent circle" treated like any other refused box: the caller halves rho.
+    (Placed at the end of the file so that the line numbers quoted in ROUTE1_SEGMENT.md section 14 stay valid.)"""
+    try:
+        return step(*a)
+    except RuntimeError:
+        return None
 
 
 if __name__ == "__main__":

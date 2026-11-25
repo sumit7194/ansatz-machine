@@ -15,8 +15,9 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import _nve_spin_scan as S      # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-OUT = os.path.join(ROOT, "data", "nve", "eps", "route1_floats.json")
-lau = S.LauA(mp.mpf("1.35"))
+OUT = os.path.join(ROOT, "data", "nve", "eps", os.environ.get("R1_FLOATS", "route1_floats.json"))
+R0S = os.environ.get("R1_R0", "1.35")
+lau = S.LauA(mp.mpf(R0S))
 st = S.kerr_points()
 res = json.load(open(OUT)) if os.path.exists(OUT) else {}
 for ks in sys.argv[1:]:
@@ -33,7 +34,7 @@ for ks in sys.argv[1:]:
 
     def c(x):
         return [mp.nstr(mp.re(x), 40), mp.nstr(mp.im(x), 40)]
-    res[ks] = dict(spin=str(S.SPIN), R0="1.35", F=c(r["F"]), T0=c(r["T0"]), T1=c(r["T1"]),
+    res[ks] = dict(spin=str(S.SPIN), R0=R0S, F=c(r["F"]), T0=c(r["T0"]), T1=c(r["T1"]),
                    points=[c(x) for x, _ in outer], lasso=[c(x) for x in lasso], geometry_ok=bool(g["ok"]),
                    sec=round(time.time() - t0, 1))
     print(ks, "F", mp.nstr(r["F"], 15), "T0", mp.nstr(r["T0"], 15), "T1", mp.nstr(r["T1"], 15), "geo", g["ok"],

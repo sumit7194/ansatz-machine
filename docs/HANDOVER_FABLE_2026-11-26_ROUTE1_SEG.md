@@ -123,3 +123,46 @@ point enclosures in the formal sense only.
 - `walk`: `nxt = P1 if rem <= rho/4 else ...`; the loop ends only when `pos == P1`.
 - `step` against Part B's `step`: same recurrence and majorant; tails as balls; extra return values.
 - The paragraph "The paths of different k" in §13.
+
+---
+
+# Last task of the window: generality check at spin 9/10
+
+**[model: Fable 5.2] UNVERIFIED.** Seal committed first (620c470, 04:33), then the runs. Write-up:
+`ROUTE1_SEGMENT.md` §16; seal: `data/nve/ROUTE1_SEG_9_10_SEAL.md`.
+
+**Where it stopped: after the proof stage and the two end nodes. There is NO certificate at spin 9/10.** The proved M
+asks for 141 point evaluations at about 3 minutes each (about 7.5 core-hours); the window had about 35 minutes. The
+node file resumes: `nodes 1 arb` then `verdict 1 arb` with `NVE_SPIN=9/10 R1_R0=1.2639` finishes it.
+
+**What is in hand:** the precondition certified; a proved M_F ≤ 4.678E+62 at ρ = 3 with all 471,250 (path box,
+k-sub-box) pairs enclosed; Dyson constants 83.64 (lasso) and 478.2 (circle), against 45.8 and 10.5 at spin 3/5; the
+all-ball evaluator agreeing with the engine at k = 1, 21/20 and 11/10. Planted zero, held-out points and
+proved-M-against-samples were not run (they need the nodes).
+
+**Seal scorecard:** the lasso constant, the best ρ and the precondition held; the circle constant (sealed 40,
+measured 478) and the node count (sealed 50, measured 140) were wrong.
+
+## Files added or changed
+
+| file | what |
+|---|---|
+| `data/nve/ROUTE1_SEG_9_10_SEAL.md` | the seal (620c470) |
+| `scripts/_nve_route1_segment_v2.py` | CHANGED: spin and circle radius from `NVE_SPIN`, `R1_R0`; output tag; `safe_step`. Line numbers before the last 10 lines are unchanged; spin 3/5 output is unchanged (checked: see below) |
+| `scripts/_nve_route1_floats.py` | CHANGED: circle radius and output file from `R1_R0`, `R1_FLOATS`; defaults as before |
+| `scripts/_nve_route1_seg_endnodes.py` | the two end nodes only, with the engine comparison |
+| `data/nve/eps/route1_floats_9_10.json` | engine values and lassos at k = 1, 21/20, 11/10, spin 9/10, R0 = 1.2639 |
+| `data/nve/eps/route1_seg_9_10_v2.out`, `route1_seg_M_v2_9_10_nseg1.json`, `route1_seg_nodes_arb_9_10.jsonl` | log, proof file, the two node records |
+
+## Slips and things not checked
+
+- **The engine-reference script ran once before my patch to it had applied** (the patch aborted on a failed assert).
+  It ran at spin 9/10 with the default circle 1.35 and overwrote three entries of the tracked `route1_floats.json`.
+  I restored the file from git at once and reran into `route1_floats_9_10.json`. This was after the seal. F at
+  R0 = 1.35 and at 1.2639 came out the same to the digits printed.
+- **Two proof-stage attempts at 9/10 stopped on "point too close to the Laurent circle"** before `safe_step` existed.
+  Nothing was written by them.
+- **Spin 3/5 regression after the spin changes: done.** `prove 1` and `verdict 1 arb` at spin 3/5 reproduce the
+  committed `route1_seg_M_v2_nseg1.json` and `route1_seg_verdict_v2_arb_nseg1.json` byte for byte (git shows no
+  difference). The duplicate log block that rerun appended was removed by restoring the log from git.
+- **The circle's large constant is not diagnosed.**

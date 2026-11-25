@@ -1,0 +1,25 @@
+== prove (v2, all bounds in balls) == NSEG = 1; python 3.13.12, python-flint 0.9.0, interpreter /Users/sumit/Github/quantum/sims/.venv/bin/python; prec 256 bits, Taylor order 70, Laurent order 190; spin 9/10|k in [1, 1.1]; lasso and singular points of k = 21/20 from route1_floats_9_10.json, circle 1.2639; k sub-boxes 5 x 5, 24 balls of s
+  -- sub-segment 0: k_c = 1.050000, half-width 0.050000 --
+    z = (0.3+1.3162j): |D0 - FD| <= 6.2e-15, |D1 - FD| <= 9.2e-15; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True  -> ok
+    z = (-1.35+0j): |D0 - FD| <= 4.2e-15, |D1 - FD| <= 3.3e-15; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True  -> ok
+    z = (1.757-0.003j): |D0 - FD| <= 7.0e-16, |D1 - FD| <= 5.9e-16; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True  -> ok
+    z = (2.05-0.03j): |D0 - FD| <= 5.5e-16, |D1 - FD| <= 4.3e-16; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True  -> ok
+    z = (2.11+0.55j): |D0 - FD| <= 5.1e-16, |D1 - FD| <= 3.9e-16; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True  -> ok
+  derivative self-test passes: True
+  reference: circle 17955 steps, lasso 895 steps, 194 s; ||M0||_F <= 1.468633E+0, ||M1||_F <= 6.573460E+0; F = 0.0168748387+0.0593012374j
+  Dyson constants at k_c (exponent per unit |k - k_c|, K a point): circle <= 5.776E+2 (base basis), <= 4.782E+2 (optimised gauge); lasso <= 1.032E+3, <= 8.364E+1
+  rho = 3.0: R <= 8.334E-2; precondition ok (max |w_root| 0.4649 < 1.2346); all 448875 + 22375 (step box, k-sub-box) pairs enclosed; I0 <= 5.725E+1, I1 <= 1.168E+1; gauge factors <= 2.391E+0, 1.061E+1; M_F <= 4.678E+62, M_trM0 <= 1.494E+25, M_trM1 <= 9.081E+5; n = 140 (bounds F 1.494E-4, tr M0 4.767E-42, tr M1 2.899E-61)
+  rho = 4.0: R <= 1.063E-1; precondition ok (max |w_root| 0.4868 < 1.2346); all 448875 + 22375 (step box, k-sub-box) pairs enclosed; I0 <= 8.339E+1, I1 <= 1.754E+1; gauge factors <= 2.383E+0, 1.085E+1; M_F <= 3.046E+90, M_trM0 <= 3.368E+36, M_trM1 <= 3.259E+8; n = 156 (bounds F 4.869E-4, tr M0 5.382E-58, tr M1 5.208E-86)
+  rho = 5.0: R <= 1.301E-1; precondition ok (max |w_root| 0.5095 < 1.2346); all 448875 + 22375 (step box, k-sub-box) pairs enclosed; I0 <= 1.195E+2, I1 <= 2.576E+1; gauge factors <= 2.375E+0, 1.114E+1; M_F <= 8.799E+128, M_trM0 <= 1.513E+52, M_trM1 <= 1.238E+12; n = 190 (bounds F 1.381E-4, tr M0 2.373E-81, tr M1 1.943E-121)
+  rho = 6.5: R <= 1.664E-1; precondition ok (max |w_root| 0.5449 < 1.2346); all 448875 + 22375 (step box, k-sub-box) pairs enclosed; I0 <= 2.037E+2, I1 <= 4.490E+1; gauge factors <= 2.361E+0, 1.173E+1; M_F <= 6.114E+218, M_trM0 <= 5.889E+88, M_trM1 <= 2.663E+20; n = 274 (bounds F 8.123E-5, tr M0 7.824E-135, tr M1 3.537E-203)
+  CHOSEN for sub-segment 0: rho = 3.0, n = 140 (141 Chebyshev points)   [329 s]
+  gauge of the chosen row: C0 = [[0.967324+0.000000j, 0.599142-0.164511j], [0.000000+0.000000j, 1.033779+0.000000j]], C1 = [[0.240233+0.000000j, -3.384022+0.187855j], [0.000000+0.000000j, 4.162633+0.000000j]]; ||C||_F ||C^-1||_F <= 2.391E+0 (circle), 2.888E+1 (lasso); ||M_c C||_F ||C^-1||_F <= 2.391E+0, 1.061E+1; ||C^-1 M_c C||_F <= 1.455E+0, 5.464E+0
+  prove: 329 s, peak rss 51 MB
+== end nodes only (all-ball evaluator) == spin 9/10|k in [1, 1.1]; circle 1.2639; chosen rho = 3.0, n = 140
+  spin 9/10|k in [1, 1.1]|seg0/1|n=140|node0: 188.27 s, steps [17893, 893], radius of F 2.5e-08
+  engine F, tr M0, tr M1 at k = 11/10 (node 0; the engine used its own lasso of that k): inside the enclosures [True, True, True]; radius of F 7.4e-08; |F| >= 0.071729189, |tr M0| >= 1.976145517, |Im tr M1| >= 3.847113436
+  spin 9/10|k in [1, 1.1]|seg0/1|n=140|node140: 180.59 s, steps [18008, 895], radius of F 2.4e-08
+  engine F, tr M0, tr M1 at k = 1 (node 140; the engine used its own lasso of that k): inside the enclosures [True, True, True]; radius of F 7.4e-08; |F| >= 0.052661605, |tr M0| >= 1.980659534, |Im tr M1| >= 3.842809567
+  planted precondition at k = 4.2 +- 0.01 (complex box): certified False; a zero of 1 - k phi has |w| up to 10.4094 >= 1.2346: inside the Laurent disc
+  planted precondition at k = 4.01 +- 0.001 (complex box): certified False; a zero of 1 - k phi has |w| up to 1.3431 >= 1.2346: inside the Laurent disc
+  planted precondition at k = 4.0 +- 0.001 (complex box): certified True

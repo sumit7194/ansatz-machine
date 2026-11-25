@@ -433,3 +433,103 @@ for C = [[a, b], [0, d]]):
 
 **Each loop and each ρ row has its own C.** That is allowed: the bounds for M0 and M1 are proved separately and only
 multiplied at the end.
+
+## 16. Generality check at spin 9/10 (the Bridge's last task; seal 620c470)
+
+**Outcome: NO certificate tonight, by cost and not by refusal.** The procedure runs unchanged at spin 9/10 and the
+proof stage delivers a proved M. That M asks for 141 Chebyshev points at about 3 minutes each (about 7.5 core-hours
+for this one segment), against 25 points at 27 s for spin 3/5. Only the two end nodes were evaluated. So there are
+no certified lower bounds on the segment at spin 9/10; the table below says what there is.
+
+Setup: spin 9/10, E = 4/5, real k ∈ [1, 11/10], circle R0 = 1.2639, the engine's lasso of k_c = 21/20 fixed
+(`route1_floats_9_10.json`, from `_nve_spin_scan.LauA` through `_nve_route1_floats.py`). Log:
+`data/nve/eps/route1_seg_9_10_v2.out`. Proof file: `route1_seg_M_v2_9_10_nseg1.json`.
+
+**What ran, and what it gave.**
+
+| stage | result at spin 9/10 | spin 3/5, for comparison |
+|---|---|---|
+| derivative self-test | passes at all five points | passes |
+| Laurent-disc precondition on the k-box | certified (largest root \|w\| ≤ 0.4649 < 1.2346; the roots do not depend on the spin) | certified |
+| reference walk | 17,955 steps on the circle, 895 on the lasso, 194 s | 2,163 and 703, 28 s |
+| every (path box, k-sub-box) pair enclosed | 448,875 + 22,375, none skipped | 54,075 + 17,575 |
+| Dyson constant, lasso (optimised gauge, point) | ≤ 83.64 | 45.8 |
+| Dyson constant, circle (optimised gauge, point) | ≤ 478.2 | 10.5 |
+| the same on the k-disc of the chosen ρ | 140 (lasso), 687 (circle) at ρ = 3 | 72.6, 14.3 at ρ = 4 |
+| proved M_F | ≤ 4.678E+62 (ρ = 3, R ≤ 0.0834) | 6.565E+10 |
+| node count for the 1e−3 target | n = 140 at ρ = 3 (156 at ρ = 4, 190 at ρ = 5, 274 at ρ = 6.5) | 24 |
+| point evaluations done | 2 of 141 (the end nodes) | all |
+| verdict | none: the node run was not attempted beyond the end nodes | CERTIFIED |
+
+**The controls that could be run without the nodes.**
+
+- **Engine at two nodes** (k = 11/10 and k = 1, all-ball evaluator): all six engine values lie inside the
+  enclosures. Each evaluation took about 185 s (17,893 to 18,008 + 895 steps); the radius of F is 7.4e−8.
+- **Reference point** k_c = 21/20: the validated F is 0.0168748387 + 0.0593012374i; the engine's is
+  0.0168748386811 + 0.0593012373839i.
+- **Planted precondition** at k = 4.2, 4.01, 4.0: fires at 4.2 and 4.01, certifies at 4.0, as at spin 3/5.
+- **Planted zero, held-out points, proved M ≥ sampled:** NOT RUN. They need the node values.
+
+**Values at the nodes evaluated** (enclosures at single k, not bounds on the segment): at k = 1,
+|F| ≥ 0.052661605, |tr M0| ≥ 1.980659534, |Im tr M1| ≥ 3.842809567; at k = 11/10, |F| ≥ 0.071729189,
+|tr M0| ≥ 1.976145517, |Im tr M1| ≥ 3.847113436. The 1e−3 target is 2% of the smaller |F|.
+
+**Against the seal (620c470).**
+
+| prediction | sealed | measured | |
+|---|---|---|---|
+| lasso constant at k_c | 150 (80 to 400) | 83.64 | in range, at its low end |
+| circle constant at k_c | 40 (20 to 120) | 478.2 | **WRONG**, 4 times above the range |
+| best ρ | 3 (3 or 4) | 3 | held |
+| node count n | 50 (30 to 90) | 140 | **WRONG**, above the range |
+| precondition certifies | yes | yes | held |
+| the proof stage gives a finite proved M | 80% | it did | |
+| certified inside tonight's window | 30% | no | |
+| certified if the nodes were allowed to finish | 65% | not tested | |
+
+**What I got wrong, and what I do not know.** I expected both loops to get harder by a similar factor. The lasso did
+(×1.8). The circle got harder by ×46 and now dominates: I0 = 57 against I1 = 12 at ρ = 3, and M_F carries
+e^{2(I0+I1)}. The outer singular points are as far from the circle as at spin 3/5 (0.52 against 0.55), so the cause is
+on the inner side, where the ring |z| = a is 0.36 from the circle against 0.75 at spin 3/5. I did not locate where
+along the circle the Dyson sum concentrates; that is one 200 s run with a per-step printout.
+
+**Two code changes the new spin needed.** Both leave spin 3/5 as committed: after the changes, `prove 1` and
+`verdict 1 arb` at spin 3/5 reproduce the committed proof file and verdict file byte for byte.
+
+- A step box that reaches the edge of the Laurent series' domain is now refused like any other bad box, and the
+  step radius is halved (`safe_step`, at the end of the file so that §14's line numbers stay valid). At spin 3/5 this
+  never triggers. At spin 9/10 it is why the circle needs 17,955 steps: the circle sits at 0.79 of the Laurent
+  radius, against 0.49.
+- The spin and the circle radius are read from `NVE_SPIN` and `R1_R0`; outputs carry a spin tag.
+
+**Revised cost estimate, spin 9/10 region A** (k up to about 3.85, 0.1-wide segments, constants as at k ≈ 1, which is
+an assumption):
+
+- **As the code stands:** about 140 evaluations per 0.1 of k at about 3.2 minutes each, so about 7.5 core-hours per
+  0.1 of k and roughly 250 to 300 core-hours for the region. That is not usable.
+- **Where the cost sits:** the circle, twice over. Its Dyson constant sets the node count (about 85% of the
+  exponent), and its 17,955 steps set the time per evaluation (95% of the steps).
+- **Cheapest fixes, none built or tested:**
+  1. Steps: represent c0 near the circle by something other than the Laurent series at infinity (or re-expand it),
+     so that step boxes are not limited by the Laurent ratio. If the circle then needs about as many steps as at
+     3/5, an evaluation costs about 30 s instead of 190 s.
+  2. Nodes: interpolate the entries of M0 and M1 instead of F (§10). That roughly halves the Dyson term, so about 75
+     nodes instead of 140.
+  3. With both, roughly 20 to 30 core-hours for the region. This is an extrapolation from one k.
+- **What would change the picture more:** a different circle for this spin, if the registered rule allows one further
+  from the ring. I did not look at whether it does.
+
+**Reproduce** (spin 3/5 commands unchanged):
+
+```bash
+NVE_SPIN=9/10 R1_R0=1.2639 R1_FLOATS=route1_floats_9_10.json .venv/bin/python scripts/_nve_route1_floats.py 1 21/20 11/10
+```
+```bash
+NVE_SPIN=9/10 R1_R0=1.2639 /Users/sumit/Github/quantum/sims/.venv/bin/python -I scripts/_nve_route1_segment_v2.py prove 1
+```
+```bash
+NVE_SPIN=9/10 R1_R0=1.2639 /Users/sumit/Github/quantum/sims/.venv/bin/python -I scripts/_nve_route1_seg_endnodes.py
+```
+
+To finish the certificate, run `nodes 1 arb` and then `verdict 1 arb` with the same two variables. The node file
+`route1_seg_nodes_arb_9_10.jsonl` already holds the two end nodes and the run resumes from it. Expect about 7.5 hours.
