@@ -1,4 +1,4 @@
-# Ansatz Machine v1.1.0: release notes (draft, 2026-11-25; the release is created only after Sumit approves this text)
+# Ansatz Machine v1.1.0: release notes (2026-11-25)
 
 **Status: UNCHANGED.** The "Only Kerr" result is still a careful numerical result, not a theorem. v1.1.0 adds one
 local piece that is rigorous relative to the applicability chain, and it fixes several points in the argument. No
