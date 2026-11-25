@@ -436,6 +436,57 @@ metric. What (a) adds is the identification: this is the same spacetime as the o
     was located and is non-real.
 - So the zero at 0 has order exactly 2, and the only other zero is that located non-real one. Given the counts this is
   exact; the counts themselves are 50-digit floating point, like the rest.
+- **(Added 2026-11-25.) The spin-9/10 extra zero is now explained:** c2 vanishes at spin a\* ≈ 0.908, so a third zero
+  passes through k = 0 there (`C2_ANALYTIC.md` §5; verified in `C2_OFFICE_CHECK.md`).
+
+**Lemma K (k-analyticity at k = 0; added 2026-11-25, on Sumit's go via the Bridge).**
+*Setting.*
+- Fix 0 < a < 1 and E with 0 < E² < 1.
+- Let C be the circle |z| = R0 and L the lasso path of the circle picture, both based at b = R0 > 0. The ray
+  [R0, +∞) carries the normalisation of c0.
+- Put S = C ∪ L ∪ [R0, +∞).
+*Hypotheses.*
+- (H1) every point of S has |z| ≥ ρ for some ρ > a/√3;
+- (H2) at k = 0, the four points r± (zeros of P) and p± (zeros of f0² + c0²) do not lie on C ∪ L;
+- (H3) a < R0 < min(|r±|, |p±|).
+*Conclusion.* There is δ > 0 such that M0(k) and M1(k), the monodromies along C and L, are holomorphic in k for
+|k| < δ, with M0(0) = I. Consequently F(k) = tr[M1, M0] − 2 = c2k² + O(k³), with
+c2 = tr X² − tr(M1(0) X M1(0)⁻¹ X) and X = M0′(0).
+
+*Proof.*
+1. **The twist factorises.** From (c0″)² = 8B(u², k)/(5a⁶(u² + 1)⁶), B(w, k) = 10(3w − 1)² − k(21w² − 18w + 1) and
+   (c_K″)² = 16(3w − 1)²/(a⁶(w + 1)⁶), w = z²/a², we get
+       c0″(z; k) = c_K″(z)·√(1 − kφ(w)),   φ(w) = (21w² − 18w + 1)/(10(3w − 1)²),
+   with the principal root. It equals 1 at k = 0, so the branch agrees with the normalisation, c0″ → c_K″ as
+   z → +∞.
+2. **φ is bounded on S.** By (H1), |3w − 1| ≥ 3ρ²/a² − 1 > 0 on S. φ(w) → 7/30 as w → ∞, so Φ := sup_S |φ| < ∞.
+   For |k| < 1/(2Φ), √(1 − kφ) is holomorphic in k, uniformly on S, and bounded by √(3/2).
+3. **c0 and c0′ are holomorphic in k on C ∪ L.** c0′(z) = −∫_z^∞ c0″ and c0(z) = ∫_z^∞ (s − z)c0″ ds, taken along
+   [R0, ∞) and then along the loop path inside S. The integrands are holomorphic in k and bounded by a constant
+   times |c_K″(s)|·(1 + |s|) = O(|s|⁻³), uniformly in |k| < 1/(2Φ). So the integrals converge uniformly, and they
+   are holomorphic in k (Weierstrass).
+4. **The NVE coefficient is holomorphic in k on C ∪ L.**
+   - q = (3/16)(P′/P)², with P = E² − f0/(f0² + c0²), is holomorphic in (c0, c0′) wherever f0² + c0² ≠ 0 and P ≠ 0.
+   - At k = 0 the zeros of f0² + c0² = D/D₊ are p±, and the zeros of P = N/D are r±. By (H2) neither vanishes on
+     the compact set C ∪ L.
+   - By continuity in k (step 3) they stay nonzero for |k| < δ, with some δ ≤ 1/(2Φ). So q(z; k) is holomorphic in
+     k, uniformly on C ∪ L.
+5. **Monodromies.** The solution of the linear system Y′ = A(z; k)Y along a fixed compact path, with A holomorphic
+   in a parameter uniformly on the path, is holomorphic in the parameter: the Picard iterates are holomorphic and
+   converge uniformly. So M0(k) and M1(k) are holomorphic for |k| < δ.
+6. **M0(0) = I.** At k = 0 the lower-axis data are Kerr's, f0⁻ = Δ/D (rational). The coefficient's only singular
+   points are r± and p±, and by (H3) they lie outside |z| ≤ R0. So the coefficient is holomorphic on the closed
+   disc, and the solutions continue single-valuedly around C.
+7. **The expansion of F.** M0 = I + kX + k²Y + O(k³), and conjugation by M1(k) is exact. So
+   tr[M1, M0] − 2 = k²(tr X² − tr(M1(0)XM1(0)⁻¹X)) + O(k³). □
+
+*The hypotheses hold for every loop used.*
+- (H1): every loop and base point is at least 0.744 from the interval |z| ≤ a/√3 (§3, the 2026-11-24 note).
+  Every circle-picture path has |z| ≥ R0 − 0.05 ≥ 1.10, while a/√3 ≤ 0.52.
+- (H2) and (H3): these are the registered geometry guards. For example, at spin 9/10, R0 = 1.264 and
+  min|r±, p±| = 1.850.
+*What Lemma K is for.* With c2 ≠ 0 (certified per spin, `C2_ANALYTIC.md` §6b), it gives Statement A of the claim
+(v3). δ is not quantified, so neither is the ε of Statement A.
 
 ## 5e. k = 4 (T51 point 7)
 - **At k = 4, B(w, 4) = 6(w + 1)².** The B roots meet ±i, so √B becomes rational there.

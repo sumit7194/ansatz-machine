@@ -1,5 +1,13 @@
 # The k² coefficient of the irreducibility function, from Kerr's explicit solutions (route (ii))
 
+> **VERIFIED 2026-11-25 by the office ansatz-machine (a non-author): `C2_OFFICE_CHECK.md`, commit c3766aa.**
+> - Brought into main by cherry-pick (`git cherry-pick -x`):
+>   - fable 5b6110b → main 66873a2;
+>   - fable 8d8d04c → main 29d2555.
+> - The files are byte-identical to fable 8d8d04c.
+> - The "UNVERIFIED" labels below are historical.
+> - The k-analyticity argued in §1 is now Lemma K in `MRS_SECTION.md` §5d.
+
 **[model: Fable 5.2] Session ansatz-machine-personal, 2026-11-25. Ask: the Bridge, for Sumit. Branch
 `fable/2026-11-25-c2-analytic`. STATUS: UNVERIFIED until the office ansatz-machine checks it.**
 Hand derivation, one small double-precision script (`scripts/_nve_c2_analytic.py`, about 0.2 s per spin), and an
