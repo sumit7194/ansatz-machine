@@ -1,0 +1,38 @@
+python 3.13.12, python-flint 0.9.0, interpreter /Users/sumit/Github/quantum/sims/.venv/bin/python; prec 256 bits, Taylor order 70, Laurent order 190; spin 3/5, E = 4/5, R0 = 1.35
+k = 1 +- 0: steps [2164, 704], 30.61 s, max Q 1.83e+07/6.37e+07; radius of F 1.39e-09, tr M0 1.41e-12, tr M1 1.73e-12; |det M0 - 1| <= 2.2e-12; excludes 0: {'F': True, 'T0': True, 'T1': True}
+     F in [0.22951534 +/- 1.41e-9] + i [0.13313608 +/- 3.79e-9]
+     engine float inside the enclosure: F True, tr M0 True, tr M1 True
+k = 21/20 +- 0: steps [2163, 703], 30.23 s, max Q 1.77e+07/6.28e+07; radius of F 1.40e-09, tr M0 1.41e-12, tr M1 1.70e-12; |det M0 - 1| <= 2.2e-12; excludes 0: {'F': True, 'T0': True, 'T1': True}
+     F in [0.25538110 +/- 2.87e-9] + i [0.14925697 +/- 5.79e-9]
+     engine float inside the enclosure: F True, tr M0 True, tr M1 True
+k = 11/10 +- 0: steps [2163, 701], 30.66 s, max Q 1.82e+07/6.11e+07; radius of F 1.40e-09, tr M0 1.41e-12, tr M1 1.68e-12; |det M0 - 1| <= 2.2e-12; excludes 0: {'F': True, 'T0': True, 'T1': True}
+     F in [0.28289433 +/- 6.15e-9] + i [0.16660301 +/- 2.88e-9]
+     engine float inside the enclosure: F True, tr M0 True, tr M1 True
+peak 29 MB
+python 3.13.12, python-flint 0.9.0, interpreter /Users/sumit/Github/quantum/sims/.venv/bin/python; prec 256 bits, Taylor order 70, Laurent order 190; spin 3/5, E = 4/5, R0 = 1.35
+  node0/7: 30.98 s, steps [2163, 703], radius of F 1.4e-09
+  node1/7: 31.83 s, steps [2163, 703], radius of F 1.4e-09
+  node2/7: 28.38 s, steps [2162, 703], radius of F 1.4e-09
+  node3/7: 27.67 s, steps [2163, 703], radius of F 1.4e-09
+  node4/7: 27.44 s, steps [2163, 703], radius of F 1.4e-09
+  node5/7: 26.48 s, steps [2163, 705], radius of F 1.4e-09
+  node6/7: 26.63 s, steps [2164, 706], radius of F 1.4e-09
+  node7/7: 27.26 s, steps [2164, 706], radius of F 1.4e-09
+  ellipse0/8 rho=8.0: 27.39 s, steps [2162, 702], radius of F 1.4e-09
+  ellipse1/8 rho=8.0: 27.45 s, steps [2165, 702], radius of F 1.4e-09
+  ellipse2/8 rho=8.0: 27.21 s, steps [2164, 704], radius of F 1.3e-09
+  ellipse3/8 rho=8.0: 27.63 s, steps [2163, 712], radius of F 1.3e-09
+  ellipse4/8 rho=8.0: 27.38 s, steps [2167, 715], radius of F 1.4e-09
+  ellipse5/8 rho=8.0: 27.29 s, steps [2165, 712], radius of F 1.5e-09
+  ellipse6/8 rho=8.0: 27.85 s, steps [2163, 704], radius of F 1.6e-09
+  ellipse7/8 rho=8.0: 28.13 s, steps [2166, 702], radius of F 1.5e-09
+segment k in [21/20 - 0.05, 21/20 + 0.05], 8 Chebyshev points, Bernstein rho = 8.0 (ellipse reaches 0.203 from the centre along the real axis, 0.197 off it)
+  F: sampled max on the ellipse 0.4328; interpolation error bound 1.18e-07; min |interpolant| over the segment >= 0.26527; so F != 0 on the segment (given M): True
+      test at the centre k = 21/20 (not a node): |interpolant - engine float| = 3.37e-08  (bound 1.18e-07)
+  tr M0: sampled max on the ellipse 1.9960; interpolation error bound 5.44e-07; min |interpolant| over the segment >= 1.99316; so tr M0 != 0 on the segment (given M): True
+      test at the centre k = 21/20 (not a node): |interpolant - engine float| = 2.29e-11  (bound 5.44e-07)
+  tr M1: sampled max on the ellipse 2.9047; interpolation error bound 7.91e-07; min |interpolant| over the segment >= 2.86330; so tr M1 != 0 on the segment (given M): True
+      test at the centre k = 21/20 (not a node): |interpolant - engine float| = 2.78e-11  (bound 7.91e-07)
+  total evaluation time for this segment: 447 s for 16 point evaluations (8 nodes + 8 ellipse samples); wall this call 447 s
+peak 29 MB
+=== DONE
