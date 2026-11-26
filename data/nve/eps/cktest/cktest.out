@@ -1,0 +1,9 @@
+== v4 checkpoint resume test == spin 3/5|k in [1, 1.1]; lasso 703 steps; rho = 4 (R <= 1.063E-1); CK_EVERY = 100
+  1-2. no-checkpoint list vs fresh-checkpoint list: identical True; A has 8 records
+  checkpoint: torn last record (5978 bytes) dropped; file truncated to 35864 bytes
+  checkpoint: lasso, R = 1.063E-1: resuming after 300 of 703 steps
+  3. resume from 3 records + a torn half record: identical list True; B == A record for record True; resume and torn-tail messages printed True
+  4. garbled record mid-file: load raised (AssertionError) -> gate works: True
+  checkpoint: lasso, R = 1.063E-1: resuming after 703 of 703 steps
+  5. planted change of one stored bound: resumed list differs from the reference True (must be True)
+  RESUME TEST: PASS

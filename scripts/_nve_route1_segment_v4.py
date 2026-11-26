@@ -18,12 +18,14 @@ remainder in dk x (that box). If d2kc0 is not certified at z_m, that step keeps 
 The z-series itself (c0'' = c_K'' sqrt(1 - k phi) and its k-derivative in closed form, k a ball), the outer-box Cauchy
 remainder in z (v2 dq_sup on a box 2x, else 1.5x, wider), min(centred, crude) and the order 30 are v3's, imported.
 
-Checkpoint: each finished rho row is appended to data/nve/eps/route1_seg_v4{TAG}_rows.jsonl; a rerun skips rows
-already there. No caps. Choice of rows: R1_RHOS (default "3,4,5,6.5").
+Checkpoints: each finished rho row is appended to data/nve/eps/route1_seg_v4{TAG}_rows.jsonl (a rerun skips rows
+already there), and within a row the per-step dq bounds go to route1_seg_v4{TAG}_dqck.jsonl every R1_CK_EVERY (200)
+steps, flushed and fsynced, exact (added after the 2026-11-26 power cut; resume test: _nve_route1_v4_cktest.py). No caps. Choice of rows: R1_RHOS (default "3,4,5,6.5").
     NVE_SPIN=3/5 R1_R0=1.35 nice -n 12 <quantum python> -I -u scripts/_nve_route1_segment_v4.py
 Outputs: data/nve/eps/route1_seg_M_v4{TAG}_nseg1.json, route1_seg_{spin}_v4.out.  One process, one core, < 300 MB.
 (Restored verbatim 2026-11-26 after the power cut: the first copy lived in a /private/tmp worktree, which the reboot
 cleared before it was committed.)"""
+import hashlib
 import json
 import math
 import os
@@ -42,6 +44,56 @@ RHOS4 = tuple(float(x) for x in os.environ.get("R1_RHOS", "3,4,5,6.5").split(","
 LOG4 = V.LOG.replace("_v2.out", "_v4.out")
 ROWS = os.path.join(V.OUTD, f"route1_seg_v4{V.TAG}_rows.jsonl")
 STATS = dict(centred=0, crude_kept=0, no_series=0, no_d2k=0, rout2=0, rout15=0)
+CK_EVERY = int(os.environ.get("R1_CK_EVERY", "200"))
+CKFILE = os.environ.get("R1_CKFILE", os.path.join(V.OUTD, f"route1_seg_v4{V.TAG}_dqck.jsonl"))
+
+
+def ck_key(steps, R, name):
+    """Identity of a dq list: segment, R, loop, number of steps and a hash of every step (box, length)."""
+    h = hashlib.sha256("".join(f"{Z}|{hm};" for Z, hm, _a1, _a2 in steps).encode()).hexdigest()[:16]
+    return f"{V.SEG}|R={V.ser(R)}|{name}|nsteps={len(steps)}|steps={h}"
+
+
+def ck_enc(x):
+    """An EXACT point arb (an upper bound) as integers (mantissa, exponent): the reload is the same number."""
+    assert x.rad() == 0
+    m, e = x.man_exp()
+    return [int(m), int(e)]
+
+
+def ck_dec(me):
+    return arb(me[0]) * arb(2) ** me[1]
+
+
+def ck_load(key):
+    """-> {step index: (bound, ratio, how)} for this key. A torn LAST line (power cut mid-write) is dropped and the
+    file truncated to the last complete record; a bad line anywhere else is a correctness gate (raises)."""
+    got = {}
+    if not os.path.exists(CKFILE):
+        return got
+    raw = open(CKFILE, "rb").read()
+    cut = raw.rfind(b"\n") + 1
+    if cut < len(raw):
+        say(f"  checkpoint: torn last record ({len(raw) - cut} bytes) dropped; file truncated to {cut} bytes")
+        with open(CKFILE, "r+b") as fh:
+            fh.truncate(cut)
+            fh.flush()
+            os.fsync(fh.fileno())
+    for ln in raw[:cut].split(b"\n")[:-1]:
+        r = json.loads(ln)
+        if r["key"] != key:
+            continue
+        for i, me, rat, how in r["vals"]:
+            got[i] = (ck_dec(me), rat, how)
+    assert sorted(got) == list(range(len(got))), "checkpoint records are not a prefix of the step list"
+    return got
+
+
+def ck_write(key, buf):
+    with open(CKFILE, "a") as fh:
+        fh.write(json.dumps(dict(key=key, vals=buf)) + "\n")
+        fh.flush()
+        os.fsync(fh.fileno())
 
 
 def say(*a):
@@ -85,13 +137,27 @@ def series_from_init(zm, kball, init):
         return None
 
 
-def dq_list_v4(steps, kc, R, lau_c, laud_c):
+def dq_list_v4(steps, kc, R, lau_c, laud_c, name=None):
     """Per step: a point arb >= sup |dq/dk| on the step segment for every k in the k-square; (None, where) if v2's
-    crude enclosure itself fails (a holomorphy box), exactly as v2/v3 reject the row."""
+    crude enclosure itself fails (a holomorphy box), exactly as v2/v3 reject the row.
+    name: if given, per-step bounds are checkpointed to CKFILE every CK_EVERY steps (flushed, fsynced) and a rerun
+    resumes after the last complete record. The stored bounds are exact, so a resumed list equals an uninterrupted one."""
     K, dKs = V.kbox(kc, R)
     dks = [acb(0)] if dKs is None else dKs
     out, ratios = [], []
-    for Z, hm, _a1, _a2 in steps:
+    key = ck_key(steps, R, name) if name else None
+    have = ck_load(key) if key else {}
+    if have:
+        say(f"  checkpoint: {name}, R = {V.hi_sci(R)}: resuming after {len(have)} of {len(steps)} steps")
+    buf = []
+    for idx, (Z, hm, _a1, _a2) in enumerate(steps):
+        if idx in have:
+            b, rat, how = have[idx]
+            out.append(b)
+            ratios.append(rat)
+            STATS["centred" if how == "c" else "crude_kept"] += 1
+            continue
+        nb = len(out)
         crude = V.dq_sup(Z, K, dKs, lau_c, laud_c)
         if crude is None:
             return None, complex(Z.real.mid(), Z.imag.mid()), None
@@ -145,6 +211,12 @@ def dq_list_v4(steps, kc, R, lau_c, laud_c):
             out.append(crude)
             STATS["crude_kept"] += 1
         ratios.append(float(crude) / float(out[-1]))
+        if key:
+            buf.append([idx, ck_enc(out[-1]), ratios[-1], "c" if best is not None and best < crude else "k"])
+            if len(buf) >= CK_EVERY or idx == len(steps) - 1:
+                ck_write(key, buf)
+                buf = []
+        assert len(out) == nb + 1
     assert len(out) == len(steps) and all(x.is_finite() for x in out)
     return out, None, ratios
 
@@ -156,8 +228,8 @@ def row_for(rho, half, kc, st0, st1, M0, M1, lau_c, laud_c, n_force=None):
     pre = V.precondition(K)
     if not pre["ok"]:
         return dict(rho=rho, rejected="precondition not certified", precondition=pre)
-    d0, w0, r0 = dq_list_v4(st0, kc, R, lau_c, laud_c)
-    d1, w1, r1 = dq_list_v4(st1, kc, R, lau_c, laud_c) if d0 is not None else (None, None, None)
+    d0, w0, r0 = dq_list_v4(st0, kc, R, lau_c, laud_c, name="circle")
+    d1, w1, r1 = dq_list_v4(st1, kc, R, lau_c, laud_c, name="lasso") if d0 is not None else (None, None, None)
     if d0 is None or d1 is None:
         return dict(rho=rho, rejected=f"holomorphy box fails at {w0 if d0 is None else w1}")
     C0, C1 = V.gauge(st0, d0), V.gauge(st1, d1)
