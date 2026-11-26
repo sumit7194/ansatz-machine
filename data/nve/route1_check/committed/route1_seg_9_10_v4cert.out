@@ -1,0 +1,55 @@
+== v4 verdict == spin 9/10|k in [1, 1.1]; chosen rho = 4.0, n = 18; nodes -> route1_seg_nodes_arb_9_10_v4cert.jsonl (fsynced)
+== nodes (arb evaluator) == NSEG = 1; 0 records already on disk
+  spin 9/10|k in [1, 1.1]|seg0/1|n=18|node0: 160.99 s, steps [17893, 893], radius of F 2.5e-08
+  spin 9/10|k in [1, 1.1]|seg0/1|n=18|node1: 161.26 s, steps [17893, 894], radius of F 2.5e-08
+  spin 9/10|k in [1, 1.1]|seg0/1|n=18|node2: 162.04 s, steps [17897, 893], radius of F 2.5e-08
+  spin 9/10|k in [1, 1.1]|seg0/1|n=18|node3: 168.93 s, steps [17903, 894], radius of F 2.5e-08
+  spin 9/10|k in [1, 1.1]|seg0/1|n=18|node4: 165.19 s, steps [17909, 894], radius of F 2.5e-08
+  spin 9/10|k in [1, 1.1]|seg0/1|n=18|node5: 172.4 s, steps [17916, 894], radius of F 2.5e-08
+  spin 9/10|k in [1, 1.1]|seg0/1|n=18|node6: 170.71 s, steps [17924, 894], radius of F 2.5e-08
+  spin 9/10|k in [1, 1.1]|seg0/1|n=18|node7: 162.01 s, steps [17934, 895], radius of F 2.5e-08
+  spin 9/10|k in [1, 1.1]|seg0/1|n=18|node8: 176.57 s, steps [17943, 895], radius of F 2.5e-08
+  spin 9/10|k in [1, 1.1]|seg0/1|n=18|node9: 173.5 s, steps [17955, 895], radius of F 2.5e-08
+  spin 9/10|k in [1, 1.1]|seg0/1|n=18|node10: 173.59 s, steps [17965, 895], radius of F 2.5e-08
+  spin 9/10|k in [1, 1.1]|seg0/1|n=18|node11: 173.65 s, steps [17975, 896], radius of F 2.4e-08
+  spin 9/10|k in [1, 1.1]|seg0/1|n=18|node12: 163.22 s, steps [17983, 897], radius of F 2.4e-08
+  spin 9/10|k in [1, 1.1]|seg0/1|n=18|node13: 162.37 s, steps [17989, 897], radius of F 2.4e-08
+  spin 9/10|k in [1, 1.1]|seg0/1|n=18|node14: 163.15 s, steps [17995, 897], radius of F 2.4e-08
+  spin 9/10|k in [1, 1.1]|seg0/1|n=18|node15: 165.33 s, steps [18002, 896], radius of F 2.4e-08
+  spin 9/10|k in [1, 1.1]|seg0/1|n=18|node16: 163.3 s, steps [18006, 897], radius of F 2.4e-08
+  spin 9/10|k in [1, 1.1]|seg0/1|n=18|node17: 166.5 s, steps [18007, 895], radius of F 2.4e-08
+  spin 9/10|k in [1, 1.1]|seg0/1|n=18|node18: 166.31 s, steps [18008, 895], radius of F 2.4e-08
+  spin 9/10|k in [1, 1.1]|seg0/1|held t=-5/8: 167.56 s, steps [17988, 897], radius of F 2.4e-08
+  spin 9/10|k in [1, 1.1]|seg0/1|held t=1/8: 165.96 s, steps [17946, 895], radius of F 2.5e-08
+  spin 9/10|k in [1, 1.1]|seg0/1|held t=3/4: 173.71 s, steps [17910, 894], radius of F 2.5e-08
+  spin 9/10|k in [1, 1.1]|seg0/1|ellipse0/8 rho=4.0: 174.07 s, steps [17835, 895], radius of F 2.6e-08
+  spin 9/10|k in [1, 1.1]|seg0/1|ellipse1/8 rho=4.0: 172.27 s, steps [17905, 895], radius of F 2.5e-08
+  spin 9/10|k in [1, 1.1]|seg0/1|ellipse2/8 rho=4.0: 175.08 s, steps [18000, 898], radius of F 2.4e-08
+  spin 9/10|k in [1, 1.1]|seg0/1|ellipse3/8 rho=4.0: 179.04 s, steps [18067, 898], radius of F 2.4e-08
+  spin 9/10|k in [1, 1.1]|seg0/1|ellipse4/8 rho=4.0: 183.67 s, steps [18059, 898], radius of F 2.4e-08
+  spin 9/10|k in [1, 1.1]|seg0/1|ellipse5/8 rho=4.0: 175.0 s, steps [17999, 897], radius of F 2.5e-08
+  spin 9/10|k in [1, 1.1]|seg0/1|ellipse6/8 rho=4.0: 178.44 s, steps [17905, 898], radius of F 2.5e-08
+  spin 9/10|k in [1, 1.1]|seg0/1|ellipse7/8 rho=4.0: 190.43 s, steps [17837, 896], radius of F 2.6e-08
+  nodes: wall 5106 s this call; peak rss 28 MB
+== verdict (v2; node values: arb evaluator, route1_seg_nodes_arb_9_10_v4cert.jsonl) == spin 9/10|k in [1, 1.1]; NSEG = 1
+  sub-segment 0 (k_c = 1.050000; rho = 4.0, n = 18; proved M_F <= 1.458E+7, M_trM0 <= 4.814E+0, M_trM1 <= 5.226E+2):
+    F:     min |p| >= 0.052660105; proved error bound <= 2.830E-4  -> |F| >= 0.052377152; F != 0: True
+    tr M0: min |p| >= 1.976145507; proved error bound <= 9.341E-11  -> |tr M0| >= 1.976145507; tr M0 != 0: True
+    tr M1: min |Im p| >= 3.842809566; proved error bound <= 1.014E-8  -> |Im tr M1| >= 3.842809556; tr M1 not in [-2, 2]: True
+    control, planted zero (F - F(k_c)): min |p| >= 0.000e+00, bound 2.830E-4 -> certificate REFUSED (as it must be)
+  VERDICT: CERTIFIED  (F != 0, tr M0 != 0, tr M1 not in [-2, 2] for every real k in [1, 1.1])
+  -- controls --
+  planted zero refused on every sub-segment: True
+  planted precondition at k = 4.2 +- 0.01 (complex box): certified False; a zero of 1 - k phi has |w| up to 10.4094 >= 1.2346: inside the Laurent disc
+  planted precondition at k = 4.01 +- 0.001 (complex box): certified False; a zero of 1 - k phi has |w| up to 1.3431 >= 1.2346: inside the Laurent disc
+  planted precondition at k = 4.0 +- 0.001 (complex box): certified True; max |w_root| 1.0996 < 1.2346
+  planted precondition at k = 1.05 +- 0.2 (complex box): certified True; max |w_root| 0.5789 < 1.2346
+  held-out, sub-segment 0, t = -5/8: |p - f| in [0.0e+00, 1.3e-06] (F), [0.0e+00, 8.6e-09] (tr M0), [0.0e+00, 5.6e-10] (tr M1)
+  held-out, sub-segment 0, t = 1/8: |p - f| in [0.0e+00, 1.2e-06] (F), [0.0e+00, 8.1e-09] (tr M0), [0.0e+00, 6.0e-10] (tr M1)
+  held-out, sub-segment 0, t = 3/4: |p - f| in [0.0e+00, 1.2e-06] (F), [0.0e+00, 8.8e-09] (tr M0), [0.0e+00, 6.0e-10] (tr M1)
+  held-out points consistent with interpolant +- bound: True
+  proved M >= sampled on the ellipse rho = 4.0 of sub-segment 0 (8 points): sampled max |F| 0.0830, |tr M0| 1.9827, |tr M1| 3.8948 -> True (overestimate x1.8e+08, x2.4e+00, x1.3e+02)
+  engine F, tr M0, tr M1 at k = 11/10 (an end node; the engine used its own lasso of that k): inside the node enclosures [True, True, True]; node radius of F 7.4e-08
+  engine F, tr M0, tr M1 at k = 1 (an end node; the engine used its own lasso of that k): inside the node enclosures [True, True, True]; node radius of F 7.4e-08
+  shrunken M (all bounds / 1e12): verdict still passes True; held-out inconsistencies: none; below the SAMPLED maximum for: ['F', 'tr M0', 'tr M1']
+  peak rss 28 MB
