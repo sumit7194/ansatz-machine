@@ -4764,3 +4764,14 @@ pole-order-1 Carter² survival.
   per-segment engine gate, pilots P1–P4 before production. The Laurent precondition stops region A near k ≈ 4.006,
   so spin 3/5's (~4.006, 4.05] is left uncovered by this method.
 - Nothing ran; no merge; nothing public changed.
+
+## 2026-11-26 (evening, later) — Route (i): non-author read, required fixes, registration v1 (ansatz-machine-personal)
+- **Non-author read of the office's v3/v4 code** (data/nve/ROUTE1_V3V4_READ.md, 2806c70): no error, four findings.
+  The reader wrote v2 as Fable; this is a non-author read of v3/v4 and the 9/10 run only.
+- **Bridge ruling:** findings 1–3 are required before production; finding 4 is relabelled as a log in
+  ROUTE1_KTAYLOR_OFFICE.md.
+- **v5 written, not run** (personal/2026-11-26-route1-check, 43a2de1): F1 branch assert, F2 code-hash checkpoint
+  keys, F3 coverage counts asserted by the verdict. Tests T1–T4 wait for the go.
+- **Reuse audit:** no earlier reproduction reused committed checkpoints (registration v1 §3(e)).
+- **Registration draft v1** (docs/ROUTE1_REGISTRATION.md). Not approved. Compute is held while Sumit's office work
+  needs the cores.

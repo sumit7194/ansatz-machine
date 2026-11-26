@@ -77,6 +77,24 @@ monkeypatched, and v2's stages look `get` up at call time, so the patch takes ef
    - Recommendation: write the step counts × sub-box count into the v4 JSON and have the wrapper assert them.
 4. **The point constants are printed against hard-coded v3 values.** The "z-direction control" line compares with
    literal numbers in the format string, not with v3's file. It is fine as a log, not as a control.
+   - **Relabelled.** In `ROUTE1_KTAYLOR_OFFICE.md`, control 1 is now marked a LOG comparison, not a control (the
+     Bridge's ruling).
+
+### Rulings (Bridge - claude personal, 2026-11-26)
+- **Findings 1–3 are REQUIRED fixes before any production run.** They are now registration v1 §3(d), F1–F3, written
+  as `scripts/_nve_route1_segment_v5.py` (43a2de1, not yet run). Tests T1–T4 are listed there.
+- **Finding 4:** relabelled as above.
+
+### Follow-up from finding 2: did any earlier reproduction reuse committed checkpoints? No.
+The full audit is in the registration, §3(e). In short:
+- the office's reproductions (b38af7d, 7dd8c18) deleted the node files before rerunning, and their logs show
+  "0 records already on disk";
+- v1, v2 and v3 have no other checkpoints;
+- the v4 proof stages (6d411a8, a75d7e3) ran in a fresh worktree, and their rows/dqck files were first committed by
+  those very runs;
+- the 9/10 certificate (2aebf34) is an original run with "0 records already on disk".
+
+So those records stand as stated. The hazard applies to future reruns at 6d411a8 or later, until F2 is in use.
 
 ### What this read does not cover
 - The Dyson/gauge chain and the M formulas are v2's, checked by the office (b38af7d), and not re-derived here.

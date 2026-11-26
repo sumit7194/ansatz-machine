@@ -1,4 +1,8 @@
-# Route (i) pre-registration — DRAFT v0, NOT APPROVED (2026-11-26)
+# Route (i) pre-registration — DRAFT v1, NOT APPROVED (2026-11-26)
+
+**v1 (2026-11-26), on the Bridge's ruling after the non-author read (`data/nve/ROUTE1_V3V4_READ.md`):** adds §3(d),
+three REQUIRED code fixes before any production run, and §3(e), an audit of the earlier reproductions. Production
+now runs from v5 (§5), not v4. Nothing else changes.
 
 **Status.** A draft for the Bridge and Sumit. Nothing in it may run until both approve it. Approval is recorded here
 as a dated line, with the commit that adds it. Until then the only route-(i) results are the two internal segments in
@@ -74,6 +78,45 @@ None of these has been done. Each gets its own short record; a failure stops the
 - **Pre-registration item:** run it, because production chooses the smallest n and this is exactly what production
   would do. Cost: 13 nodes + 3 held-out + 8 ellipse points at about 25 s, plus the engine at the 13 nodes: ≈ 15 min.
 
+**(d) Required code fixes before any production run (from the read's findings 1–3).** Written as
+`scripts/_nve_route1_segment_v5.py` on `personal/2026-11-26-route1-check` (43a2de1): v4's mathematics unchanged, plus
+checks and keys only. NOT yet run or tested.
+- **F1, the branch of √(1 − kφ).** Assert Re(1 − kφ(z)) > 0 at every expansion point: v2's Taylor step (reference
+  walks and node evaluations) and v4's dq-series at each step midpoint (k a ball). A failure is a correctness gate
+  (AssertionError), not the "refused box, halve ρ" path.
+- **F2, code hash in every checkpoint key.** The hash is sha256 of proto, v2, v3, v4 and v5. It goes into the per-step
+  dq checkpoint key, the rows file and the node file (each named by the hash; each record carries it). Any record
+  with another hash stops the run; nothing from other code is reused.
+- **F3, coverage counts asserted.** The proof JSON records per loop: steps, step bounds, k-sub-boxes and pairs. The
+  verdict recomputes the expected counts from the step counts, asserts them and the code hash, and gives v2's
+  `boxes == expected_boxes` check real numbers again (v4's wrappers had set both to [0, 0]).
+- **Tests required before production** (each can fail; run on the go, a few minutes each at spin 3/5):
+  - T1: v5's proof stage at spin 3/5 reproduces v4's rows exactly (the same M, n and bounds). The fixes add checks
+    only, so any difference is a bug.
+  - T2: a planted checkpoint record with another code hash must STOP the run.
+  - T3: a planted expansion point with Re(1 − kφ) ≤ 0 must raise the F1 gate.
+  - T4: a planted change of one coverage count in the proof JSON must make the verdict refuse.
+- **v5 needs its own non-author check.** It was written by this session.
+
+**(e) Audit: did any earlier "reproduction" silently reuse committed checkpoints?** **No.** Checked from the office
+session's commands and logs (its transcript, with the commands as run) and from the committed logs at c2dd39c:
+- **b38af7d (office check of v1/v2):**
+  - v1: the node file was deleted before the rerun, and the log shows "0 records already on disk".
+  - v2: its node file was deleted the same way.
+  - v1 and v2 have no other checkpoint.
+- **7dd8c18 (the spin-3/5 rerun at d18de63):** the node file was deleted first.
+- **The v3 reproduction (from 8b9971c):** v3 has no checkpoints.
+- **6d411a8 and a75d7e3 (the v4 proof stages):** run in a fresh worktree after the power cut. Their rows and dqck
+  files were first committed BY those runs, and the logs contain no "from checkpoint" or "resuming" line. So nothing
+  existed to reuse.
+- **2aebf34 (the 9/10 certificate):** the original run, not a reproduction. Its node log shows "0 records already on
+  disk".
+- **Reuse by design, and stated as such in its record:** the equal-n controls (6d411a8) ran on a copy of v2's node
+  file ("36 records already on disk").
+
+The hazard is real for FUTURE reruns: any checkout at 6d411a8 or later holds committed rows/dqck files that v4 would
+read back. F2 closes it. Until then, a rerun must move them aside (as `run_repro_9_10.sh`, 0cc8115, does).
+
 ## 4. Gaps the method must close, with the plan for each
 1. **The Laurent-disc precondition near k = 4.** c0″ is evaluated from its Laurent series at infinity, which needs
    the B roots inside |w| < 1/0.81 for every k in the segment's k-square. Certified at k = 4.0 ± 0.001 (largest root
@@ -107,7 +150,7 @@ None of these has been done. Each gets its own short record; a failure stops the
    segment. The holomorphy boxes certify that no singular point reaches either loop for any k in the k-disc.
    Different segments may use different lassos: the three conditions are about the subgroup ⟨M0, M1⟩, and if that
    subgroup is Zariski-dense so is the monodromy group. No homotopy consistency between segments is needed.
-2. **Proof stage:** v4 (`_nve_route1_segment_v4.py`, after §3(a)), ρ ∈ {3, 4, 5, 6.5}. Choose the row with the smallest
+2. **Proof stage:** v5 (`_nve_route1_segment_v5.py` = v4 + F1–F3, after §3(a) and §3(d) T1–T4), ρ ∈ {3, 4, 5, 6.5}. Choose the row with the smallest
    n; ties go to the smaller error bound. Precondition and holomorphy are certified per row; a row that fails is
    rejected.
 3. **The n target:** the interpolation error bound must be ≤ 1e−2 × |F(k_c)| (from the reference solution), and the
@@ -115,11 +158,12 @@ None of these has been done. Each gets its own short record; a failure stops the
 4. **Split rule:** if no row is admissible, or the chosen n exceeds 40, split the segment in half and redo both halves.
    Splitting does not end any job; it is a design rule, fixed here. A segment narrower than 1e−4 that still fails is
    reported as UNCOVERED and is not split further.
-5. **Nodes and verdict:** v2's unchanged `nodes`/`verdict` stages on the chosen row, one fsynced jsonl line per node,
-   keyed (spin, segment, n, node), resumable.
+5. **Nodes and verdict:** v2's unchanged `nodes`/`verdict` stages on the chosen row, through v5's `verdict` (F1–F3):
+   one fsynced jsonl line per node, keyed (spin, segment, n, node) in a file named by the code hash, resumable.
 6. **Initial segmentation:** 0.1-wide from 0.1 to the top, dyadic below 0.1 (§4.2).
 
-**Pilots, in order, before production at any spin** (each sealed before it runs; one process, one core, nice 12):
+**Pilots, in order, before production at any spin** (each sealed before it runs; one process, one core, nice 15
+while the box is loaded):
 - **P1:** §3(c), the spin-3/5 v4 verdict at its own n = 12 (≈ 15 min).
 - **P2:** v4 proof stage at k_c = 21/20 for spins 3/10 and 4/5 (≈ 10–20 min each).
 - **P3:** v4 proof stage, one row (ρ = 4), at k_c ∈ {1/2, 2, 3, 3.9} for spins 3/5 and 9/10 (≈ 5 min each at 3/5,
@@ -188,4 +232,6 @@ registration, once approved, says which code version production runs from (by co
 the first production record.
 
 ## Approval
-- Draft v0: 2026-11-26, this commit. Not approved.
+- Draft v0: 2026-11-26, c3a61ab. Not approved.
+- Draft v1: 2026-11-26, this commit (adds §3(d) F1–F3 and tests T1–T4, §3(e) the reuse audit; production on v5).
+  Not approved.

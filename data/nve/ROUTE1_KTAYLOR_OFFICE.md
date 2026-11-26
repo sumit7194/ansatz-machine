@@ -55,6 +55,9 @@
 
 ## Controls (the Bridge's)
 1. **The z-direction is unchanged.** The point constants are identical to v3's at both spins, to every printed digit.
+   *(Relabelled 2026-11-26 after the non-author read, `ROUTE1_V3V4_READ.md` finding 4: this is a LOG comparison, not
+   a control. The v4 log line prints v3's values as literal numbers in its format string and does not read v3's
+   file. The numbers do agree with v3's committed output; the check just was not wired to fail.)*
 2. **Spin 3/5 certifies at EQUAL n = 24** (ρ = 4, v2's own 25 nodes plus held-out; the node copy is byte-identical to
    v2's file). Every lower bound is ≥ v2's.
 
