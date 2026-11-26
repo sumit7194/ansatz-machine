@@ -55,3 +55,41 @@ The z-control is line for line v4's apart from the `S4.` prefix, in v4's positio
 **The Bridge's check of the slip:** the three hashes in 68486b9 equal the files as committed at 4bc2ebd (floats
 a2c0718b…, p2.sh d415bbd9…, v4 c2675521…; I reproduced them with `git show 4bc2ebd:<file> | shasum -a 256`). So the code
 P2 ran was in git 11 s before the launch, and only the hash list came 54 s late.
+
+## T1–T4 plus B1 on v5.1 (1f3d3d7 manifest, b7e17c4): PASS
+
+**Run:** `air/tests51.sh`, chained to start on P2's rc 0. It started 19:20:43 and ended `JOB_EXIT 0` at 20:14:34, on
+the Air, `.venv313`, Python 3.13.18, python-flint 0.9.0, one process, nice 15, pause-only guard (never paused). Outputs
+were copied back unchanged into `air_tests51/` (the log, the v5.1 rows, dq checkpoint, proof JSON, node file and
+verdict). The v4 reference is today's T1 run on the same machine and the same Python (`route1_seg_M_v4_nseg1_T1run.json`
+and the v4 rows from that run), as the amended registration requires.
+
+**T1 (v5.1 at the default segment vs v4): PASS.** All four rows (ρ = 3, 4, 5, 6.5) are IDENTICAL after dropping only
+v5's additions and `sec`, `stats` included this time. The **whole proof JSON is IDENTICAL** under the `T1_MJSON` rule,
+with v5's `code`, `code_env` and `code_files` present. The restored K-point control printed 4.153E-1 (circle) and
+9.325E+0 (lasso), v3's and v4's values. Coverage at every row: circle 2163 steps = 2163 bounds, 25 k-subpoints, 54075
+pairs; lasso 703 = 703, 25, 17575. The F1 step checks (12304) never fired. Proof stage 1694 s, peak RSS 35 MB.
+
+**T2–T4 and B1: 14/14 PASS.**
+
+| test | outcome |
+|---|---|
+| T2 control: untampered prove resumes | rc 0, rows from checkpoint 4/4, proof JSON unchanged |
+| T2a foreign record in the dq checkpoint | refused, "F2 gate", other files unchanged |
+| T2b foreign record in the rows file | refused, "F2 gate", other files unchanged |
+| T2c foreign code in the proof JSON | refused, "F2 gate", other files unchanged |
+| T4a circle pair count + 1 | refused, "F3 gate", other files unchanged |
+| T4b lasso bound count + 1 | refused, "F3 gate", other files unchanged |
+| T2/T4 control: untampered v5 verdict | CERTIFIED, \|F\| ≥ 0.265039275 (P1's number), planted-zero control refused |
+| T4 control: verdict rerun reads every node from disk | rc 0 |
+| T2d foreign record in the node file | refused, "F2 gate", other files unchanged |
+| T3a bad point (1 − kφ ≈ −2.356 − 0.467i) via `safe_step` | AssertionError "F1 gate" |
+| T3b the same point via the v4 dq-series | AssertionError "F1 gate" |
+| T3 control: on the reference circle (1 − kφ ≈ 0.766) | step returned, F1 step count 0 → 1 |
+| B1 `R1_HALF` set, `R1_KC` unset (sent as `R1_KCC`) | refused, rc 1, "B1 gate" in output |
+| B1 `R1_FLOATS` alone | refused, rc 1, "B1 gate" in output |
+
+Every plant was backed up, restored and checked by sha256 (t234's "other files unchanged"). The B1 rows require the
+string "B1 gate" in the output, not just a nonzero rc.
+
+**Consequence:** v5.1 is cleared for P3 under the Bridge's order (P3 waits until these results are read and sent).
