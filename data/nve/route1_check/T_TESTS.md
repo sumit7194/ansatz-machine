@@ -51,3 +51,7 @@ its run.
 **The fix read:** 4bc2ebd was read and approved by the Bridge (TheBridge `fleet/reads/ansatz_v5.1_fix_4bc2ebd_read_2026-11-26.md`).
 The z-control is line for line v4's apart from the `S4.` prefix, in v4's position before the rows. `norder` and
 `point_constants` are v4's expressions, and the T1_MJSON allow-list is right. P2 on v4 is accepted.
+
+**The Bridge's check of the slip:** the three hashes in 68486b9 equal the files as committed at 4bc2ebd (floats
+a2c0718b…, p2.sh d415bbd9…, v4 c2675521…; I reproduced them with `git show 4bc2ebd:<file> | shasum -a 256`). So the code
+P2 ran was in git 11 s before the launch, and only the hash list came 54 s late.
