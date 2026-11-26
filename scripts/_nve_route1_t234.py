@@ -178,6 +178,10 @@ if hasattr(S5, "KCS"):
 #       exception, and the row serialises with json.dumps as prove writes it. Other direction: v5.1's float expression raises OverflowError on that same M_F.
 #   T5b n_raw in (40, 41) gives n = 42 after evening, so the SECOND branch must reject it ("n = 42 > 40").
 #   T5c control: n_raw about 20.3 gives an ADMITTED row whose n equals v5.1's float expression (22).
+#   T5d (B2, the Bridge's read) a rejected row whose I0 is (i) about 1e399, finite but beyond the double range, or
+#       (ii) non-finite, still serialises: c0_per_k and c1_per_k are None, I0 is kept as its Arb string. (Before B2
+#       those fields were float inf / nan, which json.dumps writes as non-standard Infinity / NaN, not a crash; the
+#       "is None" condition is what tells B2 apart.)
 if hasattr(S5, "NMAX"):
     import math
     saved = (V.kbox, V.precondition, S4.dq_list_v4, V.gauge, V.dyson_sum, V.gauge_norms)
@@ -233,6 +237,16 @@ if hasattr(S5, "NMAX"):
                f"n {r.get('n')}, v5.1 n {old_n(D)}, rejected {r.get('rejected')}")
     except Exception as e:
         record("T5c control: n = 22 admitted, equal to v5.1's", False, f"{type(e).__name__}: {e}"[:160])
+    for nm, D in (("I0 about 1e399 (finite, beyond the double range)", arb(10) ** 400),
+                  ("I0 non-finite", arb(1) / arb(0))):
+        try:
+            r = run_row(D)
+            js = json.dumps(r)
+            record(f"T5d rejected row with {nm} serialises", "rejected" in r and r["rejected"].startswith("n > 40")
+                   and r["c0_per_k"] is None and r["c1_per_k"] is None and isinstance(r["I0"], str),
+                   f"{r.get('rejected')}; c0_per_k {r.get('c0_per_k')}; {len(js)} bytes of JSON")
+        except Exception as e:
+            record(f"T5d rejected row with {nm} serialises", False, f"{type(e).__name__}: {e}"[:160])
 
 print("T2-T4 RESULT:", "PASS" if all(ok for _, ok in RES) else "FAIL", f"({sum(ok for _, ok in RES)}/{len(RES)})")
 sys.exit(0 if all(ok for _, ok in RES) else 1)

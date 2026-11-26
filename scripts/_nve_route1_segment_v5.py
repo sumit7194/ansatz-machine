@@ -21,6 +21,8 @@ registration item.
 v5.2 (C1, after P3's spin 9/10 k_c 3 crash): the n formula fails closed. A row whose n, decided in Arb, would exceed
 NMAX = 40 (the split threshold of registration §5.4) is REJECTED with its constants recorded, instead of crashing on
 float(M_F). Rows with n <= 40 are computed exactly as before.
+B2 (the Bridge's v5.2 read): a rejected row's diagnostic c0/c1 per unit k use safe_float (None beyond 1e300 or
+non-finite), since float(arb) also overflows. Admitted rows are untouched.
     NVE_SPIN=3/5 R1_R0=1.35 nice -n 15 <quantum python> -I -u scripts/_nve_route1_segment_v5.py prove
     NVE_SPIN=3/5 R1_R0=1.35 nice -n 15 <quantum python> -I -u scripts/_nve_route1_segment_v5.py verdict
 Outputs: data/nve/eps/route1_seg_*_v5{TAG}_<hash>*. One process, one core, < 300 MB."""
@@ -78,6 +80,14 @@ MJSON = os.path.join(V.OUTD, f"route1_seg_M_{BASE}_nseg1.json")
 LOG5 = os.path.join(V.OUTD, f"route1_seg_{V.SPIN.replace('/', '_')}{KTAG}_v5.out")
 F1_COUNT = dict(step=0, series=0)
 NMAX = 40     # v5.2 (C1): the registration's split threshold (§5.4); efficiency only, never soundness (see row_for)
+
+
+def safe_float(x):
+    """B2 (the Bridge's v5.2 read): a float for a REJECTED row's diagnostic fields only, or None when x is non-finite
+    or beyond 1e300. (Checked on python-flint 0.9.0: float(arb) gives inf past the double range and nan for a
+    non-finite ball, so json.dumps would write the non-standard Infinity / NaN; None keeps the row standard JSON.)
+    Admitted rows never use it."""
+    return float(x) if x.is_finite() and x.abs_upper() < arb("1e300") else None
 
 
 def say(*a):
@@ -187,13 +197,13 @@ def row_for(rho, half, kc, st0, st1, M0, M1, lau_c, laud_c):
         # (no float of MF here: V.hi_sci goes through float() too, and failed the same way in the T5 smoke test)
         lg = (MF.log() / arb(10).log()).upper()
         return dict(rho=rho, rejected=f"n > {NMAX} (log10 M_F <= {lg.str(4, radius=False)}; the split rule's case)",
-                    MF=V.ser(MF), I0=V.ser(I0), I1=V.ser(I1), c0_per_k=float(I0 / R), c1_per_k=float(I1 / R),
+                    MF=V.ser(MF), I0=V.ser(I0), I1=V.ser(I1), c0_per_k=safe_float(I0 / R), c1_per_k=safe_float(I1 / R),
                     precondition=pre, coverage=cov, code=CODE, stats=dict(S4.STATS), f1=dict(F1_COUNT))
     n = max(2, math.ceil(math.log(4 * float(MF) / ((rho - 1) * V.TOL_F)) / math.log(rho)))
     n += n % 2
     if n > NMAX:
         return dict(rho=rho, rejected=f"n = {n} > {NMAX} (the split rule's case)", MF=V.ser(MF), I0=V.ser(I0),
-                    I1=V.ser(I1), c0_per_k=float(I0 / R), c1_per_k=float(I1 / R), precondition=pre, coverage=cov,
+                    I1=V.ser(I1), c0_per_k=safe_float(I0 / R), c1_per_k=safe_float(I1 / R), precondition=pre, coverage=cov,
                     code=CODE, stats=dict(S4.STATS), f1=dict(F1_COUNT))
     den = rb ** n * (rb - 1)
     eF, e0, e1 = (4 * MF / den).upper(), (4 * MT0 / den).upper(), (4 * MT1 / den).upper()
