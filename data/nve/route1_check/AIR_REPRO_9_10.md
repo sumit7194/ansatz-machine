@@ -82,3 +82,15 @@ for F, tr M0 and tr M1:
 - spin 9/10 (the v4 certificate's nodes, n = 18): **19/19** (largest F radius 7.4e-8, about 76 s per node).
 Checked from the records themselves (every `F_inside`, `T0_inside`, `T1_inside` and `pass` field reads True), not only
 from the RESULT lines. Outputs are in `air_engine/`.
+
+## The exact reproduction under Python 3.13.18: IDENTICAL (2026-11-26, Air)
+
+`repro313.sh` (`.venv313`: Homebrew Python 3.13.18, python-flint 0.9.0, mpmath 1.3.0, sympy 1.14.0, numpy 2.5.0) ran
+from nothing, 14:26:24 to 17:00:11, rc 0, with the guard never pausing; all 46 manifest files were unchanged afterwards.
+`_nve_route1_air_compare.py data/nve/route1_check/air_out313`:
+- dq checkpoint: byte-identical (210a0e41…); verdict JSON: byte-identical (7276bd69…);
+- rows file, v4 proof JSON, v2-format cert JSON: identical after dropping only `sec` (and `env` in the proof JSON).
+  All four rows match, including the gauges of ρ = 3, 5 and 6.5 that differed under 3.14.
+
+So the 3.14 difference was the Python version alone, and the patch level 3.13.18 against 3.13.12 changed nothing.
+This closes the Air identity test. Outputs are in `air_out313/`; the 3.14 outputs stay in `air_out/`.
