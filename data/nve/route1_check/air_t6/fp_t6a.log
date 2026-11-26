@@ -1,0 +1,41 @@
+2026-11-27 01:10:15 zsh [94958]: 64-bit    Footprint: 1536 KB (16384 bytes per page)
+2026-11-27 01:10:16 Python [94972]: 64-bit    Footprint: 16 MB (16384 bytes per page)
+2026-11-27 01:20:16 zsh [94958]: 64-bit    Footprint: 1488 KB (16384 bytes per page)
+2026-11-27 01:20:16 Python [95541]: 64-bit    Footprint: 20 MB (16384 bytes per page)
+2026-11-27 01:30:16 zsh [94958]: 64-bit    Footprint: 1488 KB (16384 bytes per page)
+2026-11-27 01:30:16 Python [95541]: 64-bit    Footprint: 21 MB (16384 bytes per page)
+2026-11-27 01:40:16 zsh [94958]: 64-bit    Footprint: 1504 KB (16384 bytes per page)
+2026-11-27 01:40:16 Python [99125]: 64-bit    Footprint: 15 MB (16384 bytes per page)
+2026-11-27 01:50:16 zsh [94958]: 64-bit    Footprint: 1504 KB (16384 bytes per page)
+2026-11-27 01:50:17 Python [2492]: 64-bit    Footprint: 15 MB (16384 bytes per page)
+2026-11-27 01:50:17 Python [2493]: 64-bit    Footprint: 89 MB (16384 bytes per page)
+2026-11-27 02:00:17 zsh [94958]: 64-bit    Footprint: 1584 KB (16384 bytes per page)
+2026-11-27 02:00:17 Python [4486]: 64-bit    Footprint: 18 MB (16384 bytes per page)
+2026-11-27 02:10:17 zsh [94958]: 64-bit    Footprint: 1584 KB (16384 bytes per page)
+2026-11-27 02:10:17 Python [5490]: 64-bit    Footprint: 16 MB (16384 bytes per page)
+2026-11-27 02:20:17 zsh [94958]: 64-bit    Footprint: 1584 KB (16384 bytes per page)
+2026-11-27 02:20:17 Python [8103]: 64-bit    Footprint: 19 MB (16384 bytes per page)
+2026-11-27 02:30:18 zsh [94958]: 64-bit    Footprint: 1584 KB (16384 bytes per page)
+2026-11-27 02:30:18 Python [9026]: 64-bit    Footprint: 16 MB (16384 bytes per page)
+2026-11-27 02:40:18 zsh [94958]: 64-bit    Footprint: 1584 KB (16384 bytes per page)
+2026-11-27 02:40:18 Python [11052]: 64-bit    Footprint: 10 MB (16384 bytes per page)
+2026-11-27 02:40:18 Python [11961]: 64-bit    Footprint: 15 MB (16384 bytes per page)
+2026-11-27 02:50:18 zsh [94958]: 64-bit    Footprint: 1584 KB (16384 bytes per page)
+2026-11-27 02:50:18 Python [11052]: 64-bit    Footprint: 10 MB (16384 bytes per page)
+2026-11-27 02:50:18 Python [11961]: 64-bit    Footprint: 16 MB (16384 bytes per page)
+2026-11-27 03:00:19 zsh [94958]: 64-bit    Footprint: 1584 KB (16384 bytes per page)
+2026-11-27 03:00:19 Python [11052]: 64-bit    Footprint: 10 MB (16384 bytes per page)
+2026-11-27 03:00:19 Python [15717]: 64-bit    Footprint: 89 MB (16384 bytes per page)
+2026-11-27 03:10:19 PEAK Python [11961] 16 MB
+2026-11-27 03:10:19 PEAK Python [99125] 15 MB
+2026-11-27 03:10:19 PEAK Python [95541] 21 MB
+2026-11-27 03:10:19 PEAK Python [15717] 89 MB
+2026-11-27 03:10:19 PEAK Python [94972] 16 MB
+2026-11-27 03:10:19 PEAK Python [5490] 16 MB
+2026-11-27 03:10:19 PEAK Python [11052] 10 MB
+2026-11-27 03:10:19 PEAK Python [9026] 16 MB
+2026-11-27 03:10:19 PEAK Python [2492] 15 MB
+2026-11-27 03:10:19 PEAK Python [8103] 19 MB
+2026-11-27 03:10:19 PEAK Python [2493] 89 MB
+2026-11-27 03:10:19 PEAK zsh [94958] 1 MB
+2026-11-27 03:10:19 PEAK Python [4486] 18 MB

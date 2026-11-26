@@ -1,6 +1,6 @@
 # Route (i) production: status (plain language)
 
-*Updated 2026-11-27, only when something changes. Written for Sumit.*
+*Updated 2026-11-27 (after P4-r), only when something changes. Written for Sumit.*
 
 ## What we are doing
 
@@ -16,22 +16,20 @@ the tiny stretch next to k = 0. This run extends the proof upward from there.
 
 ## Where it stands
 
-- **The production code is written and waiting for the Bridge's independent read.** It checks itself several ways:
-  each segment has controls that must fail when they should, and a second, independent engine checks every value
-  used.
-- **Nothing is running yet.** After the read, about 3–4 hours of tests run on two cores of the Air. Production follows:
-  about 1 day for 3/5 and about 3.5 days for 9/10.
+- **The production code was read twice on the Bridge's side and found sound.** Their fixes are in.
+- **The final tests are running now** (started 01:10, about 3–4 hours, two Air cores).
+- **Production follows:** about 1 day for spin 3/5 and about 3.5 days for spin 9/10.
 
-## One risk you should know about
+## The small-k check is in (P4-r, 2026-11-27)
 
-**At spin 9/10, the very bottom of the range (k between about 1e−4 and 1e−2) is probably out of reach.** There F is
-extremely small, about a billionth or less. The arithmetic's built-in uncertainty is larger than F itself, so the
-proof cannot tell F from zero. Cutting the range into smaller pieces does not help. Fixing it would need changes to
-the evaluator, which is new code, and that is parked.
-
-A 25-minute check (P4-r) measures this before anything long runs. If it confirms the risk, the 9/10 result would be
-"certified from about 1e−2 to 2", with the small gap stated. Spin 3/5 has plenty of room and should be fine.
+- **Spin 3/5 is fine all the way down.** The arithmetic's uncertainty is about 1/1000 of F, even at the bottom.
+- **Spin 9/10 is not.** Its uncertainty stays at about 2.6e-8 at every k, while F shrinks like k². Below roughly
+  k ≈ 2e-3, F is smaller than the uncertainty, so the proof cannot tell it from zero, and cutting the range finer does
+  not help.
+- **So the expected 9/10 result is "certified from about 2e-3 to 2".** There is a small gap between Statement A's edge
+  (about 1e-4) and 2e-3, which will be stated plainly. Closing it would need an evaluator change, which is parked.
+- **The other two conditions (the traces) are comfortably satisfied at small k** at both spins. Only F is the problem.
 
 ## What would change this page
 
-The read result; the 25-minute check; the test results; the launch; each spin's final reach.
+The test results; the launch; each spin's final reach.

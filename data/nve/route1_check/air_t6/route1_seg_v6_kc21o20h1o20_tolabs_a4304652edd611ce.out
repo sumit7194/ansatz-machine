@@ -1,0 +1,65 @@
+== v6 prove == spin 3/5|k in [1, 11/10]; mode F, tol abs; |F(k_c)| (engine) 2.957992e-01; code a4304652edd611ce
+== prove (v5 = v4 + F1 branch assert, F2 code-hash keys, F3 coverage counts) == spin 3/5|k in [1, 11/10]; circle 1.35; code a4304652edd611ce; python 3.13.18, python-flint 0.9.0; rows (3.0, 4.0, 5.0, 6.5); checkpoint records of this code already on disk: dq 0, rows 0
+    z = (0.3+1.3162j): |D0 - FD| <= 1.3e-15, |D1 - FD| <= 2.5e-15; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True  -> ok
+    z = (-1.35+0j): |D0 - FD| <= 8.5e-16, |D1 - FD| <= 9.9e-16; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True  -> ok
+    z = (1.757-0.003j): |D0 - FD| <= 5.4e-16, |D1 - FD| <= 5.4e-16; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True  -> ok
+    z = (2.05-0.03j): |D0 - FD| <= 4.1e-16, |D1 - FD| <= 3.6e-16; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True  -> ok
+    z = (2.11+0.55j): |D0 - FD| <= 3.7e-16, |D1 - FD| <= 3.2e-16; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True  -> ok
+  self-test True; reference: circle 2163 steps, lasso 703 steps; F1 checks so far {'step': 12304, 'series': 0}  [39 s]
+  circle, K a point (z-direction control; v3 printed 4.153E-1 / 9.325E+0 at 3/5, 7.734E-1 / 2.179E+1 at 9/10): v4 <= 4.153E-1   [53 s]
+  lasso, K a point (z-direction control; v3 printed 4.153E-1 / 9.325E+0 at 3/5, 7.734E-1 / 2.179E+1 at 9/10): v4 <= 9.325E+0   [57 s]
+  rho = 3.0: M_F <= 7.878E+3, n = 16; coverage {'circle': {'steps': 2163, 'bounds': 2163, 'ksub': 25, 'pairs': 54075}, 'lasso': {'steps': 703, 'bounds': 703, 'ksub': 25, 'pairs': 17575}}; F1 checks {'step': 12304, 'series': 74491}   [258 s]
+  rho = 4.0: M_F <= 2.438E+4, n = 14; coverage {'circle': {'steps': 2163, 'bounds': 2163, 'ksub': 25, 'pairs': 54075}, 'lasso': {'steps': 703, 'bounds': 703, 'ksub': 25, 'pairs': 17575}}; F1 checks {'step': 12304, 'series': 146116}   [258 s]
+  rho = 5.0: M_F <= 1.084E+5, n = 12; coverage {'circle': {'steps': 2163, 'bounds': 2163, 'ksub': 25, 'pairs': 54075}, 'lasso': {'steps': 703, 'bounds': 703, 'ksub': 25, 'pairs': 17575}}; F1 checks {'step': 12304, 'series': 217741}   [259 s]
+  rho = 6.5: M_F <= 2.309E+6, n = 12; coverage {'circle': {'steps': 2163, 'bounds': 2163, 'ksub': 25, 'pairs': 54075}, 'lasso': {'steps': 703, 'bounds': 703, 'ksub': 25, 'pairs': 17575}}; F1 checks {'step': 12304, 'series': 289316}   [259 s]
+  CHOSEN: rho = 6.5, n = 12
+  prove v5: 1092 s, peak rss 36 MB
+== v6 verdict == spin 3/5|k in [1, 11/10]; mode F; rho = 6.5, n = 12; code a4304652edd611ce; node records on disk 0; full controls True
+  node0: 38.48 s, steps [2163, 703], radius of F 1.4e-09
+  node1: 38.88 s, steps [2163, 703], radius of F 1.4e-09
+  node2: 38.86 s, steps [2163, 703], radius of F 1.4e-09
+  node3: 38.85 s, steps [2162, 703], radius of F 1.4e-09
+  node4: 38.91 s, steps [2162, 703], radius of F 1.4e-09
+  node5: 39.7 s, steps [2163, 703], radius of F 1.4e-09
+  node6: 39.26 s, steps [2163, 703], radius of F 1.4e-09
+  node7: 39.45 s, steps [2163, 703], radius of F 1.4e-09
+  node8: 39.5 s, steps [2163, 705], radius of F 1.4e-09
+  node9: 40.76 s, steps [2164, 705], radius of F 1.4e-09
+  node10: 40.44 s, steps [2164, 706], radius of F 1.4e-09
+  node11: 39.94 s, steps [2164, 706], radius of F 1.4e-09
+  node12: 39.5 s, steps [2164, 706], radius of F 1.4e-09
+  F: min |p| >= 0.265334466; proved error bound <= 2.952E-4 -> |F| >= 0.265039275; != 0: True
+  tr M0: min |p| >= 1.993158418; bound <= 3.434E-10 -> |tr M0| >= 1.993158417; != 0: True
+  tr M1: min |Im p| >= 2.648820919; bound <= 4.052E-8 -> |Im tr M1| >= 2.648820879; not in [-2, 2]: True
+  held t=-5/8: 39.58 s, steps [2163, 705], radius of F 1.4e-09
+  held-out t = -5/8: |p - f| in [0.0e+00, 7.0e-08] (F), [0.0e+00, 5.3e-11] (tr M0), [0.0e+00, 7.1e-11] (tr M1)
+  held t=1/8: 39.43 s, steps [2163, 703], radius of F 1.4e-09
+  held-out t = 1/8: |p - f| in [0.0e+00, 6.8e-08] (F), [0.0e+00, 5.4e-11] (tr M0), [0.0e+00, 6.8e-11] (tr M1)
+  held t=3/4: 38.95 s, steps [2162, 703], radius of F 1.4e-09
+  held-out t = 3/4: |p - f| in [0.0e+00, 6.3e-08] (F), [0.0e+00, 5.2e-11] (tr M0), [0.0e+00, 6.5e-11] (tr M1)
+  control, planted zero (F - F(t = 1/8), between nodes): certificate REFUSED (as it must be)
+  ellipse0/8 rho=6.5: 39.1 s, steps [2163, 702], radius of F 1.4e-09
+  ellipse1/8 rho=6.5: 39.12 s, steps [2165, 702], radius of F 1.4e-09
+  ellipse2/8 rho=6.5: 39.06 s, steps [2164, 703], radius of F 1.3e-09
+  ellipse3/8 rho=6.5: 39.43 s, steps [2163, 709], radius of F 1.3e-09
+  ellipse4/8 rho=6.5: 39.68 s, steps [2166, 713], radius of F 1.4e-09
+  ellipse5/8 rho=6.5: 39.78 s, steps [2165, 710], radius of F 1.5e-09
+  ellipse6/8 rho=6.5: 39.74 s, steps [2165, 703], radius of F 1.5e-09
+  ellipse7/8 rho=6.5: 39.8 s, steps [2165, 702], radius of F 1.5e-09
+  proved M >= sampled on the ellipse rho = 6.5 (8 points): True (overestimate x5.7e+06, x1.3e+00, x1.1e+02)
+  shrunken M (/1e12): verdict still passes True; held-out breaks none; below the sampled max for ['f', 'tr M0', 'tr M1']; planted precondition at 4.2 fires: True
+  node balls: largest radius of F 8.85e-09, smallest |F| 2.65e-01; conditions failing even at e = 0 (splitting cannot cure): none
+  OUTCOME: CERTIFIED  (F != 0, tr M0 != 0, tr M1 not in [-2, 2] for every real k in the segment); new evaluations 24; peak rss 32 MB
+== v6 prove == spin 3/5|k in [1, 11/10]; mode F, tol abs; |F(k_c)| (engine) 2.957992e-01; code a4304652edd611ce
+== v6 verdict == spin 3/5|k in [1, 11/10]; mode F; rho = 6.5, n = 12; code a4304652edd611ce; node records on disk 24; full controls True
+  F: min |p| >= 0.265334466; proved error bound <= 2.952E-4 -> |F| >= 0.265039275; != 0: True
+  tr M0: min |p| >= 1.993158418; bound <= 3.434E-10 -> |tr M0| >= 1.993158417; != 0: True
+  tr M1: min |Im p| >= 2.648820919; bound <= 4.052E-8 -> |Im tr M1| >= 2.648820879; not in [-2, 2]: True
+  held-out t = -5/8: |p - f| in [0.0e+00, 7.0e-08] (F), [0.0e+00, 5.3e-11] (tr M0), [0.0e+00, 7.1e-11] (tr M1)
+  held-out t = 1/8: |p - f| in [0.0e+00, 6.8e-08] (F), [0.0e+00, 5.4e-11] (tr M0), [0.0e+00, 6.8e-11] (tr M1)
+  held-out t = 3/4: |p - f| in [0.0e+00, 6.3e-08] (F), [0.0e+00, 5.2e-11] (tr M0), [0.0e+00, 6.5e-11] (tr M1)
+  control, planted zero (F - F(t = 1/8), between nodes): certificate REFUSED (as it must be)
+  proved M >= sampled on the ellipse rho = 6.5 (8 points): True (overestimate x5.7e+06, x1.3e+00, x1.1e+02)
+  shrunken M (/1e12): verdict still passes True; held-out breaks none; below the sampled max for ['f', 'tr M0', 'tr M1']; planted precondition at 4.2 fires: True
+  node balls: largest radius of F 8.85e-09, smallest |F| 2.65e-01; conditions failing even at e = 0 (splitting cannot cure): none
+  OUTCOME: CERTIFIED  (F != 0, tr M0 != 0, tr M1 not in [-2, 2] for every real k in the segment); new evaluations 0; peak rss 31 MB

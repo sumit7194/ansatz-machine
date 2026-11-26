@@ -1,0 +1,5 @@
+U1a rows equal to v5.2's: PASS  (differences [(3.0, []), (4.0, []), (5.0, []), (6.5, [])])
+U1b proof JSON equal to v5.2's: PASS  (differing keys [])
+U1c node values equal to v5.2's: PASS  (24/24 equal)
+U1d verdict as v5.2/P1: PASS  (outcome certified, bounds ('0.265039275', '1.993158417', '2.648820879') vs ('0.265039275', '1.993158417', '2.648820879'), shrunk below ['f', 'tr M0', 'tr M1'])
+u1 RESULT: PASS (4/4)

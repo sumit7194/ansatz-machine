@@ -1,0 +1,1057 @@
+./t6a.sh:8: nice(5) failed: operation not permitted
+=== U5 2026-11-27 01:10:15
+U5.0 plan 3/5: PASS  6 + 29
+U5.0 plan 9/10: PASS  10 + 19
+[2026-11-27 01:10:15] == route (i) production == spin 3/5; target [eps_a = 1.920e-03, 3]; 6 dyadic (Fk2) + 29 0.1-wide (F) segments; DMAX 2; 0 outcomes already on disk
+[2026-11-27 01:10:15] down chain: segment [1/20, 1/10] (k_c 3/40, depth 0, mode Fk2, full controls if it certifies)
+[2026-11-27 01:10:15]   CERTIFIED [1/20, 1/10]: n = 12, |f| >= 1 (full controls passed)  (0 s)
+[2026-11-27 01:10:15] down chain: segment [1/40, 1/20] (k_c 3/80, depth 0, mode Fk2)
+[2026-11-27 01:10:15]   CERTIFIED [1/40, 1/20]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] down chain: segment [1/80, 1/40] (k_c 3/160, depth 0, mode Fk2)
+[2026-11-27 01:10:15]   CERTIFIED [1/80, 1/40]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] down chain: segment [1/160, 1/80] (k_c 3/320, depth 0, mode Fk2)
+[2026-11-27 01:10:15]   CERTIFIED [1/160, 1/80]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] down chain: segment [1/320, 1/160] (k_c 3/640, depth 0, mode Fk2)
+[2026-11-27 01:10:15]   CERTIFIED [1/320, 1/160]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] down chain: segment [1/640, 1/320] (k_c 3/1280, depth 0, mode Fk2)
+[2026-11-27 01:10:15]   CERTIFIED [1/640, 1/320]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [1/10, 1/5] (k_c 3/20, depth 0, mode F, full controls if it certifies)
+[2026-11-27 01:10:15]   CERTIFIED [1/10, 1/5]: n = 12, |f| >= 1 (full controls passed)  (0 s)
+[2026-11-27 01:10:15] up chain: segment [1/5, 3/10] (k_c 1/4, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [1/5, 3/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [3/10, 2/5] (k_c 7/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [3/10, 2/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [2/5, 1/2] (k_c 9/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [2/5, 1/2]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [1/2, 3/5] (k_c 11/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [1/2, 3/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [3/5, 7/10] (k_c 13/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [3/5, 7/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [7/10, 4/5] (k_c 3/4, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [7/10, 4/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [4/5, 9/10] (k_c 17/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [4/5, 9/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [9/10, 1] (k_c 19/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [9/10, 1]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [1, 11/10] (k_c 21/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [1, 11/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [11/10, 6/5] (k_c 23/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [11/10, 6/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [6/5, 13/10] (k_c 5/4, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [6/5, 13/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [13/10, 7/5] (k_c 27/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [13/10, 7/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [7/5, 3/2] (k_c 29/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [7/5, 3/2]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [3/2, 8/5] (k_c 31/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [3/2, 8/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [8/5, 17/10] (k_c 33/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [8/5, 17/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [17/10, 9/5] (k_c 7/4, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [17/10, 9/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [9/5, 19/10] (k_c 37/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [9/5, 19/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [19/10, 2] (k_c 39/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [19/10, 2]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [2, 21/10] (k_c 41/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [2, 21/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [21/10, 11/5] (k_c 43/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [21/10, 11/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [11/5, 23/10] (k_c 9/4, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [11/5, 23/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [23/10, 12/5] (k_c 47/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [23/10, 12/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [12/5, 5/2] (k_c 49/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [12/5, 5/2]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [5/2, 13/5] (k_c 51/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [5/2, 13/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [13/5, 27/10] (k_c 53/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [13/5, 27/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [27/10, 14/5] (k_c 11/4, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [27/10, 14/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [14/5, 29/10] (k_c 57/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [14/5, 29/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [29/10, 3] (k_c 59/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [29/10, 3]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] chains done: down complete (6 certified), up complete (29 certified)
+[2026-11-27 01:10:15] full controls passed for every mode used: True ({'Fk2': True, 'F': True})
+[2026-11-27 01:10:15] batch rerun of every certified verdict: identical True
+[2026-11-27 01:10:15] REACH (identical reruns only): certified contiguous [1/640, 3] = [1.5625e-03, 3.0]; covers the target [eps_a, 3]: True
+U5.A all certified: PASS  rc 0, reach ['1/640', '3'], 35 stages, full controls on [(Fraction(1, 20), Fraction(1, 10), 'Fk2'), (Fraction(1, 10), Fraction(1, 5), 'F')]
+[2026-11-27 01:10:15] == route (i) production == spin 3/5; target [eps_a = 1.920e-03, 3]; 6 dyadic (Fk2) + 29 0.1-wide (F) segments; DMAX 2; 0 outcomes already on disk
+[2026-11-27 01:10:15] down chain: segment [1/20, 1/10] (k_c 3/40, depth 0, mode Fk2, full controls if it certifies)
+[2026-11-27 01:10:15]   CERTIFIED [1/20, 1/10]: n = 12, |f| >= 1 (full controls passed)  (0 s)
+[2026-11-27 01:10:15] down chain: segment [1/40, 1/20] (k_c 3/80, depth 0, mode Fk2)
+[2026-11-27 01:10:15]   CERTIFIED [1/40, 1/20]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] down chain: segment [1/80, 1/40] (k_c 3/160, depth 0, mode Fk2)
+[2026-11-27 01:10:15]   CERTIFIED [1/80, 1/40]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] down chain: segment [1/160, 1/80] (k_c 3/320, depth 0, mode Fk2)
+[2026-11-27 01:10:15]   CERTIFIED [1/160, 1/80]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] down chain: segment [1/320, 1/160] (k_c 3/640, depth 0, mode Fk2)
+[2026-11-27 01:10:15]   CERTIFIED [1/320, 1/160]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] down chain: segment [1/640, 1/320] (k_c 3/1280, depth 0, mode Fk2)
+[2026-11-27 01:10:15]   CERTIFIED [1/640, 1/320]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [1/10, 1/5] (k_c 3/20, depth 0, mode F, full controls if it certifies)
+[2026-11-27 01:10:15]   CERTIFIED [1/10, 1/5]: n = 12, |f| >= 1 (full controls passed)  (0 s)
+[2026-11-27 01:10:15] up chain: segment [1/5, 3/10] (k_c 1/4, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [1/5, 3/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [3/10, 2/5] (k_c 7/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [3/10, 2/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [2/5, 1/2] (k_c 9/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [2/5, 1/2]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [1/2, 3/5] (k_c 11/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [1/2, 3/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [3/5, 7/10] (k_c 13/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [3/5, 7/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [7/10, 4/5] (k_c 3/4, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [7/10, 4/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [4/5, 9/10] (k_c 17/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [4/5, 9/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [9/10, 1] (k_c 19/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [9/10, 1]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [1, 11/10] (k_c 21/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [1, 11/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [11/10, 6/5] (k_c 23/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [11/10, 6/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [6/5, 13/10] (k_c 5/4, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [6/5, 13/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [13/10, 7/5] (k_c 27/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [13/10, 7/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [7/5, 3/2] (k_c 29/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [7/5, 3/2]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [3/2, 8/5] (k_c 31/20, depth 0, mode F)
+[2026-11-27 01:10:15]   SPLIT [3/2, 8/5] at depth 0: simulated not certified
+[2026-11-27 01:10:15] up chain: segment [3/2, 31/20] (k_c 61/40, depth 1, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [3/2, 31/20]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [31/20, 8/5] (k_c 63/40, depth 1, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [31/20, 8/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [8/5, 17/10] (k_c 33/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [8/5, 17/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [17/10, 9/5] (k_c 7/4, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [17/10, 9/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [9/5, 19/10] (k_c 37/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [9/5, 19/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [19/10, 2] (k_c 39/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [19/10, 2]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [2, 21/10] (k_c 41/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [2, 21/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [21/10, 11/5] (k_c 43/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [21/10, 11/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [11/5, 23/10] (k_c 9/4, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [11/5, 23/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [23/10, 12/5] (k_c 47/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [23/10, 12/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [12/5, 5/2] (k_c 49/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [12/5, 5/2]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [5/2, 13/5] (k_c 51/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [5/2, 13/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [13/5, 27/10] (k_c 53/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [13/5, 27/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [27/10, 14/5] (k_c 11/4, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [27/10, 14/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [14/5, 29/10] (k_c 57/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [14/5, 29/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [29/10, 3] (k_c 59/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [29/10, 3]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] chains done: down complete (6 certified), up complete (30 certified)
+[2026-11-27 01:10:15] full controls passed for every mode used: True ({'Fk2': True, 'F': True})
+[2026-11-27 01:10:15] batch rerun of every certified verdict: identical True
+[2026-11-27 01:10:15] REACH (identical reruns only): certified contiguous [1/640, 3] = [1.5625e-03, 3.0]; covers the target [eps_a, 3]: True
+U5.B split then certify: PASS  rc 0, calls in [1.5, 1.6]: [(Fraction(3, 2), Fraction(8, 5), 'F'), (Fraction(3, 2), Fraction(31, 20), 'F'), (Fraction(31, 20), Fraction(8, 5), 'F')]
+[2026-11-27 01:10:15] == route (i) production == spin 3/5; target [eps_a = 1.920e-03, 3]; 6 dyadic (Fk2) + 29 0.1-wide (F) segments; DMAX 2; 0 outcomes already on disk
+[2026-11-27 01:10:15] down chain: segment [1/20, 1/10] (k_c 3/40, depth 0, mode Fk2, full controls if it certifies)
+[2026-11-27 01:10:15]   CERTIFIED [1/20, 1/10]: n = 12, |f| >= 1 (full controls passed)  (0 s)
+[2026-11-27 01:10:15] down chain: segment [1/40, 1/20] (k_c 3/80, depth 0, mode Fk2)
+[2026-11-27 01:10:15]   CERTIFIED [1/40, 1/20]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] down chain: segment [1/80, 1/40] (k_c 3/160, depth 0, mode Fk2)
+[2026-11-27 01:10:15]   CERTIFIED [1/80, 1/40]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] down chain: segment [1/160, 1/80] (k_c 3/320, depth 0, mode Fk2)
+[2026-11-27 01:10:15]   CERTIFIED [1/160, 1/80]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] down chain: segment [1/320, 1/160] (k_c 3/640, depth 0, mode Fk2)
+[2026-11-27 01:10:15]   CERTIFIED [1/320, 1/160]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] down chain: segment [1/640, 1/320] (k_c 3/1280, depth 0, mode Fk2)
+[2026-11-27 01:10:15]   CERTIFIED [1/640, 1/320]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [1/10, 1/5] (k_c 3/20, depth 0, mode F, full controls if it certifies)
+[2026-11-27 01:10:15]   SPLIT [1/10, 1/5] at depth 0: simulated not certified
+[2026-11-27 01:10:15] up chain: segment [1/10, 3/20] (k_c 1/8, depth 1, mode F, full controls if it certifies)
+[2026-11-27 01:10:15]   CERTIFIED [1/10, 3/20]: n = 12, |f| >= 1 (full controls passed)  (0 s)
+[2026-11-27 01:10:15] up chain: segment [3/20, 1/5] (k_c 7/40, depth 1, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [3/20, 1/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [1/5, 3/10] (k_c 1/4, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [1/5, 3/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [3/10, 2/5] (k_c 7/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [3/10, 2/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [2/5, 1/2] (k_c 9/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [2/5, 1/2]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [1/2, 3/5] (k_c 11/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [1/2, 3/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [3/5, 7/10] (k_c 13/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [3/5, 7/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [7/10, 4/5] (k_c 3/4, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [7/10, 4/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [4/5, 9/10] (k_c 17/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [4/5, 9/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [9/10, 1] (k_c 19/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [9/10, 1]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [1, 11/10] (k_c 21/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [1, 11/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [11/10, 6/5] (k_c 23/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [11/10, 6/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [6/5, 13/10] (k_c 5/4, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [6/5, 13/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [13/10, 7/5] (k_c 27/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [13/10, 7/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [7/5, 3/2] (k_c 29/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [7/5, 3/2]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [3/2, 8/5] (k_c 31/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [3/2, 8/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [8/5, 17/10] (k_c 33/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [8/5, 17/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [17/10, 9/5] (k_c 7/4, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [17/10, 9/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [9/5, 19/10] (k_c 37/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [9/5, 19/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [19/10, 2] (k_c 39/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [19/10, 2]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [2, 21/10] (k_c 41/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [2, 21/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [21/10, 11/5] (k_c 43/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [21/10, 11/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [11/5, 23/10] (k_c 9/4, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [11/5, 23/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [23/10, 12/5] (k_c 47/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [23/10, 12/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [12/5, 5/2] (k_c 49/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [12/5, 5/2]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [5/2, 13/5] (k_c 51/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [5/2, 13/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [13/5, 27/10] (k_c 53/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [13/5, 27/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [27/10, 14/5] (k_c 11/4, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [27/10, 14/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [14/5, 29/10] (k_c 57/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [14/5, 29/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [29/10, 3] (k_c 59/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [29/10, 3]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] chains done: down complete (6 certified), up complete (30 certified)
+[2026-11-27 01:10:15] full controls passed for every mode used: True ({'Fk2': True, 'F': True})
+[2026-11-27 01:10:15] batch rerun of every certified verdict: identical True
+[2026-11-27 01:10:15] REACH (identical reruns only): certified contiguous [1/640, 3] = [1.5625e-03, 3.0]; covers the target [eps_a, 3]: True
+U5.B' split of [0.1, 0.2]: full controls still run: PASS  rc 0, full controls on [(Fraction(1, 20), Fraction(1, 10), 'Fk2'), (Fraction(1, 10), Fraction(3, 20), 'F')]
+[2026-11-27 01:10:15] == route (i) production == spin 3/5; target [eps_a = 1.920e-03, 3]; 6 dyadic (Fk2) + 29 0.1-wide (F) segments; DMAX 2; 0 outcomes already on disk
+[2026-11-27 01:10:15] down chain: segment [1/20, 1/10] (k_c 3/40, depth 0, mode Fk2, full controls if it certifies)
+[2026-11-27 01:10:15]   CERTIFIED [1/20, 1/10]: n = 12, |f| >= 1 (full controls passed)  (0 s)
+[2026-11-27 01:10:15] down chain: segment [1/40, 1/20] (k_c 3/80, depth 0, mode Fk2)
+[2026-11-27 01:10:15]   CERTIFIED [1/40, 1/20]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] down chain: segment [1/80, 1/40] (k_c 3/160, depth 0, mode Fk2)
+[2026-11-27 01:10:15]   CERTIFIED [1/80, 1/40]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] down chain: segment [1/160, 1/80] (k_c 3/320, depth 0, mode Fk2)
+[2026-11-27 01:10:15]   SPLIT [1/160, 1/80] at depth 0: simulated not certified
+[2026-11-27 01:10:15] down chain: segment [3/320, 1/80] (k_c 7/640, depth 1, mode Fk2)
+[2026-11-27 01:10:15]   CERTIFIED [3/320, 1/80]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] down chain: segment [1/160, 3/320] (k_c 1/128, depth 1, mode Fk2)
+[2026-11-27 01:10:15]   CERTIFIED [1/160, 3/320]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] down chain: segment [1/320, 1/160] (k_c 3/640, depth 0, mode Fk2)
+[2026-11-27 01:10:15]   CERTIFIED [1/320, 1/160]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] down chain: segment [1/640, 1/320] (k_c 3/1280, depth 0, mode Fk2)
+[2026-11-27 01:10:15]   CERTIFIED [1/640, 1/320]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [1/10, 1/5] (k_c 3/20, depth 0, mode F, full controls if it certifies)
+[2026-11-27 01:10:15]   CERTIFIED [1/10, 1/5]: n = 12, |f| >= 1 (full controls passed)  (0 s)
+[2026-11-27 01:10:15] up chain: segment [1/5, 3/10] (k_c 1/4, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [1/5, 3/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [3/10, 2/5] (k_c 7/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [3/10, 2/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [2/5, 1/2] (k_c 9/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [2/5, 1/2]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [1/2, 3/5] (k_c 11/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [1/2, 3/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [3/5, 7/10] (k_c 13/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [3/5, 7/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [7/10, 4/5] (k_c 3/4, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [7/10, 4/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [4/5, 9/10] (k_c 17/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [4/5, 9/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [9/10, 1] (k_c 19/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [9/10, 1]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [1, 11/10] (k_c 21/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [1, 11/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [11/10, 6/5] (k_c 23/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [11/10, 6/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [6/5, 13/10] (k_c 5/4, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [6/5, 13/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [13/10, 7/5] (k_c 27/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [13/10, 7/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [7/5, 3/2] (k_c 29/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [7/5, 3/2]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [3/2, 8/5] (k_c 31/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [3/2, 8/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [8/5, 17/10] (k_c 33/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [8/5, 17/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [17/10, 9/5] (k_c 7/4, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [17/10, 9/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [9/5, 19/10] (k_c 37/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [9/5, 19/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [19/10, 2] (k_c 39/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [19/10, 2]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [2, 21/10] (k_c 41/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [2, 21/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [21/10, 11/5] (k_c 43/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [21/10, 11/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [11/5, 23/10] (k_c 9/4, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [11/5, 23/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [23/10, 12/5] (k_c 47/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [23/10, 12/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [12/5, 5/2] (k_c 49/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [12/5, 5/2]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [5/2, 13/5] (k_c 51/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [5/2, 13/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [13/5, 27/10] (k_c 53/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [13/5, 27/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [27/10, 14/5] (k_c 11/4, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [27/10, 14/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [14/5, 29/10] (k_c 57/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [14/5, 29/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [29/10, 3] (k_c 59/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [29/10, 3]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] chains done: down complete (7 certified), up complete (29 certified)
+[2026-11-27 01:10:15] full controls passed for every mode used: True ({'Fk2': True, 'F': True})
+[2026-11-27 01:10:15] batch rerun of every certified verdict: identical True
+[2026-11-27 01:10:15] REACH (identical reruns only): certified contiguous [1/640, 3] = [1.5625e-03, 3.0]; covers the target [eps_a, 3]: True
+U5.B'' down-chain split then certify: PASS  rc 0, reach ['1/640', '3'], calls [(Fraction(1, 160), Fraction(1, 80), 'Fk2'), (Fraction(3, 320), Fraction(1, 80), 'Fk2'), (Fraction(1, 160), Fraction(3, 320), 'Fk2')]
+[2026-11-27 01:10:15] == route (i) production == spin 3/5; target [eps_a = 1.920e-03, 3]; 6 dyadic (Fk2) + 29 0.1-wide (F) segments; DMAX 2; 0 outcomes already on disk
+[2026-11-27 01:10:15] down chain: segment [1/20, 1/10] (k_c 3/40, depth 0, mode Fk2, full controls if it certifies)
+[2026-11-27 01:10:15]   CERTIFIED [1/20, 1/10]: n = 12, |f| >= 1 (full controls passed)  (0 s)
+[2026-11-27 01:10:15] down chain: segment [1/40, 1/20] (k_c 3/80, depth 0, mode Fk2)
+[2026-11-27 01:10:15]   CERTIFIED [1/40, 1/20]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] down chain: segment [1/80, 1/40] (k_c 3/160, depth 0, mode Fk2)
+[2026-11-27 01:10:15]   CERTIFIED [1/80, 1/40]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] down chain: segment [1/160, 1/80] (k_c 3/320, depth 0, mode Fk2)
+[2026-11-27 01:10:15]   CERTIFIED [1/160, 1/80]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] down chain: segment [1/320, 1/160] (k_c 3/640, depth 0, mode Fk2)
+[2026-11-27 01:10:15]   CERTIFIED [1/320, 1/160]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] down chain: segment [1/640, 1/320] (k_c 3/1280, depth 0, mode Fk2)
+[2026-11-27 01:10:15]   CERTIFIED [1/640, 1/320]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [1/10, 1/5] (k_c 3/20, depth 0, mode F, full controls if it certifies)
+[2026-11-27 01:10:15]   CERTIFIED [1/10, 1/5]: n = 12, |f| >= 1 (full controls passed)  (0 s)
+[2026-11-27 01:10:15] up chain: segment [1/5, 3/10] (k_c 1/4, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [1/5, 3/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [3/10, 2/5] (k_c 7/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [3/10, 2/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [2/5, 1/2] (k_c 9/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [2/5, 1/2]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [1/2, 3/5] (k_c 11/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [1/2, 3/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [3/5, 7/10] (k_c 13/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [3/5, 7/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [7/10, 4/5] (k_c 3/4, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [7/10, 4/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [4/5, 9/10] (k_c 17/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [4/5, 9/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [9/10, 1] (k_c 19/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [9/10, 1]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [1, 11/10] (k_c 21/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [1, 11/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [11/10, 6/5] (k_c 23/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [11/10, 6/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [6/5, 13/10] (k_c 5/4, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [6/5, 13/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [13/10, 7/5] (k_c 27/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [13/10, 7/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [7/5, 3/2] (k_c 29/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [7/5, 3/2]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [3/2, 8/5] (k_c 31/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [3/2, 8/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [8/5, 17/10] (k_c 33/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [8/5, 17/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [17/10, 9/5] (k_c 7/4, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [17/10, 9/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [9/5, 19/10] (k_c 37/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [9/5, 19/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [19/10, 2] (k_c 39/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [19/10, 2]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [2, 21/10] (k_c 41/20, depth 0, mode F)
+[2026-11-27 01:10:15]   SPLIT [2, 21/10] at depth 0: simulated not certified
+[2026-11-27 01:10:15] up chain: segment [2, 41/20] (k_c 81/40, depth 1, mode F)
+[2026-11-27 01:10:15]   SPLIT [2, 41/20] at depth 1: simulated not certified
+[2026-11-27 01:10:15] up chain: segment [2, 81/40] (k_c 161/80, depth 2, mode F)
+[2026-11-27 01:10:15]   STOP RULE: [2, 81/40] fails at depth 2 = DMAX (simulated not certified); the up chain stops here
+[2026-11-27 01:10:15] chains done: down complete (6 certified), up STOPPED by the stop rule (19 certified)
+[2026-11-27 01:10:15] full controls passed for every mode used: True ({'Fk2': True, 'F': True})
+[2026-11-27 01:10:15] batch rerun of every certified verdict: identical True
+[2026-11-27 01:10:15] REACH (identical reruns only): certified contiguous [1/640, 2] = [1.5625e-03, 2.0]; covers the target [eps_a, 3]: False
+U5.C stop rule (up chain): PASS  reach ['1/640', '2']
+[2026-11-27 01:10:15] == route (i) production == spin 3/5; target [eps_a = 1.920e-03, 3]; 6 dyadic (Fk2) + 29 0.1-wide (F) segments; DMAX 2; 0 outcomes already on disk
+[2026-11-27 01:10:15] down chain: segment [1/20, 1/10] (k_c 3/40, depth 0, mode Fk2, full controls if it certifies)
+[2026-11-27 01:10:15]   CERTIFIED [1/20, 1/10]: n = 12, |f| >= 1 (full controls passed)  (0 s)
+[2026-11-27 01:10:15] down chain: segment [1/40, 1/20] (k_c 3/80, depth 0, mode Fk2)
+[2026-11-27 01:10:15]   CERTIFIED [1/40, 1/20]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] down chain: segment [1/80, 1/40] (k_c 3/160, depth 0, mode Fk2)
+[2026-11-27 01:10:15]   CERTIFIED [1/80, 1/40]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] down chain: segment [1/160, 1/80] (k_c 3/320, depth 0, mode Fk2)
+[2026-11-27 01:10:15]   SPLIT [1/160, 1/80] at depth 0: simulated not certified
+[2026-11-27 01:10:15] down chain: segment [3/320, 1/80] (k_c 7/640, depth 1, mode Fk2)
+[2026-11-27 01:10:15]   SPLIT [3/320, 1/80] at depth 1: simulated not certified
+[2026-11-27 01:10:15] down chain: segment [7/640, 1/80] (k_c 3/256, depth 2, mode Fk2)
+[2026-11-27 01:10:15]   STOP RULE: [7/640, 1/80] fails at depth 2 = DMAX (simulated not certified); the down chain stops here
+[2026-11-27 01:10:15] up chain: segment [1/10, 1/5] (k_c 3/20, depth 0, mode F, full controls if it certifies)
+[2026-11-27 01:10:15]   CERTIFIED [1/10, 1/5]: n = 12, |f| >= 1 (full controls passed)  (0 s)
+[2026-11-27 01:10:15] up chain: segment [1/5, 3/10] (k_c 1/4, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [1/5, 3/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [3/10, 2/5] (k_c 7/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [3/10, 2/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [2/5, 1/2] (k_c 9/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [2/5, 1/2]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [1/2, 3/5] (k_c 11/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [1/2, 3/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [3/5, 7/10] (k_c 13/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [3/5, 7/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [7/10, 4/5] (k_c 3/4, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [7/10, 4/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [4/5, 9/10] (k_c 17/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [4/5, 9/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [9/10, 1] (k_c 19/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [9/10, 1]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [1, 11/10] (k_c 21/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [1, 11/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [11/10, 6/5] (k_c 23/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [11/10, 6/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [6/5, 13/10] (k_c 5/4, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [6/5, 13/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [13/10, 7/5] (k_c 27/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [13/10, 7/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [7/5, 3/2] (k_c 29/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [7/5, 3/2]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [3/2, 8/5] (k_c 31/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [3/2, 8/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [8/5, 17/10] (k_c 33/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [8/5, 17/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [17/10, 9/5] (k_c 7/4, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [17/10, 9/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [9/5, 19/10] (k_c 37/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [9/5, 19/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [19/10, 2] (k_c 39/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [19/10, 2]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [2, 21/10] (k_c 41/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [2, 21/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [21/10, 11/5] (k_c 43/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [21/10, 11/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [11/5, 23/10] (k_c 9/4, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [11/5, 23/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [23/10, 12/5] (k_c 47/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [23/10, 12/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [12/5, 5/2] (k_c 49/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [12/5, 5/2]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [5/2, 13/5] (k_c 51/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [5/2, 13/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [13/5, 27/10] (k_c 53/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [13/5, 27/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [27/10, 14/5] (k_c 11/4, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [27/10, 14/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [14/5, 29/10] (k_c 57/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [14/5, 29/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [29/10, 3] (k_c 59/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [29/10, 3]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] chains done: down STOPPED by the stop rule (3 certified), up complete (29 certified)
+[2026-11-27 01:10:15] full controls passed for every mode used: True ({'Fk2': True, 'F': True})
+[2026-11-27 01:10:15] batch rerun of every certified verdict: identical True
+[2026-11-27 01:10:15] REACH (identical reruns only): certified contiguous [1/80, 3] = [1.2500e-02, 3.0]; covers the target [eps_a, 3]: False
+U5.C' stop rule (down chain), the up chain still runs: PASS  reach ['1/80', '3']
+[2026-11-27 01:10:15] == route (i) production == spin 3/5; target [eps_a = 1.920e-03, 3]; 6 dyadic (Fk2) + 29 0.1-wide (F) segments; DMAX 2; 0 outcomes already on disk
+[2026-11-27 01:10:15] down chain: segment [1/20, 1/10] (k_c 3/40, depth 0, mode Fk2, full controls if it certifies)
+[2026-11-27 01:10:15]   CERTIFIED [1/20, 1/10]: n = 12, |f| >= 1 (full controls passed)  (0 s)
+[2026-11-27 01:10:15] down chain: segment [1/40, 1/20] (k_c 3/80, depth 0, mode Fk2)
+[2026-11-27 01:10:15]   CERTIFIED [1/40, 1/20]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] down chain: segment [1/80, 1/40] (k_c 3/160, depth 0, mode Fk2)
+[2026-11-27 01:10:15]   CERTIFIED [1/80, 1/40]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] down chain: segment [1/160, 1/80] (k_c 3/320, depth 0, mode Fk2)
+[2026-11-27 01:10:15]   STOP RULE (radius-limited): [1/160, 1/80]: simulated node-radius limit; the down chain stops here without splitting
+[2026-11-27 01:10:15] up chain: segment [1/10, 1/5] (k_c 3/20, depth 0, mode F, full controls if it certifies)
+[2026-11-27 01:10:15]   CERTIFIED [1/10, 1/5]: n = 12, |f| >= 1 (full controls passed)  (0 s)
+[2026-11-27 01:10:15] up chain: segment [1/5, 3/10] (k_c 1/4, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [1/5, 3/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [3/10, 2/5] (k_c 7/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [3/10, 2/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [2/5, 1/2] (k_c 9/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [2/5, 1/2]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [1/2, 3/5] (k_c 11/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [1/2, 3/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [3/5, 7/10] (k_c 13/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [3/5, 7/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [7/10, 4/5] (k_c 3/4, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [7/10, 4/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [4/5, 9/10] (k_c 17/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [4/5, 9/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [9/10, 1] (k_c 19/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [9/10, 1]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [1, 11/10] (k_c 21/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [1, 11/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [11/10, 6/5] (k_c 23/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [11/10, 6/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [6/5, 13/10] (k_c 5/4, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [6/5, 13/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [13/10, 7/5] (k_c 27/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [13/10, 7/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [7/5, 3/2] (k_c 29/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [7/5, 3/2]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [3/2, 8/5] (k_c 31/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [3/2, 8/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [8/5, 17/10] (k_c 33/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [8/5, 17/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [17/10, 9/5] (k_c 7/4, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [17/10, 9/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [9/5, 19/10] (k_c 37/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [9/5, 19/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [19/10, 2] (k_c 39/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [19/10, 2]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [2, 21/10] (k_c 41/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [2, 21/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [21/10, 11/5] (k_c 43/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [21/10, 11/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [11/5, 23/10] (k_c 9/4, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [11/5, 23/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [23/10, 12/5] (k_c 47/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [23/10, 12/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [12/5, 5/2] (k_c 49/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [12/5, 5/2]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [5/2, 13/5] (k_c 51/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [5/2, 13/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [13/5, 27/10] (k_c 53/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [13/5, 27/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [27/10, 14/5] (k_c 11/4, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [27/10, 14/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [14/5, 29/10] (k_c 57/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [14/5, 29/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [29/10, 3] (k_c 59/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [29/10, 3]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] chains done: down STOPPED by the stop rule (3 certified), up complete (29 certified)
+[2026-11-27 01:10:15] full controls passed for every mode used: True ({'Fk2': True, 'F': True})
+[2026-11-27 01:10:15] batch rerun of every certified verdict: identical True
+[2026-11-27 01:10:15] REACH (identical reruns only): certified contiguous [1/80, 3] = [1.2500e-02, 3.0]; covers the target [eps_a, 3]: False
+U5.C'' radius-limited stops without splitting: PASS  reach ['1/80', '3']
+[2026-11-27 01:10:15] == route (i) production == spin 3/5; target [eps_a = 1.920e-03, 3]; 6 dyadic (Fk2) + 29 0.1-wide (F) segments; DMAX 2; 0 outcomes already on disk
+[2026-11-27 01:10:15] down chain: segment [1/20, 1/10] (k_c 3/40, depth 0, mode Fk2, full controls if it certifies)
+[2026-11-27 01:10:15]   CERTIFIED [1/20, 1/10]: n = 12, |f| >= 1 (full controls passed)  (0 s)
+[2026-11-27 01:10:15] down chain: segment [1/40, 1/20] (k_c 3/80, depth 0, mode Fk2)
+[2026-11-27 01:10:15]   CERTIFIED [1/40, 1/20]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] down chain: segment [1/80, 1/40] (k_c 3/160, depth 0, mode Fk2)
+[2026-11-27 01:10:15]   CERTIFIED [1/80, 1/40]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] down chain: segment [1/160, 1/80] (k_c 3/320, depth 0, mode Fk2)
+[2026-11-27 01:10:15]   CERTIFIED [1/160, 1/80]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] down chain: segment [1/320, 1/160] (k_c 3/640, depth 0, mode Fk2)
+[2026-11-27 01:10:15]   CERTIFIED [1/320, 1/160]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] down chain: segment [1/640, 1/320] (k_c 3/1280, depth 0, mode Fk2)
+[2026-11-27 01:10:15]   CERTIFIED [1/640, 1/320]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [1/10, 1/5] (k_c 3/20, depth 0, mode F, full controls if it certifies)
+[2026-11-27 01:10:15]   CERTIFIED [1/10, 1/5]: n = 12, |f| >= 1 (full controls passed)  (0 s)
+[2026-11-27 01:10:15] up chain: segment [1/5, 3/10] (k_c 1/4, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [1/5, 3/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [3/10, 2/5] (k_c 7/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [3/10, 2/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [2/5, 1/2] (k_c 9/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [2/5, 1/2]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [1/2, 3/5] (k_c 11/20, depth 0, mode F)
+[2026-11-27 01:10:15] STOPPED (correctness gate or alarm): simulated gate at [1/2, 3/5]
+[2026-11-27 01:10:15] REFUSE: this spin's run STOPPED on a correctness gate or alarm (simulated gate at [1/2, 3/5]); it is not resumed without a decision
+U5.D gate stops the run; no resume: PASS  rc 2, rerun rc 2, rerun stages 0
+[2026-11-27 01:10:15] == route (i) production == spin 3/5; target [eps_a = 1.920e-03, 3]; 6 dyadic (Fk2) + 29 0.1-wide (F) segments; DMAX 2; 0 outcomes already on disk
+[2026-11-27 01:10:15] down chain: segment [1/20, 1/10] (k_c 3/40, depth 0, mode Fk2, full controls if it certifies)
+[2026-11-27 01:10:15]   CERTIFIED [1/20, 1/10]: n = 12, |f| >= 1 (full controls passed)  (0 s)
+[2026-11-27 01:10:15] down chain: segment [1/40, 1/20] (k_c 3/80, depth 0, mode Fk2)
+[2026-11-27 01:10:15]   CERTIFIED [1/40, 1/20]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] down chain: segment [1/80, 1/40] (k_c 3/160, depth 0, mode Fk2)
+[2026-11-27 01:10:15]   CERTIFIED [1/80, 1/40]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] down chain: segment [1/160, 1/80] (k_c 3/320, depth 0, mode Fk2)
+[2026-11-27 01:10:15]   CERTIFIED [1/160, 1/80]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] down chain: segment [1/320, 1/160] (k_c 3/640, depth 0, mode Fk2)
+[2026-11-27 01:10:15]   CERTIFIED [1/320, 1/160]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] down chain: segment [1/640, 1/320] (k_c 3/1280, depth 0, mode Fk2)
+[2026-11-27 01:10:15]   CERTIFIED [1/640, 1/320]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [1/10, 1/5] (k_c 3/20, depth 0, mode F, full controls if it certifies)
+[2026-11-27 01:10:15]   CERTIFIED [1/10, 1/5]: n = 12, |f| >= 1 (full controls passed)  (0 s)
+[2026-11-27 01:10:15] up chain: segment [1/5, 3/10] (k_c 1/4, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [1/5, 3/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [3/10, 2/5] (k_c 7/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [3/10, 2/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [2/5, 1/2] (k_c 9/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [2/5, 1/2]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [1/2, 3/5] (k_c 11/20, depth 0, mode F)
+[2026-11-27 01:10:15] == route (i) production == spin 3/5; target [eps_a = 1.920e-03, 3]; 6 dyadic (Fk2) + 29 0.1-wide (F) segments; DMAX 2; 10 outcomes already on disk
+[2026-11-27 01:10:15] STOPPED (correctness gate or alarm): state record 1/20..1/10 is from code base v6_1/20..1/10_Fk2_c1, not v6_1/20..1/10_Fk2_c2: refusing to resume it
+U5.D' foreign-code state record refused (S1): PASS  rc 2, reason state record 1/20..1/10 is from code base v6_1/20..1/10_Fk2_, stages 0
+[2026-11-27 01:10:15] == route (i) production == spin 3/5; target [eps_a = 1.920e-03, 3]; 6 dyadic (Fk2) + 29 0.1-wide (F) segments; DMAX 2; 0 outcomes already on disk
+[2026-11-27 01:10:15] down chain: segment [1/20, 1/10] (k_c 3/40, depth 0, mode Fk2, full controls if it certifies)
+[2026-11-27 01:10:15]   CERTIFIED [1/20, 1/10]: n = 12, |f| >= 1 (full controls passed)  (0 s)
+[2026-11-27 01:10:15] down chain: segment [1/40, 1/20] (k_c 3/80, depth 0, mode Fk2)
+[2026-11-27 01:10:15]   CERTIFIED [1/40, 1/20]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] down chain: segment [1/80, 1/40] (k_c 3/160, depth 0, mode Fk2)
+[2026-11-27 01:10:15]   CERTIFIED [1/80, 1/40]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] down chain: segment [1/160, 1/80] (k_c 3/320, depth 0, mode Fk2)
+[2026-11-27 01:10:15]   CERTIFIED [1/160, 1/80]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] down chain: segment [1/320, 1/160] (k_c 3/640, depth 0, mode Fk2)
+[2026-11-27 01:10:15]   CERTIFIED [1/320, 1/160]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] down chain: segment [1/640, 1/320] (k_c 3/1280, depth 0, mode Fk2)
+[2026-11-27 01:10:15]   CERTIFIED [1/640, 1/320]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [1/10, 1/5] (k_c 3/20, depth 0, mode F, full controls if it certifies)
+[2026-11-27 01:10:15]   CERTIFIED [1/10, 1/5]: n = 12, |f| >= 1 (full controls passed)  (0 s)
+[2026-11-27 01:10:15] up chain: segment [1/5, 3/10] (k_c 1/4, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [1/5, 3/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [3/10, 2/5] (k_c 7/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [3/10, 2/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [2/5, 1/2] (k_c 9/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [2/5, 1/2]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [1/2, 3/5] (k_c 11/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [1/2, 3/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [3/5, 7/10] (k_c 13/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [3/5, 7/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [7/10, 4/5] (k_c 3/4, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [7/10, 4/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [4/5, 9/10] (k_c 17/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [4/5, 9/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [9/10, 1] (k_c 19/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [9/10, 1]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [1, 11/10] (k_c 21/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [1, 11/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [11/10, 6/5] (k_c 23/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [11/10, 6/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [6/5, 13/10] (k_c 5/4, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [6/5, 13/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [13/10, 7/5] (k_c 27/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [13/10, 7/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [7/5, 3/2] (k_c 29/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [7/5, 3/2]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [3/2, 8/5] (k_c 31/20, depth 0, mode F)
+[2026-11-27 01:10:15]   SPLIT [3/2, 8/5] at depth 0: simulated not certified
+[2026-11-27 01:10:15] up chain: segment [3/2, 31/20] (k_c 61/40, depth 1, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [3/2, 31/20]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [31/20, 8/5] (k_c 63/40, depth 1, mode F)
+[2026-11-27 01:10:15] == route (i) production == spin 3/5; target [eps_a = 1.920e-03, 3]; 6 dyadic (Fk2) + 29 0.1-wide (F) segments; DMAX 2; 22 outcomes already on disk
+[2026-11-27 01:10:15] up chain: segment [31/20, 8/5] (k_c 63/40, depth 1, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [31/20, 8/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [8/5, 17/10] (k_c 33/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [8/5, 17/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [17/10, 9/5] (k_c 7/4, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [17/10, 9/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [9/5, 19/10] (k_c 37/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [9/5, 19/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [19/10, 2] (k_c 39/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [19/10, 2]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [2, 21/10] (k_c 41/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [2, 21/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [21/10, 11/5] (k_c 43/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [21/10, 11/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [11/5, 23/10] (k_c 9/4, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [11/5, 23/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [23/10, 12/5] (k_c 47/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [23/10, 12/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [12/5, 5/2] (k_c 49/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [12/5, 5/2]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [5/2, 13/5] (k_c 51/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [5/2, 13/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [13/5, 27/10] (k_c 53/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [13/5, 27/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [27/10, 14/5] (k_c 11/4, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [27/10, 14/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [14/5, 29/10] (k_c 57/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [14/5, 29/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [29/10, 3] (k_c 59/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [29/10, 3]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] chains done: down complete (6 certified), up complete (30 certified)
+[2026-11-27 01:10:15] full controls passed for every mode used: True ({'Fk2': True, 'F': True})
+[2026-11-27 01:10:15] batch rerun of every certified verdict: identical True
+[2026-11-27 01:10:15] REACH (identical reruns only): certified contiguous [1/640, 3] = [1.5625e-03, 3.0]; covers the target [eps_a, 3]: True
+U5.E resume: PASS  first run 22 stages, resume 15, staged twice []
+[2026-11-27 01:10:15] == route (i) production == spin 3/5; target [eps_a = 1.920e-03, 3]; 6 dyadic (Fk2) + 29 0.1-wide (F) segments; DMAX 2; 0 outcomes already on disk
+[2026-11-27 01:10:15] down chain: segment [1/20, 1/10] (k_c 3/40, depth 0, mode Fk2, full controls if it certifies)
+[2026-11-27 01:10:15]   CERTIFIED [1/20, 1/10]: n = 12, |f| >= 1 (full controls passed)  (0 s)
+[2026-11-27 01:10:15] down chain: segment [1/40, 1/20] (k_c 3/80, depth 0, mode Fk2)
+[2026-11-27 01:10:15]   CERTIFIED [1/40, 1/20]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] down chain: segment [1/80, 1/40] (k_c 3/160, depth 0, mode Fk2)
+[2026-11-27 01:10:15]   CERTIFIED [1/80, 1/40]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] down chain: segment [1/160, 1/80] (k_c 3/320, depth 0, mode Fk2)
+[2026-11-27 01:10:15]   CERTIFIED [1/160, 1/80]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] down chain: segment [1/320, 1/160] (k_c 3/640, depth 0, mode Fk2)
+[2026-11-27 01:10:15]   CERTIFIED [1/320, 1/160]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] down chain: segment [1/640, 1/320] (k_c 3/1280, depth 0, mode Fk2)
+[2026-11-27 01:10:15]   CERTIFIED [1/640, 1/320]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [1/10, 1/5] (k_c 3/20, depth 0, mode F, full controls if it certifies)
+[2026-11-27 01:10:15]   CERTIFIED [1/10, 1/5]: n = 12, |f| >= 1 (full controls passed)  (0 s)
+[2026-11-27 01:10:15] up chain: segment [1/5, 3/10] (k_c 1/4, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [1/5, 3/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [3/10, 2/5] (k_c 7/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [3/10, 2/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [2/5, 1/2] (k_c 9/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [2/5, 1/2]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [1/2, 3/5] (k_c 11/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [1/2, 3/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [3/5, 7/10] (k_c 13/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [3/5, 7/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [7/10, 4/5] (k_c 3/4, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [7/10, 4/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [4/5, 9/10] (k_c 17/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [4/5, 9/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [9/10, 1] (k_c 19/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [9/10, 1]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [1, 11/10] (k_c 21/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [1, 11/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [11/10, 6/5] (k_c 23/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [11/10, 6/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [6/5, 13/10] (k_c 5/4, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [6/5, 13/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [13/10, 7/5] (k_c 27/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [13/10, 7/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [7/5, 3/2] (k_c 29/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [7/5, 3/2]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [3/2, 8/5] (k_c 31/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [3/2, 8/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [8/5, 17/10] (k_c 33/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [8/5, 17/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [17/10, 9/5] (k_c 7/4, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [17/10, 9/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [9/5, 19/10] (k_c 37/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [9/5, 19/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [19/10, 2] (k_c 39/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [19/10, 2]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [2, 21/10] (k_c 41/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [2, 21/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [21/10, 11/5] (k_c 43/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [21/10, 11/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [11/5, 23/10] (k_c 9/4, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [11/5, 23/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [23/10, 12/5] (k_c 47/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [23/10, 12/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [12/5, 5/2] (k_c 49/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [12/5, 5/2]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [5/2, 13/5] (k_c 51/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [5/2, 13/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [13/5, 27/10] (k_c 53/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [13/5, 27/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [27/10, 14/5] (k_c 11/4, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [27/10, 14/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [14/5, 29/10] (k_c 57/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [14/5, 29/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [29/10, 3] (k_c 59/20, depth 0, mode F)
+[2026-11-27 01:10:15]   CERTIFIED [29/10, 3]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] chains done: down complete (6 certified), up complete (29 certified)
+[2026-11-27 01:10:15] full controls passed for every mode used: True ({'Fk2': True, 'F': True})
+[2026-11-27 01:10:15]   BATCH RERUN FAILS at 3/2..8/5: simulated difference; the segment does not count toward the reach
+[2026-11-27 01:10:15] batch rerun of every certified verdict: identical False
+[2026-11-27 01:10:15] REACH (identical reruns only): certified contiguous [1/640, 3/2] = [1.5625e-03, 1.5]; covers the target [eps_a, 3]: False
+U5.F batch rerun mismatch: reach from identical reruns only: PASS  rc 2, reach ['1/640', '3/2']
+[2026-11-27 01:10:15] == route (i) production == spin 3/5; target [eps_a = 1.920e-03, 3]; 6 dyadic (Fk2) + 29 0.1-wide (F) segments; DMAX 2; 0 outcomes already on disk
+[2026-11-27 01:10:15] down chain: segment [1/20, 1/10] (k_c 3/40, depth 0, mode Fk2, full controls if it certifies)
+[2026-11-27 01:10:15]   CERTIFIED [1/20, 1/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] down chain: segment [1/40, 1/20] (k_c 3/80, depth 0, mode Fk2, full controls if it certifies)
+[2026-11-27 01:10:15]   CERTIFIED [1/40, 1/20]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] down chain: segment [1/80, 1/40] (k_c 3/160, depth 0, mode Fk2, full controls if it certifies)
+[2026-11-27 01:10:15]   CERTIFIED [1/80, 1/40]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] down chain: segment [1/160, 1/80] (k_c 3/320, depth 0, mode Fk2, full controls if it certifies)
+[2026-11-27 01:10:15]   CERTIFIED [1/160, 1/80]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] down chain: segment [1/320, 1/160] (k_c 3/640, depth 0, mode Fk2, full controls if it certifies)
+[2026-11-27 01:10:15]   CERTIFIED [1/320, 1/160]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] down chain: segment [1/640, 1/320] (k_c 3/1280, depth 0, mode Fk2, full controls if it certifies)
+[2026-11-27 01:10:15]   CERTIFIED [1/640, 1/320]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [1/10, 1/5] (k_c 3/20, depth 0, mode F, full controls if it certifies)
+[2026-11-27 01:10:15]   CERTIFIED [1/10, 1/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [1/5, 3/10] (k_c 1/4, depth 0, mode F, full controls if it certifies)
+[2026-11-27 01:10:15]   CERTIFIED [1/5, 3/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [3/10, 2/5] (k_c 7/20, depth 0, mode F, full controls if it certifies)
+[2026-11-27 01:10:15]   CERTIFIED [3/10, 2/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [2/5, 1/2] (k_c 9/20, depth 0, mode F, full controls if it certifies)
+[2026-11-27 01:10:15]   CERTIFIED [2/5, 1/2]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [1/2, 3/5] (k_c 11/20, depth 0, mode F, full controls if it certifies)
+[2026-11-27 01:10:15]   CERTIFIED [1/2, 3/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [3/5, 7/10] (k_c 13/20, depth 0, mode F, full controls if it certifies)
+[2026-11-27 01:10:15]   CERTIFIED [3/5, 7/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [7/10, 4/5] (k_c 3/4, depth 0, mode F, full controls if it certifies)
+[2026-11-27 01:10:15]   CERTIFIED [7/10, 4/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [4/5, 9/10] (k_c 17/20, depth 0, mode F, full controls if it certifies)
+[2026-11-27 01:10:15]   CERTIFIED [4/5, 9/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [9/10, 1] (k_c 19/20, depth 0, mode F, full controls if it certifies)
+[2026-11-27 01:10:15]   CERTIFIED [9/10, 1]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [1, 11/10] (k_c 21/20, depth 0, mode F, full controls if it certifies)
+[2026-11-27 01:10:15]   CERTIFIED [1, 11/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [11/10, 6/5] (k_c 23/20, depth 0, mode F, full controls if it certifies)
+[2026-11-27 01:10:15]   CERTIFIED [11/10, 6/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [6/5, 13/10] (k_c 5/4, depth 0, mode F, full controls if it certifies)
+[2026-11-27 01:10:15]   CERTIFIED [6/5, 13/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [13/10, 7/5] (k_c 27/20, depth 0, mode F, full controls if it certifies)
+[2026-11-27 01:10:15]   CERTIFIED [13/10, 7/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [7/5, 3/2] (k_c 29/20, depth 0, mode F, full controls if it certifies)
+[2026-11-27 01:10:15]   CERTIFIED [7/5, 3/2]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [3/2, 8/5] (k_c 31/20, depth 0, mode F, full controls if it certifies)
+[2026-11-27 01:10:15]   CERTIFIED [3/2, 8/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [8/5, 17/10] (k_c 33/20, depth 0, mode F, full controls if it certifies)
+[2026-11-27 01:10:15]   CERTIFIED [8/5, 17/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [17/10, 9/5] (k_c 7/4, depth 0, mode F, full controls if it certifies)
+[2026-11-27 01:10:15]   CERTIFIED [17/10, 9/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [9/5, 19/10] (k_c 37/20, depth 0, mode F, full controls if it certifies)
+[2026-11-27 01:10:15]   CERTIFIED [9/5, 19/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [19/10, 2] (k_c 39/20, depth 0, mode F, full controls if it certifies)
+[2026-11-27 01:10:15]   CERTIFIED [19/10, 2]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [2, 21/10] (k_c 41/20, depth 0, mode F, full controls if it certifies)
+[2026-11-27 01:10:15]   CERTIFIED [2, 21/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [21/10, 11/5] (k_c 43/20, depth 0, mode F, full controls if it certifies)
+[2026-11-27 01:10:15]   CERTIFIED [21/10, 11/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [11/5, 23/10] (k_c 9/4, depth 0, mode F, full controls if it certifies)
+[2026-11-27 01:10:15]   CERTIFIED [11/5, 23/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [23/10, 12/5] (k_c 47/20, depth 0, mode F, full controls if it certifies)
+[2026-11-27 01:10:15]   CERTIFIED [23/10, 12/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [12/5, 5/2] (k_c 49/20, depth 0, mode F, full controls if it certifies)
+[2026-11-27 01:10:15]   CERTIFIED [12/5, 5/2]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [5/2, 13/5] (k_c 51/20, depth 0, mode F, full controls if it certifies)
+[2026-11-27 01:10:15]   CERTIFIED [5/2, 13/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [13/5, 27/10] (k_c 53/20, depth 0, mode F, full controls if it certifies)
+[2026-11-27 01:10:15]   CERTIFIED [13/5, 27/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [27/10, 14/5] (k_c 11/4, depth 0, mode F, full controls if it certifies)
+[2026-11-27 01:10:15]   CERTIFIED [27/10, 14/5]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [14/5, 29/10] (k_c 57/20, depth 0, mode F, full controls if it certifies)
+[2026-11-27 01:10:15]   CERTIFIED [14/5, 29/10]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] up chain: segment [29/10, 3] (k_c 59/20, depth 0, mode F, full controls if it certifies)
+[2026-11-27 01:10:15]   CERTIFIED [29/10, 3]: n = 12, |f| >= 1  (0 s)
+[2026-11-27 01:10:15] chains done: down complete (6 certified), up complete (29 certified)
+[2026-11-27 01:10:15] full controls passed for every mode used: False ({'Fk2': False, 'F': False})
+[2026-11-27 01:10:15] batch rerun of every certified verdict: identical True
+[2026-11-27 01:10:15] REACH (identical reruns only): certified contiguous [1/640, 3] = [1.5625e-03, 3.0]; covers the target [eps_a, 3]: False
+U5.G no full-controls pass -> run fails (S2): PASS  rc 2, full_controls False
+U5 RESULT: PASS (14/14)
+=== U5 rc 0
+=== SYNTH 2026-11-27 01:10:15
+== v6 verdict == spin 3/5|k in [1/640, 1/320]; mode Fk2; rho = 4.0, n = 2; code b20b308eeec9f153; node records on disk 0; full controls True
+  F/k^2: min |p| >= 0.223606797; proved error bound <= 1.279E+0 -> |F/k^2| >= -1.054906900; != 0: False
+  tr M0: min |p| >= 1.899999999; bound <= 2.500E-1 -> |tr M0| >= 1.649999999; != 0: True
+  tr M1: min |Im p| >= 2.599999999; bound <= 2.500E-1 -> |Im tr M1| >= 2.349999999; not in [-2, 2]: True
+  held-out t = -5/8: |p - f| in [0.0e+00, 5.8e-75] (F/k^2), [0.0e+00, 1.3e-75] (tr M0), [0.0e+00, 1.3e-75] (tr M1)
+  held-out t = 1/8: |p - f| in [0.0e+00, 6.9e-75] (F/k^2), [0.0e+00, 1.4e-75] (tr M0), [0.0e+00, 1.5e-75] (tr M1)
+  held-out t = 3/4: |p - f| in [0.0e+00, 5.9e-75] (F/k^2), [0.0e+00, 1.2e-75] (tr M0), [0.0e+00, 1.3e-75] (tr M1)
+  control, planted zero (F/k^2 - F/k^2(t = 1/8), between nodes): certificate REFUSED (as it must be)
+  proved M >= sampled on the ellipse rho = 4.0 (8 points): True (overestimate x6.9e+01, x1.6e+00, x1.1e+00)
+  shrunken M (/1e12): verdict still passes True; held-out breaks none; below the sampled max for ['f', 'tr M0', 'tr M1']; planted precondition at 4.2 fires: True
+  node balls: largest radius of F/k^2 3.68e-75, smallest |F/k^2| 2.24e-01; conditions failing even at e = 0 (splitting cannot cure): none
+  OUTCOME: NOT_CERTIFIED  (F/k^2 != 0, tr M0 != 0, tr M1 not in [-2, 2] for every real k in the segment); new evaluations 0; peak rss 34 MB
+== v6 verdict == spin 3/5|k in [1/640, 1/320]; mode Fk2; rho = 4.0, n = 8; code b20b308eeec9f153; node records on disk 0; full controls True
+  F/k^2: min |p| >= 0.223606797; proved error bound <= 3.122E-4 -> |F/k^2| >= 0.223294660; != 0: True
+  tr M0: min |p| >= 1.899999999; bound <= 6.104E-5 -> |tr M0| >= 1.899938964; != 0: True
+  tr M1: min |Im p| >= 2.599999999; bound <= 6.104E-5 -> |Im tr M1| >= 2.599938964; not in [-2, 2]: True
+  held-out t = -5/8: |p - f| in [0.0e+00, 2.8e-74] (F/k^2), [0.0e+00, 7.2e-75] (tr M0), [0.0e+00, 8.5e-75] (tr M1)
+  held-out t = 1/8: |p - f| in [0.0e+00, 2.7e-74] (F/k^2), [0.0e+00, 7.1e-75] (tr M0), [0.0e+00, 8.3e-75] (tr M1)
+  held-out t = 3/4: |p - f| in [0.0e+00, 2.7e-74] (F/k^2), [0.0e+00, 6.7e-75] (tr M0), [0.0e+00, 7.7e-75] (tr M1)
+  control, planted zero (F/k^2 - F/k^2(t = 1/8), between nodes): certificate REFUSED (as it must be)
+  proved M >= sampled on the ellipse rho = 4.0 (8 points): True (overestimate x6.9e+01, x1.6e+00, x1.1e+00)
+  shrunken M (/1e12): verdict still passes True; held-out breaks none; below the sampled max for ['f', 'tr M0', 'tr M1']; planted precondition at 4.2 fires: True
+  node balls: largest radius of F/k^2 4.89e-75, smallest |F/k^2| 2.24e-01; conditions failing even at e = 0 (splitting cannot cure): none
+  OUTCOME: CERTIFIED  (F/k^2 != 0, tr M0 != 0, tr M1 not in [-2, 2] for every real k in the segment); new evaluations 0; peak rss 34 MB
+SYNTH F/k^2 at small k: n = 2 NOT certified (a /d bug would certify): PASS  (outcome not_certified; err 1.279E+0)
+SYNTH F/k^2 at small k: n = 8 certified, |F/k^2| near |c| = 0.2236: PASS  (outcome certified; |f| >= 0.223294660)
+synth RESULT: PASS (2/2)
+=== SYNTH rc 0
+=== P4r-floats-3/5 2026-11-27 01:10:16
+3/1280 F (1.06357649508587e-6 + 5.41359618412878e-7j) T0 (1.99999997370981 - 1.06550375422686e-36j) T1 (-0.98447598603585 + 2.77707234089858j) geo True 44s
+3/40 F (0.00110176940783385 + 0.000565608090567579j) T0 (1.99997281201783 - 1.21505128615252e-36j) T1 (-0.989734105337083 + 2.77051871325601j) geo True 41s
+=== P4r-floats-3/5 rc 0
+=== P4r-3/5 2026-11-27 01:11:42
+== P4-r radius probe == spin 3/5, R0 1.35; k_c ['3/1280', '3/40']
+k_c = 3/1280 (2.3437e-03): engine |F| 1.193e-06; Arb radius of F 1.266e-09; radius / |F| 1.06e-03 -> feasible; steps [2169, 729], 39.26 s
+    traces: tr M0 = 2.000000+0.000000j (radius 2.09e-12; margin |tr M0| 2.000e+00); tr M1 = -0.984476+2.777072j (radius 7.43e-12; margin 2.777e+00) -> trace conditions attainable
+k_c = 3/40 (7.5000e-02): engine |F| 1.238e-03; Arb radius of F 1.275e-09; radius / |F| 1.03e-06 -> feasible; steps [2168, 726], 39.18 s
+    traces: tr M0 = 1.999973+0.000000j (radius 3.81e-12; margin |tr M0| 2.000e+00); tr M1 = -0.989734+2.770519j (radius 8.10e-12; margin 2.771e+00) -> trace conditions attainable
+== P4R_DONE
+=== P4r-3/5 rc 0
+=== U1-prove 2026-11-27 01:13:01
+== v6 prove == spin 3/5|k in [1, 11/10]; mode F, tol abs; |F(k_c)| (engine) 2.957992e-01; code a4304652edd611ce
+== prove (v5 = v4 + F1 branch assert, F2 code-hash keys, F3 coverage counts) == spin 3/5|k in [1, 11/10]; circle 1.35; code a4304652edd611ce; python 3.13.18, python-flint 0.9.0; rows (3.0, 4.0, 5.0, 6.5); checkpoint records of this code already on disk: dq 0, rows 0
+    z = (0.3+1.3162j): |D0 - FD| <= 1.3e-15, |D1 - FD| <= 2.5e-15; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True  -> ok
+    z = (-1.35+0j): |D0 - FD| <= 8.5e-16, |D1 - FD| <= 9.9e-16; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True  -> ok
+    z = (1.757-0.003j): |D0 - FD| <= 5.4e-16, |D1 - FD| <= 5.4e-16; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True  -> ok
+    z = (2.05-0.03j): |D0 - FD| <= 4.1e-16, |D1 - FD| <= 3.6e-16; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True  -> ok
+    z = (2.11+0.55j): |D0 - FD| <= 3.7e-16, |D1 - FD| <= 3.2e-16; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True  -> ok
+  self-test True; reference: circle 2163 steps, lasso 703 steps; F1 checks so far {'step': 12304, 'series': 0}  [39 s]
+  circle, K a point (z-direction control; v3 printed 4.153E-1 / 9.325E+0 at 3/5, 7.734E-1 / 2.179E+1 at 9/10): v4 <= 4.153E-1   [53 s]
+  lasso, K a point (z-direction control; v3 printed 4.153E-1 / 9.325E+0 at 3/5, 7.734E-1 / 2.179E+1 at 9/10): v4 <= 9.325E+0   [57 s]
+  rho = 3.0: M_F <= 7.878E+3, n = 16; coverage {'circle': {'steps': 2163, 'bounds': 2163, 'ksub': 25, 'pairs': 54075}, 'lasso': {'steps': 703, 'bounds': 703, 'ksub': 25, 'pairs': 17575}}; F1 checks {'step': 12304, 'series': 74491}   [258 s]
+  rho = 4.0: M_F <= 2.438E+4, n = 14; coverage {'circle': {'steps': 2163, 'bounds': 2163, 'ksub': 25, 'pairs': 54075}, 'lasso': {'steps': 703, 'bounds': 703, 'ksub': 25, 'pairs': 17575}}; F1 checks {'step': 12304, 'series': 146116}   [258 s]
+  rho = 5.0: M_F <= 1.084E+5, n = 12; coverage {'circle': {'steps': 2163, 'bounds': 2163, 'ksub': 25, 'pairs': 54075}, 'lasso': {'steps': 703, 'bounds': 703, 'ksub': 25, 'pairs': 17575}}; F1 checks {'step': 12304, 'series': 217741}   [259 s]
+  rho = 6.5: M_F <= 2.309E+6, n = 12; coverage {'circle': {'steps': 2163, 'bounds': 2163, 'ksub': 25, 'pairs': 54075}, 'lasso': {'steps': 703, 'bounds': 703, 'ksub': 25, 'pairs': 17575}}; F1 checks {'step': 12304, 'series': 289316}   [259 s]
+  CHOSEN: rho = 6.5, n = 12
+  prove v5: 1092 s, peak rss 36 MB
+=== U1-prove rc 0
+=== U1-verdict 2026-11-27 01:31:13
+== v6 verdict == spin 3/5|k in [1, 11/10]; mode F; rho = 6.5, n = 12; code a4304652edd611ce; node records on disk 0; full controls True
+  node0: 38.48 s, steps [2163, 703], radius of F 1.4e-09
+  node1: 38.88 s, steps [2163, 703], radius of F 1.4e-09
+  node2: 38.86 s, steps [2163, 703], radius of F 1.4e-09
+  node3: 38.85 s, steps [2162, 703], radius of F 1.4e-09
+  node4: 38.91 s, steps [2162, 703], radius of F 1.4e-09
+  node5: 39.7 s, steps [2163, 703], radius of F 1.4e-09
+  node6: 39.26 s, steps [2163, 703], radius of F 1.4e-09
+  node7: 39.45 s, steps [2163, 703], radius of F 1.4e-09
+  node8: 39.5 s, steps [2163, 705], radius of F 1.4e-09
+  node9: 40.76 s, steps [2164, 705], radius of F 1.4e-09
+  node10: 40.44 s, steps [2164, 706], radius of F 1.4e-09
+  node11: 39.94 s, steps [2164, 706], radius of F 1.4e-09
+  node12: 39.5 s, steps [2164, 706], radius of F 1.4e-09
+  F: min |p| >= 0.265334466; proved error bound <= 2.952E-4 -> |F| >= 0.265039275; != 0: True
+  tr M0: min |p| >= 1.993158418; bound <= 3.434E-10 -> |tr M0| >= 1.993158417; != 0: True
+  tr M1: min |Im p| >= 2.648820919; bound <= 4.052E-8 -> |Im tr M1| >= 2.648820879; not in [-2, 2]: True
+  held t=-5/8: 39.58 s, steps [2163, 705], radius of F 1.4e-09
+  held-out t = -5/8: |p - f| in [0.0e+00, 7.0e-08] (F), [0.0e+00, 5.3e-11] (tr M0), [0.0e+00, 7.1e-11] (tr M1)
+  held t=1/8: 39.43 s, steps [2163, 703], radius of F 1.4e-09
+  held-out t = 1/8: |p - f| in [0.0e+00, 6.8e-08] (F), [0.0e+00, 5.4e-11] (tr M0), [0.0e+00, 6.8e-11] (tr M1)
+  held t=3/4: 38.95 s, steps [2162, 703], radius of F 1.4e-09
+  held-out t = 3/4: |p - f| in [0.0e+00, 6.3e-08] (F), [0.0e+00, 5.2e-11] (tr M0), [0.0e+00, 6.5e-11] (tr M1)
+  control, planted zero (F - F(t = 1/8), between nodes): certificate REFUSED (as it must be)
+  ellipse0/8 rho=6.5: 39.1 s, steps [2163, 702], radius of F 1.4e-09
+  ellipse1/8 rho=6.5: 39.12 s, steps [2165, 702], radius of F 1.4e-09
+  ellipse2/8 rho=6.5: 39.06 s, steps [2164, 703], radius of F 1.3e-09
+  ellipse3/8 rho=6.5: 39.43 s, steps [2163, 709], radius of F 1.3e-09
+  ellipse4/8 rho=6.5: 39.68 s, steps [2166, 713], radius of F 1.4e-09
+  ellipse5/8 rho=6.5: 39.78 s, steps [2165, 710], radius of F 1.5e-09
+  ellipse6/8 rho=6.5: 39.74 s, steps [2165, 703], radius of F 1.5e-09
+  ellipse7/8 rho=6.5: 39.8 s, steps [2165, 702], radius of F 1.5e-09
+  proved M >= sampled on the ellipse rho = 6.5 (8 points): True (overestimate x5.7e+06, x1.3e+00, x1.1e+02)
+  shrunken M (/1e12): verdict still passes True; held-out breaks none; below the sampled max for ['f', 'tr M0', 'tr M1']; planted precondition at 4.2 fires: True
+  node balls: largest radius of F 8.85e-09, smallest |F| 2.65e-01; conditions failing even at e = 0 (splitting cannot cure): none
+  OUTCOME: CERTIFIED  (F != 0, tr M0 != 0, tr M1 not in [-2, 2] for every real k in the segment); new evaluations 24; peak rss 32 MB
+=== U1-verdict rc 0
+=== GATE 2026-11-27 01:46:59
+GATE passes on u1's nodes: PASS  (  ENGINE GATE: 13/13 node values inside their enclosures)
+GATE misses a shifted enclosure (other direction): PASS  (rc 2)
+gate RESULT: PASS (2/2)
+=== GATE rc 0
+=== U1 2026-11-27 01:57:11
+U1a rows equal to v5.2's: PASS  (differences [(3.0, []), (4.0, []), (5.0, []), (6.5, [])])
+U1b proof JSON equal to v5.2's: PASS  (differing keys [])
+U1c node values equal to v5.2's: PASS  (24/24 equal)
+U1d verdict as v5.2/P1: PASS  (outcome certified, bounds ('0.265039275', '1.993158417', '2.648820879') vs ('0.265039275', '1.993158417', '2.648820879'), shrunk below ['f', 'tr M0', 'tr M1'])
+Traceback (most recent call last):
+  File "/Users/akash7194/Github/ansatz-air/scripts/_nve_route1_t6.py", line 265, in <module>
+    print(f"{sys.argv[1]} RESULT:", "PASS" if all(RES) else "FAIL", f"({sum(RES)}/{len(RES)})")
+                                                                        ~~~^^^^^
+TypeError: unsupported operand type(s) for +: 'int' and 'list'
+=== U1 rc 1
+=== U6 2026-11-27 01:57:11
+U6 v6 hash differs from v5.2's: PASS  (v6 code hash differs: True)
+U6a foreign record in v6's rows file: PASS  (rc 1)
+U6b foreign record in v6's node file: PASS  (rc 1)
+U6c verdict rerun byte-identical, nothing evaluated: PASS  (rc 0)
+u6 RESULT: PASS (4/4)
+=== U6 rc 0
+=== U3-prove 2026-11-27 01:57:12
+== v6 prove == spin 3/5|k in [1, 11/10]; mode Fk2, tol rel; |F(k_c)| (engine) 2.957992e-01; code 41de13af99caa91d
+== prove (v5 = v4 + F1 branch assert, F2 code-hash keys, F3 coverage counts) == spin 3/5|k in [1, 11/10]; circle 1.35; code 41de13af99caa91d; python 3.13.18, python-flint 0.9.0; rows (4.0,); checkpoint records of this code already on disk: dq 0, rows 0
+    z = (0.3+1.3162j): |D0 - FD| <= 1.3e-15, |D1 - FD| <= 2.5e-15; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True  -> ok
+    z = (-1.35+0j): |D0 - FD| <= 8.5e-16, |D1 - FD| <= 9.9e-16; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True  -> ok
+    z = (1.757-0.003j): |D0 - FD| <= 5.4e-16, |D1 - FD| <= 5.4e-16; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True  -> ok
+    z = (2.05-0.03j): |D0 - FD| <= 4.1e-16, |D1 - FD| <= 3.6e-16; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True  -> ok
+    z = (2.11+0.55j): |D0 - FD| <= 3.7e-16, |D1 - FD| <= 3.2e-16; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True  -> ok
+  self-test True; reference: circle 2163 steps, lasso 703 steps; F1 checks so far {'step': 12304, 'series': 0}  [39 s]
+  circle, K a point (z-direction control; v3 printed 4.153E-1 / 9.325E+0 at 3/5, 7.734E-1 / 2.179E+1 at 9/10): v4 <= 4.153E-1   [52 s]
+  lasso, K a point (z-direction control; v3 printed 4.153E-1 / 9.325E+0 at 3/5, 7.734E-1 / 2.179E+1 at 9/10): v4 <= 9.325E+0   [56 s]
+  rho = 4.0: M_F <= 2.438E+4, n = 12; coverage {'circle': {'steps': 2163, 'bounds': 2163, 'ksub': 25, 'pairs': 54075}, 'lasso': {'steps': 703, 'bounds': 703, 'ksub': 25, 'pairs': 17575}}; F1 checks {'step': 12304, 'series': 74491}   [236 s]
+  CHOSEN: rho = 4.0, n = 12
+  prove v5: 292 s, peak rss 36 MB
+=== U3-prove rc 0
+=== U3-verdict 2026-11-27 02:02:04
+== v6 verdict == spin 3/5|k in [1, 11/10]; mode Fk2; rho = 4.0, n = 12; code 41de13af99caa91d; node records on disk 0; full controls True
+  node0: 34.06 s, steps [2163, 703], radius of F 1.4e-09
+  node1: 33.88 s, steps [2163, 703], radius of F 1.4e-09
+  node2: 33.92 s, steps [2163, 703], radius of F 1.4e-09
+  node3: 33.9 s, steps [2162, 703], radius of F 1.4e-09
+  node4: 34.41 s, steps [2162, 703], radius of F 1.4e-09
+  node5: 34.19 s, steps [2163, 703], radius of F 1.4e-09
+  node6: 33.78 s, steps [2163, 703], radius of F 1.4e-09
+  node7: 34.37 s, steps [2163, 703], radius of F 1.4e-09
+  node8: 33.83 s, steps [2163, 705], radius of F 1.4e-09
+  node9: 34.41 s, steps [2164, 705], radius of F 1.4e-09
+  node10: 34.5 s, steps [2164, 706], radius of F 1.4e-09
+  node11: 34.11 s, steps [2164, 706], radius of F 1.4e-09
+  node12: 34.8 s, steps [2164, 706], radius of F 1.4e-09
+  F/k^2: min |p| >= 0.265334623; proved error bound <= 2.176E-3 -> |F/k^2| >= 0.263158820; != 0: True
+  tr M0: min |p| >= 1.993158418; bound <= 1.795E-7 -> |tr M0| >= 1.993158238; != 0: True
+  tr M1: min |Im p| >= 2.648820919; bound <= 3.078E-6 -> |Im tr M1| >= 2.648817841; not in [-2, 2]: True
+  held t=-5/8: 34.35 s, steps [2163, 705], radius of F 1.4e-09
+  held-out t = -5/8: |p - f| in [0.0e+00, 6.4e-08] (F/k^2), [0.0e+00, 5.3e-11] (tr M0), [0.0e+00, 7.1e-11] (tr M1)
+  held t=1/8: 34.64 s, steps [2163, 703], radius of F 1.4e-09
+  held-out t = 1/8: |p - f| in [0.0e+00, 6.1e-08] (F/k^2), [0.0e+00, 5.4e-11] (tr M0), [0.0e+00, 6.8e-11] (tr M1)
+  held t=3/4: 34.83 s, steps [2162, 703], radius of F 1.4e-09
+  held-out t = 3/4: |p - f| in [0.0e+00, 5.7e-08] (F/k^2), [0.0e+00, 5.2e-11] (tr M0), [0.0e+00, 6.5e-11] (tr M1)
+  control, planted zero (F/k^2 - F/k^2(t = 1/8), between nodes): certificate REFUSED (as it must be)
+  ellipse0/8 rho=4.0: 36.09 s, steps [2164, 702], radius of F 1.4e-09
+  ellipse1/8 rho=4.0: 35.07 s, steps [2166, 702], radius of F 1.4e-09
+  ellipse2/8 rho=4.0: 35.75 s, steps [2165, 703], radius of F 1.3e-09
+  ellipse3/8 rho=4.0: 35.7 s, steps [2164, 708], radius of F 1.4e-09
+  ellipse4/8 rho=4.0: 35.48 s, steps [2164, 708], radius of F 1.4e-09
+  ellipse5/8 rho=4.0: 36.01 s, steps [2164, 708], radius of F 1.5e-09
+  ellipse6/8 rho=4.0: 35.93 s, steps [2162, 703], radius of F 1.5e-09
+  ellipse7/8 rho=4.0: 35.47 s, steps [2163, 702], radius of F 1.5e-09
+  proved M >= sampled on the ellipse rho = 4.0 (8 points): True (overestimate x1.0e+05, x1.1e+00, x1.3e+01)
+  shrunken M (/1e12): verdict still passes True; held-out breaks none; below the sampled max for ['f', 'tr M0', 'tr M1']; planted precondition at 4.2 fires: True
+  node balls: largest radius of F/k^2 7.66e-09, smallest |F/k^2| 2.65e-01; conditions failing even at e = 0 (splitting cannot cure): none
+  OUTCOME: CERTIFIED  (F/k^2 != 0, tr M0 != 0, tr M1 not in [-2, 2] for every real k in the segment); new evaluations 24; peak rss 32 MB
+=== U3-verdict rc 0
+=== U3 2026-11-27 02:15:58
+U3 F/k^2 known answer: PASS  (outcome certified; derived |F| >= 0.263158820 <= min node |F| 0.265334711; |F/k^2| >= 0.263158820; n 12; tol_F 2.389639e-03 vs 2.389639e-03)
+u3 RESULT: PASS (1/1)
+=== U3 rc 0
+=== FK2FILES-U3 2026-11-27 02:15:58
+FK2FILES spin 3/5|k in [1, 11/10]: PASS  (err[0] 2.176E-3 >= errF/d^2 2.1758e-03; M[0] 2.738E+4 >= M_F/d^2 2.7378e+04; d 9.4375e-01)
+fk2files RESULT: PASS (1/1)
+=== FK2FILES-U3 rc 0
+=== U7-prove 2026-11-27 02:15:58
+== v6 prove == spin 3/5|k in [39/20, 41/20]; mode F, tol abs; |F(k_c)| (engine) 1.362050e+00; code 3a2021e408e51385
+== prove (v5 = v4 + F1 branch assert, F2 code-hash keys, F3 coverage counts) == spin 3/5|k in [39/20, 41/20]; circle 1.35; code 3a2021e408e51385; python 3.13.18, python-flint 0.9.0; rows (4.0,); checkpoint records of this code already on disk: dq 0, rows 0
+    z = (0.3+1.3162j): |D0 - FD| <= 3.2e-15, |D1 - FD| <= 6.0e-15; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True  -> ok
+    z = (-1.35+0j): |D0 - FD| <= 2.0e-15, |D1 - FD| <= 2.3e-15; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True  -> ok
+    z = (1.757-0.003j): |D0 - FD| <= 1.3e-15, |D1 - FD| <= 1.3e-15; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True  -> ok
+    z = (2.05-0.03j): |D0 - FD| <= 9.8e-16, |D1 - FD| <= 8.6e-16; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True  -> ok
+    z = (2.11+0.55j): |D0 - FD| <= 8.9e-16, |D1 - FD| <= 7.5e-16; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True  -> ok
+  self-test True; reference: circle 2161 steps, lasso 673 steps; F1 checks so far {'step': 12174, 'series': 0}  [35 s]
+  circle, K a point (z-direction control; v3 printed 4.153E-1 / 9.325E+0 at 3/5, 7.734E-1 / 2.179E+1 at 9/10): v4 <= 4.697E-1   [47 s]
+  lasso, K a point (z-direction control; v3 printed 4.153E-1 / 9.325E+0 at 3/5, 7.734E-1 / 2.179E+1 at 9/10): v4 <= 1.010E+1   [51 s]
+  rho = 4.0: M_F <= 1.156E+5, n = 14; coverage {'circle': {'steps': 2161, 'bounds': 2161, 'ksub': 25, 'pairs': 54025}, 'lasso': {'steps': 673, 'bounds': 673, 'ksub': 25, 'pairs': 16825}}; F1 checks {'step': 12174, 'series': 73684}   [231 s]
+  CHOSEN: rho = 4.0, n = 14
+  prove v5: 282 s, peak rss 32 MB
+=== U7-prove rc 0
+=== U7-verdict 2026-11-27 02:20:41
+== v6 verdict == spin 3/5|k in [39/20, 41/20]; mode F; rho = 4.0, n = 14; code 3a2021e408e51385; node records on disk 0; full controls False
+  node0: 34.7 s, steps [2162, 673], radius of F 1.6e-09
+  node1: 35.49 s, steps [2162, 673], radius of F 1.6e-09
+  node2: 34.45 s, steps [2162, 673], radius of F 1.6e-09
+  node3: 34.68 s, steps [2162, 673], radius of F 1.6e-09
+  node4: 34.41 s, steps [2162, 673], radius of F 1.6e-09
+  node5: 34.61 s, steps [2161, 673], radius of F 1.6e-09
+  node6: 34.98 s, steps [2161, 673], radius of F 1.5e-09
+  node7: 34.38 s, steps [2161, 673], radius of F 1.5e-09
+  node8: 35.12 s, steps [2161, 672], radius of F 1.5e-09
+  node9: 34.81 s, steps [2161, 672], radius of F 1.5e-09
+  node10: 34.75 s, steps [2162, 674], radius of F 1.5e-09
+  node11: 35.07 s, steps [2162, 674], radius of F 1.5e-09
+  node12: 34.55 s, steps [2162, 674], radius of F 1.5e-09
+  node13: 34.86 s, steps [2162, 674], radius of F 1.5e-09
+  node14: 34.81 s, steps [2162, 674], radius of F 1.5e-09
+  F: min |p| >= 1.276665117; proved error bound <= 5.745E-4 -> |F| >= 1.276090689; != 0: True
+  tr M0: min |p| >= 1.971358969; bound <= 1.194E-8 -> |tr M0| >= 1.971358957; != 0: True
+  tr M1: min |Im p| >= 2.459550015; bound <= 3.809E-7 -> |Im tr M1| >= 2.459549634; not in [-2, 2]: True
+  held t=1/8: 34.87 s, steps [2161, 673], radius of F 1.5e-09
+  held-out t = 1/8: |p - f| in [0.0e+00, 7.1e-08] (F), [0.0e+00, 5.7e-11] (tr M0), [0.0e+00, 6.6e-11] (tr M1)
+  control, planted zero (F - F(t = 1/8), between nodes): certificate REFUSED (as it must be)
+  ellipse0/8 rho=4.0: 36.2 s, steps [2162, 672], radius of F 1.6e-09
+  ellipse4/8 rho=4.0: 35.5 s, steps [2163, 680], radius of F 1.6e-09
+  proved M >= sampled on the ellipse rho = 4.0 (2 points): True (overestimate x7.5e+04, x1.2e+00, x2.8e+01)
+  node balls: largest radius of F 8.64e-09, smallest |F| 1.28e+00; conditions failing even at e = 0 (splitting cannot cure): none
+  OUTCOME: CERTIFIED  (F != 0, tr M0 != 0, tr M1 not in [-2, 2] for every real k in the segment); new evaluations 18; peak rss 32 MB
+=== U7-verdict rc 0
+=== U7 2026-11-27 02:31:09
+U7 moved segment k_c = 2: row equal to P3's, verdict certified: PASS  (row differences [[]]; outcome certified; |F| >= 1.276090689)
+u7 RESULT: PASS (1/1)
+=== U7 rc 0
+=== U4a 2026-11-27 02:31:09
+[2026-11-27 02:31:09] == pilot == spin 3/5; segment [1/640, 1/320] (k_c 3/1280), mode Fk2
+[2026-11-27 03:09:17] PILOT OUTCOME: certified; {'base': 'v6_kc3o1280h1o1280_Fk2_2d1d65ec0e70d70f', 'n': 20, 'abs_f_ge': '0.184242024', 'abs_F_ge': '0.000000449', 'fullctl': True, 'vjson': '/Users/akash7194/Github/ansatz-air/data/nve/eps/route1_seg_verdict_v6_kc3o1280h1o1280_Fk2_2d1d65ec0e70d70f.json', 'vjson_sha': '76d21266866b5dae764539c47883fc26f1cc0efb38f3105beedf837057d9cd01', 'nodef': '/Users/akash7194/Github/ansatz-air/data/nve/eps/route1_seg_nodes_v6_kc3o1280h1o1280_Fk2_2d1d65ec0e70d70f.jsonl', 'nodes_sha': '2bfce9dd3d68b2eccee2dbef0fb5574974414c3ac3054487c90cf75d446262f1', 'mjson': '/Users/akash7194/Github/ansatz-air/data/nve/eps/route1_seg_M_v6_kc3o1280h1o1280_Fk2_2d1d65ec0e70d70f.json'}
+=== U4a rc 0
+=== FK2FILES-U4a 2026-11-27 03:09:17
+FK2FILES spin 3/5|k in [1/640, 1/320]: PASS  (err[0] 2.052E-3 >= errF/d^2 2.0512e-03; M[0] 1.692E+9 >= M_F/d^2 1.6915e+09; d 6.8359e-04)
+fk2files RESULT: PASS (1/1)
+=== FK2FILES-U4a rc 0
+=== T6A SUMMARY: U5 rc=0; SYNTH rc=0; P4r-floats-3/5 rc=0; P4r-3/5 rc=0; U1-prove rc=0; U1-verdict rc=0; GATE rc=0; U1 rc=1; U6 rc=0; U3-prove rc=0; U3-verdict rc=0; U3 rc=0; FK2FILES-U3 rc=0; U7-prove rc=0; U7-verdict rc=0; U7 rc=0; U4a rc=0; FK2FILES-U4a rc=0
+=== T6A_DONE 2026-11-27 03:09:18
+JOB_EXIT 0

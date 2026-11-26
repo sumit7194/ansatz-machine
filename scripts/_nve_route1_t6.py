@@ -39,6 +39,7 @@ RES = []
 
 
 def check(name, ok, note=""):
+    ok = bool(ok)          # (an `a and b and <list>` is the list, not True: the first t6a run crashed its summary on it)
     RES.append(ok)
     print(f"{name}: {'PASS' if ok else 'FAIL'}  ({note})", flush=True)
 

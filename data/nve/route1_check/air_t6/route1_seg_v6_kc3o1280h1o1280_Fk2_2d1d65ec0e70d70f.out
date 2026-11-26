@@ -1,0 +1,66 @@
+== v6 prove == spin 3/5|k in [1/640, 1/320]; mode Fk2, tol rel; |F(k_c)| (engine) 1.193426e-06; code 2d1d65ec0e70d70f
+== prove (v5 = v4 + F1 branch assert, F2 code-hash keys, F3 coverage counts) == spin 3/5|k in [1/640, 1/320]; circle 1.35; code 2d1d65ec0e70d70f; python 3.13.18, python-flint 0.9.0; rows (4.0,); checkpoint records of this code already on disk: dq 0, rows 0
+    z = (0.3+1.3162j): |D0 - FD| <= 6.5e-16, |D1 - FD| <= 1.2e-15; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True  -> ok
+    z = (-1.35+0j): |D0 - FD| <= 4.2e-16, |D1 - FD| <= 5.0e-16; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True  -> ok
+    z = (1.757-0.003j): |D0 - FD| <= 2.7e-16, |D1 - FD| <= 2.7e-16; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True  -> ok
+    z = (2.05-0.03j): |D0 - FD| <= 2.1e-16, |D1 - FD| <= 1.8e-16; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True  -> ok
+    z = (2.11+0.55j): |D0 - FD| <= 1.9e-16, |D1 - FD| <= 1.6e-16; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True  -> ok
+  self-test True; reference: circle 2169 steps, lasso 729 steps; F1 checks so far {'step': 12443, 'series': 0}  [36 s]
+  circle, K a point (z-direction control; v3 printed 4.153E-1 / 9.325E+0 at 3/5, 7.734E-1 / 2.179E+1 at 9/10): v4 <= 3.358E-1   [49 s]
+  lasso, K a point (z-direction control; v3 printed 4.153E-1 / 9.325E+0 at 3/5, 7.734E-1 / 2.179E+1 at 9/10): v4 <= 8.721E+0   [53 s]
+  rho = 4.0: M_F <= 7.905E+2, n = 20; coverage {'circle': {'steps': 2169, 'bounds': 2169, 'ksub': 25, 'pairs': 54225}, 'lasso': {'steps': 729, 'bounds': 729, 'ksub': 25, 'pairs': 18225}}; F1 checks {'step': 12443, 'series': 75348}   [241 s]
+  CHOSEN: rho = 4.0, n = 20
+  prove v5: 293 s, peak rss 36 MB
+== v6 verdict == spin 3/5|k in [1/640, 1/320]; mode Fk2; rho = 4.0, n = 20; code 2d1d65ec0e70d70f; node records on disk 0; full controls False
+  node0: 36.92 s, steps [2169, 729], radius of F 1.3e-09
+  node1: 36.8 s, steps [2169, 729], radius of F 1.3e-09
+  node2: 37.38 s, steps [2169, 729], radius of F 1.3e-09
+  node3: 35.39 s, steps [2169, 729], radius of F 1.3e-09
+  node4: 35.93 s, steps [2169, 729], radius of F 1.3e-09
+  node5: 36.14 s, steps [2169, 729], radius of F 1.3e-09
+  node6: 35.95 s, steps [2169, 729], radius of F 1.3e-09
+  node7: 35.65 s, steps [2169, 729], radius of F 1.3e-09
+  node8: 36.13 s, steps [2169, 729], radius of F 1.3e-09
+  node9: 35.93 s, steps [2169, 729], radius of F 1.3e-09
+  node10: 35.39 s, steps [2169, 729], radius of F 1.3e-09
+  node11: 36.49 s, steps [2169, 729], radius of F 1.3e-09
+  node12: 36.89 s, steps [2169, 729], radius of F 1.3e-09
+  node13: 35.88 s, steps [2169, 729], radius of F 1.3e-09
+  node14: 36.11 s, steps [2169, 729], radius of F 1.3e-09
+  node15: 36.74 s, steps [2169, 729], radius of F 1.3e-09
+  node16: 37.0 s, steps [2169, 729], radius of F 1.3e-09
+  node17: 35.72 s, steps [2169, 729], radius of F 1.3e-09
+  node18: 35.49 s, steps [2169, 729], radius of F 1.3e-09
+  node19: 36.27 s, steps [2169, 729], radius of F 1.3e-09
+  node20: 36.05 s, steps [2169, 729], radius of F 1.3e-09
+  F/k^2: min |p| >= 0.186293255; proved error bound <= 2.052E-3 -> |F/k^2| >= 0.184242024; != 0: True
+  tr M0: min |p| >= 1.999999953; bound <= 2.427E-12 -> |tr M0| >= 1.999999953; != 0: True
+  tr M1: min |Im p| >= 2.777003046; bound <= 8.372E-12 -> |Im tr M1| >= 2.777003046; not in [-2, 2]: True
+  held t=1/8: 36.17 s, steps [2169, 729], radius of F 1.3e-09
+  held-out t = 1/8: |p - f| in [0.0e+00, 2.2e-02] (F/k^2), [0.0e+00, 8.5e-11] (tr M0), [0.0e+00, 1.3e-10] (tr M1)
+  control, planted zero (F/k^2 - F/k^2(t = 1/8), between nodes): certificate REFUSED (as it must be)
+  ellipse0/8 rho=4.0: 36.13 s, steps [2169, 729], radius of F 1.3e-09
+  ellipse4/8 rho=4.0: 36.38 s, steps [2169, 729], radius of F 1.3e-09
+  proved M >= sampled on the ellipse rho = 4.0 (2 points): True (overestimate x7.5e+09, x1.0e+00, x2.3e+00)
+  node balls: largest radius of F/k^2 2.52e-03, smallest |F/k^2| 2.14e-01; conditions failing even at e = 0 (splitting cannot cure): none
+  OUTCOME: CERTIFIED  (F/k^2 != 0, tr M0 != 0, tr M1 not in [-2, 2] for every real k in the segment); new evaluations 24; peak rss 32 MB
+== v6 verdict == spin 3/5|k in [1/640, 1/320]; mode Fk2; rho = 4.0, n = 20; code 2d1d65ec0e70d70f; node records on disk 24; full controls True
+  F/k^2: min |p| >= 0.186293255; proved error bound <= 2.052E-3 -> |F/k^2| >= 0.184242024; != 0: True
+  tr M0: min |p| >= 1.999999953; bound <= 2.427E-12 -> |tr M0| >= 1.999999953; != 0: True
+  tr M1: min |Im p| >= 2.777003046; bound <= 8.372E-12 -> |Im tr M1| >= 2.777003046; not in [-2, 2]: True
+  held t=-5/8: 37.05 s, steps [2169, 729], radius of F 1.3e-09
+  held-out t = -5/8: |p - f| in [0.0e+00, 2.2e-02] (F/k^2), [0.0e+00, 7.9e-11] (tr M0), [0.0e+00, 1.2e-10] (tr M1)
+  held-out t = 1/8: |p - f| in [0.0e+00, 2.2e-02] (F/k^2), [0.0e+00, 8.5e-11] (tr M0), [0.0e+00, 1.3e-10] (tr M1)
+  held t=3/4: 36.56 s, steps [2169, 729], radius of F 1.3e-09
+  held-out t = 3/4: |p - f| in [0.0e+00, 2.0e-02] (F/k^2), [0.0e+00, 8.1e-11] (tr M0), [0.0e+00, 1.2e-10] (tr M1)
+  control, planted zero (F/k^2 - F/k^2(t = 1/8), between nodes): certificate REFUSED (as it must be)
+  ellipse1/8 rho=4.0: 36.18 s, steps [2169, 729], radius of F 1.3e-09
+  ellipse2/8 rho=4.0: 35.95 s, steps [2169, 729], radius of F 1.3e-09
+  ellipse3/8 rho=4.0: 37.38 s, steps [2169, 729], radius of F 1.3e-09
+  ellipse5/8 rho=4.0: 36.69 s, steps [2169, 729], radius of F 1.3e-09
+  ellipse6/8 rho=4.0: 36.36 s, steps [2169, 729], radius of F 1.3e-09
+  ellipse7/8 rho=4.0: 37.25 s, steps [2169, 729], radius of F 1.3e-09
+  proved M >= sampled on the ellipse rho = 4.0 (8 points): True (overestimate x7.5e+09, x1.0e+00, x2.3e+00)
+  shrunken M (/1e12): verdict still passes True; held-out breaks none; below the sampled max for ['f', 'tr M0', 'tr M1']; planted precondition at 4.2 fires: True
+  node balls: largest radius of F/k^2 2.52e-03, smallest |F/k^2| 2.14e-01; conditions failing even at e = 0 (splitting cannot cure): none
+  OUTCOME: CERTIFIED  (F/k^2 != 0, tr M0 != 0, tr M1 not in [-2, 2] for every real k in the segment); new evaluations 8; peak rss 33 MB

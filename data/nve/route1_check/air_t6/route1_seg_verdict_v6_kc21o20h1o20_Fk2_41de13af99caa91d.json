@@ -1,0 +1,50 @@
+{
+ "M": [
+  "2.738E+4",
+  "2.258E+0",
+  "3.873E+1"
+ ],
+ "abs_F_ge": "0.263158820",
+ "abs_Im_trM1_ge": "2.648817841",
+ "abs_f_ge": "0.263158820",
+ "abs_trM0_ge": "1.993158238",
+ "alarm": [],
+ "code": "41de13af99caa91d",
+ "conditions": {
+  "f": true,
+  "precondition": true,
+  "selftest": true,
+  "trM0": true,
+  "trM1": true
+ },
+ "err": [
+  "2.176E-3",
+  "1.795E-7",
+  "3.078E-6"
+ ],
+ "held_out_consistent": true,
+ "mode": "Fk2",
+ "n": 12,
+ "n_ellipse": 8,
+ "n_held": 3,
+ "n_nodes": 13,
+ "node_abs_min": "2.653e-01",
+ "node_radius_max": "7.661e-09",
+ "outcome": "certified",
+ "planted_precondition_fires": true,
+ "planted_zero_refused": true,
+ "proved_M_ge_sampled": true,
+ "radius_limited": false,
+ "rho": 4.0,
+ "s3_inconsistent": [],
+ "seg": "spin 3/5|k in [1, 11/10]",
+ "shrunk_M_below_sampled": [
+  "f",
+  "tr M0",
+  "tr M1"
+ ],
+ "shrunk_heldout_breaks": [],
+ "shrunk_verdict_passes": true,
+ "tolmode": "rel",
+ "unsplittable": []
+}

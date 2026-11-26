@@ -1,0 +1,30 @@
+./t6b.sh:6: nice(5) failed: operation not permitted
+=== P4r-floats-9/10 2026-11-27 01:10:16
+3/20480 F (3.39323580090416e-10 - 3.45801800566754e-11j) T0 (1.99999999965058 - 9.24970404563539e-33j) T1 (0.247164941834415 + 3.79416460006479j) geo True 58s
+3/2560 F (2.17079601396645e-8 - 2.1551338951937e-9j) T0 (1.99999997763377 - 6.77543405706079e-32j) T1 (0.247369172086317 + 3.7942184946332j) geo True 59s
+3/320 F (1.38485372551777e-6 - 1.08172254727715e-7j) T0 (1.99999856671646 - 2.5962473817973e-31j) T1 (0.249003848117855 + 3.79464942200448j) geo True 60s
+3/40 F (8.64494421973724e-5 + 8.5672808643952e-6j) T0 (1.99990731382027 - 1.1914255091193e-29j) T1 (0.262134631829512 + 3.79808189869326j) geo True 57s
+=== P4r-floats-9/10 rc 0
+=== P4r-9/10 2026-11-27 01:14:11
+== P4-r radius probe == spin 9/10, R0 1.2639; k_c ['3/20480', '3/2560', '3/320', '3/40']
+k_c = 3/20480 (1.4648e-04): engine |F| 3.411e-10; Arb radius of F 2.632e-08; radius / |F| 7.72e+01 -> RADIUS-LIMITED; steps [21146, 916], 317.45 s
+    traces: tr M0 = 2.000000+0.000000j (radius 8.20e-10; margin |tr M0| 2.000e+00); tr M1 = 0.247165+3.794165j (radius 6.26e-11; margin 3.794e+00) -> trace conditions attainable
+k_c = 3/2560 (1.1719e-03): engine |F| 2.181e-08; Arb radius of F 2.632e-08; radius / |F| 1.21e+00 -> RADIUS-LIMITED; steps [21146, 916], 317.2 s
+    traces: tr M0 = 2.000000+0.000000j (radius 8.35e-10; margin |tr M0| 2.000e+00); tr M1 = 0.247369+3.794218j (radius 4.85e-11; margin 3.794e+00) -> trace conditions attainable
+k_c = 3/320 (9.3750e-03): engine |F| 1.389e-06; Arb radius of F 2.628e-08; radius / |F| 1.89e-02 -> MARGINAL; steps [21131, 916], 318.39 s
+    traces: tr M0 = 1.999999+0.000000j (radius 7.61e-10; margin |tr M0| 2.000e+00); tr M1 = 0.249004+3.794649j (radius 3.06e-11; margin 3.795e+00) -> trace conditions attainable
+k_c = 3/40 (7.5000e-02): engine |F| 8.687e-05; Arb radius of F 2.605e-08; radius / |F| 3.00e-04 -> feasible; steps [21022, 914], 316.45 s
+    traces: tr M0 = 1.999907+0.000000j (radius 6.67e-10; margin |tr M0| 2.000e+00); tr M1 = 0.262135+3.798082j (radius 4.20e-11; margin 3.798e+00) -> trace conditions attainable
+== P4R_DONE
+=== P4r-9/10 rc 0
+=== U4b 2026-11-27 01:35:21
+[2026-11-27 01:35:21] == pilot == spin 9/10; segment [1/20, 1/10] (k_c 3/40), mode Fk2
+[2026-11-27 04:45:38] PILOT OUTCOME: certified; {'base': 'v6_9_10_kc3o40h1o40_Fk2_f8735a61a76a7c95', 'n': 20, 'abs_f_ge': '0.015082948', 'abs_F_ge': '0.000037707', 'fullctl': True, 'vjson': '/Users/akash7194/Github/ansatz-air/data/nve/eps/route1_seg_verdict_v6_9_10_kc3o40h1o40_Fk2_f8735a61a76a7c95.json', 'vjson_sha': '935272ab9b8e66851e58932bfc13ba43e125ac9d567adde2e5376928b165ffb9', 'nodef': '/Users/akash7194/Github/ansatz-air/data/nve/eps/route1_seg_nodes_v6_9_10_kc3o40h1o40_Fk2_f8735a61a76a7c95.jsonl', 'nodes_sha': 'd7f8b44b1a3f38db3dd583d69f0dfc24921e399447ea401497e33453630fa382', 'mjson': '/Users/akash7194/Github/ansatz-air/data/nve/eps/route1_seg_M_v6_9_10_kc3o40h1o40_Fk2_f8735a61a76a7c95.json'}
+=== U4b rc 0
+=== FK2FILES-U4b 2026-11-27 04:45:38
+FK2FILES spin 9/10|k in [1/20, 1/10]: PASS  (err[0] 2.486E-5 >= errF/d^2 2.4859e-05; M[0] 2.050E+7 >= M_F/d^2 2.0500e+07; d 2.1875e-02)
+fk2files RESULT: PASS (1/1)
+=== FK2FILES-U4b rc 0
+=== T6B SUMMARY: P4r-floats-9/10 rc=0; P4r-9/10 rc=0; U4b rc=0; FK2FILES-U4b rc=0
+=== T6B_DONE 2026-11-27 04:45:38
+JOB_EXIT 0

@@ -4717,3 +4717,10 @@ pole-order-1 Carter² survival.
     smoke test caught V.hi_sci's float() inside the first draft's own rejection message. Awaiting the Bridge's read,
     then T1–T5 on the Air.
   - **tests52 on v5.2 + B2 (Air):** T1 PASS (identical to v4), T2–T5 + T5d + B1 19/19 PASS (T_TESTS.md).
+- **2026-11-27, the P4 build (production for Sumit's measured-reach scope):**
+  - **Build and reads:** v6, the engine gate and the driver (10707e1). The Bridge's two reads found it sound, and the
+    fixes S1–S7 went in at db97d21; registration §5A is on main at d1c24d6.
+  - **T-tests on the Air, all PASS** (T6_RESULT.md): U1 reproduces v5.2, SYNTH sees /d² against /d, U7 is a
+    moved-segment known answer, and both pilots certified.
+  - **P4-r confirmed the 9/10 small-k limit:** the node radius is flat at 2.6e−8, so the chain ends near 1e−3 to 2e−3.
+  - **One checker fault (mine):** `check()` stored a truthy list; it was fixed and the checker rerun.
