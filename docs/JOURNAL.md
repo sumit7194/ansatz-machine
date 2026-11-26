@@ -4747,3 +4747,8 @@ pole-order-1 Carter² survival.
   - All five controls behaved as sealed, and every margin is inside its sealed range.
   - 1.42 h. Seal 10a843a, outputs c2dd39c.
 - **Holding:** further spins wait for the Bridge's word and the registration.
+
+## 2026-11-26 (end of the office session) — Handoff to ansatz-machine-personal
+- docs/HANDOFF_2026-11-26_office.md covers the claim state, route (i) (both certified segments and the v2/v3/v4
+  lineage), the open branches, the known issues, the next steps and every seal's status.
+- No jobs are running. The ktaylor worktree was removed after its branch was pushed.
