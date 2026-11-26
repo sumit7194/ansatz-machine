@@ -72,3 +72,13 @@ which would need python-flint 0.9.0 installed there) and has not been done.
 - **Rerun launched** 14:26:24 Air time as `repro313.sh` (PID 15530) from nothing, with the 3.14 outputs moved to
   `data/nve/eps/run314/`. The bar: byte-identical to the committed files, apart from the declared run-time and interpreter fields.
   If it still differs, the patch level (3.13.18 against 3.13.12) is reported before going further.
+
+## (b) The 50-digit engine at all 44 nodes: PASS (2026-11-26, Air)
+
+`engine.sh` under the Air's `.venv` (Python 3.14.10, mpmath 1.3.0; the engine shares no code with the Arb evaluator)
+ran 14:23:46 to 15:10:13, rc 0, with the guard never pausing. Every engine value lies inside the committed Arb enclosure
+for F, tr M0 and tr M1:
+- spin 3/5 (v2 nodes, n = 24): **25/25** (largest F radius 6.4e-9, about 54 s per node);
+- spin 9/10 (the v4 certificate's nodes, n = 18): **19/19** (largest F radius 7.4e-8, about 76 s per node).
+Checked from the records themselves (every `F_inside`, `T0_inside`, `T1_inside` and `pass` field reads True), not only
+from the RESULT lines. Outputs are in `air_engine/`.

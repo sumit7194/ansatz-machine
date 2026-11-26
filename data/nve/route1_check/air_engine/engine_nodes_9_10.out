@@ -1,0 +1,21 @@
+== engine at the nodes == spin 9/10, R0 1.2639, mp.dps 50; node file data/nve/eps/route1_seg_nodes_arb_9_10_v4cert.jsonl (19 nodes); lasso of 21/20 from data/nve/eps/route1_floats_9_10.json (53 vertices); 0 done
+  node0: k = 1.1; F inside True (radius 7.38e-8), tr M0 True, tr M1 True; 75.1 s
+  node1: k = 1.09924038765; F inside True (radius 5.94e-8), tr M0 True, tr M1 True; 75.0 s
+  node2: k = 1.09698463104; F inside True (radius 6.03e-8), tr M0 True, tr M1 True; 77.1 s
+  node3: k = 1.09330127019; F inside True (radius 7.03e-8), tr M0 True, tr M1 True; 76.0 s
+  node4: k = 1.08830222216; F inside True (radius 4.98e-8), tr M0 True, tr M1 True; 75.3 s
+  node5: k = 1.08213938048; F inside True (radius 5.14e-8), tr M0 True, tr M1 True; 75.5 s
+  node6: k = 1.075; F inside True (radius 4.36e-8), tr M0 True, tr M1 True; 75.8 s
+  node7: k = 1.06710100717; F inside True (radius 5.81e-8), tr M0 True, tr M1 True; 75.5 s
+  node8: k = 1.05868240888; F inside True (radius 4.11e-8), tr M0 True, tr M1 True; 75.7 s
+  node9: k = 1.05; F inside True (radius 6.34e-8), tr M0 True, tr M1 True; 76.0 s
+  node10: k = 1.04131759112; F inside True (radius 7.17e-8), tr M0 True, tr M1 True; 75.2 s
+  node11: k = 1.03289899283; F inside True (radius 5.19e-8), tr M0 True, tr M1 True; 74.4 s
+  node12: k = 1.025; F inside True (radius 5.07e-8), tr M0 True, tr M1 True; 75.0 s
+  node13: k = 1.01786061952; F inside True (radius 6.37e-8), tr M0 True, tr M1 True; 75.7 s
+  node14: k = 1.01169777784; F inside True (radius 6.41e-8), tr M0 True, tr M1 True; 74.4 s
+  node15: k = 1.00669872981; F inside True (radius 6.97e-8), tr M0 True, tr M1 True; 74.8 s
+  node16: k = 1.00301536896; F inside True (radius 6.8e-8), tr M0 True, tr M1 True; 75.1 s
+  node17: k = 1.00075961235; F inside True (radius 5.19e-8), tr M0 True, tr M1 True; 75.3 s
+  node18: k = 1.0; F inside True (radius 7.37e-8), tr M0 True, tr M1 True; 75.7 s
+  RESULT: 19/19 node values inside their enclosures
