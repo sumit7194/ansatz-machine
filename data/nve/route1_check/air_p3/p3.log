@@ -1,0 +1,62 @@
+=== P3 floats spin 3/5 2026-11-26 20:18:47 Python 3.14.10
+1/2 F (0.0525257856704692 + 0.0284231240315487j) T0 (1.99871599704428 - 2.64971510623624e-36j) T1 (-1.0245413423751 + 2.72732924094359j) geo True 57s
+2 F (1.11918766981039 + 0.776272989252922j) T0 (1.9730426607297 - 4.37526747208411e-35j) T1 (-1.2225360529612 + 2.47230815285699j) geo True 56s
+3 F (3.17013635589939 + 2.93874719544024j) T0 (1.92080326575182 + 1.72754087718918e-34j) T1 (-1.45701006356404 + 2.11591952308461j) geo True 55s
+39/10 F (6.87077318806024 + 11.4308241805273j) T0 (1.80712652378482 + 3.15605830670126e-32j) T1 (-1.77965794354859 + 1.40433869702492j) geo True 57s
+=== P3 floats spin 9/10 2026-11-26 20:22:35 Python 3.14.10
+1/2 F (0.0034469289920465 + 0.00536899674059251j) T0 (1.99558136840106 + 3.64666135288657e-30j) T1 (0.349455630054382 + 3.81958235741528j) geo True 79s
+2 F (0.151471872628864 + 0.534536360467596j) T0 (1.90423619104629 + 1.01155626905282e-32j) T1 (0.682325705232435 + 3.87837606674366j) geo True 77s
+3 F (1.25698693895243 + 2.39548779000967j) T0 (1.71329891546528 + 3.86827073060127e-27j) T1 (0.877231267681291 + 3.88498908219978j) geo True 76s
+39/10 F (8.29531126588834 + 6.06850372743782j) T0 (1.2826762204883 + 2.03754219007639e-23j) T1 (0.744006306880925 + 3.80881809182634j) geo True 75s
+=== P3 prove spin 3/5 k_c 1/2 2026-11-26 20:27:43 Python 3.13.18
+== prove (v5 = v4 + F1 branch assert, F2 code-hash keys, F3 coverage counts) == spin 3/5|k in [9/20, 11/20]; circle 1.35; code 2ba10dbd79a83372; python 3.13.18, python-flint 0.9.0; rows (4.0,); checkpoint records of this code already on disk: dq 0, rows 0
+    z = (0.3+1.3162j): |D0 - FD| <= 8.9e-16, |D1 - FD| <= 1.6e-15; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True  -> ok
+    z = (-1.35+0j): |D0 - FD| <= 5.7e-16, |D1 - FD| <= 6.8e-16; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True  -> ok
+    z = (1.757-0.003j): |D0 - FD| <= 3.7e-16, |D1 - FD| <= 3.7e-16; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True  -> ok
+    z = (2.05-0.03j): |D0 - FD| <= 2.8e-16, |D1 - FD| <= 2.5e-16; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True  -> ok
+    z = (2.11+0.55j): |D0 - FD| <= 2.5e-16, |D1 - FD| <= 2.1e-16; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True  -> ok
+  self-test True; reference: circle 2165 steps, lasso 717 steps; F1 checks so far {'step': 12375, 'series': 0}  [60 s]
+  circle, K a point (z-direction control; v3 printed 4.153E-1 / 9.325E+0 at 3/5, 7.734E-1 / 2.179E+1 at 9/10): v4 <= 3.607E-1   [81 s]
+  lasso, K a point (z-direction control; v3 printed 4.153E-1 / 9.325E+0 at 3/5, 7.734E-1 / 2.179E+1 at 9/10): v4 <= 8.987E+0   [88 s]
+  rho = 4.0: M_F <= 1.527E+4, n = 14; coverage {'circle': {'steps': 2165, 'bounds': 2165, 'ksub': 25, 'pairs': 54125}, 'lasso': {'steps': 717, 'bounds': 717, 'ksub': 25, 'pairs': 17925}}; F1 checks {'step': 12375, 'series': 74932}   [394 s]
+  CHOSEN: rho = 4.0, n = 14
+  prove v5: 482 s, peak rss 36 MB
+=== P3 prove spin 3/5 k_c 2 2026-11-26 20:35:46 Python 3.13.18
+== prove (v5 = v4 + F1 branch assert, F2 code-hash keys, F3 coverage counts) == spin 3/5|k in [39/20, 41/20]; circle 1.35; code 2ba10dbd79a83372; python 3.13.18, python-flint 0.9.0; rows (4.0,); checkpoint records of this code already on disk: dq 0, rows 0
+    z = (0.3+1.3162j): |D0 - FD| <= 3.2e-15, |D1 - FD| <= 6.0e-15; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True  -> ok
+    z = (-1.35+0j): |D0 - FD| <= 2.0e-15, |D1 - FD| <= 2.3e-15; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True  -> ok
+    z = (1.757-0.003j): |D0 - FD| <= 1.3e-15, |D1 - FD| <= 1.3e-15; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True  -> ok
+    z = (2.05-0.03j): |D0 - FD| <= 9.8e-16, |D1 - FD| <= 8.6e-16; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True  -> ok
+    z = (2.11+0.55j): |D0 - FD| <= 8.9e-16, |D1 - FD| <= 7.5e-16; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True  -> ok
+  self-test True; reference: circle 2161 steps, lasso 673 steps; F1 checks so far {'step': 12174, 'series': 0}  [59 s]
+  circle, K a point (z-direction control; v3 printed 4.153E-1 / 9.325E+0 at 3/5, 7.734E-1 / 2.179E+1 at 9/10): v4 <= 4.697E-1   [80 s]
+  lasso, K a point (z-direction control; v3 printed 4.153E-1 / 9.325E+0 at 3/5, 7.734E-1 / 2.179E+1 at 9/10): v4 <= 1.010E+1   [87 s]
+  rho = 4.0: M_F <= 1.156E+5, n = 14; coverage {'circle': {'steps': 2161, 'bounds': 2161, 'ksub': 25, 'pairs': 54025}, 'lasso': {'steps': 673, 'bounds': 673, 'ksub': 25, 'pairs': 16825}}; F1 checks {'step': 12174, 'series': 73684}   [387 s]
+  CHOSEN: rho = 4.0, n = 14
+  prove v5: 474 s, peak rss 34 MB
+=== P3 prove spin 3/5 k_c 3 2026-11-26 20:43:40 Python 3.13.18
+== prove (v5 = v4 + F1 branch assert, F2 code-hash keys, F3 coverage counts) == spin 3/5|k in [59/20, 61/20]; circle 1.35; code 2ba10dbd79a83372; python 3.13.18, python-flint 0.9.0; rows (4.0,); checkpoint records of this code already on disk: dq 0, rows 0
+    z = (0.3+1.3162j): |D0 - FD| <= 1.4e-14, |D1 - FD| <= 2.7e-14; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True  -> ok
+    z = (-1.35+0j): |D0 - FD| <= 8.1e-15, |D1 - FD| <= 8.9e-15; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True  -> ok
+    z = (1.757-0.003j): |D0 - FD| <= 5.3e-15, |D1 - FD| <= 5.1e-15; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True  -> ok
+    z = (2.05-0.03j): |D0 - FD| <= 4.1e-15, |D1 - FD| <= 3.5e-15; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True  -> ok
+    z = (2.11+0.55j): |D0 - FD| <= 3.7e-15, |D1 - FD| <= 3.1e-15; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True  -> ok
+  self-test True; reference: circle 2164 steps, lasso 636 steps; F1 checks so far {'step': 12057, 'series': 0}  [59 s]
+  circle, K a point (z-direction control; v3 printed 4.153E-1 / 9.325E+0 at 3/5, 7.734E-1 / 2.179E+1 at 9/10): v4 <= 5.897E-1   [81 s]
+  lasso, K a point (z-direction control; v3 printed 4.153E-1 / 9.325E+0 at 3/5, 7.734E-1 / 2.179E+1 at 9/10): v4 <= 1.278E+1   [87 s]
+  rho = 4.0: M_F <= 4.297E+8, n = 20; coverage {'circle': {'steps': 2164, 'bounds': 2164, 'ksub': 25, 'pairs': 54100}, 'lasso': {'steps': 636, 'bounds': 636, 'ksub': 25, 'pairs': 15900}}; F1 checks {'step': 12057, 'series': 72724}   [385 s]
+  CHOSEN: rho = 4.0, n = 20
+  prove v5: 472 s, peak rss 32 MB
+=== P3 prove spin 3/5 k_c 39/10 2026-11-26 20:51:32 Python 3.13.18
+== prove (v5 = v4 + F1 branch assert, F2 code-hash keys, F3 coverage counts) == spin 3/5|k in [77/20, 79/20]; circle 1.35; code 2ba10dbd79a83372; python 3.13.18, python-flint 0.9.0; rows (4.0,); checkpoint records of this code already on disk: dq 0, rows 0
+Traceback (most recent call last):
+  File "/Users/akash7194/Github/ansatz-air/scripts/_nve_route1_segment_v5.py", line 304, in <module>
+    dict(prove=prove, verdict=verdict)[sys.argv[1]]()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/akash7194/Github/ansatz-air/scripts/_nve_route1_segment_v5.py", line 197, in prove
+    lau_c, laud_c = V.laurent(acb(kc)), V.laurent(acb(kc), True)
+                                        ~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/Users/akash7194/Github/ansatz-air/scripts/_nve_route1_segment_v2.py", line 168, in laurent
+    raise RuntimeError("Laurent tail bound: non-finite on |omega| = 0.9/a")
+RuntimeError: Laurent tail bound: non-finite on |omega| = 0.9/a
+JOB_EXIT 1

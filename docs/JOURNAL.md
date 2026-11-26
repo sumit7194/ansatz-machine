@@ -4690,3 +4690,20 @@ pole-order-1 Carter² survival.
   - **docs/ROUTE1_REGISTRATION_INPUT.md:** B5 plus the Laurent-disc precondition, as input for a future registration.
     Nothing launches.
   - No release or Zenodo version (Sumit's decision).
+
+## 2026-11-26 (evening) — Route (i) pilots on the Air: P2, tests51, P3 (branch personal/2026-11-26-route1-check)
+
+- **P2 (v4, k_c = 21/20, spins 3/10 and 4/5):** all 8 rows admissible; 12 of 14 sealed predictions hit
+  (data/nve/route1_check/P2_RESULT.md).
+- **tests51 (v5.1 + B1):** T1 PASS (identical to v4 on the same machine and Python), T2–T4 plus B1 14/14 PASS
+  (T_TESTS.md).
+- **P3 (v5.1, ρ = 4, half-width 1/20, k_c = 1/2, 2, 3, 39/10 at spins 3/5 and 9/10): two stages gave no row, each
+  for a reason the seal did not name** (P3_RESULT.md).
+  - 3/5 at 39/10: the Laurent derivative bound is non-finite at the centre point, where the fixed 400 arcs meet
+    min |1 − kφ| ≈ 0.02 (a spin-independent limit).
+  - 9/10 at k_c = 3: the circle-side dq bounds over the complex k-square grew about 22,000× from k_c = 2, while the
+    point-k control did not. M_F's Arb ball overflowed the float range, and `float(MF)` crashed the n formula. That
+    is a crash, not a rejected row: a fail-closed gap, not unsound, and it stopped the runner before 9/10 at 39/10.
+  - Misses at 3/5, k_c = 3: c1 57.1 and n 20 above range, and the ratio c1(3)/c1(21/20) = 3.6 against 1.3–3.
+  - The method stops between k_c 3 and 3.9 at 3/5, and between 2 and 3 at 9/10.
+- Nothing certified, nothing launched after the crash; the next step is the Bridge's.
