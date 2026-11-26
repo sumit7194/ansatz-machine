@@ -243,6 +243,52 @@ is rejected; the run continues), a coverage-count mismatch, an engine miss, a fa
   matches what was planned.
 
 ## 9. Branches and merging
+## 5A. Amendment for production (2026-11-27, before the production seal)
+
+**Scope (Sumit, via the Bridge):** the measured reach only:
+- spin 3/5 from ε_a up to k = 3;
+- spin 9/10 from ε_a up to k = 2;
+- the dyadic small-k segments included.
+
+The top of region A is parked. This is stated as a partial result covering part of region A.
+
+**Code: v6** (`_nve_route1_segment_v6.py` = v5.2 + P4: a relative n target, F/k² on the dyadic segments, a
+general-segment verdict, a radius-limited test), with the engine gate (`_nve_route1_engine_gate.py`) and the driver
+(`_nve_route1_production.py`). The Bridge read it at 10707e1, and the fixes S1–S7 come before the T-tests.
+
+**Amendments to §5:**
+- **§5.2: ρ = 4 only, one row per segment.** This replaces ρ ∈ {3, 4, 5, 6.5}. P3 measured the single-row cost; four
+  rows cost about 40% more for at most a few nodes fewer. ρ = 4 keeps R < k_c on every dyadic segment and its halves,
+  which the F/k² bound needs. A row with R ≥ k_c in F/k² mode is rejected.
+- **§5.3, the traces' n target:**
+  - n is targeted on F (on F/k² for the dyadic segments) only, at error bound ≤ 1e−2 × |F(k_c)| (or |F(k_c)|/k_c²).
+  - The traces' error bounds at that n are computed and checked by the verdict like F's. They are not separate n
+    targets. In every row measured so far (P1–P3) they were orders of magnitude below their margins.
+  - A trace condition that fails is not cured by splitting when it fails even with zero interpolation error. The
+    radius-limited test covers that case.
+- **§5.4, the split rule:**
+  - a failing segment (no admissible row, or not certified) is halved down to depth 2;
+  - a segment that still fails at depth 2 stops its chain (Sumit's stop rule);
+  - a failure that persists with zero interpolation error (radius-limited) stops its chain without splitting;
+  - the reach actually achieved is reported, and no new code is written mid-run.
+
+  This replaces "narrower than 1e−4 → UNCOVERED".
+- **§5.6, segmentation:** a downward chain of dyadic segments from 0.1 to below ε_a in F/k² mode, then an upward chain
+  of 0.1-wide segments from 0.1 to the top in F mode.
+
+**Amendments to §6:**
+- The planted zero is placed at the held-out value (f − f(t = 1/8)), between nodes.
+- The per-spin full controls run on the first certified segment of each mode.
+- Every number the verdict uses (R, the error bounds) is recomputed in balls.
+
+**A known risk, measured before the long runs (pilot P4-r):** at spin 9/10 the bottom of the dyadic chain is probably
+out of reach.
+- F ≈ c2 k² with |c2| ≈ 0.016 is about 3e−10 near ε_a.
+- The evaluator's node radii are up to about 1e−8 to 1e−7.
+
+If P4-r confirms this, the 9/10 result is [the lowest feasible k, 2], and the gap is reported plainly. The evaluator
+change that could close it is parked.
+
 `office/2026-11-26-ktaylor` (v4) and `fable/2026-11-26-route1-seg` (v2) are NOT merged into main by this draft. The
 registration, once approved, says which code version production runs from (by commit), and the merge happens with
 the first production record.
@@ -255,3 +301,6 @@ the first production record.
 - Draft v1, amended 2026-11-26, this commit (the Bridge's ruling on the Air reproduction): T1 under the same machine
   AND the same Python; production pins the Python minor version (§5.2); the Python-version finding recorded in §3(d).
   Not approved.
+- Amendment §5A, 2026-11-27 (this commit): Sumit's production scope (the measured reach), ρ = 4 only, the traces' n
+  target, the split and stop rules, the per-segment controls as built in v6, and the 9/10 small-k risk. It is written
+  before the production seal, on the Bridge's read of the P4 build.
