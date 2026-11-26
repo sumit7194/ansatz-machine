@@ -1,0 +1,92 @@
+=== probe (a) spin 3/5 2026-11-26 23:37:09 Python 3.13.18
+== probe (a): V.laurent at k = 3 .. 3.9 == spin 3/5; python 3.13.18; python-flint 0.9.0; prec 256
+k = 3: laurent pass (M <= 5.721E+3); deriv pass (M <= 2.909E+3)
+   arcs with a non-finite deriv value: 0; with s containing 0: 0; with 1 - k phi on the branch cut: 0; min Re(1 - k phi) at the arc centres +0.22536
+   worst arc 71: 1 - k phi = 0.23710+0.01880j +/- 2.65e-02; |s| 0.4864 +/- 1.42e-01; s contains 0 False; on the cut False; first non-finite factor None
+k = 31/10: laurent pass (M <= 5.459E+3); deriv pass (M <= 3.088E+3)
+   arcs with a non-finite deriv value: 0; with s containing 0: 0; with 1 - k phi on the branch cut: 0; min Re(1 - k phi) at the arc centres +0.19954
+   worst arc 71: 1 - k phi = 0.21167+0.01942j +/- 2.74e-02; |s| 0.4593 +/- 1.45e-01; s contains 0 False; on the cut False; first non-finite factor None
+k = 32/10: laurent pass (M <= 5.185E+3); deriv pass (M <= 3.303E+3)
+   arcs with a non-finite deriv value: 0; with s containing 0: 0; with 1 - k phi on the branch cut: 0; min Re(1 - k phi) at the arc centres +0.17371
+   worst arc 71: 1 - k phi = 0.18624+0.02005j +/- 2.83e-02; |s| 0.4305 +/- 1.49e-01; s contains 0 False; on the cut False; first non-finite factor None
+k = 33/10: laurent pass (M <= 4.895E+3); deriv pass (M <= 3.569E+3)
+   arcs with a non-finite deriv value: 0; with s containing 0: 0; with 1 - k phi on the branch cut: 0; min Re(1 - k phi) at the arc centres +0.14789
+   worst arc 71: 1 - k phi = 0.16081+0.02068j +/- 2.91e-02; |s| 0.3995 +/- 1.53e-01; s contains 0 False; on the cut False; first non-finite factor None
+k = 34/10: laurent pass (M <= 4.586E+3); deriv pass (M <= 3.906E+3)
+   arcs with a non-finite deriv value: 0; with s containing 0: 0; with 1 - k phi on the branch cut: 0; min Re(1 - k phi) at the arc centres +0.12207
+   worst arc 71: 1 - k phi = 0.13538+0.02130j +/- 3.00e-02; |s| 0.3656 +/- 1.57e-01; s contains 0 False; on the cut False; first non-finite factor None
+k = 35/10: laurent pass (M <= 4.251E+3); deriv pass (M <= 4.355E+3)
+   arcs with a non-finite deriv value: 0; with s containing 0: 0; with 1 - k phi on the branch cut: 0; min Re(1 - k phi) at the arc centres +0.09625
+   worst arc 71: 1 - k phi = 0.10995+0.02193j +/- 3.09e-02; |s| 0.3275 +/- 1.63e-01; s contains 0 False; on the cut False; first non-finite factor None
+k = 36/10: laurent pass (M <= 3.884E+3); deriv pass (M <= 4.992E+3)
+   arcs with a non-finite deriv value: 0; with s containing 0: 0; with 1 - k phi on the branch cut: 0; min Re(1 - k phi) at the arc centres +0.07043
+   worst arc 48: 1 - k phi = 0.07196+0.09519j +/- 5.08e-02; |s| 0.2845 +/- 1.76e-01; s contains 0 False; on the cut False; first non-finite factor None
+k = 37/10: laurent pass (M <= 3.474E+3); deriv pass (M <= 6.000E+3)
+   arcs with a non-finite deriv value: 0; with s containing 0: 0; with 1 - k phi on the branch cut: 0; min Re(1 - k phi) at the arc centres +0.04461
+   worst arc 71: 1 - k phi = 0.05909+0.02318j +/- 3.27e-02; |s| 0.2158 +/- 1.88e-01; s contains 0 False; on the cut False; first non-finite factor None
+k = 38/10: laurent pass (M <= 3.007E+3); deriv FAIL (Laurent tail bound: non-finite on |omega| = 0.9/a)
+   arcs with a non-finite deriv value: 84; with s containing 0: 84; with 1 - k phi on the branch cut: 0; min Re(1 - k phi) at the arc centres +0.01879
+   worst arc 71: 1 - k phi = 0.03366+0.02381j +/- 3.36e-02; |s| 0.1642 +/- 2.01e-01; s contains 0 False; on the cut False; first non-finite factor None
+   failing arc 45: 1 - k phi = 0.02400+0.11686j +/- 5.56e-02; |s| 0.2280 +/- 2.28e-01; s contains 0 True; on the cut False; first non-finite val
+   failing arc 46: 1 - k phi = 0.02253+0.11124j +/- 5.50e-02; |s| 0.2242 +/- 2.24e-01; s contains 0 True; on the cut False; first non-finite val
+   failing arc 47: 1 - k phi = 0.02134+0.10577j +/- 5.43e-02; |s| 0.2205 +/- 2.21e-01; s contains 0 True; on the cut False; first non-finite val
+k = 385/100: laurent pass (M <= 2.744E+3); deriv FAIL (Laurent tail bound: non-finite on |omega| = 0.9/a)
+   arcs with a non-finite deriv value: 112; with s containing 0: 112; with 1 - k phi on the branch cut: 8; min Re(1 - k phi) at the arc centres +0.00588
+   worst arc 71: 1 - k phi = 0.02094+0.02412j +/- 3.40e-02; |s| 0.1175 +/- 2.19e-01; s contains 0 True; on the cut True; first non-finite factor val
+   failing arc 45: 1 - k phi = 0.01116+0.11840j +/- 5.64e-02; |s| 0.2270 +/- 2.27e-01; s contains 0 True; on the cut False; first non-finite val
+   failing arc 46: 1 - k phi = 0.00967+0.11270j +/- 5.57e-02; |s| 0.2232 +/- 2.23e-01; s contains 0 True; on the cut False; first non-finite val
+   failing arc 47: 1 - k phi = 0.00846+0.10716j +/- 5.50e-02; |s| 0.2194 +/- 2.19e-01; s contains 0 True; on the cut False; first non-finite val
+k = 39/10: laurent pass (M <= 2.460E+3); deriv FAIL (Laurent tail bound: non-finite on |omega| = 0.9/a)
+   arcs with a non-finite deriv value: 140; with s containing 0: 140; with 1 - k phi on the branch cut: 36; min Re(1 - k phi) at the arc centres -0.00704
+   worst arc 71: 1 - k phi = 0.00822+0.02444j +/- 3.44e-02; |s| 0.1066 +/- 2.20e-01; s contains 0 True; on the cut True; first non-finite factor val
+   failing arc 45: 1 - k phi = -0.00169+0.11994j +/- 5.71e-02; |s| 0.2270 +/- 2.27e-01; s contains 0 True; on the cut False; first non-finite val
+   failing arc 46: 1 - k phi = -0.00319+0.11416j +/- 5.65e-02; |s| 0.2236 +/- 2.24e-01; s contains 0 True; on the cut False; first non-finite val
+   failing arc 47: 1 - k phi = -0.00442+0.10855j +/- 5.58e-02; |s| 0.2201 +/- 2.20e-01; s contains 0 True; on the cut False; first non-finite val
+== PROBE_A_DONE
+=== probe (a) spin 9/10 2026-11-26 23:37:10 Python 3.13.18
+== probe (a): V.laurent at k = 3 .. 3.9 == spin 9/10; python 3.13.18; python-flint 0.9.0; prec 256
+k = 3: laurent pass (M <= 1.696E+3); deriv pass (M <= 8.618E+2)
+   arcs with a non-finite deriv value: 0; with s containing 0: 0; with 1 - k phi on the branch cut: 0; min Re(1 - k phi) at the arc centres +0.22536
+   worst arc 71: 1 - k phi = 0.23710+0.01880j +/- 2.65e-02; |s| 0.4864 +/- 1.42e-01; s contains 0 False; on the cut False; first non-finite factor None
+k = 31/10: laurent pass (M <= 1.618E+3); deriv pass (M <= 9.149E+2)
+   arcs with a non-finite deriv value: 0; with s containing 0: 0; with 1 - k phi on the branch cut: 0; min Re(1 - k phi) at the arc centres +0.19954
+   worst arc 71: 1 - k phi = 0.21167+0.01942j +/- 2.74e-02; |s| 0.4593 +/- 1.45e-01; s contains 0 False; on the cut False; first non-finite factor None
+k = 32/10: laurent pass (M <= 1.537E+3); deriv pass (M <= 9.787E+2)
+   arcs with a non-finite deriv value: 0; with s containing 0: 0; with 1 - k phi on the branch cut: 0; min Re(1 - k phi) at the arc centres +0.17371
+   worst arc 71: 1 - k phi = 0.18624+0.02005j +/- 2.83e-02; |s| 0.4305 +/- 1.49e-01; s contains 0 False; on the cut False; first non-finite factor None
+k = 33/10: laurent pass (M <= 1.451E+3); deriv pass (M <= 1.058E+3)
+   arcs with a non-finite deriv value: 0; with s containing 0: 0; with 1 - k phi on the branch cut: 0; min Re(1 - k phi) at the arc centres +0.14789
+   worst arc 71: 1 - k phi = 0.16081+0.02068j +/- 2.91e-02; |s| 0.3995 +/- 1.53e-01; s contains 0 False; on the cut False; first non-finite factor None
+k = 34/10: laurent pass (M <= 1.359E+3); deriv pass (M <= 1.158E+3)
+   arcs with a non-finite deriv value: 0; with s containing 0: 0; with 1 - k phi on the branch cut: 0; min Re(1 - k phi) at the arc centres +0.12207
+   worst arc 71: 1 - k phi = 0.13538+0.02130j +/- 3.00e-02; |s| 0.3656 +/- 1.57e-01; s contains 0 False; on the cut False; first non-finite factor None
+k = 35/10: laurent pass (M <= 1.260E+3); deriv pass (M <= 1.291E+3)
+   arcs with a non-finite deriv value: 0; with s containing 0: 0; with 1 - k phi on the branch cut: 0; min Re(1 - k phi) at the arc centres +0.09625
+   worst arc 271: 1 - k phi = 0.10995+0.02193j +/- 3.09e-02; |s| 0.3275 +/- 1.63e-01; s contains 0 False; on the cut False; first non-finite factor None
+k = 36/10: laurent pass (M <= 1.151E+3); deriv pass (M <= 1.480E+3)
+   arcs with a non-finite deriv value: 0; with s containing 0: 0; with 1 - k phi on the branch cut: 0; min Re(1 - k phi) at the arc centres +0.07043
+   worst arc 48: 1 - k phi = 0.07196+0.09519j +/- 5.08e-02; |s| 0.2845 +/- 1.76e-01; s contains 0 False; on the cut False; first non-finite factor None
+k = 37/10: laurent pass (M <= 1.030E+3); deriv pass (M <= 1.778E+3)
+   arcs with a non-finite deriv value: 0; with s containing 0: 0; with 1 - k phi on the branch cut: 0; min Re(1 - k phi) at the arc centres +0.04461
+   worst arc 71: 1 - k phi = 0.05909+0.02318j +/- 3.27e-02; |s| 0.2158 +/- 1.88e-01; s contains 0 False; on the cut False; first non-finite factor None
+k = 38/10: laurent pass (M <= 8.908E+2); deriv FAIL (Laurent tail bound: non-finite on |omega| = 0.9/a)
+   arcs with a non-finite deriv value: 84; with s containing 0: 84; with 1 - k phi on the branch cut: 0; min Re(1 - k phi) at the arc centres +0.01879
+   worst arc 71: 1 - k phi = 0.03366+0.02381j +/- 3.36e-02; |s| 0.1642 +/- 2.01e-01; s contains 0 False; on the cut False; first non-finite factor None
+   failing arc 45: 1 - k phi = 0.02400+0.11686j +/- 5.56e-02; |s| 0.2280 +/- 2.28e-01; s contains 0 True; on the cut False; first non-finite val
+   failing arc 46: 1 - k phi = 0.02253+0.11124j +/- 5.50e-02; |s| 0.2242 +/- 2.24e-01; s contains 0 True; on the cut False; first non-finite val
+   failing arc 47: 1 - k phi = 0.02134+0.10577j +/- 5.43e-02; |s| 0.2205 +/- 2.21e-01; s contains 0 True; on the cut False; first non-finite val
+k = 385/100: laurent pass (M <= 8.130E+2); deriv FAIL (Laurent tail bound: non-finite on |omega| = 0.9/a)
+   arcs with a non-finite deriv value: 112; with s containing 0: 112; with 1 - k phi on the branch cut: 8; min Re(1 - k phi) at the arc centres +0.00588
+   worst arc 71: 1 - k phi = 0.02094+0.02412j +/- 3.40e-02; |s| 0.1175 +/- 2.19e-01; s contains 0 True; on the cut True; first non-finite factor val
+   failing arc 45: 1 - k phi = 0.01116+0.11840j +/- 5.64e-02; |s| 0.2270 +/- 2.27e-01; s contains 0 True; on the cut False; first non-finite val
+   failing arc 46: 1 - k phi = 0.00967+0.11270j +/- 5.57e-02; |s| 0.2232 +/- 2.23e-01; s contains 0 True; on the cut False; first non-finite val
+   failing arc 47: 1 - k phi = 0.00846+0.10716j +/- 5.50e-02; |s| 0.2194 +/- 2.19e-01; s contains 0 True; on the cut False; first non-finite val
+k = 39/10: laurent pass (M <= 7.288E+2); deriv FAIL (Laurent tail bound: non-finite on |omega| = 0.9/a)
+   arcs with a non-finite deriv value: 140; with s containing 0: 140; with 1 - k phi on the branch cut: 36; min Re(1 - k phi) at the arc centres -0.00704
+   worst arc 71: 1 - k phi = 0.00822+0.02444j +/- 3.44e-02; |s| 0.1066 +/- 2.20e-01; s contains 0 True; on the cut True; first non-finite factor val
+   failing arc 45: 1 - k phi = -0.00169+0.11994j +/- 5.71e-02; |s| 0.2270 +/- 2.27e-01; s contains 0 True; on the cut False; first non-finite val
+   failing arc 46: 1 - k phi = -0.00319+0.11416j +/- 5.65e-02; |s| 0.2236 +/- 2.24e-01; s contains 0 True; on the cut False; first non-finite val
+   failing arc 47: 1 - k phi = -0.00442+0.10855j +/- 5.58e-02; |s| 0.2201 +/- 2.20e-01; s contains 0 True; on the cut False; first non-finite val
+== PROBE_A_DONE
+=== PROBEA_DONE 2026-11-26 23:37:11
+JOB_EXIT 0
