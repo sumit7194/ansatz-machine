@@ -96,7 +96,13 @@ checks and keys only. NOT yet run or tested.
   - T2: a planted checkpoint record with another code hash must STOP the run.
   - T3: a planted expansion point with Re(1 − kφ) ≤ 0 must raise the F1 gate.
   - T4: a planted change of one coverage count in the proof JSON must make the verdict refuse.
-- **v5 needs its own non-author check.** It was written by this session.
+- **v5's non-author check: DONE** by the Bridge (TheBridge `fleet/reads/ansatz_v5_read_2026-11-26.md`, 1885ac4):
+  approved for T1–T4. It added A1:
+- **A1, the environment in the hash.** The code hash also covers the Python and python-flint versions and the
+  working precision, so a checkpoint written in another environment (the other machine) is refused like one from other
+  code. Done in v5 at f435345 (`code_env` in the proof JSON). Not run.
+- **T1 must compare v5 and v4 runs on the SAME machine** (the Bridge's condition), since the machines' Python versions
+  differ (Mac mini 3.13.12 for Arb, Air 3.14.10).
 
 **(e) Audit: did any earlier "reproduction" silently reuse committed checkpoints?** **No.** Checked from the office
 session's commands and logs (its transcript, with the commands as run) and from the committed logs at c2dd39c:
@@ -233,5 +239,6 @@ the first production record.
 
 ## Approval
 - Draft v0: 2026-11-26, c3a61ab. Not approved.
-- Draft v1: 2026-11-26, this commit (adds §3(d) F1–F3 and tests T1–T4, §3(e) the reuse audit; production on v5).
+- Draft v1: 2026-11-26, 8fd935b (adds §3(d) F1–F3 and tests T1–T4, §3(e) the reuse audit; production on v5).
   Not approved.
+- Draft v1, amended 2026-11-26, this commit: A1 added to §3(d); v5's non-author check recorded. Not approved.
