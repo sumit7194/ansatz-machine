@@ -93,3 +93,39 @@ Every plant was backed up, restored and checked by sha256 (t234's "other files u
 string "B1 gate" in the output, not just a nonzero rc.
 
 **Consequence:** v5.1 is cleared for P3 under the Bridge's order (P3 waits until these results are read and sent).
+
+## tests52: T1–T5 on v5.2 (C1 + B2), Air, 2026-11-26/27
+
+**Code:** v5.2 = v5.1 + C1 (the n formula fails closed: a row whose n, sized in Arb, would exceed 40 is REJECTED)
++ B2 (the rejected row's diagnostic c0/c1 per unit k are None when non-finite or beyond 1e300), at 7653efa, read and
+approved by the Bridge. Manifest `air/MANIFEST_T52_7653efa.sha256` (049aed7): all 8 files OK on the Air before the
+launch. Runner `air/tests52.sh`, a copy of tests51.sh with only the labels changed. The code hash (the 16-hex
+prefix shown in the log header) is new, and no file of it existed before the run.
+
+**Environment:** MacBook Air, `.venv313` (Python 3.13.18, python-flint 0.9.0, prec 256), nice 15, pause-only guard
+(never paused). Ran 23:45:07 to 00:35:56, rc 0. Outputs are in `air_tests52/`, with the v4 T1-run proof JSON that T1
+compares against (sha256 checked against the Air's copy).
+
+**T1 (v5.2 at the default segment vs v4): PASS.**
+- All four rows are IDENTICAL, `stats` included, and so is the whole proof JSON (with v5's additions present).
+- K-point control: 4.153E-1 / 9.325E+0. CHOSEN ρ = 6.5, n = 12.
+- Coverage was the same as tests51 at every row. F1 never fired.
+- Proof stage 1,733 s, peak RSS 32 MB.
+- So C1 and B2 change nothing for any admitted row.
+
+**T2–T5 and B1: 19/19 PASS.** These are tests51's 14, unchanged and all passing again (the untampered verdict
+CERTIFIES with |F| ≥ 0.265039275), plus five new ones:
+
+| test | outcome |
+|---|---|
+| T5a runaway M_F (log10 M_F ≈ 1.8e4) | REJECTED "n > 40", no exception, the row serialises; v5.1's expression raises OverflowError on the same M_F |
+| T5b n_raw in (40, 41) | REJECTED by the second branch, "n = 42 > 40"; v5.1 gives 42 |
+| T5c control, n_raw ≈ 20.3 | ADMITTED, n = 22, equal to v5.1's |
+| T5d I0 ≈ 1e399 (finite, beyond the double range) | REJECTED, serialises, c0/c1 None |
+| T5d I0 non-finite | REJECTED, serialises, c0/c1 None |
+
+**What T5d can and cannot detect:** on python-flint 0.9.0, float(arb) returns inf, or nan for a non-finite ball,
+rather than raising. So before B2 a rejected row would have serialised as non-standard Infinity / NaN, not crashed.
+T5d tells B2 apart only through its "c0/c1 is None" condition.
+
+**Consequence:** v5.2 is cleared under the Bridge's order. The scope question goes to Sumit next.

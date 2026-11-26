@@ -4716,3 +4716,4 @@ pole-order-1 Carter² survival.
   - **v5.2 (C1, fa2ba7a):** the n formula fails closed (rows with n > 40 are rejected), with T5 tested both ways. A T5
     smoke test caught V.hi_sci's float() inside the first draft's own rejection message. Awaiting the Bridge's read,
     then T1–T5 on the Air.
+  - **tests52 on v5.2 + B2 (Air):** T1 PASS (identical to v4), T2–T5 + T5d + B1 19/19 PASS (T_TESTS.md).
