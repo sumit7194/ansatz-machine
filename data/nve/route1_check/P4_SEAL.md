@@ -102,3 +102,40 @@ it? I have not changed `job.sh`.
 - P4-r calling 9/10 at 3/20480 feasible. My radius model would then be wrong, and the dyadic chain would be cheap.
 - Any U1 difference outside the far digits.
 - An ALARM in a pilot.
+
+## Addendum: the Bridge's read (10707e1) and the fixes, committed before the T-tests run (2026-11-27)
+
+**The read** (the Bridge, plus an independent line-by-line read): the certificate path is SOUND, with no blocker.
+Fixed here before any run:
+- **S1.** Every state record carries the v6 code base. A resume recomputes it and stops on a mismatch. The batch rerun
+  recomputes the paths and asserts they are equal, requires a byte-identical verdict JSON and an unchanged node file,
+  and the reach and covers_target come only from segments whose rerun is identical.
+- **S2.** The full controls run as a second verdict on the first certified segment of each mode (F and F/k²). The
+  end asserts that one passed per mode used. (Before, they ran only on an exact [0.1, 0.2] at depth 0.)
+- **S3.** The verdict recomputes R = half (ρ + 1/ρ)/2 and the three error bounds 4M/(ρⁿ(ρ − 1)) in balls. If the
+  proof file's value is below the recomputed one (beyond a relative 1e−40 for the 50-digit strings), it is an ALARM.
+  The larger value is used, so in F/k² mode R feeds d conservatively.
+- **S5.** The planted zero is f − f(t = 1/8), using the held-out value, so the zero falls between nodes and the
+  refusal depends on the bound.
+- **S6.** radius_limited is decidable: a failed condition that also fails in conditions() with zero interpolation
+  error.
+- **S7.** The code hash also covers the engine gate, the driver, the floats script, R1_R0, R1_RHOS and the floats
+  ENTRY of k_c. It is not the whole floats file, which grows by one entry per k_c and would orphan every earlier
+  checkpoint. Engine-gate records carry the code, and a foreign one is refused.
+- **An F/k² row with R ≥ k_c** is rejected, not asserted.
+- **Footprint:** `air/fp.sh` logs `footprint -p` of the runner's own process tree every 600 s, and the peak per
+  process. `job.sh` is unchanged (the Bridge: v2 is fine for a process under 300 MB).
+- **Registration §5A** (main, d1c24d6): ρ = 4 only, the traces' n target, and the split and stop rules.
+
+**Tests added (S4), with predictions sealed here:**
+
+| test | pass criterion | prediction |
+|---|---|---|
+| U5 (now 14 scenarios: + foreign-code record, split of [0.1, 0.2], down-chain split then certify, rerun-mismatch reach, no full-controls pass) | 14/14 | PASS, P = 99% (14/14 on the Mac mini already) |
+| SYNTH: F = c k² on [1/640, 1/320], in-process | n = 2 NOT certified (a /d instead of /d² would certify), n = 8 certified with \|F/k²\| in (0.2, 0.2237); controls pass, S3 consistent | PASS, P = 90% |
+| FK2FILES after U3, U4a, U4b | err[0] ≥ errF/d² and M[0] ≥ M_F/d² from the files | PASS, P = 95% |
+| U7: v6 at k_c = 2 (spin 3/5, ρ 4, abs tolerance, P3's floats) | row equal to P3's v5.1 row at k_c = 2; verdict certified | PASS, P = 85% |
+| P4-r traces | tr M0 ≠ 0 and tr M1 ∉ [−2, 2] margins ≥ 10 × radius at every probed k | attainable at 3/5, P = 80%; at 9/10, P = 70% (unmeasured below k = 1/2) |
+
+**The earlier predictions (§3) stand.** U1 now also drops `code_env`, which v6 rebinds under S7, and its planted zero
+moved to t = 1/8 (it must still be refused). The pilots run with the full controls on.

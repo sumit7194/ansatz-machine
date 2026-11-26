@@ -9,8 +9,9 @@ circle |z| = R0 and the lasso of k_c from the floats file). PASS iff every engin
 The first miss stops the run at that node boundary, exit code 2 (a correctness gate). The node's k is recomputed
 exactly from the key (n, j) and k_c, half, and must agree with the stored k.
 Shared with the Arb side, so NOT made independent by this check: the formula for c0'' and the lasso vertices.
-One fsynced jsonl line per node; a rerun skips nodes already done. No caps.
-    NVE_SPIN=3/5 R1_R0=1.35 R1_KC=3/20 R1_HALF=1/20 NODES=<v6 node file> FLOATS=<floats file> OUTJ=<gate jsonl> \
+One fsynced jsonl line per node, carrying v6's code hash (R1_CODE); a rerun skips nodes already done, and refuses a
+record from other code. No caps.
+    NVE_SPIN=3/5 R1_R0=1.35 R1_KC=3/20 R1_HALF=1/20 R1_CODE=<v6 code> NODES=<v6 node file> FLOATS=<floats file> OUTJ=<gate jsonl> \
         <.venv python> -I -u scripts/_nve_route1_engine_gate.py"""
 import json
 import os
@@ -23,6 +24,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import _nve_spin_scan as S      # noqa: E402  (mp.dps = 50, E = 4/5, spin from NVE_SPIN)
 
 R0S, KCS, HALFS = os.environ["R1_R0"], os.environ["R1_KC"], os.environ["R1_HALF"]
+CODE = os.environ["R1_CODE"]       # S7: v6's code hash; every gate record carries it, and a foreign one is refused
 NODES, FLOATS, OUTJ = os.environ["NODES"], os.environ["FLOATS"], os.environ["OUTJ"]
 
 
@@ -66,6 +68,7 @@ def main():
                 os.fsync(fh.fileno())
         for l in raw[:cut].split(b"\n")[:-1]:
             r = json.loads(l)
+            assert r.get("code") == CODE, f"F2 gate: engine-gate record {r.get('key')} from code {r.get('code')}, not {CODE}"
             done[r["key"]] = r
     lau = S.LauA(mp.mpf(R0S))
     st = S.kerr_points()
@@ -92,7 +95,7 @@ def main():
             pr, outer, extras = lau.state(k * jj / 8, cur)
             cur = outer
         res = lau.evaluate(pr, outer, extras, lasso)
-        out = dict(key=key, k=mp.nstr(kr, 30))
+        out = dict(key=key, code=CODE, k=mp.nstr(kr, 30))
         ok_all = True
         for nm in ("F", "T0", "T1"):
             ok, rad = inside(res[nm], r[nm])

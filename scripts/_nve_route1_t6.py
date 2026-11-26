@@ -5,7 +5,7 @@ Pass criteria are fixed here, before any run; each can fail.
   u1  REPRODUCTION. v6 on [1, 1.1] at spin 3/5 with v5's settings (R1_TOLMODE=abs, rows 3, 4, 5, 6.5, R1_FULLCTL=1)
       against tests52's v5.2 files on this machine and Python:
       (a) every row equal to v5.2's after dropping only v6's additions (tol_F, mode, tolmode), code and sec;
-      (b) the proof JSON equal after dropping seg (the moved-segment label), code, code_files, env and sec;
+      (b) the proof JSON equal after dropping seg (the moved-segment label), code, code_files, code_env, env and sec;
       (c) all 24 node values (13 nodes, 3 held-out, 8 ellipse) equal to v5.2's node file, string for string;
       (d) the verdict CERTIFIED with the same printed bounds as v5.2/P1: |F| >= 0.265039275, |tr M0| >= 1.993158417,
           |Im tr M1| >= 2.648820879; planted zero refused; the controls as in P1.
@@ -15,6 +15,10 @@ Pass criteria are fixed here, before any run; each can fail.
   u6  F2 FOR v6 and the BATCH RERUN. v6's code hash differs from v5.2's; a foreign-code record planted in (a) v6's rows
       file stops v6 prove, (b) v6's node file stops v6 verdict, both with "F2 gate" and nothing new written; (c) the
       untampered verdict rerun is byte-identical and evaluates nothing new.
+  fk2files  from an F/k^2 segment's files: the verdict's bounds are >= errF/d^2 and M_F/d^2 (S4).
+  synth     a synthetic F/k^2 verdict at small k with a known F = c k^2: n = 2 must NOT certify (a /d error would),
+            n = 8 must (S4).
+  u7        a moved-segment known answer: v6 at k_c = 2 reproduces P3's row and certifies (S4).
   gate ENGINE GATE, both directions. On u1's node file the gate passes 13/13. On a copy with one node's F shifted by
       1e-6 (enclosure moved off the true value) it exits 2 at that node.
     <.venv313 python> -I -u scripts/_nve_route1_t6.py u1|u3|u6|gate"""
@@ -66,7 +70,7 @@ def u1():
     m6 = json.load(open(S.S5.MJSON))
 
     def norm(J):
-        J = {k: v for k, v in J.items() if k not in ("seg", "code", "code_files", "env")}
+        J = {k: v for k, v in J.items() if k not in ("seg", "code", "code_files", "code_env", "env")}
         J["rows"] = [{k: v for k, v in r.items() if k not in drop6} for r in J["rows"]]
         J["chosen"] = {k: v for k, v in J["chosen"].items() if k not in drop6}
         return J
@@ -105,6 +109,91 @@ def u3():
           and vd["held_out_consistent"] and vd["proved_M_ge_sampled"] and abs(row["tol_F"] / want - 1) < 1e-12,
           f"outcome {vd['outcome']}; derived |F| >= {vd.get('abs_F_ge')} <= min node |F| {mx:.9f}; |F/k^2| >= {vd['abs_f_ge']}; "
           f"n {vd['n']}; tol_F {row['tol_F']:.6e} vs {want:.6e}")
+
+
+def fk2files():
+    """S4: from the files of an F/k^2 segment, the verdict's bounds must be at least errF/d^2 and M_F/d^2, with
+    d = k_c - R (R recomputed). A /d instead of /d^2, or a wrong R, breaks this at small k."""
+    S = v6()
+    from flint import arb
+    J = json.load(open(S.S5.MJSON))
+    vd = json.load(open(S.VJSON))
+    ch = J["chosen"]
+    rb = arb(ch["rho"])
+    R = max(arb(ch["R"]).upper(), (S.HALF * (rb + 1 / rb) / 2).upper())
+    d = (S.KC - R).lower()
+    eg, mg = (arb(ch["errF"]) / (d * d)).upper(), (arb(ch["MF"]) / (d * d)).upper()
+    ok = vd["mode"] == "Fk2" and bool(arb(vd["err"][0]) >= eg) and bool(arb(vd["M"][0]) >= mg) and bool(d > 0)
+    check(f"FK2FILES {S.V.SEG}", ok, f"err[0] {vd['err'][0]} >= errF/d^2 {float(eg):.4e}; M[0] {vd['M'][0]} >= "
+          f"M_F/d^2 {float(mg):.4e}; d {float(d):.4e}")
+
+
+def synth():
+    """S4: a SYNTHETIC F/k^2 verdict at small k with a known function, in-process (no evaluator run). F(k) = c k^2,
+    tr M0 = 1.9, tr M1 = 0.5 + 2.6i, on [1/640, 1/320]; M_F = 2 |c| (k_c + R)^2 bounds |F| on the k-disc. With the
+    correct e_g = e_F/d^2 (d = k_c - R = 7/10240), n = 2 gives e_g about 5.7 |c| > |g| = |c|: NOT certified; a /d
+    error would give e_g about 1e-3 |c| and certify. n = 8 gives e_g about 1.4e-3 |c|: certified. Both: planted zero
+    refused, held-out consistent, M >= samples, the S3 recomputation consistent."""
+    import tempfile
+    os.environ.update(R1_KC="3/1280", R1_HALF="1/1280", R1_MODE="Fk2", R1_TOLMODE="rel", R1_FULLCTL="1",
+                      R1_FLOATS="route1_floats_synth_t6.json")
+    fl = os.path.join(E, "route1_floats_synth_t6.json")
+    json.dump({"3/1280": dict(F=["1e-7", "0"], T0=["1.9", "0"], T1=["0.5", "2.6"], points=[], lasso=[], geometry_ok=True)},
+              open(fl, "w"))
+    try:
+        S = v6()
+        from flint import acb, arb
+        V = S.V
+        tmp = tempfile.mkdtemp(prefix="t6synth_")
+        S.S5.MJSON, S.NODEF, S.VJSON = (os.path.join(tmp, x) for x in ("M.json", "nodes.jsonl", "v.json"))
+        S.S5.LOG5 = V.LOG = os.path.join(tmp, "log.out")
+        c = acb("0.2", "0.1")
+        T0, T1 = acb("1.9"), acb("0.5", "2.6")
+        S.load_nodes = lambda: {}
+        S.get = lambda done, key, kre, kim: (c * acb(kre.mid(), kim.mid()) ** 2, T0, T1)
+        rb = arb(4)
+        R = (S.HALF * (rb + 1 / rb) / 2).upper()
+        MF = (2 * c.abs_upper() * (S.KC + R) ** 2).upper()
+        out = {}
+        for n in (2, 8):
+            den = rb ** n * (rb - 1)
+            row = dict(rho=4.0, n=n, R=V.ser(R), MF=V.ser(MF), MT0=V.ser(arb(3)), MT1=V.ser(arb(3)),
+                       errF=V.ser((4 * MF / den).upper()), errT0=V.ser((12 / den).upper()), errT1=V.ser((12 / den).upper()),
+                       precondition=dict(ok=True), code=S.CODE, mode="Fk2", tolmode="rel",
+                       coverage=dict(circle=dict(steps=10, bounds=10, ksub=25, pairs=250),
+                                     lasso=dict(steps=10, bounds=10, ksub=25, pairs=250)))
+            json.dump(dict(code=S.CODE, chosen=row, rows=[row], selftest=True, steps=[10, 10]), open(S.S5.MJSON, "w"))
+            try:
+                S.verdict()
+            except SystemExit as e:
+                out[n] = ("exit", e.code)
+                continue
+            out[n] = json.load(open(S.VJSON))
+        v2, v8 = out[2], out[8]
+        ctl = lambda v: isinstance(v, dict) and v["planted_zero_refused"] and v["held_out_consistent"] and v["proved_M_ge_sampled"] \
+            and not v["s3_inconsistent"] and not v["alarm"]
+        check("SYNTH F/k^2 at small k: n = 2 NOT certified (a /d bug would certify)", ctl(v2) and v2["outcome"] == "not_certified",
+              f"outcome {v2['outcome'] if isinstance(v2, dict) else v2}; err {v2['err'][0] if isinstance(v2, dict) else ''}")
+        check("SYNTH F/k^2 at small k: n = 8 certified, |F/k^2| near |c| = 0.2236", ctl(v8) and v8["outcome"] == "certified"
+              and 0.2 < float(v8["abs_f_ge"]) < 0.2237, f"outcome {v8['outcome'] if isinstance(v8, dict) else v8}; "
+              f"|f| >= {v8.get('abs_f_ge') if isinstance(v8, dict) else ''}")
+    finally:
+        os.remove(fl)
+
+
+def u7():
+    """S4: a MOVED-segment known answer. v6 at spin 3/5 on [39/20, 41/20] (k_c = 2), rho 4, v5's absolute tolerance,
+    with P3's floats: its row equals P3's (v5.1) row at k_c = 2, apart from v6's additions and code; and the verdict
+    certifies."""
+    S = v6()
+    r3 = lines(os.path.join(E, "route1_seg_v5_kc2h1o20_2ba10dbd79a83372_rows.jsonl"))
+    r6 = lines(S.S5.ROWS)
+    drop = ("sec", "code", "tol_F", "mode", "tolmode")
+    d = [sorted(k for k in set(a) | set(b) if k not in drop and a.get(k) != b.get(k)) for a, b in zip(r3, r6)]
+    vd = json.load(open(S.VJSON))
+    check("U7 moved segment k_c = 2: row equal to P3's, verdict certified", len(r3) == len(r6) == 1 and not d[0]
+          and vd["outcome"] == "certified" and vd["planted_zero_refused"], f"row differences {d}; outcome {vd['outcome']}; "
+          f"|F| >= {vd['abs_f_ge']}")
 
 
 def run(stage, env=None):
@@ -147,7 +236,7 @@ def S4ck(S):
 def gate():
     S = v6()
     env = dict(os.environ, NODES=S.NODEF, FLOATS=os.path.join(E, os.environ["R1_FLOATS"]),
-               OUTJ=os.path.join(E, f"route1_seg_engine_{S.BASE}.jsonl"))
+               OUTJ=os.path.join(E, f"route1_seg_engine_{S.BASE}.jsonl"), R1_CODE=S.CODE)
     p = subprocess.run([PY314, "-I", "-u", os.path.join(HERE, "_nve_route1_engine_gate.py")], env=env, cwd=ROOT,
                        capture_output=True, text=True)
     out = p.stdout + p.stderr
@@ -172,6 +261,6 @@ def gate():
 
 
 if __name__ == "__main__":
-    dict(u1=u1, u3=u3, u6=u6, gate=gate)[sys.argv[1]]()
+    dict(u1=u1, u3=u3, u6=u6, gate=gate, fk2files=fk2files, synth=synth, u7=u7)[sys.argv[1]]()
     print(f"{sys.argv[1]} RESULT:", "PASS" if all(RES) else "FAIL", f"({sum(RES)}/{len(RES)})")
     sys.exit(0 if all(RES) else 1)

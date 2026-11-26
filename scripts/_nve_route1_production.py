@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Route (i) production driver for one spin (registration §5, Sumit's scope 2026-11-27). [ansatz-machine-personal,
-2026-11-27; NOT yet read or tested]
+2026-11-27; read by the Bridge at 10707e1; this version folds in its S1, S2, S7]
 
 SCOPE (fixed before launch): the measured reach only. The certified range is to be [eps_a, TOP] at that spin:
   - a DOWNWARD chain of dyadic segments [0.1/2^m, 0.1/2^(m-1)], m = 1, 2, ... until the lower end is <= eps_a, in
@@ -12,22 +12,30 @@ PER SEGMENT, one child process at a time (the driver itself only waits):
   1. floats at k_c (the 50-digit engine, .venv / Python 3.14): the lasso and singular points of k_c, and F(k_c),
      which steers n. Skipped when the floats file already holds k_c. geometry_ok must be True, or the run STOPS.
   2. v6 prove (.venv313 / Python 3.13, R1_RHOS=4). Any non-zero exit (a gate: F1, F2, F3, B1) STOPS the run. No
-     admissible row (n > 40 or a refused box) -> split.
-  3. v6 verdict (R1_FULLCTL=1 on the first 0.1-wide segment, [0.1, 0.2], depth 0). Exit 3 (ALARM: a control failed)
-     STOPS the run. not_certified -> split. certified -> 4.
+     admissible row (n > 40, a refused box, R >= k_c in F/k^2) -> split.
+  3. v6 verdict. Exit 3 (ALARM: a control failed) STOPS the run. not_certified -> split (or, if radius_limited, the
+     chain stops). certified -> on the FIRST certified segment of each mode (S2) the verdict runs again with the full
+     controls (R1_FULLCTL=1), which must also certify -> 4.
   4. The engine gate at every node (.venv). A miss (exit 2) STOPS the run. All inside -> the segment is CERTIFIED.
 SPLIT RULE (§5.4) with the STOP RULE (Sumit, 2026-11-27): a segment that has no admissible row or is not certified is
-halved, down to depth DMAX. A failure the verdict marks radius_limited (the node balls, not the interpolation bound,
-block it; splitting cannot cure that) stops its chain at once, without splitting (default 2, i.e. a 0.1-wide segment down to 0.025). A segment that still fails at depth DMAX
-STOPS ITS CHAIN: the reach achieved is reported, and the other chain still runs. No new code mid-run.
-END: the verdict stage is rerun for every certified segment from its node file; each verdict JSON must be byte-identical
-(sha256) and need no new evaluation (§6, per batch). Then the reach is reported: [lowest contiguous certified lower end of
-the downward chain, highest contiguous certified upper end of the upward chain].
+halved, down to depth DMAX (default 2: a 0.1-wide segment down to 0.025). A segment that still fails at depth DMAX
+STOPS ITS CHAIN. A failure the verdict marks radius_limited (a condition fails even with zero interpolation error, so
+splitting cannot cure it) stops its chain at once. A stopped chain is reported; the other chain still runs. No new code
+mid-run.
+S1 (the Bridge's read): every state record carries the v6 code base (file names + code hash) its stages used. A resume
+recomputes the base for every record and STOPS on a mismatch (a record from other code is never trusted). The batch
+rerun recomputes the paths, asserts they equal the record's, reruns the verdict with the same controls, and requires a
+byte-identical verdict JSON and an unchanged node file (no new evaluation). The reach and covers_target are computed
+ONLY from segments whose rerun is identical.
+END: S2's assertion (one full-controls pass per mode used), the batch rerun, then the reach: [lowest contiguous
+certified lower end of the downward chain, highest contiguous certified upper end of the upward chain].
 STATE: one fsynced jsonl line per segment outcome (route1_prod_<spin>_state.jsonl); a rerun resumes, replaying recorded
-splits and skipping certified segments; every stage resumes from its own checkpoints.
+splits and skipping certified segments; every stage resumes from its own checkpoints. A correctness STOP is recorded,
+and a rerun refuses to resume it without a decision.
 Environment: NVE_SPIN, R1_R0, PROD_TOP, PROD_EPS, PROD_DMAX (2), PY313, PY314 (interpreter paths).
     PY313=.venv313/bin/python PY314=.venv/bin/python NVE_SPIN=3/5 R1_R0=1.35 PROD_TOP=3 PROD_EPS=1.92e-3 \
-        .venv313/bin/python -I -u scripts/_nve_route1_production.py"""
+        .venv313/bin/python -I -u scripts/_nve_route1_production.py
+    ... _nve_route1_production.py pilot <lo> <hi> <F|Fk2>      one segment, outside the production state"""
 import hashlib
 import json
 import os
@@ -95,8 +103,15 @@ class Stop(Exception):
     """A correctness gate or alarm: the whole run stops here."""
 
 
+def halves(lo, hi, depth, name):
+    """The two halves, pushed so that the upward chain takes the lower half first and the downward chain the upper."""
+    mid = lo + (hi - lo) / 2
+    hs = [(mid, hi, depth + 1), (lo, mid, depth + 1)]
+    return hs if name == "up" else hs[::-1]
+
+
 # ------------------------------------------------------------------ the real stages (replaced in the driver test U5)
-def env_for(lo, hi, mode, fullctl):
+def env_for(lo, hi, mode, fullctl=False):
     kc, half = (lo + hi) / 2, (hi - lo) / 2
     e = dict(os.environ, R1_KC=str(kc), R1_HALF=str(half), R1_FLOATS=FLOATS, R1_RHOS="4", R1_MODE=mode,
              R1_TOLMODE="rel")
@@ -114,19 +129,28 @@ def run(cmd, env, label):
     return p.returncode
 
 
-def v6_paths(env):
-    out = subprocess.run([os.environ["PY313"], "-I", "-c", "import sys; sys.path.insert(0, 'scripts'); "
-                          "import _nve_route1_segment_v6 as S; print(S.BASE); print(S.S5.MJSON); print(S.NODEF); "
-                          "print(S.VJSON)"], env=env, cwd=ROOT, capture_output=True, text=True)
-    if out.returncode != 0:
-        raise Stop(f"v6 import failed: {out.stderr[-300:]}")
-    return out.stdout.split()
+def sha(p):
+    return hashlib.sha256(open(p, "rb").read()).hexdigest()
 
 
 class Real:
-    def stage(self, lo, hi, mode, fullctl):
-        """-> ('certified', info) | ('split', reason); raises Stop on a gate, an alarm or an engine miss."""
-        env = env_for(lo, hi, mode, fullctl)
+    def paths(self, lo, hi, mode):
+        """v6's (base, proof JSON, node file, verdict JSON) for this segment, as v6 itself computes them (its code hash
+        included). The floats entry of k_c must exist (it enters the hash)."""
+        out = subprocess.run([os.environ["PY313"], "-I", "-c", "import sys; sys.path.insert(0, 'scripts'); "
+                              "import _nve_route1_segment_v6 as S; print(S.BASE); print(S.S5.MJSON); print(S.NODEF); "
+                              "print(S.VJSON)"], env=env_for(lo, hi, mode), cwd=ROOT, capture_output=True, text=True)
+        if out.returncode != 0:
+            raise Stop(f"v6 import failed: {out.stderr[-300:]}")
+        return out.stdout.split()
+
+    def base_of(self, lo, hi, mode):
+        return self.paths(lo, hi, mode)[0]
+
+    def stage(self, lo, hi, mode, want_full):
+        """-> (outcome, info). outcome 'certified' | 'split' | 'radius_limited'; info always has 'base'. Raises Stop on a
+        gate, an alarm, bad floats or an engine miss."""
+        env = env_for(lo, hi, mode)
         kc = env["R1_KC"]
         fl = os.path.join(OUTD, FLOATS)
         if not (os.path.exists(fl) and kc in json.load(open(fl))):
@@ -134,91 +158,112 @@ class Real:
                 raise Stop(f"floats failed at k_c {kc}")
         if not json.load(open(fl))[kc]["geometry_ok"]:
             raise Stop(f"floats geometry_ok False at k_c {kc}")
-        base, mjson, nodef, vjson = v6_paths(env)
+        base, mjson, nodef, vjson = self.paths(lo, hi, mode)
         rc = run([os.environ["PY313"], "-I", "-u", "scripts/_nve_route1_segment_v6.py", "prove"], env, f"prove {base}")
         if rc:
             raise Stop(f"prove exited {rc} at {segkey(lo, hi)} (a gate fired)")
         J = json.load(open(mjson))
         if J["chosen"] is None:
-            return "split", "no admissible row: " + "; ".join(str(r.get("rejected")) for r in self.rows(base))
-        rc = run([os.environ["PY313"], "-I", "-u", "scripts/_nve_route1_segment_v6.py", "verdict"], env, f"verdict {base}")
-        if rc == 3:
-            raise Stop(f"verdict ALARM at {segkey(lo, hi)}: {json.load(open(vjson)).get('alarm')}")
-        if rc:
-            raise Stop(f"verdict exited {rc} at {segkey(lo, hi)}")
-        Vd = json.load(open(vjson))
-        if Vd["outcome"] != "certified":
-            if Vd.get("radius_limited"):
-                return "radius_limited", (f"not certified and node-radius limited (largest node radius "
-                                          f"{Vd['node_radius_max']}, smallest |f| {Vd['node_abs_min']}): splitting cannot help")
-            return "split", f"not certified: {Vd['conditions']}"
+            return "split", dict(base=base, reason="no admissible row: " + "; ".join(str(r.get("rejected")) for r in J["rows"]
+                                                                                 or self.rows(base)))
+        for full in ((False, True) if want_full else (False,)):
+            rc = run([os.environ["PY313"], "-I", "-u", "scripts/_nve_route1_segment_v6.py", "verdict"],
+                     env_for(lo, hi, mode, full), f"verdict{' (full controls)' if full else ''} {base}")
+            if rc == 3:
+                raise Stop(f"verdict ALARM at {segkey(lo, hi)}: {json.load(open(vjson)).get('alarm')}")
+            if rc:
+                raise Stop(f"verdict exited {rc} at {segkey(lo, hi)}")
+            Vd = json.load(open(vjson))
+            if Vd["outcome"] != "certified":
+                if full:
+                    raise Stop(f"the full-controls verdict at {segkey(lo, hi)} did not certify a segment the normal one did")
+                if Vd.get("radius_limited"):
+                    return "radius_limited", dict(base=base, reason=f"not certified; fails even with zero interpolation "
+                                                  f"error for {Vd['unsplittable']} (largest node radius "
+                                                  f"{Vd['node_radius_max']}, smallest |f| {Vd['node_abs_min']})")
+                return "split", dict(base=base, reason=f"not certified: {Vd['conditions']}")
         gate = os.path.join(OUTD, f"route1_seg_engine_{base}.jsonl")
         rc = run([os.environ["PY314"], "-I", "-u", "scripts/_nve_route1_engine_gate.py"],
-                 dict(env, NODES=nodef, FLOATS=fl, OUTJ=gate), f"engine gate {base}")
+                 dict(env, NODES=nodef, FLOATS=fl, OUTJ=gate, R1_CODE=base.rsplit("_", 1)[1]), f"engine gate {base}")
         if rc:
             raise Stop(f"engine gate exited {rc} at {segkey(lo, hi)} (2 = a node value outside its enclosure)")
         return "certified", dict(base=base, n=J["chosen"]["n"], abs_f_ge=Vd["abs_f_ge"], abs_F_ge=Vd.get("abs_F_ge"),
-                                 vjson_sha=hashlib.sha256(open(vjson, "rb").read()).hexdigest(), vjson=vjson,
-                                 nodef=nodef, nodes_sha=hashlib.sha256(open(nodef, "rb").read()).hexdigest())
+                                 fullctl=bool(want_full), vjson=vjson, vjson_sha=sha(vjson), nodef=nodef,
+                                 nodes_sha=sha(nodef), mjson=mjson)
 
     def rows(self, base):
         p = os.path.join(OUTD, f"route1_seg_{base}_rows.jsonl")
         return [json.loads(l) for l in open(p) if l.strip()] if os.path.exists(p) else []
 
-    def rerun_verdict(self, lo, hi, mode, fullctl, info):
-        env = env_for(lo, hi, mode, fullctl)
-        rc = run([os.environ["PY313"], "-I", "-u", "scripts/_nve_route1_segment_v6.py", "verdict"], env,
-                 f"batch rerun {info['base']}")
-        same = (rc == 0 and hashlib.sha256(open(info["vjson"], "rb").read()).hexdigest() == info["vjson_sha"]
-                and hashlib.sha256(open(info["nodef"], "rb").read()).hexdigest() == info["nodes_sha"])   # no new evaluation
-        return same
+    def rerun_verdict(self, lo, hi, mode, r):
+        """S1: recompute the paths (they must equal the record's), rerun the verdict with the record's controls, and
+        require a byte-identical verdict JSON and an unchanged node file."""
+        base, mjson, nodef, vjson = self.paths(lo, hi, mode)
+        if (base, nodef, vjson) != (r["base"], r["nodef"], r["vjson"]):
+            return False, "paths differ from the record"
+        rc = run([os.environ["PY313"], "-I", "-u", "scripts/_nve_route1_segment_v6.py", "verdict"],
+                 env_for(lo, hi, mode, r["fullctl"]), f"batch rerun {base}")
+        if rc:
+            return False, f"verdict rerun exited {rc}"
+        if sha(vjson) != r["vjson_sha"]:
+            return False, "verdict JSON differs"
+        if sha(nodef) != r["nodes_sha"]:
+            return False, "node file changed (a new evaluation)"
+        return True, "identical"
 
 
 # ------------------------------------------------------------------ the driver
-def chain(name, segs, mode, st, S, fullctl_seg):
-    """Process one chain in order with the split and stop rules. -> list of certified (lo, hi), stopped (bool)."""
+def chain(name, segs, mode, st, S, full_done):
+    """Process one chain in order with the split and stop rules. -> certified records (in order), stopped (bool)."""
     certified, stack = [], [(lo, hi, 0) for lo, hi in reversed(segs)]
     while stack:
         lo, hi, depth = stack.pop()
         key = segkey(lo, hi)
         r = st.get(key)
-        if r and r["outcome"] == "certified":
-            certified.append((lo, hi))
-            continue
-        if r and r["outcome"] == "split":
-            stack += [(lo + (hi - lo) / 2, hi, depth + 1), (lo, lo + (hi - lo) / 2, depth + 1)][::(1 if name == "up" else -1)]
-            continue
-        if r and r["outcome"] == "chain_stopped":
-            return certified, True
+        if r:                                          # S1: a recorded outcome is trusted only from this code
+            b = S.base_of(lo, hi, mode)
+            if r.get("base") != b:
+                raise Stop(f"state record {key} is from code base {r.get('base')}, not {b}: refusing to resume it")
+            if r["outcome"] == "certified":
+                certified.append(r)
+                full_done[mode] = full_done.get(mode) or r.get("fullctl", False)
+                continue
+            if r["outcome"] == "split":
+                stack += halves(lo, hi, depth, name)
+                continue
+            if r["outcome"] == "chain_stopped":
+                return certified, True
         t0 = time.time()
-        say(f"{name} chain: segment [{lo}, {hi}] (k_c {(lo + hi) / 2}, depth {depth}, mode {mode})")
-        outcome, info = S.stage(lo, hi, mode, (lo, hi, depth) == fullctl_seg)
+        want_full = not full_done.get(mode)
+        say(f"{name} chain: segment [{lo}, {hi}] (k_c {(lo + hi) / 2}, depth {depth}, mode {mode}"
+            f"{', full controls if it certifies' if want_full else ''})")
+        outcome, info = S.stage(lo, hi, mode, want_full)
         rec = dict(seg=key, lo=str(lo), hi=str(hi), depth=depth, mode=mode, chain=name, outcome=outcome,
-                   sec=round(time.time() - t0))
+                   sec=round(time.time() - t0), **info)
         if outcome == "certified":
-            rec.update(info)
             record(rec)
             st[key] = rec
-            certified.append((lo, hi))
-            say(f"  CERTIFIED [{lo}, {hi}]: n = {info['n']}, |f| >= {info['abs_f_ge']}  ({rec['sec']} s)")
+            certified.append(rec)
+            full_done[mode] = full_done.get(mode) or rec["fullctl"]
+            say(f"  CERTIFIED [{lo}, {hi}]: n = {info['n']}, |f| >= {info['abs_f_ge']}"
+                f"{' (full controls passed)' if rec['fullctl'] else ''}  ({rec['sec']} s)")
         elif outcome == "radius_limited":
-            rec.update(outcome="chain_stopped", reason=info)
+            rec.update(outcome="chain_stopped")
             record(rec)
             st[key] = rec
-            say(f"  STOP RULE (radius-limited): [{lo}, {hi}]: {info}; the {name} chain stops here without splitting")
+            say(f"  STOP RULE (radius-limited): [{lo}, {hi}]: {info['reason']}; the {name} chain stops here without splitting")
             return certified, True
         elif depth < DMAX:
-            rec.update(outcome="split", reason=info)
+            rec.update(outcome="split")
             record(rec)
             st[key] = rec
-            say(f"  SPLIT [{lo}, {hi}] at depth {depth}: {info}")
-            # the halves, in chain order (the upward chain takes the lower half first, the downward one the upper)
-            stack += [(lo + (hi - lo) / 2, hi, depth + 1), (lo, lo + (hi - lo) / 2, depth + 1)][::(1 if name == "up" else -1)]
+            say(f"  SPLIT [{lo}, {hi}] at depth {depth}: {info['reason']}")
+            stack += halves(lo, hi, depth, name)
         else:
-            rec.update(outcome="chain_stopped", reason=info)
+            rec.update(outcome="chain_stopped")
             record(rec)
             st[key] = rec
-            say(f"  STOP RULE: [{lo}, {hi}] fails at depth {depth} = DMAX ({info}); the {name} chain stops here")
+            say(f"  STOP RULE: [{lo}, {hi}] fails at depth {depth} = DMAX ({info['reason']}); the {name} chain stops here")
             return certified, True
     return certified, False
 
@@ -246,40 +291,45 @@ def main(S=None):
         return 2
     say(f"== route (i) production == spin {SPIN}; target [eps_a = {float(eps):.3e}, {top}]; {len(down)} dyadic (Fk2) + "
         f"{len(up)} 0.1-wide (F) segments; DMAX {DMAX}; {len(st)} outcomes already on disk")
+    full_done = {}
     try:
-        dc, dstop = chain("down", down, "Fk2", st, S, None)
-        uc, ustop = chain("up", up, "F", st, S, (Q(1, 10), Q(2, 10), 0))
+        dc, dstop = chain("down", down, "Fk2", st, S, full_done)
+        uc, ustop = chain("up", up, "F", st, S, full_done)
     except Stop as e:
         say(f"STOPPED (correctness gate or alarm): {e}")
         record(dict(seg="RUN", outcome="stopped", reason=str(e)))
         return 2
-    lo, hi = reach(dc, uc)
     say(f"chains done: down {'STOPPED by the stop rule' if dstop else 'complete'} ({len(dc)} certified), "
         f"up {'STOPPED by the stop rule' if ustop else 'complete'} ({len(uc)} certified)")
-    same_all = True
-    for key, r in sorted(load_state().items()):
-        if r.get("outcome") == "certified":
-            fullctl = (Q(r["lo"]), Q(r["hi"]), r["depth"]) == (Q(1, 10), Q(2, 10), 0)
-            same = S.rerun_verdict(Q(r["lo"]), Q(r["hi"]), r["mode"], fullctl, r)
-            same_all &= same
-            if not same:
-                say(f"  BATCH RERUN DIFFERS at {key}")
-    say(f"batch rerun of every certified verdict: byte-identical {same_all}")
-    covers = lo <= eps and hi >= top
-    say(f"REACH: certified contiguous [{lo}, {hi}] = [{float(lo):.4e}, {float(hi)}]; covers the target "
-        f"[eps_a, {top}]: {covers}")
+    # S2: a full-controls pass for every mode that certified anything
+    full_ok = all(full_done.get(m) for m, c in (("Fk2", dc), ("F", uc)) if c)
+    say(f"full controls passed for every mode used: {full_ok} ({full_done})")
+    # S1: the batch rerun; only identical segments count toward the reach
+    good = {"down": [], "up": []}
+    for r in dc + uc:
+        same, why = S.rerun_verdict(Q(r["lo"]), Q(r["hi"]), r["mode"], r)
+        if same:
+            good[r["chain"]].append((Q(r["lo"]), Q(r["hi"])))
+        else:
+            say(f"  BATCH RERUN FAILS at {r['seg']}: {why}; the segment does not count toward the reach")
+    same_all = len(good["down"]) + len(good["up"]) == len(dc) + len(uc)
+    say(f"batch rerun of every certified verdict: identical {same_all}")
+    lo, hi = reach(good["down"], good["up"])
+    covers = bool(lo <= eps and hi >= top and full_ok and same_all)
+    say(f"REACH (identical reruns only): certified contiguous [{lo}, {hi}] = [{float(lo):.4e}, {float(hi)}]; covers the "
+        f"target [eps_a, {top}]: {covers}")
     record(dict(seg="RUN", outcome="done", reach=[str(lo), str(hi)], covers_target=covers, batch_identical=same_all,
-                down_stopped=dstop, up_stopped=ustop))
-    return 0 if same_all else 2
+                full_controls=full_ok, down_stopped=dstop, up_stopped=ustop))
+    return 0 if (same_all and full_ok) else 2
 
 
 def pilot(lo, hi, mode):
-    """One segment through the real stages, outside the production state (pilot P4). Production later reuses its
-    checkpoints (same code hash, same file names): the stages resume, and no evaluation is repeated."""
+    """One segment through the real stages, outside the production state (pilot P4), with the full controls. Production
+    later reuses its checkpoints (same code hash, same file names): the stages resume and no evaluation is repeated."""
     lo, hi = Q(lo), Q(hi)
     say(f"== pilot == spin {SPIN}; segment [{lo}, {hi}] (k_c {(lo + hi) / 2}), mode {mode}")
     try:
-        outcome, info = Real().stage(lo, hi, mode, False)
+        outcome, info = Real().stage(lo, hi, mode, True)
     except Stop as e:
         say(f"PILOT STOPPED: {e}")
         return 2
