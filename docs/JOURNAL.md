@@ -4707,3 +4707,12 @@ pole-order-1 Carter² survival.
   - Misses at 3/5, k_c = 3: c1 57.1 and n 20 above range, and the ratio c1(3)/c1(21/20) = 3.6 against 1.3–3.
   - The method stops between k_c 3 and 3.9 at 3/5, and between 2 and 3 at 9/10.
 - Nothing certified, nothing launched after the crash; the next step is the Bridge's.
+- **Later the same night, on the Bridge's go:**
+  - **9/10 at k_c 39/10, run alone (p3d.sh, dcd7f36):** the same Laurent RuntimeError as 3/5, so the sealed 95%
+    prediction is a hit.
+  - **Probe (a) (577bdcc):** the Laurent derivative bound passes through k = 3.7 and fails from 3.8, identically at
+    both spins. The cause is acb.sqrt's enclosure: s's ball reaches 0 while 1 − kφ's ball contains neither 0 nor the
+    cut. This corrects the seal addendum's "an arc's ball contains 0".
+  - **v5.2 (C1, fa2ba7a):** the n formula fails closed (rows with n > 40 are rejected), with T5 tested both ways. A T5
+    smoke test caught V.hi_sci's float() inside the first draft's own rejection message. Awaiting the Bridge's read,
+    then T1–T5 on the Air.
