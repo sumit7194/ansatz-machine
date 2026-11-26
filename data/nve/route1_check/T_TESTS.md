@@ -33,3 +33,21 @@ can fail: run on the 7f96efc outputs, it reports `chosen`, `norder`, `point_cons
 
 **Consequence for P2:** its seal made running on v5 conditional on T1 passing, so P2 runs on v4 as registered (the seal's
 amendment, committed before P2).
+
+**Timeline of the P2 amendment** (the Bridge's record item; commit times from git on the Mac mini, P2's from its
+logs on the Air; the clocks agree to within 0.1 s, measured by ssh round trip, offset Air − Mac mini = +0.07 s):
+
+| time (IST) | event |
+|---|---|
+| 18:13:04 | tests.sh on 7f96efc exits rc 1 (T1 FAIL) |
+| **18:17:15** | **4bc2ebd committed: P2 seal amendment (P2 on v4), the v5.1 fix, this record** |
+| 18:17:26 | P2 starts on the Air (`guard_p2.log`: "started p2 pid 31946"; first step, the 3/10 floats, the same second) |
+| 18:18:20 | 68486b9 committed: the P2 addendum manifest. Its three hashes were computed on the Mac mini and verified on the Air (`shasum -c`, all OK) in the same command that launched P2, before the launch; the commit itself came 54 s after the launch. |
+
+So the amendment precedes every P2 computation by 11 s. The manifest's content was checked before the launch, but its
+commit followed it: a slip against "commit before launch", recorded here. The next manifest (v5.1) is committed before
+its run.
+
+**The fix read:** 4bc2ebd was read and approved by the Bridge (TheBridge `fleet/reads/ansatz_v5.1_fix_4bc2ebd_read_2026-11-26.md`).
+The z-control is line for line v4's apart from the `S4.` prefix, in v4's position before the rows. `norder` and
+`point_constants` are v4's expressions, and the T1_MJSON allow-list is right. P2 on v4 is accepted.
