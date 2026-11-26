@@ -1,0 +1,1 @@
+== prove (v5 = v4 + F1 branch assert, F2 code-hash keys, F3 coverage counts) == spin 9/10|k in [77/20, 79/20]; circle 1.2639; code 2ba10dbd79a83372; python 3.13.18, python-flint 0.9.0; rows (4.0,); checkpoint records of this code already on disk: dq 0, rows 0

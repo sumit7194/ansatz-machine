@@ -1,0 +1,14 @@
+data/nve/eps/route1_floats_p3_9_10.json: OK
+=== P3 prove spin 9/10 k_c 39/10 2026-11-26 23:33:53 Python 3.13.18
+== prove (v5 = v4 + F1 branch assert, F2 code-hash keys, F3 coverage counts) == spin 9/10|k in [77/20, 79/20]; circle 1.2639; code 2ba10dbd79a83372; python 3.13.18, python-flint 0.9.0; rows (4.0,); checkpoint records of this code already on disk: dq 0, rows 0
+Traceback (most recent call last):
+  File "/Users/akash7194/Github/ansatz-air/scripts/_nve_route1_segment_v5.py", line 304, in <module>
+    dict(prove=prove, verdict=verdict)[sys.argv[1]]()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/akash7194/Github/ansatz-air/scripts/_nve_route1_segment_v5.py", line 197, in prove
+    lau_c, laud_c = V.laurent(acb(kc)), V.laurent(acb(kc), True)
+                                        ~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/Users/akash7194/Github/ansatz-air/scripts/_nve_route1_segment_v2.py", line 168, in laurent
+    raise RuntimeError("Laurent tail bound: non-finite on |omega| = 0.9/a")
+RuntimeError: Laurent tail bound: non-finite on |omega| = 0.9/a
+JOB_EXIT 1

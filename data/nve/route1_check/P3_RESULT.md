@@ -28,7 +28,7 @@ certificate, and neither wrote a rows file.
 | 9/10 | 1/2 | 6.479 | 34.337 | 16 | 2.972E+6 | 0.452 | 19,809 / 906 | 3,455 s |
 | 9/10 | 2 | 10.960 | 60.793 | 22 | 2.660E+9 | 0.579 | 15,624 / 867 | 2,760 s |
 | 9/10 | 3 | **no row**: `OverflowError` converting M_F to a float (below) | | | | | 13,535 / 822 | crashed at about 39 min |
-| 9/10 | 39/10 | **not run**: p3c.sh stops on the first non-zero exit | | | | | | |
+| 9/10 | 39/10 | **no row**: the same Laurent `RuntimeError` as 3/5 (run alone afterwards, `air/p3d.sh`) | | | | | | 30 s |
 
 - **The precondition maxima are the same at both spins** (0.452, 0.579), as they must be, since the Laurent disc
   depends on x = a²ω² only.
@@ -107,7 +107,7 @@ singularity in k only slightly outside the box. That is a hypothesis, not a diag
 | wall time 3/5: 8–20 min per k_c | 8.0, **7.9**, **7.9** min | hit, miss (just below), miss (just below) |
 | wall time 9/10: 30–70 min per k_c | 57.6, 46.0 min; k_c = 3 crashed at about 39 min | hit, hit, — |
 | floats under 2 min (3/5), under 10 min (9/10) | **3.8 min**, 5.1 min | **miss**, hit |
-| addendum: 9/10 at 39/10 stops with the same Laurent `RuntimeError` (P = 95%) | not run | **unresolved** |
+| addendum: 9/10 at 39/10 stops with the same Laurent `RuntimeError` (P = 95%) | the same `RuntimeError`, same line (run alone, `air/p3d.sh`; see below) | **hit** |
 | addendum: 9/10 at 3 has c1 ≥ 120 (P = 60%) | no row | **unresolved** (the lasso dq sum rose 4.1× from k_c = 2, which would put c1 near 250 if the gauge weights scaled alike; that is an estimate, not a measurement) |
 
 **The surprises the seal named:** none happened. No row was admitted at 3.9, c1 did not decrease anywhere, and F1 did
@@ -134,3 +134,24 @@ not fire. **What happened instead and was not named:** two crashes, each from a 
   9/10 the gap starts lower. **Neither stop says where the last certifiable segment ends.** A smaller k-square (lower
   ρ or a narrower segment) or adaptive Laurent arcs might reach further. Each of those changes is untested and needs
   its own seal, and adaptive arcs also need a code read and a T1–T4 rerun.
+
+## Addendum: spin 9/10 at k_c = 39/10, run alone (2026-11-26, after this result was accepted)
+
+**Run on the Bridge's go.** Runner `air/p3d.sh` (576395b, committed before it ran) is a verbatim subset of p3c.sh: the
+same environment and command line, with only that one stage. It ran on the Air from 23:33:52 to 23:34:22, rc 1.
+Outputs are in `air_p3/`: `p3d.log`, `guard_p3d.log`, `route1_seg_9_10_kc39o10h1o20_v5.out`.
+
+**It stopped the same way as 3/5.** That was `RuntimeError: Laurent tail bound: non-finite on |omega| = 0.9/a`, in
+`V.laurent(acb(kc), True)` (v5 line 197, v2 line 168), before the precondition and before any walk. **The addendum's
+prediction (P = 95%) is a hit.** It is consistent with the Laurent-circle quantity depending on x = a²ω² only.
+
+**A correction to the diagnosis in the seal addendum, made before probe (a) runs.** The addendum said an arc's ball for
+1 − kφ "evidently contains 0". That was not established, and a first-order numpy model argues against it:
+- At k = 3.9 the smallest ratio over the 400 arcs, of |1 − kφ| at the arc centre to a first-order estimate of that
+  arc's ball radius, is about 24. A ball 24 times smaller than its distance from 0 does not contain 0.
+- Re(1 − kφ) < 0 sets in at k ≈ 3.873. Where it is negative, |Im(1 − kφ)| ≥ 0.04, so at first order no arc's ball
+  straddles the branch cut of the principal square root either.
+
+So **why** the arc bound goes non-finite at 3.9 is open. Candidates are Arb's dependency inflation in evaluating φ on
+an arc ball (well beyond first order), or the branch-cut handling of `acb.sqrt`. Probe (a) is designed to settle it by
+recording each arc's actual ball.
