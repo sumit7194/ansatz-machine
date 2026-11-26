@@ -162,5 +162,14 @@ try:
 except AssertionError as e:
     record("T3 control: gate passes on the reference circle", False, str(e)[:120])
 
+# ---- B1 (v5.1 only): R1_HALF or R1_FLOATS without R1_KC must refuse before anything runs
+if hasattr(S5, "KCS"):
+    for extra in ({"R1_KCC": "2", "R1_HALF": "1/20"}, {"R1_FLOATS": "route1_floats.json"}):
+        before = {p: sha(p) for p in (S4.CKFILE, S5.ROWS, S5.MJSON)}
+        p = subprocess.run([PY, "-I", "-u", ME, "prove"], capture_output=True, text=True, env={**os.environ, **extra})
+        out = p.stdout + p.stderr
+        record(f"B1 half-set environment {sorted(extra)} refused", p.returncode != 0 and "B1 gate" in out
+               and all(sha(q) == h for q, h in before.items()), f"rc {p.returncode}")
+
 print("T2-T4 RESULT:", "PASS" if all(ok for _, ok in RES) else "FAIL", f"({sum(ok for _, ok in RES)}/{len(RES)})")
 sys.exit(0 if all(ok for _, ok in RES) else 1)

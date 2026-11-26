@@ -51,6 +51,10 @@ KSUB2 = V.KSUB * V.KSUB
 KCS, HALFS = os.environ.get("R1_KC"), os.environ.get("R1_HALF", "1/20")
 KREF = "21/20"
 KTAG = ""
+# B1 (the Bridge's v5.1 read): fail closed when the variables are half-set. Without R1_KC, a stray R1_HALF or R1_FLOATS
+# (e.g. a typo R1_KCC=2 R1_HALF=1/20) would silently prove the default segment and resume its checkpoints.
+assert KCS is not None or (os.environ.get("R1_HALF") is None and os.environ.get("R1_FLOATS") is None), \
+    "B1 gate: R1_HALF or R1_FLOATS is set without R1_KC; refusing to run the default segment"
 if KCS is not None:
     from flint import fmpq
     _q = lambda t: fmpq(*[int(x) for x in t.split("/")]) if "/" in t else fmpq(int(t))
