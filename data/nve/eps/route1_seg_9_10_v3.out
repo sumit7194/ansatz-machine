@@ -1,0 +1,12 @@
+== prove (v3: CENTRED dq/dk, order 30) == spin 9/10|k in [1, 1.1]; circle 1.2639; python 3.13.12, python-flint 0.9.0; prec 256 bits
+  derivative self-test (v2's): True
+  reference: circle 17955 steps, lasso 895 steps, 189 s
+  circle, K a point: optimised-gauge constant v2 <= 4.782E+2, v3 (centred) <= 7.734E-1; per-step crude/centred ratio: median 1664.65, max 2.99e+04   [265 s]
+  lasso, K a point: optimised-gauge constant v2 <= 8.364E+1, v3 (centred) <= 2.179E+1; per-step crude/centred ratio: median 4.31, max 14.2   [270 s]
+  rho = 3.0: R <= 8.334E-2; I0 <= 5.580E+1 (669.515/unit k), I1 <= 1.032E+1 (123.768/unit k); gauge factors <= 2.383E+0, 1.108E+1; M_F <= 1.831E+60, M_trM0 <= 3.501E+24, M_trM1 <= 2.423E+5; n = 134 (bound F 4.260E-4); crude/centred median 1.0 / 1.0   [290 s]
+  rho = 4.0: R <= 1.063E-1; I0 <= 8.142E+1 (766.293/unit k), I1 <= 1.673E+1 (157.411/unit k); gauge factors <= 2.376E+0, 1.101E+1; M_F <= 1.206E+88, M_trM0 <= 4.716E+35, M_trM1 <= 1.467E+8; n = 152 (bound F 4.931E-4); crude/centred median 1.0 / 1.0   [291 s]
+  rho = 5.0: R <= 1.301E-1; I0 <= 1.169E+2 (898.733/unit k), I1 <= 2.529E+1 (194.515/unit k); gauge factors <= 2.369E+0, 1.120E+1; M_F <= 1.961E+126, M_trM0 <= 1.136E+51, M_trM1 <= 7.803E+11; n = 186 (bound F 1.924E-4); crude/centred median 1.0 / 1.0   [260 s]
+  rho = 6.5: R <= 1.664E-1; I0 <= 2.000E+2 (1202.058/unit k), I1 <= 4.478E+1 (269.142/unit k); gauge factors <= 2.357E+0, 1.174E+1; M_F <= 2.828E+215, M_trM0 <= 1.432E+87, M_trM1 <= 2.363E+20; n = 270 (bound F 6.709E-5); crude/centred median 1.0 / 1.0   [247 s]
+  CHOSEN: rho = 3.0, n = 134 (135 Chebyshev points); M_F <= [1.83051652192677772
+  steps using the centred bound / crude only: {'centred': 21203, 'crude_only': 65173, 'rout2': 28277, 'rout15': 800}
+  prove v3: 1359 s, peak rss 52 MB

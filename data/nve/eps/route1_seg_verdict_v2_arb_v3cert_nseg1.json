@@ -1,0 +1,26 @@
+{
+ "nseg": 1,
+ "nodes": "arb",
+ "segs": [
+  {
+   "i": 0,
+   "certified": true,
+   "abs_F_ge": "0.265035987",
+   "abs_trM0_ge": "1.993158418",
+   "abs_Im_trM1_ge": "2.648820906",
+   "planted_zero_refused": true
+  }
+ ],
+ "planted_precondition_fires": true,
+ "held_out_consistent": true,
+ "proved_M_ge_sampled": true,
+ "engine_inside": true,
+ "shrunken_M_breaks_verdict_or_heldout": false,
+ "shrunken_M_below_sampled": [
+  "F",
+  "tr M0",
+  "tr M1"
+ ],
+ "certified": true,
+ "planted_zero_refused": true
+}
