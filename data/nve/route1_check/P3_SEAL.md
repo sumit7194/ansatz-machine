@@ -49,3 +49,32 @@ redo must price that. It does not by itself say where the last certifiable segme
 
 **What would surprise me:** a row admitted at 3.9; c1 decreasing with k anywhere; the F1 gate firing at k_c ≤ 3. That
 last one would need a diagnosis before production, because production would meet it too.
+
+## Addendum, committed before the continuation runs (2026-11-26, after p3.sh stopped)
+
+**What happened.** p3.sh ran both floats inputs and spin 3/5 at k_c = 1/2, 2, 3. At **spin 3/5, k_c = 39/10** it stopped
+with rc 1, *before* the precondition and before any walk: `RuntimeError: Laurent tail bound: non-finite on |omega| =
+0.9/a`, raised in `V.laurent(k_c, deriv=True)`, the Cauchy bound for the k-derivative of c0'' on the Laurent circle,
+taken at the centre point k = 3.9. **This is neither outcome the seal named** (the precondition rejection, or F1). The
+seal's statement that "only the reference walks run before the rejection" was also wrong in its order: v5's prove builds
+the Laurent data at k_c before the walks, the K-point control and the rows.
+
+**Diagnosis (numpy, before the continuation):**
+- On the Laurent circle |x| = 0.81 (x = a²ω²), min |1 − kφ| is 0.73 at k = 1.05, 0.23 at k = 3 and **0.021 at
+  k = 3.9**. Re(1 − kφ) dips to −0.007, but the curve never crosses the negative real axis, so the principal-branch cut
+  is not the cause.
+- The derivative bound divides by √(1 − kφ). With 400 fixed arcs, an arc's ball for 1 − kφ near the minimum evidently
+  contains 0, and the bound is non-finite.
+- This is the evaluator's fixed arc resolution meeting the k ≈ 4 crossing, ahead of the ρ = 4 precondition, which
+  would also have rejected (numpy |w| 1.70). **No row was possible at k_c = 3.9 either way.**
+- 1 − kφ on that circle depends on x only, so it is the same at every spin.
+
+**Recorded as a P3 result, per the Bridge's ruling for a stage failure at 39/10, not as a run failure.** The
+continuation `air/p3c.sh` skips only that stage and runs p3.sh's remaining stages unchanged: spin 9/10 at k_c = 1/2, 2,
+3, 39/10, with the same environment and command line. It checks the 9/10 floats file p3.sh wrote by sha256, and refuses
+if any 9/10 P3 output exists.
+
+**A prediction added here, before the continuation runs:** spin 9/10 at k_c = 39/10 stops the same way, with the same
+`RuntimeError` in `V.laurent(k_c, deriv=True)`, P = 95%. The sealed predictions for 9/10 at k_c = 1/2, 2, 3 stand
+unchanged. After 3/5 at k_c = 3 came out above its c1 and n ranges (57.1, n = 20), I add, separately from the seal's
+cells: 9/10 at k_c = 3 lands **at or above** the top of its sealed c1 range (≥ 120) with P = 60%.
