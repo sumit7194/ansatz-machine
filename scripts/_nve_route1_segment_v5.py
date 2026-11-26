@@ -154,7 +154,8 @@ def row_for(rho, half, kc, st0, st1, M0, M1, lau_c, laud_c):
                 MF=V.ser(MF), MT0=V.ser(MT0), MT1=V.ser(MT1), errF=V.ser(eF), errT0=V.ser(e0), errT1=V.ser(e1),
                 precondition=pre, gauge=dict(C0=[[str(x) for x in rr] for rr in C0], C1=[[str(x) for x in rr] for rr in C1],
                                             norms0=[V.ser(x) for x in g0], norms1=[V.ser(x) for x in g1]),
-                coverage=cov, code=CODE, stats=dict(S4.STATS), f1=dict(F1_COUNT))
+                ratio_median=[sorted(r0)[len(r0) // 2], sorted(r1)[len(r1) // 2]], ratio_max=[max(r0), max(r1)],
+                coverage=cov, code=CODE, stats=dict(S4.STATS), f1=dict(F1_COUNT))   # ratio_*: v4's diagnostics, restored (T1 prep)
 
 
 def prove():
