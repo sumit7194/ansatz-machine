@@ -4736,3 +4736,14 @@ pole-order-1 Carter² survival.
 - **Record:** data/nve/ROUTE1_KTAYLOR_OFFICE.md. The registration input now has a v4 column.
 - **Next:** the full 9/10 segment verdict, about 30 node evaluations, about 1.5–2.5 core-h. It waits for the
   Bridge's word.
+
+## 2026-11-26 (afternoon) — Spin-9/10 segment [1, 1.1] CERTIFIED (route (i), unregistered)
+- **Diagnosis first.** The 9/10 circle's 11× disc/point ratio is enclosure overhead, not intrinsic.
+  - The sampled true disc variation is 0.89× the point value.
+  - The overhead is localised at ±43.6°, in the densely stepped bins next to a singular point near the circle.
+  - The seal's inner-pole suspect is refuted (|1 − kφ| ≈ 0.74 everywhere).
+- **Verdict.** v2's unchanged verdict on the v4 M (ρ 4, n 18): CERTIFIED, with |F| ≥ 0.052377, |tr M0| ≥ 1.976146 and
+  |Im tr M1| ≥ 3.842810.
+  - All five controls behaved as sealed, and every margin is inside its sealed range.
+  - 1.42 h. Seal 10a843a, outputs c2dd39c.
+- **Holding:** further spins wait for the Bridge's word and the registration.

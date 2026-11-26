@@ -108,3 +108,36 @@
   transcript (d08b1ca) and verified by reproducing every pre-cut number.
 - New guard: per-step checkpoints, flushed and fsynced, with a resume test that passes (7187b5b).
 - Branch note: `data/nve/ROUTE1_KTAYLOR_OUTAGE.md`.
+
+## The spin-9/10 segment verdict (2026-11-26): CERTIFIED
+**Commits:** seal 10a843a, before the run; outputs c2dd39c.
+**Method:** Fable's unchanged v2 `nodes` and `verdict` stages on the v4 chosen row (ρ = 4, n = 18), run by
+`scripts/_nve_route1_v4_verdict.py`. It made 30 all-ball node evaluations, each record fsynced. The run took 5106 s
+(161–190 s per node), peaked at 28 MB, and needed no restart.
+
+**For every real k ∈ [1, 1.1] at spin 9/10:** F ≠ 0, tr M0 ≠ 0 and tr M1 ∉ [−2, 2].
+
+| | min of interpolant | proved bound | certified | sealed |
+|---|---|---|---|---|
+| \|F\| | 0.052660105 | 2.830e−4 | **≥ 0.052377152** | ≥ 0.0524, in [0.0515, 0.0527]: HIT |
+| \|tr M0\| | 1.976145507 | 9.3e−11 | **≥ 1.976145507** | ≥ 1.97614: HIT |
+| \|Im tr M1\| | 3.842809566 | 1.0e−8 | **≥ 3.842809556** | ≥ 3.84280: HIT |
+
+**Controls.** All five behaved as sealed:
+- the planted zero is refused;
+- the held-out points (t = −5/8, 1/8, 3/4) are consistent: |p − f| ≤ 1.3e−6 for F, below the 2.8e−4 bound;
+- the proved M is at least the sampled values on the ρ = 4 ellipse (overestimates ×1.8e8 for F, ×2.4 for tr M0, ×130
+  for tr M1; sealed 1e7–1e9 for F);
+- the engine end values at k = 1 and 11/10 lie inside the node enclosures;
+- the shrunken M (÷1e12) falls below the sampled maximum for F, tr M0 and tr M1.
+
+The planted preconditions also fire as designed: k = 4.2 and 4.01 are refused; 4.0 and 1.05 ± 0.2 are certified.
+
+**Cost.** Sealed at 1.5–2.5 h; it took 1.42 h, just below the range.
+
+**What it is.**
+- This is the second certified route-(i) segment and the first at spin 9/10. Before the enclosure fixes (v2), that
+  segment needed n = 140 and an estimated 7.5 core-h.
+- Route (i) is NOT registered. This certifies one 0.1-wide segment and changes no public claim. Statement A
+  (claim v3.1) stands as written.
+- **Next:** further spins and segments wait for the Bridge's word and the registration.
