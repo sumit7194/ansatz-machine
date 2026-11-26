@@ -4752,3 +4752,15 @@ pole-order-1 Carter² survival.
 - docs/HANDOFF_2026-11-26_office.md covers the claim state, route (i) (both certified segments and the v2/v3/v4
   lineage), the open branches, the known issues, the next steps and every seal's status.
 - No jobs are running. The ktaylor worktree was removed after its branch was pushed.
+
+## 2026-11-26 (evening) — Route (i) pre-registration, draft v0 (ansatz-machine-personal)
+- The office account paused; this session carries ansatz and reports to "Bridge - claude personal".
+- **docs/ROUTE1_REGISTRATION.md, draft v0, NOT approved.** Region A per spin, real k in [ε_a, A_top]; both certified
+  stretches listed; v4 costs (≈ 0.4 core-h per 0.1 segment at spin 3/5, ≈ 1.5–2.3 at 9/10).
+- **Required first (the Bridge's a–c):** a non-author read of v3/v4 and the 9/10 certificate; the 50-digit engine at
+  every node of both stretches (two-implementation rule); the spin-3/5 v4 verdict at its own n = 12, which the logs
+  show was never run (only the equal-n 24 control exists).
+- **Design points fixed in the draft:** split rule (n > 40 or no admissible row), dyadic F/k² segments near ε_a,
+  per-segment engine gate, pilots P1–P4 before production. The Laurent precondition stops region A near k ≈ 4.006,
+  so spin 3/5's (~4.006, 4.05] is left uncovered by this method.
+- Nothing ran; no merge; nothing public changed.
