@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""T2, T3, T4 of the route-(i) registration (§3(d)), each tested in BOTH directions. [ansatz-machine-personal, 2026-11-26]
+"""T2, T3, T4 (and, on v5.2, T5) of the route-(i) registration (§3(d)), each tested in BOTH directions. [ansatz-machine-personal, 2026-11-26]
     NVE_SPIN=3/5 R1_R0=1.35 <.venv313 python> -I -u scripts/_nve_route1_t234.py
 Run after T1, which leaves this code's v5 dq checkpoint, rows file and proof JSON on disk. Every planted file is
 backed up first and restored afterwards, and the restore is checked by sha256.
@@ -170,6 +170,69 @@ if hasattr(S5, "KCS"):
         out = p.stdout + p.stderr
         record(f"B1 half-set environment {sorted(extra)} refused", p.returncode != 0 and "B1 gate" in out
                and all(sha(q) == h for q, h in before.items()), f"rc {p.returncode}")
+
+# ---- T5 (v5.2 only, C1): the n formula fails closed. row_for runs in-process with its expensive inputs stubbed
+# (kbox, precondition, the dq lists, gauge, Dyson sum, gauge norms), so that M_F = 2 + exp(4 I) with I = R * D for a
+# chosen D (both loops alike, all gauge norms 1). Pass criteria (fixed before the run):
+#   T5a a runaway M_F (beyond the float range; P3's spin 9/10 k_c 3 case) gives a REJECTED row ("n > 40"), no
+#       exception, and the row serialises with json.dumps as prove writes it. Other direction: v5.1's float expression raises OverflowError on that same M_F.
+#   T5b n_raw in (40, 41) gives n = 42 after evening, so the SECOND branch must reject it ("n = 42 > 40").
+#   T5c control: n_raw about 20.3 gives an ADMITTED row whose n equals v5.1's float expression (22).
+if hasattr(S5, "NMAX"):
+    import math
+    saved = (V.kbox, V.precondition, S4.dq_list_v4, V.gauge, V.dyson_sum, V.gauge_norms)
+    rho, half, kc = 4.0, arb(1) / 20, arb(21) / 20
+    rb = arb(rho)
+    R = (half * (rb + 1 / rb) / 2).upper()
+
+    def D_for(nraw):
+        """D such that log(4 M_F / ((rho - 1) TOL)) / log(rho) = nraw, with M_F = 2 + exp(4 R D)."""
+        MF = (rb - 1) * arb(V.TOL_F) * rb ** arb(nraw) / 4
+        return ((MF - 2).log() / (4 * R)).upper()
+
+    def run_row(D):
+        V.kbox = lambda kc_, R_: (None, [0] * V.KSUB * V.KSUB)
+        V.precondition = lambda K: dict(ok=True, stub=True)
+        S4.dq_list_v4 = lambda st, kc_, R_, lc, ldc, name=None: ([arb(1)] * len(st), None, [1.0])
+        V.gauge = lambda st, d: [[1.0, 0.0], [0.0, 1.0]]
+        V.dyson_sum = lambda st, d, C: D
+        V.gauge_norms = lambda M, C: (arb(1), arb(1), arb(1))
+        try:
+            return S5.row_for(rho, half, kc, [0] * 3, [0] * 3, None, None, None, None)
+        finally:
+            V.kbox, V.precondition, S4.dq_list_v4, V.gauge, V.dyson_sum, V.gauge_norms = saved
+
+    def old_n(D):
+        MF = (2 + (4 * R * D).exp()).upper()
+        n = max(2, math.ceil(math.log(4 * float(MF) / ((rho - 1) * V.TOL_F)) / math.log(rho)))
+        return n + n % 2
+
+    try:
+        r = run_row(arb(10) ** 5)
+        try:
+            old_n(arb(10) ** 5)
+            old = "v5.1's expression did NOT raise"
+        except OverflowError:
+            old = "v5.1's expression raises OverflowError"
+        json.dumps(r)                                      # prove writes the row with json.dumps
+        record("T5a runaway M_F rejected, no exception", "rejected" in r and r["rejected"].startswith("n > 40")
+               and old.endswith("raises OverflowError"), f"{r.get('rejected')}; {old}; row serialises")
+    except Exception as e:
+        record("T5a runaway M_F rejected, no exception", False, f"{type(e).__name__}: {e}"[:160])
+    try:
+        D = D_for("40.5")
+        r = run_row(D)
+        record("T5b n = 42 rejected by the second branch", r.get("rejected", "").startswith("n = 42 > 40")
+               and old_n(D) == 42, f"{r.get('rejected')}; v5.1 n {old_n(D)}")
+    except Exception as e:
+        record("T5b n = 42 rejected by the second branch", False, f"{type(e).__name__}: {e}"[:160])
+    try:
+        D = D_for("20.3")
+        r = run_row(D)
+        record("T5c control: n = 22 admitted, equal to v5.1's", "rejected" not in r and r["n"] == old_n(D) == 22,
+               f"n {r.get('n')}, v5.1 n {old_n(D)}, rejected {r.get('rejected')}")
+    except Exception as e:
+        record("T5c control: n = 22 admitted, equal to v5.1's", False, f"{type(e).__name__}: {e}"[:160])
 
 print("T2-T4 RESULT:", "PASS" if all(ok for _, ok in RES) else "FAIL", f"({sum(ok for _, ok in RES)}/{len(RES)})")
 sys.exit(0 if all(ok for _, ok in RES) else 1)
