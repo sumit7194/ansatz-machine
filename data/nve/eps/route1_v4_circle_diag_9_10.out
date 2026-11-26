@@ -1,0 +1,27 @@
+== v4 circle diagnosis == spin 9/10|k in [1, 1.1]; circle 1.2639, 17955 steps; rho = 3, R <= 8.334E-2  [155 s]
+  P (point) recomputed, B (disc) from checkpoint  [214 s]
+  S (sampled disc max at the midpoint, 9 k-points) done  [284 s]
+  weighted sums (row gauge C0; B-sum should equal the row constant 8.620): P 0.8874, S 0.7924, B 8.62; S/P 0.89 (intrinsic k-variation), B/S 10.88 (enclosure overhead), B/P 9.71
+  by polar angle of the midpoint (deg): share of the B-sum, share of the P-sum, weighted S/P, weighted B/S, min |1 - k_c phi|
+    [-180, -150): B   0.8%  P   4.3%  S/P   1.02  B/S   1.73  min|1-kphi| 0.758   (290 steps)
+    [-150, -120): B   1.9%  P   6.9%  S/P   1.02  B/S   2.62  min|1-kphi| 0.74   (3187 steps)
+    [-120,  -90): B   4.9%  P  14.6%  S/P   1.00  B/S   3.24  min|1-kphi| 0.74   (419 steps)
+    [ -90,  -60): B   5.2%  P  12.5%  S/P   0.97  B/S   4.20  min|1-kphi| 0.74   (398 steps)
+    [ -60,  -30): B  35.3%  P   4.4%  S/P   0.59  B/S 131.06  min|1-kphi| 0.74   (4337 steps)
+    [ -30,    0): B   1.8%  P   4.9%  S/P   0.83  B/S   4.14  min|1-kphi| 0.758   (347 steps)
+    [   0,   30): B   2.1%  P   5.0%  S/P   0.82  B/S   4.88  min|1-kphi| 0.758   (345 steps)
+    [  30,   60): B  34.8%  P   4.4%  S/P   0.59  B/S 130.58  min|1-kphi| 0.74   (4337 steps)
+    [  60,   90): B   5.8%  P  12.3%  S/P   0.97  B/S   4.69  min|1-kphi| 0.74   (398 steps)
+    [  90,  120): B   4.8%  P  19.6%  S/P   0.74  B/S   3.23  min|1-kphi| 0.74   (418 steps)
+    [ 120,  150): B   1.9%  P   6.9%  S/P   1.02  B/S   2.62  min|1-kphi| 0.74   (3188 steps)
+    [ 150,  180): B   0.8%  P   4.3%  S/P   1.02  B/S   1.73  min|1-kphi| 0.758   (291 steps)
+  the 8 steps with the largest B contribution: angle, B/P, S/P, |1 - k_c phi|
+      -43.63  B/P 14895.25  S/P   0.12  |1-kphi| 0.745
+      -43.62  B/P 14952.86  S/P   0.12  |1-kphi| 0.745
+      -43.62  B/P 15011.15  S/P   0.13  |1-kphi| 0.745
+      -43.61  B/P 15070.20  S/P   0.13  |1-kphi| 0.745
+      -43.61  B/P 15129.96  S/P   0.13  |1-kphi| 0.745
+       43.63  B/P 14899.46  S/P   0.12  |1-kphi| 0.745
+       43.62  B/P 14957.09  S/P   0.12  |1-kphi| 0.745
+       43.62  B/P 15015.38  S/P   0.13  |1-kphi| 0.745
+  done in 284 s
