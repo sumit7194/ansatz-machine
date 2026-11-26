@@ -21,6 +21,7 @@ pause-only guard (never paused), 17:04:02 to 17:20:24, rc 0. The node file was n
 **All ten sealed items hit.** The 3% doubt (an evaluator failure on the widest ellipse) did not happen: all 8 ellipse
 points at ρ = 6.5 evaluated, with F radii 1.3e−9 to 1.5e−9.
 
-**What this establishes:** the v4 spin-3/5 row ρ = 6.5 certifies [1, 1.1] at its own n = 12. The equal-n run had
-needed n = 24 at ρ = 4 (|F| ≥ 0.265334372 there; the n = 12 bound is lower because its error bound is larger). At
-spin 3/5, v4's smaller constants halve the node count for this segment, which feeds the P1–P3 cost redo.
+**What this establishes:** the v4 spin-3/5 row ρ = 6.5 certifies [1, 1.1] at its own n = 12. v2's certificate for
+this segment used n = 24 (|F| ≥ 0.265023401), and v4 at the same n = 24 gave |F| ≥ 0.265334372. At n = 12 the bound is
+lower (0.265039275) because the interpolation error bound is larger, but it is still far from zero. So at spin 3/5, v4
+halves the node count for this segment, which feeds into the P1–P3 cost redo.
