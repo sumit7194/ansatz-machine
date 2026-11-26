@@ -4704,3 +4704,18 @@ pole-order-1 Carter² survival.
   chain holds at 4 complex k on the disc (‖T‖ ≈ 1.06 against e^I ≤ 2233).
 - **A vertex gap in the Part B walk** was confirmed and noted against Part B; v2 closes it.
 - **Record:** data/nve/ROUTE1_OFFICE_CHECK.md. Nothing public changed; route (i) is not registered.
+
+## 2026-11-26 (morning) — Centred enclosure of dq/dk built (office, branch office/2026-11-26-centred-encl)
+- **Seal first** (67c7661), then the v3 proof stage (8b9971c): a z-centred Taylor model of dq/dk, plus a Cauchy
+  remainder from v2's crude bound.
+- **Spin 3/5.** Point constants are at the intrinsic level (circle 10.5 → 0.415). On the k-disc: circle 14.3 → 4.30,
+  lasso 72.6 → 41.6; n 24 → 18; M_F 6.6e10 → 1.5e7. It CERTIFIES through Fable's unchanged verdict:
+  |F| ≥ 0.265035987.
+- **Spin 9/10.** Point constants collapse (478 → 0.773, 83.6 → 21.8), but the k-disc does not improve: the Laurent
+  series with k as a ball inflates. n stays at 134.
+- **Next fix designed:** Taylor in k with point-k_c Laurents, plus a closed-form Cauchy bound on ∂²_k c0″.
+- **Process.** Two of my own runs were stopped and relaunched. One had a mistaken relaunch before an edit had applied
+  (caught); one hit a series-division error, now handled as a fallback. The v2 logs on the branch were restored after
+  my runs appended to them.
+- **Seal:** the n at spin 3/5 and the certification HIT; the disc constants MISSED (k-direction not foreseen).
+- **Record:** data/nve/ROUTE1_CENTRED_OFFICE.md; two-column table added to docs/ROUTE1_REGISTRATION_INPUT.md.

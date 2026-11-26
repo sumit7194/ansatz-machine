@@ -52,3 +52,21 @@ before any run.
 - **Every remaining limit listed beside the time estimate.** B5 estimates 3–20 core-h per spin for region A on a busy
   machine, and under 2 h with the step fix.
 - **One core, nice 12,** and the core counts toward the fleet's 9.
+
+## Measured Dyson constants (added 2026-11-26): two columns, certified-as-coded and intrinsic
+Optimised-gauge exponent per unit k at k_c = 21/20 (sources: `data/nve/ROUTE1_9_10_OFFICE_DIAG.md`,
+`data/nve/ROUTE1_CENTRED_OFFICE.md`).
+
+| | v2 as coded | v3 centred in z | intrinsic (float) |
+|---|---|---|---|
+| spin 3/5 circle, point / k-disc (ρ = 4) | 10.5 / 14.3 | 0.415 / 4.30 | 0.36 |
+| spin 3/5 lasso, point / k-disc | 45.8 / 72.6 | 9.33 / 41.6 | — |
+| spin 9/10 circle, point / k-disc (ρ = 3) | 478 / — | 0.773 / 669 | 0.65 |
+| spin 9/10 lasso, point / k-disc | 83.6 / — | 21.8 / 124 | — |
+| n (segment [1, 1.1]) | 24 (3/5), 140 (9/10) | 18 (3/5, certified), 134 (9/10) | — |
+
+**Two rules for the registration:**
+- **Do NOT use any cost estimate built on the as-coded constants,** e.g. Fable's ~250–300 core-h for spin 9/10
+  region A. It is an enclosure artifact.
+- **Re-estimate the cost** once the k-Taylor fix (ROUTE1_CENTRED_OFFICE.md, "The next fix") brings the k-disc
+  constants near the point constants.
