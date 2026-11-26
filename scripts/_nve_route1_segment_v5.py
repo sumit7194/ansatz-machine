@@ -13,7 +13,11 @@ The mathematics is v4's, unchanged: this file imports v2, v3, v4 (and Part B's p
   F3  Coverage counts go into the proof JSON (per loop: steps, step bounds, k-sub-boxes, pairs), and the verdict
       stage asserts them against counts it recomputes from the step lists' lengths, plus the code hash. v2's own
       boxes == expected_boxes assert is then fed real numbers again (v4's wrappers had set both to [0, 0]).
-Segments: still v2's single segment [1, 1.1] (seg_centres(1)); generalising that is a registration item.
+Segments: v2's single segment [1, 1.1] by default. v5.1 (for pilot P3): R1_KC and R1_HALF (exact rationals, e.g.
+R1_KC=2 R1_HALF=1/20) move the PROOF stage to [kc - half, kc + half], with the lasso and singular points of k = R1_KC
+from the floats file and every output file tagged _kc<kc>. Unset, every line of v5 runs as before. The verdict
+stage refuses a moved segment (v2's verdict and node stages still state [1, 1.1]); generalising them is a
+registration item.
     NVE_SPIN=3/5 R1_R0=1.35 nice -n 15 <quantum python> -I -u scripts/_nve_route1_segment_v5.py prove
     NVE_SPIN=3/5 R1_R0=1.35 nice -n 15 <quantum python> -I -u scripts/_nve_route1_segment_v5.py verdict
 Outputs: data/nve/eps/route1_seg_*_v5{TAG}_<hash>*. One process, one core, < 300 MB."""
@@ -43,11 +47,28 @@ CODE = hashlib.sha256(b"".join(open(os.path.join(HERE, f), "rb").read() for f in
                       + ENVSTR.encode()).hexdigest()[:16]
 A = V.A
 KSUB2 = V.KSUB * V.KSUB
-BASE = f"v5{V.TAG}_{CODE}"
+# v5.1: the segment from the environment (P3). Default: v2's SEG and seg_centres untouched, floats key "21/20".
+KCS, HALFS = os.environ.get("R1_KC"), os.environ.get("R1_HALF", "1/20")
+KREF = "21/20"
+KTAG = ""
+if KCS is not None:
+    from flint import fmpq
+    _q = lambda t: fmpq(*[int(x) for x in t.split("/")]) if "/" in t else fmpq(int(t))
+    _kc, _h = _q(KCS), _q(HALFS)
+    assert _h > 0 and _kc - _h > 0
+    V.SEG = f"spin {V.SPIN}|k in [{_kc - _h}, {_kc + _h}]"
+
+    def _seg_centres(nseg):
+        assert nseg == 1, "v5.1 moves one segment only"
+        return [(arb(_kc), arb(_h))]
+    V.seg_centres = _seg_centres
+    KREF, KTAG = KCS, "_kc" + KCS.replace("/", "o") + "h" + HALFS.replace("/", "o")
+    V.FLOATS = os.environ.get("R1_FLOATS", V.FLOATS)   # P3's own floats file (the committed ones stay untouched)
+BASE = f"v5{V.TAG}{KTAG}_{CODE}"
 S4.CKFILE = os.path.join(V.OUTD, f"route1_seg_{BASE}_dqck.jsonl")
 ROWS = os.path.join(V.OUTD, f"route1_seg_{BASE}_rows.jsonl")
 MJSON = os.path.join(V.OUTD, f"route1_seg_M_{BASE}_nseg1.json")
-LOG5 = os.path.join(V.OUTD, f"route1_seg_{V.SPIN.replace('/', '_')}_v5.out")
+LOG5 = os.path.join(V.OUTD, f"route1_seg_{V.SPIN.replace('/', '_')}{KTAG}_v5.out")
 F1_COUNT = dict(step=0, series=0)
 
 
@@ -162,7 +183,7 @@ def prove():
     t0 = time.time()
     V.coverage_asserts()
     nck, nrows = refuse_foreign(S4.CKFILE, "key"), refuse_foreign(ROWS)
-    ref = json.load(open(os.path.join(V.OUTD, V.FLOATS)))["21/20"]
+    ref = json.load(open(os.path.join(V.OUTD, V.FLOATS)))[KREF]
     sing = [complex(float(p[0]), float(p[1])) for p in ref["points"]]
     lasso = [complex(float(p[0]), float(p[1])) for p in ref["lasso"]]
     say(f"== prove (v5 = v4 + F1 branch assert, F2 code-hash keys, F3 coverage counts) == {V.SEG}; circle {V.R0S}; "
@@ -212,6 +233,7 @@ def prove():
 
 # --------------------------------------------------------------------------------- verdict (v2's, with F2/F3)
 def verdict():
+    assert KCS is None, "v5.1: the verdict stage runs only on the default segment [1, 1.1]"
     J = json.load(open(MJSON))
     assert J["code"] == CODE, f"F2 gate: proof file from code {J['code']}, running code {CODE}"
     ch = dict(J["chosen"])
