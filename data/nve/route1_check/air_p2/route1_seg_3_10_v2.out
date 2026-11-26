@@ -1,0 +1,5 @@
+    z = (0.3+1.3162j): |D0 - FD| <= 5.6e-16, |D1 - FD| <= 8.7e-16; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True  -> ok
+    z = (-1.35+0j): |D0 - FD| <= 5.0e-16, |D1 - FD| <= 6.9e-16; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True  -> ok
+    z = (1.757-0.003j): |D0 - FD| <= 3.0e-16, |D1 - FD| <= 3.3e-16; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True  -> ok
+    z = (2.05-0.03j): |D0 - FD| <= 2.2e-16, |D1 - FD| <= 2.1e-16; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True  -> ok
+    z = (2.11+0.55j): |D0 - FD| <= 2.0e-16, |D1 - FD| <= 1.8e-16; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True  -> ok
