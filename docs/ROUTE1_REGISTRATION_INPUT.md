@@ -57,16 +57,17 @@ before any run.
 Optimised-gauge exponent per unit k at k_c = 21/20 (sources: `data/nve/ROUTE1_9_10_OFFICE_DIAG.md`,
 `data/nve/ROUTE1_CENTRED_OFFICE.md`).
 
-| | v2 as coded | v3 centred in z | intrinsic (float) |
-|---|---|---|---|
-| spin 3/5 circle, point / k-disc (ρ = 4) | 10.5 / 14.3 | 0.415 / 4.30 | 0.36 |
-| spin 3/5 lasso, point / k-disc | 45.8 / 72.6 | 9.33 / 41.6 | — |
-| spin 9/10 circle, point / k-disc (ρ = 3) | 478 / — | 0.773 / 669 | 0.65 |
-| spin 9/10 lasso, point / k-disc | 83.6 / — | 21.8 / 124 | — |
-| n (segment [1, 1.1]) | 24 (3/5), 140 (9/10) | 18 (3/5, certified), 134 (9/10) | — |
+| | v2 as coded | v3 centred in z | v4 + k-Taylor | intrinsic (float) |
+|---|---|---|---|---|
+| spin 3/5 circle, point / k-disc (ρ = 4) | 10.5 / 14.3 | 0.415 / 4.30 | 0.415 / 1.039 | 0.36 |
+| spin 3/5 lasso, point / k-disc | 45.8 / 72.6 | 9.33 / 41.6 | 9.33 / 15.8 | — |
+| spin 9/10 circle, point / k-disc (ρ = 3) | 478 / — | 0.773 / 669 | 0.773 / 8.62 | 0.65 |
+| spin 9/10 lasso, point / k-disc | 83.6 / — | 21.8 / 124 | 21.8 / 34.5 | — |
+| n (segment [1, 1.1]) | 24 (3/5), 140 (9/10) | 18 (3/5, certified), 134 (9/10) | 12 (3/5), 18 (9/10) | — |
 
 **Two rules for the registration:**
 - **Do NOT use any cost estimate built on the as-coded constants,** e.g. Fable's ~250–300 core-h for spin 9/10
   region A. It is an enclosure artifact.
-- **Re-estimate the cost** once the k-Taylor fix (ROUTE1_CENTRED_OFFICE.md, "The next fix") brings the k-disc
-  constants near the point constants.
+- **Re-estimate the cost** from the v4 column (`data/nve/ROUTE1_KTAYLOR_OFFICE.md`). At spin 9/10 one 0.1-wide
+  segment costs about 1.1 core-h of proof plus about 1.5 core-h of nodes (n = 18). The 9/10 circle stays 11× its point
+  value on the k-disc (cause not yet measured).

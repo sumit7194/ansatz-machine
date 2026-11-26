@@ -4719,3 +4719,20 @@ pole-order-1 Carter² survival.
   my runs appended to them.
 - **Seal:** the n at spin 3/5 and the certification HIT; the disc constants MISSED (k-direction not foreseen).
 - **Record:** data/nve/ROUTE1_CENTRED_OFFICE.md; two-column table added to docs/ROUTE1_REGISTRATION_INPUT.md.
+
+## 2026-11-26 (late morning) — v4: k-Taylor starting values; the power cut; 9/10 n 134 → 18
+- **Power cut at about 06:52.** The v4 worktree in /private/tmp was cleared at boot.
+  - Restored the code verbatim from the transcript (d08b1ca).
+  - Reran spin 3/5: every pre-cut number reproduced.
+  - New per-step fsynced checkpoint, with a resume test that passes (7187b5b).
+- **Rule:** no worktrees in /private/tmp.
+- **v4 sets the z-series starting values in v2's k-Taylor form,** with the remainder enclosed by d2kc0.
+  - Spin 3/5: disc constants 1.04 / 15.8 per unit k (v3: 4.30 / 41.6); n = 12. It certifies at equal n = 24 with
+    every bound ≥ v2's (the Bridge's equal-n rule).
+  - Spin 9/10: disc constants 8.62 / 34.5 (v3: 669 / 124); n = 18 at ρ = 4 (v3: 134). 4070 s.
+- **Seal:** every prediction HIT except the 9/10 circle disc ratio (11× against 1.2–5×). The likely cause was named
+  in advance: the inner poles.
+- **Reproducibility:** v3 is byte-identical from 8b9971c.
+- **Record:** data/nve/ROUTE1_KTAYLOR_OFFICE.md. The registration input now has a v4 column.
+- **Next:** the full 9/10 segment verdict, about 30 node evaluations, about 1.5–2.5 core-h. It waits for the
+  Bridge's word.
