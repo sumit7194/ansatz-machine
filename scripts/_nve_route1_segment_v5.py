@@ -200,6 +200,14 @@ def prove():
     M1, st1 = V.walk(lasso, acb(kc), lau_c, sing, record=True)
     say(f"  self-test {st_ok}; reference: circle {len(st0)} steps, lasso {len(st1)} steps; F1 checks so far {F1_COUNT}  "
         f"[{time.time() - t0:.0f} s]")
+    # v4's z-direction control with K a point, restored (T1 on 7f96efc found it missing: v4's cumulative STATS
+    # include this pass, so every v5 row's stats was short by one pass over the steps). Same code as v4's prove.
+    pt = {}
+    for nm, st in (("circle", st0), ("lasso", st1)):
+        d4, _w, rat = S4.dq_list_v4(st, kc, arb(0), lau_c, laud_c)
+        pt[nm] = (V.dyson_sum(st, d4, V.gauge(st, d4)), max(rat), sorted(rat)[len(rat) // 2])
+        say(f"  {nm}, K a point (z-direction control; v3 printed 4.153E-1 / 9.325E+0 at 3/5, 7.734E-1 / 2.179E+1 at 9/10): "
+            f"v4 <= {V.hi_sci(pt[nm][0])}   [{time.time() - t0:.0f} s]")
     done = {}
     if os.path.exists(ROWS):
         for line in open(ROWS):
@@ -226,8 +234,9 @@ def prove():
             f"F1 checks {row['f1']}   [{row['sec']} s]")
     rows = [done[r] for r in S4.RHOS4 if r in done and "rejected" not in done[r]]
     best = min(rows, key=lambda r: (r["n"], float(arb(r["errF"]).mid()))) if rows else None
-    out = dict(seg=V.SEG, version=5, code=CODE, code_env=ENVSTR, code_files=list(CODE_FILES), rows=rows, chosen=best, selftest=st_ok,
-               steps=[len(st0), len(st1)], env=dict(python=sys.version.split()[0], flint=flint.__version__,
+    out = dict(seg=V.SEG, version=5, norder=S4.NORD, code=CODE, code_env=ENVSTR, code_files=list(CODE_FILES), rows=rows, chosen=best, selftest=st_ok,
+               steps=[len(st0), len(st1)], point_constants={k: [V.ser(v[0]), v[1], v[2]] for k, v in pt.items()},
+               env=dict(python=sys.version.split()[0], flint=flint.__version__,
                                                     interpreter=sys.executable))
     json.dump(out, open(MJSON, "w"), indent=1)
     if best:

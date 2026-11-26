@@ -38,3 +38,12 @@ n(9/10) = 18, and c1(3/10) < c1(3/5) < c1(4/5) < c1(9/10) at every ρ.
 **What would surprise me:** a rejected row at either spin at k ≈ 1 (the Laurent precondition has only been seen to fail
 near k = 4), or a 3/10 circle constant larger than 3/5's. Neither invalidates anything; P2 measures cost, it certifies
 nothing.
+
+## Amendment, committed before any P2 computation (2026-11-26, after T1 on 7f96efc)
+
+T1 on 7f96efc **failed**. Every bound and gauge in the v5 rows equals v4's; the difference is one diagnostic field,
+`stats`. v5 had dropped v4's K-point z-direction control, and v4's cumulative counters include that pass. The proof
+JSON also lacked `norder` and `point_constants`. By the condition above, **P2 does not run on v5.** It runs on **v4
+(c2dd39c's `_nve_route1_segment_v4.py`, unchanged), as the registration words it.** The runner is `p2.sh` v2: the same
+floats step, then v4's proof stage under `.venv313`, refusing if any v4 3/10 or 4/5 file exists. Every prediction above is unchanged,
+except the F1 row, which does not apply: v4 has no F1 gate.

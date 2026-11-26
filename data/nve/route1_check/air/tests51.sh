@@ -12,7 +12,7 @@ for f in $E/*_$CODE*(N); do echo "REFUSE: $f exists"; exit 1; done
 echo "=== T1' v5.1 prove $(date '+%F %T') $(.venv313/bin/python -V)"
 .venv313/bin/python -I -u scripts/_nve_route1_segment_v5.py prove || exit 1
 echo "=== T1' compare $(date '+%F %T')"
-.venv313/bin/python -I -u scripts/_nve_route1_t1_compare.py $E/route1_seg_v4_rows.jsonl $E/route1_seg_v5_${CODE}_rows.jsonl || exit 1
+T1_MJSON=$E/route1_seg_M_v4_nseg1_T1run.json:$E/route1_seg_M_v5_${CODE}_nseg1.json .venv313/bin/python -I -u scripts/_nve_route1_t1_compare.py $E/route1_seg_v4_rows.jsonl $E/route1_seg_v5_${CODE}_rows.jsonl || exit 1
 echo "=== T2-T4' $(date '+%F %T')"
 .venv313/bin/python -I -u scripts/_nve_route1_t234.py || exit 1
 echo "=== TESTS51_DONE $(date '+%F %T')"
