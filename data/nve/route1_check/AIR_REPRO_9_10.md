@@ -60,3 +60,15 @@ which would need python-flint 0.9.0 installed there) and has not been done.
   6336 exited rc 143" and a "JOB_EXIT 143". That launch was stopped by me (my own PIDs, 6336 and 6344) 30 s in, and its
   partial outputs were cleared before the relaunch as PID 6431.
 - Wall time per row was 1082, 1241, 1951 and 2331 s on the Air, against 936, 968, 976 and 964 s on the Mac mini.
+
+## Follow-up (2026-11-26, the Bridge's ruling: get the exact reproduction)
+
+- **Correction:** the Air's 3.14 venv has numpy 2.4.6, but the committed 3.13.12 run had numpy 2.5.0 (Quantum's venv,
+  no numba). `README.md` said all package versions matched; it now says which one did not. numpy is not in the gauge
+  path (plain Python doubles), so this does not change the diagnosis above, but it is recorded as a second difference.
+- **Installed on the Air:** Homebrew python@3.13 **3.13.18** (Homebrew does not offer 3.13.12), in `.venv313` with
+  python-flint 0.9.0, mpmath 1.3.0, sympy 1.14.0, numpy 2.5.0. Under 3.13.18, `float_ops_hash.py` gives the same hashes as
+  3.13.12 for every operation, complex x complex included (d3b89778).
+- **Rerun launched** 14:26:24 Air time as `repro313.sh` (PID 15530) from nothing, with the 3.14 outputs moved to
+  `data/nve/eps/run314/`. The bar: byte-identical to the committed files, apart from the declared run-time and interpreter fields.
+  If it still differs, the patch level (3.13.18 against 3.13.12) is reported before going further.
