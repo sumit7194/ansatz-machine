@@ -31,7 +31,7 @@ from their own commits (shown in `ROUTE1_9_10_OFFICE_DIAG.md`).
 | spin 9/10, lasso, on the k-disc (ρ = 3) | | 123.8 | — |
 | spin 9/10, chosen (ρ, n), M_F | (3, 140), 4.7e62 | (3, 134), 1.83e60 | — |
 
-**Control: spin 3/5 CERTIFIES with v3** (`scripts/_nve_route1_v3_verdict.py`, which is Fable's unchanged v2 nodes and
+**Control: spin 3/5 CERTIFIES with v3 ("no weaker" FAILS narrowly, see the scorecard)** (`scripts/_nve_route1_v3_verdict.py`, which is Fable's unchanged v2 nodes and
 verdict stages, all-ball evaluator; n = 18; 19 nodes plus controls). For every real k ∈ [1, 1.1]:
 - |F| ≥ 0.265035987, BETTER than v2's 0.265023401;
 - |tr M0| ≥ 1.993158418, the same;
@@ -64,7 +64,10 @@ engine end values lie inside the node enclosures.
 | n 3/5: 10–18 | 18: **HIT** |
 | n 9/10: 12–40 | 134: **MISS** |
 | P(n at 9/10 ≤ 40) = 75% | no |
-| spin 3/5 certifies, no weaker | **HIT** (every M smaller; F bound better; tr M1 margin −1.3e−8 from the node choice) |
+| spin 3/5 certifies, no weaker (the Bridge's control) | certifies: **PASS**; no weaker: **FAIL** by 1.3e−8 on \|Im tr M1\| (fewer nodes: 18 against 24); \|F\| better, \|tr M0\| unchanged. Graded by the Bridge 2026-11-26 |
+
+**Lesson (Bridge grading):** a "no weaker" control must fix n, or compare at equal n. Otherwise a cheaper node choice can
+lower a margin while every proved M improves. The next control (k-Taylor) compares spin 3/5 at n = 24.
 
 **Why the seal missed.** I predicted the k-disc behaviour from the point behaviour and did not foresee the k-ball
 inflation of the Laurent series. A lesson: seal the k-direction separately from the z-direction.
