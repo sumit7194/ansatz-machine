@@ -6,7 +6,8 @@ The mathematics is v4's, unchanged: this file imports v2, v3, v4 (and Part B's p
   F1  Re(1 - k phi(z)) > 0 is ASSERTED at every expansion point of a series step: v2's Taylor step (reference walks
       and node evaluations) and v4's dq-series at the step midpoint (k a ball). A failure raises AssertionError, a
       correctness gate: it is NOT the "refused box, halve rho" path (v2's safe_step catches only RuntimeError).
-  F2  A code hash (sha256 of proto, v2, v3, v4 and this file) is part of every checkpoint key: the per-step dq
+  F2  A code hash (sha256 of proto, v2, v3, v4, this file, and [A1] the Python and python-flint versions and the
+      working precision) is part of every checkpoint key: the per-step dq
       checkpoint, the rows file and the node file. Files are named by the hash, and every record carries it; a
       record whose hash differs from the running code makes the run STOP (it is never reused).
   F3  Coverage counts go into the proof JSON (per loop: steps, step bounds, k-sub-boxes, pairs), and the verdict
@@ -35,7 +36,11 @@ import _nve_route1_segment_v4 as S4                # noqa: E402
 HERE = os.path.dirname(os.path.abspath(__file__))
 CODE_FILES = ("_nve_route1_proto.py", "_nve_route1_segment_v2.py", "_nve_route1_segment_v3.py",
               "_nve_route1_segment_v4.py", "_nve_route1_segment_v5.py")
-CODE = hashlib.sha256(b"".join(open(os.path.join(HERE, f), "rb").read() for f in CODE_FILES)).hexdigest()[:16]
+# A1 (the Bridge's v5 read): the hash also covers the run-time environment that does the arithmetic, so a checkpoint
+# written by another Python or python-flint version (e.g. the other machine) is refused like one from other code.
+ENVSTR = f"python {sys.version.split()[0]}; python-flint {flint.__version__}; prec {ctx.prec}"
+CODE = hashlib.sha256(b"".join(open(os.path.join(HERE, f), "rb").read() for f in CODE_FILES)
+                      + ENVSTR.encode()).hexdigest()[:16]
 A = V.A
 KSUB2 = V.KSUB * V.KSUB
 BASE = f"v5{V.TAG}_{CODE}"
@@ -195,7 +200,7 @@ def prove():
             f"F1 checks {row['f1']}   [{row['sec']} s]")
     rows = [done[r] for r in S4.RHOS4 if r in done and "rejected" not in done[r]]
     best = min(rows, key=lambda r: (r["n"], float(arb(r["errF"]).mid()))) if rows else None
-    out = dict(seg=V.SEG, version=5, code=CODE, code_files=list(CODE_FILES), rows=rows, chosen=best, selftest=st_ok,
+    out = dict(seg=V.SEG, version=5, code=CODE, code_env=ENVSTR, code_files=list(CODE_FILES), rows=rows, chosen=best, selftest=st_ok,
                steps=[len(st0), len(st1)], env=dict(python=sys.version.split()[0], flint=flint.__version__,
                                                     interpreter=sys.executable))
     json.dump(out, open(MJSON, "w"), indent=1)
