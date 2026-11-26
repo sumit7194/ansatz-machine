@@ -1,0 +1,11 @@
+== prove (v4: centred z-series, k-Taylor starting values, order 30) == spin 3/5|k in [1, 1.1]; circle 1.35; python 3.13.12, python-flint 0.9.0; prec 256 bits; rows (3.0, 4.0, 5.0, 6.5)
+  derivative self-test (v2's): True
+  reference: circle 2163 steps, lasso 703 steps, 16 s
+  circle, K a point (z-direction control; v3 printed 4.153E-1 / 9.325E+0 at 3/5, 7.734E-1 / 2.179E+1 at 9/10): v4 <= 4.153E-1   [21 s]
+  lasso, K a point (z-direction control; v3 printed 4.153E-1 / 9.325E+0 at 3/5, 7.734E-1 / 2.179E+1 at 9/10): v4 <= 9.325E+0   [23 s]
+  rho = 3.0: I0 <= 6.992E-2 (0.839/unit k), I1 <= 1.165E+0 (13.977/unit k); M_F <= 7.878E+3, M_trM0 <= 2.165E+0, M_trM1 <= 2.287E+1; n = 16; crude/v4 median 9.6 / 4.2; cumulative stats {'centred': 5731, 'crude_kept': 1, 'no_series': 0, 'no_d2k': 0, 'rout2': 5495, 'rout15': 236}   [125 s]
+  rho = 4.0: I0 <= 1.105E-1 (1.039/unit k), I1 <= 1.683E+0 (15.835/unit k); M_F <= 2.438E+4, M_trM0 <= 2.258E+0, M_trM1 <= 3.873E+1; n = 14; crude/v4 median 9.0 / 4.2; cumulative stats {'centred': 8596, 'crude_kept': 2, 'no_series': 0, 'no_d2k': 0, 'rout2': 8228, 'rout15': 368}   [134 s]
+  rho = 5.0: I0 <= 1.694E-1 (1.302/unit k), I1 <= 2.357E+0 (18.127/unit k); M_F <= 1.084E+5, M_trM0 <= 2.399E+0, M_trM1 <= 7.683E+1; n = 12; crude/v4 median 8.4 / 4.2; cumulative stats {'centred': 11459, 'crude_kept': 5, 'no_series': 0, 'no_d2k': 0, 'rout2': 10956, 'rout15': 505}   [156 s]
+  rho = 6.5: I0 <= 2.821E-1 (1.696/unit k), I1 <= 3.754E+0 (22.567/unit k); M_F <= 2.309E+6, M_trM0 <= 2.686E+0, M_trM1 <= 3.170E+2; n = 12; crude/v4 median 7.5 / 4.1; cumulative stats {'centred': 14322, 'crude_kept': 8, 'no_series': 0, 'no_d2k': 0, 'rout2': 13667, 'rout15': 657}   [155 s]
+  CHOSEN: rho = 6.5, n = 12 (13 Chebyshev points); M_F <= [2308695.67719486510
+  prove v4: 593 s, peak rss 37 MB

@@ -1,0 +1,28 @@
+== equal-n control: v3 proved M at v2's (rho, n) = (4, 24), on v2's node values (copy) ==
+  MF: v3 <= 1.538E+7, v2 <= 6.565E+10; v3 <= v2: True
+  MT0: v3 <= 3.220E+0, v2 <= 9.217E+0; v3 <= v2: True
+  MT1: v3 <= 6.666E+2, v2 <= 1.544E+4; v3 <= v2: True
+== nodes (arb evaluator) == NSEG = 1; 36 records already on disk
+  nodes: wall 0 s this call; peak rss 27 MB
+== verdict (v2; node values: arb evaluator, route1_seg_nodes_arb_v3eqn24.jsonl) == spin 3/5|k in [1, 1.1]; NSEG = 1
+  sub-segment 0 (k_c = 1.050000; rho = 4.0, n = 24; proved M_F <= 1.538E+7, M_trM0 <= 3.220E+0, M_trM1 <= 6.666E+2):
+    F:     min |p| >= 0.265334372; proved error bound <= 7.287E-8  -> |F| >= 0.265334299; F != 0: True
+    tr M0: min |p| >= 1.993158418; proved error bound <= 1.526E-14  -> |tr M0| >= 1.993158418; tr M0 != 0: True
+    tr M1: min |Im p| >= 2.648820919; proved error bound <= 3.158E-12  -> |Im tr M1| >= 2.648820919; tr M1 not in [-2, 2]: True
+    control, planted zero (F - F(k_c)): min |p| >= 0.000e+00, bound 7.287E-8 -> certificate REFUSED (as it must be)
+  VERDICT: CERTIFIED  (F != 0, tr M0 != 0, tr M1 not in [-2, 2] for every real k in [1, 1.1])
+  -- controls --
+  planted zero refused on every sub-segment: True
+  planted precondition at k = 4.2 +- 0.01 (complex box): certified False; a zero of 1 - k phi has |w| up to 10.4094 >= 1.2346: inside the Laurent disc
+  planted precondition at k = 4.01 +- 0.001 (complex box): certified False; a zero of 1 - k phi has |w| up to 1.3431 >= 1.2346: inside the Laurent disc
+  planted precondition at k = 4.0 +- 0.001 (complex box): certified True; max |w_root| 1.0996 < 1.2346
+  planted precondition at k = 1.05 +- 0.2 (complex box): certified True; max |w_root| 0.5789 < 1.2346
+  held-out, sub-segment 0, t = -5/8: |p - f| in [0.0e+00, 1.4e-07] (F), [0.0e+00, 9.0e-11] (tr M0), [0.0e+00, 1.3e-10] (tr M1)
+  held-out, sub-segment 0, t = 1/8: |p - f| in [0.0e+00, 1.3e-07] (F), [0.0e+00, 9.0e-11] (tr M0), [0.0e+00, 1.3e-10] (tr M1)
+  held-out, sub-segment 0, t = 3/4: |p - f| in [0.0e+00, 1.3e-07] (F), [0.0e+00, 9.2e-11] (tr M0), [0.0e+00, 1.2e-10] (tr M1)
+  held-out points consistent with interpolant +- bound: True
+  proved M >= sampled on the ellipse rho = 4.0 of sub-segment 0 (8 points): sampled max |F| 0.3629, |tr M0| 1.9950, |tr M1| 2.8860 -> True (overestimate x4.2e+07, x1.6e+00, x2.3e+02)
+  engine F, tr M0, tr M1 at k = 11/10 (an end node; the engine used its own lasso of that k): inside the node enclosures [True, True, True]; node radius of F 6.2e-09
+  engine F, tr M0, tr M1 at k = 1 (an end node; the engine used its own lasso of that k): inside the node enclosures [True, True, True]; node radius of F 3.8e-09
+  shrunken M (all bounds / 1e12): verdict still passes True; held-out inconsistencies: none; below the SAMPLED maximum for: ['F', 'tr M0', 'tr M1']
+  peak rss 27 MB
