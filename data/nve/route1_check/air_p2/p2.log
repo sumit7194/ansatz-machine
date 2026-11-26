@@ -1,0 +1,40 @@
+=== P2 floats spin 3/10 R0 1.1492 2026-11-26 18:17:26 Python 3.14.10
+21/20 F (0.0323598714923149 + 0.0612940820984055j) T0 (1.99924368379276 - 3.19662659327027e-48j) T1 (-1.79851488537841 + 1.30279693757678j) geo True 28s
+=== P2 prove spin 3/10 2026-11-26 18:17:57 Python 3.13.18
+== prove (v4: centred z-series, k-Taylor starting values, order 30) == spin 3/10|k in [1, 1.1]; circle 1.1492; python 3.13.18, python-flint 0.9.0; prec 256 bits; rows (3.0, 4.0, 5.0, 6.5)
+    z = (0.3+1.3162j): |D0 - FD| <= 5.6e-16, |D1 - FD| <= 8.7e-16; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True  -> ok
+    z = (-1.35+0j): |D0 - FD| <= 5.0e-16, |D1 - FD| <= 6.9e-16; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True  -> ok
+    z = (1.757-0.003j): |D0 - FD| <= 3.0e-16, |D1 - FD| <= 3.3e-16; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True  -> ok
+    z = (2.05-0.03j): |D0 - FD| <= 2.2e-16, |D1 - FD| <= 2.1e-16; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True  -> ok
+    z = (2.11+0.55j): |D0 - FD| <= 2.0e-16, |D1 - FD| <= 1.8e-16; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True  -> ok
+  derivative self-test (v2's): True
+  reference: circle 1988 steps, lasso 725 steps, 47 s
+  circle, K a point (z-direction control; v3 printed 4.153E-1 / 9.325E+0 at 3/5, 7.734E-1 / 2.179E+1 at 9/10): v4 <= 1.041E-1   [64 s]
+  lasso, K a point (z-direction control; v3 printed 4.153E-1 / 9.325E+0 at 3/5, 7.734E-1 / 2.179E+1 at 9/10): v4 <= 6.022E+0   [70 s]
+  rho = 3.0: I0 <= 1.280E-2 (0.154/unit k), I1 <= 7.265E-1 (8.717/unit k); M_F <= 7.847E+3, M_trM0 <= 2.027E+0, M_trM1 <= 1.362E+1; n = 16; crude/v4 median 10.7 / 4.1; cumulative stats {'centred': 5426, 'crude_kept': 0, 'no_series': 0, 'no_d2k': 0, 'rout2': 5326, 'rout15': 100}   [317 s]
+  rho = 4.0: I0 <= 1.842E-2 (0.173/unit k), I1 <= 1.033E+0 (9.715/unit k); M_F <= 1.452E+4, M_trM0 <= 2.038E+0, M_trM1 <= 1.843E+1; n = 14; crude/v4 median 10.2 / 4.1; cumulative stats {'centred': 8139, 'crude_kept': 0, 'no_series': 0, 'no_d2k': 0, 'rout2': 7985, 'rout15': 154}   [316 s]
+  rho = 5.0: I0 <= 2.562E-2 (0.197/unit k), I1 <= 1.422E+0 (10.935/unit k); M_F <= 3.194E+4, M_trM0 <= 2.053E+0, M_trM1 <= 2.713E+1; n = 12; crude/v4 median 9.5 / 4.0; cumulative stats {'centred': 10852, 'crude_kept': 0, 'no_series': 0, 'no_d2k': 0, 'rout2': 10644, 'rout15': 208}   [352 s]
+  rho = 6.5: I0 <= 4.004E-2 (0.241/unit k), I1 <= 2.204E+0 (13.249/unit k); M_F <= 1.570E+5, M_trM0 <= 2.083E+0, M_trM1 <= 5.926E+1; n = 10; crude/v4 median 8.7 / 3.9; cumulative stats {'centred': 13565, 'crude_kept': 0, 'no_series': 0, 'no_d2k': 0, 'rout2': 13302, 'rout15': 263}   [379 s]
+  CHOSEN: rho = 6.5, n = 10 (11 Chebyshev points); M_F <= [156990.102599969322
+  prove v4: 1433 s, peak rss 38 MB
+=== P2 floats spin 4/5 R0 1.3382 2026-11-26 18:41:50 Python 3.14.10
+21/20 F (0.22650781881149 + 0.0443598138927603j) T0 (1.98576063926201 - 8.10024643685233e-34j) T1 (-0.157780153370608 + 3.50329515910772j) geo True 174s
+=== P2 prove spin 4/5 2026-11-26 18:44:47 Python 3.13.18
+== prove (v4: centred z-series, k-Taylor starting values, order 30) == spin 4/5|k in [1, 1.1]; circle 1.3382; python 3.13.18, python-flint 0.9.0; prec 256 bits; rows (3.0, 4.0, 5.0, 6.5)
+    z = (0.3+1.3162j): |D0 - FD| <= 2.2e-15, |D1 - FD| <= 4.8e-15; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True  -> ok
+    z = (-1.35+0j): |D0 - FD| <= 9.7e-16, |D1 - FD| <= 9.6e-16; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True  -> ok
+    z = (1.757-0.003j): |D0 - FD| <= 6.6e-16, |D1 - FD| <= 5.9e-16; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True  -> ok
+    z = (2.05-0.03j): |D0 - FD| <= 5.1e-16, |D1 - FD| <= 4.2e-16; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True  -> ok
+    z = (2.11+0.55j): |D0 - FD| <= 4.7e-16, |D1 - FD| <= 3.7e-16; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True  -> ok
+  derivative self-test (v2's): True
+  reference: circle 2679 steps, lasso 796 steps, 73 s
+  circle, K a point (z-direction control; v3 printed 4.153E-1 / 9.325E+0 at 3/5, 7.734E-1 / 2.179E+1 at 9/10): v4 <= 6.287E-1   [99 s]
+  lasso, K a point (z-direction control; v3 printed 4.153E-1 / 9.325E+0 at 3/5, 7.734E-1 / 2.179E+1 at 9/10): v4 <= 1.698E+1   [107 s]
+  rho = 3.0: I0 <= 1.461E-1 (1.753/unit k), I1 <= 2.174E+0 (26.079/unit k); M_F <= 5.309E+4, M_trM0 <= 2.359E+0, M_trM1 <= 6.212E+1; n = 18; crude/v4 median 13.4 / 4.4; cumulative stats {'centred': 6949, 'crude_kept': 1, 'no_series': 0, 'no_d2k': 0, 'rout2': 6622, 'rout15': 327}   [484 s]
+  rho = 4.0: I0 <= 2.684E-1 (2.526/unit k), I1 <= 3.178E+0 (29.903/unit k); M_F <= 5.009E+5, M_trM0 <= 2.681E+0, M_trM1 <= 1.725E+2; n = 16; crude/v4 median 11.6 / 4.5; cumulative stats {'centred': 10422, 'crude_kept': 3, 'no_series': 0, 'no_d2k': 0, 'rout2': 9900, 'rout15': 523}   [483 s]
+  rho = 5.0: I0 <= 4.942E-1 (3.801/unit k), I1 <= 4.533E+0 (34.868/unit k); M_F <= 1.213E+7, M_trM0 <= 3.387E+0, M_trM1 <= 6.828E+2; n = 16; crude/v4 median 10.1 / 4.5; cumulative stats {'centred': 13887, 'crude_kept': 13, 'no_series': 0, 'no_d2k': 0, 'rout2': 13155, 'rout15': 740}   [477 s]
+  rho = 6.5: I0 <= 1.079E+0 (6.484/unit k), I1 <= 7.441E+0 (44.727/unit k); M_F <= 1.426E+10, M_trM0 <= 6.125E+0, M_trM1 <= 1.296E+4; n = 18; crude/v4 median 8.4 / 4.6; cumulative stats {'centred': 17339, 'crude_kept': 36, 'no_series': 0, 'no_d2k': 0, 'rout2': 16368, 'rout15': 986}   [475 s]
+  CHOSEN: rho = 5.0, n = 16 (17 Chebyshev points); M_F <= [12130285.8723386838
+  prove v4: 2026 s, peak rss 37 MB
+=== P2_DONE 2026-11-26 19:18:33
+JOB_EXIT 0

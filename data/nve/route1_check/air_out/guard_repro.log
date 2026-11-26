@@ -1,0 +1,3 @@
+2026-11-26 12:25:12 started repro pid 6431: ./repro.sh
+2026-11-26 12:25:24 repro pid 6336 exited rc 143
+2026-11-26 14:19:21 repro pid 6431 exited rc 0

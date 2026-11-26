@@ -1,0 +1,75 @@
+=== v5.1 code 2ba10dbd79a83372
+=== T1' v5.1 prove 2026-11-26 19:20:44 Python 3.13.18
+== prove (v5 = v4 + F1 branch assert, F2 code-hash keys, F3 coverage counts) == spin 3/5|k in [1, 1.1]; circle 1.35; code 2ba10dbd79a83372; python 3.13.18, python-flint 0.9.0; rows (3.0, 4.0, 5.0, 6.5); checkpoint records of this code already on disk: dq 0, rows 0
+    z = (0.3+1.3162j): |D0 - FD| <= 1.3e-15, |D1 - FD| <= 2.5e-15; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True  -> ok
+    z = (-1.35+0j): |D0 - FD| <= 8.5e-16, |D1 - FD| <= 9.9e-16; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True  -> ok
+    z = (1.757-0.003j): |D0 - FD| <= 5.4e-16, |D1 - FD| <= 5.4e-16; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True  -> ok
+    z = (2.05-0.03j): |D0 - FD| <= 4.1e-16, |D1 - FD| <= 3.6e-16; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True  -> ok
+    z = (2.11+0.55j): |D0 - FD| <= 3.7e-16, |D1 - FD| <= 3.2e-16; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True  -> ok
+  self-test True; reference: circle 2163 steps, lasso 703 steps; F1 checks so far {'step': 12304, 'series': 0}  [60 s]
+  circle, K a point (z-direction control; v3 printed 4.153E-1 / 9.325E+0 at 3/5, 7.734E-1 / 2.179E+1 at 9/10): v4 <= 4.153E-1   [82 s]
+  lasso, K a point (z-direction control; v3 printed 4.153E-1 / 9.325E+0 at 3/5, 7.734E-1 / 2.179E+1 at 9/10): v4 <= 9.325E+0   [88 s]
+  rho = 3.0: M_F <= 7.878E+3, n = 16; coverage {'circle': {'steps': 2163, 'bounds': 2163, 'ksub': 25, 'pairs': 54075}, 'lasso': {'steps': 703, 'bounds': 703, 'ksub': 25, 'pairs': 17575}}; F1 checks {'step': 12304, 'series': 74491}   [404 s]
+  rho = 4.0: M_F <= 2.438E+4, n = 14; coverage {'circle': {'steps': 2163, 'bounds': 2163, 'ksub': 25, 'pairs': 54075}, 'lasso': {'steps': 703, 'bounds': 703, 'ksub': 25, 'pairs': 17575}}; F1 checks {'step': 12304, 'series': 146116}   [402 s]
+  rho = 5.0: M_F <= 1.084E+5, n = 12; coverage {'circle': {'steps': 2163, 'bounds': 2163, 'ksub': 25, 'pairs': 54075}, 'lasso': {'steps': 703, 'bounds': 703, 'ksub': 25, 'pairs': 17575}}; F1 checks {'step': 12304, 'series': 217741}   [402 s]
+  rho = 6.5: M_F <= 2.309E+6, n = 12; coverage {'circle': {'steps': 2163, 'bounds': 2163, 'ksub': 25, 'pairs': 54075}, 'lasso': {'steps': 703, 'bounds': 703, 'ksub': 25, 'pairs': 17575}}; F1 checks {'step': 12304, 'series': 289316}   [397 s]
+  CHOSEN: rho = 6.5, n = 12
+  prove v5: 1694 s, peak rss 35 MB
+=== T1' compare 2026-11-26 19:48:58
+T1: 4 v4 rows, 4 v5 rows
+  rho = 3.0 / 3.0: IDENTICAL; v5 coverage {'circle': {'steps': 2163, 'bounds': 2163, 'ksub': 25, 'pairs': 54075}, 'lasso': {'steps': 703, 'bounds': 703, 'ksub': 25, 'pairs': 17575}}, F1 checks {'step': 12304, 'series': 74491}
+  rho = 4.0 / 4.0: IDENTICAL; v5 coverage {'circle': {'steps': 2163, 'bounds': 2163, 'ksub': 25, 'pairs': 54075}, 'lasso': {'steps': 703, 'bounds': 703, 'ksub': 25, 'pairs': 17575}}, F1 checks {'step': 12304, 'series': 146116}
+  rho = 5.0 / 5.0: IDENTICAL; v5 coverage {'circle': {'steps': 2163, 'bounds': 2163, 'ksub': 25, 'pairs': 54075}, 'lasso': {'steps': 703, 'bounds': 703, 'ksub': 25, 'pairs': 17575}}, F1 checks {'step': 12304, 'series': 217741}
+  rho = 6.5 / 6.5: IDENTICAL; v5 coverage {'circle': {'steps': 2163, 'bounds': 2163, 'ksub': 25, 'pairs': 54075}, 'lasso': {'steps': 703, 'bounds': 703, 'ksub': 25, 'pairs': 17575}}, F1 checks {'step': 12304, 'series': 289316}
+  proof JSON: IDENTICAL (v5 additions present: ['code', 'code_env', 'code_files'])
+T1 RESULT: PASS
+=== T2-T4' 2026-11-26 19:48:58
+== T2-T4 == spin 3/5|k in [1, 1.1]; code 2ba10dbd79a83372; python 3.13.18
+T2 control: untampered prove resumes: PASS  (rc 0; rows from checkpoint 4/4; proof JSON unchanged True)
+T2a foreign record in the dq checkpoint: PASS  (rc 1; other checkpoint files unchanged True; assert got == CODE, f"F2 gate: {os.path.basename(path)} holds a record from code {got}, not {CODE}: not reused")
+T2b foreign record in the rows file: PASS  (rc 1; other checkpoint files unchanged True; assert got == CODE, f"F2 gate: {os.path.basename(path)} holds a record from code {got}, not {CODE}: not reused")
+T2c foreign code in the proof JSON: PASS  (rc 1; other checkpoint files unchanged True; assert J["code"] == CODE, f"F2 gate: proof file from code {J['code']}, running code {CODE}")
+T4a circle pair count + 1: PASS  (rc 1; other checkpoint files unchanged True; assert c["bounds"] == c["steps"] and c["ksub"] == KSUB2 and c["pairs"] == c["steps"] * KSUB2, f"F3 gate: {loop} {c}")
+T4b lasso bound count + 1: PASS  (rc 1; other checkpoint files unchanged True; assert c["bounds"] == c["steps"] and c["ksub"] == KSUB2 and c["pairs"] == c["steps"] * KSUB2, f"F3 gate: {loop} {c}")
+T2/T4 control: untampered v5 verdict certifies: PASS  (rc 0; VERDICT: CERTIFIED  (F != 0, tr M0 != 0, tr M1 not in [-2, 2] for every real k in [1, 1.1]); F:     min |p| >= 0.265334466; proved error bound <= 2.952E-4  -> |F| >= 0.265039275; F != 0: True)
+9
+  spin 3/5|k in [1, 1.1]|seg0/1|ellipse4/8 rho=6.5: 59.12 s, steps [2166, 713], radius of F 1.4e-09
+  spin 3/5|k in [1, 1.1]|seg0/1|ellipse5/8 rho=6.5: 58.65 s, steps [2165, 710], radius of F 1.5e-09
+  spin 3/5|k in [1, 1.1]|seg0/1|ellipse6/8 rho=6.5: 58.81 s, steps [2165, 703], radius of F 1.5e-09
+  spin 3/5|k in [1, 1.1]|seg0/1|ellipse7/8 rho=6.5: 59.25 s, steps [2165, 702], radius of F 1.5e-09
+  nodes: wall 1417 s this call; peak rss 32 MB
+== verdict (v2; node values: arb evaluator, route1_seg_nodes_arb_v5cert_2ba10dbd79a83372.jsonl) == spin 3/5|k in [1, 1.1]; NSEG = 1
+  sub-segment 0 (k_c = 1.050000; rho = 6.5, n = 12; proved M_F <= 2.309E+6, M_trM0 <= 2.686E+0, M_trM1 <= 3.170E+2):
+    F:     min |p| >= 0.265334466; proved error bound <= 2.952E-4  -> |F| >= 0.265039275; F != 0: True
+    tr M0: min |p| >= 1.993158418; proved error bound <= 3.434E-10  -> |tr M0| >= 1.993158417; tr M0 != 0: True
+    tr M1: min |Im p| >= 2.648820919; proved error bound <= 4.052E-8  -> |Im tr M1| >= 2.648820879; tr M1 not in [-2, 2]: True
+    control, planted zero (F - F(k_c)): min |p| >= 0.000e+00, bound 2.952E-4 -> certificate REFUSED (as it must be)
+  VERDICT: CERTIFIED  (F != 0, tr M0 != 0, tr M1 not in [-2, 2] for every real k in [1, 1.1])
+  -- controls --
+  planted zero refused on every sub-segment: True
+  planted precondition at k = 4.2 +- 0.01 (complex box): certified False; a zero of 1 - k phi has |w| up to 10.4094 >= 1.2346: inside the Laurent disc
+  planted precondition at k = 4.01 +- 0.001 (complex box): certified False; a zero of 1 - k phi has |w| up to 1.3431 >= 1.2346: inside the Laurent disc
+  planted precondition at k = 4.0 +- 0.001 (complex box): certified True; max |w_root| 1.0996 < 1.2346
+  planted precondition at k = 1.05 +- 0.2 (complex box): certified True; max |w_root| 0.5789 < 1.2346
+  held-out, sub-segment 0, t = -5/8: |p - f| in [0.0e+00, 7.0e-08] (F), [0.0e+00, 5.3e-11] (tr M0), [0.0e+00, 7.1e-11] (tr M1)
+  held-out, sub-segment 0, t = 1/8: |p - f| in [0.0e+00, 6.8e-08] (F), [0.0e+00, 5.4e-11] (tr M0), [0.0e+00, 6.8e-11] (tr M1)
+  held-out, sub-segment 0, t = 3/4: |p - f| in [0.0e+00, 6.3e-08] (F), [0.0e+00, 5.2e-11] (tr M0), [0.0e+00, 6.5e-11] (tr M1)
+  held-out points consistent with interpolant +- bound: True
+  proved M >= sampled on the ellipse rho = 6.5 of sub-segment 0 (8 points): sampled max |F| 0.4052, |tr M0| 1.9956, |tr M1| 2.8978 -> True (overestimate x5.7e+06, x1.3e+00, x1.1e+02)
+  engine F, tr M0, tr M1 at k = 11/10 (an end node; the engine used its own lasso of that k): inside the node enclosures [True, True, True]; node radius of F 6.2e-09
+  engine F, tr M0, tr M1 at k = 1 (an end node; the engine used its own lasso of that k): inside the node enclosures [True, True, True]; node radius of F 3.8e-09
+  shrunken M (all bounds / 1e12): verdict still passes True; held-out inconsistencies: none; below the SAMPLED maximum for: ['F', 'tr M0', 'tr M1']
+  peak rss 32 MB
+  F1 checks in this process: {'step': 295603, 'series': 0}
+
+T4 control: verdict rerun reads every node from disk: PASS  (rc 0)
+T2d foreign record in the node file: PASS  (rc 1; other checkpoint files unchanged True; assert got == CODE, f"F2 gate: {os.path.basename(path)} holds a record from code {got}, not {CODE}: not reused")
+T3 point: z = [0.3502025685991798962472627785933421511691208736207188663817122230152694852589 +/- 5.19e-77] + [0.05139882346380412119001500581488178762450576091308641400972208870831338439593 +/- 3.60e-78]j, 1 - k phi = [-2.35611111111111111111111111111111111111111111111111111111111111111111111111 +/- 5.67e-75] + [-0.4666666666666666666666666666666666666666666666666666666666666666666666667 +/- 3.95e-74]j
+T3a v2 step via safe_step: PASS  (AssertionError: F1 gate: Re(1 - k phi) > 0 not certified at the expansion point of a Taylor step (z = [0.35020256859)
+T3b v4 dq-series: PASS  (AssertionError: F1 gate: Re(1 - k phi) > 0 not certified at the expansion point of a dq-series (z = [0.3502025685991)
+T3 control: gate passes on the reference circle: PASS  (1 - k phi = [0.766258902753789126670110149726742628128541440130104407185385570850328750844 +/- 1.42e-76]; patched step returned a step; F1 step checks 0 -> 1)
+B1 half-set environment ['R1_HALF', 'R1_KCC'] refused: PASS  (rc 1)
+B1 half-set environment ['R1_FLOATS'] refused: PASS  (rc 1)
+T2-T4 RESULT: PASS (14/14)
+=== TESTS51_DONE 2026-11-26 20:14:09
+JOB_EXIT 0

@@ -1,0 +1,40 @@
+=== T1 v4 prove 2026-11-26 17:25:59 Python 3.13.18
+== prove (v4: centred z-series, k-Taylor starting values, order 30) == spin 3/5|k in [1, 1.1]; circle 1.35; python 3.13.18, python-flint 0.9.0; prec 256 bits; rows (3.0, 4.0, 5.0, 6.5)
+    z = (0.3+1.3162j): |D0 - FD| <= 1.3e-15, |D1 - FD| <= 2.5e-15; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True  -> ok
+    z = (-1.35+0j): |D0 - FD| <= 8.5e-16, |D1 - FD| <= 9.9e-16; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True  -> ok
+    z = (1.757-0.003j): |D0 - FD| <= 5.4e-16, |D1 - FD| <= 5.4e-16; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True  -> ok
+    z = (2.05-0.03j): |D0 - FD| <= 4.1e-16, |D1 - FD| <= 3.6e-16; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True  -> ok
+    z = (2.11+0.55j): |D0 - FD| <= 3.7e-16, |D1 - FD| <= 3.2e-16; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True  -> ok
+  derivative self-test (v2's): True
+  reference: circle 2163 steps, lasso 703 steps, 40 s
+  circle, K a point (z-direction control; v3 printed 4.153E-1 / 9.325E+0 at 3/5, 7.734E-1 / 2.179E+1 at 9/10): v4 <= 4.153E-1   [56 s]
+  lasso, K a point (z-direction control; v3 printed 4.153E-1 / 9.325E+0 at 3/5, 7.734E-1 / 2.179E+1 at 9/10): v4 <= 9.325E+0   [62 s]
+  rho = 3.0: I0 <= 6.992E-2 (0.839/unit k), I1 <= 1.165E+0 (13.977/unit k); M_F <= 7.878E+3, M_trM0 <= 2.165E+0, M_trM1 <= 2.287E+1; n = 16; crude/v4 median 9.6 / 4.2; cumulative stats {'centred': 5731, 'crude_kept': 1, 'no_series': 0, 'no_d2k': 0, 'rout2': 5495, 'rout15': 236}   [335 s]
+  rho = 4.0: I0 <= 1.105E-1 (1.039/unit k), I1 <= 1.683E+0 (15.835/unit k); M_F <= 2.438E+4, M_trM0 <= 2.258E+0, M_trM1 <= 3.873E+1; n = 14; crude/v4 median 9.0 / 4.2; cumulative stats {'centred': 8596, 'crude_kept': 2, 'no_series': 0, 'no_d2k': 0, 'rout2': 8228, 'rout15': 368}   [336 s]
+  rho = 5.0: I0 <= 1.694E-1 (1.302/unit k), I1 <= 2.357E+0 (18.127/unit k); M_F <= 1.084E+5, M_trM0 <= 2.399E+0, M_trM1 <= 7.683E+1; n = 12; crude/v4 median 8.4 / 4.2; cumulative stats {'centred': 11459, 'crude_kept': 5, 'no_series': 0, 'no_d2k': 0, 'rout2': 10956, 'rout15': 505}   [338 s]
+  rho = 6.5: I0 <= 2.821E-1 (1.696/unit k), I1 <= 3.754E+0 (22.567/unit k); M_F <= 2.309E+6, M_trM0 <= 2.686E+0, M_trM1 <= 3.170E+2; n = 12; crude/v4 median 7.5 / 4.1; cumulative stats {'centred': 14322, 'crude_kept': 8, 'no_series': 0, 'no_d2k': 0, 'rout2': 13667, 'rout15': 657}   [336 s]
+  CHOSEN: rho = 6.5, n = 12 (13 Chebyshev points); M_F <= [2308695.67719486510
+  prove v4: 1407 s, peak rss 42 MB
+=== T1 v5 prove 2026-11-26 17:49:26
+== prove (v5 = v4 + F1 branch assert, F2 code-hash keys, F3 coverage counts) == spin 3/5|k in [1, 1.1]; circle 1.35; code fd9849c0f1718000; python 3.13.18, python-flint 0.9.0; rows (3.0, 4.0, 5.0, 6.5); checkpoint records of this code already on disk: dq 0, rows 0
+    z = (0.3+1.3162j): |D0 - FD| <= 1.3e-15, |D1 - FD| <= 2.5e-15; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True  -> ok
+    z = (-1.35+0j): |D0 - FD| <= 8.5e-16, |D1 - FD| <= 9.9e-16; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True  -> ok
+    z = (1.757-0.003j): |D0 - FD| <= 5.4e-16, |D1 - FD| <= 5.4e-16; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True  -> ok
+    z = (2.05-0.03j): |D0 - FD| <= 4.1e-16, |D1 - FD| <= 3.6e-16; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True  -> ok
+    z = (2.11+0.55j): |D0 - FD| <= 3.7e-16, |D1 - FD| <= 3.2e-16; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True  -> ok
+  self-test True; reference: circle 2163 steps, lasso 703 steps; F1 checks so far {'step': 12304, 'series': 0}  [51 s]
+  rho = 3.0: M_F <= 7.878E+3, n = 16; coverage {'circle': {'steps': 2163, 'bounds': 2163, 'ksub': 25, 'pairs': 54075}, 'lasso': {'steps': 703, 'bounds': 703, 'ksub': 25, 'pairs': 17575}}; F1 checks {'step': 12304, 'series': 71625}   [338 s]
+  rho = 4.0: M_F <= 2.438E+4, n = 14; coverage {'circle': {'steps': 2163, 'bounds': 2163, 'ksub': 25, 'pairs': 54075}, 'lasso': {'steps': 703, 'bounds': 703, 'ksub': 25, 'pairs': 17575}}; F1 checks {'step': 12304, 'series': 143250}   [336 s]
+  rho = 5.0: M_F <= 1.084E+5, n = 12; coverage {'circle': {'steps': 2163, 'bounds': 2163, 'ksub': 25, 'pairs': 54075}, 'lasso': {'steps': 703, 'bounds': 703, 'ksub': 25, 'pairs': 17575}}; F1 checks {'step': 12304, 'series': 214875}   [336 s]
+  rho = 6.5: M_F <= 2.309E+6, n = 12; coverage {'circle': {'steps': 2163, 'bounds': 2163, 'ksub': 25, 'pairs': 54075}, 'lasso': {'steps': 703, 'bounds': 703, 'ksub': 25, 'pairs': 17575}}; F1 checks {'step': 12304, 'series': 286450}   [333 s]
+  CHOSEN: rho = 6.5, n = 12
+  prove v5: 1393 s, peak rss 41 MB
+=== T1 compare 2026-11-26 18:12:40
+T1: 4 v4 rows, 4 v5 rows
+  rho = 3.0 / 3.0: DIFFERS; differing keys ['stats']
+  rho = 4.0 / 4.0: DIFFERS; differing keys ['stats']
+  rho = 5.0 / 5.0: DIFFERS; differing keys ['stats']
+  rho = 6.5 / 6.5: DIFFERS; differing keys ['stats']
+T1 RESULT: FAIL
+(information) v4 on this run vs committed v4 rows, minus sec: IDENTICAL
+JOB_EXIT 1
