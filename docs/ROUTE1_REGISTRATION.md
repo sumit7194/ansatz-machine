@@ -101,8 +101,17 @@ checks and keys only. NOT yet run or tested.
 - **A1, the environment in the hash.** The code hash also covers the Python and python-flint versions and the
   working precision, so a checkpoint written in another environment (the other machine) is refused like one from other
   code. Done in v5 at f435345 (`code_env` in the proof JSON). Not run.
-- **T1 must compare v5 and v4 runs on the SAME machine** (the Bridge's condition), since the machines' Python versions
-  differ (Mac mini 3.13.12 for Arb, Air 3.14.10).
+- **T1 must compare v5 and v4 runs on the SAME machine AND under the SAME Python version** (the Bridge's condition,
+  widened 2026-11-26 after the Air reproduction). A1 already enforces this for checkpoints.
+- **Why the Python version matters (measured 2026-11-26).** The Air reproduction of the 9/10 v4 certificate under
+  Python 3.14.10 differed from the committed 3.13.12 run, and only in the rows that were not chosen (ρ = 3, 5, 6.5):
+  - their float gauge matrices differ by an ulp, and the bounds computed through the gauge move with them by
+    1e−12 to 1e−9 relative;
+  - the dq checkpoint, the chosen row (ρ = 4) and the verdict are byte-identical.
+  Cause: complex × complex results differ between Python 3.13 and 3.14. Both 3.14 builds (3.14.5 Mac mini, 3.14.10 Air)
+  agree with each other, and the other float/libm operations the gauge uses hash identically under all versions tested.
+  The gauge is a free choice (any invertible C gives a valid bound), so both runs are valid proofs.
+  Record: `data/nve/route1_check/AIR_REPRO_9_10.md` (`personal/2026-11-26-route1-check`, d74218a).
 
 **(e) Audit: did any earlier "reproduction" silently reuse committed checkpoints?** **No.** Checked from the office
 session's commands and logs (its transcript, with the commands as run) and from the committed logs at c2dd39c:
@@ -158,7 +167,8 @@ read back. F2 closes it. Until then, a rerun must move them aside (as `run_repro
    subgroup is Zariski-dense so is the monodromy group. No homotopy consistency between segments is needed.
 2. **Proof stage:** v5 (`_nve_route1_segment_v5.py` = v4 + F1–F3, after §3(a) and §3(d) T1–T4), ρ ∈ {3, 4, 5, 6.5}. Choose the row with the smallest
    n; ties go to the smaller error bound. Precondition and holomorphy are certified per row; a row that fails is
-   rejected.
+   rejected. **Production runs pin the exact Python minor version** (and record the patch level) along with the
+   pinned packages, because the float gauge, and so every non-certified number, depends on it (§3(d)).
 3. **The n target:** the interpolation error bound must be ≤ 1e−2 × |F(k_c)| (from the reference solution), and the
    same for the traces. This only steers n; the verdict's validity does not depend on it.
 4. **Split rule:** if no row is admissible, or the chosen n exceeds 40, split the segment in half and redo both halves.
@@ -241,4 +251,7 @@ the first production record.
 - Draft v0: 2026-11-26, c3a61ab. Not approved.
 - Draft v1: 2026-11-26, 8fd935b (adds §3(d) F1–F3 and tests T1–T4, §3(e) the reuse audit; production on v5).
   Not approved.
-- Draft v1, amended 2026-11-26, this commit: A1 added to §3(d); v5's non-author check recorded. Not approved.
+- Draft v1, amended 2026-11-26, 329ccfb: A1 added to §3(d); v5's non-author check recorded. Not approved.
+- Draft v1, amended 2026-11-26, this commit (the Bridge's ruling on the Air reproduction): T1 under the same machine
+  AND the same Python; production pins the Python minor version (§5.2); the Python-version finding recorded in §3(d).
+  Not approved.

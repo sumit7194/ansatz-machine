@@ -4775,3 +4775,14 @@ pole-order-1 Carter² survival.
 - **Reuse audit:** no earlier reproduction reused committed checkpoints (registration v1 §3(e)).
 - **Registration draft v1** (docs/ROUTE1_REGISTRATION.md). Not approved. Compute is held while Sumit's office work
   needs the cores.
+
+## 2026-11-26 (afternoon, Air) — Route (i): the 9/10 reproduction and the Python version (ansatz-machine-personal)
+- **Air reproduction of the 9/10 v4 certificate under Python 3.14.10: DIFFERS.** The dq checkpoint, the chosen row
+  (ρ = 4) and the verdict are byte-identical. Rows ρ = 3, 5 and 6.5 differ in the float gauge (an ulp) and in the bounds
+  computed through it (1e−12 to 1e−9 relative). Cause measured: complex × complex differs between Python 3.13 and 3.14;
+  the machine was not a factor in the operation tests. Record: data/nve/route1_check/AIR_REPRO_9_10.md
+  (personal/2026-11-26-route1-check, d74218a, 0bf6c68).
+- **Bridge ruling:** get the exact reproduction. Homebrew python@3.13 3.13.18 installed on the Air in `.venv313` with the
+  committed run's packages (numpy 2.5.0: the earlier README's "all versions match" was wrong for numpy). Rerun
+  launched; (b), the 50-digit engine at all 44 nodes, runs in parallel (2 cores allowed).
+- **Registration v1 amended:** T1 under the same machine AND the same Python; production pins the Python minor version.
