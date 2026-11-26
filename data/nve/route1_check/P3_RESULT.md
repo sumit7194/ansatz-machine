@@ -65,8 +65,9 @@ It does not come from a non-finite enclosure.
 **The blow-up appears only when k ranges over the complex k-square** (half-side R = 0.10625), not at k_c itself.
 
 **Rough size (an estimate, not a measurement).** If I0 had scaled with the dq sum from k_c = 2, c0 would be about
-2E+5 per unit k and I0 = R·c0 about 2E+4. M_F contains e^(2·I0), far beyond the float range. Even a hundredfold
-smaller I0 would still overflow.
+2E+5 per unit k and I0 = R·c0 about 2E+4. M_F contains e^(2·I0), far beyond the float range. Overflow needs I0 + I1 above
+about 354, so even an I0 about fifty times smaller would still overflow (a hundred times smaller would not, by
+itself).
 
 **What I have not established.** I have not located where in z those arcs sit, or which singular point produces them.
 The four singular points in the floats file stay at least 0.36 outside the circle |z| = 1.2639 at k_c = 3 for real k.
