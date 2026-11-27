@@ -1,4 +1,4 @@
-# Ansatz Machine v1.2.0: release notes (DRAFT, not released)
+# Ansatz Machine v1.2.0: release notes (2026-11-27)
 
 **Status: UNCHANGED in kind.** The "Only Kerr" result is still a careful numerical result, not a theorem. v1.2.0
 makes the one rigorous local piece, Statement A, explicit: each spin now has a certified radius ε_a. It also records
