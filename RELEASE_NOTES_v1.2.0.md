@@ -121,4 +121,4 @@ arithmetic certificates where stated, and sources read at source; results not ye
 relayed, numerical or unverified. The author takes full responsibility for the content.
 
 ## Citation
-Cite all versions as DOI 10.5281/zenodo.24431694. This version (v1.2.0) is DOI [minted by Zenodo at release].
+Cite all versions as DOI 10.5281/zenodo.24431694. This version (v1.2.0) is DOI 10.5281/zenodo.24593416.

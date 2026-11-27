@@ -2,7 +2,7 @@
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24431694.svg)](https://doi.org/10.5281/zenodo.24431694)
 
-Archived on Zenodo as Ansatz Machine: all versions [10.5281/zenodo.24431694](https://doi.org/10.5281/zenodo.24431694) (resolves to the latest); v1.1.0 [10.5281/zenodo.24533026](https://doi.org/10.5281/zenodo.24533026); v1.0.0 [10.5281/zenodo.24431695](https://doi.org/10.5281/zenodo.24431695). See [`RELEASE_NOTES_v1.1.0.md`](RELEASE_NOTES_v1.1.0.md) for what changed since v1.0.0.
+Archived on Zenodo as Ansatz Machine: all versions [10.5281/zenodo.24431694](https://doi.org/10.5281/zenodo.24431694) (resolves to the latest); v1.2.0 [10.5281/zenodo.24593416](https://doi.org/10.5281/zenodo.24593416); v1.1.0 [10.5281/zenodo.24533026](https://doi.org/10.5281/zenodo.24533026); v1.0.0 [10.5281/zenodo.24431695](https://doi.org/10.5281/zenodo.24431695). See [`RELEASE_NOTES_v1.2.0.md`](RELEASE_NOTES_v1.2.0.md) for what changed since v1.1.0, and [`RELEASE_NOTES_v1.1.0.md`](RELEASE_NOTES_v1.1.0.md) for v1.0.0 to v1.1.0.
 
 **In five lines.**
 1. We take stationary axisymmetric vacuum fields with exactly Kerr's mass profile along the symmetry axis, and

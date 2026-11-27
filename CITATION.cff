@@ -28,11 +28,14 @@ authors:
     orcid: "https://orcid.org/0009-0000-9541-2793"
     alias: sumit7194
 version: 1.2.0
-doi: "10.5281/zenodo.24431694"
+doi: "10.5281/zenodo.24593416"
 identifiers:
   - type: doi
+    value: "10.5281/zenodo.24593416"
+    description: "Ansatz Machine v1.2.0 (this version)"
+  - type: doi
     value: "10.5281/zenodo.24431694"
-    description: "All versions (resolves to the latest); the v1.2.0 version DOI is added when Zenodo mints it"
+    description: "All versions (resolves to the latest)"
   - type: doi
     value: "10.5281/zenodo.24533026"
     description: "Ansatz Machine v1.1.0 (previous version)"
