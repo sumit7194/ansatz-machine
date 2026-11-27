@@ -304,3 +304,14 @@ the first production record.
 - Amendment §5A, 2026-11-27 (this commit): Sumit's production scope (the measured reach), ρ = 4 only, the traces' n
   target, the split and stop rules, the per-segment controls as built in v6, and the 9/10 small-k risk. It is written
   before the production seal, on the Bridge's read of the P4 build.
+- **APPROVED (scope and production), recorded 2026-11-27.** Sumit approved the production scope via the Bridge:
+  - spin 3/5 on [ε_a, 3];
+  - spin 9/10 on [ε_a, 2];
+  - the top of region A parked.
+
+  Production was launched on 2026-11-27 at 04:49 (seal 019d7bc, on `personal/2026-11-26-route1-check`), under §5A.
+
+  Later that day, Sumit also approved (via the Bridge) spin 3/10 and spin 4/5, each on [ε_a, 3]. They run the same
+  code and settings, with seals 8d94f79 and 3ca2294 on the same branch, launched 15:00 and 15:02.
+
+  This line was recorded afterwards, at the v1.2.0 release prep.

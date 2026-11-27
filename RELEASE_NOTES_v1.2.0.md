@@ -2,8 +2,9 @@
 
 **Status: UNCHANGED in kind.** The "Only Kerr" result is still a careful numerical result, not a theorem. v1.2.0
 makes the one rigorous local piece, Statement A, explicit: each spin now has a certified radius ε_a. It also records
-a new, separate line of work (route (i)) as far as it has been verified. Route (i) is NOT part of the claim. No number
-in the main claim changed.
+a new, separate line of work (route (i)) as far as it has been verified. That includes one finished, checked production
+result: at spin 3/5, interval certificates cover every real k in 0 < k ≤ 3, an internal result. Route (i) is NOT part
+of the claim. No number in the main claim changed.
 
 ## What changed since v1.1.0 (tag v1.1.0, 2026-11-25)
 
@@ -57,21 +58,37 @@ What is in hand, and how it is graded:
     - every node value was confirmed by an independent 50-digit engine that shares no code with the certifier
       (44 of 44 nodes across both stretches);
     - the code was read by a non-author.
-- **What the method can reach, as measured by sealed pilots:**
-  - segment centres up to k ≈ 3 at spin 3/5 and k ≈ 2 at spin 9/10;
+- **A production result at spin 3/5 (internal, checked): certified for every real k in [1/640, 3]**
+  (1/640 ≈ 1.56 × 10⁻³). It covers the pre-registered target [ε_a, 3].
+  - On that whole range, F ≠ 0, tr M0 ≠ 0 and tr M1 ∉ [−2, 2].
+  - It used 35 segments, all certified at the first attempt, with no splits.
+  - Every node value of every segment fell inside its interval enclosure under the independent 50-digit engine
+    (36 of 36 gate runs).
+  - A rerun of every verdict from its stored data was identical, and the must-fail controls refused as they should.
+  - **What it means:** this interval overlaps Statement A's (0 < |k| ≤ ε_a, ε_a ≈ 1.92 × 10⁻³). So at spin 3/5 the
+    lower axis has interval certificates for every real k from 0 to 3, with no gap.
+    - This holds relative to the same applicability chain.
+    - It is part of region A, not all of it; region A runs up to 30/7 ≈ 4.29.
+  - Record: `data/nve/route1_check/PROD_3_5_RESULT.md` on `personal/2026-11-26-route1-check`, scored against its
+    seal, which was committed before launch.
+- **What the method can reach:**
+  - up to k ≈ 3 at spins 3/10, 3/5 and 4/5, and k ≈ 2 at spin 9/10. This comes from sealed pilots and
+    top-of-reach checks, and at 3/5 it is now confirmed by production;
   - nowhere above a centre between k = 3.7 and 3.8 at any spin, where the fixed Laurent arcs fail;
   - so the top of region A (up to 30/7 ≈ 4.29) is out of reach of this method as built.
-- **Near k = 0 at spin 9/10,** the evaluator's own uncertainty (about 2.6 × 10⁻⁸) exceeds |F| below k ≈ 2 × 10⁻³.
-  A gap is expected there between Statement A's edge and the lowest certifiable k.
-- **Production status at the time of these notes: RUNNING, not finished.** Pre-registered scope:
-  - spin 3/5 on [ε_a, 3];
-  - spin 9/10 on [ε_a, 2], with the expected small-k gap;
-  - the top of region A parked.
-
-  No production result is included in this release, and none is claimed.
+- **Near k = 0 the evaluator's own uncertainty sets a floor.** Below it, a segment cannot be certified however finely
+  it is split (the driver stops that chain at once). As measured by the running productions:
+  - at spin 9/10 the floor is at k = 1/80 = 1.25 × 10⁻². This is a larger gap above Statement A's edge (about
+    10⁻⁴) than the pre-registered prediction (7.8 × 10⁻⁴ to 3.1 × 10⁻³), recorded as a miss;
+  - at spin 3/10 it is at k = 1/320 ≈ 3.13 × 10⁻³, a small gap above ε_a = 2.79 × 10⁻³, as predicted;
+  - at spin 3/5 there is no gap.
+- **Production status at the time of these notes:**
+  - spin 3/5 is finished and checked, as above;
+  - spins 9/10 (to k = 2), 3/10 and 4/5 (each to k = 3) are RUNNING. No result for them is claimed here, beyond the
+    measured floors above. They are planned for v1.3.
 - **What is unregistered or unapproved, labelled as such:**
-  - the pre-registration (`docs/ROUTE1_REGISTRATION.md`) is a draft, with the production scope recorded as an
-    amendment;
+  - the pre-registration (`docs/ROUTE1_REGISTRATION.md`) is still headed "draft". Its production scope (§5A) and
+    Sumit's approval of that scope are recorded in it, but the rest of it has not been approved as a whole;
   - the two certified stretches predate it and are internal.
 - **Where the code is.** The route-(i) code (v2 to v6) and its outputs live on branches. This release's tree holds
   only the records on main (`data/nve/ROUTE1_*.md`, `docs/ROUTE1_REGISTRATION*.md`). Branches:
@@ -91,6 +108,7 @@ The one-sentence claim, its conditions and every other number are as in v1.1.0.
   - the first implementation and the spin-3/5 certificate: the same side-session;
   - the improved enclosures and the spin-9/10 certificate: the ansatz-machine session;
   - the non-author read, reproduction, engine cross-check, hardening and pilots: a second ansatz-machine session;
+  - the productions, and the spin-3/5 result and its checks: the ansatz-machine session;
   - the code reads: the coordinating session ("the Bridge").
 - All of these are AI sessions working under the author's direction. See the paragraph below.
 
