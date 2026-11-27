@@ -1,0 +1,13 @@
+== v6 prove == spin 3/10|k in [29/10, 3]; mode F, tol rel; |F(k_c)| (engine) 8.715776e-01; code ca56d5d15f288d48
+== prove (v5 = v4 + F1 branch assert, F2 code-hash keys, F3 coverage counts) == spin 3/10|k in [29/10, 3]; circle 1.1492; code ca56d5d15f288d48; python 3.13.18, python-flint 0.9.0; rows (4.0,); checkpoint records of this code already on disk: dq 0, rows 0
+    z = (0.3+1.3162j): |D0 - FD| <= 5.2e-15, |D1 - FD| <= 8.2e-15; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True  -> ok
+    z = (-1.35+0j): |D0 - FD| <= 4.5e-15, |D1 - FD| <= 6.2e-15; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True  -> ok
+    z = (1.757-0.003j): |D0 - FD| <= 2.7e-15, |D1 - FD| <= 3.0e-15; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True  -> ok
+    z = (2.05-0.03j): |D0 - FD| <= 2.0e-15, |D1 - FD| <= 1.9e-15; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True  -> ok
+    z = (2.11+0.55j): |D0 - FD| <= 1.8e-15, |D1 - FD| <= 1.6e-15; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True  -> ok
+  self-test True; reference: circle 1937 steps, lasso 694 steps; F1 checks so far {'step': 8828, 'series': 0}  [46 s]
+  circle, K a point (z-direction control; v3 printed 4.153E-1 / 9.325E+0 at 3/5, 7.734E-1 / 2.179E+1 at 9/10): v4 <= 1.188E-1   [62 s]
+  lasso, K a point (z-direction control; v3 printed 4.153E-1 / 9.325E+0 at 3/5, 7.734E-1 / 2.179E+1 at 9/10): v4 <= 1.717E+1   [68 s]
+  rho = 4.0: M_F <= 3.473E+8, n = 18; coverage {'circle': {'steps': 1937, 'bounds': 1937, 'ksub': 25, 'pairs': 48425}, 'lasso': {'steps': 694, 'bounds': 694, 'ksub': 25, 'pairs': 17350}}; F1 checks {'step': 8828, 'series': 68406}   [340 s]
+  CHOSEN: rho = 4.0, n = 18
+  prove v5: 408 s, peak rss 33 MB

@@ -1,0 +1,4 @@
+2026-11-27 14:46:32 zsh [49297]: 64-bit    Footprint: 1520 KB (16384 bytes per page)
+2026-11-27 14:46:32 Python [49315]: 64-bit    Footprint: 16 MB (16384 bytes per page)
+2026-11-27 14:56:32 PEAK zsh [49297] 1 MB
+2026-11-27 14:56:32 PEAK Python [49315] 16 MB
