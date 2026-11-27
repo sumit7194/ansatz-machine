@@ -16,6 +16,9 @@ abstract: >-
   Since v1.1.0, one local piece near Kerr is rigorous relative to the applicability chain ("Statement A"): at each
   tested spin the monodromy is Zariski-dense for all sufficiently small twists, from a closed-form k^2 coefficient
   certified nonzero in interval arithmetic; the overall result remains numerical, not a theorem.
+  Since v1.2.0, Statement A carries an explicit, interval-certified radius per spin (from 1.06e-4 to 2.79e-3 in
+  the twist), and a separate interval-certification of stretches of the twist range (route (i)) is recorded as
+  internal, partly verified work, not part of the claim.
   AI-assisted; see the AI-assistance statement in README.md and ONLY_KERR.md. The author takes full
   responsibility for the content.
 authors:
@@ -24,19 +27,19 @@ authors:
     affiliation: Independent researcher
     orcid: "https://orcid.org/0009-0000-9541-2793"
     alias: sumit7194
-version: 1.1.0
-doi: "10.5281/zenodo.24533026"
+version: 1.2.0
+doi: "10.5281/zenodo.24431694"
 identifiers:
   - type: doi
-    value: "10.5281/zenodo.24533026"
-    description: "Ansatz Machine v1.1.0 (this version)"
-  - type: doi
     value: "10.5281/zenodo.24431694"
-    description: "All versions (resolves to the latest)"
+    description: "All versions (resolves to the latest); the v1.2.0 version DOI is added when Zenodo mints it"
+  - type: doi
+    value: "10.5281/zenodo.24533026"
+    description: "Ansatz Machine v1.1.0 (previous version)"
   - type: doi
     value: "10.5281/zenodo.24431695"
-    description: "Ansatz Machine v1.0.0 (previous version)"
-date-released: "2026-11-25"
+    description: "Ansatz Machine v1.0.0"
+date-released: "2026-11-27"
 type: software
 repository-code: "https://github.com/sumit7194/ansatz-machine"
 license: MIT
