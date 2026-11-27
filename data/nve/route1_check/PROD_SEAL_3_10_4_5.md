@@ -99,3 +99,42 @@ Both runs were v6 prove-only on [29/10, 3] (k_c 59/20), with the driver's settin
   - (c) hold 4/5.
 
   The runner `air/prod_4_5.sh` is committed but not deployed. Its seal follows the decision.
+
+## 4. SEAL: production at spin 4/5 (Sumit's decision (a), via the Bridge; launches with this commit)
+
+**Gate paragraph:**
+- **What it decides:** the fourth spin of the uniform status line ("certified over [near ε_a, 3] at all four tested
+  spins").
+- **Cost, revised by the top check (§3):**
+  - per node 55 s (Arb) + about 150 s (engine); per prove about 8–9 min;
+  - n rises from about 16 to 38;
+  - over 7 dyadic + 29 segments: **45–55 h**;
+  - outside view ×1.5: **70–80 h**.
+- **Premortem:** "If wasted, most likely because the top segments split repeatedly (n near 40), multiplying the cost
+  of [2.5, 3]." The split rule caps this at depth 2, and the stop dates below catch it.
+- **Dependencies:** v6 at 4/5 is exercised by the top check (clean).
+- **Good enough:** certified over [lowest dyadic end reached, 3], with any bottom gap stated.
+- **Stop:**
+  - if by **2026-11-29 18:00** the upward chain has not reached k = 2, stop and re-plan with the Bridge and Sumit;
+  - if by **2026-12-01 00:00** it has not reached k = 3, stop and report the reach achieved;
+  - any ALARM or engine miss stops the run for a decision.
+- **25% check-in:** at **2026-11-28 05:00** (about 14 h in). If the projection then exceeds 110 h (2 × 55 h), re-gate.
+
+**What runs:** `air/prod_4_5.sh`, with NVE_SPIN=4/5, R1_R0=1.3382, PROD_TOP=3, PROD_EPS=8.39e−4, PROD_DMAX=2.
+- One Air core, nice 15, under `job.sh`, with `fp.sh`. Manifest `MANIFEST_PROD_4_5.sha256`.
+- It reuses the top check's [29/10, 3] checkpoint and the P4-r floats entries.
+
+**Predictions:**
+
+| | prediction | P |
+|---|---|---|
+| no ALARM, engine miss or gate stop | holds | 90% |
+| the downward chain certifies to the bottom (reach [1/1280, 3], no gap) | — | 40% |
+| it stops radius-limited at [1/1280, 1/640]; reach [1/640, 3]; **gap [8.39e−4, 1.56e−3]** | — | 45% |
+| it stops higher | — | 15% |
+| the upward chain completes to 3 | holds | 75% |
+| splits on the upward chain (all near the top) | 0–4 | 70% |
+| n on the upward chain within [14, 40] on every unsplit segment | holds | 80% |
+| batch rerun byte-identical, full controls passed per mode | holds | 95% |
+| wall time | 40–80 h | 70% |
+| peak footprint < 150 MB | holds | 95% |
