@@ -1,0 +1,19 @@
+./p4r_3_10.sh:7: nice(5) failed: operation not permitted
+=== P4R 3/10 floats 2026-11-27 14:29:27
+1/640 F (6.82232943285648e-8 + 1.12362428744524e-7j) T0 (1.99999999845948 - 1.52146458199975e-48j) T1 (-1.74377879149068 + 1.46094734269289j) geo True 34s
+3/1280 F (1.53507989381131e-7 + 2.52847516968724e-7j) T0 (1.99999999653362 - 1.5219331396437e-48j) T1 (-1.74381782952808 + 1.46084166297563j) geo True 34s
+3/640 F (6.1409888974871e-7 + 1.01177489976538e-6j) T0 (1.99999998613198 - 1.52398583729673e-48j) T1 (-1.74393495897295 + 1.46052452812495j) geo True 34s
+3/40 F (0.00015772452000398 + 0.000262006884729676j) T0 (1.9999964305997 - 1.57552693343288e-48j) T1 (-1.74745955309926 + 1.45094317597987j) geo True 32s
+=== P4R 3/10 probe 2026-11-27 14:31:42
+== P4-r radius probe == spin 3/10, R0 1.1492; k_c ['1/640', '3/1280', '3/640', '3/40']
+k_c = 1/640 (1.5625e-03): engine |F| 1.315e-07; Arb radius of F 5.684e-09; radius / |F| 4.32e-02 -> MARGINAL; steps [2009, 719], 45.61 s
+    traces: tr M0 = 2.000000+0.000000j (radius 1.83e-12; margin |tr M0| 2.000e+00); tr M1 = -1.743779+1.460947j (radius 4.82e-12; margin 1.461e+00) -> trace conditions attainable
+k_c = 3/1280 (2.3437e-03): engine |F| 2.958e-07; Arb radius of F 5.685e-09; radius / |F| 1.92e-02 -> MARGINAL; steps [2009, 719], 46.04 s
+    traces: tr M0 = 2.000000+0.000000j (radius 4.74e-12; margin |tr M0| 2.000e+00); tr M1 = -1.743818+1.460842j (radius 6.71e-12; margin 1.461e+00) -> trace conditions attainable
+k_c = 3/640 (4.6875e-03): engine |F| 1.184e-06; Arb radius of F 5.689e-09; radius / |F| 4.81e-03 -> feasible; steps [2009, 719], 45.8 s
+    traces: tr M0 = 2.000000+0.000000j (radius 3.16e-12; margin |tr M0| 2.000e+00); tr M1 = -1.743935+1.460525j (radius 7.76e-12; margin 1.461e+00) -> trace conditions attainable
+k_c = 3/40 (7.5000e-02): engine |F| 3.058e-04; Arb radius of F 5.841e-09; radius / |F| 1.91e-05 -> feasible; steps [2009, 718], 45.4 s
+    traces: tr M0 = 1.999996+0.000000j (radius 1.66e-12; margin |tr M0| 2.000e+00); tr M1 = -1.747460+1.450943j (radius 2.71e-12; margin 1.451e+00) -> trace conditions attainable
+== P4R_DONE
+=== P4R_DONE 3/10 rc 0 2026-11-27 14:34:45
+JOB_EXIT 0
