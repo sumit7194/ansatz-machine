@@ -17,3 +17,10 @@
 - **Second venv, `.venv313` (2026-11-26, the Bridge's ruling):** Homebrew python@3.13 3.13.18 (`/opt/homebrew/opt/python@3.13`;
   3.13.12 is not offered by Homebrew), with python-flint 0.9.0, mpmath 1.3.0, sympy 1.14.0, numpy 2.5.0, the committed
   3.13.12 run's packages. Used by `repro313.sh`. The 3.14 run's outputs were moved to `data/nve/eps/run314/` first.
+
+## Ownership
+- **From 2026-11-27 (afternoon), the office ansatz-machine session owns `~/GitHub/ansatz-air`:** the folder, the
+  guards (`job.sh`, `fp.sh`), the two running productions (`prod_3_5`, `prod_9_10`) and the new runs at spins 3/10
+  and 4/5. This is on Sumit's go, relayed by the Bridge.
+- The previous owner was ansatz-machine-personal (now idle). Its runs and records are unchanged.
+- Launch records are kept in `logs/<name>.pid` and `logs/guard_<name>.log`, as before.
