@@ -54,3 +54,14 @@ V2's non-author read must cover both diffs.
    so it was self-consistent and could not fire. It now negates the CHOSEN branch value at the step end, which is
    the failure the control is meant to catch. It fires at both spins.
 3. **A harness parsing bug.** The engine's complex numbers are now stored as separate real and imaginary strings.
+
+## Rerun of V1(b) at 9/10 under addendum 3 (efb0768): PASS, so V1 PASSES at 9/10 too
+- **The rerun:** the production Laurent evaluator (the same formula) at N = 386 terms, the count fixed in advance.
+  Engine JSON reused. Output `v7/v1b_rerun_9_10.out` and `.json`.
+- **20 of 20 points:**
+  - Laurent radius 3.4e−36 to 9.1e−36 and v7 radius at most 2.8e−46, both under the 1e−30 bar;
+  - the balls overlap, with |v7 − Laurent| ≤ 1.3e−35, i.e. within the Laurent width;
+  - the engine agrees with v7 within 1e−40 at all 20.
+- **V1(b) at 9/10: PASS.** With (a), (c) and (d) already passed, **V1 PASSES at spin 9/10.**
+- At production's NW = 190, the 9/10 Laurent c0 is enclosed only to about 1e−15. The v7 evaluator (s = 1/t start plus
+  Taylor propagation) gives about 1e−46 at the same points.

@@ -1,0 +1,22 @@
+== v7 V1 (arb) == spin 9/10, R0 1.2639; python 3.13.12, python-flint 0.9.0, FLINT 3.6.0; engine json v1_engine_9_10.json (python 3.14.5, mpmath 1.3.0)
+  (b) k 10/10 point 120 deg: v7 radius 6.7e-47, Laurent radius 9.1e-36 (bar 1e-30: ok); overlap True, |v7 - Laurent| <= 1.3e-35; engine True
+  (b) k 10/10 point 240 deg: v7 radius 2.8e-46, Laurent radius 9.1e-36 (bar 1e-30: ok); overlap True, |v7 - Laurent| <= 1.3e-35; engine True
+  (b) k 13/10 point 120 deg: v7 radius 6.3e-47, Laurent radius 8.6e-36 (bar 1e-30: ok); overlap True, |v7 - Laurent| <= 1.2e-35; engine True
+  (b) k 13/10 point 240 deg: v7 radius 2.6e-46, Laurent radius 8.6e-36 (bar 1e-30: ok); overlap True, |v7 - Laurent| <= 1.2e-35; engine True
+  (b) k 16/10 point 120 deg: v7 radius 5.9e-47, Laurent radius 8.2e-36 (bar 1e-30: ok); overlap True, |v7 - Laurent| <= 1.2e-35; engine True
+  (b) k 16/10 point 240 deg: v7 radius 2.5e-46, Laurent radius 8.2e-36 (bar 1e-30: ok); overlap True, |v7 - Laurent| <= 1.2e-35; engine True
+  (b) k 19/10 point 120 deg: v7 radius 5.6e-47, Laurent radius 7.8e-36 (bar 1e-30: ok); overlap True, |v7 - Laurent| <= 1.1e-35; engine True
+  (b) k 19/10 point 240 deg: v7 radius 2.3e-46, Laurent radius 7.8e-36 (bar 1e-30: ok); overlap True, |v7 - Laurent| <= 1.1e-35; engine True
+  (b) k 22/10 point 120 deg: v7 radius 5.2e-47, Laurent radius 7.3e-36 (bar 1e-30: ok); overlap True, |v7 - Laurent| <= 1.0e-35; engine True
+  (b) k 22/10 point 240 deg: v7 radius 2.1e-46, Laurent radius 7.3e-36 (bar 1e-30: ok); overlap True, |v7 - Laurent| <= 1.0e-35; engine True
+  (b) k 25/10 point 120 deg: v7 radius 4.7e-47, Laurent radius 6.8e-36 (bar 1e-30: ok); overlap True, |v7 - Laurent| <= 9.6e-36; engine True
+  (b) k 25/10 point 240 deg: v7 radius 1.9e-46, Laurent radius 6.8e-36 (bar 1e-30: ok); overlap True, |v7 - Laurent| <= 9.6e-36; engine True
+  (b) k 28/10 point 120 deg: v7 radius 4.2e-47, Laurent radius 6.1e-36 (bar 1e-30: ok); overlap True, |v7 - Laurent| <= 8.6e-36; engine True
+  (b) k 28/10 point 240 deg: v7 radius 1.7e-46, Laurent radius 6.1e-36 (bar 1e-30: ok); overlap True, |v7 - Laurent| <= 8.6e-36; engine True
+  (b) k 31/10 point 120 deg: v7 radius 3.6e-47, Laurent radius 5.4e-36 (bar 1e-30: ok); overlap True, |v7 - Laurent| <= 7.6e-36; engine True
+  (b) k 31/10 point 240 deg: v7 radius 1.5e-46, Laurent radius 5.4e-36 (bar 1e-30: ok); overlap True, |v7 - Laurent| <= 7.6e-36; engine True
+  (b) k 34/10 point 120 deg: v7 radius 3.0e-47, Laurent radius 4.5e-36 (bar 1e-30: ok); overlap True, |v7 - Laurent| <= 6.4e-36; engine True
+  (b) k 34/10 point 240 deg: v7 radius 1.2e-46, Laurent radius 4.5e-36 (bar 1e-30: ok); overlap True, |v7 - Laurent| <= 6.4e-36; engine True
+  (b) k 37/10 point 120 deg: v7 radius 2.1e-47, Laurent radius 3.4e-36 (bar 1e-30: ok); overlap True, |v7 - Laurent| <= 4.8e-36; engine True
+  (b) k 37/10 point 240 deg: v7 radius 8.6e-47, Laurent radius 3.4e-36 (bar 1e-30: ok); overlap True, |v7 - Laurent| <= 4.8e-36; engine True
+VERDICT V1(b) rerun spin 9/10, Laurent NW 386 (addendum 3): (b) PASS   [2 s]
