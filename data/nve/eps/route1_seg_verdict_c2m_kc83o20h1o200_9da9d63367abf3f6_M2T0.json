@@ -1,0 +1,51 @@
+{
+ "M": [
+  "1.626E+4",
+  "9.303E-3",
+  "3.113E+1"
+ ],
+ "abs_Im_trM1_ge": "0.999481260",
+ "abs_f_ge": "4.018314645",
+ "abs_trM0_ge": "0.017407244",
+ "alarm": [
+  "proved M below a sample"
+ ],
+ "code": "9da9d63367abf3f6",
+ "conditions": {
+  "f": true,
+  "precondition": true,
+  "selftest": true,
+  "trM0": true,
+  "trM1": true
+ },
+ "err": [
+  "2.069E-2",
+  "1.183E-8",
+  "3.958E-5"
+ ],
+ "held_out_consistent": true,
+ "mode": "F",
+ "n": 10,
+ "n_ellipse": 8,
+ "n_held": 3,
+ "n_nodes": 11,
+ "node_abs_min": "4.039e+00",
+ "node_radius_max": "7.767e-08",
+ "outcome": "ALARM",
+ "planted_precondition_fires": true,
+ "planted_zero_refused": true,
+ "proved_M_ge_sampled": false,
+ "radius_limited": false,
+ "rho": 4.0,
+ "s3_inconsistent": [],
+ "seg": "spin 3/5|k in [829/200, 831/200]",
+ "shrunk_M_below_sampled": [
+  "f",
+  "tr M0",
+  "tr M1"
+ ],
+ "shrunk_heldout_breaks": [],
+ "shrunk_verdict_passes": true,
+ "tolmode": "rel",
+ "unsplittable": []
+}
