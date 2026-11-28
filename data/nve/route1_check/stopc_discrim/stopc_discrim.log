@@ -1,0 +1,10 @@
+=== floats 2026-11-28 14:59:42
+5/2 F (0.448026140852469 + 1.20370373378296j) T0 (1.82949872921077 + 4.17914560304874e-30j) T1 (0.790758763103686 + 3.88706807274368j) geo True 20s
+=== prove A (half 1/20) and B (half 1/40) start 2026-11-28 15:00:02
+data/nve/route1_check/air/stopc_discrim.sh:13: nice(5) failed: operation not permitted
+prove A pid 22593, prove B pid 22594
+data/nve/route1_check/air/stopc_discrim.sh:15: nice(5) failed: operation not permitted
+=== prove A rc 0 2026-11-28 15:12:57
+=== prove B rc 0 2026-11-28 15:12:59
+=== STOPC_DISCRIM_DONE
+JOB_EXIT 0
