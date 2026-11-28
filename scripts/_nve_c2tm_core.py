@@ -197,6 +197,7 @@ def selftest(npts=300, seed=1):
     enclosure must OVERLAP the direct value (two independently rounded balls of the same true value need not nest,
     but a wrong enclosure is disjoint), and the midpoint error must be <= e. Plus must-fire checks: both guards
     refuse, and a planted coefficient error is caught. -> True / False"""
+    global RHOK, RPOW
     import math
     import random
     old = RHOK
@@ -233,7 +234,10 @@ def selftest(npts=300, seed=1):
         TM([acb(-1), acb("0.01")]).sqrt()
     except TMRefuse:
         g2 = True
-    set_disc(old if old > 0 else arb("0.1"), force=True)
+    if old > 0:
+        set_disc(old, force=True)
+    else:                                                # TM re-read: restore "no disc set" exactly
+        RHOK, RPOW = arb(0), []
     return bool(ok and planted and g1 and g2)
 
 
