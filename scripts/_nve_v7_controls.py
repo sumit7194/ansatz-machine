@@ -26,8 +26,13 @@ except AssertionError as e:
     clean_ok = f"clean field refused: {e}"
 
 f_bad = FLD.Field(S7.V.SPIN, k, S7.V.R0S)
-st = f_bad.at(z)
-st["s"] = -st["s"]                               # the planted corruption of the carried branch
+f_bad.at(z)
+# the planted corruption of the carried branch, in EVERY cached state: any later query continues from one of them.
+# (Its first version negated only the state at(z) returned; the next query re-walked from the clean base state, since
+#  R0 = 1.35 is not exactly representable, so it never saw the corruption and the control did not fire.)
+for cell in f_bad.cells.values():
+    for _zz, stc in cell:
+        stc["s"] = -stc["s"]
 try:
     S7.step7(z, h, k, FLD.View(f_bad, False), 0.2)
     fired = False
