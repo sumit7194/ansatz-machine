@@ -1,0 +1,108 @@
+=== floats B 2026-11-28 16:39:15
+33/8 F (-1.59404485369538 - 3.97335025696121j) T0(=tr Gamma) (-0.0197584475412137 + 4.73079353686319e-49j) T1 (-1.87754815043592 + 1.05812206628062j) geo True 20.5s
+167/40 F (-1.30926751411886 - 3.64019922584562j) T0(=tr Gamma) (-0.0156889192557397 - 1.3363823550461e-50j) T1 (-1.89961163723229 + 0.958143010523284j) geo True 20.6s
+329/80 F (-1.66456847035306 - 4.04887734828192j) T0(=tr Gamma) (-0.020663167818002 + 2.27986829770864e-48j) T1 (-1.87202270741329 + 1.08141779804492j) geo True 20.6s
+331/80 F (-1.52321620383824 - 3.89488732127157j) T0(=tr Gamma) (-0.0188104482048589 + 4.81097647816595e-50j) T1 (-1.88307345873094 + 1.03418358514183j) geo True 20.3s
+333/80 F (-1.38077955932471 - 3.7284881201657j) T0(=tr Gamma) (-0.0167776268946476 + 1.60365882605532e-50j) T1 (-1.89410985270956 + 0.98423228062301j) geo True 19.4s
+335/80 F (-1.23765317676095 - 3.5482792906298j) T0(=tr Gamma) (-0.014549063961737 + 8.08751873626797e-47j) T1 (-1.90509377825831 + 0.931261056837249j) geo True 18.4s
+=== control 2026-11-28 16:41:36
+S1 control B: box around r+ = 1.80733045-1.42118i at k_c 329/80 -> None -> FIRES
+control rc 0
+=== prove depth 1 k_c 33/8 2026-11-28 16:41:36
+== v7B prove (region B) == spin 3/5|k in [41/10, 83/20]; Z0 2.0, bB 1.5008208615, Gamma 99 / lasso 53 vertices, reach 0.4992; code 421f52e23d4c9524
+== v6 prove == spin 3/5|k in [41/10, 83/20]; mode F, tol rel; |F(k_c)| (engine) 4.281179e+00; code 421f52e23d4c9524
+== prove (v5 = v4 + F1 branch assert, F2 code-hash keys, F3 coverage counts) == spin 3/5|k in [41/10, 83/20]; circle 1.35; code 421f52e23d4c9524; python 3.13.12, python-flint 0.9.0; rows (4.0,); checkpoint records of this code already on disk: dq 0, rows 0
+    z = (1.510202988300448+0j): |D0 - FD| <= 8.5e-13, |D1 - FD| <= 6.1e-13; |FD dq/dk| / sup = 1.000000; second derivatives E0, E1 (addendum 5) overlap their FD: True  -> ok
+    z = (1.7932285342535348-0.30218329995169707j): |D0 - FD| <= 6.9e-13, |D1 - FD| <= 4.9e-13; |FD dq/dk| / sup = 1.000000; second derivatives E0, E1 (addendum 5) overlap their FD: True  -> ok
+    z = (2.1158663599741616+6.1214138813211285e-52j): |D0 - FD| <= 5.6e-13, |D1 - FD| <= 3.7e-13; |FD dq/dk| / sup = 1.000000; second derivatives E0, E1 (addendum 5) overlap their FD: True  -> ok
+    z = (1.7932285342535348+0.30218329995169707j): |D0 - FD| <= 6.9e-13, |D1 - FD| <= 4.9e-13; |FD dq/dk| / sup = 1.000000; second derivatives E0, E1 (addendum 5) overlap their FD: True  -> ok
+    z = (1.510202988300448-2.5370077682031246e-51j): |D0 - FD| <= 8.5e-13, |D1 - FD| <= 6.1e-13; |FD dq/dk| / sup = 1.000000; second derivatives E0, E1 (addendum 5) overlap their FD: True  -> ok
+  self-test True; reference: circle 687 steps, lasso 625 steps; F1 checks so far {'step': 0, 'series': 0}  [15 s]
+  circle, K a point (z-direction control; v3 printed 4.153E-1 / 9.325E+0 at 3/5, 7.734E-1 / 2.179E+1 at 9/10): v4 <= 2.527E+1   [21 s]
+  lasso, K a point (z-direction control; v3 printed 4.153E-1 / 9.325E+0 at 3/5, 7.734E-1 / 2.179E+1 at 9/10): v4 <= 9.672E+1   [28 s]
+  rho = 4.0: REJECTED (holomorphy box fails at (1.5032119053946076+0j))
+  prove v5: 28 s, peak rss 39 MB
+  native: {'step': 1312, 'series': 1312, 'd2k': 6, 'd2k_none': 0}; region-B fields built: 3
+prove rc 0
+=== prove depth 1 k_c 167/40 2026-11-28 16:42:05
+== v7B prove (region B) == spin 3/5|k in [83/20, 21/5]; Z0 2.0, bB 1.5008208615, Gamma 99 / lasso 53 vertices, reach 0.4992; code 50b721c98ccbd650
+== v6 prove == spin 3/5|k in [83/20, 21/5]; mode F, tol rel; |F(k_c)| (engine) 3.868492e+00; code 50b721c98ccbd650
+== prove (v5 = v4 + F1 branch assert, F2 code-hash keys, F3 coverage counts) == spin 3/5|k in [83/20, 21/5]; circle 1.35; code 50b721c98ccbd650; python 3.13.12, python-flint 0.9.0; rows (4.0,); checkpoint records of this code already on disk: dq 0, rows 0
+    z = (1.528611955872834+0j): |D0 - FD| <= 1.9e-12, |D1 - FD| <= 1.2e-12; |FD dq/dk| / sup = 1.000000; second derivatives E0, E1 (addendum 5) overlap their FD: True  -> ok
+    z = (1.791536819321261-0.28072201966307536j): |D0 - FD| <= 1.6e-12, |D1 - FD| <= 1.0e-12; |FD dq/dk| / sup = 1.000000; second derivatives E0, E1 (addendum 5) overlap their FD: True  -> ok
+    z = (2.091260669284099+5.68666656374702e-52j): |D0 - FD| <= 1.3e-12, |D1 - FD| <= 8.0e-13; |FD dq/dk| / sup = 1.000000; second derivatives E0, E1 (addendum 5) overlap their FD: True  -> ok
+    z = (1.791536819321261+0.28072201966307536j): |D0 - FD| <= 1.6e-12, |D1 - FD| <= 1.0e-12; |FD dq/dk| / sup = 1.000000; second derivatives E0, E1 (addendum 5) overlap their FD: True  -> ok
+    z = (1.528611955872834-2.3568276099464603e-51j): |D0 - FD| <= 1.9e-12, |D1 - FD| <= 1.2e-12; |FD dq/dk| / sup = 1.000000; second derivatives E0, E1 (addendum 5) overlap their FD: True  -> ok
+  self-test True; reference: circle 677 steps, lasso 629 steps; F1 checks so far {'step': 0, 'series': 0}  [15 s]
+  circle, K a point (z-direction control; v3 printed 4.153E-1 / 9.325E+0 at 3/5, 7.734E-1 / 2.179E+1 at 9/10): v4 <= 2.874E+1   [22 s]
+  lasso, K a point (z-direction control; v3 printed 4.153E-1 / 9.325E+0 at 3/5, 7.734E-1 / 2.179E+1 at 9/10): v4 <= 1.398E+2   [29 s]
+  rho = 4.0: REJECTED (holomorphy box fails at (1.503197593847484+0j))
+  prove v5: 29 s, peak rss 38 MB
+  native: {'step': 1306, 'series': 1306, 'd2k': 6, 'd2k_none': 0}; region-B fields built: 3
+prove rc 0
+=== prove depth 2 k_c 329/80 2026-11-28 16:42:34
+== v7B prove (region B) == spin 3/5|k in [41/10, 33/8]; Z0 2.0, bB 1.5008208615, Gamma 99 / lasso 53 vertices, reach 0.4992; code 2588e5cca440f5f6
+== v6 prove == spin 3/5|k in [41/10, 33/8]; mode F, tol rel; |F(k_c)| (engine) 4.377693e+00; code 2588e5cca440f5f6
+== prove (v5 = v4 + F1 branch assert, F2 code-hash keys, F3 coverage counts) == spin 3/5|k in [41/10, 33/8]; circle 1.35; code 2588e5cca440f5f6; python 3.13.12, python-flint 0.9.0; rows (4.0,); checkpoint records of this code already on disk: dq 0, rows 0
+    z = (1.5061053234591517+0j): |D0 - FD| <= 7.3e-13, |D1 - FD| <= 5.3e-13; |FD dq/dk| / sup = 1.000000; second derivatives E0, E1 (addendum 5) overlap their FD: True  -> ok
+    z = (1.7936741391105089-0.3070340996396567j): |D0 - FD| <= 5.9e-13, |D1 - FD| <= 4.2e-13; |FD dq/dk| / sup = 1.000000; second derivatives E0, E1 (addendum 5) overlap their FD: True  -> ok
+    z = (2.1214911109473498+6.2196779235436174e-52j): |D0 - FD| <= 4.7e-13, |D1 - FD| <= 3.2e-13; |FD dq/dk| / sup = 1.000000; second derivatives E0, E1 (addendum 5) overlap their FD: True  -> ok
+    z = (1.7936741391105089+0.3070340996396567j): |D0 - FD| <= 5.9e-13, |D1 - FD| <= 4.2e-13; |FD dq/dk| / sup = 1.000000; second derivatives E0, E1 (addendum 5) overlap their FD: True  -> ok
+    z = (1.5061053234591517-2.577733104422294e-51j): |D0 - FD| <= 7.3e-13, |D1 - FD| <= 5.3e-13; |FD dq/dk| / sup = 1.000000; second derivatives E0, E1 (addendum 5) overlap their FD: True  -> ok
+  self-test True; reference: circle 689 steps, lasso 628 steps; F1 checks so far {'step': 0, 'series': 0}  [15 s]
+  circle, K a point (z-direction control; v3 printed 4.153E-1 / 9.325E+0 at 3/5, 7.734E-1 / 2.179E+1 at 9/10): v4 <= 2.463E+1   [22 s]
+  lasso, K a point (z-direction control; v3 printed 4.153E-1 / 9.325E+0 at 3/5, 7.734E-1 / 2.179E+1 at 9/10): v4 <= 8.949E+1   [29 s]
+  rho = 4.0: REJECTED (n > 40 (log10 M_F <= 68.98; the split rule's case))
+  prove v5: 113 s, peak rss 39 MB
+  native: {'step': 1317, 'series': 33942, 'd2k': 4063, 'd2k_none': 0}; region-B fields built: 3
+prove rc 0
+=== prove depth 2 k_c 331/80 2026-11-28 16:44:27
+== v7B prove (region B) == spin 3/5|k in [33/8, 83/20]; Z0 2.0, bB 1.5008208615, Gamma 99 / lasso 53 vertices, reach 0.4992; code 902ce23c37ef9088
+== v6 prove == spin 3/5|k in [33/8, 83/20]; mode F, tol rel; |F(k_c)| (engine) 4.182145e+00; code 902ce23c37ef9088
+== prove (v5 = v4 + F1 branch assert, F2 code-hash keys, F3 coverage counts) == spin 3/5|k in [33/8, 83/20]; circle 1.35; code 902ce23c37ef9088; python 3.13.12, python-flint 0.9.0; rows (4.0,); checkpoint records of this code already on disk: dq 0, rows 0
+    z = (1.5144801673524242+0j): |D0 - FD| <= 1.0e-12, |D1 - FD| <= 7.0e-13; |FD dq/dk| / sup = 1.000000; second derivatives E0, E1 (addendum 5) overlap their FD: True  -> ok
+    z = (1.7927907604451767-0.29714919601717577j): |D0 - FD| <= 8.3e-13, |D1 - FD| <= 5.8e-13; |FD dq/dk| / sup = 1.000000; second derivatives E0, E1 (addendum 5) overlap their FD: True  -> ok
+    z = (2.110053728097389+6.019436592338853e-52j): |D0 - FD| <= 6.7e-13, |D1 - FD| <= 4.4e-13; |FD dq/dk| / sup = 1.000000; second derivatives E0, E1 (addendum 5) overlap their FD: True  -> ok
+    z = (1.7927907604451767+0.29714919601717577j): |D0 - FD| <= 8.3e-13, |D1 - FD| <= 5.8e-13; |FD dq/dk| / sup = 1.000000; second derivatives E0, E1 (addendum 5) overlap their FD: True  -> ok
+    z = (1.5144801673524242-2.4947434842739204e-51j): |D0 - FD| <= 1.0e-12, |D1 - FD| <= 7.0e-13; |FD dq/dk| / sup = 1.000000; second derivatives E0, E1 (addendum 5) overlap their FD: True  -> ok
+  self-test True; reference: circle 683 steps, lasso 627 steps; F1 checks so far {'step': 0, 'series': 0}  [15 s]
+  circle, K a point (z-direction control; v3 printed 4.153E-1 / 9.325E+0 at 3/5, 7.734E-1 / 2.179E+1 at 9/10): v4 <= 2.635E+1   [22 s]
+  lasso, K a point (z-direction control; v3 printed 4.153E-1 / 9.325E+0 at 3/5, 7.734E-1 / 2.179E+1 at 9/10): v4 <= 1.052E+2   [29 s]
+  rho = 4.0: REJECTED (n > 40 (log10 M_F <= 252.9; the split rule's case))
+  prove v5: 117 s, peak rss 39 MB
+  native: {'step': 1310, 'series': 33535, 'd2k': 4135, 'd2k_none': 0}; region-B fields built: 3
+prove rc 0
+=== prove depth 2 k_c 333/80 2026-11-28 16:46:24
+== v7B prove (region B) == spin 3/5|k in [83/20, 167/40]; Z0 2.0, bB 1.5008208615, Gamma 99 / lasso 53 vertices, reach 0.4992; code c44089d3883992e4
+== v6 prove == spin 3/5|k in [83/20, 167/40]; mode F, tol rel; |F(k_c)| (engine) 3.975950e+00; code c44089d3883992e4
+== prove (v5 = v4 + F1 branch assert, F2 code-hash keys, F3 coverage counts) == spin 3/5|k in [83/20, 167/40]; circle 1.35; code c44089d3883992e4; python 3.13.12, python-flint 0.9.0; rows (4.0,); checkpoint records of this code already on disk: dq 0, rows 0
+    z = (1.5236577005085332+0j): |D0 - FD| <= 1.5e-12, |D1 - FD| <= 9.8e-13; |FD dq/dk| / sup = 1.000000; second derivatives E0, E1 (addendum 5) overlap their FD: True  -> ok
+    z = (1.7919434167868222-0.28644574397646827j): |D0 - FD| <= 1.2e-12, |D1 - FD| <= 8.2e-13; |FD dq/dk| / sup = 1.000000; second derivatives E0, E1 (addendum 5) overlap their FD: True  -> ok
+    z = (2.0977784250029208+5.80261369077376e-52j): |D0 - FD| <= 1.0e-12, |D1 - FD| <= 6.5e-13; |FD dq/dk| / sup = 1.000000; second derivatives E0, E1 (addendum 5) overlap their FD: True  -> ok
+    z = (1.7919434167868222+0.28644574397646827j): |D0 - FD| <= 1.2e-12, |D1 - FD| <= 8.2e-13; |FD dq/dk| / sup = 1.000000; second derivatives E0, E1 (addendum 5) overlap their FD: True  -> ok
+    z = (1.5236577005085332-2.4048816653772272e-51j): |D0 - FD| <= 1.5e-12, |D1 - FD| <= 9.8e-13; |FD dq/dk| / sup = 1.000000; second derivatives E0, E1 (addendum 5) overlap their FD: True  -> ok
+  self-test True; reference: circle 678 steps, lasso 630 steps; F1 checks so far {'step': 0, 'series': 0}  [15 s]
+  circle, K a point (z-direction control; v3 printed 4.153E-1 / 9.325E+0 at 3/5, 7.734E-1 / 2.179E+1 at 9/10): v4 <= 2.770E+1   [22 s]
+  lasso, K a point (z-direction control; v3 printed 4.153E-1 / 9.325E+0 at 3/5, 7.734E-1 / 2.179E+1 at 9/10): v4 <= 1.280E+2   [30 s]
+  rho = 4.0: REJECTED (holomorphy box fails at (1.7630951290181343-0.2829280826422985j))
+  prove v5: 39 s, peak rss 39 MB
+  native: {'step': 1308, 'series': 4808, 'd2k': 531, 'd2k_none': 0}; region-B fields built: 3
+prove rc 0
+=== prove depth 2 k_c 335/80 2026-11-28 16:47:03
+== v7B prove (region B) == spin 3/5|k in [167/40, 21/5]; Z0 2.0, bB 1.5008208615, Gamma 99 / lasso 53 vertices, reach 0.4992; code bd271e6714cb6461
+== v6 prove == spin 3/5|k in [167/40, 21/5]; mode F, tol rel; |F(k_c)| (engine) 3.757934e+00; code bd271e6714cb6461
+== prove (v5 = v4 + F1 branch assert, F2 code-hash keys, F3 coverage counts) == spin 3/5|k in [167/40, 21/5]; circle 1.35; code bd271e6714cb6461; python 3.13.12, python-flint 0.9.0; rows (4.0,); checkpoint records of this code already on disk: dq 0, rows 0
+    z = (1.533856739414127+0j): |D0 - FD| <= 2.4e-12, |D1 - FD| <= 1.4e-12; |FD dq/dk| / sup = 1.000000; second derivatives E0, E1 (addendum 5) overlap their FD: True  -> ok
+    z = (1.7911441558015255-0.27470297869464283j): |D0 - FD| <= 2.0e-12, |D1 - FD| <= 1.2e-12; |FD dq/dk| / sup = 1.000000; second derivatives E0, E1 (addendum 5) overlap their FD: True  -> ok
+    z = (2.084441541127539+5.564737122436752e-52j): |D0 - FD| <= 1.7e-12, |D1 - FD| <= 1.0e-12; |FD dq/dk| / sup = 1.000000; second derivatives E0, E1 (addendum 5) overlap their FD: True  -> ok
+    z = (1.7911441558015255+0.27470297869464283j): |D0 - FD| <= 2.0e-12, |D1 - FD| <= 1.2e-12; |FD dq/dk| / sup = 1.000000; second derivatives E0, E1 (addendum 5) overlap their FD: True  -> ok
+    z = (1.533856739414127-2.3062941962982302e-51j): |D0 - FD| <= 2.4e-12, |D1 - FD| <= 1.4e-12; |FD dq/dk| / sup = 1.000000; second derivatives E0, E1 (addendum 5) overlap their FD: True  -> ok
+  self-test True; reference: circle 674 steps, lasso 625 steps; F1 checks so far {'step': 0, 'series': 0}  [16 s]
+  circle, K a point (z-direction control; v3 printed 4.153E-1 / 9.325E+0 at 3/5, 7.734E-1 / 2.179E+1 at 9/10): v4 <= 2.988E+1   [24 s]
+  lasso, K a point (z-direction control; v3 printed 4.153E-1 / 9.325E+0 at 3/5, 7.734E-1 / 2.179E+1 at 9/10): v4 <= 1.569E+2   [32 s]
+  rho = 4.0: REJECTED (holomorphy box fails at (1.7171673685383047-0.2593683995548679j))
+  prove v5: 42 s, peak rss 36 MB
+  native: {'step': 1299, 'series': 4399, 'd2k': 485, 'd2k_none': 0}; region-B fields built: 3
+prove rc 0
+=== S1_DONE B 2026-11-28 16:47:45
+JOB_EXIT 0
