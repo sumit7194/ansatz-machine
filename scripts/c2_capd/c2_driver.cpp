@@ -243,6 +243,7 @@ void field(Node t, Node in[], int, Node out[], int, Node par[], int) {
 // the root guards on (z-box, k-box): (a1) lower(|A| + Re A) > 0; (a2, circle) |I - Ic|^2 <= Irad^2.  0 = ok, else 1 / 2
 static Cx<IT> ICc;
 static IT IRAD2;
+static double LASTA1 = 0;       // log only (C2-M H2 record): the certified lower bound of |A| + Re A at the last guard call
 static int rootGuard(const Cx<IT>& z, const Cx<IT>& k, const IT& a) {
   IT one(1), half(0.5), two(2), c90(90), c21(21), c60(60), c18(18), c10(10);
   IT a2 = a * a;
@@ -251,6 +252,7 @@ static int rootGuard(const Cx<IT>& z, const Cx<IT>& k, const IT& a) {
   Cx<IT> A = rootArg(w, k, c90, c21, c60, c18, c10, one);
   IT m = sqrt(sqr(A.re) + sqr(A.im));
   IT g = m + A.re;
+  LASTA1 = finiteI(g) ? dbl(g.leftBound()) : -1.0;
   if (!finiteI(g) || !(g.leftBound() > 0)) return 1;
   if (SFORM == 1) {
     IT d2 = sqr(A.re - ICc.re) + sqr(A.im - ICc.im);
@@ -506,7 +508,7 @@ int main(int argc, char** argv) {
         slog << l << " " << j << " " << nsteps << " " << dbl(tcur.rightBound()) << " " << dt << " "
              << dbl(mD.leftBound()) << " " << dbl(m1.leftBound()) << " " << dbl(m2.leftBound()) << " " << bw(0, DIM - 1)
              << " | " << bw(0, 1) << " " << bw(2, 3) << " " << bw(4, 11) << " | " << retries << " " << exactRetries
-             << "\n";
+             << " | a1 " << LASTA1 << "\n";
         if (!dom)
           refuse(l, j, nsteps, fin ? "domain (z^2 + a^2, G1, G2) not certified on the whole-step enclosure"
                                    : "non-finite enclosure");

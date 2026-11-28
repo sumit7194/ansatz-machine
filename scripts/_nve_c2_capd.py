@@ -55,11 +55,20 @@ TAG = f"{BOX}_k{KDIV}_o{ORDER}" + os.environ.get("C2_VARIANT", "") + ("" if TOL 
 
 kc0 = acb(arb(L.S6.KC).mid())
 R = (L.S6.HALF * (arb(4) + arb(1) / 4) / 2).upper()
+CELL = os.environ.get("C2_CELL")               # C2-M: one cover cell, "re_m re_e im_m im_e hs_m hs_e" (exact binary)
+CELL_ID = os.environ.get("C2_CELL_ID", "")
 hs = (R / KDIV).upper()
 HSDIV = int(os.environ.get("C2_HSDIV", "1"))   # development only (smoke): shrink the sub-box; step 0' uses 1
 if HSDIV != 1:
     assert os.environ.get("C2_SMOKE") == "1", "C2_HSDIV is a development switch for smoke runs only"
     hs = (hs / HSDIV).upper()
+if CELL:                                       # C2-M: the cell overrides the sub-box (its exact centre and half-side)
+    _t = CELL.split()
+    _f = lambda m, e: arb(int(m)) * arb(2) ** int(e)
+    kc0 = acb(_f(_t[0], _t[1]), _f(_t[2], _t[3]))
+    hs = _f(_t[4], _t[5])
+    assert kc0.real.rad() == 0 and kc0.imag.rad() == 0 and hs.rad() == 0 and hs > 0
+    TAG += f"_cell{CELL_ID}"
 K = kc0 + hs * V.UNIT                        # the closed sub-box (a square of half-side hs)
 REF = L.S6.REF
 if BOX == "P1":
@@ -328,6 +337,18 @@ def drive():
                 rec.setdefault("smoke_arb_M", []).append([[Mw[i][j].str(10) for j in range(2)] for i in range(2)])
             rec["smoke_contains"] = ok
             print(f"SMOKE: Arb walk M at kc0 inside the CAPD hull: {ok}", flush=True)
+        if C24:                                   # C2-M H2/H3: certified lower margins over each loop, from the step log
+            mg = {}
+            for ln in open(logp):
+                t_ = ln.split()
+                if not t_ or not t_[0].isdigit() or "a1" not in t_:
+                    continue
+                lp = int(t_[0])
+                vals_ = dict(D2=float(t_[5]), G1_2=float(t_[6]), G2_2=float(t_[7]), a1=float(t_[t_.index("a1") + 1]))
+                cur_ = mg.setdefault(lp, dict(vals_))
+                for kk, vv in vals_.items():
+                    cur_[kk] = min(cur_[kk], vv)
+            rec["margins"] = {str(k_): v_ for k_, v_ in mg.items()}
         print(f"step 0' {BOX}: CAPD {t_capd:.0f} s, steps {rec['steps']}; F over the sub-box {rec['F']} "
               f"(hull form {rec['F_hull']}); tr M0 {rec['T0']}; tr M1 {rec['T1']}", flush=True)
     json.dump(rec, open(os.path.join(OUTD, f"{STAGE}_{TAG}_drive.json"), "w"), indent=1)

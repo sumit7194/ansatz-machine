@@ -138,3 +138,31 @@ Once each.
 - P2's cover finishes within the cost bar: 60%.
 - P2 certifies (all three conditions plus the engine gate): 35%.
 - P3 certifies: 55% (its box is 100x smaller).
+
+## Addendum C2-M-1 (2026-11-28): the order of the controls, made explicit (committed with the code, before the read and before any registered run)
+The registration lists "controls M1–M4, then P2". Three of them depend on P2's own run, so the actual sequence per
+pilot is fixed now:
+1. **M3** (a DRY run of the cover's control flow; no CAPD).
+2. The **cover**.
+3. **M1** (containment, on the cover's cells).
+4. The **verdict** with v6's full controls (R1_FULLCTL=1: held-out points, ellipse samples, the planted zero, the
+   shrunken-M and planted-precondition checks).
+5. **M2 and M4**, run on that verdict's node file.
+6. The **engine gate** (`_nve_v7_engine_gate_B.py`, as in `air/v7_pB.sh`).
+
+**The pilot counts as CERTIFIED only if** the verdict says certified with no ALARM, M1 passes, M2 ALARMs with
+"proved M below a sample", M4 trips the node-precision assertion, M3 fired, and the engine gate passes. Any other
+combination is reported as it is.
+
+**What the code does (`scripts/_nve_c2m.py`):**
+- The proof file is written in v5's schema; NMAX = 160 is asserted.
+- v6's verdict is reused with EXACTLY two source substitutions, each asserted to find its original text verbatim:
+  - v5's Dyson coverage gate (F3) becomes the C2-M cover gate (every leaf accepted with H1–H4, the cover complete,
+    the proof file's coverage equal to the cover's);
+  - the node-precision assertion is inserted after the interpolants.
+- The region-B precondition and self-test over the box are kept, as in v5's prove.
+- The code hash covers v7B's files plus the driver, the glue and the C2-M module, so the node files are new.
+
+**Development check (not a registered run):** the centre R/5 cell through the glue (`c2/c2mdev_*`) reproduces step
+0'''s enclosure (F +-7.7e58). Its margins are all positive (min |G2|^2 >= 2.7e-6 on the lasso; the off-cut margin is
+about 379). A dry M3 run fired both ways.
