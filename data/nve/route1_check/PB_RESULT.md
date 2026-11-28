@@ -1,5 +1,10 @@
 # v7 stage P-B: result. PASS at spin 3/5 (region-B loops in Arb with the v7 c0; the premortem's check)
 
+**Grading (disclosure, part of the verdict):** the engine's span guard was corrected after its first pass read False.
+That pass used span 99, which made the HP engine's branch-cut guard examine an oversized region. It was set to the
+registered run-mode rule (the loops' reach plus the scan's margin), and all guards then passed. The engine values are
+independent of the span and were unchanged. The fix was committed before the Arb run.
+
 **Office ansatz-machine (Claude Opus), 2026-11-28.** The registration is `V7_REGISTRATION.md` (P-B, deadline day 14).
 - **Code:** `scripts/_nve_v7_pb.py`, committed before its run (142e113). The engine's span-rule fix and the runner were
   committed before the Arb run.
