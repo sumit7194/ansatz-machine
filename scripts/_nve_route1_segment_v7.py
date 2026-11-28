@@ -52,7 +52,7 @@ _FIELDS = {}
 def field_for(k):
     k = k if isinstance(k, acb) else acb(k)
     assert float(k.real.rad()) <= 1e-30 and float(k.imag.rad()) <= 1e-30, "v7 fields are built at point k only"
-    key = (k.real.mid().str(60), k.imag.mid().str(60))
+    key = (k.real.mid().man_exp(), k.imag.mid().man_exp(), float(k.real.rad()), float(k.imag.rad()))   # exact (item 11)
     if key not in _FIELDS:
         _FIELDS[key] = FLD.Field(V.SPIN, k, V.R0S)
     return _FIELDS[key]

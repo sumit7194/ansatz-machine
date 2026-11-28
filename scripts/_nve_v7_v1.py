@@ -8,7 +8,9 @@ Criteria:
   (b) k = 1, 1.3, ..., 3.7 at two circle points (120 and 240 deg): v7 and Laurent balls both radius <= 1e-30 and
       overlapping; the engine as a 1e-40 ball overlapping the v7 ball. Wider balls -> UNINFORMATIVE.
   (c) one circuit of |z| = R0 at k = 3 and 3.9: returned balls radius <= 1e-30 and containing the start.
-  (d) must-fail controls (i)-(iv) must FIRE.
+  (d) must-fail controls must FIRE: (i) planted c0' error fails (a); (ii) a planted branch error (prediction negated
+      mid-walk) fails closure; (iii) k = 4.5 refused; (iv) a path through a branch point refused; (iv') sup_box refuses
+      a Cauchy square covering a branch point (the rigorous guard, not the float distance guard).
 """
 import json
 import os
@@ -187,12 +189,14 @@ def run_arb():
         fired["i"] = not (s["c0"].overlaps(ex0) and s["c0p"].overlaps(ex1))
     except Exception as e:                             # noqa: BLE001
         fired["i"] = f"raised {type(e).__name__} (not the intended failure mode)"
-    try:                                               # (ii) planted sqrt sign flip at step 3
-        c = V7.C0(SPIN, acb(3), plant={"flip_at": 3})
-        c.walk(verts("circle", 8), c.start(R0))
-        fired["ii"] = False
+    try:                                               # (ii) a planted branch error (prediction negated at step 3)
+        c = V7.C0(SPIN, acb(3), plant={"pred_flip_at": 3})      # must make closure (c) FAIL: a gate catches it
+        s0 = c.start(R0)
+        s1 = c.walk(verts("circle", NCIRC_C), s0)[-1]
+        closes = bool(s1["c0"].contains(s0["c0"].mid()) and s1["c0p"].contains(s0["c0p"].mid()))
+        fired["ii"] = not closes
     except AssertionError as e:
-        fired["ii"] = True if "branch" in str(e) else f"AssertionError: {e}"
+        fired["ii"] = f"AssertionError (not the intended gate): {e}"
     try:                                               # (iii) k = 4.5 must be refused
         V7.C0(SPIN, acb(arb(9) / 2))
         fired["iii"] = False
@@ -206,6 +210,13 @@ def run_arb():
         fired["iv"] = False
     except AssertionError as e:
         fired["iv"] = True if ("singular" in str(e)) else f"AssertionError: {e}"
+    try:                                               # (iv') the RIGOROUS guard: a Cauchy square covering a branch
+        c = V7.C0(SPIN, acb(3))                        #       point must be refused by sup_box itself
+        p = [q for q in c.sing_points() if q.real > 0 and q.imag > 0 and abs(q - 1j * float(a.mid())) > 1e-6][0]
+        c.sup_box(acb(p.real + 0.05, p.imag), arb("0.2"))
+        fired["iv_rigorous"] = False
+    except AssertionError as e:
+        fired["iv_rigorous"] = True if ("singular" in str(e)) else f"AssertionError: {e}"
     dok = all(v is True for v in fired.values())
     say(f"  (d) must-fail controls fired: {fired} -> {'PASS' if dok else 'FAIL'}")
 

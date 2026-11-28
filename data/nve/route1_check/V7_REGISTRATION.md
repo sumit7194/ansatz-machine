@@ -139,3 +139,33 @@ c0.
 - **Bar unchanged:** both balls ≤ 1e−30 at all 20 points. If the Laurent balls are still not under it, (b) at 9/10 stays
   **UNINFORMATIVE**, is reported, and N is NOT raised again.
 - **Gate per spin:** nothing in v7 runs at 9/10 until V1 passes at 9/10. V2 proceeds at 3/5, where V1 passed.
+
+## Addendum 4 (2026-11-28): the non-author read, its fixes, and the redesigned controls. Committed BEFORE the re-tests
+**The read** was by a separate AI session with fresh context, which wrote none of the code. It found no definite
+soundness bug in `start`, the Taylor remainders, the adaptive `sup_box` cover (graded rigorous), `Field.box`,
+`precondition7` or F1b. Its five actionable items:
+1. **(DOUBTFUL)** The branch at each step's end was chosen with the √B series truncated, with no remainder. Fix: the
+   prediction carries the Cauchy tail MS·θ^N/(1 − θ), with MS = sup |√B| from `sup_box`, so the branch comparison is
+   rigorous.
+2. **(VACUOUS)** Control (ii) as corrected negated the chosen branch after the same comparison chose it, so it fired
+   by construction. **Replaced:** a planted branch error (the prediction negated at step 3 of a circuit at k = 3)
+   must make the CLOSURE check fail. That is a downstream gate catching a wrong branch.
+3. **(VACUOUS)** Control (iv) was caught by the floating-point distance guard and never reached the rigorous one.
+   **Added (iv'):** `sup_box` on a Cauchy square covering a k = 3 branch point must refuse. Control (iv) is kept.
+4. **(DOUBTFUL)** `step` changed the global series cap in the middle of v2's step. Fix: saved and restored.
+5. **(DOUBTFUL)** F1b had no must-fail control. **Added:** `scripts/_nve_v7_controls.py`. A corrupted carried branch
+   in a cached field state must make F1b fire, and a clean field must not.
+
+**Also fixed (NOTE items):**
+- the start integrals are checked for finiteness;
+- ρ_safe uses Arb roots of B, not float midpoints;
+- fields are keyed by the exact midpoint and radius of k.
+
+**Re-tests, in order, each before the next stage counts:**
+- V1 in full at both spins, with (d) now (i), (ii) as replaced, (iii), (iv) and (iv'). PASS criteria otherwise as
+  registered, with addenda 1–3.
+- The F1b control: PASS = the corrupted branch fires and the clean field passes.
+- T1'–T4' on the fixed code.
+
+**The earlier T1' run** (launched 15:22:50 on the pre-fix code, 3724663) is a **development run**. Its outputs carry
+the pre-fix code hash and count for nothing.

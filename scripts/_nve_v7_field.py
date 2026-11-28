@@ -25,12 +25,24 @@ class Field:
     def __init__(self, spin, k, R0):
         self.c = V7.C0(spin, k if isinstance(k, acb) else acb(k), deriv=True)
         self.R0 = arb(R0) if not isinstance(R0, arb) else R0
-        self.rho_safe = max(abs(p) for p in self.c.sing_points()) + 0.05
+        self.rho_safe = self._rho_arb() + 0.05
         if not float(self.R0.mid()) > self.rho_safe:
             raise RuntimeError(f"field: base circle R0 = {self.R0} not outside rho_safe = {self.rho_safe}")
         st = self.c.start(self.R0)
         self.cells = {}
         self._put(st)
+
+    def _rho_arb(self):
+        """an upper bound (float) of |z| over c0's singular points at this k, from Arb roots of B (w = z^2/a^2)"""
+        K, a = self.c.k, self.c.a
+        den = 90 - 21 * K
+        if den.contains(0):
+            raise RuntimeError("field: 90 - 21k contains 0")
+        sq = (60 * K * (K - 4)).sqrt()
+        mx = max(r.abs_upper() for r in (((30 - 9 * K) + sq) / den, ((30 - 9 * K) - sq) / den))
+        if not mx.is_finite():
+            raise RuntimeError("field: branch-point enclosure not finite")
+        return float((a * mx.sqrt()).upper()) if float(mx.upper()) > 1 else float(a.upper())
 
     # ------------------------------------------------------------------------------------------ cache
     @staticmethod
@@ -105,7 +117,7 @@ class Field:
         if not float(r) < abs(complex(zm.mid())) - self.rho_safe:
             raise RuntimeError("field: box reaches rho_safe")
         try:
-            M, MD = self.c.sup_box(zm, r)
+            M, MD, _ms = self.c.sup_box(zm, r)
         except AssertionError as e:
             raise RuntimeError(f"field: {e}")
         dz = Z - zm

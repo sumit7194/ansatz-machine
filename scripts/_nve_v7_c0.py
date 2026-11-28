@@ -90,6 +90,8 @@ class C0:
 
         I1 = acb.integral(make(lambda s: s * s), 0, lim, rel_tol=arb(2) ** -240)
         I0 = acb.integral(make(lambda s: s - zs * s * s), 0, lim, rel_tol=arb(2) ** -240)
+        if not (I1.is_finite() and I0.is_finite()):
+            raise AssertionError("start: the start integrals are not finite")
         k8 = (arb(8) / 5).sqrt() * a
         c0p = k8 * I1
         c0v = -k8 * I0
@@ -111,6 +113,8 @@ class C0:
                 return f
             J1 = acb.integral(maked(lambda s: s * s), 0, lim, rel_tol=arb(2) ** -240)
             J0 = acb.integral(maked(lambda s: s - zs * s * s), 0, lim, rel_tol=arb(2) ** -240)
+            if not (J1.is_finite() and J0.is_finite()):
+                raise AssertionError("start: the d/dk start integrals are not finite")
             st["D1"] = k8 * J1
             st["D0"] = -k8 * J0
         return st
@@ -140,29 +144,25 @@ class C0:
             Bb = self.B_mv(bx)
             Db = bx * bx + self.a * self.a
             if not (Bb.contains(0) or Db.contains(0)):
-                m0 = (self.pref.abs_upper() * Bb.abs_upper().sqrt() / (Db.abs_lower() ** 3)).upper()
-                if not self.deriv:
-                    return m0
+                ms = Bb.abs_upper().sqrt().upper()
+                m0 = (self.pref.abs_upper() * ms / (Db.abs_lower() ** 3)).upper()
                 m1 = (self.pref.abs_upper() * self.dB(bx).abs_upper() / (2 * Bb.abs_lower().sqrt())
-                      / (Db.abs_lower() ** 3)).upper()
-                return (m0, m1)
+                      / (Db.abs_lower() ** 3)).upper() if self.deriv else arb(0)
+                return (m0, m1, ms)
             if d == 0:
                 raise AssertionError("step: a singular point of c0'' is within the Cauchy disc")
             h2 = (hw / 2).upper()
             parts = [bound(cx + sx * h2, cy + sy * h2, h2, d - 1) for sx in (-1, 1) for sy in (-1, 1)]
-            return max(parts) if not self.deriv else (max(p[0] for p in parts), max(p[1] for p in parts))
-        M, M1 = arb(0), arb(0)
+            return tuple(max(p[i] for p in parts) for i in range(3))
+        M, M1, MS = arb(0), arb(0), arb(0)
         hw = (arb(r) / m).upper()
         for i in range(m):
             for j in range(m):
                 cx = (-arb(r) + hw * (2 * i + 1)).mid()
                 cy = (-arb(r) + hw * (2 * j + 1)).mid()
                 v = bound(arb(cx), arb(cy), hw, depth)
-                if self.deriv:
-                    M, M1 = max(M, v[0]), max(M1, v[1])
-                else:
-                    M = max(M, v)
-        return M.upper() if not self.deriv else (M.upper(), M1.upper())
+                M, M1, MS = max(M, v[0]), max(M1, v[1]), max(MS, v[2])
+        return M.upper(), M1.upper(), MS.upper()     # sup |c0''|, sup |d c0''/dk| (0 unless deriv), sup |sqrt B|
 
     # ---------------------------------------------------------------------------------------------- one step
     def step(self, st, h, r):
@@ -172,10 +172,15 @@ class C0:
         if not habs <= r / 4:
             raise AssertionError("step: |h| > r/4")
         # sup |c0''| on the box containing the disc |x - z| <= r (branch-free: |sqrt B| = sqrt |B|)
-        M = self.sup_box(z, r)
-        if self.deriv:
-            M, MD = M
-        # Taylor series of c0'' at z
+        M, MD, MS = self.sup_box(z, r)
+        # Taylor series of c0'' at z (ctx.cap is a global: saved and restored, so a caller's series length is untouched)
+        cap0 = ctx.cap
+        try:
+            return self._step(st, z, s0, h, r, habs, M, MD, MS)
+        finally:
+            ctx.cap = cap0
+
+    def _step(self, st, z, s0, h, r, habs, M, MD, MS):
         ctx.cap = NTERMS
         x = acb_series([z, 1])
         Bs = self.B(x)
@@ -220,11 +225,13 @@ class C0:
         for n, cn in enumerate(c):
             pred += cn * hn
             hn *= hp
+        ts = (MS * th ** NTERMS / (1 - th)).upper()       # Cauchy tail of the sqrt B series at h (reader item 1)
+        pred += acb(arb(0, ts), arb(0, ts))
+        if "pred_flip_at" in self.plant and self.steps == self.plant["pred_flip_at"]:
+            pred = -pred                                    # must-fail control (ii'): a branch error a gate must catch
         snew = self.B(znew).sqrt()
         if abs(snew + pred) < abs(snew - pred):
             snew = -snew
-        if "flip_at" in self.plant and self.steps == self.plant["flip_at"]:
-            snew = -snew                                    # must-fail control (ii): a wrong branch choice at the step end
         if not (abs(snew - pred) < abs(snew + pred)):
             raise AssertionError(f"step {self.steps}: branch continuity of sqrt B not certified")
         self.steps += 1
