@@ -1,0 +1,2 @@
+2026-11-29 00:32:59 started c2an_chain pid 47504: .venv313/bin/python -I -u scripts/_nve_c2an.py run
+2026-11-29 00:44:30 c2an_chain pid 47504 exited rc 0
