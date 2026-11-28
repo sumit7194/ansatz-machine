@@ -93,3 +93,69 @@ Each runs prove, then verdict with full controls, then the engine gate.
 | (B) chosen after the cost probe | 60% |
 | at least 1 pilot certifies by 2026-12-12 | 40% |
 | all 3 certify | 15% |
+
+## Addendum C2-1 (2026-11-28): the design. CAPD for the monodromy enclosure over k-sub-boxes. Committed BEFORE any build or code
+**Inputs:** the tools survey (`C2_TOOLS_SURVEY.md`, fbd33f3), and Quantum's CAPD notes relayed by the Bridge: method
+notes from its own runs, not tested on our system.
+
+**Choice: CAPD replaces the Dyson M machinery.** The v7 node values, the engine gate, ATAP, the loops and geometry
+(closure, FieldB's disc, free_square) stay unchanged. The fallback, an own Arb Taylor-model layer, is used only if
+step 0' fails.
+
+**The system:**
+- s = √B carried as a state: ds/dz = B_z/(2s), dc0'/dz = −√(8/5)a³ s/(z² + a²)³, dc0/dz = c0';
+- the ρ-equation's 2 × 2 fundamental matrix Y' = [[0, 1], [−q, 0]]·Y, with q rational in (z, k, c0, c0');
+- k carried as two constant real states (dk/dτ = 0);
+- each straight path segment z = z0 + τh (τ ∈ [0, 1]) is a real ODE in 14 + 2 = 16 dimensions, with every right-hand
+  side rational.
+
+**The certificate's M from CAPD:**
+- **Covering:** the ellipse box E_ρ (ρ = 4) is covered by k-sub-boxes (as fine as step 0' requires).
+- **Initial set,** an affine doubleton in dk, so the k-correlation starts right:
+  - x0 = (s, c0, c0') at the base point and k_c, from V1's C0 start (Arb);
+  - C = the real Jacobian of (s, c0, c0') in (Re dk, Im dk), from C0's d/dk start (Arb);
+  - plus a remainder box from addendum 5's E-type second-derivative bound over the sub-box;
+  - Y0 = I.
+- **Integration:** both loops (circle or Γ, and the lasso), segment by segment, with CAPD's MPFR C0 solver
+  (MpIOdeSolver, doubleton sets).
+- **Output:** enclosures of M0(K_j), M1(K_j). Arb then computes F, tr M0 and tr M1 over K_j; M_F, M_T0 and M_T1 are the
+  maxima over the sub-boxes, then ATAP as now.
+
+**Rules from Quantum (mandatory):**
+- our OWN build of CAPD master at the commit Quantum uses (recorded in the build log; v6.0.0 does not build on
+  arm64), with MPFR and GMP from Homebrew;
+- the full ctest must pass;
+- MPFR intervals ONLY, with a compile-time guard rejecting non-MPFR types;
+- after EVERY step: every enclosure finite, and the denominator domains (|s| away from 0, z² + a² ≠ 0, G1, G2 ≠ 0)
+  checked on the WHOLE-STEP enclosure; any failure FAILS the sub-box (the box is refused, never silently accepted);
+- step sizes logged, since hard shrinkage is the early warning of a near-singular denominator.
+
+## Step 0' (registered now; a cost and width probe; certifies nothing)
+- **What:** one k-sub-box of half-side R/5 (KSUB = 5), centred at k_c, for P2 (region B, k_c 83/20) and for P1
+  (circle, k_c 79/20).
+- **CAPD encloses** M0 and M1 over it, giving F, tr M0 and tr M1 over the sub-box.
+- **Point values** of F at the sub-box's 9 × 9 grid come from the Arb evaluator.
+
+**Measured:**
+- (a) the CAPD width of F over the sub-box, against the sampled range of F on the grid: the wrapping factor;
+- (b) the wall time per sub-box;
+- (c) the step-size log.
+
+**Pass bar (fixed now):**
+- the CAPD enclosure is finite and contains every sampled F;
+- the width of F is at most 100 × the sampled range (so M_F from a covering is within about 2 orders of the truth,
+  which ATAP's log turns into at most about +4 in n);
+- the projected cost (time per sub-box × the number of sub-boxes covering E_ρ at that size) is at most 2 h per
+  segment.
+
+**Fail →** the fallback (an own Arb TM layer), or STOP if the 12-12 box makes that infeasible. Reported either way.
+
+**Order:**
+1. this addendum;
+2. build CAPD (own copy; the full ctest);
+3. the system code (C++ driver plus Python glue), committed;
+4. step 0';
+5. if it passes: the non-author read of the driver and glue;
+6. the controls (a shrunken M; a planted spike, a k-sub-box whose path crosses a singular point, which must be
+   refused; a positive check against step 0's samples);
+7. the pilots P1/P2/P3, one attempt each.
