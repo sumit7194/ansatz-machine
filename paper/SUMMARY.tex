@@ -1,0 +1,60 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=2cm]{geometry}
+\usepackage{amsmath}
+\usepackage{xcolor}
+\usepackage[colorlinks=true,urlcolor=blue!50!black]{hyperref}
+\usepackage{microtype}
+\pagestyle{empty}
+\setlength{\parskip}{4pt}
+\setlength{\parindent}{0pt}
+\begin{document}
+{\Large\bfseries Twisted Kerr-mass spacetimes: orbits along the axis lose Kerr's hidden symmetry}\\[2pt]
+{\small Plain-language summary of a draft preprint by Sumit Pal (independent researcher). AI-assisted; not yet
+reviewed by an outside expert. 28 November 2026.}
+
+\textbf{The question.} Orbits around a spinning (Kerr) black hole are unusually orderly. Besides energy and angular
+momentum, they conserve a hidden quantity, Carter's constant, so they never become chaotic. Is that orderliness
+fragile? We take a family of spacetimes that look exactly like Kerr in their mass distribution along the spin axis,
+but whose ``twist'' (how the space is dragged around) is changed by an amount $k$. $k=0$ is Kerr; physically sensible
+members run from $k=0$ to $k=30/7\approx4.29$.
+
+\textbf{What we did.} We followed one orbit, a particle falling up and down the spin axis, and asked whether nearby
+orbits keep enough conserved quantities to stay orderly. A theorem from differential Galois theory (Morales--Ramis)
+turns this into a test on a single matrix group. If the group is as large as possible, there cannot be enough
+well-behaved conserved quantities.
+
+\textbf{What we found.}
+\begin{itemize}\itemsep2pt
+\item \textbf{Numerically,} for every twist in the physical range ($0<k\le30/7$), at four spin values and one
+energy: the group is as large as possible. So Carter's constant does not survive any amount of this twist.
+\item \textbf{Proved,} with explicit, computer-checked margins, very close to Kerr ($0<k\le$ a few
+thousandths), given three stated assumptions (one of them our own unrefereed proof).
+\item \textbf{Certified by computer-assisted interval arithmetic} (every rounding error bounded) over most of the
+range at two spins: $0<k\le3$ at spin $0.6$; $0.003\le k\le3$ at spin $0.3$. The very end, near $k=30/7$, is also
+certified. Two more spins are being computed now.
+\end{itemize}
+
+\textbf{How we checked it.}
+\begin{itemize}\itemsep2pt
+\item Every number in the certified parts was recomputed by a second, independent program.
+\item Built-in ``must-fail'' tests showed the checks can say no.
+\item Predictions were written down and committed before each long run, and every hit and miss is reported.
+\item All code, outputs and logs are public.
+\end{itemize}
+
+\textbf{What we do \emph{not} claim.}
+\begin{itemize}\itemsep2pt
+\item That the whole range is a mathematical proof. Most of it is careful 50-digit numerics.
+\item Anything about real astrophysical black holes. These spacetimes are not black holes, and nothing away from the
+axis was checked.
+\item Anything about other spins, other energies, or light rays (only four spins and one energy were tested).
+\item That no conserved quantity of any kind exists. Only the well-behaved (``meromorphic'') kind is ruled out.
+\item That an expert has checked this. The checks were done by separate AI sessions, not by human peer review.
+\end{itemize}
+
+\textbf{How it was made.} AI assistance (Claude by Anthropic for code, analysis and drafting; Gemini by Google for
+critical reads) under the author's direction. The author takes full responsibility.
+
+\textbf{Where to look.} Code and data: \href{https://doi.org/10.5281/zenodo.24593416}{doi:10.5281/zenodo.24593416};
+\url{https://github.com/sumit7194/ansatz-machine}.
+\end{document}
