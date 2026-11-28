@@ -1,10 +1,13 @@
 {
  "M3a_refinement_path": true,
- "M3b_stop": true,
- "a": {
-  "leaves": 28,
-  "stop": null
+ "M3a_by_mode": {
+  "none": true,
+  "rc": true,
+  "margin": true,
+  "nonfinite": true,
+  "zero": true
  },
+ "M3b_stop": true,
  "b": {
   "stop": "cell L0_12.0.0 (R/20) not accepted: no record (the glue crashed)"
  }

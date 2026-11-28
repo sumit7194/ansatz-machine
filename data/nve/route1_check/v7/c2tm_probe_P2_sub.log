@@ -1,0 +1,5 @@
+=== C2-TM probe P2 sub HEAD a3c5f56 2026-11-28 21:16:20
+C2-TM probe P2 sub: FAIL; per {'F': {'contained': True, 'sup': 2.3058774259675595e+59, 'sampled_max': 4.3220744919454965, 'sup_ratio': 5.335117268952055e+58, 'e': 2.3058774259675595e+59, 'widest_at': 3.26100313921735e+59, 'ok': False}, 'T0': {'contained': True, 'sup': 0.020403431130540155, 'sampled_max': 0.01960686902536846, 'sup_ratio': 1.0406266856855655, 'e': 3.77498828918195e-07, 'widest_at': 5.338639654794974e-07, 'ok': True}, 'T1': {'contained': True, 'sup': 1.3266051061953458e+29, 'sampled_max': 2.1935148894286978, 'sup_ratio': 6.047850929066914e+28, 'e': 1.3266051061953458e+29, 'widest_at': 1.8761029369060734e+29, 'ok': False}}; T2 caught True; tightness 1; cost 9.02 h; 2599 s
+probe rc 0
+=== C2TM_PROBE_DONE P2 sub 2026-11-28 21:59:39
+JOB_EXIT 0

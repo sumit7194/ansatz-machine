@@ -1,0 +1,18 @@
+Traceback (most recent call last):
+  File "/Users/sumit/Github/conjecture_machine-check/scripts/_nve_c2_capd.py", line 433, in <module>
+    {"drive": drive, "samples": samples, "judge": judge}[sys.argv[1]]()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/sumit/Github/conjecture_machine-check/scripts/_nve_c2_capd.py", line 287, in drive
+    write_input(inp, x, C, r)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "/Users/sumit/Github/conjecture_machine-check/scripts/_nve_c2_capd.py", line 202, in write_input
+    lines.append("r " + " ".join(me(v) for v in r))
+                        ~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/Users/sumit/Github/conjecture_machine-check/scripts/_nve_c2_capd.py", line 202, in <genexpr>
+    lines.append("r " + " ".join(me(v) for v in r))
+                                 ~~^^^
+  File "/Users/sumit/Github/conjecture_machine-check/scripts/_nve_c2_capd.py", line 105, in me
+    m, e = x.man_exp()
+           ~~~~~~~~~^^
+  File "flint/types/arb.pyx", line 252, in flint.types.arb.arb.man_exp
+ValueError: man_exp requires an exact, finite value

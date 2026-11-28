@@ -1,0 +1,252 @@
+=== C2-M pilot P3 k_c 59979/14000 half 1/2000 code 0292918c85ce830f base c2m_kc59979o14000h1o2000_0292918c85ce830f HEAD b02a2ee 2026-11-28 21:07:55
+=== M3 (dry)
+C2-M cover P3: 28 leaves of 29 cells; stop None; M ['1.000E+0', '1.000E+0', '1.000E+0']; CAPD 0 s total, wall 0.0 s
+C2-M cover P3: 28 leaves of 29 cells; stop None; M ['1.000E+0', '1.000E+0', '1.000E+0']; CAPD 0 s total, wall 0.0 s
+C2-M cover P3: 28 leaves of 29 cells; stop None; M ['1.000E+0', '1.000E+0', '1.000E+0']; CAPD 0 s total, wall 0.0 s
+C2-M cover P3: 28 leaves of 29 cells; stop None; M ['1.000E+0', '1.000E+0', '1.000E+0']; CAPD 0 s total, wall 0.0 s
+C2-M cover P3: 28 leaves of 29 cells; stop None; M ['1.000E+0', '1.000E+0', '1.000E+0']; CAPD 0 s total, wall 0.0 s
+C2-M cover P3: 30 leaves of 33 cells; stop cell L0_12.0.0 (R/20) not accepted: no record (the glue crashed); M None; CAPD 0 s total, wall 0.0 s
+C2-M control M3 P3: refinement path FIRED; R/20 STOP FIRED
+M3 rc 0
+=== cover 2026-11-28 21:07:55
+  cell L0_0: rc 0 [249 s]
+  cell L0_1: rc 0 [251 s]
+  cell L0_2: rc 0 [227 s]
+  cell L0_3: rc 0 [225 s]
+  cell L0_5: rc 0 [205 s]
+  cell L0_4: rc 0 [207 s]
+  cell L0_6: rc 0 [207 s]
+  cell L0_7: rc 0 [207 s]
+  cell L0_8: rc 0 [211 s]
+  cell L0_9: rc 0 [213 s]
+  cell L0_10: rc 0 [199 s]
+  cell L0_11: rc 0 [199 s]
+  cell L0_12: rc 0 [198 s]
+  cell L0_13: rc 0 [198 s]
+  cell L0_14: rc 0 [198 s]
+  cell L0_15: rc 0 [198 s]
+  cell L0_16: rc 0 [221 s]
+  cell L0_17: rc 0 [217 s]
+  cell L0_18: rc 0 [211 s]
+  cell L0_19: rc 0 [211 s]
+  cell L0_21: rc None [2 s]
+  cell L0_20: rc 0 [206 s]
+  cell L0_23: rc None [2 s]
+  cell L0_22: rc 0 [208 s]
+  cell L0_24: rc 0 [221 s]
+  cell L0_21.0: rc 0 [243 s]
+  cell L0_21.1: rc 0 [245 s]
+  cell L0_21.2: rc 0 [221 s]
+  cell L0_21.3: rc 0 [221 s]
+  cell L0_23.0: rc 0 [207 s]
+  cell L0_23.1: rc 0 [207 s]
+  cell L0_23.2: rc 0 [213 s]
+  cell L0_23.3: rc 0 [213 s]
+C2-M cover P3: 31 leaves of 33 cells; stop None; M ['3.507E+6', '6.032E-1', '4.844E+2']; CAPD 6613 s total, wall 3438.5 s
+cover rc 0
+=== M1 2026-11-28 22:05:14
+M1 L0_0: contained [True, True, True] [15.35 s]
+M1 L0_1: contained [True, True, True] [15.71 s]
+M1 L0_2: contained [True, True, True] [16.7 s]
+M1 L0_3: contained [True, True, True] [16.03 s]
+M1 L0_4: contained [True, True, True] [17.59 s]
+M1 L0_5: contained [True, True, True] [18.2 s]
+M1 L0_6: contained [True, True, True] [17.88 s]
+M1 L0_7: contained [True, True, True] [17.79 s]
+M1 L0_8: contained [True, True, True] [17.81 s]
+M1 L0_9: contained [True, True, True] [17.94 s]
+M1 L0_10: contained [True, True, True] [17.98 s]
+M1 L0_11: contained [True, True, True] [18.07 s]
+M1 L0_12: contained [True, True, True] [18.07 s]
+M1 L0_13: contained [True, True, True] [18.11 s]
+M1 L0_14: contained [True, True, True] [18.09 s]
+M1 L0_15: contained [True, True, True] [18.24 s]
+M1 L0_16: contained [True, True, True] [17.9 s]
+M1 L0_17: contained [True, True, True] [18.03 s]
+M1 L0_18: contained [True, True, True] [17.73 s]
+M1 L0_19: contained [True, True, True] [18.03 s]
+M1 L0_20: contained [True, True, True] [18.08 s]
+M1 L0_22: contained [True, True, True] [19.25 s]
+M1 L0_24: contained [True, True, True] [19.3 s]
+M1 L0_21.0: contained [True, True, True] [19.68 s]
+M1 L0_21.1: contained [True, True, True] [19.47 s]
+M1 L0_21.2: contained [True, True, True] [19.44 s]
+M1 L0_21.3: contained [True, True, True] [19.5 s]
+M1 L0_23.0: contained [True, True, True] [19.4 s]
+M1 L0_23.1: contained [True, True, True] [19.36 s]
+M1 L0_23.2: contained [True, True, True] [19.44 s]
+M1 L0_23.3: contained [True, True, True] [18.75 s]
+C2-M control M1 P3: PASS (31 values)
+M1 rc 0
+=== verdict (full controls) 2026-11-28 22:14:37
+    z = (1.5968518330329597+0j): |D0 - FD| <= 3.7e-09, |D1 - FD| <= 2.8e-10; |FD dq/dk| / sup = 1.000000; second derivatives E0, E1 (addendum 5) overlap their FD: True  -> ok
+    z = (1.789166032144946-0.20533178063318877j): |D0 - FD| <= 3.7e-09, |D1 - FD| <= 2.8e-10; |FD dq/dk| / sup = 1.000000; second derivatives E0, E1 (addendum 5) overlap their FD: True  -> ok
+    z = (2.0083965431143684+4.1594648428463814e-52j): |D0 - FD| <= 3.6e-09, |D1 - FD| <= 2.8e-10; |FD dq/dk| / sup = 1.000000; second derivatives E0, E1 (addendum 5) overlap their FD: True  -> ok
+    z = (1.789166032144946+0.20533178063318877j): |D0 - FD| <= 3.7e-09, |D1 - FD| <= 2.8e-10; |FD dq/dk| / sup = 1.000000; second derivatives E0, E1 (addendum 5) overlap their FD: True  -> ok
+    z = (1.5968518330329597-1.7238819041576696e-51j): |D0 - FD| <= 3.7e-09, |D1 - FD| <= 2.8e-10; |FD dq/dk| / sup = 1.000000; second derivatives E0, E1 (addendum 5) overlap their FD: True  -> ok
+C2-M proof file: n = 14, M = 3.507E+6, 6.032E-1, 4.844E+2; precondition True; self-test True
+== v6 verdict == spin 3/5|k in [14993/3500, 29993/7000]; mode F; rho = 4.0, n = 14; code 0292918c85ce830f; node records on disk 0; full controls True
+  node0: 18.07 s, steps [673, 638], radius of F 1.4e-07
+  node1: 17.69 s, steps [673, 637], radius of F 1.4e-07
+  node2: 17.47 s, steps [674, 637], radius of F 1.4e-07
+  node3: 17.63 s, steps [674, 637], radius of F 1.4e-07
+  node4: 17.97 s, steps [675, 638], radius of F 1.4e-07
+  node5: 17.73 s, steps [675, 636], radius of F 1.4e-07
+  node6: 17.78 s, steps [675, 635], radius of F 1.4e-07
+  node7: 17.63 s, steps [675, 635], radius of F 1.4e-07
+  node8: 17.85 s, steps [674, 635], radius of F 1.4e-07
+  node9: 17.69 s, steps [674, 635], radius of F 1.4e-07
+  node10: 17.86 s, steps [674, 634], radius of F 1.4e-07
+  node11: 17.64 s, steps [676, 634], radius of F 1.4e-07
+  node12: 17.64 s, steps [676, 632], radius of F 1.4e-07
+  node13: 17.7 s, steps [676, 632], radius of F 1.4e-07
+  node14: 17.44 s, steps [676, 632], radius of F 1.4e-07
+  F: min |p| >= 2.863044985; proved error bound <= 1.743E-2 -> |F| >= 2.845624288; != 0: True
+  tr M0: min |p| >= 0.003300259; bound <= 2.996E-9 -> |tr M0| >= 0.003300256; != 0: True
+  tr M1: min |Im p| >= 0.712351283; bound <= 2.406E-6 -> |Im tr M1| >= 0.712348877; not in [-2, 2]: True
+  held t=-5/8: 16.98 s, steps [674, 634], radius of F 1.4e-07
+  held-out t = -5/8: |p - f| in [0.0e+00, 7.9e-06] (F), [0.0e+00, 6.4e-12] (tr M0), [0.0e+00, 9.2e-11] (tr M1)
+  held t=1/8: 16.61 s, steps [675, 635], radius of F 1.4e-07
+  held-out t = 1/8: |p - f| in [0.0e+00, 7.3e-06] (F), [0.0e+00, 6.2e-12] (tr M0), [0.0e+00, 8.8e-11] (tr M1)
+  held t=3/4: 17.82 s, steps [674, 638], radius of F 1.4e-07
+  held-out t = 3/4: |p - f| in [0.0e+00, 7.6e-06] (F), [0.0e+00, 6.3e-12] (tr M0), [0.0e+00, 9.6e-11] (tr M1)
+  control, planted zero (F - F(t = 1/8), between nodes): certificate REFUSED (as it must be)
+  ellipse0/8 rho=4.0: 17.7 s, steps [675, 640], radius of F 1.4e-07
+  ellipse1/8 rho=4.0: 17.98 s, steps [674, 639], radius of F 1.4e-07
+  ellipse2/8 rho=4.0: 17.84 s, steps [675, 635], radius of F 1.4e-07
+  ellipse3/8 rho=4.0: 17.79 s, steps [676, 630], radius of F 1.4e-07
+  ellipse4/8 rho=4.0: 15.53 s, steps [676, 630], radius of F 1.5e-07
+  ellipse5/8 rho=4.0: 15.8 s, steps [675, 634], radius of F 1.5e-07
+  ellipse6/8 rho=4.0: 16.53 s, steps [676, 638], radius of F 1.5e-07
+  ellipse7/8 rho=4.0: 15.55 s, steps [674, 639], radius of F 1.4e-07
+  proved M >= sampled on the ellipse rho = 4.0 (8 points): True (overestimate x1.2e+06, x1.7e+02, x2.3e+02)
+  shrunken M (/1e12): verdict still passes True; held-out breaks none; below the sampled max for ['f', 'tr M0', 'tr M1']; planted precondition at 4.2 fires: True
+  node balls: largest radius of F 7.93e-07, smallest |F| 2.86e+00; conditions failing even at e = 0 (splitting cannot cure): none
+  OUTCOME: CERTIFIED  (F != 0, tr M0 != 0, tr M1 not in [-2, 2] for every real k in the segment); new evaluations 26; peak rss 75 MB
+verdict rc 0
+=== control M2F 2026-11-28 22:22:09
+C2-M control M2F: planting M[0] = 0.5 x sampled max = 1.433E+0
+    z = (1.5968518330329597+0j): |D0 - FD| <= 3.7e-09, |D1 - FD| <= 2.8e-10; |FD dq/dk| / sup = 1.000000; second derivatives E0, E1 (addendum 5) overlap their FD: True  -> ok
+    z = (1.789166032144946-0.20533178063318877j): |D0 - FD| <= 3.7e-09, |D1 - FD| <= 2.8e-10; |FD dq/dk| / sup = 1.000000; second derivatives E0, E1 (addendum 5) overlap their FD: True  -> ok
+    z = (2.0083965431143684+4.1594648428463814e-52j): |D0 - FD| <= 3.6e-09, |D1 - FD| <= 2.8e-10; |FD dq/dk| / sup = 1.000000; second derivatives E0, E1 (addendum 5) overlap their FD: True  -> ok
+    z = (1.789166032144946+0.20533178063318877j): |D0 - FD| <= 3.7e-09, |D1 - FD| <= 2.8e-10; |FD dq/dk| / sup = 1.000000; second derivatives E0, E1 (addendum 5) overlap their FD: True  -> ok
+    z = (1.5968518330329597-1.7238819041576696e-51j): |D0 - FD| <= 3.7e-09, |D1 - FD| <= 2.8e-10; |FD dq/dk| / sup = 1.000000; second derivatives E0, E1 (addendum 5) overlap their FD: True  -> ok
+C2-M proof file: n = 4, M = 1.433E+0, 6.032E-1, 4.844E+2; precondition True; self-test True; PLANT M2F
+== v6 verdict == spin 3/5|k in [14993/3500, 29993/7000]; mode F; rho = 4.0, n = 4; code 0292918c85ce830f; node records on disk 26; full controls True
+  node0: 15.54 s, steps [673, 638], radius of F 1.4e-07
+  node1: 15.48 s, steps [675, 638], radius of F 1.4e-07
+  node2: 16.08 s, steps [675, 635], radius of F 1.4e-07
+  node3: 16.02 s, steps [674, 634], radius of F 1.4e-07
+  node4: 15.72 s, steps [676, 632], radius of F 1.4e-07
+  F: min |p| >= 2.863050250; proved error bound <= 7.464E-3 -> |F| >= 2.855586808; != 0: True
+  tr M0: min |p| >= 0.003300259; bound <= 3.142E-3 -> |tr M0| >= 0.000158770; != 0: True
+  tr M1: min |Im p| >= 0.712351286; bound <= 2.523E+0 -> |Im tr M1| >= -1.810402162; not in [-2, 2]: False
+  held t=-5/8: 15.71 s, steps [674, 634], radius of F 1.4e-07
+  held-out t = -5/8: |p - f| in [0.0e+00, 3.1e-06] (F), [9.8e-11, 1.0e-10] (tr M0), [6.6e-09, 6.7e-09] (tr M1)
+  held t=1/8: 16.91 s, steps [675, 635], radius of F 1.4e-07
+  held-out t = 1/8: |p - f| in [0.0e+00, 3.2e-06] (F), [1.6e-10, 1.7e-10] (tr M0), [1.1e-08, 1.1e-08] (tr M1)
+  held t=3/4: 18.29 s, steps [674, 638], radius of F 1.4e-07
+  held-out t = 3/4: |p - f| in [0.0e+00, 2.6e-06] (F), [6.3e-11, 6.7e-11] (tr M0), [4.3e-09, 4.4e-09] (tr M1)
+  control, planted zero (F - F(t = 1/8), between nodes): certificate REFUSED (as it must be)
+  ellipse0/8 rho=4.0: 18.97 s, steps [675, 640], radius of F 1.4e-07
+  ellipse1/8 rho=4.0: 18.19 s, steps [674, 639], radius of F 1.4e-07
+  ellipse2/8 rho=4.0: 18.2 s, steps [675, 635], radius of F 1.4e-07
+  ellipse3/8 rho=4.0: 17.88 s, steps [676, 630], radius of F 1.4e-07
+  ellipse4/8 rho=4.0: 18.16 s, steps [676, 630], radius of F 1.5e-07
+  ellipse5/8 rho=4.0: 18.07 s, steps [675, 634], radius of F 1.5e-07
+  ellipse6/8 rho=4.0: 18.02 s, steps [676, 638], radius of F 1.5e-07
+  ellipse7/8 rho=4.0: 18.22 s, steps [674, 639], radius of F 1.4e-07
+  proved M >= sampled on the ellipse rho = 4.0 (8 points): False (overestimate x5.0e-01, x1.7e+02, x2.3e+02)
+  shrunken M (/1e12): verdict still passes True; held-out breaks [('-5/8', 'tr M0'), ('-5/8', 'tr M1'), ('1/8', 'tr M0'), ('1/8', 'tr M1'), ('3/4', 'tr M0'), ('3/4', 'tr M1')]; below the sampled max for ['f', 'tr M0', 'tr M1']; planted precondition at 4.2 fires: True
+  node balls: largest radius of F 7.93e-07, smallest |F| 2.86e+00; conditions failing even at e = 0 (splitting cannot cure): none
+  OUTCOME: ALARM  proved M below a sample  (F != 0, tr M0 != 0, tr M1 not in [-2, 2] for every real k in the segment); new evaluations 16; peak rss 67 MB
+control M2F rc 3
+=== control M2T0 2026-11-28 22:26:45
+C2-M control M2T0: planting M[1] = 0.5 x sampled max = 1.775E-3
+    z = (1.5968518330329597+0j): |D0 - FD| <= 3.7e-09, |D1 - FD| <= 2.8e-10; |FD dq/dk| / sup = 1.000000; second derivatives E0, E1 (addendum 5) overlap their FD: True  -> ok
+    z = (1.789166032144946-0.20533178063318877j): |D0 - FD| <= 3.7e-09, |D1 - FD| <= 2.8e-10; |FD dq/dk| / sup = 1.000000; second derivatives E0, E1 (addendum 5) overlap their FD: True  -> ok
+    z = (2.0083965431143684+4.1594648428463814e-52j): |D0 - FD| <= 3.6e-09, |D1 - FD| <= 2.8e-10; |FD dq/dk| / sup = 1.000000; second derivatives E0, E1 (addendum 5) overlap their FD: True  -> ok
+    z = (1.789166032144946+0.20533178063318877j): |D0 - FD| <= 3.7e-09, |D1 - FD| <= 2.8e-10; |FD dq/dk| / sup = 1.000000; second derivatives E0, E1 (addendum 5) overlap their FD: True  -> ok
+    z = (1.5968518330329597-1.7238819041576696e-51j): |D0 - FD| <= 3.7e-09, |D1 - FD| <= 2.8e-10; |FD dq/dk| / sup = 1.000000; second derivatives E0, E1 (addendum 5) overlap their FD: True  -> ok
+C2-M proof file: n = 14, M = 3.507E+6, 1.775E-3, 4.844E+2; precondition True; self-test True; PLANT M2T0
+== v6 verdict == spin 3/5|k in [14993/3500, 29993/7000]; mode F; rho = 4.0, n = 14; code 0292918c85ce830f; node records on disk 42; full controls True
+  F: min |p| >= 2.863044985; proved error bound <= 1.743E-2 -> |F| >= 2.845624288; != 0: True
+  tr M0: min |p| >= 0.003300259; bound <= 8.814E-12 -> |tr M0| >= 0.003300259; != 0: True
+  tr M1: min |Im p| >= 0.712351283; bound <= 2.406E-6 -> |Im tr M1| >= 0.712348877; not in [-2, 2]: True
+  held-out t = -5/8: |p - f| in [0.0e+00, 7.9e-06] (F), [0.0e+00, 6.4e-12] (tr M0), [0.0e+00, 9.2e-11] (tr M1)
+  held-out t = 1/8: |p - f| in [0.0e+00, 7.3e-06] (F), [0.0e+00, 6.2e-12] (tr M0), [0.0e+00, 8.8e-11] (tr M1)
+  held-out t = 3/4: |p - f| in [0.0e+00, 7.6e-06] (F), [0.0e+00, 6.3e-12] (tr M0), [0.0e+00, 9.6e-11] (tr M1)
+  control, planted zero (F - F(t = 1/8), between nodes): certificate REFUSED (as it must be)
+  proved M >= sampled on the ellipse rho = 4.0 (8 points): False (overestimate x1.2e+06, x5.0e-01, x2.3e+02)
+  shrunken M (/1e12): verdict still passes True; held-out breaks none; below the sampled max for ['f', 'tr M0', 'tr M1']; planted precondition at 4.2 fires: True
+  node balls: largest radius of F 7.93e-07, smallest |F| 2.86e+00; conditions failing even at e = 0 (splitting cannot cure): none
+  OUTCOME: ALARM  proved M below a sample  (F != 0, tr M0 != 0, tr M1 not in [-2, 2] for every real k in the segment); new evaluations 0; peak rss 45 MB
+control M2T0 rc 3
+=== control M2T1 2026-11-28 22:26:46
+C2-M control M2T1: planting M[2] = 0.5 x sampled max = 1.035E+0
+    z = (1.5968518330329597+0j): |D0 - FD| <= 3.7e-09, |D1 - FD| <= 2.8e-10; |FD dq/dk| / sup = 1.000000; second derivatives E0, E1 (addendum 5) overlap their FD: True  -> ok
+    z = (1.789166032144946-0.20533178063318877j): |D0 - FD| <= 3.7e-09, |D1 - FD| <= 2.8e-10; |FD dq/dk| / sup = 1.000000; second derivatives E0, E1 (addendum 5) overlap their FD: True  -> ok
+    z = (2.0083965431143684+4.1594648428463814e-52j): |D0 - FD| <= 3.6e-09, |D1 - FD| <= 2.8e-10; |FD dq/dk| / sup = 1.000000; second derivatives E0, E1 (addendum 5) overlap their FD: True  -> ok
+    z = (1.789166032144946+0.20533178063318877j): |D0 - FD| <= 3.7e-09, |D1 - FD| <= 2.8e-10; |FD dq/dk| / sup = 1.000000; second derivatives E0, E1 (addendum 5) overlap their FD: True  -> ok
+    z = (1.5968518330329597-1.7238819041576696e-51j): |D0 - FD| <= 3.7e-09, |D1 - FD| <= 2.8e-10; |FD dq/dk| / sup = 1.000000; second derivatives E0, E1 (addendum 5) overlap their FD: True  -> ok
+C2-M proof file: n = 14, M = 3.507E+6, 6.032E-1, 1.035E+0; precondition True; self-test True; PLANT M2T1
+== v6 verdict == spin 3/5|k in [14993/3500, 29993/7000]; mode F; rho = 4.0, n = 14; code 0292918c85ce830f; node records on disk 42; full controls True
+  F: min |p| >= 2.863044985; proved error bound <= 1.743E-2 -> |F| >= 2.845624288; != 0: True
+  tr M0: min |p| >= 0.003300259; bound <= 2.996E-9 -> |tr M0| >= 0.003300256; != 0: True
+  tr M1: min |Im p| >= 0.712351283; bound <= 5.139E-9 -> |Im tr M1| >= 0.712351277; not in [-2, 2]: True
+  held-out t = -5/8: |p - f| in [0.0e+00, 7.9e-06] (F), [0.0e+00, 6.4e-12] (tr M0), [0.0e+00, 9.2e-11] (tr M1)
+  held-out t = 1/8: |p - f| in [0.0e+00, 7.3e-06] (F), [0.0e+00, 6.2e-12] (tr M0), [0.0e+00, 8.8e-11] (tr M1)
+  held-out t = 3/4: |p - f| in [0.0e+00, 7.6e-06] (F), [0.0e+00, 6.3e-12] (tr M0), [0.0e+00, 9.6e-11] (tr M1)
+  control, planted zero (F - F(t = 1/8), between nodes): certificate REFUSED (as it must be)
+  proved M >= sampled on the ellipse rho = 4.0 (8 points): False (overestimate x1.2e+06, x1.7e+02, x5.0e-01)
+  shrunken M (/1e12): verdict still passes True; held-out breaks none; below the sampled max for ['f', 'tr M0', 'tr M1']; planted precondition at 4.2 fires: True
+  node balls: largest radius of F 7.93e-07, smallest |F| 2.86e+00; conditions failing even at e = 0 (splitting cannot cure): none
+  OUTCOME: ALARM  proved M below a sample  (F != 0, tr M0 != 0, tr M1 not in [-2, 2] for every real k in the segment); new evaluations 0; peak rss 45 MB
+control M2T1 rc 3
+=== control M4 2026-11-28 22:26:46
+    z = (1.5968518330329597+0j): |D0 - FD| <= 3.7e-09, |D1 - FD| <= 2.8e-10; |FD dq/dk| / sup = 1.000000; second derivatives E0, E1 (addendum 5) overlap their FD: True  -> ok
+    z = (1.789166032144946-0.20533178063318877j): |D0 - FD| <= 3.7e-09, |D1 - FD| <= 2.8e-10; |FD dq/dk| / sup = 1.000000; second derivatives E0, E1 (addendum 5) overlap their FD: True  -> ok
+    z = (2.0083965431143684+4.1594648428463814e-52j): |D0 - FD| <= 3.6e-09, |D1 - FD| <= 2.8e-10; |FD dq/dk| / sup = 1.000000; second derivatives E0, E1 (addendum 5) overlap their FD: True  -> ok
+    z = (1.789166032144946+0.20533178063318877j): |D0 - FD| <= 3.7e-09, |D1 - FD| <= 2.8e-10; |FD dq/dk| / sup = 1.000000; second derivatives E0, E1 (addendum 5) overlap their FD: True  -> ok
+    z = (1.5968518330329597-1.7238819041576696e-51j): |D0 - FD| <= 3.7e-09, |D1 - FD| <= 2.8e-10; |FD dq/dk| / sup = 1.000000; second derivatives E0, E1 (addendum 5) overlap their FD: True  -> ok
+C2-M proof file: n = 14, M = 3.507E+6, 6.032E-1, 4.844E+2; precondition True; self-test True; PLANT M4
+== v6 verdict == spin 3/5|k in [14993/3500, 29993/7000]; mode F; rho = 4.0, n = 14; code 0292918c85ce830f; node records on disk 42; full controls True
+Traceback (most recent call last):
+  File "/Users/sumit/Github/conjecture_machine-check/scripts/_nve_c2m.py", line 460, in <module>
+    {"cover": cover, "m1": m1, "verdict": verdict, "m3": m3}[sys.argv[1]]()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/sumit/Github/conjecture_machine-check/scripts/_nve_c2m.py", line 456, in verdict
+    verdict_c2m()()
+    ~~~~~~~~~~~~~^^
+  File "<v6 verdict, C2-M substituted>", line 49, in _verdict_c2m
+  File "/Users/sumit/Github/conjecture_machine-check/scripts/_nve_c2m.py", line 369, in node_precision
+    assert bool(2 * rmax <= eF / 1000), f"node precision: 2 x max F-node radius {float(rmax):.2e} > 1e-3 x F's ATAP " \
+           ~~~~^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: node precision: 2 x max F-node radius 1.00e-02 > 1e-3 x F's ATAP term 1.74e-02
+control M4 rc 1
+=== engine gate B 2026-11-28 22:26:47
+== engine gate B == spin 3/5; segment k_c 59979/14000, half 1/2000; 20 node records; lasso 53 / Gamma 99 vertices; 0 done
+  node0: F in, trG in, T1 in  [16.6 s]
+  node1: F in, trG in, T1 in  [16.0 s]
+  node2: F in, trG in, T1 in  [16.1 s]
+  node3: F in, trG in, T1 in  [16.0 s]
+  node4: F in, trG in, T1 in  [14.9 s]
+  node5: F in, trG in, T1 in  [13.8 s]
+  node6: F in, trG in, T1 in  [13.9 s]
+  node7: F in, trG in, T1 in  [13.0 s]
+  node8: F in, trG in, T1 in  [13.9 s]
+  node9: F in, trG in, T1 in  [13.9 s]
+  node10: F in, trG in, T1 in  [13.9 s]
+  node11: F in, trG in, T1 in  [13.7 s]
+  node12: F in, trG in, T1 in  [13.9 s]
+  node13: F in, trG in, T1 in  [13.9 s]
+  node14: F in, trG in, T1 in  [13.9 s]
+  node0: F in, trG in, T1 in  [14.0 s]
+  node1: F in, trG in, T1 in  [14.2 s]
+  node2: F in, trG in, T1 in  [13.0 s]
+  node3: F in, trG in, T1 in  [13.9 s]
+  node4: F in, trG in, T1 in  [13.7 s]
+  ENGINE GATE B: 20/20 node values inside their enclosures
+engine gate rc 0
+=== C2M_PILOT_DONE P3 2026-11-28 22:31:34
+JOB_EXIT 0
