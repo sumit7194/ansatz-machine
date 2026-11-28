@@ -47,7 +47,11 @@ ORDER = int(os.environ.get("C2_ORDER", "20"))
 TOL = os.environ.get("C2_TOL", "1e-30")
 KDIV = int(os.environ.get("C2_KDIV", "5"))     # addendum C2-3: sub-box half-side R/KDIV, KDIV in {5, 10, 20}
 assert KDIV in (5, 10, 20), "C2_KDIV must be 5, 10 or 20 (addendum C2-3)"
-TAG = f"{BOX}_k{KDIV}_o{ORDER}" + os.environ.get("C2_VARIANT", "") + ("" if TOL == "1e-30" else "_tol" + TOL)
+STAGE = os.environ.get("C2_STAGE", "step0p")     # C2-4 runs use step0pp (the samples stay step0p_*: reused)
+PLANT = os.environ.get("C2_PLANT", "")            # C2-4 controls: K1 (wrong start sign), K2 (cut crossing), K3, K4
+C24 = STAGE != "step0p"
+TAG = f"{BOX}_k{KDIV}_o{ORDER}" + os.environ.get("C2_VARIANT", "") + ("" if TOL == "1e-30" else "_tol" + TOL) + \
+    (f"_{PLANT}" if PLANT else "")
 
 kc0 = acb(arb(L.S6.KC).mid())
 R = (L.S6.HALF * (arb(4) + arb(1) / 4) / 2).upper()
@@ -67,6 +71,21 @@ SMOKE = os.environ.get("C2_SMOKE") == "1"     # development check only (not step
 if SMOKE:                                      # with the Arb walk's monodromy at kc0
     LOOP0, LOOP1 = LOOP0[:3] + LOOP0[1::-1], LOOP1[:3] + LOOP1[1::-1]      # out and back: M = I exactly
     TAG += "_smoke" + (f"_hs{HSDIV}" if HSDIV != 1 else "")
+if PLANT == "K2":                              # control (K2): a segment from the base point across B's cut and back
+    import cmath
+    assert BOX == "P2" and C24
+    kk = complex(kc0.mid())
+    c2_, c1_, cc_ = 90 - 21 * kk, -(60 - 18 * kk), 10 - kk
+    a_ = float(A.mid())
+    best = None
+    for sg in (1, -1):                         # B(w) = -20: c2 w^2 + c1 w + (cc + 20) = 0
+        w = (-c1_ + sg * cmath.sqrt(c1_ * c1_ - 4 * c2_ * (cc_ + 20))) / (2 * c2_)
+        for zz in (a_ * cmath.sqrt(w), -a_ * cmath.sqrt(w)):
+            if best is None or abs(zz - LOOP0[0]) < abs(best - LOOP0[0]):
+                best = zz
+    zfar = 2 * best - LOOP0[0]                 # the straight segment base -> zfar passes through best (B = -20) at tau 1/2
+    LOOP0 = LOOP1 = [LOOP0[0], complex(float(zfar.real), float(zfar.imag)), LOOP0[0]]
+    K2_POINT = best
 assert LOOP0[0] == LOOP0[-1] == LOOP1[0] == LOOP1[-1], "the two loops must share their base point"
 ZB = LOOP0[0]
 assert ZB.imag == 0 and ZB.real > 0
@@ -95,6 +114,15 @@ def interval(lo, hi):
 
 
 # ------------------------------------------------------------------------------------------------ the initial set
+def s_formula(z, k):
+    """C2-4: the closed-form principal root at a point (acb): disc sqrt_p(B); circle w sqrt_p(I)"""
+    w = z * z / (A * A)
+    c2, c1, cc = 90 - 21 * k, -(60 - 18 * k), 10 - k
+    if BOX == "P1":
+        return w * (c2 + c1 / w + cc / (w * w)).sqrt()
+    return (c2 * w * w + c1 * w + cc).sqrt()
+
+
 def initial():
     c = V7.C0(V.SPIN, kc0, deriv=True)
     st = c.start(acb(ZB))
@@ -114,7 +142,18 @@ def initial():
     babs = Bk.abs_lower()
     Es = (dB.abs_upper() ** 2 / (4 * babs * babs.sqrt())).upper()
     h2 = (hs * hs).upper()
-    vals = [(s0, ds, Es), (st["c0"], st["D0"], E0), (st["c0p"], st["D1"], E1)]
+    info = {}
+    if C24:
+        # (a3): the formula's branch at the start equals the field's carried branch (V1's s0), and not the other one
+        sf = s_formula(zb, kc0)
+        ref = -s0 if PLANT == "K1" else s0
+        a3 = bool(sf.overlaps(ref)) and not bool(sf.overlaps(-ref))
+        info.update(a3_formula=sf.str(12), a3_ref=ref.str(12), a3_ok=a3)
+        if not a3:
+            raise RuntimeError("(a3) the closed-form root does not match the field's branch at the start")
+        vals = [(st["c0"], st["D0"], E0), (st["c0p"], st["D1"], E1)]
+    else:
+        vals = [(s0, ds, Es), (st["c0"], st["D0"], E0), (st["c0p"], st["D1"], E1)]
     x, C, r = [], [], []
     for f0, d, E in vals:
         rem = (E * h2).upper()
@@ -130,14 +169,21 @@ def initial():
     x += [kc0.real.mid(), kc0.imag.mid()]
     C += [(arb(1), arb(0)), (arb(0), arb(1))]
     r += [arb(0), arb(0)]
-    info = dict(zb=[ZB.real, ZB.imag], s0=s0.str(12), c0=st["c0"].str(12), c0p=st["c0p"].str(12), E_s=float(Es), E0=float(E0),
-                E1=float(E1), rem_max=float(max(Es, E0, E1) * h2), r_max=float(max(r)))
+    info.update(zb=[ZB.real, ZB.imag], s0=s0.str(12), c0=st["c0"].str(12), c0p=st["c0p"].str(12), E_s=float(Es),
+                E0=float(E0), E1=float(E1), rem_max=float(max(Es, E0, E1) * h2), r_max=float(max(r)))
     return x, C, r, info
 
 
 def write_input(path, x, C, r):
     pref = -(arb(8) / 5).sqrt() * A ** 3
     lines = ["prec 256", f"order {ORDER}", f"tol {TOL}"]
+    if C24:
+        Ic = acb((90 - 21 * kc0).real.mid(), (90 - 21 * kc0).imag.mid())   # the disc's exact centre (within 1e-76
+        #                                                            of c2(kc0); the disc bound has a 0.55 margin)
+        irad = arb("0.01") if PLANT == "K3" else arb(13) / 2         # (a2) radius 6.5 (erratum E1); K3 plants 0.01
+        irad = irad.mid()
+        lines += [f"sform {'circle' if BOX == 'P1' else 'disc'}", f"Ic {me(Ic.real)} {me(Ic.imag)}",
+                  f"Irad {me(irad)}", f"plant_time {1 if PLANT == 'K4' else 0}"]
     for name, v in (("a", A), ("E2", E2), ("pref", pref)):
         lines.append(f"{name} {me(v.lower())} {me(v.upper())}")
     lines.append(f"R {me(hs)}")
@@ -189,11 +235,11 @@ def mats(rows):
     def ent(i):
         re, im = rows[i], rows[i + 1]
         c = acb(re["x"], im["x"])
-        a = acb(re["c14"], im["c14"])
-        b = acb(re["c15"], im["c15"])
+        a = acb(re["ck0"], im["ck0"])
+        b = acb(re["ck1"], im["ck1"])
         e = (acb(re["br"], im["br"])).abs_upper()
         return Af(c, a, b, e.upper()), acb(re["hull"], im["hull"])
-    afs = [ent(i) for i in (6, 8, 10, 12)]
+    afs = [ent(i) for i in ((4, 6, 8, 10) if C24 else (6, 8, 10, 12))]
     A_ = [[afs[0][0], afs[1][0]], [afs[2][0], afs[3][0]]]
     H_ = [[afs[0][1], afs[1][1]], [afs[2][1], afs[3][1]]]
     return A_, H_
@@ -216,16 +262,22 @@ def F_tr(M0, M1, add, mul, neg, two):
 def drive():
     os.makedirs(OUTD, exist_ok=True)
     t0 = time.time()
-    x, C, r, info = initial()
+    try:
+        x, C, r, info = initial()
+    except RuntimeError as e:
+        rec = dict(stage=STAGE, box=BOX, plant=PLANT, rc=2, refused=[f"REFUSED start: {e}"])
+        print(f"{STAGE} {BOX}: REFUSED at the start: {e}", flush=True)
+        json.dump(rec, open(os.path.join(OUTD, f"{STAGE}_{TAG}_drive.json"), "w"), indent=1)
+        return
     t_init = time.time() - t0
-    inp = os.path.join(OUTD, f"step0p_{TAG}_input.txt")
-    outp = os.path.join(OUTD, f"step0p_{TAG}_capd.txt")
-    logp = os.path.join(OUTD, f"step0p_{TAG}_steps.log")
+    inp = os.path.join(OUTD, f"{STAGE}_{TAG}_input.txt")
+    outp = os.path.join(OUTD, f"{STAGE}_{TAG}_capd.txt")
+    logp = os.path.join(OUTD, f"{STAGE}_{TAG}_steps.log")
     write_input(inp, x, C, r)
     t1 = time.time()
     pr = subprocess.run([DRIVER, inp, outp, logp], capture_output=True, text=True)
     t_capd = time.time() - t1
-    rec = dict(box=BOX, k_c=str(L.S6.KC), kc0=[kc0.real.str(20), kc0.imag.str(20)], hs=float(hs), R=float(R),
+    rec = dict(stage=STAGE, plant=PLANT, box=BOX, k_c=str(L.S6.KC), kc0=[kc0.real.str(20), kc0.imag.str(20)], hs=float(hs), R=float(R),
                order=ORDER, tol=TOL, init=info, t_init=round(t_init, 1), t_capd=round(t_capd, 1), rc=pr.returncode,
                stderr=pr.stderr[-2000:])
     txt = open(outp).read() if os.path.exists(outp) else ""
@@ -241,11 +293,11 @@ def drive():
                 loops.append(cur)
             elif t[0] == "row":
                 d = {}
-                for j, key in enumerate(("x", "c14", "c15", "br", "hull")):
+                for j, key in enumerate(("x", "ck0", "ck1", "br", "hull")):
                     p = 3 + j * 5
                     d[key] = interval(from_me(t[p], t[p + 1]), from_me(t[p + 2], t[p + 3]))
                 cur["rows"].append(d)
-        assert len(loops) == 2 and all(len(lp["rows"]) == 16 for lp in loops)
+        assert len(loops) == 2 and all(len(lp["rows"]) == (14 if C24 else 16) for lp in loops)
         (A0, H0), (A1, H1) = mats(loops[0]["rows"]), mats(loops[1]["rows"])
         Fa, T0a, T1a = F_tr(A0, A1, lambda p, q: p + q, lambda p, q: p * q, lambda p: p.neg(), Af(acb(2)))
         Fh, T0h, T1h = F_tr(H0, H1, lambda p, q: p + q, lambda p, q: p * q, lambda p: -p, acb(2))
@@ -268,7 +320,7 @@ def drive():
             print(f"SMOKE: Arb walk M at kc0 inside the CAPD hull: {ok}", flush=True)
         print(f"step 0' {BOX}: CAPD {t_capd:.0f} s, steps {rec['steps']}; F over the sub-box {rec['F']} "
               f"(hull form {rec['F_hull']}); tr M0 {rec['T0']}; tr M1 {rec['T1']}", flush=True)
-    json.dump(rec, open(os.path.join(OUTD, f"step0p_{TAG}_drive.json"), "w"), indent=1)
+    json.dump(rec, open(os.path.join(OUTD, f"{STAGE}_{TAG}_drive.json"), "w"), indent=1)
 
 
 def grid():
@@ -305,10 +357,13 @@ def judge():
     """Addendum C2-3's bar, per box and size: finite, contains every sample, and sup|enclosure| <= 100 x the sampled
     max |.|, for F, tr M0 and tr M1; cost <= 2 h per segment (the (R/hs)^2 = KDIV^2 sub-boxes covering the square,
     on 2 cores). The ORIGINAL bar (width of F <= 100 x the sampled range of F) is reported alongside, not hidden."""
-    rec = json.load(open(os.path.join(OUTD, f"step0p_{TAG}_drive.json")))
+    rec = json.load(open(os.path.join(OUTD, f"{STAGE}_{TAG}_drive.json")))
     S = [json.loads(ln) for ln in open(os.path.join(OUTD, f"step0p_{BOX}_k{KDIV}_samples.jsonl"))]
     assert len({(d["i"], d["j"]) for d in S}) == 81, f"{len(S)} samples, 81 needed"
-    out = dict(box=BOX, kdiv=KDIV, hs=rec["hs"], order=ORDER, tol=TOL, t_capd=rec["t_capd"], steps=rec.get("steps"))
+    out = dict(stage=STAGE, box=BOX, kdiv=KDIV, hs=rec["hs"], order=ORDER, tol=TOL, t_capd=rec["t_capd"],
+               steps=rec.get("steps"))
+    if C24:
+        out["grade"] = "post-failure fix after step 0' FAILED (C2-4)"
     if rec["rc"] != 0:
         out.update(verdict="FAIL (the enclosure was refused or not finite)", refused=rec.get("refused"),
                    original_bar="FAIL (refused)")
@@ -339,7 +394,7 @@ def judge():
                    cost_ok=cost_ok, sample_sec_mean=round(sum(d["sec"] for d in S) / len(S), 1),
                    verdict="PASS" if (allok and cost_ok) else "FAIL")
     print(f"step 0' {BOX} R/{KDIV} judge: {out}", flush=True)
-    json.dump(out, open(os.path.join(OUTD, f"step0p_{TAG}_judge.json"), "w"), indent=1)
+    json.dump(out, open(os.path.join(OUTD, f"{STAGE}_{TAG}_judge.json"), "w"), indent=1)
 
 
 if __name__ == "__main__":

@@ -2,22 +2,28 @@
 // rho-equation along closed polygon loops, over a complex k-sub-box, with the k-correlation kept as C*r0.
 //
 // The system (complex, written as 16 real states), on the edge z = P_j + (t - j) h_j, t in [j, j+1]:
-//   s   = sqrt B carried as a state:  ds/dz   = B_z / (2 s),   B = c2 w^2 + c1 w + cc,  w = z^2/a^2,
-//                                      c2 = 90 - 21k, c1 = -(60 - 18k), cc = 10 - k
+//   s = sqrt B is NOT a state (addendum C2-4): a closed-form PRINCIPAL root, B = c2 w^2 + c1 w + cc, w = z^2/a^2,
+//       c2 = 90 - 21k, c1 = -(60 - 18k), cc = 10 - k;   sform disc: s = sqrt_p(B);  sform circle: s = w sqrt_p(I),
+//       I = c2 + c1/w + cc/w^2;   sqrt_p(A) = (sqrt((|A| + Re A)/2), Im A / (2 sqrt((|A| + Re A)/2)))
 //   c0:                                dc0/dz  = c0',   dc0'/dz = pref * s / (z^2 + a^2)^3,   pref = -sqrt(8/5) a^3
 //   Y (2x2, rows (y, y')):             dY/dz   = [[0, 1], [-q, 0]] Y,   q = (3/16) lam^2,
 //                                      lam = G1'/G1 - G2'/G2,  G2 = f0^2 + c0^2,  G1 = E2 G2 - f0,
 //                                      f0 = (z^2 - 2z + a^2)/(z^2 + a^2),  f0' = 2(z^2 - a^2)/(z^2 + a^2)^2
 //   k:                                 dk/dz   = 0
 // Every right-hand side is rational in (z, k, s, c0, c0', Y); d/dt = h d/dz.
-// State order: 0,1 s | 2,3 c0 | 4,5 c0' | 6,7 Y00 | 8,9 Y01 | 10,11 Y10 | 12,13 Y11 | 14,15 k   (re, im pairs).
+// State order: 0,1 c0 | 2,3 c0' | 4,5 Y00 | 6,7 Y01 | 8,9 Y10 | 10,11 Y11 | 12,13 k   (re, im pairs).
 //
 // Rules (Quantum's, mandatory in addendum C2-1):
 //  * MPFR intervals only: a compile-time guard rejects every other scalar type (native double intervals, DMap,
 //    LDMap / long double, MpMap / non-interval MPFR). c2_guard_check.sh shows each plant failing to compile.
-//  * After EVERY step: every enclosure finite, and |s| > 0, z^2 + a^2 != 0, G1 != 0, G2 != 0 certified on the
-//    WHOLE-STEP enclosure (getLastEnclosure, with z over the step's whole time interval). Any failure REFUSES:
-//    the output says REFUSED and the exit code is 2. Exceptions from CAPD also refuse.
+//  * The root's branch (C2-4 (a1), (a2)): s depends only on (z, k), so BEFORE each edge the root's argument A is
+//    certified off the cut (lower(|A| + Re A) > 0) and, on the circle, inside the disc |I - Ic| <= Irad, over the whole
+//    edge (tau sub-intervals, bisected adaptively) x the k-box; and again after EVERY step on its whole-step enclosure.
+//  * After EVERY step: every enclosure finite, and z^2 + a^2 != 0, G1 != 0, G2 != 0 certified on the WHOLE-STEP
+//    enclosure (getLastEnclosure, with z over the step's whole time interval). Any failure REFUSES: the output says
+//    REFUSED and the exit code is 2. Exceptions from CAPD (after the dyadic retries) also refuse.
+//  * Exact time (C2-4 (b)): the driver's own step loop. maxStep = the EXACT remainder of the edge; a CAPD exception
+//    halves it (dyadic) down to 2^-40; after every step the set's time must be a POINT; the edge ends exactly at j + 1.
 //  * Step sizes logged (one line per step).
 //
 // Usage: c2_driver <input> <output> <steplog>
@@ -55,7 +61,6 @@ typedef capd::MpMap MapT;         // MPFR, non-interval
 typedef capd::MpIMap MapT;        // MPFR intervals: the only admissible type
 #endif
 typedef capd::dynsys::OdeSolver<MapT> SolverT;
-typedef capd::poincare::TimeMap<SolverT> TimeMapT;
 typedef MapT::ScalarType IT;
 typedef MapT::MatrixType MatT;
 typedef MapT::VectorType VecT;
@@ -78,7 +83,8 @@ typedef capd::dynset::C0DoubletonSet<MatT, capd::dynset::FullQRWithPivoting<>> S
 static const char* POLICY = "FullQRWithPivoting";
 #endif
 
-static const int DIM = 16, NPAR = 8;
+static const int DIM = 14, NPAR = 8;
+static int SFORM = 0;          // 0 disc: s = sqrt_p(B); 1 circle: s = w sqrt_p(I)
 static long PREC = 256;
 
 static void die(const std::string& m) {
@@ -182,37 +188,88 @@ template <class T> Q<T> quants(const Cx<T>& z, const Cx<T>& c0, const Cx<T>& c0p
   return r;
 }
 
+// principal root: re = sqrt((|A| + Re A)/2), im = Im A / (2 re)   (continuous off the cut (-inf, 0])
+template <class T> Cx<T> csqrt_p(const Cx<T>& A, const T& half, const T& two) {
+  T m = sqrt(A.re * A.re + A.im * A.im);
+  T re = sqrt((m + A.re) * half);
+  return {re, A.im / (re * two)};
+}
+// the root's argument: B (disc) or I (circle); w = z^2/a^2
+template <class T> Cx<T> rootArg(const Cx<T>& w, const Cx<T>& k, const T& c90, const T& c21, const T& c60, const T& c18,
+                                 const T& c10, const T& one) {
+  Cx<T> c2 = {c90 - c21 * k.re, -(c21 * k.im)};
+  Cx<T> c1 = {c18 * k.re - c60, c18 * k.im};
+  Cx<T> cc = {c10 - k.re, -k.im};
+  if (SFORM == 0) return c2 * w * w + c1 * w + cc;
+  Cx<T> iw = Cx<T>{one, one - one} / w;
+  return c2 + c1 * iw + cc * iw * iw;
+}
+template <class T> Cx<T> sOf(const Cx<T>& w, const Cx<T>& A, const T& half, const T& two) {
+  Cx<T> r = csqrt_p(A, half, two);
+  return SFORM == 0 ? r : w * r;
+}
+
 // ------------------------------------------------------------------------------------------------ the vector field
 // params: 0 a | 1 E2 | 2 pref | 3 Re P_j | 4 Im P_j | 5 Re h_j | 6 Im h_j | 7 t_j (= j)
 void field(Node t, Node in[], int, Node out[], int, Node par[], int) {
-  Node two(2.0), zero(0.0);
+  Node two(2.0), zero(0.0), half(0.5), one(1.0), c90(90.0), c21(21.0), c60(60.0), c18(18.0), c10(10.0);
   Node a = par[0], E2 = par[1], pref = par[2];
   Cx<Node> h = {par[5], par[6]};
   Cx<Node> z = {par[3] + (t - par[7]) * par[5], par[4] + (t - par[7]) * par[6]};
-  Cx<Node> s = {in[0], in[1]}, c0 = {in[2], in[3]}, c0p = {in[4], in[5]};
-  Cx<Node> y00 = {in[6], in[7]}, y01 = {in[8], in[9]}, y10 = {in[10], in[11]}, y11 = {in[12], in[13]};
-  Cx<Node> k = {in[14], in[15]};
+  Cx<Node> c0 = {in[0], in[1]}, c0p = {in[2], in[3]};
+  Cx<Node> y00 = {in[4], in[5]}, y01 = {in[6], in[7]}, y10 = {in[8], in[9]}, y11 = {in[10], in[11]};
+  Cx<Node> k = {in[12], in[13]};
   Node a2 = a * a;
   Cx<Node> z2 = z * z;
   Cx<Node> w = {z2.re / a2, z2.im / a2};
-  Cx<Node> c2 = {90.0 - 21.0 * k.re, -21.0 * k.im};
-  Cx<Node> c1 = {-60.0 + 18.0 * k.re, 18.0 * k.im};
-  Cx<Node> Bz = scale(z, two / a2) * (scale(c2 * w, two) + c1);
-  Cx<Node> ds = Bz / scale(s, two);
+  Cx<Node> A = rootArg(w, k, c90, c21, c60, c18, c10, one);
+  Cx<Node> s = sOf(w, A, half, two);
   Q<Node> qq = quants(z, c0, c0p, a, E2, two, zero);
   Cx<Node> D3 = qq.D * qq.D * qq.D;
   Cx<Node> dc0p = scale(s, pref) / D3;
   Cx<Node> lam = qq.dG1 / qq.G1 - qq.dG2 / qq.G2;
   Cx<Node> q = scale(lam * lam, Node(0.1875));
   Cx<Node> mq = {-q.re, -q.im};
-  Cx<Node> d[7] = {ds, c0p, dc0p, y10, y11, mq * y00, mq * y01};
-  for (int i = 0; i < 7; ++i) {
+  Cx<Node> d[6] = {c0p, dc0p, y10, y11, mq * y00, mq * y01};
+  for (int i = 0; i < 6; ++i) {
     Cx<Node> o = h * d[i];
     out[2 * i] = o.re;
     out[2 * i + 1] = o.im;
   }
-  out[14] = in[14] * 0.0;
-  out[15] = in[15] * 0.0;
+  out[12] = in[12] * 0.0;
+  out[13] = in[13] * 0.0;
+}
+
+// the root guards on (z-box, k-box): (a1) lower(|A| + Re A) > 0; (a2, circle) |I - Ic|^2 <= Irad^2.  0 = ok, else 1 / 2
+static Cx<IT> ICc;
+static IT IRAD2;
+static int rootGuard(const Cx<IT>& z, const Cx<IT>& k, const IT& a) {
+  IT one(1), half(0.5), two(2), c90(90), c21(21), c60(60), c18(18), c10(10);
+  IT a2 = a * a;
+  Cx<IT> z2 = z * z;
+  Cx<IT> w = {z2.re / a2, z2.im / a2};
+  Cx<IT> A = rootArg(w, k, c90, c21, c60, c18, c10, one);
+  IT m = sqrt(sqr(A.re) + sqr(A.im));
+  IT g = m + A.re;
+  if (!finiteI(g) || !(g.leftBound() > 0)) return 1;
+  if (SFORM == 1) {
+    IT d2 = sqr(A.re - ICc.re) + sqr(A.im - ICc.im);
+    if (!finiteI(d2) || !(d2.rightBound() <= IRAD2.leftBound())) return 2;
+  }
+  return 0;
+}
+// a priori over a whole edge: tau in [lo, hi] (sub-interval of [0, 1]) bisected adaptively
+static int edgeGuard(const IT& P0re, const IT& P0im, const IT& hre, const IT& him, const Cx<IT>& K, const IT& a,
+                     const IT& lo, const IT& hi, int depth) {
+  IT T(lo.leftBound(), hi.rightBound());
+  Cx<IT> z = {P0re + T * hre, P0im + T * him};
+  int g = rootGuard(z, K, a);
+  if (g == 0) return 0;
+  if (depth == 0) return g;
+  IT mid = (lo + hi) / IT(2);
+  int g1 = edgeGuard(P0re, P0im, hre, him, K, a, lo, mid, depth - 1);
+  if (g1) return g1;
+  return edgeGuard(P0re, P0im, hre, him, K, a, mid, hi, depth - 1);
 }
 
 // ------------------------------------------------------------------------------------------------ main
@@ -231,6 +288,21 @@ int main(int argc, char** argv) {
   if (tag != "tol") die("input: expected tol");
   double tol;                      // step-control tolerance (a double in CAPD's step control; it steers the step size
   in >> tol;                       // only and plays no part in the enclosure)
+  std::string sform;
+  in >> tag >> sform;
+  if (tag != "sform" || (sform != "disc" && sform != "circle")) die("input: expected sform disc|circle");
+  SFORM = (sform == "circle") ? 1 : 0;
+  in >> tag;
+  if (tag != "Ic") die("input: expected Ic");            // the circle's inner-disc centre (ignored for disc)
+  ICc.re = readPoint(in);
+  ICc.im = readPoint(in);
+  in >> tag;
+  if (tag != "Irad") die("input: expected Irad");
+  IT Irad = readPoint(in);
+  IRAD2 = Irad * Irad;
+  int plantTime;
+  in >> tag >> plantTime;
+  if (tag != "plant_time") die("input: expected plant_time");
   in >> tag;
   if (tag != "a") die("input: expected a");
   IT a = readInterval(in);
@@ -243,6 +315,7 @@ int main(int argc, char** argv) {
   in >> tag;
   if (tag != "R") die("input: expected R");
   capd::MpFloat R = readF(in);
+  const int K0 = 12, K1 = 13;
   VecT x(DIM), r0(DIM), rv(DIM);
   MatT C(DIM, DIM);
   in >> tag;
@@ -252,8 +325,8 @@ int main(int argc, char** argv) {
   if (tag != "C") die("input: expected C");
   for (int i = 0; i < DIM; ++i) {
     for (int j = 0; j < DIM; ++j) C[i][j] = IT(0);
-    C[i][14] = readPoint(in);
-    C[i][15] = readPoint(in);
+    C[i][K0] = readPoint(in);
+    C[i][K1] = readPoint(in);
   }
   in >> tag;
   if (tag != "r") die("input: expected r");
@@ -263,8 +336,9 @@ int main(int argc, char** argv) {
     rv[i] = IT(-ri, ri);
     r0[i] = IT(0);
   }
-  r0[14] = IT(-R, R);
-  r0[15] = IT(-R, R);
+  r0[K0] = IT(-R, R);
+  r0[K1] = IT(-R, R);
+  Cx<IT> Kbox = {x[K0] + r0[K0], x[K1] + r0[K1]};       // the k sub-box (the k-states are exactly kc0 + r0)
   int nloops;
   in >> tag >> nloops;
   if (tag != "nloops") die("input: expected nloops");
@@ -282,9 +356,18 @@ int main(int argc, char** argv) {
   }
 
   std::ofstream out(argv[2]), slog(argv[3]);
-  out << "c2_driver prec " << PREC << " order " << order << " dim " << DIM << " policy " << POLICY << "\n";
-  slog << "loop edge step t dt min|s|^2 min|D|^2 min|G1|^2 min|G2|^2 maxdiam\n";
-  IT two(2), zero(0);
+  out << "c2_driver prec " << PREC << " order " << order << " dim " << DIM << " policy " << POLICY << " sform "
+      << sform << "\n";
+  slog << "loop edge step t dt min|D|^2 min|G1|^2 min|G2|^2 maxdiam | c0 c0p Y widths | retries\n";
+  IT two(2), zero(0), half(0.5);
+  const capd::MpFloat MINSTEP = capd::MpFloat(1) / capd::MpFloat(1099511627776.0);   // 2^-40, exact
+  // CAPD's first step after an (re)initialisation is min(1/Lipschitz, 1, maxStep), and 1/Lipschitz has a full
+  // mantissa; every later step is a 5-bit dyadic (clearMantissaBits) or exactly maxStep. CAPD re-initialises at a loop's
+  // start, after a retry (cleared coefficients) and at new edges (seen in the smoke: a 256-bit step 0.4728 at an edge
+  // start, no retry). So a FRESH step (every edge start, and after a retry) gets maxStep capped at the dyadic 2^-6, so
+  // that time stays an exact point; guard (b) still refuses anything inexact. The next step is bounded by
+  // 1.5 maxStep (the edge remainder), not by the previous step, so the cap costs about one short step per edge.
+  const capd::MpFloat FIRSTCAP = capd::MpFloat(1) / capd::MpFloat(64.0);
 
   MapT vf(field, DIM, DIM, NPAR);
   vf.setParameter(0, a);
@@ -293,87 +376,104 @@ int main(int argc, char** argv) {
   SolverT solver(vf, order);
   solver.setAbsoluteTolerance(tol);
   solver.setRelativeTolerance(tol);
-  TimeMapT timeMap(solver);
+
+  auto refuse = [&](int l, size_t j, long n, const std::string& why) {
+    slog << "REFUSED " << why << "\n";
+    slog.flush();
+    out << "REFUSED loop " << l << " edge " << j << " step " << n << " " << why << "\n";
+    out.flush();
+    std::exit(2);
+  };
+  auto isPoint = [](const IT& t) { return t.leftBound() == t.rightBound(); };
+  bool planted = false;
 
   for (int l = 0; l < nloops; ++l) {
     SetT set(x, C, r0, rv, IT(0));
     long nsteps = 0;
     double dtmin = 1e300, dtmax = 0;
     const auto& P = loops[l];
+    bool fresh = true;
+    solver.clearCoefficients();
     for (size_t j = 0; j + 1 < P.size(); ++j) {
       IT hre = P[j + 1].first - P[j].first, him = P[j + 1].second - P[j].second;
+      if (!isPoint(hre) || !isPoint(him)) refuse(l, j, nsteps, "edge vector not exact");
+      // (a1), (a2) a priori over the whole edge x the k-box (tau bisected up to depth 10)
+      int g = edgeGuard(P[j].first, P[j].second, hre, him, Kbox, a, IT(0), IT(1), 10);
+      if (g == 1) refuse(l, j, nsteps, "(a1) root argument not certified off the cut on this edge");
+      if (g == 2) refuse(l, j, nsteps, "(a2) circle inner argument not certified inside its disc on this edge");
       IT tj((double)j);
       solver.getVectorField().setParameter(3, P[j].first);
       solver.getVectorField().setParameter(4, P[j].second);
       solver.getVectorField().setParameter(5, hre);
       solver.getVectorField().setParameter(6, him);
       solver.getVectorField().setParameter(7, tj);
-      IT tfinal((double)(j + 1));
-      timeMap.stopAfterStep(true);
-      IT tprev = set.getCurrentTime();
-      do {
-        try {
-          timeMap(tfinal, set);
-        } catch (std::exception& e) {
-          out << "REFUSED loop " << l << " edge " << j << " step " << nsteps << " capd exception: " << e.what() << "\n";
-          slog << "REFUSED capd exception: " << e.what() << "\n";
-          return 2;
+      const capd::MpFloat tf = capd::MpFloat((double)(j + 1));
+      IT t = set.getCurrentTime();
+      if (!isPoint(t) || !(t.leftBound() == tj.leftBound())) refuse(l, j, nsteps, "(b) edge start time not exactly j");
+      fresh = true;
+      while (t.leftBound() < tf) {
+        IT maxStep = IT(tf) - t;                                   // exact: both are dyadic points
+        if (!isPoint(maxStep)) refuse(l, j, nsteps, "(b) edge remainder not exact");
+        if (fresh && maxStep.leftBound() > FIRSTCAP) maxStep = IT(FIRSTCAP);
+        int retries = 0;
+        for (;;) {
+          try {
+            solver.setMaxStep(maxStep);
+            solver(set);
+            fresh = false;
+            break;
+          } catch (std::exception& e) {
+            solver.clearCoefficients();
+            fresh = true;
+            maxStep = maxStep / two;                                // exact halving
+            if (maxStep.leftBound() > FIRSTCAP) maxStep = IT(FIRSTCAP);
+            ++retries;
+            if (maxStep.rightBound() < MINSTEP)
+              refuse(l, j, nsteps, std::string("capd exception below the minimal step: ") + e.what());
+          }
+        }
+        if (plantTime && !planted) {                               // control (K4): a non-point time, once
+          set.setCurrentTime(set.getCurrentTime() + IT(capd::MpFloat(0), MINSTEP * MINSTEP));
+          planted = true;
         }
         IT tcur = set.getCurrentTime();
         ++nsteps;
+        if (!isPoint(tcur))
+          refuse(l, j, nsteps, "(b) the set's time is not a point: t " + exI(t) + " -> " + exI(tcur) + " step " +
+                                   exI(solver.getStep()) + " maxStep " + exI(maxStep) + " retries " +
+                                   std::to_string(retries));
         const VecT& E = set.getLastEnclosure();
         VecT hull = (VecT)set;
         bool fin = true;
         for (int i = 0; i < DIM; ++i) fin = fin && finiteI(E[i]) && finiteI(hull[i]);
-        IT T = IT(tprev.leftBound(), tcur.rightBound()) - tj;
+        IT T = IT(t.leftBound(), tcur.rightBound()) - tj;
         Cx<IT> z = {P[j].first + T * hre, P[j].second + T * him};
-        Cx<IT> s = {E[0], E[1]}, c0 = {E[2], E[3]}, c0p = {E[4], E[5]};
+        Cx<IT> kE = {E[K0], E[K1]};
+        int gs = rootGuard(z, kE, a);
+        if (gs == 1) refuse(l, j, nsteps, "(a1) root argument not certified off the cut on the whole-step enclosure");
+        if (gs == 2) refuse(l, j, nsteps, "(a2) circle inner argument not inside its disc on the whole-step enclosure");
+        Cx<IT> c0 = {E[0], E[1]}, c0p = {E[2], E[3]};
         Q<IT> qq = quants(z, c0, c0p, a, E2, two, zero);
-        IT ms = abs2(s), mD = abs2(qq.D), m1 = abs2(qq.G1), m2 = abs2(qq.G2);
-        bool dom = fin && finiteI(ms) && finiteI(mD) && finiteI(m1) && finiteI(m2) && ms.leftBound() > 0 &&
-                   mD.leftBound() > 0 && m1.leftBound() > 0 && m2.leftBound() > 0;
-        double dt = dbl(tcur.rightBound()) - dbl(tprev.leftBound());
+        IT mD = abs2(qq.D), m1 = abs2(qq.G1), m2 = abs2(qq.G2);
+        bool dom = fin && finiteI(mD) && finiteI(m1) && finiteI(m2) && mD.leftBound() > 0 && m1.leftBound() > 0 &&
+                   m2.leftBound() > 0;
+        double dt = dbl(tcur.rightBound()) - dbl(t.leftBound());
         dtmin = std::min(dtmin, dt);
         dtmax = std::max(dtmax, dt);
-        double md = 0;
-        for (int i = 0; i < DIM; ++i) md = std::max(md, dbl(diam(hull[i]).rightBound()));
-        // per-block widths (diagnostics): hull of s, c0, c0', Y; for s also the C r0 part and the B r part; time width
         auto bw = [&](int a0, int a1) {
           double w = 0;
           for (int i = a0; i <= a1; ++i) w = std::max(w, dbl(diam(hull[i]).rightBound()));
           return w;
         };
-        const MatT& Cn = set.get_C();
-        VecT Brn = set.get_B() * set.get_r();
-        double wCs = 0, wBs = 0;
-        for (int i = 0; i < 2; ++i) {
-          wCs = std::max(wCs, 2 * (mag(Cn[i][14]) + mag(Cn[i][15])) * dbl(R));
-          wBs = std::max(wBs, dbl(diam(Brn[i]).rightBound()));
-        }
         slog << l << " " << j << " " << nsteps << " " << dbl(tcur.rightBound()) << " " << dt << " "
-             << dbl(ms.leftBound()) << " " << dbl(mD.leftBound()) << " " << dbl(m1.leftBound()) << " "
-             << dbl(m2.leftBound()) << " " << md << " | s " << bw(0, 1) << " c0 " << bw(2, 3) << " c0p " << bw(4, 5)
-             << " Y " << bw(6, 13) << " sCr0 " << wCs << " sBr " << wBs << " tw " << dbl(diam(tcur).rightBound())
-             << "\n";
-        if (!dom) {
-          out << "REFUSED loop " << l << " edge " << j << " step " << nsteps
-              << (fin ? " domain not certified on the whole-step enclosure" : " non-finite enclosure") << "\n";
-          slog << "REFUSED\n";
-          return 2;
-        }
-        tprev = tcur;
-      } while (!timeMap.completed());
-      // the set's time is an interval a few ulps wide: it must contain the edge's final time and be negligibly wide
-      // (the next edge's z-enclosure uses the whole time interval, so the slack is carried rigorously)
-      IT tend = set.getCurrentTime();
-      if (!(tend.leftBound() <= tfinal.leftBound() && tfinal.rightBound() <= tend.rightBound()) ||
-          !(diam(tend).rightBound() < capd::MpFloat(1e-60))) {
-        slog.flush();
-        out << "REFUSED loop " << l << " edge " << j << " step " << nsteps << " the edge did not end at its final time: "
-            << "set time [" << dbl(tend.leftBound()) << ", " << dbl(tend.rightBound())
-            << "], final " << j + 1 << ", last step " << dbl(solver.getStep().leftBound()) << "\n";
-        return 2;
+             << dbl(mD.leftBound()) << " " << dbl(m1.leftBound()) << " " << dbl(m2.leftBound()) << " " << bw(0, DIM - 1)
+             << " | " << bw(0, 1) << " " << bw(2, 3) << " " << bw(4, 11) << " | " << retries << "\n";
+        if (!dom)
+          refuse(l, j, nsteps, fin ? "domain (z^2 + a^2, G1, G2) not certified on the whole-step enclosure"
+                                   : "non-finite enclosure");
+        t = tcur;
       }
+      if (!(isPoint(t) && t.leftBound() == tf)) refuse(l, j, nsteps, "(b) the edge did not end exactly at j + 1");
     }
     const VecT& sx = set.get_x();
     const MatT& sC = set.get_C();
@@ -381,10 +481,9 @@ int main(int argc, char** argv) {
     VecT hull = (VecT)set;
     out << "loop " << l << " steps " << nsteps << " dtmin " << dtmin << " dtmax " << dtmax << "\n";
     for (int i = 0; i < DIM; ++i) {
-      // C r0 with r0 zero off the k components: only columns 14, 15 enter; the other columns are checked to be
-      // irrelevant by r0 being exactly zero there (asserted on the final set).
+      // C r0 with r0 zero off the k components: only columns K0, K1 enter (r0 is asserted unchanged)
       if (!(set.get_r0()[i] == r0[i])) die("r0 changed during the integration");
-      out << "row " << i << " x " << exI(sx[i]) << " c14 " << exI(sC[i][14]) << " c15 " << exI(sC[i][15]) << " br "
+      out << "row " << i << " x " << exI(sx[i]) << " ckr " << exI(sC[i][K0]) << " cki " << exI(sC[i][K1]) << " br "
           << exI(Br[i]) << " hull " << exI(hull[i]) << "\n";
     }
   }

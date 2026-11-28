@@ -375,3 +375,26 @@ A radius of 2.4 would have refused every P1 box for a reason of my own making. *
 - (a1) stays checked separately.
 
 Control (K3) is unchanged: the radius planted at 0.01 must refuse.
+
+### C2-4 development notes (code committed before the focused read; NOT step 0'')
+- **Exact time in practice.** CAPD's step control returns 5-bit dyadics or exactly maxStep, but its first-step
+  initialisation uses h = min(1/Lipschitz, 1, maxStep), which has a full mantissa. CAPD re-initialises at a loop's
+  start, after a retry, and at new edges. So every edge start and every retry is a "fresh" step whose maxStep is capped
+  at the dyadic 2^-6. Guard (b) caught each inexact time during development (records `c2/step0pp_*smoke*`), and still
+  refuses any inexact time.
+- **The (a1)/(a2) guards are applied twice:** a priori over each whole edge x the k-box (tau bisected to depth 10), and
+  on every step's whole-step enclosure.
+- **The (a2) disc centre** is the exact midpoint of c2(kc0), within 1e-76 of it; the 0.55 margin absorbs that.
+- **Control (K4)** plants the non-point time directly (the set's time widened by [0, 2^-80] once). A planted non-dyadic
+  maxStep may never fire, because the step control can choose a smaller step, so it is not used.
+- **Smoke on the retraced loops** (the true M is I), with the Arb walk's M at kc0 contained in every run:
+
+  | case | F | tr M0 | tr M1 | earlier s-state version |
+  |---|---|---|---|---|
+  | P2 hs/10 | +-0.0118 | +-1.7e-5 | +-5.9e-3 | F +-0.0119 |
+  | P1 hs/10 | +-3.5e-3 | | | |
+  | P2 R/5 | +-19.1 | | +-5.4 | F +-13.9 |
+  | P1 R/5 | +-0.75 | | | |
+
+  The P2 lasso at R/5 is Y's own k-nonlinearity near the lasso's singular point; it is not the s blow-up that (a)
+  removes.
