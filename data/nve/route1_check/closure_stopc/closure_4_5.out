@@ -1,0 +1,42 @@
+== closure check == spin 4/5, R0 1.3382, Z0 1.6181; periodic trapezoid at 8000 and 16000 points, dps 50
+-- k = 3.0: formula vs code radicand, rel. diff 4.9e-51
+   branch points ['(0.445524 + 0.356904j)', '(-0.445524 - 0.356904j)', '(0.445524 - 0.356904j)', '(-0.445524 + 0.356904j)']; max |bp| 0.570852 vs R0 1.3382
+   circle |z| = R0: sheet 1, |dc0'| 2.23e-50, |dc0| 2.08e-50, scale 6.52, N vs 2N 2.2e-49 -> CLOSES  (all branch points inside: True)
+   region-B test circle |z - Z0| = 0.7 R_c = 0.857983 (R_c 1.22569): sheet 1, |dc0'| 7.26e-50, |dc0| 2.86e-49, scale 1.74, N vs 2N 3.48e-49 -> CLOSES
+-- k = 3.5: formula vs code radicand, rel. diff 5.24e-51
+   branch points ['(0.414434 + 0.479518j)', '(-0.414434 - 0.479518j)', '(0.414434 - 0.479518j)', '(-0.414434 + 0.479518j)']; max |bp| 0.633793 vs R0 1.3382
+   circle |z| = R0: sheet 1, |dc0'| 1.08e-50, |dc0| 1.1e-49, scale 4.79, N vs 2N 1.48e-49 -> CLOSES  (all branch points inside: True)
+   region-B test circle |z - Z0| = 0.7 R_c = 0.906966 (R_c 1.29567): sheet 1, |dc0'| 1.35e-50, |dc0| 4.45e-50, scale 1.89, N vs 2N 1.24e-50 -> CLOSES
+-- k = 3.9: formula vs code radicand, rel. diff 1.64e-50
+   branch points ['(0.276073 + 0.692228j)', '(-0.276073 - 0.692228j)', '(0.276073 - 0.692228j)', '(-0.276073 + 0.692228j)']; max |bp| 0.745249 vs R0 1.3382
+   circle |z| = R0: sheet 1, |dc0'| 1.05e-50, |dc0| 9.15e-50, scale 2.72, N vs 2N 1.34e-49 -> CLOSES  (all branch points inside: True)
+   region-B test circle |z - Z0| = 0.7 R_c = 1.05703 (R_c 1.51004): sheet 1, |dc0'| 1.83e-50, |dc0| 9.7e-51, scale 2.69, N vs 2N 4.76e-50 -> CLOSES
+-- k = 3.999999: formula vs code radicand, rel. diff 1.66e-50
+   branch points ['(0.00103279 + 0.799999j)', '(-0.00103279 - 0.799999j)', '(0.00103279 - 0.799999j)', '(-0.00103279 + 0.799999j)']; max |bp| 0.799999 vs R0 1.3382
+   circle |z| = R0: sheet 1, |dc0'| 2.21e-51, |dc0| 5.35e-50, scale 1.87, N vs 2N 4.99e-50 -> CLOSES  (all branch points inside: True)
+   region-B test circle |z - Z0| = 0.7 R_c = 1.26289 (R_c 1.80414): sheet 1, |dc0'| 1.34e-50, |dc0| 1.14e-49, scale 4.56, N vs 2N 1.85e-49 -> CLOSES
+-- k = 4.02: formula vs code radicand, rel. diff 2.01e-50
+   branch points ['(0.0 + 0.675947j)', '(0.0 - 0.675947j)', '(0.0 + 0.980168j)', '(0.0 - 0.980168j)']; max |bp| 0.980168 vs R0 1.3382
+   circle |z| = R0: sheet 1, |dc0'| 4.16e-51, |dc0| 7.39e-50, scale 1.65, N vs 2N 1.14e-49 -> CLOSES  (all branch points inside: True)
+   region-B test circle |z - Z0| = 0.7 R_c = 1.22753 (R_c 1.75361): sheet 1, |dc0'| 6.7e-50, |dc0| 1.56e-49, scale 4.15, N vs 2N 1.71e-49 -> CLOSES
+-- k = 4.1: formula vs code radicand, rel. diff 2.08e-50
+   branch points ['(0.0 + 0.564257j)', '(0.0 - 0.564257j)', '(0.0 + 1.39507j)', '(0.0 - 1.39507j)']; max |bp| 1.39507 vs R0 1.3382
+   circle |z| = R0: sheet 1, |dc0'| 1.0, |dc0| 1.34, scale 1.17, N vs 2N 5.35e-51 -> DOES NOT CLOSE  (all branch points inside: False)
+   region-B test circle |z - Z0| = 0.7 R_c = 1.19956 (R_c 1.71366): sheet 1, |dc0'| 2.18e-50, |dc0| 7.54e-50, scale 3.96, N vs 2N 1.88e-49 -> CLOSES
+-- k = 4.2: formula vs code radicand, rel. diff 4.89e-51
+   branch points ['(0.0 + 0.499139j)', '(0.0 - 0.499139j)', '(0.0 + 2.30164j)', '(0.0 - 2.30164j)']; max |bp| 2.30164 vs R0 1.3382
+   circle |z| = R0: sheet 1, |dc0'| 0.105, |dc0| 0.14, scale 2.07, N vs 2N 2.88e-50 -> DOES NOT CLOSE  (all branch points inside: False)
+   region-B test circle |z - Z0| = 0.7 R_c = 1.18534 (R_c 1.69334): sheet 1, |dc0'| 1.24e-50, |dc0| 2.71e-50, scale 3.95, N vs 2N 2.64e-50 -> CLOSES
+-- k = 4.25: formula vs code radicand, rel. diff 7.03e-51
+   branch points ['(0.0 + 0.476109j)', '(0.0 - 0.476109j)', '(0.0 + 3.722j)', '(0.0 - 3.722j)']; max |bp| 3.722 vs R0 1.3382
+   circle |z| = R0: sheet 1, |dc0'| 0.0143, |dc0| 0.0191, scale 2.5, N vs 2N 2.26e-50 -> DOES NOT CLOSE  (all branch points inside: False)
+   region-B test circle |z - Z0| = 0.7 R_c = 1.18068 (R_c 1.68669): sheet 1, |dc0'| 8.38e-51, |dc0| 1.74e-50, scale 3.97, N vs 2N 6.89e-50 -> CLOSES
+-- k = 4.28: formula vs code radicand, rel. diff 1.63e-50
+   branch points ['(0.0 + 0.464054j)', '(0.0 - 0.464054j)', '(0.0 + 9.5218j)', '(0.0 - 9.5218j)']; max |bp| 9.5218 vs R0 1.3382
+   circle |z| = R0: sheet 1, |dc0'| 0.000322, |dc0| 0.000431, scale 2.72, N vs 2N 4.7e-50 -> DOES NOT CLOSE  (all branch points inside: False)
+   region-B test circle |z - Z0| = 0.7 R_c = 1.17833 (R_c 1.68333): sheet 1, |dc0'| 4.85e-50, |dc0| 9.84e-50, scale 3.98, N vs 2N 4.7e-50 -> CLOSES
+-- k = 4.28571328571: formula vs code radicand, rel. diff 2.34e-50
+   branch points ['(0.0 + 0.461881j)', '(0.0 - 0.461881j)', '(0.0 + 722.806j)', '(0.0 - 722.806j)']; max |bp| 722.806 vs R0 1.3382
+   circle |z| = R0: sheet 1, |dc0'| 9.64e-12, |dc0| 1.29e-11, scale 2.76, N vs 2N 2.78e-50 -> UNRESOLVED  (all branch points inside: False)
+   region-B test circle |z - Z0| = 0.7 R_c = 1.17791 (R_c 1.68273): sheet 1, |dc0'| 4.3e-50, |dc0| 9.59e-50, scale 3.99, N vs 2N 3.45e-50 -> CLOSES
+== done, 74 s

@@ -1,0 +1,13 @@
+== stop-(c) scan == spin 9/10, R0 1.2639, square half-side 0.10625, grid 9x9
+-- k_c = 2.0: rho_c 0.9; r+ (1.71189 + 0.0j), r- (-3.36335 + 0.0j), p+ (1.87402 + 0.754685j), p- (1.87402 - 0.754685j); lasso delta 0.15
+   row 1/9 done (4213 s)
+   row 2/9 done (8435 s)
+   row 3/9 done (12632 s)
+   row 4/9 done (16811 s)
+   row 5/9 done (20844 s)
+   row 6/9 done (24990 s)
+   row 7/9 done (29092 s)
+   row 8/9 done (33194 s)
+   row 9/9 done (37256 s)
+   SUMMARY k_c = 2.0: max |w_root| 0.43182 (limit 1.2346), max rho_c 0.9; nearest to circle 0.4392 at ('(2.10625 + 0.0j)', 'tracked0', '(1.70315 + 0.0j)'); nearest to lasso 0.1315 at ('(1.89375 - 0.10625j)', 'tracked2 (enclosed)', '(1.8728 + 0.772799j)'); (G1, G2) zero counts in annulus [(1, 2)] -> close (< 0.15)
+== done, 37256 s; {'2.0': 'close (< 0.15)'}
