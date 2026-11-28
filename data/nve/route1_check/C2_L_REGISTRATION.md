@@ -88,3 +88,35 @@ P1 does NOT get a route from this alone; it needs its own loop design.
 - The L0_0 probe cell is accepted: 60%.
 - The P2 cover is within the cost bar: 40%.
 - P2 certifies: 30%.
+
+## Erratum E1 (2026-11-28; committed before any C2-L code): the lasso encloses TWO points, so the new loop is a two-disc hull, not a circle
+**Found before coding** (exact polygon winding numbers at k_c = 83/20, floats entry 83/20). The floats lasso winds
+**1 about BOTH G1's zero r+ (about 1.8060) AND G2's upper zero p+ (about 1.8143 + 0.1425i)**, and 0 about G2's lower zero
+p- and every c0 singularity (B's zeros, +-ia). This is the region-B rule's "capsule lasso around [r+, p+]". Gamma winds 1
+about all three G zeros.
+
+The registered item 1 (a circle of radius r_L about z*(k_c) replacing the turn) would therefore have LEFT r+ OUT. That
+changes the homotopy class, and so F. It is withdrawn.
+
+**Item 1, amended: the new lasso L'.**
+- The same tail as L from bB up to the hull; then the boundary of the CONVEX HULL of two closed discs, D(r+(k_c), rho_r)
+  and D(p+(k_c), rho_p), traversed in L's orientation; then the tail back.
+- The radii are fixed by the rule before any run, from the CERTIFIED sweep enclosures (item 2):
+  - rho_p = s(p+) + c + c/2, where s(.) is the sweep enclosure's radius about the k_c position;
+  - rho_r = the midpoint of [s(r+) + c, d(r+, p-) - s(p-) - c], where d(r+, p-) is the certified distance from r+(k_c)
+    to p-(k_c).
+- If any window is empty, there is no L' for that box: refused before any CAPD run.
+- **Design guidance at P2 (point samples, not certified):** s(p+) and s(p-) are about 0.045 over the R-box, s(r+) is
+  about 0.003, and d(r+, p-) is about 0.143. With c = 0.03 that gives rho_p of about 0.09, rho_r in [0.033, 0.068]
+  (midpoint about 0.05), and a clearance from p-'s sweep of about 0.047.
+
+**Item 2, amended:** Krawczyk sweep enclosures for r+ (a zero of G1), p+ and p- (zeros of G2), with k over K as cells.
+
+**Items 3 and 4 unchanged in kind:**
+- the c-tube about L', and the straight-line homotopy L -> L' with its swept region, are certified free of every
+  singular point for every k in K (G1 G2, B, z^2 + a^2 nonzero);
+- the swept region now lies between L's capsule and the wider hull. It must contain neither r+ nor p+ (both stay inside
+  both loops) nor p-.
+- The recorded windings, as a check, are **1 about r+ and p+, and 0 about p- and the rest**.
+
+**Item 4's phrase "1 about G2+, 0 about everything else" is corrected accordingly.**
