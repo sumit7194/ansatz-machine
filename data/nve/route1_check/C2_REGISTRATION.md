@@ -240,3 +240,54 @@ sup bound would sit within about 4x of the true |F| (about 4 at P2's centre). Th
 (M_F in ATAP), and the addendum justified the bar by exactly that ("so M_F … is within about 2 orders of the truth").
 Whether to amend step 0' before it runs (a scan of sub-box sizes, and/or the bar M_F actually needs) is a design
 question put to the Bridge. **Step 0' does not run until it is answered.**
+
+## Addendum C2-3 (2026-11-28): step 0' amended BEFORE it runs (Bridge ruling (B)). Committed before step 0' runs
+**Disclosure (it goes in the grading line):** step-0' bar amended (C2-3) after development smoke runs indicated the
+registered width/range bar would fail at R/5; the new bar matches the certificate's use (sup bounds). The smoke widths at
+R/5, R/50 and R/500 on retraced loops were seen.
+
+**Why:** the certificate consumes only SUP bounds on the ellipse (M_F, M_T0, M_T1 in ATAP). A width/range bar is the
+wrong instrument where the true F barely varies over a sub-box; it is mis-specified, not a stricter good bar.
+
+**The amended step 0':**
+- **Cases:** sub-box half-sides R/5, R/10 and R/20 (`C2_KDIV` = 5, 10, 20), centred at kc0, at P2 (region B, k_c 83/20)
+  and P1 (circle, k_c 79/20), on the FULL loops. Six drives, each with its own 9 x 9 grid of point samples from the node
+  evaluator.
+- **Decision bar, per case, for EACH of F, tr M0 and tr M1:** the CAPD enclosure is finite; it contains every sampled
+  value; and sup|enclosure| <= 100 x the sampled max |.|.
+- **What 100x costs:** ATAP's bound is 4M rho^-n / (rho - 1), so a factor of 100 in M costs
+  delta n = ln 100 / ln 4 ~ 3.3 extra Chebyshev nodes at rho = 4.
+- **Cost bar, unchanged:** (CAPD time per sub-box) x KDIV^2 sub-boxes (the square cover) / 2 cores <= 2 h per segment,
+  at the coarsest size that passes.
+- **The C2 step 0' verdict:**
+  - PASS if some size passes both bars, and that size is the covering for the controls and pilots;
+  - FAIL if none does. FAIL on cost alone is reported as a C2 result: first-order doubletons are too expensive here.
+- **Still reported, not hidden:** the width/range ratio of F, and the ORIGINAL bar's verdict per case.
+
+**Settings fixed now, never tuned after seeing step 0's numbers:**
+- MPFR 256 bits, Taylor order 20, step-control tolerance 1e-15;
+- the IdQR doubleton without reorganization (`-DC2_POLICY_ID`).
+
+The tolerance and order were chosen on the smoke loops at hs/10 (records `c2/step0p_P2_*smoke_hs10*`):
+
+| tol | order | time | F width |
+|---|---|---|---|
+| 1e-30 | 20 | 90 s | +-0.0108 |
+| 1e-15 | 20 | 23 s | +-0.0119 |
+| 1e-10 | 20 | 18 s | +-0.0127 |
+| 1e-15 | 30 | 34 s | +-0.0126 |
+
+1e-15 is 4x faster than 1e-30 for about 10% more width; neither a looser tolerance nor a higher order is worth it. One
+point evaluation (v7B) takes about 20 s.
+
+**Run:** `air/c2_step0p_lane.sh A|B` under `air/v7_job.sh` (pause-only guard, nice 10), two lanes. Lane A runs the six
+drives and then half the samples; lane B runs the other half. The judge follows. Each lane's log records HEAD and the
+driver binary's checksum.
+
+**Prediction (honest, recorded before the run):**
+- The original bar FAILS at R/5 at P2 (90%).
+- The sup bar passes for F at R/5 at P2 (55%); the full loops wind round the singular point, so the blow-up seen on
+  the retraced smoke may be worse.
+- Cost per sub-box on the full loops is several minutes, so R/5 meets the cost bar (60%) but R/10 and R/20 do not
+  (85%): **cost may bind.**
+- C2 step 0' PASS overall: 40%.

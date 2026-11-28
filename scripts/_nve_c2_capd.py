@@ -45,11 +45,13 @@ OUTD = os.path.join(os.path.dirname(HERE), "data", "nve", "route1_check", "c2")
 DRIVER = os.path.join(HERE, "c2_capd", "build", "c2_driver" + os.environ.get("C2_VARIANT", ""))
 ORDER = int(os.environ.get("C2_ORDER", "20"))
 TOL = os.environ.get("C2_TOL", "1e-30")
-TAG = f"{BOX}_o{ORDER}" + os.environ.get("C2_VARIANT", "")
+KDIV = int(os.environ.get("C2_KDIV", "5"))     # addendum C2-3: sub-box half-side R/KDIV, KDIV in {5, 10, 20}
+assert KDIV in (5, 10, 20), "C2_KDIV must be 5, 10 or 20 (addendum C2-3)"
+TAG = f"{BOX}_k{KDIV}_o{ORDER}" + os.environ.get("C2_VARIANT", "") + ("" if TOL == "1e-30" else "_tol" + TOL)
 
 kc0 = acb(arb(L.S6.KC).mid())
 R = (L.S6.HALF * (arb(4) + arb(1) / 4) / 2).upper()
-hs = (R / 5).upper()
+hs = (R / KDIV).upper()
 HSDIV = int(os.environ.get("C2_HSDIV", "1"))   # development only (smoke): shrink the sub-box; step 0' uses 1
 if HSDIV != 1:
     assert os.environ.get("C2_SMOKE") == "1", "C2_HSDIV is a development switch for smoke runs only"
@@ -280,7 +282,7 @@ def grid():
 def samples():
     sl = os.environ.get("SLICE", "0/1")
     i0, n = (int(v) for v in sl.split("/"))
-    path = os.path.join(OUTD, f"step0p_{BOX}_samples.jsonl")
+    path = os.path.join(OUTD, f"step0p_{BOX}_k{KDIV}_samples.jsonl")
     done = set()
     if os.path.exists(path):
         for ln in open(path):
@@ -300,29 +302,43 @@ def samples():
 
 
 def judge():
+    """Addendum C2-3's bar, per box and size: finite, contains every sample, and sup|enclosure| <= 100 x the sampled
+    max |.|, for F, tr M0 and tr M1; cost <= 2 h per segment (the (R/hs)^2 = KDIV^2 sub-boxes covering the square,
+    on 2 cores). The ORIGINAL bar (width of F <= 100 x the sampled range of F) is reported alongside, not hidden."""
     rec = json.load(open(os.path.join(OUTD, f"step0p_{TAG}_drive.json")))
-    S = [json.loads(ln) for ln in open(os.path.join(OUTD, f"step0p_{BOX}_samples.jsonl"))]
+    S = [json.loads(ln) for ln in open(os.path.join(OUTD, f"step0p_{BOX}_k{KDIV}_samples.jsonl"))]
     assert len({(d["i"], d["j"]) for d in S}) == 81, f"{len(S)} samples, 81 needed"
-    out = dict(box=BOX, order=ORDER, t_capd=rec["t_capd"], steps=rec.get("steps"))
+    out = dict(box=BOX, kdiv=KDIV, hs=rec["hs"], order=ORDER, tol=TOL, t_capd=rec["t_capd"], steps=rec.get("steps"))
     if rec["rc"] != 0:
-        out.update(verdict="FAIL (the enclosure was refused or not finite)", refused=rec.get("refused"))
+        out.update(verdict="FAIL (the enclosure was refused or not finite)", refused=rec.get("refused"),
+                   original_bar="FAIL (refused)")
     else:
+        per = {}
+        allok = True
+        for q in ("F", "T0", "T1"):
+            E = acb(arb(rec[q][0]), arb(rec[q][1]))
+            Ss = [acb(arb(d[q][0]), arb(d[q][1])) for d in S]
+            sup_enc = float(E.abs_upper())
+            sup_samp = max(float(x.abs_upper()) for x in Ss)
+            ok = bool(E.is_finite()) and all(E.contains(x) for x in Ss) and sup_enc <= 100 * sup_samp
+            per[q] = dict(finite=bool(E.is_finite()), contains_all=all(E.contains(x) for x in Ss),
+                          overlaps_all=all(E.overlaps(x) for x in Ss), sup_enclosure=sup_enc, sampled_max=sup_samp,
+                          sup_ratio=sup_enc / sup_samp, ok=ok)
+            allok = allok and ok
         F = acb(arb(rec["F"][0]), arb(rec["F"][1]))
         Fs = [acb(arb(d["F"][0]), arb(d["F"][1])) for d in S]
-        contained = all(F.contains(f) for f in Fs)
-        overl = all(F.overlaps(f) for f in Fs)
         res = [float(f.real.mid()) for f in Fs]
         ims = [float(f.imag.mid()) for f in Fs]
         srange = max(max(res) - min(res), max(ims) - min(ims))
         width = 2 * max(float(F.real.rad()), float(F.imag.rad()))
-        ratio = width / srange
-        proj_h = (rec["t_capd"] + rec["t_init"]) * 25 / 3600
-        ok = F.is_finite() and contained and ratio <= 100 and proj_h <= 2
-        out.update(finite=bool(F.is_finite()), contains_all=contained, overlaps_all=overl, width=width,
-                   sampled_range=srange, wrapping_factor=ratio, projected_hours_per_segment=round(proj_h, 3),
-                   sample_sec_mean=round(sum(d["sec"] for d in S) / len(S), 1),
-                   verdict="PASS" if ok else "FAIL")
-    print(f"step 0' {BOX} judge: {out}", flush=True)
+        orig_ok = bool(F.is_finite()) and all(F.contains(f) for f in Fs) and width <= 100 * srange
+        proj_h = (rec["t_capd"] + rec["t_init"]) * KDIV * KDIV / 2 / 3600
+        cost_ok = proj_h <= 2
+        out.update(per=per, F_width=width, F_sampled_range=srange, F_width_over_range=width / srange,
+                   original_bar="PASS" if orig_ok else "FAIL", projected_hours_per_segment=round(proj_h, 3),
+                   cost_ok=cost_ok, sample_sec_mean=round(sum(d["sec"] for d in S) / len(S), 1),
+                   verdict="PASS" if (allok and cost_ok) else "FAIL")
+    print(f"step 0' {BOX} R/{KDIV} judge: {out}", flush=True)
     json.dump(out, open(os.path.join(OUTD, f"step0p_{TAG}_judge.json"), "w"), indent=1)
 
 
