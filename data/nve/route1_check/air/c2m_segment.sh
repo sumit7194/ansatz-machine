@@ -4,9 +4,9 @@
 #      later stages are SKIPPED (Pend ran them on an empty cover);
 #  (2) the pilot's pause of the old lane-B child is removed (that process is long gone; its PID could be anyone's).
 #   usage: c2m_segment.sh LABEL KC HALF
-cd /Users/sumit/Github/conjecture_machine-check || exit 1
+cd /Users/sumit/Github/conjecture_machine-b2fix || exit 1
 LBL=$1; KC=$2; HALF=$3
-P13=/Users/sumit/Github/conjecture_machine-check/.venv313/bin/python
+P13=/Users/sumit/Github/conjecture_machine-b2fix/.venv313/bin/python
 P14=/Users/sumit/Github/conjecture_machine/.venv/bin/python
 export C2M_LABEL=$LBL
 export BOX=P2 NVE_SPIN=3/5 R1_R0=1.35 R1_KC=$KC R1_HALF=$HALF R1_FLOATS=route1_floats_v7B_3_5.json R1_RHOS=4 R1_MODE=F R1_TOLMODE=rel

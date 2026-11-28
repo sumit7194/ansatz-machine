@@ -3,7 +3,7 @@
 # guard (memory pressure level >= 4 or free disk < 5 GB -> SIGSTOP the whole tree; recovered -> SIGCONT; nothing is
 # ever killed), at nice 10, run from the check worktree root, logs in data/nve/route1_check/v7/.
 #   usage: stopc_job.sh NAME command...
-cd /Users/sumit/Github/conjecture_machine-check || exit 1
+cd /Users/sumit/Github/conjecture_machine-b2fix || exit 1
 L=data/nve/route1_check/v7; mkdir -p $L
 name=$1; shift
 log=$L/$name.log

@@ -1,0 +1,199 @@
+{
+ "B1": {
+  "old_refuses_5e6": true,
+  "old_nonfinite_1e5": true,
+  "new_finite_5e6": true,
+  "new_finite_1e5": true,
+  "pass": true
+ },
+ "B2": {
+  "points": {
+   "1e-3": {
+    "contains": [
+     true,
+     true
+    ],
+    "overestimate": [
+     0.11543715674034495,
+     0.16575863159989854
+    ]
+   },
+   "1e-5": {
+    "contains": [
+     true,
+     true
+    ],
+    "overestimate": [
+     0.6767979316303117,
+     0.9456401750645899
+    ]
+   },
+   "1e-6": {
+    "contains": [
+     true,
+     true
+    ],
+    "overestimate": [
+     1.2457943619923382,
+     1.3355015922661218
+    ]
+   },
+   "1e-9": {
+    "contains": [
+     true,
+     true
+    ],
+    "overestimate": [
+     2.229105469125869,
+     1.5272800699341356
+    ]
+   },
+   "1e-11": {
+    "contains": [
+     true,
+     true
+    ],
+    "overestimate": [
+     2.5458374817795733,
+     1.5323610924444575
+    ]
+   },
+   "7e-15": {
+    "contains": [
+     true,
+     true
+    ],
+    "overestimate": [
+     2.8427969831109765,
+     1.5328444375488874
+    ]
+   }
+  },
+  "pass_": true
+ },
+ "B3": {
+  "n": 26,
+  "compared": 24,
+  "overlap_where_old_finite": true,
+  "old_nonfinite_cells": [
+   21,
+   23
+  ],
+  "matches_P3_refined": true,
+  "pass_": true
+ },
+ "B4": {
+  "cells": {
+   "1": [
+    true,
+    true
+   ],
+   "2": [
+    true,
+    true
+   ],
+   "3": [
+    true,
+    true
+   ],
+   "4": [
+    true,
+    true
+   ],
+   "5": [
+    true,
+    true
+   ],
+   "6": [
+    true,
+    true
+   ],
+   "7": [
+    true,
+    true
+   ],
+   "8": [
+    true,
+    true
+   ],
+   "9": [
+    true,
+    true
+   ],
+   "10": [
+    true,
+    true
+   ],
+   "11": [
+    true,
+    true
+   ],
+   "12": [
+    true,
+    true
+   ],
+   "13": [
+    true,
+    true
+   ],
+   "14": [
+    true,
+    true
+   ],
+   "15": [
+    true,
+    true
+   ],
+   "16": [
+    true,
+    true
+   ],
+   "17": [
+    true,
+    true
+   ],
+   "18": [
+    true,
+    true
+   ],
+   "19": [
+    true,
+    true
+   ],
+   "20": [
+    true,
+    true
+   ],
+   "21": [
+    true,
+    true
+   ],
+   "22": [
+    true,
+    true
+   ],
+   "23": [
+    true,
+    true
+   ],
+   "24": [
+    true,
+    true
+   ],
+   "25": [
+    true,
+    true
+   ],
+   "26": [
+    true,
+    true
+   ],
+   "27": [
+    true,
+    true
+   ]
+  },
+  "pass_": true
+ },
+ "verdict": "PASS"
+}

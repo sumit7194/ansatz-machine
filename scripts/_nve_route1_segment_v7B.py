@@ -363,8 +363,28 @@ def Rd_for(K):
 _BASE2 = {}
 
 
+B2_DEPTH = 40      # the base2 fix: the deepest halving of an s-piece; deeper means refused
+B2_GEO = 60        # the first cell's geometric pieces (see base2)
+B2_BUDGET = 4096   # and at most this many pieces in all per call (fail closed: refused), so splitting cannot explode
+
+
+def _sq_up(lo, hi):
+    """the exact range of x -> x^2 on [lo, hi] with 0 <= lo <= hi, as a ball (monotone: from the endpoints)"""
+    return arb((lo * lo).lower()).union(arb((hi * hi).upper()))
+
+
 def base2(K):
-    """(d2 c0'/dk2 (bB), d2 c0/dk2 (bB)) enclosed over K; None if Re P > 0 is not certified on some s-ball x K."""
+    """(d2 c0'/dk2 (bB), d2 c0/dk2 (bB)) enclosed over K; None if Re P > 0 is not certified on some s-piece x K.
+    The base2 fix (C2 ruling (B), 2026-11-29). The integral over s in [0, 1/bB] is the old rectangle rule on SM cells,
+    with three changes:
+      (1) s >= 0, and s -> a^2 s^2, a^4 s^4 are monotone there, so both are enclosed from each piece's endpoints.
+          Midpoint-radius squaring gave s.s a NEGATIVE lower bound on the first cell, so Re P > 0 could not be
+          certified for 30/7 - k below about 7.1e-6 (predicted), 7.08e-6 measured: probe Pend's refusal.
+      (2) P^(-3/2) = exp(-(3/2) log P), the principal branch (Re P > 0 is certified first). The old 1/(P sqrt P) is
+          a midpoint-radius product of two balls; near 30/7, P varies several-fold across a cell, the product's ball
+          contains 0, and the old code returned NaN, not a refusal, for d in about (7.08e-6, 1e-5).
+      (3) A piece whose Re P > 0 or finiteness is not certified is halved, up to B2_DEPTH levels and B2_BUDGET pieces
+          in all; beyond either, refused. Each piece contributes its enclosure times its exact width."""
     key = _kkey(K)
     if key in _BASE2:
         return _BASE2[key]
@@ -372,21 +392,55 @@ def base2(K):
         _BASE2[key] = None
         return None
     lim = 1 / BB
+    a2 = A * A
+    c2k, c1k, c0k = 90 - 21 * K, -(60 - 18 * K), 10 - K
+    count = [0]
+
+    def piece(u0, u1, depth):
+        """the contributions of s/lim in [u0, u1] (exact dyadic-rational arbs), or None (refused)"""
+        count[0] += 1
+        if count[0] > B2_BUDGET:
+            return None
+        lo = arb(0) if (u0 * lim).lower() < 0 else arb((u0 * lim).lower())
+        hi = arb((u1 * lim).upper())
+        s = lo.union(hi)
+        s2 = _sq_up(lo, hi)
+        a2s2 = a2 * s2
+        a2s2 = arb(0).union(arb(a2s2.upper())) if a2s2.lower() < 0 else a2s2
+        a4s4 = _sq_up(arb(a2s2.lower()), arb(a2s2.upper()))
+        Pv = c2k + c1k * a2s2 + c0k * a4s4
+        if Pv.real > 0:
+            dP = -21 + 18 * a2s2 - a4s4
+            d2 = -(dP * dP) * (Pv.log() * (-arb(3) / 2)).exp() / 4
+            den = (1 + a2s2) ** 3
+            t1, t0 = s2 * d2 / den, (s - BB * s2) * d2 / den
+            if t1.is_finite() and t0.is_finite():
+                wd = u1 - u0
+                return t1 * wd, t0 * wd
+        if depth == 0:
+            return None
+        um = (u0 + u1) / 2
+        a = piece(u0, um, depth - 1)
+        if a is None:
+            return None
+        b = piece(um, u1, depth - 1)
+        return None if b is None else (a[0] + b[0], a[1] + b[1])
+
+    # the first cell [0, 1/SM] in geometric pieces [2^-(m+1), 2^-m]/SM (m < B2_GEO) and [0, 2^-B2_GEO]/SM: the integrand
+    # peaks at s = 0 like (90 - 21k)^(-3/2), and one rectangle over the whole cell over-estimates that peak's integral
+    # by up to about 1e8 at 30/7 - k = 1e-11 (measured against Arb quadrature; it was still a valid enclosure)
+    cells = [(arb(0), arb(1) / (SM * arb(2) ** B2_GEO))]
+    cells += [(arb(1) / (SM * arb(2) ** (m + 1)), arb(1) / (SM * arb(2) ** m)) for m in range(B2_GEO - 1, -1, -1)]
+    cells += [(arb(j) / SM, arb(j + 1) / SM) for j in range(1, SM)]
     i1, i0 = acb(0), acb(0)
-    for S in SB:
-        s = S * lim
-        a2s2 = A * A * s * s
-        Pv = (90 - 21 * K) - (60 - 18 * K) * a2s2 + (10 - K) * a2s2 * a2s2
-        if not (Pv.real > 0):
+    for u0, u1 in cells:
+        r = piece(u0, u1, B2_DEPTH)
+        if r is None:
             _BASE2[key] = None
             return None
-        dP = -21 + 18 * a2s2 - a2s2 * a2s2
-        d2 = -(dP * dP) / (4 * Pv * Pv.sqrt())
-        den = (1 + a2s2) ** 3
-        i1 += s * s * d2 / den
-        i0 += (s - BB * s * s) * d2 / den
-    w = lim / SM
-    _BASE2[key] = (K8 * i1 * w, -K8 * i0 * w)
+        i1 += r[0]
+        i0 += r[1]
+    _BASE2[key] = (K8 * i1 * lim, -K8 * i0 * lim)
     return _BASE2[key]
 
 
