@@ -1,0 +1,2 @@
+loop edge step t dt min|D|^2 min|G1|^2 min|G2|^2 maxdiam | c0 c0p Y widths | retries
+REFUSED (a1) root argument not certified off the cut on this edge

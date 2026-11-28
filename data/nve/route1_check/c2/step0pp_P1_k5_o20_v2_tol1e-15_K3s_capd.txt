@@ -1,0 +1,2 @@
+c2_driver prec 256 order 20 dim 14 policy IdQR (B = I) sform circle plant_time 0 skip_edge_guard 1
+REFUSED loop 0 edge 0 step 1 (a2) circle inner argument not inside its disc on the whole-step enclosure

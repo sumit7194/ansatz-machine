@@ -1,0 +1,2 @@
+loop edge step t dt min|D|^2 min|G1|^2 min|G2|^2 maxdiam | c0 c0p Y widths | retries
+REFUSED (a2) circle inner argument not certified inside its disc on this edge

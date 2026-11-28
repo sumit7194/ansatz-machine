@@ -1,0 +1,69 @@
+{
+ "controls": [
+  {
+   "plant": "K1",
+   "box": "P2",
+   "fired": true,
+   "refused": "REFUSED start: (a3) the closed-form root does not match the field's branch at the start",
+   "want": [
+    "(a3)"
+   ]
+  },
+  {
+   "plant": "K1",
+   "box": "P1",
+   "fired": true,
+   "refused": "REFUSED start: (a3) the closed-form root does not match the field's branch at the start",
+   "want": [
+    "(a3)"
+   ]
+  },
+  {
+   "plant": "K2",
+   "box": "P2",
+   "fired": true,
+   "refused": "REFUSED loop 0 edge 0 step 0 (a1) root argument not certified off the cut on this edge",
+   "want": [
+    "(a1) root argument not certified off the cut on this edge"
+   ]
+  },
+  {
+   "plant": "K2s",
+   "box": "P2",
+   "fired": false,
+   "refused": "REFUSED loop 0 edge 0 step 345 (b) the set's time is not a point: t 87596969083711879749419383808769877621050422835629223188487453256512509575168 -257 87596969083711879749419383808769877621050422835629223188487453256512509575168 -257 -> 875971399777841551670614755726091992072072519019660678199471361",
+   "want": [
+    "(a1) root argument not certified off the cut on the whole-step enclosure",
+    "capd exception below the minimal step"
+   ]
+  },
+  {
+   "plant": "K3",
+   "box": "P1",
+   "fired": true,
+   "refused": "REFUSED loop 0 edge 0 step 0 (a2) circle inner argument not certified inside its disc on this edge",
+   "want": [
+    "(a2) circle inner argument not certified inside its disc on this edge"
+   ]
+  },
+  {
+   "plant": "K3s",
+   "box": "P1",
+   "fired": true,
+   "refused": "REFUSED loop 0 edge 0 step 1 (a2) circle inner argument not inside its disc on the whole-step enclosure",
+   "want": [
+    "(a2) circle inner argument not inside its disc on the whole-step enclosure"
+   ]
+  },
+  {
+   "plant": "K4",
+   "box": "P2",
+   "fired": true,
+   "refused": "REFUSED loop 0 edge 0 step 1 (b) the set's time is not a point: t 0 0 0 0 -> 57896044618658097711785492504343953926634992332820282019728792003956564819968 -261 57896044618658097711788557495425685704351709026874582638096029482200932024320 -261 step 5789604461865809771178549250434395392663499233282028",
+   "want": [
+    "(b) the set's time is not a point"
+   ]
+  }
+ ],
+ "all_fired": false
+}

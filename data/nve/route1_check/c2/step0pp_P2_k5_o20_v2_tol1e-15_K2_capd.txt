@@ -1,0 +1,2 @@
+c2_driver prec 256 order 20 dim 14 policy IdQR (B = I) sform disc plant_time 0 skip_edge_guard 0
+REFUSED loop 0 edge 0 step 0 (a1) root argument not certified off the cut on this edge

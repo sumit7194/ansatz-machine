@@ -1,0 +1,9 @@
+{
+ "stage": "step0pp",
+ "box": "P1",
+ "plant": "K1",
+ "rc": 2,
+ "refused": [
+  "REFUSED start: (a3) the closed-form root does not match the field's branch at the start"
+ ]
+}

@@ -5,7 +5,7 @@ an incidental guard):
   K1  wrong start sign (-s0 given to the (a3) start match)   -> "(a3)"                           [P2 and P1]
   K2  a segment from the base point across B's cut (B = -20)  -> "(a1) ... on this edge"           [P2]
   K3  the circle disc radius planted at 0.01                  -> "(a2)"                           [P1]
-  K4  a non-point time injected once                          -> "(b) the set's time is not a point"  [P2]
+  K4  a non-point time injected on every attempt (erratum E2) -> "(b) no step with an exact time above the minimal step" [P2]
   K2s, K3s  as K2, K3 with the a priori edge guard skipped (read F2): the per-step guard (or, for a cut crossing,
             CAPD's interval sqrt, which throws on a negative argument) must refuse
     .venv313/bin/python -I -u scripts/_nve_c2_c24_controls.py
@@ -27,7 +27,7 @@ CASES = [("K1", "P2", ["(a3)"]), ("K1", "P1", ["(a3)"]),
                         "capd exception below the minimal step"]),   # read F2: with the edge guard skipped; CAPD's
          ("K3", "P1", ["(a2) circle inner argument not certified inside its disc on this edge"]),   # interval sqrt
          ("K3s", "P1", ["(a2) circle inner argument not inside its disc on the whole-step enclosure"]),  # throws on a cut
-         ("K4", "P2", ["(b) the set's time is not a point"])]
+         ("K4", "P2", ["(b) no step with an exact time above the minimal step"])]   # erratum E2
 res = []
 for plant, box, want in CASES:
     env = dict(os.environ, **BASE, **BOXENV[box], C2_PLANT=plant)
@@ -37,6 +37,19 @@ for plant, box, want in CASES:
     rec = json.load(open(os.path.join(OUTD, f"step0pp_{tag}_drive.json")))
     why = " | ".join(rec.get("refused") or [])
     fired = rec.get("rc") != 0 and any(w in why for w in want)
+    if plant == "K2s" and fired and "capd exception" in why:
+        # re-read item 4: tie CAPD's refusal to the planted cut. The exception must be CAPD's sqrt domain error or a
+        # division by zero (the root's re part containing 0), and it must come on edge 0 near the planted crossing
+        # (tau = 1/2), read from the step log. This branch shows that a cut crossing cannot be ACCEPTED (CAPD's own
+        # domain check refuses it); the per-step root guard itself is exercised by K3s.
+        txt_ok = ("sqrt" in why) or ("division by zero" in why)
+        logp = os.path.join(OUTD, f"step0pp_{tag}_steps.log")
+        last = [ln.split() for ln in open(logp) if ln[:1].isdigit()]
+        t_last = float(last[-1][3]) if last else 0.0
+        e_last = int(last[-1][1]) if last else 0
+        near = e_last == 0 and 0.3 < t_last < 0.7
+        fired = txt_ok and near
+        why += f" [K2s: exception text ok {txt_ok}; last step edge {e_last} t {t_last:.4f}, near the crossing {near}]"
     res.append(dict(plant=plant, box=box, fired=fired, refused=why[:300], want=want))
     print(f"{plant} {box}: {'FIRED' if fired else 'DID NOT FIRE'}  ({why[:200]})", flush=True)
 ok = all(r["fired"] for r in res)

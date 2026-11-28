@@ -398,3 +398,28 @@ Control (K3) is unchanged: the radius planted at 0.01 must refuse.
 
   The P2 lasso at R/5 is Y's own k-nonlinearity near the lasso's singular point; it is not the s blow-up that (a)
   removes.
+
+### C2-4 erratum E2 (2026-11-28; committed before the controls and step 0'' run): (b) rolls back instead of refusing an inexact time
+**Found by control K2s, which DID NOT FIRE.** It was refused, but by (b), not at the planted cut:
+- first by "edge remainder not exact" (the K2 edge is long, so 1/Lipschitz < the 2^-6 fresh cap and the first step had
+  a full mantissa);
+- then, after a first rollback fix, by "the set's time is not a point" at step 345: CAPD's step rescalings after an
+  inclusion failure (step*0.95, step*factor) add about 50 mantissa bits each, so after a few of them t + step is not
+  representable in 256 bits.
+
+Rigour was never at risk (both were refusals), but they are SPURIOUS refusals that could also occur in step 0''.
+
+**(b) as amended:**
+- A step is ACCEPTED only if the new time is a point AND its remainder to the edge's end, j + 1 - t, is a point.
+- Otherwise the set is rolled back to t: the copy taken before the step, the copy the re-read verified for F1. The
+  step is retried as a fresh step whose cap is a power of two at most half the step just taken (CAPD then takes the
+  cap exactly unless it has to shrink it).
+- Below the minimal step 2^-40 the box is refused: "(b) no step with an exact time above the minimal step".
+- A non-point or inexact time is therefore never accepted, as before; the change is that it is retried rather than
+  refused at once.
+
+**Control K4, re-specified to match:** the plant now widens the time on EVERY attempt, so every attempt is rolled back,
+the cap shrinks to the minimum, and the box must be refused with the message above.
+
+**Everything else is unchanged:** the edge still ends exactly at j + 1 (asserted). The diff from the reviewed 938b781
+goes to the reader for a re-read before the controls count.

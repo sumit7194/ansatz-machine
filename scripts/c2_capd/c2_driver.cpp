@@ -423,39 +423,63 @@ int main(int argc, char** argv) {
       if (!isPoint(t) || !(t.leftBound() == tj.leftBound())) refuse(l, j, nsteps, "(b) edge start time not exactly j");
       fresh = true;
       while (t.leftBound() < tf) {
-        IT maxStep = IT(tf) - t;                                   // exact: both are dyadic points
-        if (!isPoint(maxStep)) refuse(l, j, nsteps, "(b) edge remainder not exact");
-        if (fresh && maxStep.leftBound() > FIRSTCAP) maxStep = IT(FIRSTCAP);
-        int retries = 0;
-        for (;;) {
-          SetT backup = set;                                        // read F1: CAPD may advance parts of the set
-          try {                                                     // before throwing; a retry must start from t
-            solver.setMaxStep(maxStep);
-            solver(set);
-            fresh = false;
-            break;
-          } catch (std::exception& e) {
-            set = backup;
-            if (!(set.getCurrentTime() == t)) refuse(l, j, nsteps, "(b) the restored set's time is not t");
-            solver.clearCoefficients();
-            fresh = true;
-            maxStep = maxStep / two;                                // exact halving
-            if (maxStep.leftBound() > FIRSTCAP) maxStep = IT(FIRSTCAP);
-            ++retries;
-            if (maxStep.rightBound() < MINSTEP)
-              refuse(l, j, nsteps, std::string("capd exception below the minimal step: ") + e.what());
+        SetT stepBackup = set;                                     // the state at t, for an exactness rollback
+        IT cap = IT(FIRSTCAP);
+        IT maxStep, tcur;
+        int retries = 0, exactRetries = 0;
+        for (;;) {                                                 // until a step lands on a time with an exact
+          maxStep = IT(tf) - t;                                    // remainder (or exactly on tf)
+          if (!isPoint(maxStep)) refuse(l, j, nsteps, "(b) edge remainder not exact");
+          if (fresh && maxStep.leftBound() > cap.leftBound()) maxStep = cap;
+          for (;;) {
+            SetT backup = set;                                      // read F1: CAPD may advance parts of the set
+            try {                                                   // before throwing; a retry must start from t
+              solver.setMaxStep(maxStep);
+              solver(set);
+              fresh = false;
+              break;
+            } catch (std::exception& e) {
+              set = backup;
+              if (!(set.getCurrentTime() == t)) refuse(l, j, nsteps, "(b) the restored set's time is not t");
+              solver.clearCoefficients();
+              fresh = true;
+              maxStep = maxStep / two;                              // exact halving
+              if (maxStep.leftBound() > cap.leftBound()) maxStep = cap;
+              ++retries;
+              if (maxStep.rightBound() < MINSTEP)
+                refuse(l, j, nsteps, std::string("capd exception below the minimal step: ") + e.what());
+            }
           }
+          if (plantTime) {                                         // control (K4, erratum E2): a non-point time
+            set.setCurrentTime(set.getCurrentTime() + IT(capd::MpFloat(0), MINSTEP * MINSTEP));   // on EVERY attempt
+            planted = true;
+          }
+          tcur = set.getCurrentTime();
+          if (isPoint(tcur) && isPoint(IT(tf) - tcur)) break;      // an exact time with an exact remainder: accept
+          // erratum E2: a non-point time (CAPD's inexact rescalings, e.g. step*0.95 repeated) or a point time whose
+          // remainder is not representable (a full-mantissa first step) is NEVER accepted: roll back to t and retry
+          // as a fresh step whose cap is a power of two at most half the step just taken (CAPD then takes the cap
+          // exactly unless it must shrink it); refuse below the minimal step
+          IT taken = tcur - t;
+          set = stepBackup;
+          if (!(set.getCurrentTime() == t)) refuse(l, j, nsteps, "(b) the rolled-back set's time is not t");
+          solver.clearCoefficients();
+          fresh = true;
+          {
+            mpfr_srcptr tp = MpAcc::get(taken.leftBound());
+            capd::MpFloat nc = cap.leftBound() / capd::MpFloat(4);
+            if (mpfr_number_p(tp) && mpfr_sgn(tp) > 0) {
+              capd::MpFloat p2 = capd::MpFloat(1);                  // 2^(exp(taken) - 2) <= taken/2
+              mpfr_mul_2si(MpAcc::mut(p2), MpAcc::get(p2), (long)mpfr_get_exp(tp) - 2, MPFR_RNDN);
+              if (p2 < nc) nc = p2;
+            }
+            cap = IT(nc);
+          }
+          ++exactRetries;
+          if (cap.rightBound() < MINSTEP)
+            refuse(l, j, nsteps, "(b) no step with an exact time above the minimal step (last time " + exI(tcur) + ")");
         }
-        if (plantTime && !planted) {                               // control (K4): a non-point time, once
-          set.setCurrentTime(set.getCurrentTime() + IT(capd::MpFloat(0), MINSTEP * MINSTEP));
-          planted = true;
-        }
-        IT tcur = set.getCurrentTime();
         ++nsteps;
-        if (!isPoint(tcur))
-          refuse(l, j, nsteps, "(b) the set's time is not a point: t " + exI(t) + " -> " + exI(tcur) + " step " +
-                                   exI(solver.getStep()) + " maxStep " + exI(maxStep) + " retries " +
-                                   std::to_string(retries));
         const VecT& E = set.getLastEnclosure();
         VecT hull = (VecT)set;
         bool fin = true;
@@ -481,7 +505,8 @@ int main(int argc, char** argv) {
         };
         slog << l << " " << j << " " << nsteps << " " << dbl(tcur.rightBound()) << " " << dt << " "
              << dbl(mD.leftBound()) << " " << dbl(m1.leftBound()) << " " << dbl(m2.leftBound()) << " " << bw(0, DIM - 1)
-             << " | " << bw(0, 1) << " " << bw(2, 3) << " " << bw(4, 11) << " | " << retries << "\n";
+             << " | " << bw(0, 1) << " " << bw(2, 3) << " " << bw(4, 11) << " | " << retries << " " << exactRetries
+             << "\n";
         if (!dom)
           refuse(l, j, nsteps, fin ? "domain (z^2 + a^2, G1, G2) not certified on the whole-step enclosure"
                                    : "non-finite enclosure");
