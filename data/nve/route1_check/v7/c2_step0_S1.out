@@ -1,0 +1,1 @@
+C2 step 0 S1: crude 645624.8839944892; sampled sup |dq/dk| 1.632e+03 (405 samples), at k_c 6.015e+02; sampled sup |q| 8.015e+01; crude/sampled 395.62336840537927; -> NEITHER (crude within 1e3 of the sampled sup, and no explosion)   [8.3 s]
