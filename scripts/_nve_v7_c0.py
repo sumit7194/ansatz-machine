@@ -52,6 +52,14 @@ class C0:
         w = z * z / (self.a * self.a)
         return self.c2 * w * w + self.c1 * w + self.c0
 
+    def B_mv(self, bx):
+        """B on a box by the mean-value form: B(bx) is contained in B(m) + B'(bx) (bx - m), m the box's midpoint
+        (rigorous: B is a polynomial in z; far tighter than direct ball evaluation near a small |B|)."""
+        m = acb(bx.mid())
+        w = bx * bx / (self.a * self.a)
+        dB = (2 * bx / (self.a * self.a)) * (2 * self.c2 * w + self.c1)
+        return self.B(m) + dB * (bx - m)
+
     def c0pp(self, z, s):
         return self.pref * s / ((z * z + self.a * self.a) ** 3)
 
@@ -100,6 +108,31 @@ class C0:
                 pts += [r, -r]
         return pts
 
+    # ---------------------------------------------------------------------------------------------- Cauchy bound
+    def sup_box(self, z, r, m=8, depth=5):
+        """An upper bound for |c0''| on the square z + [-r, r]^2 (which contains the disc |x - z| <= r), from an m x m
+        cover by sub-boxes, each split in four (up to `depth` times) while B != 0 or z^2 + a^2 != 0 is not yet
+        certified on it. If some piece still cannot be certified, a singular point may be inside: refused. So sqrt B
+        is holomorphic on the disc (B has no zero there). |sqrt B| = sqrt|B|, branch-free."""
+        def bound(cx, cy, hw, d):
+            bx = z + acb(arb(cx, hw), arb(cy, hw))
+            Bb = self.B_mv(bx)
+            Db = bx * bx + self.a * self.a
+            if not (Bb.contains(0) or Db.contains(0)):
+                return (self.pref.abs_upper() * Bb.abs_upper().sqrt() / (Db.abs_lower() ** 3)).upper()
+            if d == 0:
+                raise AssertionError("step: a singular point of c0'' is within the Cauchy disc")
+            h2 = (hw / 2).upper()
+            return max(bound(cx + sx * h2, cy + sy * h2, h2, d - 1) for sx in (-1, 1) for sy in (-1, 1))
+        M = arb(0)
+        hw = (arb(r) / m).upper()
+        for i in range(m):
+            for j in range(m):
+                cx = (-arb(r) + hw * (2 * i + 1)).mid()
+                cy = (-arb(r) + hw * (2 * j + 1)).mid()
+                M = max(M, bound(arb(cx), arb(cy), hw, depth))
+        return M.upper()
+
     # ---------------------------------------------------------------------------------------------- one step
     def step(self, st, h, r):
         """advance (c0, c0', s) from st['z'] by h (acb), with Cauchy radius r (arb, |h| <= r/4 required)."""
@@ -108,12 +141,7 @@ class C0:
         if not habs <= r / 4:
             raise AssertionError("step: |h| > r/4")
         # sup |c0''| on the box containing the disc |x - z| <= r (branch-free: |sqrt B| = sqrt |B|)
-        box = z + acb(arb(0, r), arb(0, r))
-        Bb = self.B(box)
-        Db = box * box + self.a * self.a
-        if Bb.contains(0) or Db.contains(0):
-            raise AssertionError("step: a singular point of c0'' is within the Cauchy disc")
-        M = (self.pref.abs_upper() * Bb.abs_upper().sqrt() / (Db.abs_lower() ** 3)).upper()
+        M = self.sup_box(z, r)
         # Taylor series of c0'' at z
         ctx.cap = NTERMS
         x = acb_series([z, 1])
@@ -151,10 +179,10 @@ class C0:
             pred += cn * hn
             hn *= hp
         snew = self.B(znew).sqrt()
-        if "flip_at" in self.plant and self.steps == self.plant["flip_at"]:
-            pred = -pred                                    # must-fail control (ii)
         if abs(snew + pred) < abs(snew - pred):
             snew = -snew
+        if "flip_at" in self.plant and self.steps == self.plant["flip_at"]:
+            snew = -snew                                    # must-fail control (ii): a wrong branch choice at the step end
         if not (abs(snew - pred) < abs(snew + pred)):
             raise AssertionError(f"step {self.steps}: branch continuity of sqrt B not certified")
         self.steps += 1

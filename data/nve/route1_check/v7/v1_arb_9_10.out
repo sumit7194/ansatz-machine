@@ -1,0 +1,29 @@
+== v7 V1 (arb) == spin 9/10, R0 1.2639; python 3.13.12, python-flint 0.9.0, FLINT 3.6.0; engine json v1_engine_9_10.json (python 3.14.5, mpmath 1.3.0)
+  (a) a_circle_k0: exact inside v7 balls True; worst radius 9.47e-46 (bar 1e-40); engine within 1e-40 of exact True -> PASS   [133 steps]
+  (a) a_real_k0: exact inside v7 balls True; worst radius 2.64e-49 (bar 1e-40); engine within 1e-40 of exact True -> PASS   [16 steps]
+  (a) a_circle_k4: exact inside v7 balls True; worst radius 5.77e-47 (bar 1e-40); engine within 1e-40 of exact True -> PASS   [114 steps]
+  (a) a_real_k4: exact inside v7 balls True; worst radius 5.95e-49 (bar 1e-40); engine within 1e-40 of exact True -> PASS   [12 steps]
+  (b) k 10/10 point 120 deg: v7 radius 6.7e-47, Laurent radius 7.9e-16 (bar 1e-30: UNINFORMATIVE); overlap True, |v7 - Laurent| <= 1.1e-15; engine True
+  (b) k 10/10 point 240 deg: v7 radius 2.8e-46, Laurent radius 7.9e-16 (bar 1e-30: UNINFORMATIVE); overlap True, |v7 - Laurent| <= 1.1e-15; engine True
+  (b) k 13/10 point 120 deg: v7 radius 6.3e-47, Laurent radius 7.5e-16 (bar 1e-30: UNINFORMATIVE); overlap True, |v7 - Laurent| <= 1.1e-15; engine True
+  (b) k 13/10 point 240 deg: v7 radius 2.6e-46, Laurent radius 7.5e-16 (bar 1e-30: UNINFORMATIVE); overlap True, |v7 - Laurent| <= 1.1e-15; engine True
+  (b) k 16/10 point 120 deg: v7 radius 5.9e-47, Laurent radius 7.0e-16 (bar 1e-30: UNINFORMATIVE); overlap True, |v7 - Laurent| <= 1.0e-15; engine True
+  (b) k 16/10 point 240 deg: v7 radius 2.5e-46, Laurent radius 7.0e-16 (bar 1e-30: UNINFORMATIVE); overlap True, |v7 - Laurent| <= 1.0e-15; engine True
+  (b) k 19/10 point 120 deg: v7 radius 5.6e-47, Laurent radius 6.8e-16 (bar 1e-30: UNINFORMATIVE); overlap True, |v7 - Laurent| <= 9.5e-16; engine True
+  (b) k 19/10 point 240 deg: v7 radius 2.3e-46, Laurent radius 6.8e-16 (bar 1e-30: UNINFORMATIVE); overlap True, |v7 - Laurent| <= 9.5e-16; engine True
+  (b) k 22/10 point 120 deg: v7 radius 5.2e-47, Laurent radius 6.3e-16 (bar 1e-30: UNINFORMATIVE); overlap True, |v7 - Laurent| <= 9.0e-16; engine True
+  (b) k 22/10 point 240 deg: v7 radius 2.1e-46, Laurent radius 6.3e-16 (bar 1e-30: UNINFORMATIVE); overlap True, |v7 - Laurent| <= 9.0e-16; engine True
+  (b) k 25/10 point 120 deg: v7 radius 4.7e-47, Laurent radius 5.8e-16 (bar 1e-30: UNINFORMATIVE); overlap True, |v7 - Laurent| <= 8.2e-16; engine True
+  (b) k 25/10 point 240 deg: v7 radius 1.9e-46, Laurent radius 5.8e-16 (bar 1e-30: UNINFORMATIVE); overlap True, |v7 - Laurent| <= 8.2e-16; engine True
+  (b) k 28/10 point 120 deg: v7 radius 4.2e-47, Laurent radius 5.3e-16 (bar 1e-30: UNINFORMATIVE); overlap True, |v7 - Laurent| <= 7.4e-16; engine True
+  (b) k 28/10 point 240 deg: v7 radius 1.7e-46, Laurent radius 5.3e-16 (bar 1e-30: UNINFORMATIVE); overlap True, |v7 - Laurent| <= 7.4e-16; engine True
+  (b) k 31/10 point 120 deg: v7 radius 3.6e-47, Laurent radius 4.6e-16 (bar 1e-30: UNINFORMATIVE); overlap True, |v7 - Laurent| <= 6.5e-16; engine True
+  (b) k 31/10 point 240 deg: v7 radius 1.5e-46, Laurent radius 4.6e-16 (bar 1e-30: UNINFORMATIVE); overlap True, |v7 - Laurent| <= 6.5e-16; engine True
+  (b) k 34/10 point 120 deg: v7 radius 3.0e-47, Laurent radius 3.9e-16 (bar 1e-30: UNINFORMATIVE); overlap True, |v7 - Laurent| <= 5.5e-16; engine True
+  (b) k 34/10 point 240 deg: v7 radius 1.2e-46, Laurent radius 3.9e-16 (bar 1e-30: UNINFORMATIVE); overlap True, |v7 - Laurent| <= 5.5e-16; engine True
+  (b) k 37/10 point 120 deg: v7 radius 2.1e-47, Laurent radius 2.9e-16 (bar 1e-30: UNINFORMATIVE); overlap True, |v7 - Laurent| <= 4.2e-16; engine True
+  (b) k 37/10 point 240 deg: v7 radius 8.6e-47, Laurent radius 2.9e-16 (bar 1e-30: UNINFORMATIVE); overlap True, |v7 - Laurent| <= 4.2e-16; engine True
+  (c) c_k3: one circuit, returned radius 1.4e-46 (bar 1e-30: ok); contains the start True; engine True   [122 steps]
+  (c) c_k39/10: one circuit, returned radius 4.1e-47 (bar 1e-30: ok); contains the start True; engine True   [122 steps]
+  (d) must-fail controls fired: {'i': True, 'ii': True, 'iii': True, 'iv': True} -> PASS
+VERDICT V1 spin 9/10: (a) PASS, (b) UNINFORMATIVE, (c) PASS, (d) PASS -> NOT PASS   [3 s]

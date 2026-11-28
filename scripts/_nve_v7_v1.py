@@ -59,7 +59,8 @@ def run_engine():
         else:
             vs = [R0 + (4 - R0) * j / n for j in range(n + 1)]
         sts = e.walk(vs, st)
-        res[name] = [[str(s["z"]), str(s["c0"]), str(s["c0p"])] for s in sts]
+        cs = lambda x: [str(mp.re(x)), str(mp.im(x))]
+        res[name] = [[cs(s["z"]), cs(s["c0"]), cs(s["c0p"])] for s in sts]
         print(f"engine {name}: {len(sts)} states, c0 at the end {mp.nstr(sts[-1]['c0'], 15)}", flush=True)
     res["_meta"] = dict(python=sys.version.split()[0], mpmath=mp.__version__, dps=mp.mp.dps, sec=round(time.time() - t0, 1))
     json.dump(res, open(EJSON, "w"), indent=1)
@@ -95,8 +96,7 @@ def run_arb():
         return v
 
     def eball(s):
-        z = mp.mpc(s)
-        return acb(arb(str(z.real)), arb(str(z.imag)))
+        return acb(arb(s[0]), arb(s[1]))
 
     def engine_ok(vball, estr):
         e = eball(estr)
