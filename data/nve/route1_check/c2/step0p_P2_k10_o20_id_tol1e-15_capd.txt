@@ -1,0 +1,2 @@
+c2_driver prec 256 order 20 dim 16 policy IdQR (B = I)
+REFUSED loop 0 edge 59 step 179 the edge did not end at its final time: set time [60, 60], final 60, last step 0.266536

@@ -1,0 +1,3 @@
+c2_driver prec 256 order 20 dim 16 policy FullQRWithPivoting
+REFUSED loop 0 edge 15 step 107 capd exception: Interval error: Interval Error *** Possible division by zero.
+   left=-2.10482e1   right=1.92217e3 

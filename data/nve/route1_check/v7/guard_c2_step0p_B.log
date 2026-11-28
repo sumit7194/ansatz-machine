@@ -1,0 +1,5 @@
+2026-11-28 17:50:38 started c2_step0p_B pid 19860: data/nve/route1_check/air/c2_step0p_lane.sh B
+2026-11-28 17:55:00 manual PAUSE of 19887 (lane B samples) for a one-off C2 diagnostic drive
+2026-11-28 17:55:30 manual RESUME of 19887
+2026-11-28 17:57:01 manual PAUSE of 19887 (lane B samples) for a one-off C2 diagnostic drive (block widths)
+2026-11-28 17:57:30 manual RESUME of 19887

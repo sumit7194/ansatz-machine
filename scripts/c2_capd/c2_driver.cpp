@@ -138,6 +138,10 @@ static std::string ex(const capd::MpFloat& f) {
 
 static double dbl(const capd::MpFloat& f) { return mpfr_get_d(MpAcc::get(f), MPFR_RNDN); }   // for the log only
 
+static double mag(const IT& x) {   // for the log only
+  return std::max(std::fabs(dbl(x.leftBound())), std::fabs(dbl(x.rightBound())));
+}
+
 static std::string exI(const IT& x) { return ex(x.leftBound()) + " " + ex(x.rightBound()); }
 
 static bool finiteI(const IT& x) {
@@ -333,9 +337,24 @@ int main(int argc, char** argv) {
         dtmax = std::max(dtmax, dt);
         double md = 0;
         for (int i = 0; i < DIM; ++i) md = std::max(md, dbl(diam(hull[i]).rightBound()));
+        // per-block widths (diagnostics): hull of s, c0, c0', Y; for s also the C r0 part and the B r part; time width
+        auto bw = [&](int a0, int a1) {
+          double w = 0;
+          for (int i = a0; i <= a1; ++i) w = std::max(w, dbl(diam(hull[i]).rightBound()));
+          return w;
+        };
+        const MatT& Cn = set.get_C();
+        VecT Brn = set.get_B() * set.get_r();
+        double wCs = 0, wBs = 0;
+        for (int i = 0; i < 2; ++i) {
+          wCs = std::max(wCs, 2 * (mag(Cn[i][14]) + mag(Cn[i][15])) * dbl(R));
+          wBs = std::max(wBs, dbl(diam(Brn[i]).rightBound()));
+        }
         slog << l << " " << j << " " << nsteps << " " << dbl(tcur.rightBound()) << " " << dt << " "
              << dbl(ms.leftBound()) << " " << dbl(mD.leftBound()) << " " << dbl(m1.leftBound()) << " "
-             << dbl(m2.leftBound()) << " " << md << "\n";
+             << dbl(m2.leftBound()) << " " << md << " | s " << bw(0, 1) << " c0 " << bw(2, 3) << " c0p " << bw(4, 5)
+             << " Y " << bw(6, 13) << " sCr0 " << wCs << " sBr " << wBs << " tw " << dbl(diam(tcur).rightBound())
+             << "\n";
         if (!dom) {
           out << "REFUSED loop " << l << " edge " << j << " step " << nsteps
               << (fin ? " domain not certified on the whole-step enclosure" : " non-finite enclosure") << "\n";

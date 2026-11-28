@@ -1,0 +1,3 @@
+c2_driver prec 256 order 20 dim 16 policy IdQR (B = I)
+REFUSED loop 0 edge 10 step 72 capd exception: Interval error: Interval Error *** Possible division by zero.
+   left=-7.15930e1   right=2.36544e3 
