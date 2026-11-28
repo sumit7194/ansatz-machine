@@ -247,3 +247,15 @@ stage computed its own hash.
 - then pilot 1 rerun.
 
 Pilot 1's first attempt is disclosed in its result.
+
+## Addendum 7 (2026-11-28, before any region-B control or pilot runs): control (A) made direct
+- Addendum 5's control (A) said a shrunken E (E/1e6) "must be refused by v6's sampled-maximum check on M". E enters
+  only the Taylor remainder dk²E/2 of the dq bound, so a shrunken E may leave M above every sample, and the control
+  could fail to fire for a reason unrelated to the bound's correctness. Seeing that would need full pilot runs.
+- **(A), as amended:** with `d2kc0_B` replaced by E/1e6, the region-B self-test's second-derivative check (E0 must
+  overlap the central finite difference of the field's dc0/dk at k_c ± 1e−6, at five Γ-loop points) must FAIL. The
+  unmodified bound must PASS the same check, which is addendum 5's positive check.
+- (B) is unchanged: a step box whose straight segment from bB crosses a c0 branch point must make `d2kc0_B` return
+  None.
+- **Both controls are code in `scripts/_nve_v7_controlsB.py`.** They run after the non-author read, before pilots 2
+  and 3.
