@@ -7,11 +7,19 @@ cd /Users/sumit/Github/conjecture_machine-check || exit 1
 B=$1
 P13=/Users/sumit/Github/conjecture_machine-check/.venv313/bin/python
 P14=/Users/sumit/Github/conjecture_machine/.venv/bin/python
-if [[ $B == P2 ]]; then KC=83/20; HALF=1/20; else KC=59979/14000; HALF=1/2000; fi
-export BOX=$B NVE_SPIN=3/5 R1_R0=1.35 R1_KC=$KC R1_HALF=$HALF R1_FLOATS=route1_floats_v7B_3_5.json R1_RHOS=4 R1_MODE=F R1_TOLMODE=rel
+# P2, P3: the pilots. Pmid, Pend: the production probes (C2_M_PROBES_REGISTRATION.md), under their own label
+case $B in
+  P2) BX=P2; KC=83/20; HALF=1/20 ;;
+  P3) BX=P3; KC=59979/14000; HALF=1/2000 ;;
+  Pmid) BX=P2; KC=83/20; HALF=1/200 ;;
+  Pend) BX=P3; KC=59999979/14000000; HALF=1/2000000 ;;
+  *) echo "unknown box $B"; exit 1 ;;
+esac
+export C2M_LABEL=$B
+export BOX=$BX NVE_SPIN=3/5 R1_R0=1.35 R1_KC=$KC R1_HALF=$HALF R1_FLOATS=route1_floats_v7B_3_5.json R1_RHOS=4 R1_MODE=F R1_TOLMODE=rel
 read CODE BASE <<< $(${=P13} -I -c "import sys; sys.path.insert(0, 'scripts'); import _nve_c2m as M; print(M.CODE, M.BASE)" 2>/dev/null | tail -1)
 [[ -n $CODE ]] || exit 1
-echo "=== C2-M pilot $B k_c $KC half $HALF code $CODE base $BASE HEAD $(git rev-parse --short HEAD) $(date '+%F %T')"
+echo "=== C2-M pilot $B (box $BX) k_c $KC half $HALF code $CODE base $BASE HEAD $(git rev-parse --short HEAD) $(date '+%F %T')"
 echo "=== M3 (dry)"; ${=P13} -I -u scripts/_nve_c2m.py m3; echo "M3 rc $?"
 LBK=$(pgrep -P 19860 2>/dev/null)
 [[ -n $LBK ]] && kill -STOP $LBK && echo "$(date '+%F %T') PAUSE lane B child $LBK for the C2-M $B cover" >> data/nve/route1_check/v7/guard_c2_step0p_B.log

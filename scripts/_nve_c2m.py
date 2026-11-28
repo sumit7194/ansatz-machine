@@ -65,7 +65,9 @@ say = S5.say
 KC, HALF = S6.KC, S6.HALF
 R = (HALF * (arb(RHO) + 1 / arb(RHO)) / 2).upper()
 KBOX, SUBS = V.kbox(acb(KC), R)
-COVER = os.path.join(OUTD, f"c2m_{BOX}_cover.json")
+LABEL = os.environ.get("C2M_LABEL", BOX)          # production probes (C2_M_PROBES_REGISTRATION.md) run under their own
+assert LABEL.replace("_", "").isalnum()             # label, so their files never collide with the P2/P3 pilots' records
+COVER = os.path.join(OUTD, f"c2m_{LABEL}_cover.json")
 
 
 def me(x):
@@ -104,8 +106,12 @@ def base_env():
     return e
 
 
+def cell_id(cid):
+    return cid if LABEL == BOX else f"{LABEL}-{cid}"
+
+
 def drive_json(cid):
-    return os.path.join(OUTD, f"c2m_{BOX}_k5_o20_v2_tol1e-15_cell{cid}_drive.json")
+    return os.path.join(OUTD, f"c2m_{BOX}_k5_o20_v2_tol1e-15_cell{cell_id(cid)}_drive.json")
 
 
 NONCE = {}
@@ -166,12 +172,12 @@ def run_cells(cells, dry_refuse=None):
             cid, c, h = pending.pop(0)
             env = base_env()
             env["C2_CELL"] = f"{me(c.real)} {me(c.imag)} {me(h)}"
-            env["C2_CELL_ID"] = cid
+            env["C2_CELL_ID"] = cell_id(cid)
             env["C2_RUN_ID"] = f"{CODE}|{cid}|{time.time_ns()}"          # read F2: the record must carry this nonce
             NONCE[cid] = (env["C2_RUN_ID"], env["C2_CELL"])
             if os.path.exists(drive_json(cid)):
                 os.remove(drive_json(cid))                               # read F2: never reuse an earlier record
-            logf = open(os.path.join(OUTD, f"c2m_{BOX}_cell{cid}.out"), "w")
+            logf = open(os.path.join(OUTD, f"c2m_{LABEL}_cell{cid}.out"), "w")
             p = subprocess.Popen([sys.executable, "-I", "-u", GLUE, "drive"], env=env, stdout=logf, stderr=subprocess.STDOUT,
                                  cwd=ROOT)
             running.append((cid, p, logf, time.time()))
@@ -232,7 +238,7 @@ def cover(dry_refuse=None):
                leaves=[cid for cid, *_ in leaves])
     if dry_refuse is None:
         json.dump(res, open(COVER, "w"), indent=1)
-    say(f"C2-M cover {BOX}: {len(leaves)} leaves of {len(cells)} cells; stop {stop}; "
+    say(f"C2-M cover {LABEL}: {len(leaves)} leaves of {len(cells)} cells; stop {stop}; "
         f"M {res['M'] and [V.hi_sci(arb(x)) for x in res['M']]}; CAPD {t_capd:.0f} s total, wall {res['wall']} s")
     return res
 
@@ -252,8 +258,8 @@ def m3():
     rb = cover(dry_refuse={"L0_12": "none", "L0_12.0": "none", "L0_12.0.0": "none"})
     b_ok = rb["stop"] is not None and "L0_12.0.0" in rb["stop"]
     out = dict(M3a_refinement_path=a_ok, M3a_by_mode=a_runs, M3b_stop=b_ok, b=dict(stop=rb["stop"]))
-    json.dump(out, open(os.path.join(OUTD, f"c2m_{BOX}_M3.json"), "w"), indent=1)
-    print(f"C2-M control M3 {BOX}: refinement path {'FIRED' if a_ok else 'DID NOT FIRE'}; R/20 STOP "
+    json.dump(out, open(os.path.join(OUTD, f"c2m_{LABEL}_M3.json"), "w"), indent=1)
+    print(f"C2-M control M3 {LABEL}: refinement path {'FIRED' if a_ok else 'DID NOT FIRE'}; R/20 STOP "
           f"{'FIRED' if b_ok else 'DID NOT FIRE'}", flush=True)
     sys.exit(0 if (a_ok and b_ok) else 1)
 
@@ -262,7 +268,7 @@ def m1():
     """control M1: containment of point values in every accepted cell's enclosures"""
     C = json.load(open(COVER))
     assert C["stop"] is None and C["code"] == CODE
-    path = os.path.join(OUTD, f"c2m_{BOX}_M1.jsonl")
+    path = os.path.join(OUTD, f"c2m_{LABEL}_M1.jsonl")
     done = {}
     if os.path.exists(path):
         for ln in open(path):
@@ -271,7 +277,9 @@ def m1():
     sl = os.environ.get("SLICE", "0/1")
     i0, nsl = (int(v) for v in sl.split("/"))
     jobs = []
-    samp_file = os.path.join(OUTD, f"step0p_{BOX}_k5_samples.jsonl")
+    # the step 0' samples belong to the P2/P3 pilots' own boxes; a labelled probe's box differs, so every cell of a
+    # probe gets one new centre evaluation instead (and the all-81 assert does not apply)
+    samp_file = os.path.join(OUTD, f"step0p_{BOX}_k5_samples.jsonl") if LABEL == BOX else os.path.join(OUTD, "__none__")
     for idx, cid in enumerate(C["leaves"]):
         cell = C["cells"][cid]
         ex = cell["exact"]
@@ -318,8 +326,8 @@ def m1():
         allc = all(all(d["contained"]) for d in done.values())
         out = dict(n_checked=len(done), n_new=len(need), all_contained=allc,
                    failures=[d["key"] for d in done.values() if not all(d["contained"])])
-        json.dump(out, open(os.path.join(OUTD, f"c2m_{BOX}_M1.json"), "w"), indent=1)
-        print(f"C2-M control M1 {BOX}: {'PASS' if allc else 'FAIL'} ({len(done)} values)", flush=True)
+        json.dump(out, open(os.path.join(OUTD, f"c2m_{LABEL}_M1.json"), "w"), indent=1)
+        print(f"C2-M control M1 {LABEL}: {'PASS' if allc else 'FAIL'} ({len(done)} values)", flush=True)
 
 
 # ------------------------------------------------------------------------------------------------ verdict
