@@ -73,6 +73,9 @@ def run_arb():
     from flint import acb, arb
     import _nve_v7_c0 as V7
     import _nve_route1_segment_v2 as V                   # the production Laurent evaluator (spin, R0 from env)
+    if os.environ.get("V7_LAU_NW"):                      # addendum 3: the Laurent term count for the (b) rerun
+        V.NW = int(os.environ["V7_LAU_NW"])
+    ONLY_B = os.environ.get("V7_ONLY_B") == "1"
     import mpmath as mp
     mp.mp.dps = 50
     eng = json.load(open(EJSON))
@@ -122,6 +125,8 @@ def run_arb():
     out = {}
     res = dict(a=True, b=True, b_informative=True, c=True, c_informative=True)
     for name, k, kind, n in plan():
+        if ONLY_B and not name.startswith("b_"):
+            continue
         c = V7.C0(SPIN, acb(karb(k)), exact_control_k0=(k == "0"))
         st = c.start(R0)
         sts = c.walk(verts(kind, n), st)
@@ -166,6 +171,12 @@ def run_arb():
                 f"contains the start {cont}; engine {eok}   [{c.steps} steps]")
         out[name] = [[s["z"].str(30), s["c0"].str(30), s["c0p"].str(30)] for s in sts]
 
+    if ONLY_B:
+        b_v = "PASS" if (res["b"] and res["b_informative"]) else ("UNINFORMATIVE" if res["b"] else "FAIL")
+        say(f"VERDICT V1(b) rerun spin {SPIN}, Laurent NW {V.NW} (addendum 3): (b) {b_v}   [{time.time() - t0:.0f} s]")
+        json.dump(dict(log=log, states=out, verdict_b=b_v, lau_nw=V.NW, env=dict(python=sys.version.split()[0],
+                  flint=flint.__version__)), open(os.path.join(OUTD, f"v1b_rerun_{TAG}.json"), "w"), indent=1)
+        return
     # ---- (d) must-fail controls
     fired = {}
     try:                                               # (i) planted 1e-30 in c0'(z_s) at k = 0: (a) must fail

@@ -125,3 +125,17 @@ c0.
   ball. The v7 balls are about 1e−70 wide at 256 bits, so a literal containment would fail on the engine's precision,
   not on any disagreement.
 - The bar for disagreement stays as tight as the engine allows: 1e−40, the same bar as V1(a).
+
+## Addendum 3 (2026-11-28, the Bridge's ruling on V1 at 9/10, option (b); committed BEFORE the rerun)
+- **What reruns:** V1(b) at spin 9/10 ONLY, with the production Laurent evaluator (v2's `laurent`/`c0_at`, the same
+  formula) at N = **386** terms instead of production's NW = 190. Everything else is as registered, and the engine JSON
+  is reused unchanged.
+- **How N was chosen, fixed in advance:** the smallest N such that the evaluator's OWN truncation bound is ≤ 1e−35 for
+  both c0 and c0' on |z| = R0 = 1.2639, at all 10 test values of k.
+  - The bound is t = M·θ^(N+1)/(1 − θ), divided by |w|² for c0 and by |w| for c0', with θ = |1/z|/(0.9/a) = 0.79120.
+  - M is the evaluator's Cauchy bound of c0'' on |ω| = 0.9/a (independent of N), computed per k: from 2.74e3 at
+    k = 1 to 1.03e3 at k = 3.7.
+  - The per-k minima are N_k = 382–386, so N = max_k N_k = 386.
+- **Bar unchanged:** both balls ≤ 1e−30 at all 20 points. If the Laurent balls are still not under it, (b) at 9/10 stays
+  **UNINFORMATIVE**, is reported, and N is NOT raised again.
+- **Gate per spin:** nothing in v7 runs at 9/10 until V1 passes at 9/10. V2 proceeds at 3/5, where V1 passed.

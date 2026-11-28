@@ -22,6 +22,14 @@ Outputs are in `v7/`: `v1_arb_*.out/.json` and `v1_engine_*.out/.json`.
 | (d) must-fail controls (i)–(iv) fire | **PASS** (all four) | **PASS** (all four) |
 | **V1** | **PASS** | **NOT PASS** (by the letter of (b)) |
 
+**Grading of the development-run changes (the Bridge's ruling; part of the verdict, not only the change list).**
+These changes were made after seeing development-run behaviour, before any registered verdict:
+- **Must-fail control (ii):** "must-fail plant corrected after it first failed to fire (it flipped the prediction,
+  not the branch)".
+- **The Cauchy bound:** "the adaptive cover replaced the single-ball bound after a false flag near B's double zero".
+
+V2's non-author read must cover both diffs.
+
 ## Why (b) is uninformative at 9/10
 - The production Laurent evaluator at 9/10 encloses c0 only to about 1e−15. That is its own truncation (NW terms),
   with the circle at about 0.79 of the Laurent radius.
