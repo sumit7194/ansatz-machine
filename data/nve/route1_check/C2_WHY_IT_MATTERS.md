@@ -80,3 +80,15 @@
 The certificate's value is a grade change at one spin over part of the range, with [3, 4] still numerical.
 - Pmid certified, so the mid-region at half 1/200 is cheap enough (about 80 core-h with the 7 reachable dyadic segments: about a day on 4 cores) to be worth it as a demonstration, reported as a stated reach.
 - The dyadic end and the other spins should wait until there is a reason to expect region A can be closed. Without that, no amount of region-B work reaches "no gap".
+
+## Erratum E-δ0 (2026-11-29, found by the author while scoping ruling (B)): the 3/5 sliver is δ0 = 1.37e−11, not 7.4e−15
+- **The error.** `C2_PRODUCTION_ESTIMATE.md` took δ0 = 7.4e−15 for spin 3/5. That is spin 3/10's sliver. The claim's table (`CLAIM_FAMILY_II.md`, end-sliver row) gives δ0 = 1.37e−11, 2.4e−10, 3.6e−10 and 7.4e−15 at spins 0.6, 0.8, 0.9 and 0.3, with E = 0.8. The count also had an off-by-one: the chain [30/7 − 2d_j, 30/7 − d_j], d_j = 1e−3/2^j, j = 0..J, reaches 30/7 − d_J, so it needs d_J ≤ δ0, not ceil(log2(1e−3/δ0)) segments.
+- **Corrected at 3/5:** d_J ≤ 1.37e−11 needs J = 27 (d_27 = 7.45e−12; d_26 = 1.49e−11 is too large). So the chain is **28 segments, j = 0..27**:
+  - P3 is j = 0, certified;
+  - j = 1..7 pass H1 and are in production (A);
+  - **j = 8..27, 20 segments, refuse at H1** and are ruling (B)'s job (not 29).
+- **Effect on the other numbers:**
+  - the region-B length, its reachable fraction (99.997%) and the coverage percentages change only in the eleventh digit;
+  - the production total becomes 29 + 28 = 57 segments at the Pmid size, not 65;
+  - (B)'s run is about 20 × 2.2 = 44 core-h, not 64.
+- Nothing that ran used δ0; no record or certificate is affected.
