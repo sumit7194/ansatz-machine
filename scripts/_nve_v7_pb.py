@@ -59,7 +59,11 @@ def run_engine():
             s2 = [(KC.newton(prb, x, w), w) for x, w in s2]
         prb = RB.problem(kt)
         pos = [KC.newton(prb, x, w) for x, w in s2]
+        RB.span = mp.mpf(99)
+        _l, _g, g0 = RB.loops(prb, pos)                     # the run-mode rule: span = the loops' reach + 0.05
+        RB.span = mp.mpf(g0["contain"]) + mp.mpf("0.05")
         lasso, gam, g = RB.loops(prb, pos)
+        g["span"] = float(RB.span)
         r = RB.evaluate(prb, pos, lasso, gam)
         cs = lambda x: [str(mp.re(x)), str(mp.im(x))]
         out["nodes"][key] = dict(
