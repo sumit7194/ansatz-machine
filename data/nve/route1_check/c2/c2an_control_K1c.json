@@ -1,0 +1,40 @@
+{
+ "control": "K1c",
+ "ok": false,
+ "cells": [
+  {
+   "k": 3.45,
+   "h": 0.005,
+   "level": 0,
+   "ok": false,
+   "where": "walk: the path meets a singular point of c0'' near (8.63124502919108e-09+0.5999999961638911j)",
+   "t": 0.6
+  },
+  {
+   "k": 3.4475,
+   "h": 0.0025,
+   "level": 1,
+   "ok": false,
+   "where": "walk: the path meets a singular point of c0'' near (8.573019210096052e-09+0.5999999961897692j)",
+   "t": 0.6
+  },
+  {
+   "k": 3.44625,
+   "h": 0.00125,
+   "level": 2,
+   "ok": false,
+   "where": "walk: the path meets a singular point of c0'' near (8.543834773682766e-09+0.59999999620274j)",
+   "t": 0.6
+  },
+  {
+   "k": 3.445625,
+   "h": 0.000625,
+   "level": 3,
+   "ok": false,
+   "where": "walk: the path meets a singular point of c0'' near (8.529224812387038e-09+0.5999999962092334j)",
+   "t": 0.6
+  }
+ ],
+ "expected": "circle (the walk's singular-point guard or (a))",
+ "verdict": "REFUSED (as it must, through the named guard)"
+}

@@ -1,0 +1,13 @@
+{
+ "control": "K3",
+ "ok": false,
+ "cells": [
+  {
+   "k": 4.2,
+   "ok": false,
+   "where": "a zero of B is not certified inside |z| < R0 (|w| <= 8.871)"
+  }
+ ],
+ "expected": "closed lift",
+ "verdict": "REFUSED (as it must, through the named guard)"
+}

@@ -64,3 +64,14 @@ The Bridge forwarded two hostile reads (Neon and an independent Opus reader) of 
 - **Point 6, the continued branch.** This was already the design: the circle's c0 is continued along the polygon itself (PathField), and the lasso's comes from the single-valued square, which is the continuation along the lasso from R0. The compactness remark (one uniform complex neighbourhood) belongs to the note.
 - **New control K3 (natural must-fail):** at k = 4.2, beyond 3/5's k_cross, the circle's closed-lift check (f) MUST refuse. Development: it holds at 2.9, 3.5, 3.995, 4.0, 4.005, 4.05 and 4.1, and refuses at 4.2 (|w| ≤ 8.87 against 5.06).
 - **Development timings:** about 4 s per k-cell; the whole chain is projected at about 10 min on one core.
+
+## Addendum C2-AN-2 (2026-11-29; after the non-author read, `C2_AN_READ.md`, and before the registered run)
+- **(d), as built:** the straight-line homotopy L_i → L_{i+1}, vertex j to vertex j. It fixes R0 and moves the stem with the rest. Its image is covered by the 52 quadrilaterals per pair, each certified by boxes. This replaces the text's "C2-L same-angle patches plus tail triangles": also a based homotopy, and simpler.
+- **The read's minors 1–4 are fixed:**
+  - degenerate hulls are covered;
+  - the closed-lift limit uses the polygon's inner radius R0 cos(π/96);
+  - a control passes only through its named guard;
+  - the diagnostic (e) never gates.
+  The controls were re-run after the fixes: K1, K1c, K2 and K3 each refused through the named guard (`c2/c2an_control_*.json`).
+- **K1c refuses by the walk's singular-point guard,** before any box check, as the registration allows. (a)'s box cover is exercised by K1 for the lasso and by the unplanted run itself.
+- **Route (i)'s floats file path** is `air_prod_3_5/data/nve/eps/route1_floats_prod_3_5.json`.

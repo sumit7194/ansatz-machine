@@ -330,16 +330,17 @@ def _disjoint(cx, cy, hw, poly):
 
 def region_ok(poly, field, km, box=0.01, depth=4):
     """the convex polygon covered by boxes certified nonsingular (boxes certified disjoint from it are skipped)"""
-    if len(poly) < 3:
+    degenerate = len(poly) < 3                  # read minor 1: a degenerate hull is still covered (no disjointness skip)
+    if not poly:
         return True
     xs, ys = [p.real for p in poly], [p.imag for p in poly]
     x0, x1, y0, y1 = min(xs), max(xs), min(ys), max(ys)
     nx, ny = max(1, int((x1 - x0) / box) + 1), max(1, int((y1 - y0) / box) + 1)
-    hx, hy = (x1 - x0) / nx / 2, (y1 - y0) / ny / 2
+    hx, hy = max((x1 - x0) / nx / 2, 1e-9), max((y1 - y0) / ny / 2, 1e-9)
     hw0 = max(hx, hy) * 1.0001 + 1e-15
 
     def ok(cx, cy, hw, d):
-        if _disjoint(cx, cy, hw, poly):
+        if not degenerate and _disjoint(cx, cy, hw, poly):
             return True
         if nonsingular(acb(arb(cx, hw), arb(cy, hw)), field, km):
             return True
@@ -458,12 +459,13 @@ def closed_lift_circle(km):
     if not (c2.real > 0):                        # alpha(k) = 90 - 21k > 0 on the cell (hostile-read point 4)
         return False, "alpha(k) = 90 - 21k not certified positive"
     sq = (c1 * c1 - 4 * c2 * c0).sqrt()          # a ball (wide near k = 4, where the discriminant vanishes): still valid
-    lim = (arb(R0.real) / A) ** 2
+    rin = arb(R0.real) * (arb.pi() / 96).cos()      # read minor 2: the 96-gon's chords reach in to R0 cos(pi/96)
+    lim = (rin / A) ** 2
     for w in ((-c1 + sq) / (2 * c2), (-c1 - sq) / (2 * c2)):
         if not (w.is_finite() and w.abs_upper() < lim):
             return False, f"a zero of B is not certified inside |z| < R0 (|w| <= {float(w.abs_upper()):.4g})"
-    if not (A < arb(R0.real)):
-        return False, "+-ia not inside |z| < R0"
+    if not (A < rin):
+        return False, "+-ia not inside the circle polygon"
     return True, None
 
 
@@ -484,8 +486,11 @@ def link_job(lasso, ref, diag):
         ok, where = loop_ok(lasso, sf, km)
         if not ok:
             return False, ["lasso"] + where
-        if diag is not None:
-            diag.append(dict(k=float(km.kc.mid()), clearance=clearance(lasso, sf, km, ref)))
+        if diag is not None:                          # read minor 4: (e) is a diagnostic and must never gate
+            try:
+                diag.append(dict(k=float(km.kc.mid()), clearance=clearance(lasso, sf, km, ref)))
+            except Exception as e:                    # noqa: BLE001
+                diag.append(dict(k=float(km.kc.mid()), clearance=f"not computed: {type(e).__name__}"))
         return True, None
     return job
 
@@ -555,7 +560,14 @@ def control(name):
         expected = "closed lift"
     else:
         raise SystemExit(f"unknown control {name}")
-    verdict = "REFUSED (as it must)" if not ok else "DID NOT REFUSE"
+    wheres = " ".join(str(r.get("where")) for r in recs if not r.get("ok", True))
+    named = {"K1": "lasso", "K1c": "walk: the path meets a singular point", "K2": "", "K3": "zero of B"}[name]
+    if name == "K2":                                 # gluing failures report [x, y, j] (a quadrilateral)
+        named_ok = any(isinstance(r.get("where"), list) and len(r["where"]) == 3 for r in recs if not r.get("ok", True))
+    else:
+        named_ok = named in wheres
+    verdict = ("REFUSED (as it must, through the named guard)" if (not ok and named_ok) else
+               "refused, not as specified" if not ok else "DID NOT REFUSE")      # read minor 3
     json.dump(dict(control=name, ok=ok, cells=recs, expected=expected, verdict=verdict),
               open(os.path.join(OUTD, f"c2an_control_{name}.json"), "w"), indent=1)
     print(f"C2-AN control {name}: {verdict}", flush=True)
