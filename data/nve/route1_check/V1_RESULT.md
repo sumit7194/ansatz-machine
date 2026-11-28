@@ -65,3 +65,10 @@ V2's non-author read must cover both diffs.
 - **V1(b) at 9/10: PASS.** With (a), (c) and (d) already passed, **V1 PASSES at spin 9/10.**
 - At production's NW = 190, the 9/10 Laurent c0 is enclosed only to about 1e−15. The v7 evaluator (s = 1/t start plus
   Taylor propagation) gives about 1e−46 at the same points.
+- **Order of events, from file metadata and git:**
+  - addendum 3 was committed at 15:16:02 (efb0768);
+  - the rerun's output file `v7/v1b_rerun_9_10.out` was created, by the shell redirect at process start, at
+    **15:16:07**, and last written at 15:16:09; its JSON was written at 15:16:09;
+  - the result was committed at 15:16:17 (e4543e9).
+- So the whole 20-point comparison ran after the addendum. Only the N-selection bound computation (per-k Cauchy bounds
+  M; no comparison values) ran before it, as the addendum states.
