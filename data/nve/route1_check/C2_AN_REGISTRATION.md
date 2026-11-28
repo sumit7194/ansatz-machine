@@ -53,3 +53,14 @@ The Bridge is running a hostile read of the argument itself, sent to Neon and to
 - (d) passes for all 10 overlaps: 85%.
 - K1, K1c and K2 refuse as specified: 90%.
 - Within the cost bar: 80%.
+
+## Addendum C2-AN-1 (2026-11-29; committed before the read and any registered run): item 1 adapted to the hostile reads' points 1, 2, 5 and 6
+The Bridge forwarded two hostile reads (Neon and an independent Opus reader) of the design note. Item 1 may proceed, adapted to points 1, 2, 5 and 6. The note's revision (v2, all ten points) is separate.
+- **Point 1, closed lifts.** A loop gives a monodromy element only if q returns to its starting branch along it.
+  - **(f), the circle.** Every singular point of c0″ = pref √B/(z² + a²)³ (±ia and the four zeros of B(z²/a², k)) is certified inside |z| < R0 for every k in the cell: |w±| < (R0/a)² for B's roots w (interval quadratic formula over the k-ball; valid through k = 4, where the discriminant vanishes), and a < R0. Then c0″ is single-valued and holomorphic on |z| ≥ R0, including at ∞, where it is O(z⁻⁴) (an even number of B zeros inside, so √B returns). So ∮c0″ = ∮s c0″ = 0 (no z⁻¹ term at ∞): c0, c0′ and hence q return round the circle. The certificate also checks α(k) = 90 − 21k > 0 on the cell.
+  - **The lasso.** Every vertex lies inside the square 2 ± 1.15(1 + i) with a margin of 0.05, and the square's freedom from c0's singular points is certified per cell. So c0 is single-valued there and the lift closes.
+- **Point 2, based homotopy of the PAIR.** In the circle picture the base point and the normalisation point coincide, b = R0: c0 is normalised from +∞ along [R0, +∞), and both words start and end at R0. The circle is common to every link, and the lasso homotopy fixes R0 (vertex 0) and moves the stem with the rest (every quadrilateral, stem included). So the pair (M0, M1) is continued as a based pair, and tr[M1, M0] is preserved, not just conjugacy classes.
+- **Point 5, direct non-vanishing.** This was already the design: (a), (b) and (d) certify G1, G2, B and z² + a² ≠ 0 on box covers of the loops and the homotopy regions, so no root is tracked as the certificate. The Krawczyk sweeps (e) are dropped; (e) is now only the float clearance of the lasso from r+ and p+, for loop placement.
+- **Point 6, the continued branch.** This was already the design: the circle's c0 is continued along the polygon itself (PathField), and the lasso's comes from the single-valued square, which is the continuation along the lasso from R0. The compactness remark (one uniform complex neighbourhood) belongs to the note.
+- **New control K3 (natural must-fail):** at k = 4.2, beyond 3/5's k_cross, the circle's closed-lift check (f) MUST refuse. Development: it holds at 2.9, 3.5, 3.995, 4.0, 4.005, 4.05 and 4.1, and refuses at 4.2 (|w| ≤ 8.87 against 5.06).
+- **Development timings:** about 4 s per k-cell; the whole chain is projected at about 10 min on one core.
