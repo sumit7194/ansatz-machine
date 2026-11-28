@@ -22,3 +22,9 @@
 - **J contains route (i)'s certified segment [2.9, 3.0],** where link 0's words are route (i)'s exactly. So none of the three conditions vanishes identically, and D ⊂ [3, 4] is finite **by the design note's argument**.
 - **That argument is still under the hostile re-read.** The lemma (item 3) is not written into MRS_SECTION.md until the re-read verdicts are in. So this record is the certificate of a HYPOTHESIS. It is not yet the theorem.
 - **It certifies no monodromy value.** D is not shown empty; the numerical counts say it is, but they are floating point.
+
+## Addendum (2026-11-29, after the run; for design note v3, point 1): a certified bound on ρ(k) over J
+- By the same interval quadratic formula as check (f), over J = [2.895, 4.005] in 0.01-cells (real k-balls), the certified maximum of |w| over B's roots is 1.2257.
+- So ρ(k) = a·max|w|^{1/2} ≤ 0.6643 < 0.85 on J.
+- So the capsule square S = 2 ± 1.15(1 + i), whose nearest point to 0 has |z| = 0.85, lies inside Ω_k = {|z| > ρ(k)} for every k in J.
+- This is a cheap post-hoc certified computation, not part of the registered run.

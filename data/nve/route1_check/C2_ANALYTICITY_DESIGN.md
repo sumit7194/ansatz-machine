@@ -1,5 +1,5 @@
-# Region A by analyticity in k: a design note, v2 (the Bridge's ruling (C); text only, nothing runs)
-**Office ansatz-machine. v1 2026-11-29 (committed 6dd2482). v2 2026-11-29, after two hostile reads (Neon, and an independent Opus reader on the same prompt), relayed and graded by the Bridge.** Both reads confirmed the core: the group lemma, and the monodromy lying in the Galois group (no Fuchsian hypothesis needed). v2 answers all ten of the Bridge's points. **Changed paragraphs carry [v2, point n]**, so the readers can re-read only those.
+# Region A by analyticity in k: a design note, v3 (the Bridge's ruling (C); text only, nothing runs)
+**Office ansatz-machine. v1 2026-11-29 (6dd2482). v3 2026-11-29: the re-reads of v2 (Opus: 6 resolved, 3 partly, 1 dropped, nothing new MAJOR; Neon: 7 resolved, 3 partly; both: the 3-DoF scoping is correct) gave ten more fixes, tagged [v3, point n]; item 1 is now CERTIFIED (C2_AN_RESULT.md, 93c2baa). v2 2026-11-29, after two hostile reads (Neon, and an independent Opus reader on the same prompt), relayed and graded by the Bridge.** Both reads confirmed the core: the group lemma, and the monodromy lying in the Galois group (no Fuchsian hypothesis needed). v2 answers all ten of the Bridge's points. **Changed paragraphs carry [v2, point n]**, so the readers can re-read only those.
 
 | point | what was raised | where v2 answers it |
 |---|---|---|
@@ -32,11 +32,14 @@
   - B has an even number (four) of zeros inside, so √B returns round any circle in Ω_k;
   - √B ~ √α(k)·z²/a² at ∞, so c0″ = O(z⁻⁴).
 - Hence c0′ = −∫_z^∞ c0″ and c0 = ∫_z^∞ (s − z) c0″ ds are single-valued holomorphic on Ω_k. Round any circle in Ω_k, the changes ∮c0″ and ∮s c0″ are −2πi times residues at ∞ of O(z⁻⁴) and O(z⁻³) terms, hence 0.
-- **Γ_k := Ω_k minus the zeros of P and of f0² + c0² (r±, p±, …) and minus the rod endpoints (f0 = 0; ordinary for NVE1, removed only for Proposition 2, MRS §5c).**
+- **[v3, point 1] Γ_k := (Ω_k ∪ S) minus the zeros of P and of f0² + c0² (r±, p±, …) and minus the rod endpoints (f0 = 0; ordinary for NVE1, removed only for Proposition 2, MRS §5c).**
+  - Here S = 2 ± 1.15(1 + i) is the capsule square. It is simply connected and certified free of c0's singular points for every k in each cell (item 1).
+  - S reaches in to |z| = 0.85, so it is not inside Ω_k in general. On J, though, ρ(k) ≤ 0.665 < 0.85, certified after the run by the same interval quadratic formula over J's 0.01-cells (C2_AN_RESULT.md, addendum). So on J, S ⊂ Ω_k and Ω_k ∪ S = Ω_k.
+  - Defined on the union, c0 is single-valued: S ∩ Ω_k is connected (it is S itself on J), and the two continuations agree there.
 - **K := M(Γ_k)**, the meromorphic functions on Γ_k. Then q ∈ K.
 - Every closed loop in Γ_k based at R0 therefore has a CLOSED lift: q, c0 and c0′ return along it, and its monodromy is an element of the Galois group of NVE1 over K. (Morales–Ramis' Γ is the orbit on the double cover y² = P; MRS Lemma C relates the two, with the same identity component.)
 - **Both words lie in Γ_k for k ∈ J:**
-  - the circle |z| = R0 = 1.35 needs ρ(k) < R0. This is item 1's check (f), certified per k-cell: it holds through 4.1 and refuses at 4.2, so k_cross ∈ (4.1, 4.2) at 3/5;
+  - the circle needs ρ(k) below the 96-gon's INRADIUS R0 cos(π/96) ≈ 1.3493, which is what item 1's check (f) tests (since the read, C2_AN_READ.md minor 2) **[v3, point 6]**. It holds through 4.1 and refuses at 4.2, so k_cross ∈ (4.1, 4.2) at 3/5;
   - each capsule lasso lies in the square 2 ± 1.15(1 + i), which is disjoint from {|z| ≤ ρ(k)} and certified free of c0's singular points per cell;
   - both words avoid r±, p± and the other zeros by item 1's direct box covers.
 
@@ -57,9 +60,13 @@
 - **For every k ∈ J_i, item 1 certifies directly on box covers that G1 = E²(f0² + c0²) − f0, G2 = f0² + c0², B and z² + a² are nonzero:**
   - on every edge of both words;
   - with c0 the branch CONTINUED along that word from R0 (along the polygon for the circle; the single-valued square for the lasso);
-  - and Re P > 0 on [R0, +∞) for the normalisation.
+  - **and B ≠ 0 on [R0, +∞) for the normalisation [v3, point 2].** The start integrals are taken in s = 1/z, where P(s) := α(k) − (60 − 18k)a²s² + (10 − k)a⁴s⁴ = B(w, k)/w² with w = z²/a² (an identity, checked to 1e−74). So for real k in a cell, Re P > 0 on s ∈ [0, 1/R0] says exactly that B ≠ 0 on z ∈ [R0, ∞) and that α(k) = P(0) > 0.
+  - For complex k near J this extends independently: (f) puts every zero of B inside |z| < ρ(k) < R0. Compactness gives B ≠ 0 on [R0, R1] × U, and the expansion of §1.3 gives it on [R1, ∞) × U.
+- **[v3, point 8]** f0 = 1 − 2z/(z² + a²) has its only poles at ±ia. They are excluded on every box by the z² + a² ≠ 0 check, so f0 is pole-free on the words and on the homotopy regions.
 - **No root is tracked as the certificate [point 5].** An unexpected extra zero would make a box fail. The zeros of G1 and G2 are exactly the zeros of P and of f0² + c0² on the continued sheet **[point 6]**.
-- **Gluing.** On each overlap O_i, the straight-line homotopy from L_i to L_{i+1}, vertex to vertex, fixes R0 (vertex 0) and moves the stem with everything else. Its image lies in the union of the quadrilaterals conv(L_i[j], L_i[j+1], L_{i+1}[j+1], L_{i+1}[j]). Each quadrilateral is covered by boxes certified nonsingular for every k ∈ O_i.
+- **Gluing.** On each overlap O_i, the straight-line homotopy from L_i to L_{i+1}, vertex to vertex, fixes R0 (vertex 0) and moves the stem with everything else.
+  - **[v3, point 4]** It needs equal vertex counts and a common closing vertex: every lasso has 53 vertices, with first = last = R0, asserted in the code.
+  - All four non-vanishing checks (G1, G2, B, z² + a²) ran on every box of every homotopy quadrilateral. Its image lies in the union of the quadrilaterals conv(L_i[j], L_i[j+1], L_{i+1}[j+1], L_{i+1}[j]). Each quadrilateral is covered by boxes certified nonsingular for every k ∈ O_i.
   - So for each k ∈ O_i the based pairs (M0, M1^(i)) and (M0, M1^(i+1)) are the same elements of π₁(Γ_k, R0).
   - So the two monodromy pairs are equal, not merely conjugate, and tr[M1, M0] agrees. **[point 2: the pair, not L1 alone]**
 
@@ -67,17 +74,22 @@
 **The normalisation [point 4].**
 - α(k) = 90 − 21k is B's leading coefficient in w, and α > 0 on J ⊂ (0, 30/7), certified per cell by (f).
 - √B = (z²/a²)·√α·(1 + β(k)a²/z² + γ(k)a⁴/z⁴)^{1/2}, with β = −(60 − 18k)/α and γ = (10 − k)/α. The principal root of the bracket is holomorphic in (z, k) for |z| ≥ R1 (some R1 ≥ R0) and k in a complex neighbourhood U of J. This defines √B at +∞ holomorphically in k.
-- On [R0, ∞) × U: B ≠ 0 (Re P > 0 for real k in the cells, then openness), and |c0″| ≤ C |z|⁻⁴ uniformly on [R1, ∞) × U (compact U). So the integrals defining c0(R0) and c0′(R0) converge uniformly, and are holomorphic in k on U (Weierstrass). This is Lemma K's step 3 with "|k| < δ" replaced by "k ∈ U".
+- On [R0, ∞) × U: B ≠ 0 (§1.2, point 2), and |c0″| ≤ C_K |z|⁻⁴ on [R1, ∞) × K, uniformly on compact subsets K ⊂ U **[v3, point 10]**. So the integrals defining c0(R0) and c0′(R0) converge uniformly, and are holomorphic in k on U (Weierstrass). This is Lemma K's step 3 with "|k| < δ" replaced by "k ∈ U".
 
 **Compactness [point 6].**
 - For each real k* ∈ J, the coefficient A(z; k) is holomorphic on a neighbourhood of (the two words, the normalisation path) × {k*}. All nonvanishing conditions hold on the compact words × {k*}, so they hold on (the words) × D(k*, r(k*)).
-- J is compact, so finitely many such discs cover it. Their union U_J is a connected open neighbourhood of J; it is connected because each disc meets the real interval.
+- **[v3, point 3]** J is compact, so one ε > 0 works for all of it: every nonvanishing condition holds on (the words) × U_J, with U_J := {k : dist(k, J) < ε} ⊂ U. The same goes for each link, U_{J_i} := {dist(k, J_i) < ε}.
+  - These sets are convex, so connected. Each overlap U_{J_i} ∩ U_{J_{i+1}} = {dist(k, J_i) < ε and dist(k, J_{i+1}) < ε} is convex too, and contains the shared real interval O_i.
+  - So the identity theorem applies on each overlap: F_i = F_{i+1} on O_i, and O_i has accumulation points, give F_i = F_{i+1} on the whole overlap.
 - On each link's part of U_J the monodromies are holomorphic (Picard iteration: holomorphic iterates, uniformly convergent). On overlaps they agree, by the gluing of §1.2 at real k plus the identity theorem.
 - **So F, tr M0, tr M1 and P_fin(tr M1) are HOLOMORPHIC on the connected complex neighbourhood U_J of J [point 10].** They need not be real on J; the traces in region B are not.
 
 ### 1.4 Finiteness, and the point values [v2, points 3 and 10]
 - **The argument.** A function holomorphic on a connected open set and nonzero at one point has isolated zeros, so only finitely many in any compact subset.
-- **The one chain piece.** If item 1's chain is unbroken (all 11 links and all 10 gluings), there is ONE piece J = [2.895, 4.005]. It contains route (i)'s certified segment [2.9, 3.0], with the same words (link 0's lasso equals route (i)'s 59/20 entry vertex for vertex).
+- **The one chain piece.** Item 1's chain IS unbroken (CERTIFIED, 93c2baa), so there is ONE piece J = [2.895, 4.005]. It contains route (i)'s certified segment [2.9, 3.0] with the same words.
+  - **[v3, point 7]** M0 is the same 96-gon: route (i)'s `circle_vertices()` at R0 = 1.35, with the same base point R0 = circle_vertices()[0], and the same normalisation, c0 from +∞ with c0, c0′ → 0 and √B positive at +∞.
+  - Route (i) evaluated that same function c0 by its Laurent evaluator, and item 1 by the Arb walk; the two were checked to agree in v7's V1.
+  - M1 is link 0's lasso, which equals route (i)'s 59/20 entry vertex for vertex.
 - **The point values [point 3].** Route (i) certifies, for every real k there, F ≠ 0, tr M0 ≠ 0 and tr M1 ∉ [−2, 2]. Since T_fin ⊂ [−2, 2], that also gives P_fin(tr M1) ≠ 0. So all four functions are nonzero at points of the piece.
 - **If the chain breaks at some O_i,** each piece meeting [3, 4] needs its own rigorous point values of all three conditions. A piece wholly inside (3, 4) would need a fixed-k rigorous evaluation there.
   - That is feasible: route (i)'s v6 node evaluations are rigorous at a point k (Arb walks with certified enclosures). What failed in region A was k-UNIFORM enclosure, not point evaluation.
@@ -101,7 +113,7 @@
 **Theorem (target; relative to the applicability chain: Proposition 2, Lemma C, MRS §5b, the conventions of MRS §5).** Fix spin 3/5 and E = 4/5.
 - For every real k ∈ [3, 4] outside a finite set D ⊂ [3, 4], the identity component of the differential Galois group of NVE1 along the lower-axis orbit Γ0 is SL₂(ℂ).
 - Hence the t-reduced geodesic Hamiltonian H_E admits no first integral that is independent of H_E and p_φ, in involution with them, and meromorphic in a neighbourhood of the complexified orbit Γ0 (MRS §1). Here H_E is MRS §1's system: three degrees of freedom on (x, y, z, p_x, p_y, p_z), on the level H_E = −μ²/2.
-- Equivalently, on T*M: no fourth integral beyond H, p_t and p_φ.
+- **[v3, point 5]** Likewise, by Morales–Ramis applied to the geodesic flow on T*M, whose NVE contains the same NVE1 block: no first integral independent of H, p_t and p_φ, in involution with them, and meromorphic near Γ0.
 
 **Notes on scope.**
 - **[point 9, a note on wording]** The Bridge's "reduced 2-DoF system" is not the system MRS §1 (corrected 2026-11-24) applies the theorem to. MRS says not to reduce by p_φ, because the S¹ action is singular on the axis. The statement above uses MRS's system.
@@ -112,6 +124,7 @@
   - count(tr M0) = count(tr M1) = 0;
   - post hoc, count(tr M1 − s) = 0 for every s ∈ T_fin, with min |tr M1 − s| = 1.16.
   These are floating-point counts, not certificates.
+  - **[v3, point 9]** They also PRESUPPOSE holomorphy of F, tr M0 and tr M1 on their rectangle R (complex k with |Im k| ≤ 1). That is not shown: item 1 certifies holomorphy only on a thin strip about the real interval J. They are evidence, not part of the argument.
 - **[point 8] The Jensen number is dropped.** v1's "N of the order of 100" was overstated: the Opus reader estimates N ~ 260–2900. A sound version would need discs centred at certified points and complex-k loop certification, which this design does not do.
 
 ## 3. What it would NOT do [v2, point 9]

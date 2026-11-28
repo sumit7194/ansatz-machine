@@ -1,4 +1,4 @@
-# Applicability of the Morales–Ramis(–Simó) theorem: the section for the Only-Kerr write-up (draft v2, 2026-11-22; §5 rewritten and §5b–§5e added for Neon T51)
+# Applicability of the Morales–Ramis(–Simó) theorem: the section for the Only-Kerr write-up (draft v2, 2026-11-22; §5 rewritten and §5b–§5e added for Neon T51; §5f added 2026-11-29 as a DRAFT, C2-AN)
 
 *Built on Neon's T49 draft (UNVERIFIED Gemini output, relayed by the Bridge). Every point was checked or corrected
 here; see `data/nve/T48_T49_CHECK.md`. Claims numerically checked by our own code are marked [checked here].
@@ -499,6 +499,67 @@ c2 = tr X² − tr(M1(0) X M1(0)⁻¹ X) and X = M0′(0).
 - k = 4 lies inside both the gap-B region (0, 4.05] and the window, so it is covered twice.
 - **The spin-0.8 degeneracy near 4.0082** is a zero of tr Γ in the half-plane pair. No mechanism ties it to k = 4. It
   is settled by an independent pair either way.
+
+## 5f. Region A by analyticity in k: non-integrability on [3, 4] except possibly finitely many k (added 2026-11-29, C2-AN; DRAFT pending a final hostile read; not part of the claim)
+*Status.* The analyticity hypothesis is CERTIFIED: C2-AN item 1, `route1_check/C2_AN_RESULT.md` (93c2baa). The lemmas below are draft v3 (`route1_check/C2_ANALYTICITY_DESIGN.md`). They are self-contained, and they go to a final hostile read by two readers before anything leaves this repo. Spin 3/5, E = 4/5, M = μ = 1, the conventions of §5.
+
+**Setting.**
+- **The equation.** NVE1 in v (§2, Lemma C(b)): v″ + q v = 0, q = (3/16)(P′/P)², P = E² − f0/(f0² + c0²), f0 = 1 − 2z/(z² + a²).
+  - Its system Y′ = [[0, 1], [−q, 0]]Y is trace-free, so every monodromy is in SL₂.
+- **The twist.** c0″ = −√(8/5)·a³·√B/(z² + a²)³, with B(w, k) = α(k)w² − (60 − 18k)w + (10 − k), w = z²/a², α(k) = 90 − 21k.
+  - c0 and c0′ → 0 as z → +∞, and √B > 0 at +∞.
+- **The words.**
+  - M0: the 96-gon C of radius R0 = 1.35, starting and ending at R0 (route (i)'s).
+  - M1: a capsule lasso L based at R0 (the circle-picture rule).
+  - The base point is the normalisation point.
+- **The bad set.** F = tr[M1, M0] − 2, T0 = tr M0, T1 = tr M1. P_fin is the polynomial whose roots are the traces T_fin of the elements of the binary tetrahedral, octahedral and icosahedral groups; T_fin ⊂ [−2, 2] and 0 ∈ T_fin.
+
+**Lemma G (group).** If F ≠ 0, T0 ≠ 0 and P_fin(T1) ≠ 0, the Zariski closure of ⟨M0, M1⟩ ⊂ SL₂(ℂ) is SL₂.
+- *Proof.* A proper algebraic subgroup is reducible, imprimitive or finite:
+  - reducible gives a common eigenvector, so F = 0;
+  - imprimitive means every element is diagonal or trace-free. T0 ≠ 0 and T1 ≠ 0 (since P_fin(T1) ≠ 0 and 0 ∈ T_fin) make both diagonal, so they commute, so F = 0;
+  - finite primitive gives T1 ∈ T_fin. □
+- The differential Galois group over K (below) contains the monodromy group, so its identity component is SL₂, and §1's theorem applies (with §5b for the transverse block).
+
+**Lemma L (closed lifts; the Riemann surface).**
+- Let ρ(k) = max(a, a·max|w±(k)|^{1/2}) over B's roots w±(k), and Ω_k = {|z| > ρ(k)}. Let S be a closed convex set certified free of c0″'s singular points, meeting Ω_k in a connected set. Put Γ_k := (Ω_k ∪ S) ∖ {zeros of P, zeros of f0² + c0², f0 = 0}, and K = M(Γ_k).
+- Then c0 and c0′, normalised at +∞, are single-valued holomorphic on Ω_k ∪ S, q ∈ K, and every loop in Γ_k based at R0 has a closed lift.
+- *Proof.* On Ω_k:
+  - c0″ is holomorphic, and single-valued, because the four zeros of B lie inside and √B returns;
+  - c0″ = O(z⁻⁴) at ∞;
+  - so ∮c0″ and ∮s c0″ round any circle in Ω_k vanish (no z⁻¹ term at ∞).
+  On S, simply connected and free, the continuation is single-valued. The intersection is connected, so the two agree. □
+
+**Lemma P (the based pair continues).** Let J_i (i = 0..n) be compact real k-intervals whose consecutive members overlap on intervals O_i of positive length. Suppose that:
+- (a) C and each L_i are nonsingular on box covers (G1 = E²(f0² + c0²) − f0, G2 = f0² + c0², B, z² + a² ≠ 0) for every k ∈ J_i, with c0 continued along the word from R0;
+- (b) ρ(k) < R0 cos(π/96) (C's inradius) and α(k) > 0 on J_i, and L_i ⊂ S;
+- (c) on O_i the vertex-to-vertex straight-line homotopy L_i → L_{i+1} (equal vertex counts, common first and last vertex R0) is nonsingular on box covers for every k ∈ O_i.
+
+Then for each k ∈ O_i the based pairs (C, L_i) and (C, L_{i+1}) are equal in π₁(Γ_k, R0). So (M0, M1) is the same pair of matrices for both links: F, T0 and T1 agree there, not only up to conjugacy.
+
+**Lemma H (holomorphy on one connected neighbourhood).**
+- *Claim.* Under (a)–(c) there is ε > 0 such that, on U := {k : dist(k, J) < ε} with J = ∪J_i, the continued M0 and M1 are holomorphic, and F, T0, T1 and P_fin(T1) are holomorphic on U. U is convex, hence connected.
+- *Proof.*
+  1. **The normalisation.** c0(R0) and c0′(R0) are holomorphic in k near J. B ≠ 0 on [R0, ∞): for real k this is the start integrals' Re P(s) > 0 on s ∈ [0, 1/R0], since P(s) = B(w)/w² for s = 1/z; for complex k, (b) and compactness on [R0, R1] give it. √B = (z²/a²)√α (1 + β a²/z² + γ a⁴/z⁴)^{1/2} on [R1, ∞), with |c0″| ≤ C_K |z|⁻⁴ uniformly for k in compact subsets K, so the integrals converge uniformly (Weierstrass).
+  2. **One ε.** Every nonvanishing condition holds on the compact (words ∪ homotopy regions) × J. By compactness it holds on the same sets × U for one ε.
+  3. **The links.** Picard iteration makes the link monodromies holomorphic on U_i = {dist(k, J_i) < ε}.
+  4. **Gluing.** U_i ∩ U_{i+1} is convex and contains O_i. Lemma P on O_i, plus the identity theorem, gives agreement on the whole overlap. □
+
+**Corollary F (finiteness).** Suppose some point of J has F, T0 and P_fin(T1) all nonzero, possibly at different points. Then the set D = {k ∈ [3, 4] : F = 0, or T0 = 0, or P_fin(T1) = 0} is finite whenever [3, 4] ⊂ int J.
+- *Proof.* A function holomorphic on the connected U and not identically zero has isolated zeros, and [3, 4] is compact. □
+
+**Application at spin 3/5 (certified inputs).**
+- **The hypotheses of Lemmas P and H.** C2-AN item 1 certifies (a)–(c) for 11 links k_c = 59/20, …, 79/20, with J_i = k_c ± 0.055 and O_i of width 0.01. So J = [2.895, 4.005].
+  - S = 2 ± 1.15(1 + i) is certified free per cell.
+  - ρ(k) ≤ 0.665 on J, so S ⊂ Ω_k.
+- **The point values.** Route (i) certifies F ≠ 0, T0 ≠ 0 and T1 ∉ [−2, 2] (so P_fin(T1) ≠ 0) for every real k in [2.9, 3.0]. Its words there are C and link 0's lasso (identical vertex for vertex; same base and normalisation).
+- **Conclusion (relative to the applicability chain).** D ⊂ [3, 4] is finite. For every k ∈ [3, 4] ∖ D, the identity component of the Galois group of NVE1 along Γ0 is SL₂.
+  - So the t-reduced H_E (§1; three degrees of freedom, NOT reduced by p_φ) has no first integral independent of H_E and p_φ, in involution with them, and meromorphic near Γ0.
+  - Likewise, by Morales–Ramis on T*M, whose NVE contains the same NVE1 block: none independent of H, p_t and p_φ.
+- **Not claimed:**
+  - D = ∅ (the 50-digit gap-B counts find no zero of F, T0, T1 or T1 − s for s ∈ T_fin, but those counts presuppose holomorphy on a complex rectangle that is not shown);
+  - anything near 30/7, where these functions are not analytic;
+  - other spins or energies.
 
 ## 6. Citations: status (checked at source 2026-11-22; downloaded texts kept locally, not committed)
 - **Morales-Ruiz, Ramis & Simó, Ann. Sci. ÉNS (4) 40 (2007) 845–884, DOI 10.1016/j.ansens.2007.09.002: VERIFIED (full
