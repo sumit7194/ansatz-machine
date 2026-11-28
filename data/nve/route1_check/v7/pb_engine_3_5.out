@@ -1,0 +1,3 @@
+engine k = 21/5: guards ok True; F (-1.16604337479 - 3.4525651313j), T1 (-1.91054666218 + 0.903554254821j), TG (-0.0133554570047 + 5.99670681994e-43j); Rc 2.03473
+engine k = 30/7-1e-6: guards ok True; F (-0.737255609465 - 2.76902604023j), T1 (-1.94191878071 + 0.712961342083j), TG (-0.00311688139653 + 5.62721903981e-24j); Rc 2.02978
+== engine done -> /Users/sumit/Github/conjecture_machine-check/data/nve/route1_check/v7/pb_engine_3_5.json
