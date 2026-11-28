@@ -56,7 +56,8 @@ def zmul(A, B, N):
 def zscal(A, s, N):
     """A (TMs) times a dk-free series s (acb coefficients)"""
     s = list(s) + [acb(0)] * (N - len(s))
-    return [sum((A[i].scale(s[n - i]) for i in range(n + 1) if s[n - i] != 0), TM.const(0)) for n in range(N)]
+    return [sum((A[i].scale(s[n - i]) for i in range(n + 1) if not s[n - i].is_zero()), TM.const(0))
+            for n in range(N)]                                   # TM read F2: is_zero(), not != (a ball may contain 0)
 
 
 def zrecip(A, N, name):
@@ -219,6 +220,7 @@ class Walker:
         cap0 = ctx.cap
         ctx.cap = NT + 3
         try:
+            assert ctx.cap == NT + 3                             # the Bridge: python-flint truncates at ctx.cap
             x = acb_series([zc, 1])
             w = (x * x / (A * A)).coeffs()
             if self.sform == "disc":
@@ -243,6 +245,9 @@ class Walker:
             f0s = ((x * x - 2 * x + A * A) / (x * x + A * A))
             f0 = f0s.coeffs()
             f0p = f0s.derivative().coeffs()
+            for nm_, cs_ in (("w", w), ("D3inv", D3inv), ("f0", f0), ("f0p", f0p)):
+                assert len(cs_) <= NT + 3, f"series {nm_}: {len(cs_)} coefficients > the cap"
+            assert len(D3inv) >= NT and len(f0) >= NT, "a dense series came back shorter than NT (truncated?)"
         finally:
             ctx.cap = cap0
         f0 = (f0 + [acb(0)] * NT)[:NT]
@@ -275,9 +280,13 @@ class Walker:
             cols.append((val, der))
         Tm = [[cols[0][0], cols[1][0]], [cols[0][1], cols[1][1]]]
         # c0, c0' at the step end: series values plus C0's Cauchy tails (M uniform over the disc)
+        # TM read F1: zint keeps N - 1 input terms, so c0' uses c0''_n for n <= NT - 2 and c0 for n <= NT - 3. With
+        # |c0''_n| <= M / rz^n (Cauchy on the disc of radius rz inside sup_box's square), the tails are
+        #   c0':  sum_{n >= NT-1} M |h|^(n+1) / (rz^n (n+1)) <= M |h| th^(NT-1) / (NT (1 - th)),
+        #   c0:   sum_{n >= NT-2} M |h|^(n+2) / (rz^n (n+1)(n+2)) <= M |h|^2 th^(NT-2) / ((NT-1) NT (1 - th)).
         th = (habs / rb).upper()
-        tail1 = (M * habs * th ** NT / (1 - th)).upper()
-        tail2 = (M * habs * habs * th ** NT / (1 - th)).upper()
+        tail1 = (M * habs * th ** (NT - 1) / (NT * (1 - th))).upper()
+        tail2 = (M * habs * habs * th ** (NT - 2) / ((NT - 1) * NT * (1 - th))).upper()
         new = dict(c0=zeval(c0, hvec) + ball_tm(tail2), c0p=zeval(c0p, hvec) + ball_tm(tail1))
         for row in Tm:
             for t in row:
@@ -299,7 +308,7 @@ class Walker:
                 rho = 0.5 * dist
                 rem = abs(P1 - pos)
                 while True:
-                    nxt = P1 if rem <= rho / 4 else pos + (P1 - pos) * ((rho / 4) / rem)
+                    nxt = P1 if rem <= 0.24 * rho else pos + (P1 - pos) * ((0.24 * rho) / rem)   # TM read F5: as C0
                     zc, zn = acb(pos.real, pos.imag), acb(nxt.real, nxt.imag)
                     try:
                         Tm, new = self.step(zc, zn - zc, rho, st)
@@ -324,4 +333,5 @@ class Walker:
                 pos, nst = nxt, nst + 1
             self.eps_log.append(dict(edge=ei, steps=nst, eps=float(max(W[i][j].e for i in range(2) for j in range(2)).mid())))
         Mm = [[W[0][j].scale(C[i][0]) + W[1][j].scale(C[i][1]) for j in range(2)] for i in range(2)]
+        self.final_state = st                                     # TM read F7: c0's closure is checked by the probe
         return Mm, nst

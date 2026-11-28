@@ -13,36 +13,42 @@ Operations and their remainder rules:
   recip(T)                       theta-guard: theta = B(T - c0)/|c0| + e/|c0| <= 1/2 certified, else TMRefuse.
                                  q = the truncated series inverse of p (acb_series); the error is |1/T - q| <=
                                  B(1 - T q)/inf|T|, inf|T| >= |c0| (1 - theta);
-  sqrt(T)                        theta-guard as recip, AND c0 off the cut (Re c0 > 0, or Im c0 != 0 certified)
-                                 so that the principal branch is continuous on the disc. q = the truncated series
-                                 sqrt (principal at c0); |sqrt T - q| = |T - q^2| / |sqrt T + q| with
+  sqrt(T)                        theta-guard as recip, AND c0 off the cut (Re c0 > 0, or Im c0 != 0 certified).
+                                 The result encloses the CONTINUATION over the disc of the principal root at c0 (TM
+                                 read F4): it is the principal root on the whole disc only where T's range is itself
+                                 certified off the cut (the walk's off-cut guard ensures that). q = the truncated
+                                 series sqrt (principal at c0); |sqrt T - q| = |T - q^2| / |sqrt T + q| with
                                  |sqrt T + q| >= |sqrt c0| (sqrt(1 - theta) + 1 - B(q - q0)/|sqrt c0|), required > 0.
 The bound B and every inequality are evaluated in Arb (upper/lower bounds), never in floats.
 """
-from flint import acb, acb_series, arb, ctx
+from flint import acb, acb_poly, acb_series, arb, ctx
 
 ctx.prec = 256
 D = 12                       # the registered degree (C2-TM: d = 12, fixed)
 RHOK = arb(0)                # the disc radius; set by set_disc()
+RPOW = []                    # RHOK^j, j = 0 .. 2D (upper bounds), precomputed by set_disc()
 
 
 class TMRefuse(Exception):
     """a guard refused (the message names it)"""
 
 
-def set_disc(rho):
-    global RHOK
+def set_disc(rho, force=False):
+    """TM read F9: RHOK is module-global, so TMs built for one disc are invalid under another. A second, different
+    disc in one process is refused unless force=True (the self-test, which restores the old disc)."""
+    global RHOK, RPOW
+    if RHOK > 0 and not force and not (arb(rho) == RHOK):
+        raise TMRefuse("set_disc: a second, different disc in this process (TMs of the first would be invalid)")
     RHOK = arb(rho)
     assert RHOK > 0
+    RPOW = [(RHOK ** j).upper() for j in range(2 * D + 2)]
 
 
-def _B(c):
-    """upper bound of sup_{|dk| <= RHOK} |sum c_j dk^j|"""
+def _B(c, start=0):
+    """upper bound of sup_{|dk| <= RHOK} |sum_j c_j dk^(start + j)|"""
     tot = arb(0)
-    rp = arb(1)
-    for x in c:
-        tot += x.abs_upper() * rp
-        rp *= RHOK
+    for j, x in enumerate(c):
+        tot += x.abs_upper() * RPOW[start + j]
     return tot.upper()
 
 
@@ -114,15 +120,11 @@ class TM:
     def __mul__(self, o):
         if not isinstance(o, TM):
             return self.scale(o)
-        full = [acb(0)] * (2 * D + 1)
-        for i, a in enumerate(self.c):
-            if a == 0:
-                continue
-            for j, b in enumerate(o.c):
-                full[i + j] += a * b
-        hi = (_B([acb(0)] * (D + 1) + full[D + 1:]) if any(x != 0 for x in full[D + 1:]) else arb(0))
+        full = (acb_poly(self.c) * acb_poly(o.c)).coeffs()        # C-level product (python-flint acb_poly)
+        low = full[:D + 1]
+        hi = _B(full[D + 1:], D + 1) if len(full) > D + 1 else arb(0)
         e = hi + _B(self.c) * o.e + _B(o.c) * self.e + self.e * o.e
-        return TM(full[:D + 1], e)
+        return TM(low, e)
 
     __rmul__ = __mul__
 
@@ -141,7 +143,9 @@ class TM:
         old = ctx.cap
         ctx.cap = D + 1
         try:
+            assert ctx.cap == D + 1
             out = op(acb_series(self.c)).coeffs()
+            assert len(out) <= D + 1, "series longer than the cap"
         finally:
             ctx.cap = old
         return [out[j] if j < len(out) else acb(0) for j in range(D + 1)]
@@ -196,7 +200,7 @@ def selftest(npts=300, seed=1):
     import math
     import random
     old = RHOK
-    set_disc(arb("0.1"))
+    set_disc(arb("0.1"), force=True)
     random.seed(seed)
     f = TM([acb(2), acb("0.7"), acb("-0.3"), acb(0, "0.1")])
     g = TM([acb("1.5"), acb(0, "-0.4")])
@@ -219,7 +223,7 @@ def selftest(npts=300, seed=1):
     bad.c[3] = bad.c[3] + acb("1e-6")
     x = acb("0.09")
     planted = not bad.at(x).overlaps(1 / (2 + acb("0.7") * x - acb("0.3") * x ** 2 + acb(0, "0.1") * x ** 3))
-    set_disc(arb(3))
+    set_disc(arb(3), force=True)
     g1 = g2 = False
     try:
         f.recip()
@@ -229,7 +233,7 @@ def selftest(npts=300, seed=1):
         TM([acb(-1), acb("0.01")]).sqrt()
     except TMRefuse:
         g2 = True
-    set_disc(old if old > 0 else arb("0.1"))
+    set_disc(old if old > 0 else arb("0.1"), force=True)
     return bool(ok and planted and g1 and g2)
 
 

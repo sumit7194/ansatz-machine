@@ -51,6 +51,7 @@ else:
     LOOPS = [list(L.GAM), list(L.LAS)]
     SFORM = "disc"
 SING = [complex(float(p[0]), float(p[1])) for p in REF["points"]]
+assert LOOPS[0][0] == LOOPS[0][-1] == LOOPS[1][0] == LOOPS[1][-1], "TM read F7: the loops must share their base point"
 TAG = f"c2tm_probe_{BOX}_{KIND}"
 
 
@@ -95,13 +96,18 @@ def main():
     zb = LOOPS[0][0]
     try:
         st0 = W.start_tm(V.A, zb, disc)
-        Ms, logs, steps = [], [], []
+        Ms, logs, steps, closure = [], [], [], []
         for lp in LOOPS:
             wk = W.Walker(V, V7.C0, V.SPIN, SFORM, disc)
             Mm, n = wk.walk(lp, st0, SING, V.LIMZ)
             Ms.append(Mm)
             logs.append(wk.eps_log)
             steps.append(n)
+            # TM read F7: c0 must return to its start (single-valued round each loop), at 5 points of the disc
+            fs = wk.final_state
+            pts = [acb(0)] + [acb(0.9 * float(rho.mid()) * math.cos(t), 0.9 * float(rho.mid()) * math.sin(t))
+                              for t in (0, 1.6, 3.1, 4.7)]
+            closure.append(all(bool(fs[q].at(p).overlaps(st0[q].at(p))) for q in ("c0", "c0p") for p in pts))
     except TMRefuse as e:
         rec.update(verdict=f"FAIL (refused: {e})", t=round(time.time() - t0, 1))
         json.dump(rec, open(os.path.join(OUTD, f"{TAG}.json"), "w"), indent=1)
@@ -114,39 +120,52 @@ def main():
     T1 = M1[0][0] + M1[1][1]
     tms = dict(F=F, T0=T0, T1=T1)
     t_disc = time.time() - t0
-    # T1 (containment) and T2 (the checker plant) on the step 0' R/5 grid samples
+    # T1 (containment) on the step 0' R/5 grid samples (and, for KIND whole, 8 new points at |dk| = 0.99 rho);
+    # T2 (the checker plant) goes THROUGH the same function (TM read F3)
     S = [json.loads(ln) for ln in open(os.path.join(OUTD, f"step0p_{BOX}_k5_samples.jsonl"))]
     assert len({(d["i"], d["j"]) for d in S}) == 81
-    per, contained_all, tight = {}, True, []
-    sampled_max = {}
-    for nm, tm in tms.items():
+    pts = [(acb(arb(d["k"][0]), arb(d["k"][1])), {nm: acb(arb(d[nm][0]), arb(d[nm][1])) for nm in tms}) for d in S]
+    if KIND == "whole":                                    # TM read F8: samples near the disc's edge
+        for j in range(8):
+            t = 2 * math.pi * j / 8
+            k = acb(kc0.real + 0.99 * rho * math.cos(t), kc0.imag + 0.99 * rho * math.sin(t))
+            k = acb(k.real.mid(), k.imag.mid())
+            r = V.evaluate(k.real, k.imag, REF)
+            pts.append((k, {nm: acb(arb(r[nm][0]), arb(r[nm][1])) for nm in tms}))
+
+    def contain(tm, nm, plant_at=None, shift=None):
+        """T1's check: the TM evaluated at every sample point overlaps the node value. plant_at/shift: T2's plant"""
         ok = True
-        smax = arb(0)
-        for d in S:
-            k = acb(arb(d["k"][0]), arb(d["k"][1]))
-            dk = k - kc0
-            val = tm.at(dk)
-            node = acb(arb(d[nm][0]), arb(d[nm][1]))
-            ok &= bool(val.overlaps(node))
-            smax = max(smax, node.abs_upper())
-            if nm == "F":
-                gap = (acb(val.mid()) - acb(node.mid())).abs_upper()
-                tight.append(float(((tm.e - gap + node.rad()) / tm.e).mid()) if tm.e > 0 else float("inf"))
+        for idx, (k, vals) in enumerate(pts):
+            val = tm.at(k - kc0)
+            if plant_at is not None and idx == plant_at:
+                val = val + shift
+            ok &= bool(val.overlaps(vals[nm]))
+        return ok
+
+    per, sampled_max, tight = {}, {}, []
+    for nm, tm in tms.items():
+        ok = contain(tm, nm)
+        smax = max(vals[nm].abs_upper() for _k, vals in pts)
+        widest = max(tm.at(k - kc0).rad() for k, _v in pts)          # TM read F6: the evaluation width, not only e
         per[nm] = dict(contained=ok, sup=float(tm.bound().mid()), sampled_max=float(smax.mid()),
-                       sup_ratio=float((tm.bound() / smax).mid()), e=float(tm.e.mid()),
+                       sup_ratio=float((tm.bound() / smax).mid()), e=float(tm.e.mid()), widest_at=float(widest),
                        ok=bool(ok and tm.is_finite() and tm.bound() <= 100 * smax))
         sampled_max[nm] = smax
-        contained_all &= ok
-    eps_small = bool(F.e <= sampled_max["F"] / 1000)
-    # T2: shift the TM value at one grid point by 10 (e + rad); it must be caught there
-    d = S[40]
-    k = acb(arb(d["k"][0]), arb(d["k"][1]))
-    node = acb(arb(d["F"][0]), arb(d["F"][1]))
-    shift = (10 * (F.e + node.rad() * 2 + F.at(k - kc0).rad())).upper()
-    t2 = not (F.at(k - kc0) + shift).overlaps(node)
+        if nm == "F":
+            for k, vals in pts:
+                val = tm.at(k - kc0)
+                gap = (acb(val.mid()) - acb(vals["F"].mid())).abs_upper()
+                tight.append(float(((tm.e - gap + vals["F"].rad()) / tm.e).mid()) if tm.e > 0 else float("inf"))
+    eps_small = bool(F.e <= sampled_max["F"] / 1000 and
+                     max(F.at(k - kc0).rad() for k, _v in pts) <= sampled_max["F"] / 1000)
+    plant_idx = 40
+    k40, v40 = pts[plant_idx]
+    shift = (10 * (F.e + v40["F"].rad() * 2 + F.at(k40 - kc0).rad())).upper()
+    t2 = not contain(F, "F", plant_at=plant_idx, shift=shift)       # T2: must make T1's own check fail
     cost_h = t_disc * (25 if KIND == "sub" else 1) / 2 / 3600
-    ok = all(p["ok"] for p in per.values()) and eps_small and cost_h <= 2 and t2
-    rec.update(per=per, eps_le_1e3_samplemax=eps_small, T2_plant_caught=t2, tightness_min=min(tight),
+    ok = all(p["ok"] for p in per.values()) and eps_small and cost_h <= 2 and t2 and all(closure)
+    rec.update(per=per, eps_le_1e3_samplemax=eps_small, T2_plant_caught=t2, tightness_min=min(tight), c0_closure=closure,
                cost_hours_per_segment=round(cost_h, 3), t_disc=round(t_disc, 1), steps=steps, eps_log=logs,
                verdict="PASS" if ok else "FAIL")
     json.dump(rec, open(os.path.join(OUTD, f"{TAG}.json"), "w"), indent=1)
