@@ -1,0 +1,6 @@
+c2_driver prec 256 order 20 dim 14 policy IdQR (B = I) sform circle plant_time 0 skip_edge_guard 0
+REFUSED loop 0 edge 80 step 1452 capd exception below the minimal step: High Order Enclosure Error: minimal time step reached. Cannot integrate.
+the set: {[-4.69765e-1 ,6.03145e-1 ],[-7.24242e-1 ,3.59494e-1 ],[-4.35318e-1 ,-1.37097e-1 ],[-5.07704e-2 ,2.43892e-1 ],[-1.00818e2071 ,1.00818e2071 ],[-1.00818e2071 ,1.00818e2071 ],[-1.21101e2071 ,1.21101e2071 ],[-1.21101e2071 ,1.21101e2071 ],[-2.93574e2084 ,2.93574e2084 ],[-2.93574e2084 ,2.93574e2084 ],[-3.52635e2084 ,3.52635e2084 ],[-3.52635e2084 ,3.52635e2084 ],[3.92874 ,3.97126 ],[-2.12501e-2 ,2.12501e-2 ]}
+current time: [8.03578e1 ,8.03579e1 ]
+time step: [9.09494e-13 ,9.09495e-13 ]
+

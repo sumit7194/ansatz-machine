@@ -1,0 +1,51 @@
+{
+ "stage": "step0pp",
+ "box": "P2",
+ "kdiv": 20,
+ "hs": 0.0053125,
+ "order": 20,
+ "tol": "1e-15",
+ "t_capd": 218.4,
+ "steps": [
+  716,
+  477
+ ],
+ "grade": "post-failure fix after step 0' FAILED (C2-4)",
+ "per": {
+  "F": {
+   "finite": true,
+   "contains_all": true,
+   "overlaps_all": true,
+   "sup_enclosure": 21496046.17016813,
+   "sampled_max": 4.140222916652383,
+   "sup_ratio": 5192002.122327502,
+   "ok": false
+  },
+  "T0": {
+   "finite": true,
+   "contains_all": true,
+   "overlaps_all": true,
+   "sup_enclosure": 7.976177045780768,
+   "sampled_max": 0.01825415961153253,
+   "sup_ratio": 436.95120539767913,
+   "ok": false
+  },
+  "T1": {
+   "finite": true,
+   "contains_all": true,
+   "overlaps_all": true,
+   "sup_enclosure": 553.665061880129,
+   "sampled_max": 2.1547974612702525,
+   "sup_ratio": 256.94529153275664,
+   "ok": false
+  }
+ },
+ "F_width": 30400000.03125,
+ "F_sampled_range": 0.13124829999999998,
+ "F_width_over_range": 231622047.91414443,
+ "original_bar": "FAIL",
+ "projected_hours_per_segment": 12.133,
+ "cost_ok": false,
+ "sample_sec_mean": 15.9,
+ "verdict": "FAIL"
+}

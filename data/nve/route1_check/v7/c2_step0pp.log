@@ -1,0 +1,24 @@
+step0pp start 2026-11-28 18:35:44; HEAD d073dee; driver sha256 1a1fe4b5c58894ca
+step 0' P2: CAPD 234 s, steps [715, 537]; F over the sub-box ['[+/- 7.72e+58]', '[+/- 7.72e+58]'] (hull form ['[+/- 1.55e+59]', '[+/- 1.55e+59]']); tr M0 ['[+/- 9.51e+8]', '[+/- 9.51e+8]']; tr M1 ['[+/- 3.13e+20]', '[+/- 3.13e+20]']
+drive P2 R/5 rc 0
+step 0' P2: CAPD 230 s, steps [728, 499]; F over the sub-box ['[+/- 6.34e+13]', '[+/- 6.34e+13]'] (hull form ['[+/- 1.25e+14]', '[+/- 1.25e+14]']); tr M0 ['[+/- 1.22e+2]', '[+/- 1.22e+2]']; tr M1 ['[+/- 6.28e+4]', '[+/- 6.28e+4]']
+drive P2 R/10 rc 0
+step 0' P2: CAPD 218 s, steps [716, 477]; F over the sub-box ['[+/- 1.52e+7]', '[+/- 1.52e+7]'] (hull form ['[+/- 2.36e+7]', '[+/- 2.36e+7]']); tr M0 ['[+/- 5.65]', '[+/- 5.63]']; tr M1 ['[+/- 3.92e+2]', '[+/- 3.91e+2]']
+drive P2 R/20 rc 0
+step 0' P1: driver REFUSED/failed: ['REFUSED loop 0 edge 80 step 1452 capd exception below the minimal step: High Order Enclosure Error: minimal time step reached. Cannot integrate.'] 
+drive P1 R/5 rc 0
+step 0' P1: driver REFUSED/failed: ['REFUSED loop 0 edge 90 step 1835 capd exception below the minimal step: High Order Enclosure Error: minimal time step reached. Cannot integrate.'] 
+drive P1 R/10 rc 0
+step 0' P1: CAPD 399 s, steps [1393, 479]; F over the sub-box ['[+/- 1.17e+9]', '[+/- 1.17e+9]'] (hull form ['[+/- 2.30e+9]', '[+/- 2.30e+9]']); tr M0 ['[+/- 6.34e+2]', '[+/- 6.32e+2]']; tr M1 ['[+/- 42.3]', '[+/- 41.8]']
+drive P1 R/20 rc 0
+step 0' P2 R/5 judge: {'stage': 'step0pp', 'box': 'P2', 'kdiv': 5, 'hs': 0.02125, 'order': 20, 'tol': '1e-15', 't_capd': 233.7, 'steps': [715, 537], 'grade': "post-failure fix after step 0' FAILED (C2-4)", 'per': {'F': {'finite': True, 'contains_all': True, 'overlaps_all': True, 'sup_enclosure': 1.091772870844555e+59, 'sampled_max': 4.3220744919454965, 'sup_ratio': 2.5260389955775963e+58, 'ok': False}, 'T0': {'finite': True, 'contains_all': True, 'overlaps_all': True, 'sup_enclosure': 1344917099.231027, 'sampled_max': 0.01960686902536846, 'sup_ratio': 68594179799.48243, 'ok': False}, 'T1': {'finite': True, 'contains_all': True, 'overlaps_all': True, 'sup_enclosure': 4.426488455593487e+20, 'sampled_max': 2.1935148894286978, 'sup_ratio': 2.0179887891011165e+20, 'ok': False}}, 'F_width': 1.544000000979379e+59, 'F_sampled_range': 0.52569, 'F_width_over_range': 2.9370922044919612e+59, 'original_bar': 'FAIL', 'projected_hours_per_segment': 0.811, 'cost_ok': True, 'sample_sec_mean': 18.4, 'verdict': 'FAIL'}
+judge P2 R/5 rc 0
+step 0' P2 R/10 judge: {'stage': 'step0pp', 'box': 'P2', 'kdiv': 10, 'hs': 0.010625, 'order': 20, 'tol': '1e-15', 't_capd': 229.7, 'steps': [728, 499], 'grade': "post-failure fix after step 0' FAILED (C2-4)", 'per': {'F': {'finite': True, 'contains_all': True, 'overlaps_all': True, 'sup_enclosure': 89661139895002.56, 'sampled_max': 4.20046115395238, 'sup_ratio': 21345546740894.59, 'ok': False}, 'T0': {'finite': True, 'contains_all': True, 'overlaps_all': True, 'sup_enclosure': 172.534054778105, 'sampled_max': 0.018699193602061685, 'sup_ratio': 9226.817928612825, 'ok': False}, 'T1': {'finite': True, 'contains_all': True, 'overlaps_all': True, 'sup_enclosure': 88812.61180334711, 'sampled_max': 2.167898054810366, 'sup_ratio': 40967.153232265744, 'ok': False}}, 'F_width': 126800000057344.0, 'F_sampled_range': 0.26256559999999984, 'F_width_over_range': 482926933525732.5, 'original_bar': 'FAIL', 'projected_hours_per_segment': 3.19, 'cost_ok': False, 'sample_sec_mean': 16.5, 'verdict': 'FAIL'}
+judge P2 R/10 rc 0
+step 0' P2 R/20 judge: {'stage': 'step0pp', 'box': 'P2', 'kdiv': 20, 'hs': 0.0053125, 'order': 20, 'tol': '1e-15', 't_capd': 218.4, 'steps': [716, 477], 'grade': "post-failure fix after step 0' FAILED (C2-4)", 'per': {'F': {'finite': True, 'contains_all': True, 'overlaps_all': True, 'sup_enclosure': 21496046.17016813, 'sampled_max': 4.140222916652383, 'sup_ratio': 5192002.122327502, 'ok': False}, 'T0': {'finite': True, 'contains_all': True, 'overlaps_all': True, 'sup_enclosure': 7.976177045780768, 'sampled_max': 0.01825415961153253, 'sup_ratio': 436.95120539767913, 'ok': False}, 'T1': {'finite': True, 'contains_all': True, 'overlaps_all': True, 'sup_enclosure': 553.665061880129, 'sampled_max': 2.1547974612702525, 'sup_ratio': 256.94529153275664, 'ok': False}}, 'F_width': 30400000.03125, 'F_sampled_range': 0.13124829999999998, 'F_width_over_range': 231622047.91414443, 'original_bar': 'FAIL', 'projected_hours_per_segment': 12.133, 'cost_ok': False, 'sample_sec_mean': 15.9, 'verdict': 'FAIL'}
+judge P2 R/20 rc 0
+judge P1 R/5 deferred (samples       44/81)
+judge P1 R/10 deferred (samples       41/81)
+judge P1 R/20 deferred (samples       41/81)
+step0pp done 2026-11-28 19:38:31
+JOB_EXIT 0

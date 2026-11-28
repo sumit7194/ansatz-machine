@@ -3,3 +3,25 @@
 2026-11-28 17:55:30 manual RESUME of 19887
 2026-11-28 17:57:01 manual PAUSE of 19887 (lane B samples) for a one-off C2 diagnostic drive (block widths)
 2026-11-28 17:57:30 manual RESUME of 19887
+2026-11-28 18:04:43 manual PAUSE of 52767 (lane B samples) for C2-4 development smokes
+2026-11-28 18:04:43 manual RESUME of 52767
+2026-11-28 18:05:00 manual PAUSE of 52767 (lane B samples) for C2-4 development smokes
+2026-11-28 18:05:02 manual RESUME of 52767
+2026-11-28 18:06:38 manual PAUSE of 52767 (lane B samples) for C2-4 development smokes
+2026-11-28 18:06:57 manual RESUME of 52767
+2026-11-28 18:07:16 manual PAUSE of 52767 (lane B samples) for a C2-4 development smoke
+2026-11-28 18:07:21 manual RESUME of 52767
+2026-11-28 18:08:06 manual PAUSE of 52767 (lane B samples) for C2-4 development smokes
+2026-11-28 18:08:37 manual RESUME of 52767
+2026-11-28 18:08:47 manual PAUSE of 52767 (lane B samples) for C2-4 development smokes
+2026-11-28 18:09:19 manual RESUME of 52767
+2026-11-28 18:21:04 manual PAUSE of 79734 (lane B samples) for C2-4 development smokes after the read fixes
+2026-11-28 18:21:34 manual RESUME of 79734
+2026-11-28 18:23:41 manual PAUSE of 79734 (lane B samples) for the C2-4 controls
+2026-11-28 18:23:43 manual RESUME of 79734
+2026-11-28 18:24:36 manual PAUSE of 79734 (lane B samples) for the C2-4 controls (after the exactness rollback)
+2026-11-28 18:26:00 manual RESUME of 79734
+2026-11-28 18:27:13 manual PAUSE of 87651 (lane B samples) for the C2-4 controls (erratum E2)
+2026-11-28 18:34:01 manual RESUME of 87651
+2026-11-28 18:35:44 PAUSE lane B child 87651 for step 0'' drives
+2026-11-28 19:38:30 RESUME lane B child 87651
