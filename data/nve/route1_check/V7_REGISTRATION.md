@@ -318,3 +318,25 @@ checked E0 and E1 independently by its own mpmath second differences, and they l
 - **Re-tests:** all seven region-B controls rerun on this code, plus the diagnostic precondition at pilots 2 and 3's
   ρ = 4 boxes. **This is a change after the read; it goes to the Bridge for a ruling on whether a further read is
   needed before pilots 2 and 3.**
+
+## Addendum 10 (2026-11-28): the focused read of addendum 9's free_square. Committed BEFORE the controls rerun and the pilots
+**The read** (fresh session) found free_square sound as used:
+- (i) the per-cell mean-value enclosure over cell × K-box is rigorous;
+- (ii) the cover is exact at 256 bits, a cell undecided at depth 0 fails closed, and every caller refuses;
+- (iii) every c0 query by the walk, the step, the series, the dq boxes or the segment guard is inside the certified
+  square or is refused.
+- Its own copy refused r = 2.04 and certified 1.96 at k = 83/20 (nearest singular point at sup-distance 2.0). It never
+  certified beyond the sampled true distance on the pilot boxes.
+
+**Its items, applied:**
+- **(Item 4, VACUOUS)** Control (R) could fire only on `reach + 0.1 < RREQ`, which is always true. **New control (S)**
+  runs on the committed code:
+  - `free_square(83/20, 2.04)` must be False and `free_square(83/20, 1.96)` must be True;
+  - `free_square(pilot-2 ρ = 4 box, 2.04)` must be False.
+- **(Item 3, DOUBTFUL, a possible hang)** v2's walk uses abs(pos) − LIMZ. v7B now ASSERTS that every loop point and bB
+  have |z| > LIMZ + 0.05 (at 3/5, bB = 1.50 against LIMZ = 1.0).
+- **(Item 6)** A stale error message is fixed.
+
+**Then:** all region-B controls rerun ((pos), (A), (A2), (B), (B2), (R), (S), (P)). Pilots 2 and 3 run ONCE each (the
+Bridge's ruling), with the disclosure: "the precondition guard was reworked (addenda 8–9) after a pre-pilot diagnostic
+showed refusal at the pilot boxes; no pilot certification was attempted before the rework."

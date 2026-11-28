@@ -33,6 +33,9 @@ BB = arb(REF["bB"])
 GAM = [complex(float(p[0]), float(p[1])) for p in REF["gam"]]
 LAS = [complex(float(p[0]), float(p[1])) for p in REF["lasso"]]
 REACH = max(abs(v - complex(float(Z0.mid()))) for v in GAM + LAS)
+# addendum 10 (focused read, item 3): v2's walk sizes steps with abs(pos) - LIMZ; every loop point and bB must be
+# certified outside |z| = LIMZ, or a negative rho could under-count the step tail. Asserted, not assumed.
+assert min(abs(v) for v in GAM + LAS + [complex(float(BB.mid()))]) > V.LIMZ + 0.05, "region-B loops reach |z| <= LIMZ"
 RREQ_FIXED = REACH + 0.25         # addendum 9: the working-disc radius, fixed from the floats entry before any run
 U = acb(arb(0, 1), arb(0, 1))
 K8 = (arb(8) / 5).sqrt() * A
@@ -152,7 +155,7 @@ class FieldB:
 
     def at(self, z):
         if not self.inside(z):
-            raise RuntimeError(f"fieldB: {complex(z.mid())} outside |z - Z0| < 0.9 R_c")
+            raise RuntimeError(f"fieldB: {complex(z.mid())} outside the working disc |z - Z0| < RREQ")
         zc = complex(z.mid())
         best = min(self.cache, key=lambda s: abs(complex(s["z"].mid()) - zc))
         if best["z"] == z and z.real.rad() == 0 and z.imag.rad() == 0:

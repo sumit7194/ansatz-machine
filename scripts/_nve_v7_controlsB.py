@@ -7,6 +7,8 @@ refused, so a control cannot pass on a different guard (the region-B read, item 
   (B)   with the disc radius patched large, a segment from bB through a c0 branch point is refused by the B-CUT guard;
   (B2)  with the true disc, a step box outside the disc is refused by the DISC guard;
   (R)   with the loops' reach planted at 10, the precondition refuses (its R_c part, not the 30/7 line);
+  (S)   free_square itself refuses a square containing a singular point (r = 2.04 at k = 83/20 and on pilot 2's K) and
+        certifies r = 1.96 at k = 83/20 (addendum 10);
   (P)   v6's hard-coded planted box (4.2 +- 0.01), substituted by 30/7 + 0.02 +- 0.01 (registered, addendum 8), refuses.
 Diagnostics (no pass/fail): the precondition at pilots 2 and 3's rho = 4 k-boxes.
     R1_KC=83/20 R1_HALF=1/20 R1_FLOATS=route1_floats_v7B_3_5.json R1_RHOS=4 R1_MODE=F R1_TOLMODE=rel NVE_SPIN=3/5 \\
@@ -53,6 +55,13 @@ res["R"] = (not pr["ok"]) and "reach" in pr.get("why", "")
 B.REACH = real_reach
 pp = B.precondition_B(arb("4.2") + arb("0.01") * B.V.UNIT)
 res["P"] = (not pp["ok"]) and pp.get("planted_substituted") is not None
+
+# (S) addendum 10 (focused read, item 4): free_square itself must refuse a square that contains a singular point.
+#     At k = 83/20 the nearest singular point is at sup-distance 2.0 from Z0: r = 2.04 must be refused, r = 1.96 certified;
+#     and on pilot 2's rho = 4 k-box r = 2.04 must be refused.
+kq = acb(arb(83) / 20)
+Kp2 = kq + (arb(1) / 20 * (arb(4) + arb(1) / 4) / 2) * B.V.UNIT
+res["S"] = (not B.free_square(kq, 2.04)) and B.free_square(kq, 1.96) and (not B.free_square(Kp2, 2.04))
 
 d2 = B.precondition_B(acb(arb(83) / 20) + (arb(1) / 20 * (arb(4) + arb(1) / 4) / 2) * B.V.UNIT)
 kc3 = arb(59979) / 14000
