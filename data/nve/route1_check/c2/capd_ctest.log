@@ -1,0 +1,1064 @@
+Test project /Users/sumit/Github/capd-ansatz/build
+      Start  1: CRefTest
+      Start  2: functorTest
+ 1/44 Test  #2: functorTest ......................   Passed    0.38 sec
+      Start  3: skipCommentsIstreamTest
+ 2/44 Test  #1: CRefTest .........................   Passed    0.38 sec
+      Start  4: TexWriterTest
+ 3/44 Test  #3: skipCommentsIstreamTest ..........   Passed    0.44 sec
+      Start  5: IComplexTests
+ 4/44 Test  #4: TexWriterTest ....................   Passed    0.48 sec
+      Start  6: DComplexTests
+ 5/44 Test  #5: IComplexTests ....................   Passed    0.33 sec
+      Start  7: intervalTest
+ 6/44 Test  #6: DComplexTests ....................   Passed    0.39 sec
+      Start  8: intvtst
+ 7/44 Test  #7: intervalTest .....................***Failed    0.41 sec
+Running 11 test cases...
+/Users/sumit/Github/capd-ansatz/capdAlg/tests/intervalTest/intervalTest.cpp:97: [1;31;49merror: in "parse_from_sstream": difference{2.05392e-16} between a.rightBound(){4.3243243240000009} and 4.324324324{4.324324324} exceeds 0%[0;39;49m
+
+[1;31;49m*** 1 failure is detected in the test module "IntervalTest"
+[0;39;49m
+
+      Start  9: divtst
+ 8/44 Test  #8: intvtst ..........................   Passed    0.32 sec
+      Start 10: floatMatrixAlgorithmsTest
+ 9/44 Test  #9: divtst ...........................   Passed    0.32 sec
+      Start 11: matrixMDTest
+10/44 Test #10: floatMatrixAlgorithmsTest ........   Passed    0.32 sec
+      Start 12: vectMDTest
+11/44 Test #12: vectMDTest .......................   Passed    0.30 sec
+      Start 13: vecttst
+12/44 Test #11: matrixMDTest .....................   Passed    0.32 sec
+      Start 14: vectalgTest
+13/44 Test #14: vectalgTest ......................   Passed    0.40 sec
+      Start 15: C11vectalgTest
+14/44 Test #13: vecttst ..........................   Passed    0.44 sec
+      Start 16: mpsintest
+15/44 Test #15: C11vectalgTest ...................   Passed    0.31 sec
+      Start 17: MpIntervalTest
+16/44 Test #16: mpsintest ........................   Passed    0.32 sec
+      Start 18: nonAutTest
+17/44 Test #17: MpIntervalTest ...................   Passed    0.32 sec
+      Start 19: BasicCnTaylorTest
+18/44 Test #18: nonAutTest .......................   Passed    0.84 sec
+      Start 20: diffInclTest
+19/44 Test #20: diffInclTest .....................   Passed    0.49 sec
+      Start 21: C2CurveMaskTest
+20/44 Test #19: BasicCnTaylorTest ................   Passed    1.47 sec
+      Start 22: C1CurveMaskTest
+21/44 Test #21: C2CurveMaskTest ..................   Passed    0.69 sec
+      Start 23: CnCurveMaskTest
+22/44 Test #22: C1CurveMaskTest ..................   Passed    0.72 sec
+      Start 24: C1MaskTest
+23/44 Test #24: C1MaskTest .......................   Passed    0.58 sec
+      Start 25: CnMaskTest
+24/44 Test #25: CnMaskTest .......................   Passed    0.40 sec
+      Start 26: C2MaskTest
+25/44 Test #23: CnCurveMaskTest ..................   Passed    1.92 sec
+      Start 27: mapTest
+26/44 Test #26: C2MaskTest .......................   Passed    0.57 sec
+      Start 28: Rect2SetTest
+27/44 Test #28: Rect2SetTest .....................   Passed    0.35 sec
+      Start 29: CoordReorganization
+28/44 Test #27: mapTest ..........................   Passed    0.49 sec
+      Start 30: Pped2SetTest
+29/44 Test #29: CoordReorganization ..............   Passed    0.33 sec
+      Start 31: C0Pped2SetTest
+30/44 Test #30: Pped2SetTest .....................   Passed    0.32 sec
+      Start 32: CenteredAffineSetTest
+31/44 Test #31: C0Pped2SetTest ...................   Passed    0.33 sec
+      Start 33: DoubletonSetTest
+32/44 Test #32: CenteredAffineSetTest ............   Passed    0.36 sec
+      Start 34: AffineSetTest
+33/44 Test #33: DoubletonSetTest .................   Passed    0.37 sec
+      Start 35: C0RectSetTest
+34/44 Test #34: AffineSetTest ....................   Passed    0.32 sec
+      Start 36: C0PpedSetTest
+35/44 Test #35: C0RectSetTest ....................   Passed    0.32 sec
+      Start 37: FactorReorganization
+36/44 Test #36: C0PpedSetTest ....................   Passed    0.30 sec
+      Start 38: SolverGetStepTest
+37/44 Test #37: FactorReorganization .............   Passed    0.53 sec
+      Start 39: ReversibleSolverTest
+38/44 Test #39: ReversibleSolverTest .............   Passed    0.85 sec
+      Start 40: ReversiblePoincareMapTest
+39/44 Test #38: SolverGetStepTest ................   Passed    1.47 sec
+      Start 41: CnSolverTest
+40/44 Test #40: ReversiblePoincareMapTest ........   Passed    0.87 sec
+      Start 42: MapMaskTest
+41/44 Test #42: MapMaskTest ......................   Passed    0.31 sec
+      Start 43: DPoincareMapMaskTest
+42/44 Test #43: DPoincareMapMaskTest .............***Failed    0.35 sec
+Running 4 test cases...
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/PoincareMapMaskTest/DPoincareMapMaskTest.cpp:47: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-1.3642420526593924e-12} exceeds 9.9999999999999998e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/PoincareMapMaskTest/DPoincareMapMaskTest.cpp:47: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{1.0658860657968442e-12} exceeds 9.9999999999999998e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/PoincareMapMaskTest/DPoincareMapMaskTest.cpp:47: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-2.0463630789890885e-12} exceeds 9.9999999999999998e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/PoincareMapMaskTest/DPoincareMapMaskTest.cpp:47: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{1.3642420526593924e-12} exceeds 9.9999999999999998e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/PoincareMapMaskTest/DPoincareMapMaskTest.cpp:47: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-1.3642420526593924e-12} exceeds 9.9999999999999998e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/PoincareMapMaskTest/DPoincareMapMaskTest.cpp:47: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{1.0658860657968442e-12} exceeds 9.9999999999999998e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/PoincareMapMaskTest/DPoincareMapMaskTest.cpp:47: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-2.0463630789890885e-12} exceeds 9.9999999999999998e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/PoincareMapMaskTest/DPoincareMapMaskTest.cpp:47: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{1.3642420526593924e-12} exceeds 9.9999999999999998e-13[0;39;49m
+elapsed time: 0.003345 seconds
+(21.3654,-1.56049e-14), (99.7831,-1.09969e-12)
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/PoincareMapMaskTest/DPoincareMapMaskTest.cpp:242: [1;31;49merror: in "TestSuite/xNormalFormTest": absolute value of nForm[1].imag(){-1.5604853147246408e-14} exceeds 1e-14[0;39;49m
+elapsed time: 0.00201 seconds
+(21.3654,-1.56049e-14), (99.7831,-1.09969e-12)
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/PoincareMapMaskTest/DPoincareMapMaskTest.cpp:242: [1;31;49merror: in "TestSuite/xNormalFormTest": absolute value of nForm[1].imag(){-1.5604853147246408e-14} exceeds 1e-14[0;39;49m
+
+[1;31;49m*** 10 failures are detected in the test module "DPoincareMapMaskTest"
+[0;39;49m
+
+      Start 44: SingularNaturalPowerTest
+43/44 Test #44: SingularNaturalPowerTest .........***Failed    0.34 sec
+Running 5 test cases...
+xC0TimeTest
+i:0 {0,0} {0,0}
+i:1 {0,0} {0,0}
+i:2 {0,0} {0,0}
+i:3 {0,0} {0,0}
+i:4 {0,0} {0,0}
+i:5 {0,0} {0,0}
+i:6 {0,0} {0,0}
+i:7 {0,0} {0,0}
+i:8 {0,0} {0,0}
+i:9 {0,0} {0,0}
+i:10 {0,0} {0,0}
+i:11 {0,0} {0,0}
+i:12 {0,0} {0,0}
+i:13 {0,0} {0,0}
+i:14 {0,0} {0,0}
+i:15 {0,0} {0,0}
+i:16 {0,0} {0,0}
+i:17 {0,0.0588235} {0,0.0588235}
+i:18 {0,0} {0,0}
+i:19 {0,0} {0,0}
+i:20 {0,0} {0,0}
+
+i:0 {0,0} {0,0}
+i:1 {0,0} {0,0}
+i:2 {0,0} {0,0}
+i:3 {0,0} {0,0}
+i:4 {0,0} {0,0}
+i:5 {0,0} {0,0}
+i:6 {0,0} {0,0}
+i:7 {0,0} {0,0}
+i:8 {0,0} {0,0}
+i:9 {0,0} {0,0}
+i:10 {0,0} {0,0}
+i:11 {0,0} {0,0}
+i:12 {0,0} {0,0}
+i:13 {0,0} {0,0}
+i:14 {0,0} {0,0}
+i:15 {0,0} {0,0}
+i:16 {0,0} {0,0}
+i:17 {0,0.0588235} {0,0.0588235}
+i:18 {0,0} {0,0}
+i:19 {0,0} {0,0}
+i:20 {0,0} {0,0}
+i:21 {0,0} {0,0}
+i:22 {0,0} {0,0}
+i:23 {0,0} {0,0}
+i:24 {0,0} {0,0}
+i:25 {0,0} {0,0}
+
+xC0FunTimeTest
+i:0 {0,0} {0,0}
+i:1 {0,0} {0,0}
+i:2 {0,0} {0,0}
+i:3 {0,0} {0,0}
+i:4 {0,0} {0,0}
+i:5 {0,0} {0,0}
+i:6 {0,0} {0,0}
+i:7 {0,0} {0,0}
+i:8 {0,0} {0,0}
+i:9 {0,0} {0,0}
+i:10 {0,0} {0,0}
+i:11 {0,0} {0,0}
+i:12 {0,0} {0,0}
+i:13 {0,0} {0,0}
+i:14 {0,0} {0,0}
+i:15 {0,0} {0,0}
+i:16 {0,0} {0,0}
+i:17 {0,0.0588235} {0,0.0588235}
+i:18 {0,0} {0,0}
+i:19 {0,-0.140351} {0,-0.140351}
+i:20 {0,0} {0,0}
+
+i:0 {0,0} {0,0}
+i:1 {0,0} {0,0}
+i:2 {0,0} {0,0}
+i:3 {0,0} {0,0}
+i:4 {0,0} {0,0}
+i:5 {0,0} {0,0}
+i:6 {0,0} {0,0}
+i:7 {0,0} {0,0}
+i:8 {0,0} {0,0}
+i:9 {0,0} {0,0}
+i:10 {0,0} {0,0}
+i:11 {0,0} {0,0}
+i:12 {0,0} {0,0}
+i:13 {0,0} {0,0}
+i:14 {0,0} {0,0}
+i:15 {0,0} {0,0}
+i:16 {0,0} {0,0}
+i:17 {0,0.0588235} {0,0.0588235}
+i:18 {0,0} {0,0}
+i:19 {0,-0.140351} {0,-0.140351}
+i:20 {0,0} {0,0}
+i:21 {0,0.165079} {0,0.165079}
+i:22 {0,0} {0,0}
+i:23 {0,-0.127352} {0,-0.127352}
+i:24 {0,0} {0,0}
+i:25 {0,0.072381} {0,0.072381}
+
+i:0 {0,0} {0,0}
+i:1 {0,0} {0,0}
+i:2 {0,0} {0,0}
+i:3 {0,0} {0,0}
+i:4 {0,0} {0,0}
+i:5 {0,0} {0,0}
+i:6 {0,0} {0,0}
+i:7 {0,0} {0,0}
+i:8 {0,0} {0,0}
+i:9 {0,0} {0,0}
+i:10 {0,0} {0,0}
+i:11 {0,0} {0,0}
+i:12 {0,0} {0,0}
+i:13 {0,0} {0,0}
+i:14 {0,0} {0,0}
+i:15 {0,0} {0,0}
+i:16 {0,0} {0,0}
+i:17 {0,0.0588235} {0,0.0588235}
+i:18 {0,0} {0,0}
+i:19 {0,-0.140351} {0,-0.140351}
+i:20 {0,0} {0,0}
+
+i:0 {0,0} {0,0}
+i:1 {0,0} {0,0}
+i:2 {0,0} {0,0}
+i:3 {0,0} {0,0}
+i:4 {0,0} {0,0}
+i:5 {0,0} {0,0}
+i:6 {0,0} {0,0}
+i:7 {0,0} {0,0}
+i:8 {0,0} {0,0}
+i:9 {0,0} {0,0}
+i:10 {0,0} {0,0}
+i:11 {0,0} {0,0}
+i:12 {0,0} {0,0}
+i:13 {0,0} {0,0}
+i:14 {0,0} {0,0}
+i:15 {0,0} {0,0}
+i:16 {0,0} {0,0}
+i:17 {0,0.0588235} {0,0.0588235}
+i:18 {0,0} {0,0}
+i:19 {0,-0.140351} {0,-0.140351}
+i:20 {0,0} {0,0}
+i:21 {0,0.165079} {0,0.165079}
+i:22 {0,0} {0,0}
+i:23 {0,-0.127352} {0,-0.127352}
+i:24 {0,0} {0,0}
+i:25 {0,0.072381} {0,0.072381}
+
+i:0 {0,0} {0,0}
+i:1 {0,0} {0,0}
+i:2 {0,0} {0,0}
+i:3 {0,0} {0,0}
+i:4 {0,0} {0,0}
+i:5 {0,0} {0,0}
+i:6 {0,0} {0,0}
+i:7 {0,0} {0,0}
+i:8 {0,0} {0,0}
+i:9 {0,0} {0,0}
+i:10 {0,0} {0,0}
+i:11 {0,0} {0,0}
+i:12 {0,0} {0,0}
+i:13 {0,0} {0,0}
+i:14 {0,0} {0,0}
+i:15 {0,0} {0,0}
+i:16 {0,0} {0,0}
+i:17 {0,0.0588235} {0,0.0588235}
+i:18 {0,0} {0,0}
+i:19 {0,-0.140351} {0,-0.140351}
+i:20 {0,0} {0,0}
+
+i:0 {0,0} {0,0}
+i:1 {0,0} {0,0}
+i:2 {0,0} {0,0}
+i:3 {0,0} {0,0}
+i:4 {0,0} {0,0}
+i:5 {0,0} {0,0}
+i:6 {0,0} {0,0}
+i:7 {0,0} {0,0}
+i:8 {0,0} {0,0}
+i:9 {0,0} {0,0}
+i:10 {0,0} {0,0}
+i:11 {0,0} {0,0}
+i:12 {0,0} {0,0}
+i:13 {0,0} {0,0}
+i:14 {0,0} {0,0}
+i:15 {0,0} {0,0}
+i:16 {0,0} {0,0}
+i:17 {0,0.0588235} {0,0.0588235}
+i:18 {0,0} {0,0}
+i:19 {0,-0.140351} {0,-0.140351}
+i:20 {0,0} {0,0}
+i:21 {0,0.165079} {0,0.165079}
+i:22 {0,0} {0,0}
+i:23 {0,-0.127352} {0,-0.127352}
+i:24 {0,0} {0,0}
+i:25 {0,0.072381} {0,0.072381}
+
+xC0Test
+i:0 {0,0} {0,0}
+i:1 {1,1} {1,1}
+i:2 {0.5,0} {0.5,0}
+i:3 {0.333333,-0.166667} {0.333333,-0.166667}
+i:4 {0.208333,-0.125} {0.208333,-0.125}
+i:5 {0.108333,-0.0833333} {0.108333,-0.0833333}
+i:6 {0.0277778,-0.0486111} {0.0277778,-0.0486111}
+i:7 {-0.0327381,-0.021627} {-0.0327381,-0.021627}
+i:8 {-0.0721478,-0.00208333} {-0.0721478,-0.00208333}
+i:9 {-0.201604,0.0105848} {-0.201604,0.0105848}
+i:10 {-0.189585,0.0171834} {-0.189585,0.0171834}
+i:11 {-0.042748,0.0288624} {-0.042748,0.0288624}
+i:12 {0.163208,0.0295241} {0.163208,0.0295241}
+i:13 {0.11762,0.0148633} {0.11762,0.0148633}
+i:14 {-0.0349659,-0.00899461} {-0.0349659,-0.00899461}
+i:15 {0.0526335,-0.0171982} {0.0526335,-0.0171982}
+i:16 {0.112399,-0.010028} {0.112399,-0.010028}
+i:17 {-0.0182558,-0.068922} {-0.0182558,-0.068922}
+i:18 {-0.088483,-0.0116505} {-0.088483,-0.0116505}
+i:19 {-0.0491008,0.136518} {-0.0491008,0.136518}
+i:20 {-0.0272881,0.00474454} {-0.0272881,0.00474454}
+
+i:0 {0,0} {0,0}
+i:1 {1,1} {1,1}
+i:2 {0.5,0} {0.5,0}
+i:3 {0.333333,-0.166667} {0.333333,-0.166667}
+i:4 {0.208333,-0.125} {0.208333,-0.125}
+i:5 {0.108333,-0.0833333} {0.108333,-0.0833333}
+i:6 {0.0277778,-0.0486111} {0.0277778,-0.0486111}
+i:7 {-0.0327381,-0.021627} {-0.0327381,-0.021627}
+i:8 {-0.0721478,-0.00208333} {-0.0721478,-0.00208333}
+i:9 {-0.201604,0.0105848} {-0.201604,0.0105848}
+i:10 {-0.189585,0.0171834} {-0.189585,0.0171834}
+i:11 {-0.042748,0.0288624} {-0.042748,0.0288624}
+i:12 {0.163208,0.0295241} {0.163208,0.0295241}
+i:13 {0.11762,0.0148633} {0.11762,0.0148633}
+i:14 {-0.0349659,-0.00899461} {-0.0349659,-0.00899461}
+i:15 {0.0526335,-0.0171982} {0.0526335,-0.0171982}
+i:16 {0.112399,-0.010028} {0.112399,-0.010028}
+i:17 {-0.0182558,-0.068922} {-0.0182558,-0.068922}
+i:18 {-0.088483,-0.0116505} {-0.088483,-0.0116505}
+i:19 {-0.0491008,0.136518} {-0.0491008,0.136518}
+i:20 {-0.0272881,0.00474454} {-0.0272881,0.00474454}
+i:21 {-0.0288134,-0.157054} {-0.0288134,-0.157054}
+i:22 {-0.00863785,0.00931601} {-0.00863785,0.00931601}
+i:23 {0.0224127,0.135953} {0.0224127,0.135953}
+i:24 {0.0369206,0.00388152} {0.0369206,0.00388152}
+i:25 {0.0520322,-0.0742411} {0.0520322,-0.0742411}
+
+xC1Test
+i:0 {0,0} {0,0}
+i:0 {
+{1,0},
+{0,1}
+} {
+{1,0},
+{0,1}
+}
+i:1 {1,1} {1,1}
+i:1 {
+{0,1},
+{0,0}
+} {
+{0,1},
+{0,0}
+}
+i:2 {0.5,0} {0.5,0}
+i:2 {
+{0,1},
+{-0.5,0}
+} {
+{0,1},
+{-0.5,0}
+}
+i:3 {0.333333,-0.166667} {0.333333,-0.166667}
+i:3 {
+{-0.166667,1},
+{-0.166667,-0.333333}
+} {
+{-0.166667,1},
+{-0.166667,-0.333333}
+}
+i:4 {0.208333,-0.125} {0.208333,-0.125}
+i:4 {
+{-0.291667,0.833333},
+{-0.0416667,-0.375}
+} {
+{-0.291667,0.833333},
+{-0.0416667,-0.375}
+}
+i:5 {0.108333,-0.0833333} {0.108333,-0.0833333}
+i:5 {
+{-0.375,0.541667},
+{0.0416667,-0.333333}
+} {
+{-0.375,0.541667},
+{0.0416667,-0.333333}
+}
+i:6 {0.0277778,-0.0486111} {0.0277778,-0.0486111}
+i:6 {
+{-0.395833,0.166667},
+{0.0916667,-0.243056}
+} {
+{-0.395833,0.166667},
+{0.0916667,-0.243056}
+}
+i:7 {-0.0327381,-0.021627} {-0.0327381,-0.021627}
+i:7 {
+{-0.348016,-0.229167},
+{0.113095,-0.129762}
+} {
+{-0.348016,-0.229167},
+{0.113095,-0.129762}
+}
+i:8 {-0.0721478,-0.00208333} {-0.0721478,-0.00208333}
+i:8 {
+{-0.237252,-1.57718},
+{0.109846,-0.0145833}
+} {
+{-0.237252,-1.57718},
+{0.109846,-0.0145833}
+}
+i:9 {-0.201604,0.0105848} {-0.201604,0.0105848}
+i:9 {
+{-0.0814126,-1.81443},
+{0.0871555,0.0846781}
+} {
+{-0.0814126,-1.81443},
+{0.0871555,0.0846781}
+}
+i:10 {-0.189585,0.0171834} {-0.189585,0.0171834}
+i:10 {
+{0.492285,-0.962514},
+{0.0628359,0.25465}
+} {
+{0.492285,-0.962514},
+{0.0628359,0.25465}
+}
+i:11 {-0.042748,0.0288624} {-0.042748,0.0288624}
+i:11 {
+{0.783274,0.175226},
+{0.0202109,0.334078}
+} {
+{0.783274,0.175226},
+{0.0202109,0.334078}
+}
+i:12 {0.163208,0.0295241} {0.163208,0.0295241}
+i:12 {
+{0.550109,0.978955},
+{-0.0676529,0.260876}
+} {
+{0.550109,0.978955},
+{-0.0676529,0.260876}
+}
+i:13 {0.11762,0.0148633} {0.11762,0.0148633}
+i:13 {
+{0.118651,1.22516},
+{-0.138609,0.0896072}
+} {
+{0.118651,1.22516},
+{-0.138609,0.0896072}
+}
+i:14 {-0.0349659,-0.00899461} {-0.0349659,-0.00899461}
+i:14 {
+{-0.227545,1.02254},
+{-0.128633,-0.0936254}
+} {
+{-0.227545,1.02254},
+{-0.128633,-0.0936254}
+}
+i:15 {0.0526335,-0.0171982} {0.0526335,-0.0171982}
+i:15 {
+{-0.398383,0.589963},
+{-0.0629128,-0.208646}
+} {
+{-0.398383,0.589963},
+{-0.0629128,-0.208646}
+}
+i:16 {0.112399,-0.010028} {0.112399,-0.010028}
+i:16 {
+{-0.412393,0.113987},
+{-0.00271957,-0.229194}
+} {
+{-0.412393,0.113987},
+{-0.00271957,-0.229194}
+}
+i:17 {-0.0182558,-0.068922} {-0.0182558,-0.068922}
+i:17 {
+{-0.321751,-0.286991},
+{0.0429042,-0.186525}
+} {
+{-0.321751,-0.286991},
+{0.0429042,-0.186525}
+}
+i:18 {-0.088483,-0.0116505} {-0.088483,-0.0116505}
+i:18 {
+{-0.18325,-0.636794},
+{0.0774861,-0.115642}
+} {
+{-0.18325,-0.636794},
+{0.0774861,-0.115642}
+}
+i:19 {-0.0491008,0.136518} {-0.0491008,0.136518}
+i:19 {
+{-0.0324213,-0.875138},
+{0.0856808,-0.0252547}
+} {
+{-0.0324213,-0.875138},
+{0.0856808,-0.0252547}
+}
+i:20 {-0.0272881,0.00474454} {-0.0272881,0.00474454}
+i:20 {
+{0.142238,-0.839012},
+{0.0690086,0.0772957}
+} {
+{0.142238,-0.839012},
+{0.0690086,0.0772957}
+}
+
+i:0 {0,0} {0,0}
+i:0 {
+{1,0},
+{0,1}
+} {
+{1,0},
+{0,1}
+}
+i:1 {1,1} {1,1}
+i:1 {
+{0,1},
+{0,0}
+} {
+{0,1},
+{0,0}
+}
+i:2 {0.5,0} {0.5,0}
+i:2 {
+{0,1},
+{-0.5,0}
+} {
+{0,1},
+{-0.5,0}
+}
+i:3 {0.333333,-0.166667} {0.333333,-0.166667}
+i:3 {
+{-0.166667,1},
+{-0.166667,-0.333333}
+} {
+{-0.166667,1},
+{-0.166667,-0.333333}
+}
+i:4 {0.208333,-0.125} {0.208333,-0.125}
+i:4 {
+{-0.291667,0.833333},
+{-0.0416667,-0.375}
+} {
+{-0.291667,0.833333},
+{-0.0416667,-0.375}
+}
+i:5 {0.108333,-0.0833333} {0.108333,-0.0833333}
+i:5 {
+{-0.375,0.541667},
+{0.0416667,-0.333333}
+} {
+{-0.375,0.541667},
+{0.0416667,-0.333333}
+}
+i:6 {0.0277778,-0.0486111} {0.0277778,-0.0486111}
+i:6 {
+{-0.395833,0.166667},
+{0.0916667,-0.243056}
+} {
+{-0.395833,0.166667},
+{0.0916667,-0.243056}
+}
+i:7 {-0.0327381,-0.021627} {-0.0327381,-0.021627}
+i:7 {
+{-0.348016,-0.229167},
+{0.113095,-0.129762}
+} {
+{-0.348016,-0.229167},
+{0.113095,-0.129762}
+}
+i:8 {-0.0721478,-0.00208333} {-0.0721478,-0.00208333}
+i:8 {
+{-0.237252,-1.57718},
+{0.109846,-0.0145833}
+} {
+{-0.237252,-1.57718},
+{0.109846,-0.0145833}
+}
+i:9 {-0.201604,0.0105848} {-0.201604,0.0105848}
+i:9 {
+{-0.0814126,-1.81443},
+{0.0871555,0.0846781}
+} {
+{-0.0814126,-1.81443},
+{0.0871555,0.0846781}
+}
+i:10 {-0.189585,0.0171834} {-0.189585,0.0171834}
+i:10 {
+{0.492285,-0.962514},
+{0.0628359,0.25465}
+} {
+{0.492285,-0.962514},
+{0.0628359,0.25465}
+}
+i:11 {-0.042748,0.0288624} {-0.042748,0.0288624}
+i:11 {
+{0.783274,0.175226},
+{0.0202109,0.334078}
+} {
+{0.783274,0.175226},
+{0.0202109,0.334078}
+}
+i:12 {0.163208,0.0295241} {0.163208,0.0295241}
+i:12 {
+{0.550109,0.978955},
+{-0.0676529,0.260876}
+} {
+{0.550109,0.978955},
+{-0.0676529,0.260876}
+}
+i:13 {0.11762,0.0148633} {0.11762,0.0148633}
+i:13 {
+{0.118651,1.22516},
+{-0.138609,0.0896072}
+} {
+{0.118651,1.22516},
+{-0.138609,0.0896072}
+}
+i:14 {-0.0349659,-0.00899461} {-0.0349659,-0.00899461}
+i:14 {
+{-0.227545,1.02254},
+{-0.128633,-0.0936254}
+} {
+{-0.227545,1.02254},
+{-0.128633,-0.0936254}
+}
+i:15 {0.0526335,-0.0171982} {0.0526335,-0.0171982}
+i:15 {
+{-0.398383,0.589963},
+{-0.0629128,-0.208646}
+} {
+{-0.398383,0.589963},
+{-0.0629128,-0.208646}
+}
+i:16 {0.112399,-0.010028} {0.112399,-0.010028}
+i:16 {
+{-0.412393,0.113987},
+{-0.00271957,-0.229194}
+} {
+{-0.412393,0.113987},
+{-0.00271957,-0.229194}
+}
+i:17 {-0.0182558,-0.068922} {-0.0182558,-0.068922}
+i:17 {
+{-0.321751,-0.286991},
+{0.0429042,-0.186525}
+} {
+{-0.321751,-0.286991},
+{0.0429042,-0.186525}
+}
+i:18 {-0.088483,-0.0116505} {-0.088483,-0.0116505}
+i:18 {
+{-0.18325,-0.636794},
+{0.0774861,-0.115642}
+} {
+{-0.18325,-0.636794},
+{0.0774861,-0.115642}
+}
+i:19 {-0.0491008,0.136518} {-0.0491008,0.136518}
+i:19 {
+{-0.0324213,-0.875138},
+{0.0856808,-0.0252547}
+} {
+{-0.0324213,-0.875138},
+{0.0856808,-0.0252547}
+}
+i:20 {-0.0272881,0.00474454} {-0.0272881,0.00474454}
+i:20 {
+{0.142238,-0.839012},
+{0.0690086,0.0772957}
+} {
+{0.142238,-0.839012},
+{0.0690086,0.0772957}
+}
+i:21 {-0.0288134,-0.157054} {-0.0288134,-0.157054}
+i:21 {
+{0.313361,-0.464459},
+{0.0398276,0.168408}
+} {
+{0.313361,-0.464459},
+{0.0398276,0.168408}
+}
+i:22 {-0.00863785,0.00931601} {-0.00863785,0.00931601}
+i:22 {
+{0.384513,0.0811145},
+{0.000329097,0.204141}
+} {
+{0.384513,0.0811145},
+{0.000329097,0.204141}
+}
+i:23 {0.0224127,0.135953} {0.0224127,0.135953}
+i:23 {
+{0.29077,0.53353},
+{-0.0461027,0.157896}
+} {
+{0.29077,0.53353},
+{-0.0461027,0.157896}
+}
+i:24 {0.0369206,0.00388152} {0.0369206,0.00388152}
+i:24 {
+{0.0891223,0.880261},
+{-0.0785576,0.059341}
+} {
+{0.0891223,0.880261},
+{-0.0785576,0.059341}
+}
+i:25 {0.0520322,-0.0742411} {0.0520322,-0.0742411}
+i:25 {
+{-0.106765,0.868816},
+{-0.0765802,-0.0418481}
+} {
+{-0.106765,0.868816},
+{-0.0765802,-0.0418481}
+}
+
+xCnTest
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-1.7053025658242404e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{1.1368683772161603e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-1.7053025658242404e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{1.1368683772161603e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-1.7053025658242404e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{1.1368683772161603e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-1.1368683772161603e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{1.1368683772161603e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-1.4210854715202004e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-2.2737367544323206e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-4.5474735088646412e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-1.1368683772161603e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{6.8212102632969618e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-1.1368683772161603e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-3.4106051316484809e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{6.8212102632969618e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{1.1368683772161603e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{2.2737367544323206e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{9.0949470177292824e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{2.2737367544323206e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-1.7053025658242404e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-1.7053025658242404e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-2.2737367544323206e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{2.2737367544323206e-12} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-3.4106051316484809e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{1.1368683772161603e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{2.2737367544323206e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-1.1368683772161603e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{1.1368683772161603e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{1.1368683772161603e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-2.2737367544323206e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{4.5474735088646412e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{1.1368683772161603e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-4.5474735088646412e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{5.6843418860808015e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{1.1368683772161603e-12} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-2.2737367544323206e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-2.2737367544323206e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{2.2737367544323206e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-6.8212102632969618e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{2.2737367544323206e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{1.1368683772161603e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-9.0949470177292824e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-4.5474735088646412e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{4.5474735088646412e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-1.1368683772161603e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{4.5474735088646412e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{3.4106051316484809e-13} exceeds 1e-13[0;39;49m
+
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-1.7053025658242404e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{1.1368683772161603e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-1.7053025658242404e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{1.1368683772161603e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-1.7053025658242404e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{1.1368683772161603e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-1.7053025658242404e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{1.1368683772161603e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-1.1368683772161603e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{1.1368683772161603e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-1.4210854715202004e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-2.2737367544323206e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-4.5474735088646412e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-1.1368683772161603e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{6.8212102632969618e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-1.1368683772161603e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-3.4106051316484809e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{6.8212102632969618e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{1.1368683772161603e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{2.2737367544323206e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{9.0949470177292824e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{2.2737367544323206e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-1.7053025658242404e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-1.7053025658242404e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-2.2737367544323206e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{2.2737367544323206e-12} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-3.4106051316484809e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{1.1368683772161603e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{2.2737367544323206e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-1.1368683772161603e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{1.1368683772161603e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{1.1368683772161603e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-2.2737367544323206e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{4.5474735088646412e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{1.1368683772161603e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-4.5474735088646412e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{5.6843418860808015e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{1.1368683772161603e-12} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-2.2737367544323206e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-2.2737367544323206e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{2.2737367544323206e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-6.8212102632969618e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{2.2737367544323206e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{1.1368683772161603e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-9.0949470177292824e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-4.5474735088646412e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{4.5474735088646412e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-1.1368683772161603e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{4.5474735088646412e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{3.4106051316484809e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{1.1368683772161603e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{5.6843418860808015e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{1.7053025658242404e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{3.4106051316484809e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-4.5474735088646412e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-1.1368683772161603e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-5.6843418860808015e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{4.5474735088646412e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-4.5474735088646412e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-6.8212102632969618e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-1.4210854715202004e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{2.2737367544323206e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-2.7284841053187847e-12} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-9.0949470177292824e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-4.5474735088646412e-12} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-6.8212102632969618e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-1.3642420526593924e-12} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-1.1368683772161603e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-2.2737367544323206e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{2.7284841053187847e-12} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{9.0949470177292824e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{2.7284841053187847e-12} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{1.1368683772161603e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-1.1368683772161603e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-1.1368683772161603e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-3.4106051316484809e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-4.5474735088646412e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-4.5474735088646412e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-2.8421709430404007e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{2.2737367544323206e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-1.1368683772161603e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-6.8212102632969618e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-4.5474735088646412e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{9.0949470177292824e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-4.5474735088646412e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{1.1368683772161603e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-9.0949470177292824e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-1.8189894035458565e-12} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-9.0949470177292824e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-7.9580786405131221e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-9.0949470177292824e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{3.4106051316484809e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-6.8212102632969618e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-1.8189894035458565e-12} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{2.5011104298755527e-12} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-3.637978807091713e-12} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{1.3642420526593924e-12} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-9.0949470177292824e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{1.3642420526593924e-12} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-1.8189894035458565e-12} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-3.637978807091713e-12} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-2.1827872842550278e-11} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{1.8189894035458565e-12} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-3.637978807091713e-12} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-2.2737367544323206e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-1.4210854715202004e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{2.2737367544323206e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-1.1368683772161603e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{4.5474735088646412e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{2.2737367544323206e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-9.0949470177292824e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{1.1368683772161603e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{1.1368683772161603e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-1.1368683772161603e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{3.4106051316484809e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{2.2737367544323206e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{1.5631940186722204e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-2.2737367544323206e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-2.7284841053187847e-12} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-4.5474735088646412e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{2.2737367544323206e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{1.8189894035458565e-12} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-4.5474735088646412e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-1.8189894035458565e-12} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{2.7284841053187847e-12} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-1.8189894035458565e-12} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-1.1368683772161603e-12} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{1.8616219676914625e-12} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{5.4569682106375694e-12} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{3.637978807091713e-12} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{7.2759576141834259e-12} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{8.1854523159563541e-12} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-4.5474735088646412e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-3.637978807091713e-12} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-1.0913936421275139e-11} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-2.9103830456733704e-11} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-3.637978807091713e-12} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{9.0949470177292824e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-1.1368683772161603e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{2.8421709430404007e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{1.1368683772161603e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{2.2737367544323206e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{3.4106051316484809e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{9.0949470177292824e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-4.5474735088646412e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{9.0949470177292824e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{2.2737367544323206e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-1.4210854715202004e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-1.8189894035458565e-12} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-4.5474735088646412e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{1.8189894035458565e-12} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-9.0949470177292824e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{2.2737367544323206e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-1.1368683772161603e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-6.8212102632969618e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-4.5474735088646412e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-1.1368683772161603e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{9.0949470177292824e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{1.3642420526593924e-12} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-9.0949470177292824e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{4.5474735088646412e-12} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-5.6843418860808015e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-1.1368683772161603e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-4.5474735088646412e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{1.8189894035458565e-12} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{3.637978807091713e-12} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-2.7284841053187847e-12} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{3.637978807091713e-12} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-2.2737367544323206e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{2.2737367544323206e-12} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-1.8189894035458565e-12} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{7.2759576141834259e-12} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-1.4551915228366852e-11} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-1.4551915228366852e-11} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{3.979039320256561e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{6.8212102632969618e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{2.2737367544323206e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-3.637978807091713e-12} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{2.5465851649641991e-11} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{3.2741809263825417e-11} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{4.3655745685100555e-11} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{7.2759576141834259e-12} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-4.3655745685100555e-11} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{1.3642420526593924e-12} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{1.1368683772161603e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-1.1368683772161603e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{1.1368683772161603e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-2.2737367544323206e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-2.2737367544323206e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{2.2737367544323206e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{9.0949470177292824e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{4.5474735088646412e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-2.2737367544323206e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-1.1368683772161603e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{9.0949470177292824e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{4.5474735088646412e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{3.4106051316484809e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-6.8212102632969618e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-9.0949470177292824e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-1.8189894035458565e-12} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{3.637978807091713e-12} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-1.1368683772161603e-12} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-1.1368683772161603e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{2.8421709430404007e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-3.4106051316484809e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-4.5474735088646412e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{3.4106051316484809e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{4.5474735088646412e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-2.7284841053187847e-12} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-1.0764722446765518e-12} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{3.637978807091713e-12} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{1.1368683772161603e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{5.6843418860808015e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-2.2737367544323206e-12} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-3.1832314562052488e-12} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-4.5474735088646412e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{1.4551915228366852e-11} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{1.3642420526593924e-12} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-1.1368683772161603e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{1.1368683772161603e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-5.0022208597511053e-12} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-5.4569682106375694e-12} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-1.8189894035458565e-12} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-7.2759576141834259e-12} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{3.637978807091713e-12} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-7.2759576141834259e-12} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{1.8189894035458565e-12} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{6.8212102632969618e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-9.0949470177292824e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{7.2759576141834259e-12} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-7.2759576141834259e-12} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{3.6834535421803594e-11} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-4.3655745685100555e-11} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-1.4551915228366852e-11} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-1.4551915228366852e-11} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{3.637978807091713e-12} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-1.7053025658242404e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-1.1368683772161603e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{1.7053025658242404e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{2.2737367544323206e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-1.1368683772161603e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-1.1368683772161603e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{4.5474735088646412e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{6.8212102632969618e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-2.2737367544323206e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-2.2737367544323206e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-2.7284841053187847e-12} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{1.3642420526593924e-12} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{3.637978807091713e-12} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-9.0949470177292824e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-2.2737367544323206e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-1.8189894035458565e-12} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{-9.0949470177292824e-13} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{3.637978807091713e-12} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{2.7284841053187847e-12} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{3.637978807091713e-12} exceeds 1e-13[0;39;49m
+/Users/sumit/Github/capd-ansatz/capdDynSys/tests/SingularNaturalPowerTest/SingularNaturalPowerTest.cpp:14: [1;31;49merror: in "TestSuite/xCnTest": absolute value of *b-*r{1.8189894035458565e-12} exceeds 1e-13[0;39;49m
+
+
+[1;31;49m*** 305 failures are detected in the test module "SingularNaturalPowTest"
+[0;39;49m
+
+44/44 Test #41: CnSolverTest .....................   Passed   10.58 sec
+
+93% tests passed, 3 tests failed out of 44
+
+Total Test time (real) =  20.76 sec
+
+The following tests FAILED:
+	  7 - intervalTest (Failed)
+	 43 - DPoincareMapMaskTest (Failed)
+	 44 - SingularNaturalPowerTest (Failed)
+Errors while running CTest

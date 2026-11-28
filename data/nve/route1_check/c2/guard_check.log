@@ -1,0 +1,22 @@
+plant IMAP: refused by the guard (4 guard diagnostics):
+    c2_driver.cpp:62:15: error: static assertion failed due to requirement 'std::is_same<capd::intervals::Interval<double, capd::rounding::DoubleRounding>, capd::intervals::Interval<capd::multiPrec::MpReal, capd::multiPrec::MpReal>>::value': C2 GUARD: proof code admits MPFR intervals (capd::MpInterval) only
+    c2_driver.cpp:64:15: error: static assertion failed due to requirement 'std::is_same<capd::intervals::Interval<double, capd::rounding::DoubleRounding>, capd::intervals::Interval<capd::multiPrec::MpReal, capd::multiPrec::MpReal>>::value': C2 GUARD: the solver must run on MPFR intervals only
+    c2_driver.cpp:66:15: error: static assertion failed due to requirement 'std::is_same<capd::vectalg::Matrix<capd::intervals::Interval<double, capd::rounding::DoubleRounding>, 0, 0>, capd::vectalg::Matrix<capd::intervals::Interval<capd::multiPrec::MpReal, capd::multiPrec::MpReal>, 0, 0>>::value': C2 GUARD: MPFR interval matrices only
+   66 | static_assert(std::is_same<MatT, capd::MpIMatrix>::value, "C2 GUARD: MPFR interval matrices only");
+plant DMAP: refused by the guard (4 guard diagnostics):
+    c2_driver.cpp:62:15: error: static assertion failed due to requirement 'std::is_same<double, capd::intervals::Interval<capd::multiPrec::MpReal, capd::multiPrec::MpReal>>::value': C2 GUARD: proof code admits MPFR intervals (capd::MpInterval) only
+    c2_driver.cpp:64:15: error: static assertion failed due to requirement 'std::is_same<double, capd::intervals::Interval<capd::multiPrec::MpReal, capd::multiPrec::MpReal>>::value': C2 GUARD: the solver must run on MPFR intervals only
+    c2_driver.cpp:66:15: error: static assertion failed due to requirement 'std::is_same<capd::vectalg::Matrix<double, 0, 0>, capd::vectalg::Matrix<capd::intervals::Interval<capd::multiPrec::MpReal, capd::multiPrec::MpReal>, 0, 0>>::value': C2 GUARD: MPFR interval matrices only
+   66 | static_assert(std::is_same<MatT, capd::MpIMatrix>::value, "C2 GUARD: MPFR interval matrices only");
+plant LDMAP: refused by the guard (4 guard diagnostics):
+    c2_driver.cpp:62:15: error: static assertion failed due to requirement 'std::is_same<long double, capd::intervals::Interval<capd::multiPrec::MpReal, capd::multiPrec::MpReal>>::value': C2 GUARD: proof code admits MPFR intervals (capd::MpInterval) only
+    c2_driver.cpp:64:15: error: static assertion failed due to requirement 'std::is_same<long double, capd::intervals::Interval<capd::multiPrec::MpReal, capd::multiPrec::MpReal>>::value': C2 GUARD: the solver must run on MPFR intervals only
+    c2_driver.cpp:66:15: error: static assertion failed due to requirement 'std::is_same<capd::vectalg::Matrix<long double, 0, 0>, capd::vectalg::Matrix<capd::intervals::Interval<capd::multiPrec::MpReal, capd::multiPrec::MpReal>, 0, 0>>::value': C2 GUARD: MPFR interval matrices only
+   66 | static_assert(std::is_same<MatT, capd::MpIMatrix>::value, "C2 GUARD: MPFR interval matrices only");
+plant MPMAP: refused by the guard (4 guard diagnostics):
+    c2_driver.cpp:62:15: error: static assertion failed due to requirement 'std::is_same<capd::multiPrec::MpReal, capd::intervals::Interval<capd::multiPrec::MpReal, capd::multiPrec::MpReal>>::value': C2 GUARD: proof code admits MPFR intervals (capd::MpInterval) only
+    c2_driver.cpp:64:15: error: static assertion failed due to requirement 'std::is_same<capd::multiPrec::MpReal, capd::intervals::Interval<capd::multiPrec::MpReal, capd::multiPrec::MpReal>>::value': C2 GUARD: the solver must run on MPFR intervals only
+    c2_driver.cpp:66:15: error: static assertion failed due to requirement 'std::is_same<capd::vectalg::Matrix<capd::multiPrec::MpReal, 0, 0>, capd::vectalg::Matrix<capd::intervals::Interval<capd::multiPrec::MpReal, capd::multiPrec::MpReal>, 0, 0>>::value': C2 GUARD: MPFR interval matrices only
+   66 | static_assert(std::is_same<MatT, capd::MpIMatrix>::value, "C2 GUARD: MPFR interval matrices only");
+MPFR intervals (capd::MpIMap): compiles
+guard check: PASS

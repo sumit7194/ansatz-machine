@@ -1,6 +1,6 @@
 # Route (i) production: status (plain language)
 
-*Updated 2026-11-27 (after P4-r), only when something changes. Written for Sumit.*
+*Updated 2026-11-27 (production launched), only when something changes. Written for Sumit.*
 
 ## What we are doing
 
@@ -16,9 +16,13 @@ the tiny stretch next to k = 0. This run extends the proof upward from there.
 
 ## Where it stands
 
-- **The production code was read twice on the Bridge's side and found sound.** Their fixes are in.
-- **The final tests are running now** (started 01:10, about 3–4 hours, two Air cores).
-- **Production follows:** about 1 day for spin 3/5 and about 3.5 days for spin 9/10.
+- **Production is running** (since 2026-11-27 04:49, one Air core per spin).
+  - Spin 3/5 is expected to take about a day.
+  - Spin 9/10 is expected to take about 3–3.5 days.
+- **The production code was read twice on the Bridge's side and found sound.** Every final test passed.
+- **Two trial segments already certified,** one at the very bottom of 3/5's range and one at 9/10.
+- **If a stretch will not certify,** it is cut in half at most twice. If it still fails, that part stops, and we
+  report how far we got. No code is changed mid-run.
 
 ## The small-k check is in (P4-r, 2026-11-27)
 
@@ -32,4 +36,4 @@ the tiny stretch next to k = 0. This run extends the proof upward from there.
 
 ## What would change this page
 
-The test results; the launch; each spin's final reach.
+A part of the range that stops; any alarm; each spin's final reach.

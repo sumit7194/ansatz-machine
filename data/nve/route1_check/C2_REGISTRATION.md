@@ -159,3 +159,84 @@ step 0' fails.
 6. the controls (a shrunken M; a planted spike, a k-sub-box whose path crosses a singular point, which must be
    refused; a positive check against step 0's samples);
 7. the pilots P1/P2/P3, one attempt each.
+
+## Build record (order step 2), 2026-11-28
+- **CAPD:** own clone `/Users/sumit/Github/capd-ansatz`, at commit 2f060980d0685cc9bf88352e08c242197cd7d686 (the commit
+  Quantum builds, relayed by the Bridge).
+- **Deps:** Homebrew gmp 6.3.0, mpfr 4.2.2, cmake 4.4.4, boost 1.92.0; Apple clang 21.0.0.
+- **Flags:** `-DCAPD_INTERVAL_TYPE=NATIVE -DCAPD_ENABLE_MULTIPRECISION=ON -DCMAKE_PREFIX_PATH=/opt/homebrew
+  -DCAPD_BUILD_TESTS=ON -DCMAKE_BUILD_TYPE=Release`, plus -I/-L for /opt/homebrew.
+- **Timing:** built 17:18–17:21 IST.
+- **Records:** script and summary in `c2/capd_build_summary.txt`, the full log in `c2/capd_ctest.log`.
+
+**ctest: 41 of 44 pass, 3 FAIL.** The registered condition "the full ctest must pass" was not met as written.
+**Bridge ruling, 2026-11-28 (amended wording):** "full ctest" reads as "every rigorous and MPFR test passes, and the
+three failures are recorded with their reasons". Quantum's build at the same commit on arm64 shows the SAME three
+failures (41/44), accepted there on 2026-10-11 with the same reasoning; cross-reference: Quantum's record
+`qsim/capd/CTEST_REPORT.md` (relayed by the Bridge, not read here). Quantum's extra detail: #44 assumes extended
+precision, but long double on Apple arm64 is a plain 64-bit double.
+- **#7 intervalTest** (`parse_from_sstream`): parsing "[…, 4.324324324]" gives the upper bound 4.3243243240000009, the
+  next double above the nearest one. The nearest double lies BELOW the decimal (checked exactly with Python
+  fractions), so rounding up is the correct, enclosing behaviour. The test asks for exact equality with the nearest
+  double, which would not enclose. This is the NATIVE double interval, which the driver never uses.
+- **#43 DPoincareMapMaskTest, #44 SingularNaturalPowerTest:** NON-rigorous double tests whose absolute tolerances of
+  1e-12 and 1e-13 are missed by about 1e-12 on arm64. No interval or MPFR code is involved.
+- **Passed, among others:** MpIntervalTest, mpsintest, the doubleton, Rect2, CenteredAffine, FactorReorganization,
+  C0Rect and Pped set tests, SolverGetStepTest and CnSolverTest.
+
+## Compile-time guard check (Bridge condition 2), 2026-11-28
+`scripts/c2_capd/c2_guard_check.sh`, log in `c2/guard_check.log`. The driver's static assertions require the map's
+scalar, the solver's scalar and the matrix type to be MPFR intervals (`capd::MpInterval`). Each excluded type is planted
+in turn and must FAIL to compile ON THE GUARD's own message ("C2 GUARD"):
+- native double intervals (IMap);
+- double (DMap);
+- long double (LDMap);
+- non-interval MPFR (MpMap).
+The MPFR-interval build must compile. **Result: PASS** (all four refused by the guard, three guard diagnostics each; the
+MpIMap build compiles).
+
+## Addendum C2-2 (2026-11-28): development findings BEFORE step 0'; NOT step 0'. Committed before step 0' runs
+These are smoke runs of the driver plus glue, made to debug the plumbing. They are NOT the registered measurement:
+- the loops are truncated, retraced out and back (v0 -> v1 -> v2 -> v1 -> v0), so the true monodromy is exactly I for
+  every k;
+- P2's environment;
+- records in `c2/step0p_P2_o20*_smoke*`.
+
+**1. Correctness of the vector field and the exact I/O.** In every smoke run that completed, the Arb walk's monodromy
+at kc0 (the v7 field and v2's Taylor walk, an independent implementation) lies INSIDE CAPD's enclosure, on both loops:
+- QR policies IdQR and InverseQR;
+- sub-box half-sides hs, hs/10 and hs/100 (hs = R/5).
+
+**2. Driver fixes found by the smoke (before any registered run):**
+- The end-of-edge check: the set's time is an interval a few ulps wide, so it now requires the final time to lie inside
+  it, with a width below 1e-60; the next edge's z-enclosure uses the whole time interval.
+- A truncated loop closed by an artificial chord through a pole region was REFUSED by CAPD's "possible division by
+  zero". The refusal path works; the smoke then retraced its path instead.
+
+**3. The QR policy: IdQR (B = I), chosen on this evidence.**
+- With CAPD's Rect2 QR (FullQRWithPivoting), B mixes all 16 coordinates. On the lasso's return leg the large Y errors
+  near the singular point leaked into s: the certified min |s|^2 fell from 296 to 3.8 (true about 210), and the box was
+  refused by a "possible division by zero".
+- With IdQR the system's block-triangular structure is respected ((s, c0, c0', k) never see Y), and both loops complete.
+- InverseQR also completes, but its F enclosure is about 3x wider (+-40.8 against +-13.9).
+- No reorganization in any case, so the k-dependence stays in C r0.
+
+**4. How the width scales with the sub-box size** (IdQR, retraced loops; the true F is 0 and the true tr M1 is 2, so
+every width is pure overestimate):
+
+| sub-box half-side | F enclosure | tr M1 enclosure | CAPD time |
+|---|---|---|---|
+| hs = R/5 | +-13.9 | +-4.8 | 88 s |
+| hs/10 | +-0.0108 | +-5.3e-3 | 90 s |
+| hs/100 | +-1.02e-4 | +-5.1e-5 | 84 s |
+
+- From hs/10 to hs/100 every width falls by exactly 100x: the clean hs^2 regime, the second-order k-curvature an
+  affine form cannot carry.
+- From hs to hs/10, F falls by 1300x: at the registered R/5 the P2 lasso is BEYOND that regime (a superlinear blow-up).
+- Cost: about 0.27 s per CAPD step at 256 bits, order 20.
+
+**What this predicts for step 0' as registered:** at R/5 the width-to-sampled-range bar will likely FAIL at P2. Yet the
+sup bound would sit within about 4x of the true |F| (about 4 at P2's centre). The certificate consumes the sup bound
+(M_F in ATAP), and the addendum justified the bar by exactly that ("so M_F … is within about 2 orders of the truth").
+Whether to amend step 0' before it runs (a scan of sub-box sizes, and/or the bar M_F actually needs) is a design
+question put to the Bridge. **Step 0' does not run until it is answered.**
