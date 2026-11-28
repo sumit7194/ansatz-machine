@@ -1,0 +1,56 @@
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+    import sys; sys.path.insert(0, 'scripts'); import _nve_route1_segment_v7 as S; print(S.CODE)
+                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sumit/Github/conjecture_machine-check/scripts/_nve_route1_segment_v7.py", line 26, in <module>
+    import _nve_route1_segment_v6 as S6           # noqa: E402  (v6's import-time setup; runs nothing)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sumit/Github/conjecture_machine-check/scripts/_nve_route1_segment_v6.py", line 54, in <module>
+    REF = json.load(open(os.path.join(V.OUTD, V.FLOATS)))[S5.KREF]
+                    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/Users/sumit/Github/conjecture_machine-check/data/nve/eps/route1_floats_v7p_3_5.json'
+=== v7 P1 code  base v7_kc79o20h1o20_ 2026-11-28 16:04:37
+=== floats 2026-11-28 16:04:37
+79/20 F (7.183034034343 + 12.698382218214j) T0 (1.79687998173637 + 4.2872250985508e-32j) T1 (-1.80099931964315 + 1.33837968402894j) geo True 14s
+=== prove 2026-11-28 16:04:52
+== v7 prove (v6 + c0 field) == spin 3/5|k in [39/10, 4]; code 076046651de710f4; files _nve_v7_c0.py, _nve_v7_field.py, _nve_route1_segment_v7.py
+== v6 prove == spin 3/5|k in [39/10, 4]; mode F, tol rel; |F(k_c)| (engine) 1.458920e+01; code 076046651de710f4
+== prove (v5 = v4 + F1 branch assert, F2 code-hash keys, F3 coverage counts) == spin 3/5|k in [39/10, 4]; circle 1.35; code 076046651de710f4; python 3.13.12, python-flint 0.9.0; rows (4.0,); checkpoint records of this code already on disk: dq 0, rows 0
+    z = (0.3+1.3162j): |D0 - FD| <= 5.4e-13, |D1 - FD| <= 1.4e-12; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True  -> ok
+    z = (-1.35+0j): |D0 - FD| <= 1.9e-13, |D1 - FD| <= 1.7e-13; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True  -> ok
+    z = (1.757-0.003j): |D0 - FD| <= 1.3e-13, |D1 - FD| <= 1.1e-13; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True  -> ok
+    z = (2.05-0.03j): |D0 - FD| <= 1.1e-13, |D1 - FD| <= 8.1e-14; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True  -> ok
+    z = (2.11+0.55j): |D0 - FD| <= 9.7e-14, |D1 - FD| <= 7.4e-14; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True  -> ok
+  self-test True; reference: circle 2346 steps, lasso 677 steps; F1 checks so far {'step': 13301, 'series': 0}  [32 s]
+  circle, K a point (z-direction control; v3 printed 4.153E-1 / 9.325E+0 at 3/5, 7.734E-1 / 2.179E+1 at 9/10): v4 <= 1.030E+0   [49 s]
+  lasso, K a point (z-direction control; v3 printed 4.153E-1 / 9.325E+0 at 3/5, 7.734E-1 / 2.179E+1 at 9/10): v4 <= 5.072E+1   [53 s]
+  rho = 4.0: REJECTED (precondition not certified)
+  prove v5: 53 s, peak rss 36 MB
+  F1b checks: {'step': 13301, 'series': 3023}; c0 fields built: 3
+=== verdict (full controls) 2026-11-28 16:05:45
+== v7 verdict (v6 + c0 field) == spin 3/5|k in [39/10, 4]; code 076046651de710f4
+  F1b checks: {'step': 0, 'series': 0}; c0 fields built: 0
+Traceback (most recent call last):
+  File "/Users/sumit/Github/conjecture_machine-check/scripts/_nve_route1_segment_v7.py", line 150, in <module>
+    dict(prove=prove, verdict=verdict)[sys.argv[1]]()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/sumit/Github/conjecture_machine-check/scripts/_nve_route1_segment_v7.py", line 144, in verdict
+    S6.verdict()
+    ~~~~~~~~~~^^
+  File "/Users/sumit/Github/conjecture_machine-check/scripts/_nve_route1_segment_v6.py", line 164, in verdict
+    assert ch is not None, "no admissible row: the split rule's case, not a verdict"
+           ^^^^^^^^^^^^^^
+AssertionError: no admissible row: the split rule's case, not a verdict
+verdict rc 1
+=== engine gate 2026-11-28 16:05:45
+Traceback (most recent call last):
+  File "/Users/sumit/Github/conjecture_machine-check/scripts/_nve_route1_engine_gate.py", line 122, in <module>
+    main()
+    ~~~~^^
+  File "/Users/sumit/Github/conjecture_machine-check/scripts/_nve_route1_engine_gate.py", line 58, in main
+    recs = [json.loads(l) for l in open(NODES) if l.strip()]
+                                   ~~~~^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'data/nve/eps/route1_seg_nodes_v7_kc79o20h1o20_.jsonl'
+engine gate rc 1
+=== V7_P1_DONE 2026-11-28 16:05:46
+JOB_EXIT 0

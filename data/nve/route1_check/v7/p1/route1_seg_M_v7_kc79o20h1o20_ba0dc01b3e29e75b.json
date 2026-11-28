@@ -1,0 +1,45 @@
+{
+ "seg": "spin 3/5|k in [39/10, 4]",
+ "version": 5,
+ "norder": 30,
+ "code": "ba0dc01b3e29e75b",
+ "code_env": "python 3.13.12; python-flint 0.9.0; prec 256; R0 1.35; rhos 4.0; floats entry 31cb19c3667dbae0abb125c11067c497452a3986b06e4f383d78d7b12e734e68; c0 v7 field",
+ "code_files": [
+  "_nve_route1_proto.py",
+  "_nve_route1_segment_v2.py",
+  "_nve_route1_segment_v3.py",
+  "_nve_route1_segment_v4.py",
+  "_nve_route1_segment_v5.py",
+  "_nve_route1_segment_v6.py",
+  "_nve_route1_engine_gate.py",
+  "_nve_route1_production.py",
+  "_nve_route1_floats.py",
+  "_nve_v7_c0.py",
+  "_nve_v7_field.py",
+  "_nve_route1_segment_v7.py"
+ ],
+ "rows": [],
+ "chosen": null,
+ "selftest": true,
+ "steps": [
+  2346,
+  677
+ ],
+ "point_constants": {
+  "circle": [
+   "[1.0293707933062295580658021280667153828013572792531 +/- 4.86e-50]",
+   45.54436910116424,
+   9.892836128766799
+  ],
+  "lasso": [
+   "[50.713453712520613438373714259332434209125656928553 +/- 3.86e-49]",
+   53.188207118923366,
+   3.893565460527622
+  ]
+ },
+ "env": {
+  "python": "3.13.12",
+  "flint": "0.9.0",
+  "interpreter": "/Users/sumit/Github/conjecture_machine-check/.venv313/bin/python"
+ }
+}
