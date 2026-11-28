@@ -25,3 +25,8 @@
 2026-11-28 18:34:01 manual RESUME of 87651
 2026-11-28 18:35:44 PAUSE lane B child 87651 for step 0'' drives
 2026-11-28 19:38:30 RESUME lane B child 87651
+2026-11-28 20:18:44 PAUSE lane B child 4639 for the C2-M P2 cover
+2026-11-28 21:07:22 RESUME lane B child ['4639'] (the C2-M P2 runner that paused it was stopped)
+2026-11-28 21:07:55 PAUSE lane B child 4639 for the C2-M P3 cover
+2026-11-28 22:05:14 RESUME lane B child 4639
+2026-11-28 22:35:19 c2_step0p_B pid 19860 exited rc 0

@@ -30,3 +30,20 @@ C2_TM_CONTROLS.md; read in C2_TM_READ.md). The disc circumscribes step 0''s cent
 - the probe passes at rho = sqrt2 hs (40%): it did NOT;
 - cost met (55%): NOT;
 - the P2 whole disc was not run (it requires the sub disc to pass).
+
+## Re-gate (A): does named reserve (ii) match the failure? NO, so C2-TM is STOPPED
+The Bridge asked whether reserve (ii), QR or parallelepiped preconditioning, matches my reading of an ILL-CONDITIONED
+point-kc preconditioner near the singular point. I tested that reading before answering, and it is **refuted**:
+- Along both lassos at kc (a point walk with step records, P2 628 steps, P1 677 steps), the fundamental matrix's first
+  row stays small, |Y| <= 6.5 at P2 and 6.6 at P1.
+- With det = 1, cond(C) is about |Y|^2 <= 43. So C is well conditioned, and C^-1 (...) C cannot amplify by more than
+  about 43.
+
+QR preconditioning cures ill-conditioning; the measured growth is about 1e30, not about 43, so (ii) does not address it.
+Independently, the probes FAIL the cost bar (9.0 h and 14.9 h per segment against 2 h) at the sub-disc size, and a QR
+frame changes neither the step count nor the TM operation count. So even a perfect remainder fix could not make the
+registered probes pass with the same bars. **(ii) is not used, and C2-TM is STOPPED.**
+
+**The real mechanism of the lasso's remainder growth is NOT diagnosed** (my earlier reading was wrong; recorded as
+such). A diagnosis would need per-step logging of which TM operation's e grows (the reciprocals near G2's zero, the
+majorant tail, the B(.) bound inside the products). That is not pursued without a new ruling.

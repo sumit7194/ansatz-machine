@@ -1,0 +1,16 @@
+{
+ "stage": "step0pp",
+ "box": "P1",
+ "kdiv": 5,
+ "hs": 0.02125,
+ "order": 20,
+ "tol": "1e-15",
+ "t_capd": 1258.1,
+ "steps": null,
+ "grade": "post-failure fix after step 0' FAILED (C2-4)",
+ "verdict": "FAIL (the enclosure was refused or not finite)",
+ "refused": [
+  "REFUSED loop 0 edge 80 step 1452 capd exception below the minimal step: High Order Enclosure Error: minimal time step reached. Cannot integrate."
+ ],
+ "original_bar": "FAIL (refused)"
+}
