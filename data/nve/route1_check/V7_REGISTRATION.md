@@ -259,3 +259,42 @@ Pilot 1's first attempt is disclosed in its result.
   None.
 - **Both controls are code in `scripts/_nve_v7_controlsB.py`.** They run after the non-author read, before pilots 2
   and 3.
+
+## Addendum 8 (2026-11-28): the region-B non-author read, its fixes, registered changes. Committed BEFORE the controls
+**The read** (a separate AI session, fresh context, wrote none of this) found no route to a wrong certificate. It
+confirmed addendum 5's derivation: the representation, the base integrals, the second k-derivatives, the rectangle
+enclosure (rigorous: the mean over each sub-interval lies in the Arb rectangle), the E0/E1 assembly, and σ = +1. It
+checked E0 and E1 independently by its own mpmath second differences, and they lie inside the enclosures. Its findings:
+1. **(Blocker, no false certificate.)** `sing_balls` took √w on balls straddling the negative real axis (every real
+   k > 4), so R_c collapsed to 0 and the precondition would refuse pilot 2's ρ = 4 row and every pilot-3 row.
+   **Fix:** `csqrt` uses i√(−x) when Re x < 0 is certified. Both signs are used, so either form is valid.
+2. **(Vacuous control.)** Control (B) was refused by the disc guard before reaching the cut guard that σ = +1 rests
+   on. **Fix:** every refusal records its guard.
+   - (B) now patches the disc radius large, so the B-cut guard must refuse a segment through a branch point.
+   - (B2) tests the disc guard.
+3. **(Doubtful.)** The caches for R_d and the base integrals were keyed on Arb's coarse printing. **Fix:** exact keys
+   (midpoint mantissa/exponent, exact radii).
+4. **(Doubtful.)** The positive check was weak: E0 enclosures 26–56% wide, and E1 never checked.
+   **Fix:**
+   - SM 24 → 96;
+   - the self-test checks E0 AND E1;
+   - new must-fail (A2): E × 0.5 must fail the self-test.
+5. **(Note) The σ = +1 argument, as the operative reason:** `base2`'s Re P > 0 on [0, 1/bB] × K fixes the principal
+   √P, hence the field's branch, at bB for every k in K. Chaining the off-cut τ-balls carries it along the segment.
+   This replaces registered guard 2's per-ball σ_j taken from the field; the code hard-codes σ = +1 under that guard.
+5b. Also registered: the native dq series takes its sign from the field at (zm, k_c) and requires B(zm; square hull of
+   {k_c, k-ball}) off the cut. A square, because Arb's `union` was too loose (the union of the points 1 and 2 gave a
+   ball of radius 2.01 at 0).
+6. **(Note) Planted-box substitution, now registered:** v6's verdict hard-codes its planted precondition at
+   4.2 ± 0.01, a VALID region-B box. v7B substitutes 30/7 + 0.02 ± 0.01 and says so in the log. That exercises only the
+   30/7 line, so new control (R): the loops' reach planted at 10 must make the precondition's R_c part refuse.
+7. **(Notes)** FieldB asserts bB ∈ D, and a mislabelled field in the precondition output is removed.
+   - The engine side (floats-B, gate B) matches the Arb side: the same Z0 = 2, bB and span rule, and the same exact
+     vertices.
+   - Addendum 6's sub-box precondition was confirmed rigorous.
+
+**Controls, in `scripts/_nve_v7_controlsB.py`, all must PASS before pilots 2 and 3:**
+- (pos) the self-test passes;
+- (A) E/1e6 and (A2) E × 0.5 fail it;
+- (B) refused by the B-cut guard; (B2) refused by the disc guard;
+- (R) the reach control refuses; (P) the substituted planted box refuses.

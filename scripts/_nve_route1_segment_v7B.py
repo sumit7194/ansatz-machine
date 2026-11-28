@@ -36,7 +36,7 @@ REACH = max(abs(v - complex(float(Z0.mid()))) for v in GAM + LAS)
 U = acb(arb(0, 1), arb(0, 1))
 K8 = (arb(8) / 5).sqrt() * A
 PREF = -(arb(8) / 5).sqrt() * A ** 3
-SM = 24
+SM = 96          # addendum 8: was 24; the E enclosures were 26-56% wide (reader item 4)
 
 # ------------------------------------------------------------------------------------------------ hash and names
 CODE_FILES = S7.CODE_FILES + ("_nve_route1_segment_v7B.py", "_nve_v7_floatsB.py", "_nve_v7_engine_gate_B.py")
@@ -57,17 +57,26 @@ say = S5.say
 
 
 # ------------------------------------------------------------------------------------------------ singular points
+def csqrt(x):
+    """a square root of the ball x, choosing the representation that avoids Arb's cut (-inf, 0]: for Re x < 0
+    certified, i sqrt(-x). (Callers use both signs, so either representation is valid; this one keeps the ball
+    narrow, where x.sqrt() on a ball straddling the negative real axis returns both branches, centred at 0. Reader item 1.)"""
+    if x.real < 0:
+        return acb(0, 1) * (-x).sqrt()
+    return x.sqrt()
+
+
 def sing_balls(K):
     """the four branch points and +-ia as acb balls over the k-set K (None if not enclosable)"""
     den = 90 - 21 * K
     if den.contains(0):
         return None
-    sq = (60 * K * (K - 4)).sqrt()
+    sq = csqrt(60 * K * (K - 4))
     out = [acb(0, A), acb(0, -A)]
     for w in (((30 - 9 * K) + sq) / den, ((30 - 9 * K) - sq) / den):
         if not w.is_finite():
             return None
-        r = A * w.sqrt()
+        r = A * csqrt(w)
         out += [r, -r]
     return out
 
@@ -95,6 +104,8 @@ class FieldB:
         if rc is None:
             raise RuntimeError("fieldB: singular points not enclosable")
         self.Rd = (rc * arb("0.9")).lower()
+        if not self.inside(acb(BB)):
+            raise RuntimeError("fieldB: the base point bB is not certified inside the disc")
         self.cache = [self.c.start(BB)]
 
     def inside(self, z, extra=0.0):
@@ -295,8 +306,13 @@ for _j in range(SM):
 _RD = {}
 
 
+def _kkey(K):
+    """exact key of a k-set: midpoints (mantissa, exponent) and radii (exact floats of the mag radii). Reader item 3."""
+    return (K.real.mid().man_exp(), K.imag.mid().man_exp(), float(K.real.rad()), float(K.imag.rad()))
+
+
 def Rd_for(K):
-    key = (str(K.real), str(K.imag))
+    key = _kkey(K)
     if key not in _RD:
         rc = Rc_lower(K)
         _RD[key] = None if rc is None else (rc * arb("0.9")).lower()
@@ -308,7 +324,7 @@ _BASE2 = {}
 
 def base2(K):
     """(d2 c0'/dk2 (bB), d2 c0/dk2 (bB)) enclosed over K; None if Re P > 0 is not certified on some s-ball x K."""
-    key = (str(K.real), str(K.imag))
+    key = _kkey(K)
     if key in _BASE2:
         return _BASE2[key]
     if not ((K.real - arb(30) / 7) < 0):
@@ -333,13 +349,19 @@ def base2(K):
     return _BASE2[key]
 
 
+LAST = dict(refused=None)
+
+
 def d2kc0_B(Z, K):
-    """(E0, E1) = (d2 c0/dk2, d2 c0'/dk2) enclosed on Z x K by addendum 5's representation; None if any guard fails."""
+    """(E0, E1) = (d2 c0/dk2, d2 c0'/dk2) enclosed on Z x K by addendum 5's representation; None if any guard fails.
+    LAST["refused"] records which guard refused (for the controls): "base", "disc" or "B-cut"."""
     NAT["d2k"] += 1
+    LAST["refused"] = None
     Rd = Rd_for(K)
     b = base2(K)
     if Rd is None or b is None:
         NAT["d2k_none"] += 1
+        LAST["refused"] = "base"
         return None
     e1b, e0b = b
     dz = Z - BB
@@ -348,11 +370,13 @@ def d2kc0_B(Z, K):
         t = BB + T * dz
         if not ((t - acb(Z0)).abs_upper() < Rd):
             NAT["d2k_none"] += 1
+            LAST["refused"] = "disc"
             return None
         w = t * t / (A * A)
         Bv = (90 - 21 * K) * w * w - (60 - 18 * K) * w + (10 - K)
         if Bv.contains(0) or not (Bv.real > 0 or Bv.imag > 0 or Bv.imag < 0):
             NAT["d2k_none"] += 1
+            LAST["refused"] = "B-cut"
             return None
         dB = -(21 * w * w - 18 * w + 1)
         g = PREF * (-(dB * dB) / (4 * Bv * Bv.sqrt())) / ((t * t + A * A) ** 3)     # sigma = +1 (see the docstring)
@@ -387,7 +411,7 @@ def precondition_B(K):
         return out
     Rd = float((rc * arb("0.9")).lower())
     ok = REACH + 0.1 < Rd
-    out.update(ok=bool(ok), Rc_lower=float(rc.lower()), Rd=Rd, reach=REACH, max_root_abs_w=Rd)
+    out.update(ok=bool(ok), Rc_lower=float(rc.lower()), Rd=Rd, reach=REACH)
     if not ok:
         out["why"] = f"loops' reach {REACH:.4f} + 0.1 >= 0.9 R_c {Rd:.4f}"
     return out
@@ -415,13 +439,15 @@ def selftest_B(kc, lau_c, laud_c):
         e0 = float((D0 - fd0).abs_upper())
         e1 = float((D1 - fd1).abs_upper())
         rq = float(fdq.abs_lower()) / float(sup)
-        e2 = d2kc0_B(Z, acb(kc))
-        f2 = (V.c0_at(Z, ldp)[0] - V.c0_at(Z, ldm)[0]) / (2 * h)
-        o2 = e2 is not None and bool(e2[0].overlaps(f2 + arb("1e-8") * V.UNIT))
+        e2 = V.d2kc0(Z, acb(kc))                    # looked up at call time, so a control can replace it
+        dp, dm = V.c0_at(Z, ldp), V.c0_at(Z, ldm)
+        f2, f2p = (dp[0] - dm[0]) / (2 * h), (dp[1] - dm[1]) / (2 * h)
+        o2 = e2 is not None and bool(e2[0].overlaps(f2 + arb("1e-8") * V.UNIT)) and \
+            bool(e2[1].overlaps(f2p + arb("1e-8") * V.UNIT))          # E0 AND E1 (reader item 4)
         good = e0 < 1e-8 and e1 < 1e-8 and 0.5 < rq <= 1.0000001 and o2
         ok &= good
         say(f"    z = {zz}: |D0 - FD| <= {e0:.1e}, |D1 - FD| <= {e1:.1e}; |FD dq/dk| / sup = {rq:.6f}; "
-            f"second derivative (addendum 5) overlaps its FD: {o2}  -> {'ok' if good else 'FAIL'}")
+            f"second derivatives E0, E1 (addendum 5) overlap their FD: {o2}  -> {'ok' if good else 'FAIL'}")
     return ok
 
 
