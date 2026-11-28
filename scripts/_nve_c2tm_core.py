@@ -129,10 +129,10 @@ class TM:
     __rmul__ = __mul__
 
     # ------------------------------------------------------------------ the theta guard
-    def theta(self):
+    def theta(self, name=""):
         c0 = self.c[0]
         if c0.contains(0):
-            raise TMRefuse("theta-guard: the constant coefficient contains 0")
+            raise TMRefuse(f"theta-guard{(' (' + name + ')') if name else ''}: the constant coefficient contains 0")
         a0 = c0.abs_lower()
         return ((_B([acb(0)] + self.c[1:]) + self.e) / a0).upper()
 
@@ -151,7 +151,7 @@ class TM:
         return [out[j] if j < len(out) else acb(0) for j in range(D + 1)]
 
     def recip(self, name=""):
-        th = self.theta()
+        th = self.theta(name)
         if not th <= arb(1) / 2:
             raise TMRefuse(f"reciprocal theta-guard{(' (' + name + ')') if name else ''}: theta {float(th.mid()):.3g} > 1/2")
         q = self._series(lambda x: 1 / x)
@@ -167,7 +167,7 @@ class TM:
         if not (c0.real > 0 or c0.imag > 0 or c0.imag < 0):
             raise TMRefuse(f"sqrt cut-guard{(' (' + name + ')') if name else ''}: the constant term is not certified off "
                            f"the cut")
-        th = self.theta()
+        th = self.theta(name)
         if not th <= arb(1) / 2:
             raise TMRefuse(f"sqrt theta-guard{(' (' + name + ')') if name else ''}: theta {float(th.mid()):.3g} > 1/2")
         q = self._series(lambda x: x.sqrt())

@@ -158,7 +158,8 @@ def t5():
         wk.walk(loop, st, sing, V.LIMZ)
     except TMRefuse as e:
         why = str(e)
-    expected = ("reciprocal theta-guard (G2 on the box)", "theta-guard: the constant coefficient contains 0")
+    expected = ("reciprocal theta-guard (G2 on the box)", "theta-guard (G2 on the box): the constant coefficient contains 0")
+    # (the glance's concern: the constant-coefficient refusal now names its reciprocal, so only G2's guard counts)
     if why is None:
         verdict = "DID NOT FIRE (the walk through a G2 zero was accepted)"
     elif any(x in why for x in expected):
