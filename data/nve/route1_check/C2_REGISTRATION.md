@@ -291,3 +291,73 @@ driver binary's checksum.
 - Cost per sub-box on the full loops is several minutes, so R/5 meets the cost bar (60%) but R/10 and R/20 do not
   (85%): **cost may bind.**
 - C2 step 0' PASS overall: 40%.
+
+## Addendum C2-4 (2026-11-28): ONE post-failure fix after step 0' FAILED (Bridge GO). Committed BEFORE any C2-4 code runs
+**Grade line (it goes in every result this addendum governs):** post-failure fix after step 0' FAILED (C2-4: s
+eliminated as a state; exact-time stepping). Step 0' itself stays FAILED (`C2_STEP0P_RESULT.md`).
+
+**(a) s = sqrt B is no longer a state.** The system has 14 real dims: c0, c0', Y (2x2 complex) and k (2). s(z, k) is a
+closed-form PRINCIPAL root inside the vector field, with the principal root of a complex A = (ar, ai) written as
+re = sqrt((|A| + ar)/2), im = ai/(2 re):
+- **region B (P2, P3):** s = sqrt_p(B(z^2/a^2, k)), the principal root of B itself.
+- **circle (P1):** s = w * sqrt_p(I), with w = z^2/a^2 and I = c2 + c1/w + cc/w^2 (c2 = 90 - 21k, c1 = -(60 - 18k),
+  cc = 10 - k), since B = w^2 I.
+
+Certified per step, on the WHOLE-step enclosure (z over the step's time interval, k over the sub-box, as the k-states'
+enclosure):
+- **(a1) off the cut:** the root's argument A (B, or I on the circle) has lower(|A| + Re A) > 0. Then the principal
+  root is continuous on the enclosure, and consecutive steps share their end sets, so along the loop the formula is
+  one continuous branch.
+- **(a2) circle only:** the inner argument I is certified to lie in the disc |I - I_c| <= 2.4, with I_c = c2(kc0).
+  The disc lies in Re > 0 for the pilot k-boxes (Re c2 >= 6.9 there), so (a2) implies (a1) with margin. It is checked
+  as a separate guard: certified per step, not assumed.
+- **(a3) at the start (glue, Arb):** the formula's value at the base point and kc0 must OVERLAP V1's start value s0
+  (the field's carried branch: real, positive at the real base point), and must NOT overlap -s0. So the formula's
+  branch equals the field's at the start, and by (a1) on every step thereafter.
+
+Any failure of (a1), (a2) or (a3) refuses the box.
+
+**Changes elsewhere:**
+- ds/dz no longer appears, so B_z and the s-row of the initial doubleton go.
+- c0's initial rows (and their E-type remainders) are unchanged.
+- dc0'/dz = pref s(z, k)/(z^2 + a^2)^3.
+- q, G1, G2 as before, with the c0 states.
+- The domain checks of addendum C2-1 (z^2 + a^2, G1, G2 != 0 and finiteness) are unchanged.
+
+**(b) Exact time: the driver's own step loop replaces CAPD's TimeMap.**
+- Per edge, time runs from j to j + 1.
+- Each step's maxStep is the EXACT remainder of the edge (j + 1 - t, a point), and the solver's step control picks
+  step <= maxStep.
+- After every step the set's time must be a POINT (lower = upper), or the box is refused.
+- On a CAPD exception (no validated step) the driver retries with maxStep halved (dyadic, exact). Below 2^-40 it
+  refuses.
+- The edge ends exactly at j + 1 (asserted as equality of points).
+
+**(c) Step 0'' (once):** the C2-3 bar, settings (256 bits, order 20, tolerance 1e-15, IdQR), sizes (R/5, R/10, R/20),
+boxes (P2, P1) and grids are unchanged. The point samples from step 0' are reused (they do not depend on the driver).
+
+**Order:**
+1. this addendum;
+2. code;
+3. development smoke on the retraced loops, with the Arb walk's monodromy contained;
+4. a FOCUSED non-author read of (a) and (b), covering (i) the root equals the field's branch at the start and stays
+   continuous; (ii) the circle disc is certified per step; (iii) the time stays an exact point, retries halve, and a
+   non-point time refuses;
+5. the controls below (must fire);
+6. step 0'' once.
+
+**Controls (must FIRE before step 0''):**
+- **(K1) planted branch error:** the start value of the s-branch with the WRONG sign (-s0 handed to the glue's start
+  match). It must be refused by (a3).
+- **(K2) planted cut crossing:** a region-B formula step whose enclosure crosses B's cut (a segment from bB toward a B
+  branch point, as in control (B) of `_nve_v7_controlsB.py`, with the disc guard set aside). It must be refused by (a1).
+- **(K3) planted circle disc:** the disc radius 2.4 replaced by 0.01. It must be refused by (a2).
+- **(K4) planted time:** a non-dyadic maxStep injected once. The non-point time must be refused by (b).
+
+**If step 0'' FAILS:** C2-via-CAPD is FAILED. I report the fallback-or-STOP choice to the Bridge; there is no third
+mechanism without a new ruling. The 2026-12-12 time box stands.
+
+**Predictions (recorded before any C2-4 code):**
+- (a) removes the observed blow-up of s: 70%;
+- step 0'' passes the sup bar at some size: 45%;
+- given a pass, cost binds at R/10 or finer: 60%.
