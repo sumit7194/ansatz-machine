@@ -169,3 +169,56 @@ soundness bug in `start`, the Taylor remainders, the adaptive `sup_box` cover (g
 
 **The earlier T1' run** (launched 15:22:50 on the pre-fix code, 3724663) is a **development run**. Its outputs carry
 the pre-fix code hash and count for nothing.
+
+## Addendum 5 (2026-11-28, the Bridge's condition before pilots 2 and 3): the region-B k-uniform bound for d²c0/dk², derived before any code
+**Why it is needed.** The segment certificate's M bound needs sup |dq/dk| on (step box Z) × (k-box K). v2/v4 get it from
+c0 and dc0/dk at k_c (now the field's) plus a Taylor-in-k remainder with E = d²c0/dk² and d²c0'/dk² enclosed on Z × K.
+v2's `d2kc0` encloses E by an integral along the ray from z to ∞, with a guard Re(1 − kφ) > 0. In the half-plane that
+ray and guard are not the natural ones. Region B's single-valued domain is the disc D = {|z − Z0| ≤ R_d}, with
+R_d = 0.9 R_c and R_c a certified lower bound of the distance from Z0 to c0's singular points over K (the FieldB disc).
+
+**Representation (exact, for every k in K and every z in D).** Let bB be the real base point, in D. Then:
+- c0'(z; k) = c0'(bB; k) + (z − bB) ∫₀¹ c0''(t(τ); k) dτ,
+- c0(z; k) = c0(bB; k) + c0'(bB; k)(z − bB) + (z − bB)² ∫₀¹ (1 − τ) c0''(t(τ); k) dτ,
+
+where t(τ) = bB + τ(z − bB) is the straight segment, which lies in D because D is convex. The base values come from
+the s = 1/t integrals along the real axis, as V1's `start`:
+- c0'(bB; k) = √(8/5)·a ∫₀^{1/bB} s²·√P(s, k)/(1 + a²s²)³ ds,
+- c0(bB; k) = −√(8/5)·a ∫₀^{1/bB} (s − bB s²)·√P(s, k)/(1 + a²s²)³ ds,
+
+with P(s, k) = (90 − 21k) − (60 − 18k)a²s² + (10 − k)a⁴s⁴, and c0''(t; k) = −√(8/5)·a³·√B(t²/a², k)/(t² + a²)³.
+
+**Second k-derivatives.** P and B are linear in k, so ∂²P/∂k² = ∂²B/∂k² = 0 and
+- ∂²_k √P = −(∂_k P)²/(4 P^{3/2}), with ∂_k P = −21 + 18a²s² − a⁴s⁴;
+- ∂²_k √B = −(∂_k B)²/(4 B^{3/2}), with ∂_k B = −(21w² − 18w + 1), w = t²/a².
+
+E0 = ∂²_k c0 and E1 = ∂²_k c0' on Z × K are therefore the same four integrals, with √P and √B replaced by their second
+k-derivatives (differentiation under the integral sign: the integrands are holomorphic in k on a neighbourhood of K,
+by the guards below).
+
+**Enclosure (rigorous; the rectangle rule as in `d2kc0`).**
+- [0, 1] in τ, and [0, 1/bB] in s, are each covered by SM closed balls T_j (asserted to cover).
+- For a holomorphic integrand g, ∫₀¹ g ∈ (1/SM)·Σ_j g(T_j), each g(T_j) an Arb enclosure on the ball, with K the
+  whole k-box and Z the whole step box. No sampling.
+
+**Guards; any failure returns "not certified", so the row is refused, fail closed:**
+1. **Base integrals:** Re P > 0 on every s-ball × K. By the reader's V1 argument, P ∉ (−∞, 0] there, so the principal
+   √P is the global branch, and P^{3/2} = P·√P is nonzero.
+2. **Segment integrals:** on every τ-ball × Z × K, the ball of B excludes 0 AND lies in one open half-plane avoiding
+   the cut (Re B > 0, or Im B > 0 throughout, or Im B < 0 throughout). So the principal √B is continuous on the ball.
+   Its sign σ_j ∈ {±1} is fixed by the field at k_c: σ_j·√B(t_mid, k_c) must be certified closer to the field's
+   carried s(t_mid) than its negative. The segment from bB to every point of Z must lie in D (|t − Z0| ≤ R_d,
+   certified on every ball).
+3. **The k-box K:** Re k < 30/7 on K, so P(0, k) = 90 − 21k has positive real part. For the dyadic pilot near 30/7 this
+   is the ellipse condition ρ + 1/ρ < 6.
+
+**Must-fail controls (both must fire before any pilot uses the bound):**
+- (A) A shrunken bound: E0/1e6 on a pilot-2 step box must be refused by v6's sampled-maximum check on M (the existing
+  shrunken-M control, run with the scaled E).
+- (B) A planted spike: a step box whose straight segment from bB crosses a c0 branch point, outside D. Guard 2 must
+  refuse it.
+- Plus a positive check: at k_c, E0 and E1 must overlap the central finite difference of the field's dc0/dk (the
+  v2 selftest's second-derivative test).
+
+**Order:** this addendum, then the code (committed), then the non-author read of the derivation AND the code, then
+controls (A) and (B), then pilots 2 and 3.
