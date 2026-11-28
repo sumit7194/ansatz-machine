@@ -166,3 +166,35 @@ combination is reported as it is.
 **Development check (not a registered run):** the centre R/5 cell through the glue (`c2/c2mdev_*`) reproduces step
 0'''s enclosure (F +-7.7e58). Its margins are all positive (min |G2|^2 >= 2.7e-6 on the lasso; the off-cut margin is
 about 379). A dry M3 run fired both ways.
+
+## Erratum C2-M-2 (2026-11-28): after the non-author read of 199f9cf (committed before any registered C2-M run)
+**F1, the node-precision assertion, as registered, was wrong for the traces.** n is sized from M_F (v5's formula), so
+tr M0's and tr M1's ATAP terms come out far below their node radii BY CONSTRUCTION (at P2 R/5: about 1e-53 and 1e-41,
+against node radii of about 1e-12). The real verdict would always have tripped it, and M4 would have tested nothing.
+- **Amended:** the assertion is 2 x the largest F-node radius <= 1e-3 x F's ATAP term, for F only.
+- For tr M0 and tr M1, node errors are carried rigorously in the interpolant's ball coefficients and judged by
+  conditions(); soundness never depended on the assertion.
+- M4 plants an F-node radius of 1e-2, which must trip it; the unplanted check now can pass.
+
+**F3, M2 becomes three separate plants (M2F, M2T0, M2T1).**
+- Each plants ONE quantity's M at 0.5 x the largest |X| among the REAL verdict's v6 ellipse samples, and each must
+  ALARM "proved M below a sample".
+- The M1 values are dropped from the sampled max: they lie at cell centres, possibly outside E_rho, where |X| may
+  exceed the sup over E_rho and push the plant above the truth.
+- Plants write their own proof and verdict files.
+- Their extra evaluations (about 16 per plant) are counted and reported.
+
+**F2, F4 and F5, provenance:**
+- every cell record carries this run's nonce and the cell's exact centre and half-side, and is deleted before launch;
+- M1's records are keyed by the cover's CODE and the cell's geometry, and all 81 centre samples must be used;
+- the driver BINARY's bytes are in CODE, and the record's header must show the IdQR policy.
+
+**F6, the cover gate:** M is recomputed from the leaves' records, the cells' geometry is re-checked against each run's
+environment, and the proof file's M must be at least the leaves' sup (except in an M2 plant).
+
+**F7, M3** now exercises each of accept()'s refusal branches (a crash, a driver refusal, a missing loop's margins, a
+non-finite enclosure, a zero margin) and the R/20 STOP.
+
+**F8:** F mode is asserted.
+
+**A re-read of the fix diff precedes any registered run.**

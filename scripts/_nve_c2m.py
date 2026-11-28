@@ -46,15 +46,17 @@ GLUE = os.path.join(HERE, "_nve_c2_capd.py")
 PLANT = os.environ.get("C2M_PLANT", "")
 
 # ------------------------------------------------------------------------------------------------ code hash (F2)
+assert S6.MODE == "F", "C2-M runs in F mode only (read F8)"
 CODE_FILES = L.CODE_FILES + ("c2_capd/c2_driver.cpp", "_nve_c2_capd.py", "_nve_c2m.py")
+DRIVER_BIN = os.path.join(HERE, "c2_capd", "build", "c2_driver_v2")      # read F5: the binary the glue runs is hashed
 ENVM = L.ENV7B + "; C2-M (CAPD v2 cover, NMAX 160)"
 CODE = hashlib.sha256(b"".join(open(os.path.join(HERE, f), "rb").read() for f in CODE_FILES)
-                      + ENVM.encode()).hexdigest()[:16]
+                      + open(DRIVER_BIN, "rb").read() + ENVM.encode()).hexdigest()[:16]
 BASE = f"c2m{V.TAG}{S5.KTAG}{S6.MTAG}_{CODE}"
 for mod in (S5, S6, S7, L):
     mod.CODE, mod.CODE_FILES, mod.BASE = CODE, CODE_FILES, BASE
 S5.ENVSTR = ENVM
-S5.MJSON = os.path.join(V.OUTD, f"route1_seg_M_{BASE}.json")
+S5.MJSON = os.path.join(V.OUTD, f"route1_seg_M_{BASE}{'_' + PLANT if PLANT else ''}.json")   # read F3: plants apart
 S5.LOG5 = V.LOG = os.path.join(V.OUTD, f"route1_seg_{BASE}.out")
 S6.NODEF = os.path.join(V.OUTD, f"route1_seg_nodes_{BASE}.jsonl")
 S6.VJSON = os.path.join(V.OUTD, f"route1_seg_verdict_{BASE}{'_' + PLANT if PLANT else ''}.json")
@@ -106,17 +108,28 @@ def drive_json(cid):
     return os.path.join(OUTD, f"c2m_{BOX}_k5_o20_v2_tol1e-15_cell{cid}_drive.json")
 
 
-def accept(rec):
-    """the H1-H4 record of a cell (registration 5)"""
+NONCE = {}
+
+
+def accept(rec, cid=None):
+    """the H1-H4 record of a cell (registration 5); the record must be THIS run's (read F2) and the IdQR driver's (F5)"""
     if rec is None:
         return dict(ok=False, why="no record (the glue crashed)")
+    if cid is not None and cid in NONCE and (rec.get("run_id"), rec.get("cell")) != NONCE[cid]:
+        return dict(ok=False, why="the record is not this run's (nonce or cell mismatch)")
+    hdr = rec.get("driver_header") or ""
+    if rec.get("rc") == 0 and hdr != "dry" and "policy IdQR (B = I)" not in hdr:
+        return dict(ok=False, why="the driver header does not show the IdQR policy")
     if rec.get("rc") != 0:
         return dict(ok=False, why=" | ".join(rec.get("refused") or ["rc != 0"]), H1=not any(
             "start" in r for r in (rec.get("refused") or [])))
     mg = rec.get("margins") or {}
     loops_ok = all(str(lp) in mg for lp in (0, 1))
     pos = loops_ok and all(mg[str(lp)][kk] > 0 for lp in (0, 1) for kk in ("a1", "D2", "G1_2", "G2_2"))
-    fin = all(acb(arb(rec[q][0]), arb(rec[q][1])).is_finite() for q in ("F", "T0", "T1"))
+    try:
+        fin = all(acb(arb(rec[q][0]), arb(rec[q][1])).is_finite() for q in ("F", "T0", "T1"))
+    except (ValueError, TypeError):
+        fin = False
     ok = bool(pos and fin)
     return dict(ok=ok, H1=True, H2=bool(loops_ok and all(mg[str(lp)]["a1"] > 0 for lp in (0, 1))),
                 H3=bool(loops_ok and all(mg[str(lp)][kk] > 0 for lp in (0, 1) for kk in ("D2", "G1_2", "G2_2"))),
@@ -128,11 +141,22 @@ def run_cells(cells, dry_refuse=None):
     """cells: list of (cid, centre, h). Runs them two at a time (or, dry, decides by dry_refuse). -> {cid: record}"""
     out = {}
     if dry_refuse is not None:
+        good = lambda: dict(rc=0, F=["1", "0"], T0=["1", "0"], T1=["1", "0"],
+                            margins={"0": dict(a1=1, D2=1, G1_2=1, G2_2=1), "1": dict(a1=1, D2=1, G1_2=1, G2_2=1)},
+                            driver_header="dry", t_capd=0.0)
         for cid, c, h in cells:
-            rec = None if cid in dry_refuse else dict(rc=0, F=["1", "0"], T0=["1", "0"], T1=["1", "0"],
-                                                      margins={"0": dict(a1=1, D2=1, G1_2=1, G2_2=1),
-                                                               "1": dict(a1=1, D2=1, G1_2=1, G2_2=1)},
-                                                      driver_header="dry", t_capd=0.0)
+            mode = dry_refuse.get(cid) if isinstance(dry_refuse, dict) else ("none" if cid in dry_refuse else None)
+            rec = good()
+            if mode == "none":
+                rec = None                                   # the glue crashed
+            elif mode == "rc":
+                rec = dict(rc=2, refused=["REFUSED (dry)"])  # the driver refused
+            elif mode == "margin":
+                del rec["margins"]["1"]                       # a loop's margins missing
+            elif mode == "nonfinite":
+                rec["F"] = ["nan", "0"]                       # a non-finite enclosure
+            elif mode == "zero":
+                rec["margins"]["0"]["G2_2"] = 0               # a margin not positive
             out[cid] = rec
         return out
     pending = list(cells)
@@ -143,6 +167,10 @@ def run_cells(cells, dry_refuse=None):
             env = base_env()
             env["C2_CELL"] = f"{me(c.real)} {me(c.imag)} {me(h)}"
             env["C2_CELL_ID"] = cid
+            env["C2_RUN_ID"] = f"{CODE}|{cid}|{time.time_ns()}"          # read F2: the record must carry this nonce
+            NONCE[cid] = (env["C2_RUN_ID"], env["C2_CELL"])
+            if os.path.exists(drive_json(cid)):
+                os.remove(drive_json(cid))                               # read F2: never reuse an earlier record
             logf = open(os.path.join(OUTD, f"c2m_{BOX}_cell{cid}.out"), "w")
             p = subprocess.Popen([sys.executable, "-I", "-u", GLUE, "drive"], env=env, stdout=logf, stderr=subprocess.STDOUT,
                                  cwd=ROOT)
@@ -176,9 +204,10 @@ def cover(dry_refuse=None):
         recs = run_cells(todo, dry_refuse)
         nxt = []
         for cid, c, h in todo:
-            acc = accept(recs.get(cid))
+            acc = accept(recs.get(cid), None if dry_refuse is not None else cid)
             cells[cid] = dict(level=level, centre=[c.real.str(30), c.imag.str(30)], h=float(h),
-                              exact=dict(re=me(c.real), im=me(c.imag), h=me(h)), accept=acc,
+                              exact=dict(re=me(c.real), im=me(c.imag), h=me(h)),
+                              cell_env=f"{me(c.real)} {me(c.imag)} {me(h)}", accept=acc,
                               rec={k: recs[cid].get(k) for k in ("F", "T0", "T1", "t_capd", "steps", "refused")}
                               if recs.get(cid) else None)
             if acc["ok"]:
@@ -208,15 +237,20 @@ def cover(dry_refuse=None):
 
 
 def m3():
-    """control M3 (dry): (a) a refused centre R/5 cell must take the R/10 path and be covered by its 4 quadrants;
-    (b) the centre cell, its quadrant .0 and all four of that quadrant's R/20 children refused must STOP"""
-    ra = cover(dry_refuse={"L0_12"})
-    a_ok = (ra["stop"] is None and "L0_12" not in ra["leaves"]
-            and all(f"L0_12.{j}" in ra["leaves"] for j in range(4)) and ra["n_leaves"] == 28)
-    rb = cover(dry_refuse={"L0_12", "L0_12.0", "L0_12.0.0"})
+    """control M3 (dry; it runs the real cover(), quadrants() and accept()): (a) centre-cell records that fail in each
+    of accept()'s ways (a crash, a driver refusal, a missing loop's margins, a non-finite enclosure, a zero margin), one
+    per run, must each take the R/10 path; (b) the centre cell, its quadrant .0 and that quadrant's R/20 child .0.0
+    refused must STOP (any refused R/20 cell stops the pilot)"""
+    a_ok, a_runs = True, {}
+    for mode in ("none", "rc", "margin", "nonfinite", "zero"):
+        ra = cover(dry_refuse={"L0_12": mode})
+        ok = (ra["stop"] is None and "L0_12" not in ra["leaves"]
+              and all(f"L0_12.{j}" in ra["leaves"] for j in range(4)) and ra["n_leaves"] == 28)
+        a_runs[mode] = ok
+        a_ok &= ok
+    rb = cover(dry_refuse={"L0_12": "none", "L0_12.0": "none", "L0_12.0.0": "none"})
     b_ok = rb["stop"] is not None and "L0_12.0.0" in rb["stop"]
-    out = dict(M3a_refinement_path=a_ok, M3b_stop=b_ok, a=dict(leaves=ra["n_leaves"], stop=ra["stop"]),
-               b=dict(stop=rb["stop"]))
+    out = dict(M3a_refinement_path=a_ok, M3a_by_mode=a_runs, M3b_stop=b_ok, b=dict(stop=rb["stop"]))
     json.dump(out, open(os.path.join(OUTD, f"c2m_{BOX}_M3.json"), "w"), indent=1)
     print(f"C2-M control M3 {BOX}: refinement path {'FIRED' if a_ok else 'DID NOT FIRE'}; R/20 STOP "
           f"{'FIRED' if b_ok else 'DID NOT FIRE'}", flush=True)
@@ -252,7 +286,7 @@ def m1():
                 if not box.contains(k):
                     continue
                 vals = [acb(arb(d[q][0]), arb(d[q][1])) for q in ("F", "T0", "T1")]
-                key = f"{cid}|sample{d['i']},{d['j']}"
+                key = f"{C['code']}|{cid}|{cell['cell_env']}|sample{d['i']},{d['j']}"
                 if key not in done:
                     done[key] = dict(key=key, cell=cid, reused=True,
                                      contained=[bool(e.contains(v)) for e, v in zip(enc, vals)])
@@ -261,7 +295,7 @@ def m1():
         else:
             jobs.append((idx, cid, acb(c.real.mid(), c.imag.mid()), enc))
     for idx, cid, k, enc in jobs:
-        key = f"{cid}|centre"
+        key = f"{C['code']}|{cid}|{C['cells'][cid]['cell_env']}|centre"
         if idx % nsl != i0 or key in done:
             continue
         r = V.evaluate(k.real, k.imag, S6.REF)
@@ -273,7 +307,12 @@ def m1():
             fh.flush()
             os.fsync(fh.fileno())
         print(f"M1 {cid}: contained {done[key]['contained']} [{r['sec']} s]", flush=True)
-    need = {f"{cid}|centre" for _i, cid, _k, _e in jobs}
+    need = {f"{C['code']}|{cid}|{C['cells'][cid]['cell_env']}|centre" for _i, cid, _k, _e in jobs}
+    cur = {k: v for k, v in done.items() if k.startswith(C["code"] + "|")}     # read F4: only this cover's records
+    nsamp = sum(1 for k in cur if "|sample" in k)
+    if os.path.exists(samp_file) and "L0_12" in C["leaves"]:
+        assert nsamp == 81, f"M1: {nsamp} of the 81 centre-cell samples were used"
+    done = cur
     if need <= set(done):
         allc = all(all(d["contained"]) for d in done.values())
         out = dict(n_checked=len(done), n_new=len(need), all_contained=allc,
@@ -284,15 +323,28 @@ def m1():
 
 # ------------------------------------------------------------------------------------------------ verdict
 def cover_gate(cov):
-    """substitution (1): the C2-M cover gate, replacing v5's Dyson coverage (F3) gate"""
+    """substitution (1): the C2-M cover gate, replacing v5's Dyson coverage (F3) gate (read F6: M recomputed from
+    the leaves' records, the cells' geometry re-checked, and the proof file's M_F at least the cover's unless planted)"""
     C = json.load(open(COVER))
     assert C["code"] == CODE, "F2 gate: the cover was made by another code"
     assert C["stop"] is None, f"C2-M cover STOPPED: {C['stop']}"
-    assert cov == dict(leaves=C["n_leaves"], cells=C["n_cells"], M=C["M"]), "the proof file's coverage is not the cover's"
+    assert cov["leaves"] == C["n_leaves"] and cov["cells"] == C["n_cells"], "the proof file's coverage is not the cover's"
+    f_ = lambda t: arb(int(t.split()[0])) * arb(2) ** int(t.split()[1])
+    sups = [arb(0), arb(0), arb(0)]
     for cid in C["leaves"]:
-        a = C["cells"][cid]["accept"]
+        cell = C["cells"][cid]
+        a = cell["accept"]
         assert a["ok"] and a["H1"] and a["H2"] and a["H3"] and a["H4"], f"cell {cid} lacks H1-H4"
-    # every level-0 cell is a leaf or has all 4 children accounted for (as leaves or further refined)
+        r = cell["rec"]
+        for m, q in enumerate(("F", "T0", "T1")):
+            sups[m] = V.amax((sups[m], acb(arb(r[q][0]), arb(r[q][1])).abs_upper()))
+        ex = cell["exact"]
+        assert f"{ex['re']} {ex['im']} {ex['h']}" == cell["cell_env"], f"cell {cid}: geometry differs from its run"
+    for m, nm in enumerate(("MF", "MT0", "MT1")):
+        assert bool(arb(C["M"][m]) >= sups[m]), f"the cover's {nm} is below its leaves' sup"
+        if not PLANT.startswith("M2"):
+            assert bool(arb(cov[nm]) >= sups[m]), f"the proof file's {nm} is below the cover's leaves' sup"
+
     def covered(cid):
         if cid in C["leaves"]:
             return True
@@ -302,15 +354,16 @@ def cover_gate(cov):
 
 
 def node_precision(vals, eF, e0, e1):
-    """substitution (2): 2 x the largest node radius <= 1e-3 x the ATAP error term, per quantity (registration:
-    'max rad(c_m) <= 1e-3 x the ATAP term'; rad c_m <= 2 max_j rad f_j by the coefficient formula)"""
-    for m, e in enumerate((eF, e0, e1)):
-        rads = [max(v[m].real.rad(), v[m].imag.rad()) for v in vals]
-        if PLANT == "M4" and m == 0:
-            rads[0] = rads[0] + arb("1e-2")
-        rmax = V.amax([arb(x) for x in rads])
-        assert bool(2 * rmax <= e / 1000), f"node precision: 2 x max node radius {float(rmax):.2e} > 1e-3 x the ATAP " \
-                                           f"term {float(e):.2e} (quantity {m})"
+    """substitution (2), as amended by erratum C2-M-2 (read F1): 2 x the largest F-node radius <= 1e-3 x F's ATAP term.
+    n is sized for F (v5's formula uses M_F), so only F's term is a meaningful scale; the trace terms come out far
+    below the trace nodes' radii BY CONSTRUCTION. That is harmless to soundness: every node radius enters the
+    interpolant's ball coefficients and is judged by conditions(). So the traces are not asserted here."""
+    rads = [max(v[0].real.rad(), v[0].imag.rad()) for v in vals]
+    if PLANT == "M4":
+        rads[0] = rads[0] + arb("1e-2")
+    rmax = V.amax([arb(x) for x in rads])
+    assert bool(2 * rmax <= eF / 1000), f"node precision: 2 x max F-node radius {float(rmax):.2e} > 1e-3 x F's ATAP " \
+                                        f"term {float(eF):.2e}"
 
 
 _F3_OLD = '''    cov = ch["coverage"]                          # F3, as v5's verdict
@@ -358,7 +411,7 @@ def make_proof(planted=None):
     assert n <= NMAX_C2M, f"n = {n} > NMAX = {NMAX_C2M}"
     den = rb ** n * (rb - 1)
     eF, e0, e1 = (4 * MF / den).upper(), (4 * MT0 / den).upper(), (4 * MT1 / den).upper()
-    cov = dict(leaves=C["n_leaves"], cells=C["n_cells"], M=C["M"])
+    cov = dict(leaves=C["n_leaves"], cells=C["n_cells"], MF=V.ser(MF), MT0=V.ser(MT0), MT1=V.ser(MT1))
     ch = dict(rho=RHO, n=n, R=V.ser(R), MF=V.ser(MF), MT0=V.ser(MT0), MT1=V.ser(MT1), errF=V.ser(eF), errT0=V.ser(e0),
               errT1=V.ser(e1), precondition=pre, coverage=cov, code=CODE, mode=S6.MODE, tolmode=S6.TOLMODE,
               tol_F=V.TOL_F, planted=PLANT or None)
@@ -371,19 +424,30 @@ def make_proof(planted=None):
 
 
 def verdict():
+    """the C2-M verdict; C2M_PLANT=M2F|M2T0|M2T1 plants ONE quantity's M at 0.5 x the largest |X| among the REAL
+    verdict's v6 ellipse samples (all on the closure of E_rho, so the plant is strictly below the truth; erratum
+    C2-M-2 drops the M1 values, which may lie outside E_rho); v6 must then ALARM "proved M below a sample". M4 plants
+    an F-node radius into the precision check, which must trip."""
     planted = None
-    if PLANT == "M2":
-        # M_X = 0.5 x the sampled max |X| on E_rho: v6's own ellipse samples of the REAL verdict, from the node file
-        real = json.load(open(S6.VJSON.replace("_M2.json", ".json")))
+    if PLANT.startswith("M2"):
+        which = {"M2F": 0, "M2T0": 1, "M2T1": 2}[PLANT]
+        real_vjson = S6.VJSON.replace(f"_{PLANT}.json", ".json")
+        real = json.load(open(real_vjson))
+        assert real.get("outcome") in ("certified", "not_certified"), "M2 needs a completed real verdict"
         done = S6.load_nodes()
         samp = [arb(0), arb(0), arb(0)]
+        nkeys = 0
         for key, r in done.items():
             if "|ellipse" in key and f"n={real['n']}|" in key:
+                nkeys += 1
                 for m, nm in enumerate(("F", "T0", "T1")):
                     samp[m] = V.amax((samp[m], acb(arb(r[nm][0]), arb(r[nm][1])).abs_upper()))
-        assert all(bool(x > 0) for x in samp), "M2 needs the real verdict's ellipse samples"
-        planted = tuple((x / 2).upper() for x in samp)
-        say(f"C2-M control M2: planting M = 0.5 x sampled max {[V.hi_sci(x) for x in planted]}")
+        assert nkeys >= 8 and all(bool(x > 0) for x in samp), "M2 needs the real verdict's 8 ellipse samples"
+        C = json.load(open(COVER))
+        Ms = [arb(x) for x in C["M"]]
+        Ms[which] = (samp[which] / 2).upper()
+        planted = tuple(Ms)
+        say(f"C2-M control {PLANT}: planting M[{which}] = 0.5 x sampled max = {V.hi_sci(Ms[which])}")
     make_proof(planted)
     verdict_c2m()()
 

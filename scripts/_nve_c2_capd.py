@@ -275,7 +275,8 @@ def drive():
     try:
         x, C, r, info = initial()
     except RuntimeError as e:
-        rec = dict(stage=STAGE, box=BOX, plant=PLANT, rc=2, refused=[f"REFUSED start: {e}"])
+        rec = dict(stage=STAGE, box=BOX, plant=PLANT, run_id=os.environ.get("C2_RUN_ID"), cell=CELL, rc=2,
+                   refused=[f"REFUSED start: {e}"])
         print(f"{STAGE} {BOX}: REFUSED at the start: {e}", flush=True)
         json.dump(rec, open(os.path.join(OUTD, f"{STAGE}_{TAG}_drive.json"), "w"), indent=1)
         return
@@ -287,7 +288,7 @@ def drive():
     t1 = time.time()
     pr = subprocess.run([DRIVER, inp, outp, logp], capture_output=True, text=True)
     t_capd = time.time() - t1
-    rec = dict(stage=STAGE, plant=PLANT, box=BOX, k_c=str(L.S6.KC), kc0=[kc0.real.str(20), kc0.imag.str(20)], hs=float(hs), R=float(R),
+    rec = dict(stage=STAGE, plant=PLANT, run_id=os.environ.get("C2_RUN_ID"), cell=CELL, box=BOX, k_c=str(L.S6.KC), kc0=[kc0.real.str(20), kc0.imag.str(20)], hs=float(hs), R=float(R),
                order=ORDER, tol=TOL, init=info, t_init=round(t_init, 1), t_capd=round(t_capd, 1), rc=pr.returncode,
                stderr=pr.stderr[-2000:])
     txt = open(outp).read() if os.path.exists(outp) else ""
