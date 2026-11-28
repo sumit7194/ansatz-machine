@@ -107,3 +107,14 @@ c0.
 | P-B passes by day 14 | 55% |
 | all three pilots certify by day 17 | 45% |
 | core-h per pilot segment at 3/5 within 2× of v6's at k ≈ 3 (about 0.6 h) | 50% |
+
+## Addendum 1 (2026-11-28, the Bridge's read; committed before V1's first run): radius bars, so (b) and (c) can fail
+- **V1(b):** at every one of the 20 points, BOTH the v7 ball and the Laurent ball (for c0 and for c0') must have
+  radius ≤ 1e−30. Overlap then counts as agreement. If either ball is wider at any point, (b) is **UNINFORMATIVE**, not
+  PASS.
+  - The bar is a fixed 1e−30, not derived from the Laurent series' own tolerance.
+  - Both evaluators work at 256 bits (about 77 digits), so 1e−30 leaves wide room for honest enclosures while making a
+    vacuous overlap impossible.
+- **V1(c):** after one circuit of |z| = R0, the returned enclosures of c0 and c0' must have radius ≤ 1e−30 AND contain
+  the starting values. A wider returned ball makes (c) **UNINFORMATIVE**, not PASS.
+- **V1(a)** already has a bar (radius ≤ 1e−40). Unchanged.
