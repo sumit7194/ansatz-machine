@@ -34,7 +34,7 @@
 | peak footprint | 33 MB | 44 MB prove, 134 MB verdict | under 0.2 GB |
 
 - **T1': PASS.** It certifies, with every bound within 2× of v6's; all are within 1%.
-- **T2': PASS.** The engine gate had 13 of 13 node values inside their enclosures. The engine computes c0 by its own
+- **T2': PASS.** The engine gate had 13 of 13 node values inside their enclosures. The engine gate is `scripts/_nve_route1_engine_gate.py`, **unchanged from v6** (its sha256 equals the one in `MANIFEST_PROD.sha256`). The engine computes c0 by its own
   mpmath Laurent series, so the two implementations no longer share the c0 formula (registration §3(b)'s
   common-mode risk is removed).
 - **T3': PASS.** The planted zero was refused, the held-out nodes broke nothing, the shrunken M was caught by the
