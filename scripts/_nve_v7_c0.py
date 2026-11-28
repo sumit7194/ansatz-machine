@@ -34,7 +34,7 @@ def _arb_frac(q):
 
 
 class C0:
-    def __init__(self, spin, k, plant=None, exact_control_k0=False):
+    def __init__(self, spin, k, plant=None, exact_control_k0=False, deriv=False):
         self.a = _arb_frac(spin) if not isinstance(spin, arb) else spin
         self.k = k if isinstance(k, acb) else acb(k)
         self.plant = plant or {}
@@ -46,11 +46,17 @@ class C0:
         if self.k.imag.is_zero() and not k0_ok and not (self.k.real > 0 and self.k.real <= arb(30) / 7):
             raise ValueError("k outside (0, 30/7]: B may vanish on the real u-axis; refused")
         self.steps = 0
+        self.deriv = deriv          # also carry D0 = d c0/dk, D1 = d c0'/dk (for the certifier's dq/dk bounds)
 
     # ---------------------------------------------------------------------------------------------- pointwise
     def B(self, z):
         w = z * z / (self.a * self.a)
         return self.c2 * w * w + self.c1 * w + self.c0
+
+    def dB(self, z):
+        """dB/dk = -(21 w^2 - 18 w + 1), w = z^2/a^2."""
+        w = z * z / (self.a * self.a)
+        return -(21 * w * w - 18 * w + 1)
 
     def B_mv(self, bx):
         """B on a box by the mean-value form: B(bx) is contained in B(m) + B'(bx) (bx - m), m the box's midpoint
@@ -92,7 +98,22 @@ class C0:
         s = self.B(zs).sqrt()
         if not (s.real > 0):
             raise AssertionError("start: sqrt B at the base point is not certified positive-real-part")
-        return dict(z=zs, c0=c0v, c0p=c0p, s=s)
+        st = dict(z=zs, c0=c0v, c0p=c0p, s=s)
+        if self.deriv:
+            def maked(weight):                 # d/dk sqrt P = dP/dk / (2 sqrt P),  dP/dk = -21 + 18 a^2 s^2 - a^4 s^4
+                def f(s, analytic):
+                    P = self._P(s)
+                    if analytic and not (P.real > 0):
+                        return acb("nan")
+                    a2s2 = a * a * s * s
+                    dP = -21 + 18 * a2s2 - a2s2 * a2s2
+                    return weight(s) * dP / (2 * P.sqrt()) / ((1 + a2s2) ** 3)
+                return f
+            J1 = acb.integral(maked(lambda s: s * s), 0, lim, rel_tol=arb(2) ** -240)
+            J0 = acb.integral(maked(lambda s: s - zs * s * s), 0, lim, rel_tol=arb(2) ** -240)
+            st["D1"] = k8 * J1
+            st["D0"] = -k8 * J0
+        return st
 
     # ---------------------------------------------------------------------------------------------- singularities
     def sing_points(self):
@@ -119,19 +140,29 @@ class C0:
             Bb = self.B_mv(bx)
             Db = bx * bx + self.a * self.a
             if not (Bb.contains(0) or Db.contains(0)):
-                return (self.pref.abs_upper() * Bb.abs_upper().sqrt() / (Db.abs_lower() ** 3)).upper()
+                m0 = (self.pref.abs_upper() * Bb.abs_upper().sqrt() / (Db.abs_lower() ** 3)).upper()
+                if not self.deriv:
+                    return m0
+                m1 = (self.pref.abs_upper() * self.dB(bx).abs_upper() / (2 * Bb.abs_lower().sqrt())
+                      / (Db.abs_lower() ** 3)).upper()
+                return (m0, m1)
             if d == 0:
                 raise AssertionError("step: a singular point of c0'' is within the Cauchy disc")
             h2 = (hw / 2).upper()
-            return max(bound(cx + sx * h2, cy + sy * h2, h2, d - 1) for sx in (-1, 1) for sy in (-1, 1))
-        M = arb(0)
+            parts = [bound(cx + sx * h2, cy + sy * h2, h2, d - 1) for sx in (-1, 1) for sy in (-1, 1)]
+            return max(parts) if not self.deriv else (max(p[0] for p in parts), max(p[1] for p in parts))
+        M, M1 = arb(0), arb(0)
         hw = (arb(r) / m).upper()
         for i in range(m):
             for j in range(m):
                 cx = (-arb(r) + hw * (2 * i + 1)).mid()
                 cy = (-arb(r) + hw * (2 * j + 1)).mid()
-                M = max(M, bound(arb(cx), arb(cy), hw, depth))
-        return M.upper()
+                v = bound(arb(cx), arb(cy), hw, depth)
+                if self.deriv:
+                    M, M1 = max(M, v[0]), max(M1, v[1])
+                else:
+                    M = max(M, v)
+        return M.upper() if not self.deriv else (M.upper(), M1.upper())
 
     # ---------------------------------------------------------------------------------------------- one step
     def step(self, st, h, r):
@@ -142,6 +173,8 @@ class C0:
             raise AssertionError("step: |h| > r/4")
         # sup |c0''| on the box containing the disc |x - z| <= r (branch-free: |sqrt B| = sqrt |B|)
         M = self.sup_box(z, r)
+        if self.deriv:
+            M, MD = M
         # Taylor series of c0'' at z
         ctx.cap = NTERMS
         x = acb_series([z, 1])
@@ -153,16 +186,25 @@ class C0:
             c = sq.coeffs()
         if not (abs(c[0] - s0) < abs(c[0] + s0)):
             raise AssertionError("step: branch of sqrt B ambiguous at the step start")
-        f = (self.pref * sq / ((x * x + self.a * self.a) ** 3)).coeffs()
+        D3 = (x * x + self.a * self.a) ** 3
+        f = (self.pref * sq / D3).coeffs()
         f = f + [acb(0)] * (NTERMS - len(f))
+        if self.deriv:                                   # d c0''/dk = pref (dB/dk) / (2 sqrt B) / D^3, same branch
+            g = (self.pref * self.dB(x) / (2 * sq) / D3).coeffs()
+            g = g + [acb(0)] * (NTERMS - len(g))
         # integrate once and twice
         hp = acb(h)
         d1 = acb(0)
         d2 = acb(0)
+        e1 = acb(0)
+        e2 = acb(0)
         hn = hp
         for n in range(NTERMS):
             d1 += f[n] * hn / (n + 1)
             d2 += f[n] * hn * hp / ((n + 1) * (n + 2))
+            if self.deriv:
+                e1 += g[n] * hn / (n + 1)
+                e2 += g[n] * hn * hp / ((n + 1) * (n + 2))
             hn *= hp
         th = (arb(habs) / r).upper()
         tail1 = (M * habs * th ** NTERMS / (1 - th)).upper()
@@ -186,7 +228,13 @@ class C0:
         if not (abs(snew - pred) < abs(snew + pred)):
             raise AssertionError(f"step {self.steps}: branch continuity of sqrt B not certified")
         self.steps += 1
-        return dict(z=znew, c0=c0v, c0p=c0p, s=snew)
+        out = dict(z=znew, c0=c0v, c0p=c0p, s=snew)
+        if self.deriv:
+            t1 = (MD * habs * th ** NTERMS / (1 - th)).upper()
+            t2 = (MD * habs * habs * th ** NTERMS / (1 - th)).upper()
+            out["D1"] = st["D1"] + e1 + acb(arb(0, t1), arb(0, t1))
+            out["D0"] = st["D0"] + st["D1"] * hp + e2 + acb(arb(0, t2), arb(0, t2))
+        return out
 
     # ---------------------------------------------------------------------------------------------- walk a path
     def walk(self, vertices, st, frac=0.5):
