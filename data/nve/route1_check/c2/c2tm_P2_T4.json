@@ -1,0 +1,20 @@
+{
+ "verdict": "PASS",
+ "why": "{\"c0\": {\"first\": true, \"second\": true, \"plant_caught\": true, \"tol1\": 8.105175885154935e-05, \"tol2\": 0.0006720848807724493}, \"c0p\": {\"first\": true, \"second\": true, \"plant_caught\": true, \"tol1\": 5.3489901900083346e-05, \"tol2\": 0.00037043471511433564}}",
+ "detail": {
+  "c0": {
+   "first": true,
+   "second": true,
+   "plant_caught": true,
+   "tol1": 8.105175885154935e-05,
+   "tol2": 0.0006720848807724493
+  },
+  "c0p": {
+   "first": true,
+   "second": true,
+   "plant_caught": true,
+   "tol1": 5.3489901900083346e-05,
+   "tol2": 0.00037043471511433564
+  }
+ }
+}

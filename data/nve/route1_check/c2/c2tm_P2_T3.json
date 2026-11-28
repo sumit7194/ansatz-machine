@@ -1,0 +1,6 @@
+{
+ "verdict": "DID NOT FIRE",
+ "why": "reciprocal theta-guard (G1 on the box): theta 5.42 > 1/2",
+ "unplanted_passes": true,
+ "expected": "reciprocal theta-guard (G2 on the box)"
+}

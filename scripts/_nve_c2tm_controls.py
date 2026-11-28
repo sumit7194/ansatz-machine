@@ -139,8 +139,10 @@ def t5():
     fld = L.field_for if BOX == "P1" else L.fieldB_for
     A, E2 = V.A, V.E2
 
+    exact = {complex(float(q[0]), float(q[1])): acb(arb(q[0]).mid(), arb(q[1]).mid()) for q in REF["points"]}
+
     def g2(p):
-        z = acb(p.real, p.imag)
+        z = exact[p]               # the floats entry's EXACT point strings (a rounded double gives |G2| about 1e-16)
         c0 = fld(kc0).at(z)["c0"]
         f0 = (z * z - 2 * z + A * A) / (z * z + A * A)
         return (f0 * f0 + c0 * c0).abs_upper()

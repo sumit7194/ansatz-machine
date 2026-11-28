@@ -1,0 +1,18 @@
+=== C2-M pilot P2 k_c 83/20 half 1/20 code 370f1b61059351cd base c2m_kc83o20h1o20_370f1b61059351cd HEAD 597ae0e5 2026-11-28 20:18:44
+=== M3 (dry)
+C2-M cover P2: 28 leaves of 29 cells; stop None; M ['1.000E+0', '1.000E+0', '1.000E+0']; CAPD 0 s total, wall 0.0 s
+C2-M cover P2: 28 leaves of 29 cells; stop None; M ['1.000E+0', '1.000E+0', '1.000E+0']; CAPD 0 s total, wall 0.0 s
+C2-M cover P2: 28 leaves of 29 cells; stop None; M ['1.000E+0', '1.000E+0', '1.000E+0']; CAPD 0 s total, wall 0.0 s
+C2-M cover P2: 28 leaves of 29 cells; stop None; M ['1.000E+0', '1.000E+0', '1.000E+0']; CAPD 0 s total, wall 0.0 s
+C2-M cover P2: 28 leaves of 29 cells; stop None; M ['1.000E+0', '1.000E+0', '1.000E+0']; CAPD 0 s total, wall 0.0 s
+C2-M cover P2: 30 leaves of 33 cells; stop cell L0_12.0.0 (R/20) not accepted: no record (the glue crashed); M None; CAPD 0 s total, wall 0.0 s
+C2-M control M3 P2: refinement path FIRED; R/20 STOP FIRED
+M3 rc 0
+=== cover 2026-11-28 20:18:44
+  cell L0_0: rc 2 [642 s]
+  cell L0_1: rc 2 [845 s]
+  cell L0_2: rc 0 [265 s]
+  cell L0_4: rc 2 [668 s]
+  cell L0_5: rc 2 [824 s]
+  cell L0_6: rc 0 [228 s]
+JOB_EXIT 145

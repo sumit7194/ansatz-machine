@@ -1,0 +1,16 @@
+=== C2-TM controls P2 HEAD 39b8df0 2026-11-28 21:04:21
+C2-TM control T3 P2: DID NOT FIRE  (reciprocal theta-guard (G1 on the box): theta 5.42 > 1/2)
+control T3 rc 0
+C2-TM control T4 P2: PASS  ({"c0": {"first": true, "second": true, "plant_caught": true, "tol1": 8.105175885154935e-05, "tol2": 0.0006720848807724493}, "c0p": {"first": true, "second": true, "plant_caught": true, "tol1": 5.3489901900083346e-05, "tol2": 0.00037043471511433564}})
+control T4 rc 0
+Traceback (most recent call last):
+  File "/Users/sumit/Github/conjecture_machine-check/scripts/_nve_c2tm_controls.py", line 170, in <module>
+    {"T3": t3, "T4": t4, "T5": t5}[sys.argv[1]]()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/sumit/Github/conjecture_machine-check/scripts/_nve_c2tm_controls.py", line 148, in t5
+    assert g2zeros, "T5: no G2 zero among the floats entry's points"
+           ^^^^^^^
+AssertionError: T5: no G2 zero among the floats entry's points
+control T5 rc 1
+=== C2TM_CONTROLS_DONE P2 2026-11-28 21:04:21
+JOB_EXIT 0
