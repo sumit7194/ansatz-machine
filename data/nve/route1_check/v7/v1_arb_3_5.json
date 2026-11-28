@@ -27,8 +27,8 @@
   "  (b) k 37/10 point 240 deg: v7 radius 1.6e-47, Laurent radius 3.7e-55 (bar 1e-30: ok); overlap True, |v7 - Laurent| <= 2.2e-47; engine True",
   "  (c) c_k3: one circuit, returned radius 4.8e-47 (bar 1e-30: ok); contains the start True; engine True   [86 steps]",
   "  (c) c_k39/10: one circuit, returned radius 1.8e-47 (bar 1e-30: ok); contains the start True; engine True   [84 steps]",
-  "  (d) must-fail controls fired: {'i': True, 'ii': True, 'iii': True, 'iv': True} -> PASS",
-  "VERDICT V1 spin 3/5: (a) PASS, (b) PASS, (c) PASS, (d) PASS -> PASS   [2 s]"
+  "  (d) must-fail controls fired: {'i': True, 'ii': True, 'iii': True, 'iv': True, 'iv_rigorous': True} -> PASS",
+  "VERDICT V1 spin 3/5: (a) PASS, (b) PASS, (c) PASS, (d) PASS -> PASS   [3 s]"
  ],
  "states": {
   "a_circle_k0": [
@@ -708,7 +708,8 @@
   "i": "True",
   "ii": "True",
   "iii": "True",
-  "iv": "True"
+  "iv": "True",
+  "iv_rigorous": "True"
  },
  "verdict": "PASS",
  "env": {

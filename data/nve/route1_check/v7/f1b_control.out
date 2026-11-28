@@ -1,0 +1,1 @@
+F1b control: clean field passes True; corrupted branch fires True -> PASS

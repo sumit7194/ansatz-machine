@@ -1,0 +1,76 @@
+=== v7 T1 code dd260c4d1529bd51 base v7_kc21o20h1o20_dd260c4d1529bd51 2026-11-28 15:22:51
+=== prove 2026-11-28 15:22:51
+== v7 prove (v6 + c0 field) == spin 3/5|k in [1, 11/10]; code dd260c4d1529bd51; files _nve_v7_c0.py, _nve_v7_field.py, _nve_route1_segment_v7.py
+== v6 prove == spin 3/5|k in [1, 11/10]; mode F, tol rel; |F(k_c)| (engine) 2.957992e-01; code dd260c4d1529bd51
+== prove (v5 = v4 + F1 branch assert, F2 code-hash keys, F3 coverage counts) == spin 3/5|k in [1, 11/10]; circle 1.35; code dd260c4d1529bd51; python 3.13.12, python-flint 0.9.0; rows (4.0,); checkpoint records of this code already on disk: dq 0, rows 0
+    z = (0.3+1.3162j): |D0 - FD| <= 1.3e-15, |D1 - FD| <= 2.5e-15; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True  -> ok
+    z = (-1.35+0j): |D0 - FD| <= 8.5e-16, |D1 - FD| <= 9.9e-16; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True  -> ok
+    z = (1.757-0.003j): |D0 - FD| <= 5.4e-16, |D1 - FD| <= 5.4e-16; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True  -> ok
+    z = (2.05-0.03j): |D0 - FD| <= 4.1e-16, |D1 - FD| <= 3.6e-16; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True  -> ok
+    z = (2.11+0.55j): |D0 - FD| <= 3.7e-16, |D1 - FD| <= 3.2e-16; |FD dq/dk| / sup = 1.000000; second derivative enclosure overlaps its FD: True  -> ok
+  self-test True; reference: circle 2133 steps, lasso 701 steps; F1 checks so far {'step': 12131, 'series': 0}  [30 s]
+  circle, K a point (z-direction control; v3 printed 4.153E-1 / 9.325E+0 at 3/5, 7.734E-1 / 2.179E+1 at 9/10): v4 <= 3.735E-1   [44 s]
+  lasso, K a point (z-direction control; v3 printed 4.153E-1 / 9.325E+0 at 3/5, 7.734E-1 / 2.179E+1 at 9/10): v4 <= 9.327E+0   [48 s]
+  rho = 4.0: M_F <= 2.425E+4, n = 12; coverage {'circle': {'steps': 2133, 'bounds': 2133, 'ksub': 25, 'pairs': 53325}, 'lasso': {'steps': 701, 'bounds': 701, 'ksub': 25, 'pairs': 17525}}; F1 checks {'step': 12131, 'series': 73684}   [104 s]
+  CHOSEN: rho = 4.0, n = 12
+  prove v5: 152 s, peak rss 44 MB
+  F1b checks: {'step': 12131, 'series': 73684}; c0 fields built: 3
+=== verdict (full controls) 2026-11-28 15:25:23
+== v7 verdict (v6 + c0 field) == spin 3/5|k in [1, 11/10]; code dd260c4d1529bd51
+== v6 verdict == spin 3/5|k in [1, 11/10]; mode F; rho = 4.0, n = 12; code dd260c4d1529bd51; node records on disk 0; full controls True
+  node0: 24.97 s, steps [2134, 701], radius of F 1.4e-09
+  node1: 24.74 s, steps [2134, 701], radius of F 1.4e-09
+  node2: 25.0 s, steps [2134, 701], radius of F 1.4e-09
+  node3: 24.66 s, steps [2133, 701], radius of F 1.4e-09
+  node4: 24.6 s, steps [2133, 701], radius of F 1.4e-09
+  node5: 26.28 s, steps [2133, 701], radius of F 1.4e-09
+  node6: 28.61 s, steps [2133, 701], radius of F 1.4e-09
+  node7: 28.56 s, steps [2133, 702], radius of F 1.4e-09
+  node8: 29.64 s, steps [2133, 702], radius of F 1.4e-09
+  node9: 27.62 s, steps [2133, 702], radius of F 1.4e-09
+  node10: 34.12 s, steps [2133, 702], radius of F 1.4e-09
+  node11: 34.45 s, steps [2133, 701], radius of F 1.4e-09
+  node12: 34.97 s, steps [2133, 701], radius of F 1.4e-09
+  F: min |p| >= 0.265334466; proved error bound <= 1.928E-3 -> |F| >= 0.263406948; != 0: True
+  tr M0: min |p| >= 1.993158418; bound <= 1.754E-7 -> |tr M0| >= 1.993158242; != 0: True
+  tr M1: min |Im p| >= 2.648820919; bound <= 3.080E-6 -> |Im tr M1| >= 2.648817840; not in [-2, 2]: True
+  held t=-5/8: 34.84 s, steps [2133, 702], radius of F 1.4e-09
+  held-out t = -5/8: |p - f| in [0.0e+00, 7.0e-08] (F), [0.0e+00, 5.3e-11] (tr M0), [0.0e+00, 7.1e-11] (tr M1)
+  held t=1/8: 31.24 s, steps [2133, 701], radius of F 1.4e-09
+  held-out t = 1/8: |p - f| in [0.0e+00, 6.7e-08] (F), [0.0e+00, 5.4e-11] (tr M0), [0.0e+00, 6.8e-11] (tr M1)
+  held t=3/4: 30.12 s, steps [2133, 701], radius of F 1.4e-09
+  held-out t = 3/4: |p - f| in [0.0e+00, 6.3e-08] (F), [0.0e+00, 5.2e-11] (tr M0), [0.0e+00, 6.5e-11] (tr M1)
+  control, planted zero (F - F(t = 1/8), between nodes): certificate REFUSED (as it must be)
+  ellipse0/8 rho=4.0: 33.84 s, steps [2133, 701], radius of F 1.4e-09
+  ellipse1/8 rho=4.0: 35.52 s, steps [2132, 701], radius of F 1.4e-09
+  ellipse2/8 rho=4.0: 36.2 s, steps [2132, 702], radius of F 1.3e-09
+  ellipse3/8 rho=4.0: 39.57 s, steps [2132, 701], radius of F 1.3e-09
+  ellipse4/8 rho=4.0: 40.02 s, steps [2132, 701], radius of F 1.4e-09
+  ellipse5/8 rho=4.0: 39.16 s, steps [2133, 701], radius of F 1.4e-09
+  ellipse6/8 rho=4.0: 38.65 s, steps [2135, 701], radius of F 1.5e-09
+  ellipse7/8 rho=4.0: 38.49 s, steps [2133, 701], radius of F 1.5e-09
+  proved M >= sampled on the ellipse rho = 4.0 (8 points): True (overestimate x6.7e+04, x1.1e+00, x1.3e+01)
+  shrunken M (/1e12): verdict still passes True; held-out breaks none; below the sampled max for ['f', 'tr M0', 'tr M1']; planted precondition at 4.2 fires: True
+  node balls: largest radius of F 8.84e-09, smallest |F| 2.65e-01; conditions failing even at e = 0 (splitting cannot cure): none
+  OUTCOME: CERTIFIED  (F != 0, tr M0 != 0, tr M1 not in [-2, 2] for every real k in the segment); new evaluations 24; peak rss 116 MB
+  F1b checks: {'step': 291150, 'series': 0}; c0 fields built: 24
+verdict rc 0
+=== engine gate 2026-11-28 15:38:09
+== engine gate == spin 3/5, R0 1.35, mp.dps 50; segment k_c 21/20, half 1/20; 13 node records; lasso of 21/20 (53 vertices); 0 done
+  node0: k = 1.1; F inside True (radius 6.15e-9), tr M0 True, tr M1 True; 19.3 s
+  node1: k = 1.09829629131; F inside True (radius 5.52e-9), tr M0 True, tr M1 True; 19.2 s
+  node2: k = 1.09330127019; F inside True (radius 5.99e-9), tr M0 True, tr M1 True; 18.7 s
+  node3: k = 1.08535533906; F inside True (radius 2.13e-9), tr M0 True, tr M1 True; 18.6 s
+  node4: k = 1.075; F inside True (radius 6.25e-9), tr M0 True, tr M1 True; 19.0 s
+  node5: k = 1.06294095226; F inside True (radius 6.11e-9), tr M0 True, tr M1 True; 16.7 s
+  node6: k = 1.05; F inside True (radius 5.78e-9), tr M0 True, tr M1 True; 14.4 s
+  node7: k = 1.03705904774; F inside True (radius 3.7e-9), tr M0 True, tr M1 True; 14.0 s
+  node8: k = 1.025; F inside True (radius 5.15e-9), tr M0 True, tr M1 True; 14.3 s
+  node9: k = 1.01464466094; F inside True (radius 6.37e-9), tr M0 True, tr M1 True; 16.5 s
+  node10: k = 1.00669872981; F inside True (radius 5.55e-9), tr M0 True, tr M1 True; 18.3 s
+  node11: k = 1.00170370869; F inside True (radius 4.7e-9), tr M0 True, tr M1 True; 18.5 s
+  node12: k = 1.0; F inside True (radius 3.76e-9), tr M0 True, tr M1 True; 18.7 s
+  ENGINE GATE: 13/13 node values inside their enclosures
+engine gate rc 0
+=== V7_T1_DONE 2026-11-28 15:41:57
+JOB_EXIT 0
