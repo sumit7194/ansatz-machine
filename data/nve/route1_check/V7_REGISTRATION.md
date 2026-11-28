@@ -118,3 +118,10 @@ c0.
 - **V1(c):** after one circuit of |z| = R0, the returned enclosures of c0 and c0' must have radius ≤ 1e−30 AND contain
   the starting values. A wider returned ball makes (c) **UNINFORMATIVE**, not PASS.
 - **V1(a)** already has a bar (radius ≤ 1e−40). Unchanged.
+
+## Addendum 2 (2026-11-28, before the registered V1 tests run; one smoke call of start() was made, with no test points)
+- "The engine's value lies in the v7 ball" (V1(b), and the engine half of V1(a)) is read with the engine's own
+  precision. The 50-digit mpmath engine value is taken as a ball of radius 1e−40, and that ball must overlap the v7
+  ball. The v7 balls are about 1e−70 wide at 256 bits, so a literal containment would fail on the engine's precision,
+  not on any disagreement.
+- The bar for disagreement stays as tight as the engine allows: 1e−40, the same bar as V1(a).
