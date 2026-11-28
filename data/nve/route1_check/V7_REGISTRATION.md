@@ -298,3 +298,23 @@ checked E0 and E1 independently by its own mpmath second differences, and they l
 - (A) E/1e6 and (A2) E × 0.5 fail it;
 - (B) refused by the B-cut guard; (B2) refused by the disc guard;
 - (R) the reach control refuses; (P) the substituted planted box refuses.
+
+## Addendum 9 (2026-11-28): the region-B working disc certified directly. Committed BEFORE the controls rerun
+- **What the controls run of addendum 8 showed.** All seven controls PASSED, but its diagnostic showed the
+  precondition still refusing pilots 2 and 3 (R_d = 0).
+  - Cause: near Re k → 30/7 with |Im k| up to about 0.107, the denominator 90 − 21k comes close to 0. So the OUTER
+    branch point's enclosure spreads over a ball centred at 0 (radius about 2 at pilot 2, about 20 at pilot 3), which
+    swallows Z0.
+  - Locating the far branch points is the wrong certificate for this region.
+- **Change: the property is certified directly.**
+  - **The working radius is fixed in advance:** RREQ = the loops' reach (from the floats entry) + 0.25.
+  - **`free_square(K, RREQ)` certifies** B(z²/a², k) ≠ 0 and z² + a² ≠ 0 for every z in the square Z0 ± RREQ(1 + i) and
+    every k in K. The square is covered by 16 × 16 cells, each split up to four times while not certified; K by its
+    kbox sub-boxes (asserted to cover). B on a cell × K-box comes from the mean-value form in z (it is linear in k).
+  - So no c0 singular point lies in the disc of radius RREQ, which is what every use needs: c0 single-valued there,
+    the field's continuation, and `d2kc0_B`'s segment guard.
+- **Replaces R_c-based R_d** in FieldB (its point k), in `Rd_for(K)` and in `precondition_B` (ok iff reach + 0.1 <
+  RREQ AND `free_square(K, RREQ)`). `Rc_lower` and `sing_balls` stay only as diagnostics.
+- **Re-tests:** all seven region-B controls rerun on this code, plus the diagnostic precondition at pilots 2 and 3's
+  ρ = 4 boxes. **This is a change after the read; it goes to the Bridge for a ruling on whether a further read is
+  needed before pilots 2 and 3.**

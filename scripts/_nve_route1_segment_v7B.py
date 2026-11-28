@@ -33,6 +33,7 @@ BB = arb(REF["bB"])
 GAM = [complex(float(p[0]), float(p[1])) for p in REF["gam"]]
 LAS = [complex(float(p[0]), float(p[1])) for p in REF["lasso"]]
 REACH = max(abs(v - complex(float(Z0.mid()))) for v in GAM + LAS)
+RREQ_FIXED = REACH + 0.25         # addendum 9: the working-disc radius, fixed from the floats entry before any run
 U = acb(arb(0, 1), arb(0, 1))
 K8 = (arb(8) / 5).sqrt() * A
 PREF = -(arb(8) / 5).sqrt() * A ** 3
@@ -81,6 +82,45 @@ def sing_balls(K):
     return out
 
 
+RREQ = RREQ_FIXED
+
+
+def free_square(K, r, m=16, depth=4):
+    """CERTIFIED: B(z^2/a^2, k) != 0 and z^2 + a^2 != 0 for every z in the square Z0 +- r(1 + i) and every k in K
+    (addendum 9). The square is covered by m x m cells, each split in four (up to `depth` times) while not yet certified;
+    K by its kbox sub-boxes (asserted to cover). B on a cell x K-box by the mean-value form in z (B is a polynomial in z;
+    in k it is linear, so the K-ball enters exactly as a ball). False if any piece cannot be certified."""
+    kc = acb(K.real.mid(), K.imag.mid())
+    Rk = max(K.real.rad(), K.imag.rad())
+    kboxes = [kc + d for d in V.kbox(kc, arb(Rk))[1]] if Rk > 0 else [K]
+    r = arb(r)
+
+    def cell_ok(cx, cy, hw, Kb, d):
+        bx = acb(Z0) + acb(arb(cx, hw), arb(cy, hw))
+        mz = acb(bx.real.mid(), bx.imag.mid())
+        w = bx * bx / (A * A)
+        wm = mz * mz / (A * A)
+        Bm = (90 - 21 * Kb) * wm * wm - (60 - 18 * Kb) * wm + (10 - Kb)
+        dB = (2 * bx / (A * A)) * (2 * (90 - 21 * Kb) * w - (60 - 18 * Kb))
+        Bb = Bm + dB * (bx - mz)
+        if not Bb.contains(0) and not (bx * bx + A * A).contains(0):
+            return True
+        if d == 0:
+            return False
+        h2 = (hw / 2).upper()
+        return all(cell_ok(cx + sx * h2, cy + sy * h2, h2, Kb, d - 1) for sx in (-1, 1) for sy in (-1, 1))
+
+    hw = (r / m).upper()
+    for Kb in kboxes:
+        for i in range(m):
+            for j in range(m):
+                cx = (-r + hw * (2 * i + 1)).mid()
+                cy = (-r + hw * (2 * j + 1)).mid()
+                if not cell_ok(arb(cx), arb(cy), hw, Kb, depth):
+                    return False
+    return True
+
+
 def Rc_lower(K):
     """certified lower bound of the distance from Z0 to c0's singular points over K, using K's kbox sub-boxes"""
     kc = acb(K.real.mid(), K.imag.mid())
@@ -100,10 +140,9 @@ def Rc_lower(K):
 class FieldB:
     def __init__(self, k):
         self.c = V7.C0(V.SPIN, k, deriv=True)
-        rc = Rc_lower(self.c.k)
-        if rc is None:
-            raise RuntimeError("fieldB: singular points not enclosable")
-        self.Rd = (rc * arb("0.9")).lower()
+        if not free_square(self.c.k, RREQ):           # addendum 9: no c0 singular point in the working square
+            raise RuntimeError("fieldB: the working square is not certified free of c0 singular points")
+        self.Rd = arb(RREQ).lower()
         if not self.inside(acb(BB)):
             raise RuntimeError("fieldB: the base point bB is not certified inside the disc")
         self.cache = [self.c.start(BB)]
@@ -314,8 +353,7 @@ def _kkey(K):
 def Rd_for(K):
     key = _kkey(K)
     if key not in _RD:
-        rc = Rc_lower(K)
-        _RD[key] = None if rc is None else (rc * arb("0.9")).lower()
+        _RD[key] = arb(RREQ).lower() if free_square(K, RREQ) else None      # addendum 9
     return _RD[key]
 
 
@@ -405,15 +443,15 @@ def precondition_B(K):
     if not ((K.real - arb(30) / 7) < 0):
         out.update(ok=False, why="Re k reaches 30/7 on K (the k-branch point; P(0, k) = 90 - 21k)")
         return out
-    rc = Rc_lower(K)
-    if rc is None:
-        out.update(ok=False, why="singular points not enclosable over K")
+    # addendum 9: the working square Z0 +- RREQ is certified free of c0's singular points for every k in K, and the
+    # loops (plus 0.1 for step boxes) lie in the disc of radius RREQ. (RREQ is fixed: reach + 0.25.)
+    if not REACH + 0.1 < RREQ:
+        out.update(ok=False, why=f"loops' reach {REACH:.4f} + 0.1 >= the working radius {RREQ:.4f}")
         return out
-    Rd = float((rc * arb("0.9")).lower())
-    ok = REACH + 0.1 < Rd
-    out.update(ok=bool(ok), Rc_lower=float(rc.lower()), Rd=Rd, reach=REACH)
-    if not ok:
-        out["why"] = f"loops' reach {REACH:.4f} + 0.1 >= 0.9 R_c {Rd:.4f}"
+    free = free_square(K, RREQ)
+    out.update(ok=bool(free), Rd=RREQ, reach=REACH)
+    if not free:
+        out["why"] = f"the working square Z0 +- {RREQ:.4f} is not certified free of c0 singular points over K"
     return out
 
 
