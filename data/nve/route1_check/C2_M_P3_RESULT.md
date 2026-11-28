@@ -39,3 +39,10 @@ the start and end times above.
 **Reading:** the C2 time box is met (at least 1 pilot certified by 2026-12-12). Per the C2 registration's table,
 "1–2 certified: partial: report and re-gate". P2 was stopped at the value gate (C2_M_P2_RESULT.md); P1 (the circle) is
 out of C2-M's scope, and its C2-TM probe failed (C2_TM_PROBE_RESULT.md).
+
+## Note added 2026-11-29: the two refined cells were refused by an artefact that failed closed by accident; P3 stands
+- **What happened at P3's cells L0_21 and L0_23.** P3's cover refused these two R/5 cells and refined them to R/10.
+  - The cause, found while building the base2 fix (`C2_B2FIX_REGISTRATION.md`, on its own branch): on those k-cells the old `base2` returns **NaN**, not None. Its 1/(P √P) is a midpoint-radius product whose ball contains 0 there.
+  - The NaN reached the glue's exact-binary writer (`me()` in `_nve_c2_capd.py`), which raised ValueError. No record was written, so the cell was refused and refined. The tracebacks are in `c2/c2m_P3_cellL0_21.out` and `c2/c2m_P3_cellL0_23.out`.
+- **Why P3 stands.** All 8 quadrants of those two cells were then accepted with finite records, and every gate held, as above. The refusal was fail-closed, but **by accident** (a crash), not by a designed guard.
+- **What changed.** The base2 fix makes the enclosure finite there. Control B3 confirms that the old code is non-finite on exactly these two cells, and control B5 (P3 re-run with the fixed code) is to show them accepted at R/5.
