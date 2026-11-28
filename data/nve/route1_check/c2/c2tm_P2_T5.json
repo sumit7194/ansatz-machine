@@ -1,0 +1,12 @@
+{
+ "verdict": "FIRED",
+ "why": "no admissible step at (1.787979315341533+0.13056108338326813j) (last refusal: reciprocal theta-guard (G2 on the box): theta 0.5 > 1/2)",
+ "zstar": [
+  1.8142621254522016,
+  0.14251097417463246
+ ],
+ "expected": [
+  "reciprocal theta-guard (G2 on the box)",
+  "theta-guard: the constant coefficient contains 0"
+ ]
+}
