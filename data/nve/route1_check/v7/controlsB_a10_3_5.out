@@ -1,0 +1,17 @@
+    z = (1.5189569908593314+0j): |D0 - FD| <= 1.2e-12, |D1 - FD| <= 8.2e-13; |FD dq/dk| / sup = 1.000000; second derivatives E0, E1 (addendum 5) overlap their FD: True  -> ok
+    z = (1.7923619402153135-0.29191149350600243j): |D0 - FD| <= 1.0e-12, |D1 - FD| <= 6.8e-13; |FD dq/dk| / sup = 1.000000; second derivatives E0, E1 (addendum 5) overlap their FD: True  -> ok
+    z = (2.104032669811198+5.913334948524478e-52j): |D0 - FD| <= 8.2e-13, |D1 - FD| <= 5.3e-13; |FD dq/dk| / sup = 1.000000; second derivatives E0, E1 (addendum 5) overlap their FD: True  -> ok
+    z = (1.7923619402153135+0.29191149350600243j): |D0 - FD| <= 1.0e-12, |D1 - FD| <= 6.8e-13; |FD dq/dk| / sup = 1.000000; second derivatives E0, E1 (addendum 5) overlap their FD: True  -> ok
+    z = (1.5189569908593314-2.450769869714453e-51j): |D0 - FD| <= 1.2e-12, |D1 - FD| <= 8.2e-13; |FD dq/dk| / sup = 1.000000; second derivatives E0, E1 (addendum 5) overlap their FD: True  -> ok
+    z = (1.5189569908593314+0j): |D0 - FD| <= 1.2e-12, |D1 - FD| <= 8.2e-13; |FD dq/dk| / sup = 1.000000; second derivatives E0, E1 (addendum 5) overlap their FD: False  -> FAIL
+    z = (1.7923619402153135-0.29191149350600243j): |D0 - FD| <= 1.0e-12, |D1 - FD| <= 6.8e-13; |FD dq/dk| / sup = 1.000000; second derivatives E0, E1 (addendum 5) overlap their FD: False  -> FAIL
+    z = (2.104032669811198+5.913334948524478e-52j): |D0 - FD| <= 8.2e-13, |D1 - FD| <= 5.3e-13; |FD dq/dk| / sup = 1.000000; second derivatives E0, E1 (addendum 5) overlap their FD: False  -> FAIL
+    z = (1.7923619402153135+0.29191149350600243j): |D0 - FD| <= 1.0e-12, |D1 - FD| <= 6.8e-13; |FD dq/dk| / sup = 1.000000; second derivatives E0, E1 (addendum 5) overlap their FD: False  -> FAIL
+    z = (1.5189569908593314-2.450769869714453e-51j): |D0 - FD| <= 1.2e-12, |D1 - FD| <= 8.2e-13; |FD dq/dk| / sup = 1.000000; second derivatives E0, E1 (addendum 5) overlap their FD: False  -> FAIL
+    z = (1.5189569908593314+0j): |D0 - FD| <= 1.2e-12, |D1 - FD| <= 8.2e-13; |FD dq/dk| / sup = 1.000000; second derivatives E0, E1 (addendum 5) overlap their FD: False  -> FAIL
+    z = (1.7923619402153135-0.29191149350600243j): |D0 - FD| <= 1.0e-12, |D1 - FD| <= 6.8e-13; |FD dq/dk| / sup = 1.000000; second derivatives E0, E1 (addendum 5) overlap their FD: False  -> FAIL
+    z = (2.104032669811198+5.913334948524478e-52j): |D0 - FD| <= 8.2e-13, |D1 - FD| <= 5.3e-13; |FD dq/dk| / sup = 1.000000; second derivatives E0, E1 (addendum 5) overlap their FD: False  -> FAIL
+    z = (1.7923619402153135+0.29191149350600243j): |D0 - FD| <= 1.0e-12, |D1 - FD| <= 6.8e-13; |FD dq/dk| / sup = 1.000000; second derivatives E0, E1 (addendum 5) overlap their FD: False  -> FAIL
+    z = (1.5189569908593314-2.450769869714453e-51j): |D0 - FD| <= 1.2e-12, |D1 - FD| <= 8.2e-13; |FD dq/dk| / sup = 1.000000; second derivatives E0, E1 (addendum 5) overlap their FD: False  -> FAIL
+  diagnostics: pilot 2 rho=4 precondition ok True (Rd 0.7491791384315651, reach 0.49917913843156514); pilot 3 rho=4 ok True (Rd 0.7491791384315651) 
+region-B controls: {'pos': True, 'A': True, 'A2': True, 'B': True, 'B2': True, 'R': True, 'P': True, 'S': True}; (B) refused by B-cut, (B2) by disc; branch point used 0.00000+0.39553j -> PASS

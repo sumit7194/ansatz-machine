@@ -1,0 +1,43 @@
+=== v7B pilot k_c 83/20 half 1/20 code c659484839f28922 base v7B_kc83o20h1o20_c659484839f28922 2026-11-28 16:34:59
+=== prove 2026-11-28 16:34:59
+== v7B prove (region B) == spin 3/5|k in [41/10, 21/5]; Z0 2.0, bB 1.5008208615, Gamma 99 / lasso 53 vertices, reach 0.4992; code c659484839f28922
+== v6 prove == spin 3/5|k in [41/10, 21/5]; mode F, tol rel; |F(k_c)| (engine) 4.080451e+00; code c659484839f28922
+== prove (v5 = v4 + F1 branch assert, F2 code-hash keys, F3 coverage counts) == spin 3/5|k in [41/10, 21/5]; circle 1.35; code c659484839f28922; python 3.13.12, python-flint 0.9.0; rows (4.0,); checkpoint records of this code already on disk: dq 0, rows 0
+    z = (1.5189569908593314+0j): |D0 - FD| <= 1.2e-12, |D1 - FD| <= 8.2e-13; |FD dq/dk| / sup = 1.000000; second derivatives E0, E1 (addendum 5) overlap their FD: True  -> ok
+    z = (1.7923619402153135-0.29191149350600243j): |D0 - FD| <= 1.0e-12, |D1 - FD| <= 6.8e-13; |FD dq/dk| / sup = 1.000000; second derivatives E0, E1 (addendum 5) overlap their FD: True  -> ok
+    z = (2.104032669811198+5.913334948524478e-52j): |D0 - FD| <= 8.2e-13, |D1 - FD| <= 5.3e-13; |FD dq/dk| / sup = 1.000000; second derivatives E0, E1 (addendum 5) overlap their FD: True  -> ok
+    z = (1.7923619402153135+0.29191149350600243j): |D0 - FD| <= 1.0e-12, |D1 - FD| <= 6.8e-13; |FD dq/dk| / sup = 1.000000; second derivatives E0, E1 (addendum 5) overlap their FD: True  -> ok
+    z = (1.5189569908593314-2.450769869714453e-51j): |D0 - FD| <= 1.2e-12, |D1 - FD| <= 8.2e-13; |FD dq/dk| / sup = 1.000000; second derivatives E0, E1 (addendum 5) overlap their FD: True  -> ok
+  self-test True; reference: circle 683 steps, lasso 628 steps; F1 checks so far {'step': 0, 'series': 0}  [16 s]
+  circle, K a point (z-direction control; v3 printed 4.153E-1 / 9.325E+0 at 3/5, 7.734E-1 / 2.179E+1 at 9/10): v4 <= 2.849E+1   [23 s]
+  lasso, K a point (z-direction control; v3 printed 4.153E-1 / 9.325E+0 at 3/5, 7.734E-1 / 2.179E+1 at 9/10): v4 <= 1.145E+2   [30 s]
+  rho = 4.0: REJECTED (holomorphy box fails at (1.5032047629632235+0j))
+  prove v5: 30 s, peak rss 39 MB
+  native: {'step': 1311, 'series': 1311, 'd2k': 6, 'd2k_none': 0}; region-B fields built: 3
+=== verdict (full controls) 2026-11-28 16:35:30
+== v7B verdict (region B) == spin 3/5|k in [41/10, 21/5]; code c659484839f28922
+  native: {'step': 0, 'series': 0, 'd2k': 0, 'd2k_none': 0}; region-B fields built: 0; planted precondition substituted 0x
+Traceback (most recent call last):
+  File "/Users/sumit/Github/conjecture_machine-check/scripts/_nve_route1_segment_v7B.py", line 515, in <module>
+    dict(prove=prove, verdict=verdict)[sys.argv[1]]()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/sumit/Github/conjecture_machine-check/scripts/_nve_route1_segment_v7B.py", line 509, in verdict
+    S6.verdict()
+    ~~~~~~~~~~^^
+  File "/Users/sumit/Github/conjecture_machine-check/scripts/_nve_route1_segment_v6.py", line 164, in verdict
+    assert ch is not None, "no admissible row: the split rule's case, not a verdict"
+           ^^^^^^^^^^^^^^
+AssertionError: no admissible row: the split rule's case, not a verdict
+verdict rc 1
+=== engine gate B 2026-11-28 16:35:30
+Traceback (most recent call last):
+  File "/Users/sumit/Github/conjecture_machine-check/scripts/_nve_v7_engine_gate_B.py", line 92, in <module>
+    main()
+    ~~~~^^
+  File "/Users/sumit/Github/conjecture_machine-check/scripts/_nve_v7_engine_gate_B.py", line 39, in main
+    recs = [json.loads(l) for l in open(NODES) if l.strip()]
+                                   ~~~~^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'data/nve/eps/route1_seg_nodes_v7B_kc83o20h1o20_c659484839f28922.jsonl'
+engine gate rc 1
+=== V7_PB_DONE 2026-11-28 16:35:30
+JOB_EXIT 0
