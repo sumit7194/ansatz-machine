@@ -1,8 +1,8 @@
 # Zenodo record draft (NOT published; for the Bridge's read and Sumit's yes)
 
 - **Resource type:** Publication / Preprint
-- **Title:** Twisted Kerr-mass vacuum fields: the geodesic flow along the symmetry axis is not meromorphically
-  integrable (AI-assisted)
+- **Title:** Twisted Kerr-mass vacuum fields: non-integrability of the axial geodesic flow. Numerical results, with
+  computer-assisted certificates near Kerr and over part of the twist range (AI-assisted)
 - **Creator:** Pal, Sumit (Independent researcher; ORCID 0009-0000-9541-2793)
 - **Publication date:** at publication
 - **Version:** draft 1
@@ -22,7 +22,8 @@ symmetry axis and deform only the twist (k = 0 is Kerr; physical range 0 ≤ k �
 first-order normal variational equation along the L_z = 0 timelike geodesic on the lower symmetry axis has a
 Zariski-dense monodromy group in SL(2, C) for every real k in (0, 30/7], at energy E = 0.8 and spins
 a ∈ {0.3, 0.6, 0.8, 0.9} (M = 1). By Morales–Ramis–Simó theory, the geodesic flow then has no complete set of first
-integrals meromorphic near the complexified orbit: Carter's constant does not survive the twist.
+integrals meromorphic near the complexified orbit; so, at this numerical grade, Carter's constant does not
+survive the twist.
 
 **Grades.**
 - **Numerical over the whole range:** 50-digit argument-principle counts.
