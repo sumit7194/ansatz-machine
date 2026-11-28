@@ -222,3 +222,28 @@ by the guards below).
 
 **Order:** this addendum, then the code (committed), then the non-author read of the derivation AND the code, then
 controls (A) and (B), then pilots 2 and 3.
+
+## Addendum 6 (2026-11-28, after pilot 1's first attempt; committed BEFORE any rerun)
+**What happened.** Pilot 1's first attempt (circle, k_c 79/20, launched 16:04:36) admitted no ρ = 4 row: the
+circle-picture precondition was "not certified". Diagnosed with no further pilot computation:
+- the k-box K = 79/20 ± 0.10625(1 + i) straddles k = 4, where B's two roots collide and the root formula's
+  √(60K(K − 4)) is non-analytic;
+- one ball over the whole box bounds max |w| ≤ 5.51, above the limit ((R0 − 0.1)/a)² = 4.34;
+- the 25 sub-boxes of `V.kbox` (asserted to cover K) give max |w| ≤ 2.99;
+- the true maximum, sampled on a 41 × 41 grid, is 2.21.
+
+So it is an enclosure artifact, not an obstruction. The same attempt also had a runner bug: the code hash was computed
+before the floats file existed, so it came out empty. That affected only the runner's engine-gate paths; the prove
+stage computed its own hash.
+
+**Change:**
+- `precondition7` now evaluates the root bound on each of K's KSUB × KSUB sub-boxes (v2's `kbox`, which asserts
+  coverage) and takes the maximum. That is rigorous, and only tighter than the whole-box ball.
+- The runner computes the code hash after the floats step.
+
+**Re-tests, because this changes V2-tested code:**
+- T1' rerun (the same segment and criteria; it must certify and stay within 2× of v6);
+- the F1b control rerun;
+- then pilot 1 rerun.
+
+Pilot 1's first attempt is disclosed in its result.

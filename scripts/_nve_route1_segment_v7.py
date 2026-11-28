@@ -71,16 +71,24 @@ def precondition7(K):
     R0 = arb(V.R0S)
     limw = ((R0 - arb("0.1")) / A) ** 2
     out = dict(k_box=[str(K.real), str(K.imag)], lim=float(limw.lower()), picture="circle (v7)")
-    den = 90 - 21 * K
-    if den.contains(0):
-        out.update(ok=False, why="90 - 21 k contains 0: a branch point is at infinity")
-        return out
-    sq = (60 * K * (K - 4)).sqrt()
-    roots = [((30 - 9 * K) + sq) / den, ((30 - 9 * K) - sq) / den]
-    if not all(r.is_finite() for r in roots):
-        out.update(ok=False, why="root enclosure not finite")
-        return out
-    mx = max(r.abs_upper() for r in roots)
+    # addendum 6: the root bound on each of K's KSUB x KSUB sub-boxes (v2's kbox asserts they cover K), then the max.
+    # One ball over a box that straddles k = 4 (where the two roots collide) inflated |w| from about 2.2 to 5.5.
+    kc = acb(K.real.mid(), K.imag.mid())
+    Rk = max(K.real.rad(), K.imag.rad())
+    _K, subs = V.kbox(kc, arb(Rk)) if Rk > 0 else (K, None)
+    boxes = [kc + d for d in subs] if subs else [K]
+    mx = arb(0)
+    for Kb in boxes:
+        den = 90 - 21 * Kb
+        if den.contains(0):
+            out.update(ok=False, why="90 - 21 k contains 0: a branch point is at infinity")
+            return out
+        sq = (60 * Kb * (Kb - 4)).sqrt()
+        roots = [((30 - 9 * Kb) + sq) / den, ((30 - 9 * Kb) - sq) / den]
+        if not all(r.is_finite() for r in roots):
+            out.update(ok=False, why="root enclosure not finite")
+            return out
+        mx = max(mx, max(r.abs_upper() for r in roots))
     ok = bool(mx < limw) and bool(arb(1) < limw)          # the poles +-ia have |w| = 1
     out.update(max_root_abs_w=float(mx), ok=ok)
     if not ok:
