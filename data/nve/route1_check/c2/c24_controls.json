@@ -31,7 +31,7 @@
    "plant": "K2s",
    "box": "P2",
    "fired": false,
-   "refused": "REFUSED loop 0 edge 0 step 345 (b) the set's time is not a point: t 87596969083711879749419383808769877621050422835629223188487453256512509575168 -257 87596969083711879749419383808769877621050422835629223188487453256512509575168 -257 -> 875971399777841551670614755726091992072072519019660678199471361",
+   "refused": "REFUSED loop 0 edge 0 step 479 capd exception below the minimal step: High Order Enclosure Error: minimal time step reached. Cannot integrate. [K2s: exception text ok False; last step edge 0 t 0.3783, near the crossing True]",
    "want": [
     "(a1) root argument not certified off the cut on the whole-step enclosure",
     "capd exception below the minimal step"
@@ -59,9 +59,9 @@
    "plant": "K4",
    "box": "P2",
    "fired": true,
-   "refused": "REFUSED loop 0 edge 0 step 1 (b) the set's time is not a point: t 0 0 0 0 -> 57896044618658097711785492504343953926634992332820282019728792003956564819968 -261 57896044618658097711788557495425685704351709026874582638096029482200932024320 -261 step 5789604461865809771178549250434395392663499233282028",
+   "refused": "REFUSED loop 0 edge 0 step 0 (b) no step with an exact time above the minimal step (last time 57896044618658097711785492504343953926634992332820282019728792003956564819968 -295 57896044618710753857619771097692912940476827548979729567429066559583720308736 -295)",
    "want": [
-    "(b) the set's time is not a point"
+    "(b) no step with an exact time above the minimal step"
    ]
   }
  ],
