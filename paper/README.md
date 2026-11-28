@@ -13,6 +13,7 @@ https://github.com/sumit7194/ansatz-machine.
 | `fig_bounds_3_5.dat`, `fig_bounds_3_10.dat`, `make_figure_data.py` | Figure 1 data and the script that extracts it from the committed production logs |
 | `SHA256SUMS.txt` | checksums of the files in this bundle |
 
-**Status:** a draft. Nothing is published until the coordinating session has read it and the author has approved it.
+**Status:** published on Zenodo as a preprint (draft 1, 2026-11-28): [doi:10.5281/zenodo.24623411](https://doi.org/10.5281/zenodo.24623411), CC BY 4.0. The files there match this folder at commit 089e252. `SHA256SUMS.txt` lists the files as uploaded. Only this README has changed since, by this status line,
+so its own checksum no longer matches the uploaded copy.
 **Author:** Sumit Pal (independent researcher, ORCID 0009-0000-9541-2793).
 **AI-assisted:** see §7 of `main.pdf`. No external expert has reviewed this work.

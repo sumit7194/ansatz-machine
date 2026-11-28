@@ -4,6 +4,8 @@
 
 Archived on Zenodo as Ansatz Machine: all versions [10.5281/zenodo.24431694](https://doi.org/10.5281/zenodo.24431694) (resolves to the latest); v1.2.0 [10.5281/zenodo.24593416](https://doi.org/10.5281/zenodo.24593416); v1.1.0 [10.5281/zenodo.24533026](https://doi.org/10.5281/zenodo.24533026); v1.0.0 [10.5281/zenodo.24431695](https://doi.org/10.5281/zenodo.24431695). See [`RELEASE_NOTES_v1.2.0.md`](RELEASE_NOTES_v1.2.0.md) for what changed since v1.1.0, and [`RELEASE_NOTES_v1.1.0.md`](RELEASE_NOTES_v1.1.0.md) for v1.0.0 to v1.1.0.
 
+**Preprint (paper):** [doi:10.5281/zenodo.24623411](https://doi.org/10.5281/zenodo.24623411): *Twisted Kerr-mass vacuum fields: non-integrability of the axial geodesic flow* (draft 1, AI-assisted, not yet externally reviewed); sources in [`paper/`](paper/).
+
 **In five lines.**
 1. We take stationary axisymmetric vacuum fields with exactly Kerr's mass profile along the symmetry axis, and
    deform only the twist, by a one-parameter family with parameter k (k = 0 is Kerr).

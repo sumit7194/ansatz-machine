@@ -4,6 +4,8 @@
 
 **Only Kerr axis-integrability results:** see [`ONLY_KERR.md`](ONLY_KERR.md). Archived on Zenodo: all versions [10.5281/zenodo.24431694](https://doi.org/10.5281/zenodo.24431694) (resolves to the latest); v1.2.0 [10.5281/zenodo.24593416](https://doi.org/10.5281/zenodo.24593416); v1.1.0 [10.5281/zenodo.24533026](https://doi.org/10.5281/zenodo.24533026); v1.0.0 [10.5281/zenodo.24431695](https://doi.org/10.5281/zenodo.24431695).
 
+**Preprint (paper):** [doi:10.5281/zenodo.24623411](https://doi.org/10.5281/zenodo.24623411): *Twisted Kerr-mass vacuum fields: non-integrability of the axial geodesic flow* (draft 1, AI-assisted, not yet externally reviewed); sources in [`paper/`](paper/).
+
 *A propose → verify → evolve loop hunting for new exact solutions of Einstein's
 field equations. Genetic programming proposes metrics, SymPy proves them —
 theorem or nothing — and curvature-invariant fingerprints unmask century-old
