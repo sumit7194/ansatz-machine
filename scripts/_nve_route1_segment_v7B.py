@@ -384,7 +384,9 @@ def base2(K):
           a midpoint-radius product of two balls; near 30/7, P varies several-fold across a cell, the product's ball
           contains 0, and the old code returned NaN, not a refusal, for d in about (7.08e-6, 1e-5).
       (3) A piece whose Re P > 0 or finiteness is not certified is halved, up to B2_DEPTH levels and B2_BUDGET pieces
-          in all; beyond either, refused. Each piece contributes its enclosure times its exact width."""
+          in all; beyond either, refused. Each piece contributes its enclosure times its width. (The endpoints are
+          balls, not exact: SM = 96 is not a power of 2. Each piece's s-range is taken outward from its endpoint balls
+          and its width is a ball containing the true width, so the sum encloses the integral; read, item 3.)"""
     key = _kkey(K)
     if key in _BASE2:
         return _BASE2[key]
@@ -397,7 +399,7 @@ def base2(K):
     count = [0]
 
     def piece(u0, u1, depth):
-        """the contributions of s/lim in [u0, u1] (exact dyadic-rational arbs), or None (refused)"""
+        """the contributions of s/lim in [u0, u1] (ball endpoints; outward), or None (refused)"""
         count[0] += 1
         if count[0] > B2_BUDGET:
             return None
@@ -478,6 +480,12 @@ def d2kc0_B(Z, K):
         j1 += g
         j0 += (1 - T) * g
     j1, j0 = j1 / SM, j0 / SM
+    if not (j1.is_finite() and j0.is_finite() and e0b.is_finite() and e1b.is_finite()):
+        # read item 7: 4 Bv sqrt(Bv) is a midpoint-radius product whose ball can contain 0 even when Bv passes both
+        # guards; the NaN used to fail closed only by crashing the glue's writer. Now refused by design.
+        NAT["d2k_none"] += 1
+        LAST["refused"] = "nonfinite"
+        return None
     return e0b + e1b * dz + dz * dz * j0, e1b + dz * j1
 
 

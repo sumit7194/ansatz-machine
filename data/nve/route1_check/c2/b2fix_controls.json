@@ -9,6 +9,7 @@
  "B2": {
   "points": {
    "1e-3": {
+    "finite": true,
     "contains": [
      true,
      true
@@ -19,6 +20,7 @@
     ]
    },
    "1e-5": {
+    "finite": true,
     "contains": [
      true,
      true
@@ -29,6 +31,7 @@
     ]
    },
    "1e-6": {
+    "finite": true,
     "contains": [
      true,
      true
@@ -39,6 +42,7 @@
     ]
    },
    "1e-9": {
+    "finite": true,
     "contains": [
      true,
      true
@@ -49,6 +53,7 @@
     ]
    },
    "1e-11": {
+    "finite": true,
     "contains": [
      true,
      true
@@ -59,6 +64,7 @@
     ]
    },
    "7e-15": {
+    "finite": true,
     "contains": [
      true,
      true
@@ -193,6 +199,24 @@
     true
    ]
   },
+  "pass_": true
+ },
+ "B6": {
+  "points": {
+   "1e-3": [
+    true,
+    true
+   ],
+   "1e-6": [
+    true,
+    true
+   ]
+  },
+  "pass_": true
+ },
+ "B7": {
+  "n": 36,
+  "bad": 0,
   "pass_": true
  },
  "verdict": "PASS"

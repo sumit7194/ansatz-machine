@@ -142,6 +142,8 @@ def initial():
     d2 = V.d2kc0(zb, K)
     if d2 is None:
         raise RuntimeError("d2kc0 refused at the base point over the sub-box")
+    if not all(x.is_finite() for x in d2):
+        raise RuntimeError("d2kc0 not finite at the base point over the sub-box")    # base2 read item 7: by design
     E0, E1 = d2[0].abs_upper(), d2[1].abs_upper()
     a2 = A * A
     w = zb * zb / a2

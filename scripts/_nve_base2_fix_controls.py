@@ -8,6 +8,8 @@
                   the old code is non-finite exactly on P3's two refined cells (L0_21, L0_23), where its NaN failed closed.
   B4 (cells)      the worst R/5 cover cell (nearest 30/7, on and off the real axis) of every dyadic segment j = 1..27 gives
                   a finite enclosure, so H1 no longer refuses there.
+  B6 (formula)    a k-second-difference of the undifferentiated sqrt(P) integrals lies inside (read item 6).
+  B7 (box truth)  point quadratures at corners/centre/edge of complex worst cells lie inside (read item 6).
 (The fifth control, P3 still certifying with the changed code, is a full C2-M pilot run: air/c2m_pilot.sh P3 from
 this worktree, recorded separately.)
     BOX=P3 <P3's R1_* env> .venv313/bin/python -I -u scripts/_nve_base2_fix_controls.py
@@ -79,9 +81,9 @@ def main():
     for d in ("1e-3", "1e-5", "1e-6", "1e-9", "1e-11", "7e-15"):
         K = acb(K30 - arb(d))
         ref, bn = quad(K), new(K)
-        b2[d] = dict(contains=[bool(b.contains(r)) for b, r in zip(bn, ref)],
+        b2[d] = dict(finite=finite(bn), contains=[bool(finite(bn) and b.contains(r)) for b, r in zip(bn, ref)],
                      overestimate=[float(b.rad() / abs(r.real.mid())) for b, r in zip(bn, ref)])
-    rec["B2"] = dict(points=b2, pass_=all(all(v["contains"]) for v in b2.values()))
+    rec["B2"] = dict(points=b2, pass_=all(v["finite"] and all(v["contains"]) for v in b2.values()))
     # B3: d = 1e-3 and P3's 25 R/5 cells (k_c 59979/14000, half 1/2000, rho 4)
     pairs = [acb(K30 - arb("1e-3"))]
     kc = arb(59979) / 14000
@@ -113,10 +115,58 @@ def main():
         c = kcj + 4 * hs
         b4[j] = [finite(new(acb(c, im * hs) + hs * acb(arb(0, 1), arb(0, 1)))) for im in (0, 4)]
     rec["B4"] = dict(cells=b4, pass_=all(all(v) for v in b4.values()))
-    rec["verdict"] = "PASS" if all(rec[k].get("pass", rec[k].get("pass_")) for k in ("B1", "B2", "B3", "B4")) else "FAIL"
+    # B6 (read item 6: a reference independent of the integrand's FORMULA): a central second difference in k of the
+    # undifferentiated integrals of sqrt(P) (prec 200, h = d/1000), which must lie inside base2's enclosures
+    from flint import ctx
+    b6 = {}
+    for d in ("1e-3", "1e-6"):
+        k = acb(K30 - arb(d))
+        h = arb(d) / 1000
+        p0 = ctx.prec
+        ctx.prec = 200
+        try:
+            lim, a2 = 1 / N.BB, N.A * N.A
+
+            def I(kk, wt):
+                def g(s, an):
+                    a2s2 = a2 * s * s
+                    P = (90 - 21 * kk) - (60 - 18 * kk) * a2s2 + (10 - kk) * a2s2 * a2s2
+                    if an and not (P.real > 0):
+                        return acb("nan")
+                    return wt(s) * P.sqrt() / ((1 + a2s2) ** 3)
+                return acb.integral(g, 0, lim, rel_tol=arb(2) ** -150)
+            w1, w0 = (lambda s: s * s), (lambda s: s - N.BB * s * s)
+            fd1 = (I(k + h, w1) - 2 * I(k, w1) + I(k - h, w1)) / (h * h) * N.K8
+            fd0 = -(I(k + h, w0) - 2 * I(k, w0) + I(k - h, w0)) / (h * h) * N.K8
+        finally:
+            ctx.prec = p0
+        bn = new(k)
+        b6[d] = [bool(finite(bn) and bn[0].contains(fd1.real.mid())), bool(finite(bn) and bn[1].contains(fd0.real.mid()))]
+    rec["B6"] = dict(points=b6, pass_=all(all(v) for v in b6.values()))
+    # B7 (read item 6: truth on a BOX K, not only at points): on complex worst cells of dyadic segments j = 2, 12, 27,
+    # on and off the real axis, the point quadratures at the corners, the centre and an edge point lie inside the box's
+    # enclosure
+    n7, bad7 = 0, 0
+    for j in (2, 12, 27):
+        d = arb(1) / (1000 * 2 ** j)
+        kcj = K30 - 3 * d / 2
+        Rj = d / 2 * (arb(4) + arb(1) / 4) / 2
+        hs = Rj / 5
+        for im in (0, 4):
+            c = acb(kcj + 4 * hs, im * hs)
+            bn = new(c + hs * acb(arb(0, 1), arb(0, 1)))
+            for fr, fi in ((1, 1), (1, -1), (-1, 1), (-1, -1), (0, 0), (0.999, 0)):
+                q = quad(acb(c.real + arb(fr) * hs, c.imag + arb(fi) * hs))
+                n7 += 1
+                if not (finite(bn) and all(b.contains(r) for b, r in zip(bn, q))):
+                    bad7 += 1
+    rec["B7"] = dict(n=n7, bad=bad7, pass_=(bad7 == 0 and n7 == 36))
+    rec["verdict"] = "PASS" if all(rec[k].get("pass", rec[k].get("pass_"))
+                                   for k in ("B1", "B2", "B3", "B4", "B6", "B7")) else "FAIL"
     json.dump(rec, open(OUT, "w"), indent=1)
     print(f"base2-fix controls: {rec['verdict']}; B1 {rec['B1']['pass']}; B2 {rec['B2']['pass_']}; "
-          f"B3 {rec['B3']['pass_']} ({rec['B3']['n']} k-sets); B4 {rec['B4']['pass_']}", flush=True)
+          f"B3 {rec['B3']['pass_']} ({rec['B3']['n']} k-sets); B4 {rec['B4']['pass_']}; B6 {rec['B6']['pass_']}; "
+          f"B7 {rec['B7']['pass_']} ({rec['B7']['n']} points)", flush=True)
 
 
 if __name__ == "__main__":
