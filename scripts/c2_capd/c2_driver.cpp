@@ -303,6 +303,9 @@ int main(int argc, char** argv) {
   int plantTime;
   in >> tag >> plantTime;
   if (tag != "plant_time") die("input: expected plant_time");
+  int skipEdgeGuard;                     // read F2: 1 only in controls K2s, K3s (the per-step guard must then fire)
+  in >> tag >> skipEdgeGuard;
+  if (tag != "skip_edge_guard") die("input: expected skip_edge_guard");
   in >> tag;
   if (tag != "a") die("input: expected a");
   IT a = readInterval(in);
@@ -338,6 +341,14 @@ int main(int argc, char** argv) {
   }
   r0[K0] = IT(-R, R);
   r0[K1] = IT(-R, R);
+  // read F3: Kbox = x + r0 is the k sub-box only if the k rows of C are the identity and their radii are 0
+  for (int jj = 0; jj < DIM; ++jj) {
+    if (jj == K0 || jj == K1) continue;
+    if (!(C[K0][jj] == IT(0)) || !(C[K1][jj] == IT(0))) die("input: k rows of C not the identity");
+  }
+  if (!(C[K0][K0] == IT(1)) || !(C[K0][K1] == IT(0)) || !(C[K1][K0] == IT(0)) || !(C[K1][K1] == IT(1)))
+    die("input: k rows of C not the identity");
+  if (!(rv[K0] == IT(0)) || !(rv[K1] == IT(0))) die("input: k radii not 0");
   Cx<IT> Kbox = {x[K0] + r0[K0], x[K1] + r0[K1]};       // the k sub-box (the k-states are exactly kc0 + r0)
   int nloops;
   in >> tag >> nloops;
@@ -357,16 +368,16 @@ int main(int argc, char** argv) {
 
   std::ofstream out(argv[2]), slog(argv[3]);
   out << "c2_driver prec " << PREC << " order " << order << " dim " << DIM << " policy " << POLICY << " sform "
-      << sform << "\n";
+      << sform << " plant_time " << plantTime << " skip_edge_guard " << skipEdgeGuard << "\n";
   slog << "loop edge step t dt min|D|^2 min|G1|^2 min|G2|^2 maxdiam | c0 c0p Y widths | retries\n";
   IT two(2), zero(0), half(0.5);
   const capd::MpFloat MINSTEP = capd::MpFloat(1) / capd::MpFloat(1099511627776.0);   // 2^-40, exact
   // CAPD's first step after an (re)initialisation is min(1/Lipschitz, 1, maxStep), and 1/Lipschitz has a full
-  // mantissa; every later step is a 5-bit dyadic (clearMantissaBits) or exactly maxStep. CAPD re-initialises at a loop's
-  // start, after a retry (cleared coefficients) and at new edges (seen in the smoke: a 256-bit step 0.4728 at an edge
-  // start, no retry). So a FRESH step (every edge start, and after a retry) gets maxStep capped at the dyadic 2^-6, so
-  // that time stays an exact point; guard (b) still refuses anything inexact. The next step is bounded by
-  // 1.5 maxStep (the edge remainder), not by the previous step, so the cap costs about one short step per edge.
+  // mantissa. Later steps come from clearMantissaBits (5-bit dyadics), maxStep, or exact rescalings (step*0.95,
+  // step*factor in the enclosure approval). CAPD re-initialises at a loop's start, after a retry and at new edges, so
+  // a FRESH step (every edge start, and after a retry) gets maxStep capped at the dyadic 2^-6. The step after a fresh one
+  // is limited to twice the previous step (read F4), so the cap costs a few short steps per edge, not one. Exactness is
+  // never assumed: the point check and the end check refuse any inexact time.
   const capd::MpFloat FIRSTCAP = capd::MpFloat(1) / capd::MpFloat(64.0);
 
   MapT vf(field, DIM, DIM, NPAR);
@@ -398,7 +409,7 @@ int main(int argc, char** argv) {
       IT hre = P[j + 1].first - P[j].first, him = P[j + 1].second - P[j].second;
       if (!isPoint(hre) || !isPoint(him)) refuse(l, j, nsteps, "edge vector not exact");
       // (a1), (a2) a priori over the whole edge x the k-box (tau bisected up to depth 10)
-      int g = edgeGuard(P[j].first, P[j].second, hre, him, Kbox, a, IT(0), IT(1), 10);
+      int g = skipEdgeGuard ? 0 : edgeGuard(P[j].first, P[j].second, hre, him, Kbox, a, IT(0), IT(1), 10);
       if (g == 1) refuse(l, j, nsteps, "(a1) root argument not certified off the cut on this edge");
       if (g == 2) refuse(l, j, nsteps, "(a2) circle inner argument not certified inside its disc on this edge");
       IT tj((double)j);
@@ -417,12 +428,15 @@ int main(int argc, char** argv) {
         if (fresh && maxStep.leftBound() > FIRSTCAP) maxStep = IT(FIRSTCAP);
         int retries = 0;
         for (;;) {
-          try {
+          SetT backup = set;                                        // read F1: CAPD may advance parts of the set
+          try {                                                     // before throwing; a retry must start from t
             solver.setMaxStep(maxStep);
             solver(set);
             fresh = false;
             break;
           } catch (std::exception& e) {
+            set = backup;
+            if (!(set.getCurrentTime() == t)) refuse(l, j, nsteps, "(b) the restored set's time is not t");
             solver.clearCoefficients();
             fresh = true;
             maxStep = maxStep / two;                                // exact halving

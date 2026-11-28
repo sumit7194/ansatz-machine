@@ -71,7 +71,7 @@ SMOKE = os.environ.get("C2_SMOKE") == "1"     # development check only (not step
 if SMOKE:                                      # with the Arb walk's monodromy at kc0
     LOOP0, LOOP1 = LOOP0[:3] + LOOP0[1::-1], LOOP1[:3] + LOOP1[1::-1]      # out and back: M = I exactly
     TAG += "_smoke" + (f"_hs{HSDIV}" if HSDIV != 1 else "")
-if PLANT == "K2":                              # control (K2): a segment from the base point across B's cut and back
+if PLANT in ("K2", "K2s"):                     # control (K2; K2s also skips the a priori edge guard): a segment from the base point across B's cut and back
     import cmath
     assert BOX == "P2" and C24
     kk = complex(kc0.mid())
@@ -180,10 +180,11 @@ def write_input(path, x, C, r):
     if C24:
         Ic = acb((90 - 21 * kc0).real.mid(), (90 - 21 * kc0).imag.mid())   # the disc's exact centre (within 1e-76
         #                                                            of c2(kc0); the disc bound has a 0.55 margin)
-        irad = arb("0.01") if PLANT == "K3" else arb(13) / 2         # (a2) radius 6.5 (erratum E1); K3 plants 0.01
+        irad = arb("0.01") if PLANT in ("K3", "K3s") else arb(13) / 2   # (a2) radius 6.5 (erratum E1); K3 plants 0.01
         irad = irad.mid()
         lines += [f"sform {'circle' if BOX == 'P1' else 'disc'}", f"Ic {me(Ic.real)} {me(Ic.imag)}",
-                  f"Irad {me(irad)}", f"plant_time {1 if PLANT == 'K4' else 0}"]
+                  f"Irad {me(irad)}", f"plant_time {1 if PLANT == 'K4' else 0}",
+                  f"skip_edge_guard {1 if PLANT in ('K2s', 'K3s') else 0}"]
     for name, v in (("a", A), ("E2", E2), ("pref", pref)):
         lines.append(f"{name} {me(v.lower())} {me(v.upper())}")
     lines.append(f"R {me(hs)}")
@@ -285,9 +286,18 @@ def drive():
         rec["refused"] = [ln for ln in txt.splitlines() if ln.startswith("REFUSED")] or ["driver exit " + str(pr.returncode)]
         print(f"step 0' {BOX}: driver REFUSED/failed: {rec['refused']} {pr.stderr[-300:]}", flush=True)
     else:
+        lines_ = txt.splitlines()
+        assert lines_ and lines_[-1] == "DONE", "driver output does not end with DONE"
+        hdr = lines_[0].split()
+        if C24:                                   # read: check the header matches what was asked
+            assert hdr[hdr.index("sform") + 1] == ("circle" if BOX == "P1" else "disc")
+            assert hdr[hdr.index("skip_edge_guard") + 1] == ("1" if PLANT in ("K2s", "K3s") else "0")
+            rec["driver_header"] = lines_[0]
         loops, cur = [], None
-        for ln in txt.splitlines():
+        for ln in lines_:
             t = ln.split()
+            if not t or t[0] in ("c2_driver", "DONE"):
+                continue
             if t[0] == "loop":
                 cur = dict(steps=int(t[3]), dtmin=float(t[5]), dtmax=float(t[7]), rows=[])
                 loops.append(cur)

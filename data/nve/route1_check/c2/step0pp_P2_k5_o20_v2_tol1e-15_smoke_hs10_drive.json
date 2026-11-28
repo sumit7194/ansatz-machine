@@ -29,9 +29,10 @@
   "r_max": 4.0727968272656675e-06
  },
  "t_init": 0.0,
- "t_capd": 24.7,
+ "t_capd": 24.2,
  "rc": 0,
  "stderr": "",
+ "driver_header": "c2_driver prec 256 order 20 dim 14 policy IdQR (B = I) sform disc plant_time 0 skip_edge_guard 0",
  "steps": [
   28,
   93
