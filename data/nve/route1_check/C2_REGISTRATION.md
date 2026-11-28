@@ -361,3 +361,17 @@ mechanism without a new ruling. The 2026-12-12 time box stands.
 - (a) removes the observed blow-up of s: 70%;
 - step 0'' passes the sup bar at some size: 45%;
 - given a pass, cost binds at R/10 or finer: 60%.
+
+### C2-4 erratum E1 (2026-11-28; committed before any C2-4 code runs)
+(a2)'s numbers were wrong, written from a single-k estimate. For P1's ellipse box (k_c 79/20, R = upper(half (4 + 1/4)/2),
+|dk| <= sqrt 2 R):
+- Re c2 drops to about 4.82, not ">= 6.9";
+- the inner argument's spread obeys |I - c2(kc0)| <= 21|dk| + |c1|/|w| + |cc|/|w|^2 <= 6.128 on the circle's chords,
+  with |w| >= (1.35 cos(pi/96))^2/a^2 = 5.057 (computed in Arb).
+
+A radius of 2.4 would have refused every P1 box for a reason of my own making. **Corrected (a2):**
+- the disc radius is **6.5**;
+- the disc's leftmost point is Re c2(kc0) - 6.5 = 0.55 > 0, so (a2) still implies (a1);
+- (a1) stays checked separately.
+
+Control (K3) is unchanged: the radius planted at 0.01 must refuse.
