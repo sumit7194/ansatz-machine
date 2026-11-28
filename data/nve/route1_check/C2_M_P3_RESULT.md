@@ -4,7 +4,7 @@
 - tr M0(k) != 0;
 - tr M1(k) is not in [-2, 2].
 
-M0 is the region-B Gamma loop and M1 the lasso (, entry 59979/14000).
+M0 is the region-B Gamma loop and M1 the lasso (`route1_floats_v7B_3_5.json`, entry 59979/14000).
 
 **Run:** `air/c2m_pilot.sh P3`, once, at b02a2ee (C2_M_REGISTRATION.md, addendum C2-M-1, erratum C2-M-2), from 2026-11-28 21:07:55
 to 2026-11-28 22:31:34. Driver v2 (C2-4, IdQR). The code hash covers the driver binary and is in `v7/c2m_P3.log`.
