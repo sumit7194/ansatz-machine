@@ -208,7 +208,8 @@ def cover(dry_refuse=None):
             cells[cid] = dict(level=level, centre=[c.real.str(30), c.imag.str(30)], h=float(h),
                               exact=dict(re=me(c.real), im=me(c.imag), h=me(h)),
                               cell_env=f"{me(c.real)} {me(c.imag)} {me(h)}", accept=acc,
-                              rec={k: recs[cid].get(k) for k in ("F", "T0", "T1", "t_capd", "steps", "refused")}
+                              rec={k: recs[cid].get(k) for k in ("F", "T0", "T1", "t_capd", "steps", "refused",
+                                                                 "run_id", "cell")}
                               if recs.get(cid) else None)
             if acc["ok"]:
                 leaves.append((cid, c, h, recs[cid]))
@@ -339,11 +340,14 @@ def cover_gate(cov):
         for m, q in enumerate(("F", "T0", "T1")):
             sups[m] = V.amax((sups[m], acb(arb(r[q][0]), arb(r[q][1])).abs_upper()))
         ex = cell["exact"]
-        assert f"{ex['re']} {ex['im']} {ex['h']}" == cell["cell_env"], f"cell {cid}: geometry differs from its run"
+        # re-read F6: the geometry the RUN used (its record's own cell string and nonce), not two copies of one variable
+        assert r.get("cell") == f"{ex['re']} {ex['im']} {ex['h']}", f"cell {cid}: its run used another geometry"
+        assert (r.get("run_id") or "").startswith(CODE + f"|{cid}|"), f"cell {cid}: its record is not this code's run"
     for m, nm in enumerate(("MF", "MT0", "MT1")):
-        assert bool(arb(C["M"][m]) >= sups[m]), f"the cover's {nm} is below its leaves' sup"
+        # re-read F6: a printed-and-parsed ball's LOWER end sits below the exact value; compare its upper end
+        assert bool(V.par_up(C["M"][m]) >= sups[m].upper()), f"the cover's {nm} is below its leaves' sup"
         if not PLANT.startswith("M2"):
-            assert bool(arb(cov[nm]) >= sups[m]), f"the proof file's {nm} is below the cover's leaves' sup"
+            assert bool(V.par_up(cov[nm]) >= sups[m].upper()), f"the proof file's {nm} is below the cover's leaves' sup"
 
     def covered(cid):
         if cid in C["leaves"]:
